@@ -4,9 +4,9 @@
  * @returns
  */
 const config = (mode) => ({
-	title: 'Remotion | Make videos programmatically',
-	tagline: 'Make videos programmatically',
-	url: 'https://www.remotion.dev',
+	title: 'Remotion 中文文档(unofficial)',
+	tagline: '用编程的方式创作视频',
+	url: 'https://remotion-zh-cn-doc.vercel.app',
 	baseUrl: '/',
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
@@ -47,7 +47,7 @@ const config = (mode) => ({
 			items: [
 				{
 					to: '/docs',
-					label: 'Docs',
+					label: '文档',
 					position: 'left',
 					type: mode === 'complete' ? 'docSidebar' : 'doc',
 					docId: mode === 'complete' ? undefined : 'new-doc',
@@ -69,7 +69,7 @@ const config = (mode) => ({
 				},
 				{
 					type: 'dropdown',
-					label: 'More',
+					label: '更多',
 					position: 'left',
 					items: [
 						{
