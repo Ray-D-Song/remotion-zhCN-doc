@@ -11,19 +11,18 @@ export const IfYouKnowReact: React.FC = () => {
       <div style={{ width: 40 }} />
       <div>
         <h2 className={styles.ifyouknowtitle}>
-          Leverage <span className={styles.rea}>React</span> <br />
-          to express yourself.
+          使用 <span className={styles.rea}>React</span> <br />
+          表达自我
         </h2>
         <p>
-          Remotion gives you the tools for video creation, <br /> but the rules
-          of React stay the same. <br />
+          Remotion 为你提供了视频创作的工具, <br />不过是基于 React 的规则. <br />
         </p>
-        Learn the fundamentals in just a few minutes.
+        在几分钟内学习基础知识，然后开始制作视频
         <Spacer />
         <Spacer />
         <a className={styles.aknow} href="/docs/the-fundamentals">
           <BlueButton size="sm" fullWidth={false} loading={false}>
-            Learn Remotion
+            学习 Remotion
           </BlueButton>
         </a>
       </div>

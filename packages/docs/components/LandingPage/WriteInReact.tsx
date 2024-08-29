@@ -6,7 +6,7 @@ import styles from "./writeinreact.module.css";
 export const WriteInReact: React.FC = () => {
   return (
     <div>
-      <h1 className={styles.writeincsstitle}>Make videos programmatically.</h1>
+      <h1 className={styles.writeincsstitle}>以编程的方式制作视频.</h1>
       <br />
       <p
         style={{
@@ -16,8 +16,7 @@ export const WriteInReact: React.FC = () => {
         }}
         className={styles.text}
       >
-        Create real MP4 videos using React. <br /> Scale your video production
-        using server-side rendering and parametrization.
+        使用 React 创建 mp4 视频. <br /> 通过使用服务器端渲染和参数化来扩展你的视频制作
       </p>
       <br />
       <div className={styles.writeincss}>

@@ -21,7 +21,8 @@ const NewLanding: React.FC = () => {
 		<Layout>
 			<div>
 				<Head>
-					<title>Remotion | Make videos programmatically</title>
+					<title>Remotion 中文文档(unofficial)</title>
+          <meta name="google-site-verification" content="c3iSDCri5aCV0CEcozgx0Pg6hU4w5AjbrWxVxaTeVK4" />
 					<meta
 						name="description"
 						content="Create MP4 motion graphics in React. Leverage CSS, SVG, WebGL and more
