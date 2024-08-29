@@ -1,14 +1,14 @@
 ---
 image: /generated/articles-docs-lambda-cli.png
 id: cli
-sidebar_label: Overview
+sidebar_label: 概览
 title: "@remotion/lambda - CLI"
 slug: /lambda/cli
 ---
 
-To use the Remotion Lambda CLI, you first need to [install it](/docs/lambda/setup).
+要使用 Remotion Lambda CLI，您首先需要[安装它](/docs/lambda/setup)。
 
-## Commands
+## 命令
 
 - [sites](/docs/lambda/cli/sites)
 - [functions](/docs/lambda/cli/functions)
@@ -19,28 +19,29 @@ To use the Remotion Lambda CLI, you first need to [install it](/docs/lambda/setu
 - [regions](/docs/lambda/cli/regions)
 - [quotas](/docs/lambda/cli/quotas)
 
-## Global options
+## 全局选项
 
 ### `--region`
 
-Selects an AWS region: For example:
+选择 AWS 区域，例如：
 
 ```
 --region=eu-central-1
 ```
 
-The default region is `us-east-1`. You may also set a `REMOTION_AWS_REGION` environment variable directly or via `.env` file.
+默认区域是 `us-east-1`。您也可以直接设置 `REMOTION_AWS_REGION` 环境变量或通过 `.env` 文件设置。
 
-See: [Region selection](/docs/lambda/region-selection)
+查看：[区域选择](/docs/lambda/region-selection)
 
 ### `--yes`, `-y`
 
-Skips confirmation when doing a destructive action.
+在执行破坏性操作时跳过确认。
 
 ### `--quiet`, `-q`
 
-Prints the minimal amount of logs.
+打印最少量的日志。
 
 ### `--env-file`
 
-Specify a location for a dotenv file - Default `.env`. [Read about how environment variables work in Remotion.](/docs/env-variables)
+指定 dotenv 文件的位置 - 默认为 `.env`。[了解有关 Remotion 中环境变量的工作方式的信息。](/docs/env-variables)
+

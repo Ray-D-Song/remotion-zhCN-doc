@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-layout-utils-best-practices.png
-title: Best practices for @remotion/layout-utils
-sidebar_label: Best practices
+title: remotion/layout-utils 的最佳实践
+sidebar_label: 最佳实践
 crumb: "@remotion/layout-utils"
 ---
 
-Take note of the following points to ensure correct measurements when using the [`@remotion/layout-utils`](/docs/layout-utils) package.
+请注意以下要点，以确保在使用 [`@remotion/layout-utils`](/docs/layout-utils) 包时测量正确。
 
-These tips apply to all of [`measureText()`](/docs/layout-utils/measure-text), [`fitText()`](/docs/layout-utils/fit-text), and [`fillTextBox()`](/docs/layout-utils/fill-text-box).
+这些提示适用于所有 [`measureText()`](/docs/layout-utils/measure-text)、[`fitText()`](/docs/layout-utils/fit-text) 和 [`fillTextBox()`](/docs/layout-utils/fill-text-box)。
 
-## Wait until the font is loaded
+## 等待字体加载完毕
 
-Only call [`measureText()`](/docs/layout-utils/measure-text) after the font is loaded. This applies to Google Fonts (example below) or any other font loading mechanism.
+只有在字体加载完毕后才调用 [`measureText()`](/docs/layout-utils/measure-text)。这适用于 Google Fonts（下面是示例）或任何其他字体加载机制。
 
 ```tsx twoslash title="MyComp.tsx"
 import { useState, useEffect } from "react";
@@ -43,24 +43,24 @@ const MyComp: React.FC = () => {
 };
 ```
 
-### Use the `validateFontIsLoaded` option<AvailableFrom v="4.0.136"/>
+### 使用 `validateFontIsLoaded` 选项<AvailableFrom v="4.0.136"/>
 
-Pass `validateFontIsLoaded: true` to any of [`measureText()`](/docs/layout-utils/measure-text), [`fitText()`](/docs/layout-utils/fit-text), and [`fillTextBox()`](/docs/layout-utils/fill-text-box) to validate that the font family you passed is actually loaded.
+将 `validateFontIsLoaded: true` 传递给任何 [`measureText()`](/docs/layout-utils/measure-text)、[`fitText()`](/docs/layout-utils/fit-text) 和 [`fillTextBox()`](/docs/layout-utils/fill-text-box) 来验证您传递的字体系列是否实际加载。
 
-This will take a second measurement with the fallback font and if it produces the same measurements, it assumes the fallback font was used and will throw an error.
+这将使用备用字体进行第二次测量，如果产生相同的测量结果，则假定使用了备用字体，并将引发错误。
 
 :::note
-In Remotion v5, this will become the default.
+在 Remotion v5 中，这将成为默认设置。
 :::
 
-## Match all font properties
+## 匹配所有字体属性
 
-When measuring text, ensure that all font properties match the ones you are going to use in your video.  
-This includes `fontFamily`, `fontSize`, and `fontWeight`, `letterSpacing` and `fontVariantNumeric`.
+在测量文本时，请确保所有字体属性与您将在视频中使用的属性匹配。  
+这包括 `fontFamily`、`fontSize`、`fontWeight`、`letterSpacing` 和 `fontVariantNumeric`。
 
-You could make reusable variables that you reference in both the measuring function and the actual component.
+您可以创建可重用的变量，然后在测量函数和实际组件中引用这些变量。
 
-```tsx twoslash title="Using variables for font properties"
+```tsx twoslash title="使用变量设置字体属性"
 import { measureText } from "@remotion/layout-utils";
 
 const text = "Hello world";
@@ -80,20 +80,22 @@ measureText({
 <div style={{ fontFamily, fontWeight, fontSize }}>{text}</div>;
 ```
 
-## Be aware of borders and padding
+## 注意边框和填充
 
-Adding a `padding` or a `border` to a word will skew the measurements.  
-Avoid using `padding` altogether and use the natural spacing between words.  
-Instead of `border`, use an `outline` to add a line outside the text without affecting its layout.
+向单词添加 `padding` 或 `border` 将使测量结果偏离。  
+完全避免使用 `padding`，使用单词之间的自然间距。  
+而不是 `border`，使用 `outline` 在文本外部添加一条线而不影响其布局。
 
-## Whitespace
+## 空格
 
-When measuring, the Layout utils will wrap the text in a `<span>` with `display: inline-block` and `white-space: pre` applied.  
-This will also measure the width of the whitespace characters.
+在测量时，布局工具会将文本包装在一个带有 `display: inline-block` 和 `white-space: pre` 样式的 `<span>` 中。  
+这样也会测量空格字符的宽度。
 
-Add those two CSS properties to your markup as well to match it with the measurements.
+在您的标记中添加这两个 CSS 属性，以便与测量结果匹配。
 
-## Server-side rendering
+## 服务器端渲染
 
-The layout utilities need to be run in a browser.  
-If you are using them in a component that will be server-side rendered, then we recommend you call the functions in a `useEffect`, like on the first example on this page.
+布局工具需要在浏览器中运行。  
+如果您要在将在服务器端渲染的组件中使用它们，则建议您在 `useEffect` 中调用这些函数，就像本页面上的第一个示例一样。  
+
+

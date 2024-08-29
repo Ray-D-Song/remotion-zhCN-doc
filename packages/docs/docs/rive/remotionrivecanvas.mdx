@@ -7,9 +7,9 @@ title: '<RemotionRiveCanvas>'
 
 # &lt;RemotionRiveCanvas&gt;<AvailableFrom v="3.3.75"/>
 
-This component can render a [Rive](https://rive.app/) animation so it synchronizes with Remotion's time.
+此组件可以渲染 [Rive](https://rive.app/) 动画，使其与 Remotion 的时间同步。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import {RemotionRiveCanvas} from '@remotion/rive';
@@ -19,42 +19,42 @@ function App() {
 }
 ```
 
-## Props
+## 属性
 
 ### `src`
 
-a valid URL of the rive file to load. Can be a local file loaded using [`staticFile()`](/docs/staticfile) or a remote URL like `"https://cdn.rive.app/animations/vehicles.riv"`.
+要加载的 rive 文件的有效 URL。可以是使用 [`staticFile()`](/docs/staticfile) 加载的本地文件，也可以是远程 URL，如 `"https://cdn.rive.app/animations/vehicles.riv"`。
 
 ### `fit?`
 
-One of: `"contain" | "cover" | "fill" | "fit-height" | "none" | "scale-down" | "fit-width"`. Default is `"contain"`.
+其中之一：`"contain" | "cover" | "fill" | "fit-height" | "none" | "scale-down" | "fit-width"`。默认值为 `"contain"`。
 
 ### `alignment?`
 
-One of: `"center" | "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "top-center" | "top-left" | "top-right"`. Default is `"center"`.
+其中之一：`"center" | "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "top-center" | "top-left" | "top-right"`。默认值为 `"center"`。
 
 ### `artboard?`
 
-Either a `string` specifying the artboard name, a `number` specifying the artboard index, otherwise the default artboard is being used.
+要使用的画板名称的 `string`，要使用的画板索引的 `number`，否则将使用默认画板。
 
 ### `animation?`
 
-Either a `string` specifying the animation name, a `number` specifying the animation index, otherwise the default animation is being used.
+要使用的动画名称的 `string`，要使用的动画索引的 `number`，否则将使用默认动画。
 
 ### `onLoad?`<AvailableFrom v="4.0.58" />
 
-A callback function that will be executed when the Rive Runtime is loaded. The argument callback is an object of type Rive `File`
+Rive Runtime 加载完成时将执行的回调函数。回调参数是 Rive `File` 类型的对象。
 
 ### `enableRiveAssetCdn?`<AvailableFrom v="4.0.181" />
 
-Whether to enable the Rive Asset CDN. Default is `true`.
+是否启用 Rive 资产 CDN。默认值为 `true`。
 
 ### `assetLoader?`<AvailableFrom v="4.0.181" />
 
-A custom asset loader. See [here](https://rive.app/community/doc/loading-assets/doct4wVHGPgC#handling-assets) for more information.
+自定义资产加载器。有关更多信息，请参阅[此处](https://rive.app/community/doc/loading-assets/doct4wVHGPgC#handling-assets)。
 
 :::note
-Memoize the assetLoader function using `useCallback`.
+使用 `useCallback` 对 assetLoader 函数进行记忆化处理。
 :::
 
 ```tsx
@@ -114,7 +114,7 @@ export const MyComp: React.FC = () => {
 
 ## Ref<AvailableFrom v="4.0.180" />
 
-You can attach a ref to the component to access the Rive Canvas instance.
+您可以附加一个 ref 到组件以访问 Rive Canvas 实例。
 
 ```tsx twoslash title="MyComp.tsx"
 import {RemotionRiveCanvas, RiveCanvasRef} from '@remotion/rive';
@@ -143,28 +143,30 @@ const MyComp: React.FC = () => {
 };
 ```
 
-The ref exposes the following methods:
+该 ref 公开以下方法：
 
 ### `getAnimationInstance()`
 
-Returns a [`LinearAnimationInstance`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts#L513) from the Rive Runtime.
+从 Rive Runtime 返回一个 [`LinearAnimationInstance`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts#L513)。
 
 ### `getArtboard()`
+从 Rive 运行时返回一个[`Artboard`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts)。
 
-Returns a [`Artboard`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts) from the Rive Runtime.
+
 
 ### `getRenderer()`
+从 Rive 运行时返回一个[`CanvasRenderer`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts#L221)。
 
-Returns a [`CanvasRenderer`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts#L221) from the Rive Runtime.
+
 
 ### `getCanvas()`
+从 Rive 运行时返回一个[`RiveCanvas`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts#L14)。
 
-Returns a [`RiveCanvas`](https://github.com/rive-app/rive-wasm/blob/caacb99a5b503d3fa56e8e921af2a7015478851c/js/src/rive_advanced.mjs.d.ts#L14) from the Rive Runtime.
 
-## Set Text Run at Runtime Example
 
-This example assumes that your Rive animation has a text run named "city". See [here](https://help.rive.app/runtimes/text#low-level-api-usage) for
-more information about Text Runs on Rive.
+## 在运行时设置文本运行示例
+
+此示例假定您的 Rive 动画有一个名为 "city" 的文本运行。有关 Rive 上的文本运行的更多信息，请参见[此处](https://help.rive.app/runtimes/text#low-level-api-usage)。
 
 ```tsx twoslash
 import {RemotionRiveCanvas} from '@remotion/rive';
@@ -188,6 +190,6 @@ function App() {
 }
 ```
 
-## See also
+## 另请参阅
 
 - [`@remotion/lottie`](/docs/lottie)

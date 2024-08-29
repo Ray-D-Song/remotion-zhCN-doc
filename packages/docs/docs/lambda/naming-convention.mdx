@@ -1,12 +1,12 @@
 ---
 image: /generated/articles-docs-lambda-naming-convention.png
-id: naming-convention
-title: Function naming convention
+id: 命名规范
+title: 函数命名规范
 slug: /lambda/naming-convention
 crumb: 'Lambda'
 ---
 
-A Remotion Lambda function has the following naming convention:
+Remotion Lambda 函数遵循以下命名规范：
 
 ```
 remotion-render-4-0-140-mem2048mb-disk2048mb-240sec
@@ -17,59 +17,60 @@ remotion-render-4-0-140-mem2048mb-disk2048mb-240sec
                   |----------------------------- Remotion version with dots replaced by dashes
 ```
 
-When you deploy a function, the name is hardcoded. This has two functions:
+当您部署一个函数时，名称是固定的。这有两个作用：
 
-<Step>1</Step> Avoid having multiple functions with the same configuration unnecessarily.<br />
-<Step>2</Step> Being able to guess the function name using <a href="/docs/lambda/speculatefunctionname">
+<Step>1</Step> 避免不必要地拥有多个具有相同配置的函数。<br />
+<Step>2</Step> 能够使用 <a href="/docs/lambda/speculatefunctionname">
   <code>speculateFunctionName()</code>
-</a> so you don't have to fetch a list of functions in your AWS account.
+</a> 猜测函数名称，这样您就不必在 AWS 账户中获取函数列表。
 
-## Why can't I rename the function?
+## 为什么我不能重命名函数？
 
-- The [`npx remotion lambda render`](/docs/lambda/cli/render) command looks for functions that match this convention.
-- With the default user policy, Remotion Lambda restricts itself from accessing functions that don't match this convention.
-- You can use the [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) function save one API call.
-- The function is more likely to be warm from a previous invocation if you only have 1 function with the same configuration.
-- There is no benefit to renaming the function.
+- [`npx remotion lambda render`](/docs/lambda/cli/render) 命令会查找符合此约定的函数。
+- 使用默认用户策略，Remotion Lambda 限制自身无法访问不符合此约定的函数。
+- 您可以使用 [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) 函数来节省一个 API 调用。
+- 如果只有 1 个具有相同配置的函数，那么该函数更有可能在之前的调用中已经被激活。
+- 重命名函数没有任何好处。
 
-## What if I want to have two functions for two different projects?
+## 如果我想为两个不同项目创建两个函数怎么办？
 
-A function is not tied to a project.
+一个函数不与一个项目绑定。
 
-Each function is a binary that contains the same code.  
-Every Remotion Lambda user runs the exact same code in their function.
+每个函数都是包含相同代码的二进制文件。  
+每个 Remotion Lambda 用户在其函数中运行完全相同的代码。
 
-The React code you write is not contained in the function, it is hosted on the Serve URL.
+您编写的 React 代码不包含在函数中，而是托管在 Serve URL 上。
 
-Each function invocation is isolated and they cannot conflict each other. There is a [concurrency limit](/docs/lambda/troubleshooting/rate-limit#default-concurrency-limits), but it is per region, not per function.
+每个函数调用都是隔离的，它们之间不会发生冲突。有一个[并发限制](/docs/lambda/troubleshooting/rate-limit#default-concurrency-limits)，但是它是按区域而不是按函数计算的。
 
-## I need to separate production, staging and development
+## 我需要区分生产、预发布和开发环境
 
-Function invocations don't conflict each other.  
-Functions also don't contain any code that you write, they are binary and every Remotion Lambda user runs the exact same code.
+函数调用之间不会发生冲突。  
+函数也不包含您编写的任何代码，它们是二进制文件，每个 Remotion Lambda 用户都运行完全相同的代码。
 
-It is impossible for a bad staging deployment to affect the production function.  
-Therefore, we recommend to use the same function for all environments.
+一个糟糕的预发布部署不会影响生产函数。  
+因此，我们建议在所有环境中使用相同的函数。
 
-## I want to have different configurations for different functions
+## 我想为不同的函数设置不同的配置
 
-This is supported! You can have multiple functions with different configurations.  
-It is only not possible to have multiple functions that share the exact same configuration:
+这是支持的！您可以为不同的函数设置不同的配置。  
+唯一不可能的是为共享完全相同配置的多个函数：
 
-- Timeout
+- 超时
 - RAM
-- Region
-- Disk size
-- Remotion version
+- 区域
+- 磁盘大小
+- Remotion 版本
 
-To distinguish which function should be used, pass the function name explicitly to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).  
-You can pass [`--function-name`](/docs/lambda/cli/render#--function-name) to [`npx remotion lambda render`](/docs/lambda/cli/render)
+要区分应该使用哪个函数，请明确将函数名称传递给 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)。  
+您可以将 [`--function-name`](/docs/lambda/cli/render#--function-name) 传递给 [`npx remotion lambda render`](/docs/lambda/cli/render)
 
-## I want to deploy multiple projects
+## 我想部署多个项目
 
-It is possible deploy multiple sites under different [Serve URLs](/docs/terminology/serve-url).  
-This convention only applies to the renderer functions.
+可以在不同的 [Serve URLs](/docs/terminology/serve-url) 下部署多个站点。  
+此约定仅适用于渲染函数。
 
-## See also
+## 另请参阅
 
-- [`speculateFunctionName()`](/docs/lambda/speculatefunctionname)
+- [`speculateFunctionName()`](/docs/lambda/speculatefunctionname)  
+

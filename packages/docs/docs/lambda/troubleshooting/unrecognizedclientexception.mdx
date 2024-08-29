@@ -1,25 +1,20 @@
----
-image: /generated/articles-docs-lambda-troubleshooting-unrecognizedclientexception.png
-id: unrecognizedclientexception
-title: UnrecognizedClientException
-crumb: "Lambda Troubleshooting"
----
-
-If you got a permission error while calling [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda):
+如果在调用[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)或[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)时遇到权限错误：
 
 ```txt
-UnrecognizedClientException: The AWS credentials provided were probably mixed up.
+UnrecognizedClientException: 提供的 AWS 凭据可能混淆了。
 ```
 
-it means that the AWS credentials were correct, but don't allow access to a certain resource.
+这意味着 AWS 凭据是正确的，但不允许访问特定资源。
 
-## Most common cause: Calling a Remotion function inside a serverless function
+## 最常见原因：在无服务器函数内调用 Remotion 函数
 
-When calling render inside an AWS Lambda function or a Vercel serverless function, that function already has it's own `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables set. However, these are from AWS itself and are different from the variables that Remotion uses to invoke serverless functions.
+在 AWS Lambda 函数或 Vercel 无服务器函数内调用 render 时，该函数已经设置了自己的 `AWS_ACCESS_KEY_ID` 和 `AWS_SECRET_ACCESS_KEY` 环境变量。然而，这些来自 AWS 本身，与 Remotion 用于调用无服务器函数的变量不同。
 
-To avoid that conflict, you can change the name of the environment variables you set:
+为避免冲突，您可以更改设置的环境变量名称：
 
-- Rename `AWS_ACCESS_KEY_ID` to `REMOTION_AWS_ACCESS_KEY_ID`
-- Rename `AWS_SECRET_ACCESS_KEY` to `REMOTION_AWS_SECRET_ACCESS_KEY`
+- 将 `AWS_ACCESS_KEY_ID` 重命名为 `REMOTION_AWS_ACCESS_KEY_ID`
+- 将 `AWS_SECRET_ACCESS_KEY` 重命名为 `REMOTION_AWS_SECRET_ACCESS_KEY`
 
-If both are set, Remotion will prefer the environment variables that are prefixed with `REMOTION_`, which should separate the two different credentials nicely.
+如果两者都设置了，Remotion 将优先选择以 `REMOTION_` 为前缀的环境变量，这样应该可以很好地区分这两组不同的凭据。
+
+

@@ -5,34 +5,34 @@ title: renderFrames()
 crumb: '@remotion/renderer'
 ---
 
-_Part of the `@remotion/renderer` package._
+_`@remotion/renderer` 包的一部分。_
 
-Renders a series of images using Puppeteer and computes information for mixing audio.
+使用 Puppeteer 渲染一系列图像，并计算混音音频的信息。
 
-If you want to render only a still image, use [renderStill()](/docs/renderer/render-still).
+如果您只想渲染静态图像，请使用 [renderStill()](/docs/renderer/render-still)。
 
 :::info
-In Remotion 3.0, we added the [`renderMedia()`](/docs/renderer/render-media) API which combines `renderFrames()` and `stitchFramesToVideo()` into one simplified step and performs the render faster. Prefer `renderMedia()` if you can.
+在 Remotion 3.0 中，我们添加了 [`renderMedia()`](/docs/renderer/render-media) API，它将 `renderFrames()` 和 `stitchFramesToVideo()` 结合为一个简化的步骤，并且执行渲染速度更快。如果可以的话，请优先使用 `renderMedia()`。
 :::
 
 :::info
-Configuration in `remotion.config.ts` and CLI flags do not apply to this function. You must pass all options explicitly.
+`remotion.config.ts` 中的配置和 CLI 标志不适用于此函数。您必须显式传递所有选项。
 :::
 
-## Arguments
+## 参数
 
-Takes an object with the following keys:
+接受一个具有以下键的对象：
 
 ### `composition`
 
 _VideoConfig_
 
-An object describing a composition using `id`, `width`, `height`, `fps` and `durationInFrames`, `defaultProps` and `props`.  
-Call [`selectComposition()`](/docs/renderer/select-composition) or [`getCompositions()`](/docs/renderer/get-compositions) to get an array of possible configs.
+描述使用 `id`、`width`、`height`、`fps` 和 `durationInFrames`、`defaultProps` 和 `props` 的合成的对象。  
+调用 [`selectComposition()`](/docs/renderer/select-composition) 或 [`getCompositions()`](/docs/renderer/get-compositions) 来获取可能配置的数组。
 
 ### `onStart`
 
-Callback function that gets called once the renderer has prepared to start rendering and has calculated the amount of frames that are going to be rendered:
+一旦渲染器准备好开始渲染并计算要渲染的帧数，将调用的回调函数：
 
 ```tsx twoslash
 import {OnStartData} from '@remotion/renderer';
@@ -54,11 +54,11 @@ const onStart = ({
 
 ### `onFrameUpdate`
 
-A callback function that gets called whenever a frame finished rendering. An argument is passed containing how many frames have been rendered (not the frame number of the rendered frame).
+每当一帧完成渲染时调用的回调函数。传递一个参数，其中包含已渲染的帧数（不是已渲染帧的帧数）。
 
-In `v3.0.0`, a second argument was added: `frame`, returning the frame number that was just rendered.
+在 `v3.0.0` 中，添加了第二个参数：`frame`，返回刚刚渲染的帧数。
 
-In `v3.2.30`, a third argument was rendered: `timeToRenderInMilliseconds`, describing the time it took to render that frame in milliseconds.
+在 `v3.2.30` 中，添加了第三个参数：`timeToRenderInMilliseconds`，描述渲染该帧所花费的时间（以毫秒为单位）。
 
 ```ts twoslash
 const onFrameUpdate = (
@@ -78,62 +78,78 @@ const onFrameUpdate = (
 
 ### `outputDir`
 
-A `string` specifying the directory (absolute path) to which frames should be saved. Pass `null` to this option and use the `onFrameBuffer` callback instead to get a `Buffer` of the frame rather than to write it to any location.
+一个指定应将帧保存到的目录（绝对路径）的 `string`。将此选项传递为 `null`，并使用 `onFrameBuffer` 回调来获取帧的 `Buffer`，而不是将其写入任何位置。
 
 ### `inputProps`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a JSON object.  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)。  
+必须是一个 JSON 对象。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 来读取这些属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 来转换输入属性。
+
+
 
 ### `serveUrl`
 
-Either a Webpack bundle or a URL pointing to a bundled Remotion project. Call [`bundle()`](/docs/bundle) to generate a bundle. You can either pass the file location or deploy it as a website and pass the URL.
+可以是 Webpack 捆绑包，也可以是指向捆绑的 Remotion 项目的 URL。调用 [`bundle()`](/docs/bundle) 来生成捆绑包。您可以传递文件位置，也可以将其部署为网站并传递 URL。
+
+
 
 ### `imageFormat`
 
-_optional since v4.0 - default "jpeg"_
+_自 v4.0 起可选 - 默认为 "jpeg"_
 
-- Choose `jpeg` by default because it is the fastest.
-- Choose `png` if you want your image sequence to have an alpha channel (for transparency).
-- Choose `none` if you only want to render audio.
+- 默认选择 `jpeg`，因为它是最快的。
+- 如果您希望图像序列具有 alpha 通道（用于透明度），请选择 `png`。
+- 如果您只想渲染音频，请选择 `none`。
+
+
 
 ### `concurrency?`
 
-_optional_
+_可选_
 
-A `number` specifying how many render processes should be started in parallel, a `string` specifying the percentage of the CPU threads to use, or `null` to let Remotion decide based on the CPU of the host machine. Default is half of the CPU threads available.
+一个 `number`，指定应同时启动多少个渲染进程，一个 `string`，指定要使用的 CPU 线程百分比，或 `null`，让 Remotion 根据主机机器的 CPU 自行决定。默认值是可用 CPU 线程的一半。
+
+
 
 ### `scale?`<AvailableFrom v="2.6.7" />
 
-_number - default: 1_
+_number - 默认值: 1_
 
-[Scales the output frames by the factor you pass in.](/docs/scaling) For example, a 1280x720px frame will become a 1920x1080px frame with a scale factor of `1.5`. Vector elements like fonts and HTML markups will be rendered with extra details.
+[按您传入的因子缩放输出帧。](/docs/scaling) 例如，一个 1280x720px 的帧将在缩放因子为 `1.5` 的情况下变为 1920x1080px 的帧。像字体和 HTML 标记这样的矢量元素将以更多细节进行渲染。
+
+
 
 ### `jpegQuality?`
 
-_optional_
+_可选_
 
-Sets the quality of the generated JPEG images. Must be an integer between 0 and 100. Default is to leave it up to the browser, [current default is 80](https://github.com/chromium/chromium/blob/99314be8152e688bafbbf9a615536bdbb289ea87/headless/lib/browser/protocol/headless_handler.cc#L32).
+设置生成的 JPEG 图像的质量。必须是介于 0 和 100 之间的整数。默认是由浏览器决定，[当前默认值为 80](https://github.com/chromium/chromium/blob/99314be8152e688bafbbf9a615536bdbb289ea87/headless/lib/browser/protocol/headless_handler.cc#L32)。
 
-Only applies if `imageFormat` is `'jpeg'`, otherwise this option is invalid.
+仅当 `imageFormat` 为 `'jpeg'` 时才适用，否则此选项无效。
+
+
 
 ### `port?`
 
-Prefer a specific port that will be used to serve the Remotion project. If not specified, a random port will be used.
+优先使用特定端口来提供 Remotion 项目。如果未指定，将使用随机端口。
+
+
 
 ### `frameRange?`
 
-_optional_
+_可选_
 
-Specify a single frame (passing a `number`) or a range of frames (passing a tuple `[number, number]`) to be rendered. By passing `null` (default) all frames of a composition get rendered.
+指定要渲染的单个帧（传递一个 `number`）或一系列帧（传递一个元组 `[number, number]`）。通过传递 `null`（默认值），将渲染组合的所有帧。 
+
+
 
 ### `muted`<AvailableFrom v="3.2.1" />
 
-_optional_
+_可选_
 
-Disables audio output. This option may only be set in combination with a video codec and should also be passed to [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video).
+禁用音频输出。此选项只能与视频编解码器一起设置，并且还应传递给[`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video)。
 
 ### `logLevel?`<AvailableFrom v="4.0.0"/>
 
@@ -141,32 +157,32 @@ Disables audio output. This option may only be set in combination with a video c
 
 ### `onArtifact?`<AvailableFrom v="4.0.176" />
 
-[Handle an artifact](/docs/artifacts#using-rendermedia-renderstill-or-renderframes) that was emitted by the [`<Artifact>`](/docs/artifact) component.
+[处理由[`<Artifact>`](/docs/artifact)组件发出的工件](/docs/artifacts#using-rendermedia-renderstill-or-renderframes)。
 
 ### `puppeteerInstance?`
 
-_optional_
+_可选_
 
-An already open Puppeteer [`Browser`](/docs/renderer/open-browser) instance. Use [`openBrowser()`](/docs/renderer/open-browser) to create a new instance. Reusing a browser across multiple function calls can speed up the rendering process. You are responsible for opening and closing the browser yourself. If you don't specify this option, a new browser will be opened and closed at the end.
+已打开的 Puppeteer [`Browser`](/docs/renderer/open-browser) 实例。使用[`openBrowser()`](/docs/renderer/open-browser)创建一个新实例。在多个函数调用之间重用浏览器可以加快渲染过程。您负责自行打开和关闭浏览器。如果不指定此选项，将在最后打开并关闭一个新浏览器。
 
 ### `envVariables?`<AvailableFrom v="2.2.0" />
 
-_optional_
+_可选_
 
-An object containing key-value pairs of environment variables which will be injected into your Remotion projected and which can be accessed by reading the global `process.env` object.
+包含环境变量键值对的对象，这些变量将被注入到您的 Remotion 项目中，并且可以通过读取全局 `process.env` 对象来访问。
 
 ### `onBrowserLog?`<AvailableFrom v="3.0.0" />
 
-_optional_
+_可选_
 
-Gets called when your project calls `console.log` or another method from console. A browser log has three properties:
+在您的项目调用`console.log`或控制台的另一个方法时调用。浏览器日志有三个属性：
 
-- `text`: The message being printed
-- `stackTrace`: An array of objects containing the following properties:
-  - `url`: URL of the resource that logged.
-  - `lineNumber`: 0-based line number in the file where the log got called.
-  - `columnNumber`: 0-based column number in the file where the log got called.
-- `type`: The console method - one of `log`, `debug`, `info`, `error`, `warning`, `dir`, `dirxml`, `table`, `trace`, `clear`, `startGroup`, `startGroupCollapsed`, `endGroup`, `assert`, `profile`, `profileEnd`, `count`, `timeEnd`, `verbose`
+- `text`：正在打印的消息
+- `stackTrace`：包含以下属性的对象数组：
+  - `url`：记录日志的资源的 URL。
+  - `lineNumber`：文件中调用日志的基于 0 的行号。
+  - `columnNumber`：文件中调用日志的基于 0 的列号。
+- `type`：控制台方法之一 - `log`、`debug`、`info`、`error`、`warning`、`dir`、`dirxml`、`table`、`trace`、`clear`、`startGroup`、`startGroupCollapsed`、`endGroup`、`assert`、`profile`、`profileEnd`、`count`、`timeEnd`、`verbose`
 
 ```tsx twoslash
 interface ConsoleMessageLocation {
@@ -229,61 +245,61 @@ renderFrames({
 
 ### `browserExecutable?`<AvailableFrom v="3.0.11" />
 
-_optional_
+_可选_
 
-A string defining the absolute path on disk of the browser executable that should be used. By default Remotion will try to detect it automatically and download one if none is available. If `puppeteerInstance` is defined, it will take precedence over `browserExecutable`.
+定义应使用的浏览器可执行文件在磁盘上的绝对路径的字符串。默认情况下，Remotion 将尝试自动检测并下载一个可用的浏览器。如果定义了 `puppeteerInstance`，则它将优先于 `browserExecutable`。
 
 ### `cancelSignal?`<AvailableFrom v="3.0.15" />
 
-_optional_
+_可选_
 
-A token that allows the render to be cancelled. See: [`makeCancelSignal()`](/docs/renderer/make-cancel-signal)
+一个令牌，允许取消渲染。参见：[`makeCancelSignal()`](/docs/renderer/make-cancel-signal)
 
 ### `onFrameBuffer?`<AvailableFrom v="3.0.0" />
 
-_optional_
+_可选_
 
-If you passed `null` to `outputDir`, this method will be called passing a buffer of the current frame. This is mostly used internally by Remotion to implement [`renderMedia()`](/docs/renderer/render-media) and might have limited usefulness for end users.
+如果您将 `outputDir` 设置为 `null`，则将调用此方法，传递当前帧的缓冲区。这主要由 Remotion 内部使用以实现 [`renderMedia()`](/docs/renderer/render-media)，对最终用户的用处可能有限。
 
 ### `timeoutInMilliseconds?`<AvailableFrom v="2.6.3" />
 
-_optional_
+_可选_
 
-A number describing how long one frame may take to resolve all [`delayRender()`](/docs/delay-render) calls before the [render times out and fails(/docs/timeout). Default: `30000`
+描述一个帧可能需要多长时间来解析所有 [`delayRender()`](/docs/delay-render) 调用，然后在[渲染超时并失败之前](/docs/timeout)。默认值：`30000`
 
 ### `everyNthFrame`<AvailableFrom v="3.1.0" />
 
-_optional_
+_可选_
 
-Renders only every nth frame. For example only every second frame, every third frame and so on. Only meant for rendering GIFs. [See here for more details.](/docs/render-as-gif)
+仅渲染每第 n 帧。例如，仅每第二帧，每第三帧等。仅用于渲染 GIF。[点击此处了解更多详情。](/docs/render-as-gif)
 
 ### `chromiumOptions?`<AvailableFrom v="2.6.5" />
 
-_optional_
+_可选_
 
-Allows you to set certain Chromium / Google Chrome flags. See: [Chromium flags](/docs/chromium-flags).
+允许您设置某些 Chromium / Google Chrome 标志。参见：[Chromium 标志](/docs/chromium-flags).
 
 :::note
-Chromium flags need to be set at browser launch. If you pass an instance using [`puppeteerInstance`](#puppeteerinstance), options passed to `renderFrames()` will not apply, but rather the flags that have been passed to [`openBrowser()`](/docs/renderer/open-browser).
+Chromium 标志需要在浏览器启动时设置。如果您使用 [`puppeteerInstance`](#puppeteerinstance) 传递一个实例，则传递给 `renderFrames()` 的选项将不适用，而是传递给 [`openBrowser()`](/docs/renderer/open-browser) 的标志。
 :::
 
 #### `disableWebSecurity?`
 
-_boolean - default `false`_
+_布尔值 - 默认为 `false`_
 
-This will most notably disable CORS among other security features.
+这将主要禁用 CORS 和其他安全功能。
 
 #### `enableMultiProcessOnLinux?`<AvailableFrom v="4.0.42" />
 
-_boolean - default `true`_
+_布尔值 - 默认为 `true`_
 
 <Options id="enable-multiprocess-on-linux" />
 
 #### `ignoreCertificateErrors?`
 
-_boolean - default `false`_
+_布尔值 - 默认为 `false`_
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored.
+导致无效的 SSL 证书（如自签名证书）被忽略。
 
 #### `headless?`
 
@@ -291,15 +307,16 @@ Results in invalid SSL certificates, such as self-signed ones, being ignored.
 
 #### `gl?`
 
-_string_
+_字符串_
 
 <Options id="gl" />
 
 #### `userAgent?`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置头less Chrome 浏览器所假定的自定义用户代理。
 
 ### `offthreadVideoCacheSizeInBytes?`<AvailableFrom v="4.0.23"/>
+
 
 <Options id="offthreadvideo-cache-size-in-bytes" />
 
@@ -313,44 +330,44 @@ Lets you set a custom user agent that the headless Chrome browser assumes.
 
 ### ~~`quality?`~~
 
-Renamed to `jpegQuality` in `v4.0.0`.
+在 `v4.0.0` 中更名为 `jpegQuality`。
 
 ### ~~`dumpBrowserLogs?`~~
 
-_optional - default `false`, deprecated in v4.0_
+_可选 - 默认为 `false`，在 `v4.0` 中已弃用_
 
-Deprecated in favor of [`logLevel`](#loglevel).
+已弃用，建议使用 [`logLevel`](#loglevel)。
 
 ### ~~`parallelism?`~~
 
-Renamed to `concurrency` in v3.2.17.
-Removed in `v4.0.0`.
+在 `v3.2.17` 中更名为 `concurrency`。
+在 `v4.0.0` 中移除。
 
 ### ~~`ffmpegExecutable`~~
 
-_removed in v4.0, optional_
+在 `v4.0` 中移除，可选
 
-An absolute path overriding the `ffmpeg` executable to use.
+一个绝对路径，用于覆盖要使用的 `ffmpeg` 可执行文件。
 
 ### ~~`ffprobeExecutable?`~~ <AvailableFrom v="3.0.17" />
 
-_removed in v4.0, optional_
+在 `v4.0` 中移除，可选
 
-An absolute path overriding the `ffprobe` executable to use.
+一个绝对路径，用于覆盖要使用的 `ffprobe` 可执行文件。
 
-## Return value
+## 返回值
 
-A promise resolving to an object containing the following properties:
+一个解析为包含以下属性的对象的 Promise：
 
-- `frameCount`: `number` - describing how many frames got rendered.
-- `assetsInfo`: `RenderAssetInfo` - information that can be passed to `stitchFramesToVideo()` to mix audio. The shape of this object should be considered as Remotion internals and may change across Remotion versions.
+- `frameCount`: `number` - 描述渲染了多少帧。
+- `assetsInfo`: `RenderAssetInfo` - 可传递给 `stitchFramesToVideo()` 以混合音频的信息。此对象的形状应被视为 Remotion 内部，并且可能会随着 Remotion 版本的更改而更改。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/render-frames.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/render-frames.ts)
 - [renderMedia()](/docs/renderer/render-media)
 - [bundle()](/docs/bundle)
-- [Server-Side rendering](/docs/ssr)
+- [服务器端渲染](/docs/ssr)
 - [getCompositions()](/docs/renderer/get-compositions)
 - [stitchFramesToVideo()](/docs/renderer/stitch-frames-to-video)
 - [renderStill()](/docs/renderer/render-still)

@@ -1,76 +1,76 @@
 ---
 image: /generated/articles-docs-performance.png
 id: performance
-sidebar_label: Performance
-title: Performance Tips
+sidebar_label: 性能
+title: 性能提示
 crumb: "Need for Speed"
 ---
 
-Video rendering is one of the most heavy workloads a computer can take on. Remotion aims to at least perform similarly than traditional video editing programs.
+视频渲染是计算机可能承担的最繁重的工作负载之一。Remotion 至少旨在表现与传统视频编辑程序类似。
 
-Your experience is also dependent on your code and the hardware you run it on. Review the following performance insights to find opportunities for speeding up your render.
+您的体验还取决于您的代码和运行代码的硬件。查看以下性能见解，找到加快渲染速度的机会。
 
-## Concurrency
+## 并发性
 
-The `--concurrency` flag you set can influence the rendering speed both positively and negatively. A concurrency too high and a concurrency too low can both be coutnerproductive. Use the [`npx remotion benchmark`](/docs/cli/benchmark) command to find the optimal concurrency.
+您设置的 `--concurrency` 标志可以积极或消极地影响渲染速度。并发性过高和并发性过低都可能产生负面影响。使用 [`npx remotion benchmark`](/docs/cli/benchmark) 命令找到最佳并发性。
 
-## GPU effects
+## GPU 效果
 
-The following elements use the GPU:
+以下元素使用 GPU：
 
-- WebGL content (Three.JS, Skia, P5.js, Mapbox etc.)
-- 2D Canvas graphics
-- GPU-accelerated CSS properties such as `box-shadow`, `text-shadow`, `background-image: linear-gradient()`, `background-image: radial-gradient()`, `filter: blur()`, `filter: drop-shadow()`
+- WebGL 内容（Three.JS、Skia、P5.js、Mapbox 等）
+- 2D 画布图形
+- GPU 加速的 CSS 属性，如 `box-shadow`、`text-shadow`、`background-image: linear-gradient()`、`background-image: radial-gradient()`、`filter: blur()`、`filter: drop-shadow()`
 
-Compute instances in the cloud do not have a GPU and may take a long time to render these effects, leading to bottlenecks.
+云中的计算实例没有 GPU，可能需要很长时间来渲染这些效果，导致瓶颈。
 
-Consider replacing those effects with a precomputed image for the best performance.
+考虑用预先计算的图像替换这些效果以获得最佳性能。
 
-Read the [considerations about using the GPU](/docs/gpu).
+阅读有关使用 GPU 的[注意事项](/docs/gpu)。
 
-## Videos
+## 视频
 
-For embedding videos, there is an alternative component [`<OffthreadVideo>`](/docs/offthreadvideo) that can speed up rendering. See [`<Video>` vs. `<OffthreadVideo>`](/docs/video-vs-offthreadvideo)
+对于嵌入视频，有一种替代组件 [`<OffthreadVideo>`](/docs/offthreadvideo) 可以加快渲染速度。查看 [`<Video>` vs. `<OffthreadVideo>`](/docs/video-vs-offthreadvideo)
 
-Embedded videos can be a significant bottleneck in Remotion at the moment regardless of which component is being used. We are aware of this constraint and are encouraging users to combine Remotion with other tools such as FFmpeg to build efficient pipelines.
+无论使用哪种组件，嵌入视频目前在 Remotion 中可能是一个重要瓶颈。我们意识到这一限制，并鼓励用户将 Remotion 与其他工具（如 FFmpeg）结合使用以构建高效的流水线。
 
-We are also working on alleviating this problem by making the `<OffthreadVideo>` component more efficent in a future update.
+我们还正在努力通过在未来的更新中使 `<OffthreadVideo>` 组件更加高效来缓解这个问题。
 
-## Slow JavaScript code
+## JavaScript 代码运行缓慢
 
-Remotion can also suffer from JavaScript bottlenecks that are introduced in your code. [Debug your render and log timing information](/docs/troubleshooting/debug-failed-render) to find slow parts of your code.
+Remotion 也可能受到您的代码引入的 JavaScript 瓶颈的影响。[调试您的渲染并记录时间信息](/docs/troubleshooting/debug-failed-render) 以找到代码中运行缓慢的部分。
 
-Use memoization using [`useMemo()`](https://react.dev/reference/react/useMemo) and [`useCallback()`](https://react.dev/reference/react/useCallback) where appropriate to cache expensive computation.
+使用[`useMemo()`](https://react.dev/reference/react/useMemo)和[`useCallback()`](https://react.dev/reference/react/useCallback)进行记忆化，以便在适当的情况下缓存昂贵的计算。
 
-## Data fetching
+## 数据获取
 
-[Measure](/docs/troubleshooting/debug-failed-render) the impact of fetching external resources, probe for overfetching and attempt to minimize the fetching of external data.
+[测量](/docs/troubleshooting/debug-failed-render)获取外部资源的影响，探测过度获取并尝试最小化获取外部数据。
 
-Use caching in Local storage if possible to reduce time spent on networking.
+如果可能的话，使用本地存储中的缓存来减少在网络上花费的时间。
 
-## Codec settings
+## 编解码器设置
 
-- If you set the image format `png`, it is slower than `jpeg`. However `png` is required if you are rendering a transparent video.
-- The WebM codecs `vp8` and `vp9` are very slow at encoding due to stronger compression.
+- 如果设置图像格式为 `png`，则比 `jpeg` 慢。但是，如果要渲染透明视频，则需要 `png`。
+- WebM 编解码器 `vp8` 和 `vp9` 在编码时非常慢，因为压缩更强。
 
-See also the [Encoding guide](/docs/encoding) to see all tradeoffs when it comes to encoding speed.
+另请参阅[编码指南](/docs/encoding)，了解在编码速度方面的所有权衡。
 
-## Resolution
+## 分辨率
 
-Higher resolutions will make the render slower. If you can live with a lower resolution, scale down the picture using [`--scale`](/docs/cli/render#--scale)
+更高的分辨率会使渲染变慢。如果可以接受较低的分辨率，请使用 [`--scale`](/docs/cli/render#--scale) 缩小图片。
 
-## Considerations for Lambda
+## Lambda 注意事项
 
-See [this article](/docs/lambda/optimizing-speed) for tips specifically for Lambda.
+请参阅[此文章](/docs/lambda/optimizing-speed)，了解专门针对 Lambda 的提示。
 
-## Measuring render speed
+## 测量渲染速度
 
-- Render using [`--log=verbose`](/docs/troubleshooting/debug-failed-render) to list the slowest frames of a Remotion render. Consider that the first frames rendered in a thread might be slow due to initalization.
+- 使用 [`--log=verbose`](/docs/troubleshooting/debug-failed-render) 进行 Remotion 渲染的最慢帧列表。请注意，由于初始化，线程中渲染的前几帧可能会很慢。
 
-- Use `console.time` to measure how long an operation takes in your code in order to find the slow parts of your render.
+- 使用 `console.time` 来测量代码中操作所需的时间，以找出渲染中的慢部分。
 
-- Use [`npx remotion benchmark`](/docs/cli/benchmark) to try out different values for `--concurrency` to find the optimal value.
+- 使用 [`npx remotion benchmark`](/docs/cli/benchmark) 尝试不同的 `--concurrency` 值，以找到最佳值。
 
-## See also
+## 另请参阅
 
-- [Lambda: Optimizing for speed](/docs/lambda/optimizing-speed)
+- [Lambda：优化速度](/docs/lambda/optimizing-speed)

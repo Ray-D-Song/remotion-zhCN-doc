@@ -2,17 +2,17 @@
 image: /generated/articles-docs-null.png
 id: "null"
 title: <Experimental.Null>
-crumb: "Experimental API"
+crumb: "实验性 API"
 ---
 
 <ExperimentalBadge>
-This component is currently a proof of technology.
+该组件目前是技术验证。
 
-The API may change in any version. Monitor this documentation page to see breaking changes when upgrading.
+API 可能会在任何版本中更改。升级时，请监视此文档页面以查看重大更改。
 </ExperimentalBadge>
 
-This is a special component, that, when rendered, will skip rendering the frame altogether.  
-You can render it when you are sure that the frame is empty and save rendering time.
+这是一个特殊组件，当渲染时，将完全跳过渲染帧。  
+您可以在确定帧为空并节省渲染时间时进行渲染。
 
 ```tsx twoslash title="EmptyFrame.tsx"
 import { AbsoluteFill, Experimental } from "remotion";
@@ -27,32 +27,32 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Rules
+## 规则
 
 <div>
-<Step>1</Step> If this component is rendered, no screenshot will be taken during rendering
+<Step>1</Step> 如果渲染此组件，则在渲染过程中不会拍摄屏幕截图
 </div>
 <div>
-<Step>2</Step> In the Remotion Studio and the Remotion Player, the content will be rendered with zero opacity.
+<Step>2</Step> 在 Remotion Studio 和 Remotion Player 中，内容将以零不透明度渲染。
 </div>
 <div>
-<Step>3</Step> Even elements <strong>outside</strong> of the <code>{"<Null>"}</code> component will disappear.
+<Step>3</Step> 即使在 <code>{"<Null>"}</code> 组件之外的元素也会消失。
 </div>
 <div>
-<Step>4</Step> Audio will still be rendered.
+<Step>4</Step> 音频仍将被渲染。
 </div>
 <div>
-<Step>5</Step> Effects will still be executed.
+<Step>5</Step> 效果仍将被执行。
 </div>
 
 <div>
-<Step>6</Step> If the <code>imageFormat</code> is <code>jpeg</code>, a black frame will be generated, if the <code>imageFormat</code> is <code>png</code>, a transparent frame will be generated. 
+<Step>6</Step> 如果 <code>imageFormat</code> 是 <code>jpeg</code>，将生成黑色帧；如果 <code>imageFormat</code> 是 <code>png</code>，将生成透明帧。
 </div>
 <div>
-<Step>7</Step> Only one <code>{"<Experimental.Null>"}</code> or <a href="/docs/clipper"><code>{"<Experimental.Clipper>"}</code></a> component can be rendered per frame.  
- Rendering multiple is an error.
+<Step>7</Step> 每帧只能渲染一个 <code>{"<Experimental.Null>"}</code> 或 <a href="/docs/clipper"><code>{"<Experimental.Clipper>"}</code></a> 组件。  
+ 渲染多个将导致错误。
 </div>
 
-## See also
+## 另请参阅
 
 - [`<Experimental.Clipper>`](/docs/clipper)

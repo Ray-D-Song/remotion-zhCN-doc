@@ -2,34 +2,35 @@
 image: /generated/articles-docs-bun.png
 id: bun
 crumb: bun bun bun bun bun
-title: Bun support
+title: Bun支持
 ---
 
-Remotion is excited about [Bun](https://bun.sh), and we mostly support it (from v1.0.3).
+## 作为一个包管理器
 
-## As a package manager
-
-You can use `bun i` to initialize all of our Remotion templates.  
-To scaffold a new project with bun, use:
+您可以使用 `bun i` 来初始化我们所有的 Remotion 模板。  
+要使用 bun 创建一个新项目，请使用：
 
 ```
 bun create video
 ```
 
-This command sets all scripts to use [`bunx remotionb`](/docs/cli/#using-bun) which will use Bun as a runtime.  
-Change `remotionb` to `remotion` if you want to use Node.js as a runtime.
+此命令将所有脚本设置为使用 [`bunx remotionb`](/docs/cli/#using-bun)，这将使用 Bun 作为运行时。  
+如果您想要使用 Node.js 作为运行时，请将 `remotionb` 更改为 `remotion`。
 
-## As a runtime
+## 作为一个运行时
 
-As of Bun 1.0.24 and Remotion 4.0.88, the following issues are known:
+截至 Bun 1.0.24 和 Remotion 4.0.88，已知以下问题：
 
-- ⚠️ The `lazyComponent` prop on `<Composition>` and `<Player>` does not work, and this feature is automatically disabled.
-- ⚠️ A server-side rendering script may not quit automatically after it is done running.
+- ⚠️ `<Composition>` 和 `<Player>` 上的 `lazyComponent` 属性不起作用，此功能会自动禁用。
+- ⚠️ 服务器端渲染脚本在运行完成后可能不会自动退出。
 
-Feel free to file more issues with Remotion if you find them.
+如果您发现更多问题，请随时向 Remotion 提交问题。
 
-Previous issues listed here have been resolved as of Bun 1.0.24.
+截至 Bun 1.0.24，此前列出的问题已解决。
 
-## For contributors
+## 对于贡献者
 
-Start the example testbed using `bun run start-bun`.
+使用 `bun run start-bun` 启动示例测试平台。
+
+
+

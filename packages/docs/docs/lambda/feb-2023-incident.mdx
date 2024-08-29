@@ -1,28 +1,28 @@
 ---
 image: /generated/articles-docs-lambda-feb-2023-incident.png
-title: Upgrade your Lambda functions to prevent breakage
-sidebar_label: Feb 2023 Incident
-crumb: DevOps advisory
+title: 升级您的 Lambda 函数以防止故障
+sidebar_label: 2023 年 2 月事件
+crumb: DevOps 咨询
 ---
 
 import {UserPolicy} from '../../components/lambda/user-permissions.tsx';
 
 :::info
-In Remotion 4.0, this problem is fixed.
+在 Remotion 4.0 中，此问题已得到解决。
 :::
 
-On February 24th 2023, a new version of the AWS Lambda Node.JS runtime started rolling out that breaks Remotion Lambda.  
-Remotion Lambda users are advised to read this document to avoid any downtime.
+2023 年 2 月 24 日，AWS Lambda Node.JS 运行时的新版本开始推出，导致 Remotion Lambda 出现故障。  
+建议 Remotion Lambda 用户阅读本文档，以避免任何停机时间。
 
-## Problem
+## 问题
 
-Users might see an error:
+用户可能会看到错误：
 
 ```bash
 Error: expected to launch
 ```
 
-or
+或者
 
 ```bash
 Failed to launch the browser process!
@@ -32,81 +32,76 @@ Failed to launch the browser process!
 TROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
 ```
 
-## Cause
+## 原因
 
-AWS Lambda has rolled out an update to their Lambda runtime for Node.JS to update it from `v14.28` to `v14.29`.  
-This update causes the headless Chromium browser to exit with a `SIGBUS` error for a yet unknown reason.
+AWS Lambda 已经将其 Node.JS 的 Lambda 运行时更新从 `v14.28` 更新到 `v14.29`。  
+此更新导致无头 Chromium 浏览器因尚未知原因而退出并显示 `SIGBUS` 错误。
 
-## Advisory
+## 建议
 
-We recommend to **not deploy any new functions** until the issue is resolved as new functions are subject to getting the new runtime.  
-Since at a later point, AWS will roll out the runtime to any existing functions, we recommend to upgrade to Remotion `3.3.54` or later in the near future and redeploy your functions.
+我们建议**不要部署任何新函数**，直到问题得到解决，因为新函数可能会使用新的运行时。  
+由于在稍后的时间点，AWS 将会将新运行时推送给所有现有函数，我们建议尽快升级到 Remotion `3.3.54` 或更高版本，并重新部署您的函数。
 
-## Resolutions
+## 解决方案
 
-### Option 1: `v3.3.54` update (recommended)
+### 选项 1: `v3.3.54` 更新（推荐）
 
-In Remotion `v3.3.54`, Remotion will lock the AWS Lambda Node.JS runtime to `v14.28` to prevent this issue from happening.  
-Locking a runtime on AWS Lambda is only possible since January 23rd, 2023, hence the reason why we are only releasing this update now.
+在 Remotion `v3.3.54` 中，Remotion 将锁定 AWS Lambda Node.JS 运行时为 `v14.28`，以防止出现此问题。  
+自 2023 年 1 月 23 日起，才有可能在 AWS Lambda 上锁定运行时，这也是我们现在才发布此更新的原因。
 
-To apply the fix, you need to:
+要应用此修复，您需要：
 
-<Step>1</Step> upgrade Remotion: <br />
+<Step>1</Step> 升级 Remotion: <br />
 <br />
 
 ```bash
 npx remotion upgrade
 ```
 
-<Step>2</Step> change your policies to give your user the <code>
+<Step>2</Step> 更改您的策略，以授予您的用户 <code>
   lambda:PutRuntimeManagementConfig
-</code> permission. The easiest way is to copy the following user policy: <br />
+</code> 权限。最简单的方法是复制以下用户策略： <br />
 <br />
 
 <details>
   <summary>
-    Show full user permissions JSON file for latest Remotion Lambda version
+    显示最新 Remotion Lambda 版本的完整用户权限 JSON 文件
   </summary>
   <UserPolicy />
 </details>
 
-or type in `npx remotion lambda policies user` after upgrading Remotion Lambda.
+或者在升级 Remotion Lambda 后键入 `npx remotion lambda policies user`。
 
-Go to the [Users](https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users) section in the AWS console and overwrite the JSON policy of your Remotion Lambda user with the above copied JSON.
+转到 AWS 控制台的 [用户](https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users) 部分，并用上述复制的 JSON 覆盖您的 Remotion Lambda 用户的 JSON 策略。
 
-<Step>3</Step> Redeploy your functions. You don't need to delete your old functions
-as it might cause downtime for your application. <br />
+<Step>3</Step> 重新部署您的函数。您无需删除旧函数，因为这可能会导致应用程序停机。 <br />
 
-<Step>4</Step> As a reminder, you also need to redeploy your site when you upgrade
-to a higher Remotion version. <br />
+<Step>4</Step> 作为提醒，当您升级到更高的 Remotion 版本时，您还需要重新部署您的站点。 <br />
 
-<Step>5</Step> If any values are hardcoded, update the function and site name in
-your application code.
+<Step>5</Step> 如果有任何硬编码的值，请在您的应用程序代码中更新函数和站点名称。
 
-### Option 2: Manually update the runtime in the AWS console
+### 选项 2：在 AWS 控制台中手动更新运行时
 
-Alternatively, for each of your Lambda functions, you can lock the runtime version in the AWS console:
+或者，对于每个 Lambda 函数，您可以在 AWS 控制台中锁定运行时版本：
 
-<Step>1</Step> Go to the function in the AWS dashboard and click "Edit Runtime management
-configuration".
+<Step>1</Step> 转到 AWS 仪表板中的函数，然后单击“编辑运行时管理配置”。
 <br />
 <br />
 
 <img src="/img/runtimesettings.png" />
 
-<Step>2</Step> Set it to "Manual". <br />
+<Step>2</Step> 将其设置为“手动”。 <br />
 
-<Step>3</Step> Set the runtime to <code>arn:aws:lambda:[region]::runtime:69000d3430a08938bcab71617dffcb8ea551a2cbc36c59f38c52a1ea087e461b</code>
-. Replace <code>[region]</code> with the code for the AWS region (e.g. <code>us-east-1</code>) <br />
+<Step>3</Step> 将运行时设置为 <code>arn:aws:lambda:[region]::runtime:69000d3430a08938bcab71617dffcb8ea551a2cbc36c59f38c52a1ea087e461b</code>。将 <code>[region]</code> 替换为 AWS 区域的代码（例如 <code>us-east-1</code>） <br />
 
-<Step>4</Step> Click "Save". Repeat this for any functions you have deployed.
+<Step>4</Step> 单击“保存”。对您部署的任何函数都要重复此操作。
 
-## Long-term solution
+## 长期解决方案
 
-We have upgraded to a AWS Business support tier and reached out to them to make them aware of the issue and hope to cooperate on a solution soon.
+我们已升级到 AWS 商业支持层，并与他们联系，让他们意识到这个问题，并希望尽快合作解决。
 
-Since it recently became possible to lock the AWS Lambda runtime version, we will be using this option going forward to make Remotion more resilient to future runtime updates.
+由于最近可以锁定 AWS Lambda 运行时版本，我们将从现在开始使用此选项，使 Remotion 更具抗性，以应对未来的运行时更新。
 
-## Questions?
+## 有问题吗？
 
-Join our [Discord](https://remotion.dev/discord) community to get help from the Remotion team and other users.
+加入我们的 [Discord](https://remotion.dev/discord) 社区，从 Remotion 团队和其他用户那里获取帮助。

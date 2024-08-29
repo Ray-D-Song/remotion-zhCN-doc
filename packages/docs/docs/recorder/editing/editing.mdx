@@ -1,35 +1,37 @@
 ---
 image: /generated/articles-docs-recorder-editing-editing.png
-title: Start editing
-crumb: Recorder
+title: 开始编辑
+crumb: 录制器
 ---
 
-To start the editing environment, run
+要开始编辑环境，请运行
 
 ```
 bun start
 ```
 
-This will start the development server and open a Remotion Studio instance in a new window.
+这将启动开发服务器并在新窗口中打开一个 Remotion Studio 实例。
 
-## Create a new composition
+## 创建新合成
 
-A composition is a video that you can edit and render.
+合成是您可以编辑和渲染的视频。
 
-In the left sidebar, create a new composition by right-clicking the `empty` composition and selecting `Duplicate` and give it an ID.  
-The ID should be the same as the name of the subfolder of `public` where you store your videos.
-**Example**: If you store your recordings in `public/hello-world`, the ID should be `hello-world`.
+在左侧边栏中，通过右键单击 `empty` 合成并选择 `Duplicate` 来创建一个新合成，并为其指定一个 ID。  
+ID 应与您存储视频的 `public` 子文件夹的名称相同。
+**示例**：如果您将录制存储在 `public/hello-world` 中，则 ID 应为 `hello-world`。
 
-## Add new scenes to the composition
+## 向合成添加新场景
 
-Open the right sidebar. By default there are no scenes.  
-Click the `+` button to add a new scene.
+打开右侧边栏。默认情况下没有场景。  
+单击 `+` 按钮添加新场景。
 
 <img style={{ width: 300 }} src="/recorder/add-scene.png" />
 
-By default, it will add a video scene, which will consume the first recording in the `public/[composition-id]` folder.
+默认情况下，它将添加一个视频场景，该场景将使用 `public/[composition-id]` 文件夹中的第一个录制。
 
-You can also switch the scene type to something different like `endcard` or `title`.  
-Each scene type has its own settings which you can configure in the right sidebar.
+您还可以将场景类型切换为其他类型，如 `endcard` 或 `title`。  
+每种场景类型都有自己的设置，您可以在右侧边栏中进行配置。
 
-To save the scenes, click the disk icon or use `Ctrl+S` / `Cmd+S`.
+要保存场景，请单击磁盘图标或使用 `Ctrl+S` / `Cmd+S`。 
+
+

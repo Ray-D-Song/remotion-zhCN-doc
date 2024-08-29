@@ -1,47 +1,49 @@
 ---
 image: /generated/articles-docs-2-0-migration.png
 id: 2-0-migration
-sidebar_label: v2.0 Migration
-title: v2.0 Migration
-crumb: "Version Upgrade"
+sidebar_label: v2.0 迁移
+title: v2.0 迁移
+crumb: "版本升级"
 ---
 
-The following is a list of breaking changes in Remotion 2.0, as a reference for projects wanting to upgrade.
+以下是 Remotion 2.0 中的一些破坏性更改列表，供希望升级项目参考。
 
-## Sequences are 1 frame shorter
+## 序列长度减少 1 帧
 
-Because of a mistake in v1, sequences were 1 frame too long. The new behavior sees each composition be 1 frame shorter, but be consistent with the duration of compositions.
+由于 v1 中的错误，序列长度多了 1 帧。新行为使每个合成长度减少 1 帧，但与合成的持续时间保持一致。
 
-The behavior of sequences is now the following, as explained by an example: If `durationInFrames` is 60 and `from` is 0, the sequence goes from frame 0 to 59 (60 frames in total), same as a composition with the same duration. In versions 1.x of Remotion, a sequence with the same attributes would go from frame 0 to 60 (61 frames in total).
+现在序列的行为如下，通过示例解释：如果 `durationInFrames` 为 60，`from` 为 0，则序列从第 0 帧到第 59 帧（总共 60 帧），与持续时间相同的合成。在 Remotion 1.x 版本中，具有相同属性的序列将从第 0 帧到第 60 帧（总共 61 帧）。
 
-**Upgrade path**: Check your sequence lengths and if necessary, increase the duration by 1 frame.
+**升级路径**：检查您的序列长度，如有必要，增加 1 帧的持续时间。
 
-## Node.JS API changes
+## Node.JS API 更改
 
-- The `userProps` option of `renderFrames` has been renamed to `inputProps`.
-- You now need to pass `assetsInfo` to `stitchFramesToVideo` if you want your video to have sound. The `assetsInfo` object will be returned by `renderFrames()`.
+- `renderFrames` 的 `userProps` 选项已更名为 `inputProps`。
+- 如果希望视频具有声音，现在需要将 `assetsInfo` 传递给 `stitchFramesToVideo`。`assetsInfo` 对象将由 `renderFrames()` 返回。
 
-**Upgrade path**: See the updated examples on the [SSR page](/docs/ssr) and update your program accordingly.
+**升级路径**：查看 [SSR 页面](/docs/ssr) 上的更新示例，并相应更新您的程序。
 
-## `--overwrite` is now default
+## `--overwrite` 现在是默认设置
 
-If an output already exists, Remotion will overwrite it without asking now, [unless you disable this behavior](/docs/config#setoverwriteoutput).
+如果输出已存在，Remotion 现在将无需询问即覆盖它，[除非您禁用此行为](/docs/config#setoverwriteoutput)。
 
-**Upgrade path**: Do nothing or adjust the setting in the config file if you like.
+**升级路径**：不做任何操作，或根据需要调整配置文件中的设置。
 
-## Webpack now uses ESBuild instead of Babel
+## Webpack 现在使用 ESBuild 而不是 Babel
 
-Hopefully you will not notice a difference besides it being much faster. There is a way [to go back to Babel, you can read about it here](/docs/legacy-babel)
+希望您不会注意到除了速度更快之外的任何区别。有一种方法 [可以切换回 Babel，请在此处阅读相关信息](/docs/legacy-babel)。
 
-**Upgrade path**: Do nothing - should something break, use the legacy Babel plugin and file an issue.
+**升级路径**：不做任何操作 - 如果出现问题，请使用传统的 Babel 插件并提交问题。
 
-## `react-dom` is a peer dependency
+## `react-dom` 是对等依赖项
 
-`react-dom` is not anymore pre-installed, so you need to install manually if you upgrade.
+`react-dom` 不再预安装，因此如果您升级，需要手动安装。
 
-## Upgrade to version 2.0
+## 升级到 2.0 版本
 
-Upgrade **all** dependencies containing "remotion" in your package.json to version `^2.0.0`.
+将您的 package.json 中包含 "remotion" 的 **所有** 依赖项升级到版本 `^2.0.0`。 
+
+
 
 ```diff
 -"@remotion/bundler": "^1.5.4",
@@ -63,4 +65,4 @@ Upgrade **all** dependencies containing "remotion" in your package.json to versi
 +"remotion": "^2.0.0",
 ```
 
-Run `npm install` afterwards.
+之后运行 `npm install`。

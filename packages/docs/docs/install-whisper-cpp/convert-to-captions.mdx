@@ -7,13 +7,13 @@ crumb: "@remotion/install-whisper-cpp"
 # convertToCaptions()<AvailableFrom v="4.0.131 "/>
 
 :::warning
-This API assumes a newer version of Whisper.cpp than the stable release to support `tokenLevelTimestamps`. As a downside, this version may crash unexpectedly.
-Use an older version of Whisper.cpp (1.0.54 or earlier) if you prefer to use a stable version of Whisper.cpp and forgo `tokenLevelTimeStamps` support.  
+此 API 假定 Whisper.cpp 的版本比稳定版本更新，以支持 `tokenLevelTimestamps`。不过，这个版本可能会意外崩溃。
+如果您更喜欢使用稳定版本的 Whisper.cpp 并放弃 `tokenLevelTimeStamps` 支持，请使用旧版本的 Whisper.cpp（1.0.54 或更早版本）。  
 :::
 
-Opinionated function that converts the output from [`transcribe()`](/docs/install-whisper-cpp/transcribe) into easily digestable captions.  
-Can also combine words with close timestamps.  
-Useful for TikTok/Reel-type of videos that animate captions word-by-word.
+主观化函数，将 [`transcribe()`](/docs/install-whisper-cpp/transcribe) 的输出转换为易于理解的字幕。  
+还可以将时间戳接近的单词组合在一起。  
+适用于 TikTok/Reel 类型的视频，逐字逐句地显示字幕。
 
 ```tsx twoslash title="transcribe.mjs"
 // @module: esnext
@@ -38,23 +38,23 @@ for (const line of captions) {
 }
 ```
 
-## Options
+## 选项
 
 ### `transcription`
 
-The `transcription` object that you retrieved from [`transcribe()`](/docs/install-whisper-cpp).  
-The `tokenLevelTimestamps` option must have been set to `true`.
+从 [`transcribe()`](/docs/install-whisper-cpp) 检索到的 `transcription` 对象。  
+必须将 `tokenLevelTimestamps` 选项设置为 `true`。
 
 ### `combineTokensWithinMilliseconds`
 
-Combine words that are close to each other.  
-If words are not combined, they might display for a very short time if word-by-word captions are being used.  
-Disable combination by setting `0`.  
-Recommendation: `200`.
+将接近的单词组合在一起。  
+如果不组合单词，如果正在使用逐字逐句的字幕，它们可能会显示很短的时间。  
+通过设置 `0` 来禁用组合。  
+建议值：`200`。
 
-## Return value
+## 返回值
 
-An object objects of the following shape:
+以下形状的对象对象：
 
 ```ts twoslash
 type Caption = {
@@ -67,14 +67,14 @@ type ReturnValue = {
 };
 ```
 
-## Suggested usage
+## 建议用法
 
-This shows how, given a data structure produced by `convertToCaptions()`, word-by-word captions can be rendered in a Remotion project.  
-See our [TikTok template](/templates/tiktok) for a full reference implementation.
+这显示了如何在 Remotion 项目中呈现由 `convertToCaptions()` 生成的数据结构的逐字逐句字幕。  
+查看我们的 [TikTok 模板](/templates/tiktok) 以获取完整的参考实现。
 
 :::note
-`@remotion/install-whisper-cpp` cannot be imported on the frontend, it is a Node.js API.  
-Only the TypeScript type is imported in this example
+`@remotion/install-whisper-cpp` 无法在前端导入，它是一个 Node.js API。  
+此示例中仅导入 TypeScript 类型。
 :::
 
 ```tsx twoslash
@@ -112,7 +112,11 @@ const Captions: React.FC<{
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/install-whisper-cpp/src/convert-to-captions.ts)
-- [`@remotion/install-whisper-cpp`](/docs/install-whisper-cpp)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/install-whisper-cpp/src/convert-to-captions.ts)
+- [`@remotion/install-whisper-cpp`](/docs/install-whisper-cpp) 
+
+
+
+Please paste the Markdown content you would like me to translate into Chinese.

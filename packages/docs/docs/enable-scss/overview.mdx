@@ -1,6 +1,6 @@
 ---
 image: /generated/articles-docs-enable-scss-overview.png
-sidebar_label: Overview
+sidebar_label: 概述
 title: "@remotion/enable-scss"
 ---
 
@@ -8,24 +8,24 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import { ExperimentalBadge } from "../../components/Experimental";
 
-This package provides a Webpack override for enabling [SCSS/SASS](https://sass-lang.com/) with Remotion..
+该包提供了一个 Webpack 覆盖，用于在 Remotion 中启用 [SCSS/SASS](https://sass-lang.com/)。
 
-## Installation
+## 安装
 
-Install `@remotion/enable-scss` as well as TailwindCSS dependencies.
+安装 `@remotion/enable-scss` 以及 TailwindCSS 依赖项。
 
 <Installation pkg="@remotion/enable-scss sass@1.77.2 sass-loader@14.2.1 css-loader@5.2.7" />
 
 <br />
 
 :::warning
-Pay attention to install exactly these versions.  
-Newer versions may not work.
+请注意安装确切的这些版本。  
+更新的版本可能无法正常工作。
 :::
 
-## Usage
+## 使用
 
-[Override the Webpack config](/docs/webpack) by using [`enableScss()`](/docs/enable-scss/enable-scss).
+通过使用 [`enableScss()`](/docs/enable-scss/enable-scss) 来[覆盖 Webpack 配置](/docs/webpack)。
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -36,6 +36,7 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 });
 ```
 
-## APIs
+## API
 
 - [`enableScss()`](/docs/enable-scss/enable-scss)
+

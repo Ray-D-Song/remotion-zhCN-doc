@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-3-0-migration.png
 id: 3-0-migration
-title: v3.0 Migration
-crumb: "Version Upgrade"
+title: v3.0 迁移
+crumb: "版本升级"
 ---
 
-When upgrading from Remotion 2 to Remotion 3, note the following changes and apply them to your project.
+在从 Remotion 2 升级到 Remotion 3 时，请注意以下更改并将其应用到您的项目中。
 
-## How to upgrade
+## 如何升级
 
-Upgrade `remotion` and all packages starting with `@remotion` to `^3.0.0`:
+将 `remotion` 和所有以 `@remotion` 开头的包升级到 `^3.0.0`：
 
 ```diff
 - "remotion": "^2.6.15"
@@ -26,11 +26,11 @@ Upgrade `remotion` and all packages starting with `@remotion` to `^3.0.0`:
 + "@remotion/renderer": "^3.0.0"
 ```
 
-Run `npm i `, `yarn` or `pnpm i` respectively afterwards.
+然后分别运行 `npm i`、`yarn` 或 `pnpm i`。
 
-**Optional: Upgrade to React 18**
+**可选：升级到 React 18**
 
-You need to upgrade both `react` and `react-dom`:
+您需要同时升级 `react` 和 `react-dom`：
 
 ```diff
 - "react": "17.0.1"
@@ -39,41 +39,41 @@ You need to upgrade both `react` and `react-dom`:
 + "react-dom": "18.2.0"
 ```
 
-If you use TypeScript, update to the newest types as well:
+如果您使用 TypeScript，请同时更新到最新的类型：
 
 ```diff
 - "@types/react": "17.0.3"
 + "@types/react": "18.0.0"
 ```
 
-**Optional: Upgrade to ESLint 8**
+**可选：升级到 ESLint 8**
 
 ```diff
 - "eslint": "^7.15.0"
 + "eslint": "^8.13.0"
 ```
 
-## Breaking changes
+## 重大更改
 
-### Node 14 is required
+### 需要 Node 14
 
-Previously, we supported Node 12 and 13, but we no longer do.
+以前，我们支持 Node 12 和 13，但现在不再支持。
 
-**Upgrade path:** Upgrade to at least Node 14.
+**升级路径：** 至少升级到 Node 14。
 
-### Remotion is built with React 18 types
+### Remotion 使用 React 18 类型构建
 
-The Remotion components adhere to [version 18 of `@types/react` and `@types/react-dom`](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56210). Minor type errors may occur that can be resolved by adjusting your components. We recommend that you upgrade the `@types/react` package yourself.
+Remotion 组件遵循 [version 18 of `@types/react` and `@types/react-dom`](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56210)。可能会出现轻微的类型错误，可以通过调整您的组件来解决。我们建议您自行升级 `@types/react` 包。
 
-**Upgrade path:** [Update to React 18](/docs/react-18) - optional but recommended.
+**升级路径：** [更新到 React 18](/docs/react-18) - 可选但建议。
 
-### `renderFrames()`/`renderStill()`: `compositionId` parameter removed
+### `renderFrames()`/`renderStill()`: 移除 `compositionId` 参数
 
-Instead, the composition ID is now embedded in the `composition` object (previously `config`).
+相反，现在将组合 ID 嵌入到 `composition` 对象中（以前是 `config`）。
 
-**Upgrade path:** Remove the `compositionId` property from `renderFrames()`. Add the `composition.id` property to `renderFrames()` or pull the object from `getCompositions()`.
+**升级路径：** 从 `renderFrames()` 中删除 `compositionId` 属性。将 `composition.id` 属性添加到 `renderFrames()` 中或从 `getCompositions()` 中提取对象。
 
-```tsx title="Previously"
+```tsx title="以前"
 renderFrames({
   compositionId: "my-com",
   config: {
@@ -85,7 +85,7 @@ renderFrames({
 });
 ```
 
-```tsx title="Now"
+```tsx title="现在"
 renderFrames({
   composition: {
     id: "my-com",
@@ -97,11 +97,11 @@ renderFrames({
 });
 ```
 
-### `renderFrames()`/`renderStill()`: renamed `config` in to `composition`
+### `renderFrames()`/`renderStill()`: 将 `config` 重命名为 `composition`
 
-The `config` parameter in `renderFrames()` and `renderStill()` was renamed to `composition` and now requires an additional `id` property.
+`renderFrames()` 和 `renderStill()` 中的 `config` 参数已重命名为 `composition`，现在需要额外的 `id` 属性。
 
-```tsx title="Previously"
+```tsx title="以前"
 renderFrames({
   compositionId: "my-com",
   config: {
@@ -113,7 +113,7 @@ renderFrames({
 });
 ```
 
-```tsx title="Now"
+```tsx title="现在"
 renderFrames({
   composition: {
     id: "my-com",
@@ -125,17 +125,17 @@ renderFrames({
 });
 ```
 
-**Upgrade path:** Rename the `config` property of `renderFrames()` and `renderStill()`. Add the `composition.id` property to or pull the object from `getCompositions()`.
+**升级路径：** 重命名 `renderFrames()` 和 `renderStill()` 的 `config` 属性。将 `composition.id` 属性添加到 `getCompositions()` 中或从中获取对象。
 
-### `renderFrames()`/`renderStill()`/`getCompositions()`: Errors thrown in your app make the render fail
+### `renderFrames()`/`renderStill()`/`getCompositions()`: 应用中抛出的错误导致渲染失败
 
-Previously, you could catch errors being thrown in your Remotion code using the `onError` property of `getCompositions()`, `renderFrames()` and `renderStill()`.
+以前，您可以使用 `getCompositions()`、`renderFrames()` 和 `renderStill()` 的 `onError` 属性捕获在 Remotion 代码中抛出的错误。
 
-The new behavior of Remotion 3.0 is that if an error occurs, these functions reject instead.
+Remotion 3.0 的新行为是，如果发生错误，这些函数将拒绝。
 
-**Upgrade path**: Remove the `onError` property from your `getCompositions()`, `renderFrames()` and `renderStill()` calls and catch errors in a try / catch instead. Eliminate any error being thrown in your application.
+**升级路径：** 从 `getCompositions()`、`renderFrames()` 和 `renderStill()` 调用中移除 `onError` 属性，并在 try / catch 中捕获错误。消除应用程序中抛出的任何错误。
 
-```tsx title="Previously"
+```tsx title="以前"
 await renderStill({
   // ...
   output: "/tmp/still.png",
@@ -145,7 +145,7 @@ await renderStill({
 });
 ```
 
-```tsx title="Now"
+```tsx title="现在"
 try {
   await renderStill({
     // ...
@@ -156,13 +156,13 @@ try {
 }
 ```
 
-### `renderFrames()`/`renderStill()`/`getCompositions()`: Renamed `webpackBundle` to `serveUrl`
+### `renderFrames()`/`renderStill()`/`getCompositions()`: 将 `webpackBundle` 重命名为 `serveUrl`
 
-The `webpackBundle` property was renamed to `serveUrl` to reflect the fact that now a URL is also supported. Functionally, the same behavior is supported as before.
+`webpackBundle` 属性已重命名为 `serveUrl`，以反映现在还支持 URL。在功能上，支持与以前相同的行为。
 
-**Upgrade path**: Rename `webpackBundle` to `serveUrl`.
+**升级路径：** 将 `webpackBundle` 重命名为 `serveUrl`。
 
-```tsx title="Previously"
+```tsx title="以前"
 await renderStill({
   output: "/tmp/still.png",
   webpackBundle: "/tmp/react-motion-graphics8zfs9d/index.html",
@@ -170,7 +170,7 @@ await renderStill({
 });
 ```
 
-```tsx title="Now"
+```tsx title="现在"
 await renderStill({
   output: "/tmp/still.png",
   serveUrl: "/tmp/react-motion-graphics8zfs9d/index.html",
@@ -178,16 +178,16 @@ await renderStill({
 });
 ```
 
-### `stitchFramesToVideo()`: removed `imageFormat`, `parallelism` and `webpackBundle` from API
+### `stitchFramesToVideo()`: 从 API 中移除 `imageFormat`、`parallelism` 和 `webpackBundle`
 
-- The parameters `imageFormat` and `webpackBundle` are not necessary anymore to pass into `stitchFramesToVideo()`, because the necessary information is now embedded in `assetsInfo`, retrieved by calling `renderFrames()`.
-- The `parallelism` parameter did probably not to what you thought it would. To avoid any confusion, we removed it without any replacement.
+- 不再需要将 `imageFormat` 和 `webpackBundle` 参数传递给 `stitchFramesToVideo()`，因为现在通过调用 `renderFrames()` 检索到的 `assetsInfo` 中已嵌入了必要的信息。
+- `parallelism` 参数可能不是您认为的那样。为避免任何混淆，我们将其移除而没有任何替代。
 
-**Upgrade path**: Remove the `imageFormat`, `parallelism` and `webpackBundle` parameters from `stitchFramesToVideo()`.
+**升级路径：** 从 `stitchFramesToVideo()` 中移除 `imageFormat`、`parallelism` 和 `webpackBundle` 参数。
 
-### `useVideoConfig()`: returns additional `id` and `defaultProps` properties
+### `useVideoConfig()`: 返回额外的 `id` 和 `defaultProps` 属性
 
-The [`useVideoConfig()`](/docs/use-video-config) hook now returns two additional properties:
+[`useVideoConfig()`](/docs/use-video-config) 钩子现在返回两个额外的属性：```
 
 ```diff
 {
@@ -200,23 +200,22 @@ The [`useVideoConfig()`](/docs/use-video-config) hook now returns two additional
 }
 ```
 
-**Upgrade path**: Ensure you don't rely on the new properties not being there.
+**升级路径**：确保您不依赖于新属性不存在的情况。
 
-### `getCompositions()`: renamed `browserInstance` to `puppeteerInstance`
+### `getCompositions()`: 将 `browserInstance` 重命名为 `puppeteerInstance`
 
-To align the name with `renderStill()`, `renderFrames()` and `renderMedia()`, `browserInstance` was renamed to `puppeteerInstance`.
+为了与 `renderStill()`、`renderFrames()` 和 `renderMedia()` 的命名保持一致，`browserInstance` 被重命名为 `puppeteerInstance`。
 
-### `overrideWebpackConfig()`: Config file option is removed
+### `overrideWebpackConfig()`: 配置文件选项已移除
 
-The import `overrideWebpackConfig` was deprecated and now removed. Use `Config.overrideWebpackConfig()` instead.
+`overrideWebpackConfig` 的导入已被弃用并移除。现在请使用 `Config.overrideWebpackConfig()`。
 
-**Upgrade path**: Change import in `remotion.config.ts`and use `overrideWebpackConfig()`.
+**升级路径**：在 `remotion.config.ts` 中更改导入并使用 `overrideWebpackConfig()`。
 
-```tsx title="Previously"
 
 ```
 
-```tsx title="Now"
+```tsx title="现在"
 import { Config } from "remotion";
 
 Config.overrideWebpackConfig();

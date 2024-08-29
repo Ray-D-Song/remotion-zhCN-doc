@@ -4,9 +4,9 @@ title: resolveRedirect()
 crumb: "@remotion/player"
 ---
 
-Follows the redirects of a URL (most commonly a remote video or audio) until the final URL is resolved and returns that.
+跟随 URL 的重定向（通常是远程视频或音频），直到最终的 URL 被解析并返回。
 
-If the resource does not support CORS, the function will throw. **If the resource redirects, and does not support CORS, you cannot preload the asset.**
+如果资源不支持 CORS，该函数将抛出异常。**如果资源重定向，并且不支持 CORS，您无法预加载该资产。**
 
 ```tsx twoslash
 import { resolveRedirect } from "@remotion/preload";
@@ -22,9 +22,9 @@ resolveRedirect(
   });
 ```
 
-## Example: Resolve and preload a video
+## 示例：解析并预加载视频
 
-This snippet tries to preload a video on a best-effort basis. If the redirect cannot be resolved, it tries to preload the original URL.
+此代码片段尝试尽最大努力预加载视频。如果无法解析重定向，它将尝试预加载原始 URL。
 
 ```tsx twoslash
 import { preloadVideo, resolveRedirect } from "@remotion/preload";
@@ -58,9 +58,10 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/preload/src/resolve-redirect.ts)
-- [Installing `@remotion/preload`](/docs/preload)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/preload/src/resolve-redirect.ts)
+- [安装 `@remotion/preload`](/docs/preload)
 - [preloadAudio()](/docs/preload/preload-audio)
 - [preloadVideo()](/docs/preload/preload-video)
+

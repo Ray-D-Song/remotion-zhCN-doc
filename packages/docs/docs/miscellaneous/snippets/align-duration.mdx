@@ -1,11 +1,11 @@
 ---
 image: /generated/articles-docs-miscellaneous-snippets-align-duration.png
-title: How do I make the composition the same duration as my video?
-sidebar_label: Same composition duration as video
-crumb: "FAQ"
+title: 如何使合成与我的视频持续时间相同？
+sidebar_label: 与视频相同的合成持续时间
+crumb: "常见问题"
 ---
 
-If you have a component rendering a video:
+如果您有一个渲染视频的组件：
 
 ```tsx twoslash title="MyComp.tsx"
 import React from "react";
@@ -16,7 +16,7 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-and you want to make the composition the same duration as the video, first make the video source a React prop:
+并且您希望使合成的持续时间与视频相同，请首先将视频源作为 React 属性：
 
 ```tsx twoslash title="MyComp.tsx"
 import React from "react";
@@ -31,8 +31,8 @@ export const MyComp: React.FC<MyCompProps> = ({ src }) => {
 };
 ```
 
-Then, define a [`calculateMetadata()`](/docs/calculate-metadata) function that calculates the duration of the composition based on the video.  
-[Install `@remotion/media-utils`](/docs/media-utils) if necessary.
+然后，定义一个 [`calculateMetadata()`](/docs/calculate-metadata) 函数，根据视频计算合成的持续时间。  
+如有必要，请安装 `@remotion/media-utils`。
 
 ```tsx twoslash title="MyComp.tsx"
 type MyCompProps = {
@@ -57,7 +57,7 @@ export const calculateMetadata: CalculateMetadataFunction<
 };
 ```
 
-Finally, pass the `calculateMetadata` function to the `Composition` component and define the previously hardcoded `src` as a default prop:
+最后，将 `calculateMetadata` 函数传递给 `Composition` 组件，并将先前硬编码的 `src` 定义为默认属性：
 
 ```tsx twoslash title="Root.tsx"
 // @filename: MyComp.tsx
@@ -109,10 +109,11 @@ export const Root: React.FC = () => {
 };
 ```
 
-## How do I make the composition the same duration as my audio?
+## 如何使合成与我的音频持续时间相同？
 
-Follow the same steps, but instead if [`getVideoMetadata()`](/docs/get-video-metadata), use [`getAudioDurationInSeconds()`](/docs/get-audio-duration-in-seconds) from `@remotion/media-utils` to calculate the duration of the composition based on the audio file.
+按照相同的步骤，但是使用 [`getAudioDurationInSeconds()`](/docs/get-audio-duration-in-seconds) 从 `@remotion/media-utils` 而不是 [`getVideoMetadata()`](/docs/get-video-metadata) 来根据音频文件计算合成的持续时间。
 
-## See Also
+## 参见
 
-- [Variable duration](/docs/dynamic-metadata)
+- [可变持续时间](/docs/dynamic-metadata)
+

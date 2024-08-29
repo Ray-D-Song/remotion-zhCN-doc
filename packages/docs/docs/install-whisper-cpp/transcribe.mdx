@@ -6,11 +6,11 @@ crumb: "@remotion/install-whisper-cpp"
 
 # transcribe()<AvailableFrom v="4.0.131 "/>
 
-Transcribes a media file by utilizing Whisper.cpp.  
-You should first install Whisper.cpp, for example through [`installWhisperCpp()`](/docs/install-whisper-cpp/install-whisper-cpp).
+通过利用 Whisper.cpp 转录媒体文件。  
+您应该首先安装 Whisper.cpp，例如通过 [`installWhisperCpp()`](/docs/install-whisper-cpp/install-whisper-cpp)。
 
 :::note
-This function only works with Whisper.cpp 1.5.5 or later, unless `tokenLevelTimestamps` is set to false.
+此功能仅适用于 Whisper.cpp 版本 1.5.5 或更高版本，除非将 `tokenLevelTimestamps` 设置为 false。
 :::
 
 ```tsx twoslash title="transcribe.mjs"
@@ -31,20 +31,19 @@ for (const token of transcription) {
 }
 ```
 
-## Options
+## 选项
 
 ### `inputPath`
 
-The path to the file you want extract text from.
+要从中提取文本的文件路径。
 
-The file has to be a 16KHz wav file. You can extract a 16KHz wav file from a video or audio file for
-example by utilizing FFmpeg with the following command:
+文件必须是 16KHz wav 文件。您可以通过以下命令从视频或音频文件中提取 16KHz wav 文件，例如利用 FFmpeg：
 
 ```bash
 ffmpeg -i input.mp4 -ar 16000 output.wav -y
 ```
 
-If you don't want to install FFmpeg, you can also use the [smaller FFmpeg binary](/docs/cli/ffmpeg) provided by Remotion.
+如果您不想安装 FFmpeg，您也可以使用 Remotion 提供的 [更小的 FFmpeg 二进制文件](/docs/cli/ffmpeg)。
 
 ```bash
 npx remotion ffmpeg -i input.mp4 -ar 16000 output.wav -y
@@ -52,77 +51,77 @@ npx remotion ffmpeg -i input.mp4 -ar 16000 output.wav -y
 
 ### `whisperPath`
 
-The path to your `whisper.cpp` folder.  
-If you haven't installed Whisper.cpp, you can do so for example through [`installWhisperCpp()`](/docs/install-whisper-cpp/install-whisper-cpp) and use the same `folder`.
+您的 `whisper.cpp` 文件夹路径。  
+如果您尚未安装 Whisper.cpp，您可以通过 [`installWhisperCpp()`](/docs/install-whisper-cpp/install-whisper-cpp) 进行安装，并使用相同的 `folder`。
 
 ### `tokenLevelTimestamps`<AvailableFrom v="4.0.131"/>
 
-Passes the `--dtw` flag to Whisper.cpp to generate more accurate timestamps, which are being returned under the `t_dtw` field.  
-Recommended to get actually accurate timings, but only available from Whisper.cpp versions later than 1.0.55.  
-Set to `false` if you use an older version of Whisper.cpp.
+将 `--dtw` 标志传递给 Whisper.cpp 以生成更准确的时间戳，这些时间戳将在 `t_dtw` 字段下返回。  
+建议用于获取实际准确的时间，但仅适用于 Whisper.cpp 版本 1.0.55 之后的版本。  
+如果您使用 Whisper.cpp 的旧版本，请将其设置为 `false`。
 
 ### `model?`
 
-_optional - default: `base.en`_
+_可选 - 默认值：`base.en`_
 
-Specify a specific Whisper model for the transcription.
+为转录指定特定的 Whisper 模型。
 
-Possible values: `tiny`, `tiny.en`, `base`, `base.en`, `small`, `small.en`, `medium`, `medium.en`, `large-v1`, `large-v2`, `large-v3`.
+可能的值：`tiny`、`tiny.en`、`base`、`base.en`、`small`、`small.en`、`medium`、`medium.en`、`large-v1`、`large-v2`、`large-v3`。
 
-Make sure the model you want to use exists in your `whisper.cpp/models` folder. You can ensure a specific model is available locally by utilizing the [downloadWhisperModel()](/docs/install-whisper-cpp/download-whisper-model) API.
+确保您要使用的模型存在于您的 `whisper.cpp/models` 文件夹中。您可以通过利用 [downloadWhisperModel()](/docs/install-whisper-cpp/download-whisper-model) API 确保特定模型在本地可用。
 
 ### `modelFolder?`
 
-_optional - default: whisperPath/models_
+_可选 - 默认值: whisperPath/models_
 
-If you saved Whisper models to a specific folder, pass its path here.
+如果您将 Whisper 模型保存到特定文件夹，请在此处传递其路径。
 
-Uses the `whisper.cpp/models` folder at the location defined through `whisperPath` as default.
+默认情况下，使用通过 `whisperPath` 定义的位置上的 `whisper.cpp/models` 文件夹。
 
 ### `translateToEnglish?`
 
-_optional - default: false_
+_可选 - 默认值: false_
 
-Set this boolean flag to `true` if you want to get a translated transcription of the provided file in English.
-Make sure to not use a \*.en model, as they will not be able to translate a foreign language to english.
+如果您想要获取提供文件的翻译文本的翻译版本，请将此布尔标志设置为 `true`。
+请确保不使用 \*.en 模型，因为它们无法将外语翻译为英语。
 
 :::note
-We recommend using at least the `medium` model to get satisfactory results when translating.
+我们建议至少使用 `medium` 模型以获得令人满意的翻译结果。
 :::
 
 ### `printOutput?`<AvailableFrom v="4.0.132" />
 
-Whether to print the output of the transcription process to the console. Defaults to `true`.
+是否将转录过程的输出打印到控制台。默认为 `true`。
 
 ### `tokensPerItem?`<AvailableFrom v="4.0.141" />
 
-_optional - default: `1`_
+_可选 - 默认值: `1`_
 
-The maximum amount of tokens included in each transcription item.
+每个转录项中包含的最大令牌数量。
 
-Set this flag to `null`, to use `whisper.cpp`'s default token grouping (useful for generating a movie-style transcription).
+将此标志设置为 `null`，以使用 `whisper.cpp` 的默认令牌分组（用于生成类似电影风格的转录）。
 
 :::info
-`tokensPerItem` can only be set when `tokenLevelTimestamps` is set to `false`.
+只有在将 `tokenLevelTimestamps` 设置为 `false` 时才能设置 `tokensPerItem`。
 :::
 
 ### `language?`<AvailableFrom v="4.0.142" />
 
-_optional - default: null_
+_可选 - 默认值: null_
 
-Passes the `-l` flag to Whisper.cpp to specific spoken language of the audio file.
+将 `-l` 标志传递给 Whisper.cpp，指定音频文件的特定口语语言。
 
-Possible values: `Afrikaans`, `Albanian`, `Amharic`, `Arabic`, `Armenian`, `Assamese`, `Azerbaijani`, `Bashkir`, `Basque`, `Belarusian`, `Bengali`, `Bosnian`, `Breton`, `Bulgarian`, `Burmese`, `Castilian`, `Catalan`, `Chinese`, `Croatian`, `Czech`, `Danish`, `Dutch`, `English`, `Estonian`, `Faroese`, `Finnish`, `Flemish`, `French`, `Galician`, `Georgian`, `German`, `Greek`, `Gujarati`, `Haitian`, `Haitian Creole`, `Hausa`, `Hawaiian`, `Hebrew`, `Hindi`, `Hungarian`, `Icelandic`, `Indonesian`, `Italian`, `Japanese`, `Javanese`, `Kannada`, `Kazakh`, `Khmer`, `Korean`, `Lao`, `Latin`, `Latvian`, `Letzeburgesch`, `Lingala`, `Lithuanian`, `Luxembourgish`, `Macedonian`, `Malagasy`, `Malay`, `Malayalam`, `Maltese`, `Maori`, `Marathi`, `Moldavian`, `Moldovan`, `Mongolian`, `Myanmar`, `Nepali`, `Norwegian`, `Nynorsk`, `Occitan`, `Panjabi`, `Pashto`, `Persian`, `Polish`, `Portuguese`, `Punjabi`, `Pushto`, `Romanian`, `Russian`, `Sanskrit`, `Serbian`, `Shona`, `Sindhi`, `Sinhala`, `Sinhalese`, `Slovak`, `Slovenian`, `Somali`, `Spanish`, `Sundanese`, `Swahili`, `Swedish`, `Tagalog`, `Tajik`, `Tamil`, `Tatar`, `Telugu`, `Thai`, `Tibetan`, `Turkish`, `Turkmen`, `Ukrainian`, `Urdu`, `Uzbek`, `Valencian`, `Vietnamese`, `Welsh`, `Yiddish`, `Yoruba`, `Zulu`.
-`af`, `am`, `ar`, `as`, `az`, `ba`, `be`, `bg`, `bn`, `bo`, `br`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `el`, `en`, `es`, `et`, `eu`, `fa`, `fi`, `fo`, `fr`, `gl`, `gu`, `ha`, `haw`, `he`, `hi`, `hr`, `ht`, `hu`, `hy`, `id`, `is`, `it`, `ja`, `jw`, `ka`, `kk`, `km`, `kn`, `ko`, `la`, `lb`, `ln`, `lo`, `lt`, `lv`, `mg`, `mi`, `mk`, `ml`, `mn`, `mr`, `ms`, `mt`, `my`, `ne`, `nl`, `nn`, `no`, `oc`, `pa`, `pl`, `ps`, `pt`, `ro`, `ru`, `sa`, `sd`, `si`, `sk`, `sl`, `sn`, `so`, `sq`, `sr`, `su`, `sv`, `sw`, `ta`, `te`, `tg`, `th`, `tk`, `tl`, `tr`, `tt`, `uk`, `ur`, `uz`, `vi`, `yi`, `yo`, `zh` or `auto`.
+可能的值: `Afrikaans`, `Albanian`, `Amharic`, `Arabic`, `Armenian`, `Assamese`, `Azerbaijani`, `Bashkir`, `Basque`, `Belarusian`, `Bengali`, `Bosnian`, `Breton`, `Bulgarian`, `Burmese`, `Castilian`, `Catalan`, `Chinese`, `Croatian`, `Czech`, `Danish`, `Dutch`, `English`, `Estonian`, `Faroese`, `Finnish`, `Flemish`, `French`, `Galician`, `Georgian`, `German`, `Greek`, `Gujarati`, `Haitian`, `Haitian Creole`, `Hausa`, `Hawaiian`, `Hebrew`, `Hindi`, `Hungarian`, `Icelandic`, `Indonesian`, `Italian`, `Japanese`, `Javanese`, `Kannada`, `Kazakh`, `Khmer`, `Korean`, `Lao`, `Latin`, `Latvian`, `Letzeburgesch`, `Lingala`, `Lithuanian`, `Luxembourgish`, `Macedonian`, `Malagasy`, `Malay`, `Malayalam`, `Maltese`, `Maori`, `Marathi`, `Moldavian`, `Moldovan`, `Mongolian`, `Myanmar`, `Nepali`, `Norwegian`, `Nynorsk`, `Occitan`, `Panjabi`, `Pashto`, `Persian`, `Polish`, `Portuguese`, `Punjabi`, `Pushto`, `Romanian`, `Russian`, `Sanskrit`, `Serbian`, `Shona`, `Sindhi`, `Sinhala`, `Sinhalese`, `Slovak`, `Slovenian`, `Somali`, `Spanish`, `Sundanese`, `Swahili`, `Swedish`, `Tagalog`, `Tajik`, `Tamil`, `Tatar`, `Telugu`, `Thai`, `Tibetan`, `Turkish`, `Turkmen`, `Ukrainian`, `Urdu`, `Uzbek`, `Valencian`, `Vietnamese`, `Welsh`, `Yiddish`, `Yoruba`, `Zulu`。
+`af`, `am`, `ar`, `as`, `az`, `ba`, `be`, `bg`, `bn`, `bo`, `br`, `bs`, `ca`, `cs`, `cy`, `da`, `de`, `el`, `en`, `es`, `et`, `eu`, `fa`, `fi`, `fo`, `fr`, `gl`, `gu`, `ha`, `haw`, `he`, `hi`, `hr`, `ht`, `hu`, `hy`, `id`, `is`, `it`, `ja`, `jw`, `ka`, `kk`, `km`, `kn`, `ko`, `la`, `lb`, `ln`, `lo`, `lt`, `lv`, `mg`, `mi`, `mk`, `ml`, `mn`, `mr`, `ms`, `mt`, `my`, `ne`, `nl`, `nn`, `no`, `oc`, `pa`, `pl`, `ps`, `pt`, `ro`, `ru`, `sa`, `sd`, `si`, `sk`, `sl`, `sn`, `so`, `sq`, `sr`, `su`, `sv`, `sw`, `ta`, `te`, `tg`, `th`, `tk`, `tl`, `tr`, `tt`, `uk`, `ur`, `uz`, `vi`, `yi`, `yo`, `zh` 或 `auto`。
 
 ### `signal?`<AvailableFrom v="4.0.156" />
 
-A signal from an [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) to cancel the transcription process.
+来自[`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)的信号，用于取消转录过程。
 
 ### `onProgress?`<AvailableFrom v="4.0.156" />
 
-Listen for progress updates from the transcription process.  
-The progress is a number between `0` and `1`.
+监听转录过程中的进度更新。  
+进度是介于 `0` 和 `1` 之间的数字。
 
 ```tsx twoslash
 import type { TranscribeOnProgress } from "@remotion/install-whisper-cpp";
@@ -132,11 +131,11 @@ const onProgress: TranscribeOnProgress = (progress) => {
 };
 ```
 
-## Return value
+## 返回值
 
 ### `TranscriptionJson`
 
-An object containing all the metadata and transcriptions resulting from the transcription process.
+包含转录过程中所有元数据和转录结果的对象。
 
 ```ts twoslash
 type Timestamps = {
@@ -209,12 +208,12 @@ export type TranscriptionJson<WithTokenLevelTimestamp extends boolean> = {
 };
 ```
 
-Prefer relying on the `t_dtw` value for accurate timestamps over `offsets`.  
-Use [`convertToCaptions()`](/docs/install-whisper-cpp/convert-to-captions) to use our opinionated suggestion for postprocessing the captions.
+建议使用 `t_dtw` 值而不是 `offsets` 来获取准确的时间戳。  
+使用 [`convertToCaptions()`](/docs/install-whisper-cpp/convert-to-captions) 来使用我们对字幕后处理的建议。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/install-whisper-cpp/src/transcribe.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/install-whisper-cpp/src/transcribe.ts)
 - [`@remotion/install-whisper-cpp`](/docs/install-whisper-cpp)
 - [`convertToCaptions()`](/docs/install-whisper-cpp/convert-to-captions)
 - [`downloadWhisperModel()`](/docs/install-whisper-cpp/download-whisper-model)

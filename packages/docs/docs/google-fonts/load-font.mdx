@@ -4,19 +4,19 @@ title: loadFont()
 crumb: "@remotion/google-fonts"
 ---
 
-_Part of the [`@remotion/google-fonts`](/docs/google-fonts) package_
+_属于 [`@remotion/google-fonts`](/docs/google-fonts) 包_
 
-Load a [Google Font](https://fonts.google.com) for use in Remotion.
+加载 [Google 字体](https://fonts.google.com) 以在 Remotion 中使用。
 
-- Automatically blocks the render until the font is ready
-- Offers a way to narrow down weights, styles and character subsets.
-- Each `loadFont()` call is typesafe and available options are exposed through autocompletion.
+- 自动阻止渲染，直到字体准备就绪
+- 提供了一种缩小权重、样式和字符子集范围的方法。
+- 每个 `loadFont()` 调用都是类型安全的，并且可通过自动补全公开可用选项。
 
-## Usage
+## 用法
 
-Without arguments, all styles, weights and character subsets of a font are being loaded.
+不带参数时，将加载字体的所有样式、权重和字符子集。
 
-```tsx twoslash title="Load all variants of the Lobster font"
+```tsx twoslash title="加载 Lobster 字体的所有变体"
 import { loadFont } from "@remotion/google-fonts/Lobster";
 import { AbsoluteFill } from "remotion";
 
@@ -35,15 +35,15 @@ export const GoogleFontsExample: React.FC = () => {
 };
 ```
 
-Pass a specific style (e.g. `normal`, `italic`) and optionally weights and subsets to narrow down what gets loaded.
+传递特定样式（例如 `normal`、`italic`）以及可选的权重和子集，以缩小加载范围。
 
 :::info
-A large font file paired with a limited bandwith can potentially lead to a render timeout. By specifing the exact style, weights and subsets you need, the filesize can be reduced and possibly prevent the render from timing out. If the if the problem persists, [increasing the timeout](/docs/timeout#increase-timeout) will help further.
+大字体文件配合有限的带宽可能导致渲染超时。通过指定您需要的确切样式、权重和子集，可以减小文件大小，可能防止渲染超时。如果问题仍然存在，[增加超时时间](/docs/timeout#increase-timeout) 将有所帮助。
 :::
 
-If you want to load multiple styles, use multiple `loadFont()` statements.
+如果要加载多个样式，请使用多个 `loadFont()` 语句。
 
-```tsx twoslash title="Load a specific style, weight and subset"
+```tsx twoslash title="加载特定样式、权重和子集"
 import { AbsoluteFill } from "remotion";
 import { fontFamily, loadFont } from "@remotion/google-fonts/Lobster";
 
@@ -74,47 +74,47 @@ export const GoogleFontsExample: React.FC = () => {
 };
 ```
 
-## Arguments
+## 参数
 
-All arguments and options are optional. Use TypeScript autocompletion or [`getInfo`](/docs/google-fonts/get-info) to discover available options. With any of them, all styles, weights and subsets are loaded.
+所有参数和选项都是可选的。使用 TypeScript 自动补全或 [`getInfo`](/docs/google-fonts/get-info) 来发现可用选项。使用其中任何一个，将加载所有样式、权重和子集。
 
-### style
+### 样式
 
-The font style we want to load. While each font has a different set of styles, common options are: `normal`, `italic` etc.
+我们要加载的字体样式。虽然每种字体都有不同的样式集，常见选项包括：`normal`、`italic` 等。
 
-### options
+### 选项
 
-#### weights
+#### 权重
 
-_optional_
+_可选_
 
-Array of weights that should be loaded. By default, all.
+应加载的权重数组。默认情况下，加载所有权重。
 
-#### subsets
+#### 子集
 
-_optional_
+_可选_
 
-Array of font subsets that should be loaded. By default, all.
+应加载的字体子集数组。默认情况下，加载所有子集。
 
-#### document
+#### 文档
 
-_optional_
+_可选_
 
-Allows you to specify a [`Document`](https://developer.mozilla.org/en-US/docs/Web/API/Document?retiredLocale=de). If you want to inject the fonts into an iframe, you want to give it a ref and pass `iframeRef.contentDocument` to this parameter. By default, the global `window.document` is used.
+允许您指定一个 [`Document`](https://developer.mozilla.org/en-US/docs/Web/API/Document?retiredLocale=de)。如果要将字体注入到 iframe 中，您需要给它一个引用，并将 `iframeRef.contentDocument` 传递给此参数。默认情况下，使用全局 `window.document`。
 
-## Return value
+## 返回值
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### fontFamily
 
-The font family name, be used as the `fontFamily` CSS property.
+字体系列名称，可用作 `fontFamily` CSS 属性。
 
 ### fonts
 
-Variant information about the font.
+有关字体的变体信息。
 
-```js title="Example value"
+```js title="示例数值"
 {
   normal: {
     '400': {
@@ -127,9 +127,9 @@ Variant information about the font.
 
 ### unicodeRanges
 
-Unicode range information about the font.
+有关字体的 Unicode 范围信息。
 
-```js title="Example value"
+```js title="示例数值"
 {
   'latin-ext': 'U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF',
   'latin': 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
@@ -138,9 +138,9 @@ Unicode range information about the font.
 
 ### `waitUntilDone`<AvailableFrom v="4.0.135"/>
 
-A function that returns a promise that resolves when the font is loaded.
+返回一个在字体加载完成时解析的 Promise 的函数。
 
-```tsx title="Load a font in the background"
+```tsx title="在后台加载字体"
 import { loadFont } from "@remotion/google-fonts/Lobster";
 
 loadFont("normal", {
@@ -153,7 +153,7 @@ loadFont("normal", {
   });
 ```
 
-## See also
+## 参见
 
-- [Fonts](/docs/fonts)
+- [字体](/docs/fonts)
 - [`@remotion/google-fonts`](/docs/google-fonts)

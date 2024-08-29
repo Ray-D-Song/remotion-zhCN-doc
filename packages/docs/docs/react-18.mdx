@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-react-18.png
 id: react-18
-title: Upgrade to React 18
-crumb: "The new and shiny"
+title: 升级到 React 18
+crumb: "全新而闪亮"
 ---
 
-## Updating packages
+## 更新包
 
-To use React 18's newest features, you need at least version `3.0.0` of Remotion.
+要使用 React 18 的最新功能，您需要至少使用 Remotion 的 `3.0.0` 版本。
 
 ```diff
 - "remotion": "2.6.15"
@@ -20,7 +20,7 @@ To use React 18's newest features, you need at least version `3.0.0` of Remotion
 + "@remotion/renderer": "3.0.0"
 ```
 
-You need to upgrade both `react` and `react-dom`:
+您需要同时升级 `react` 和 `react-dom`：
 
 ```diff
 - "react": "17.0.1"
@@ -29,24 +29,24 @@ You need to upgrade both `react` and `react-dom`:
 + "react-dom": "18.2.0"
 ```
 
-If you use TypeScript, update to the newest types as well:
+如果您使用 TypeScript，请同时更新到最新的类型：
 
 ```diff
 - "@types/react": "17.0.3"
 + "@types/react": "18.0.0"
 ```
 
-Run `npm i`, or `yarn`, or `pnpm i` afterwards, matching your package manager.
+之后运行 `npm i`，或 `yarn`，或 `pnpm i`，根据您的包管理器进行匹配。
 
-## Fixing `React.FC` types
+## 修复 `React.FC` 类型
 
-The types for `React.FC` have changed to no longer include `children`. If you get a type error, change
+`React.FC` 的类型已更改，不再包含 `children`。如果出现类型错误，请更改
 
 ```tsx
 const MyComp: React.FC = ({ children }) => <div>{children}</div>;
 ```
 
-to:
+为：
 
 ```tsx
 const MyComp: React.FC<{
@@ -54,6 +54,9 @@ const MyComp: React.FC<{
 }> = ({ children }) => <div>{children}</div>;
 ```
 
-## No action required for `createRoot()`
+## `createRoot()` 无需操作
 
-If React 18 is installed, Remotion will automatically use `createRoot()` from `react-dom/client` instead of `render` from `react-dom`. You don't need to do anything.
+如果安装了 React 18，Remotion 将自动使用 `react-dom/client` 中的 `createRoot()`，而不是 `react-dom` 中的 `render`。您无需做任何操作。
+
+
+

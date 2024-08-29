@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-clipper.png
 id: clipper
-title: <Experimental.Clipper>
-crumb: "Experimental API"
+title: <实验性.Clipper>
+crumb: "实验性 API"
 ---
 
 <ExperimentalBadge>
-This package is currently a proof of technology.
+此包目前是一项技术验证。
 
-The API may change in any version. Monitor this documentation page to see breaking changes when upgrading.
+API 可能会在任何版本中更改。升级时，请监视此文档页面以查看重大更改。
 </ExperimentalBadge>
 
-This is a special component that will cause Remotion to only partially capture the frame of the video. The remaining area will stay black (if the render image format is `jpeg`) or transparent (if the render image format is `png`).
+这是一个特殊的组件，将导致 Remotion 仅部分捕获视频帧。其余区域将保持黑色（如果渲染图像格式为 `jpeg`）或透明（如果渲染图像格式为 `png`）。
 
-This component cannot be used if you use [`renderStill()`](/docs/renderer/render-still) to render a PDF or WebP.
+如果您使用 [`renderStill()`](/docs/renderer/render-still) 渲染 PDF 或 WebP，则无法使用此组件。
 
-## Example
+## 示例
 
-Only the left half of the component will be rendered:
+只会渲染组件的左半部分：
 
 ```tsx twoslash title="EmptyFrame.tsx"
 import { AbsoluteFill, Experimental, useVideoConfig } from "remotion";
@@ -35,21 +35,21 @@ export const MyComp: React.FC = () => {
 
 ## API
 
-The properties `x`, `y`, `width` and `height` define a rect in pixels that should be captured. All props are mandatory and require an integer.
+属性 `x`、`y`、`width` 和 `height` 定义应捕获的像素矩形。所有属性都是必需的，并需要一个整数。
 
-## Rules
+## 规则
 
 <div>
-<Step>1</Step> Even elements <strong>outside</strong> of the <code>{"<Clipper>"}</code> component will be clipped.
+<Step>1</Step> 即使在 <code>{"<Clipper>"}</code> 组件之外，偶数元素也将被裁剪。
 </div>
 <div>
-<Step>2</Step> If the <code>imageFormat</code> is <code>jpeg</code>, the remaining frame will become black, if the <code>imageFormat</code> is <code>png</code>, the remaining frame will become transparent.
+<Step>2</Step> 如果 <code>imageFormat</code> 是 <code>jpeg</code>，剩余帧将变为黑色；如果 <code>imageFormat</code> 是 <code>png</code>，剩余帧将变为透明。
 </div>
 <div>
-<Step>3</Step> Only one <a href="/docs/null"><code>{"<Experimental.Null>"}</code></a> or <code>{"<Experimental.Clipper>"}</code> component can be rendered per frame.  
- Rendering multiple is an error.
+<Step>3</Step> 每帧只能呈现一个 <a href="/docs/null"><code>{"<Experimental.Null>"}</code></a> 或 <code>{"<Experimental.Clipper>"}</code> 组件。呈现多个将导致错误。
 </div>
 
-## See also
+## 另请参阅
 
 - [`<Experimental.Null>`](/docs/null)
+

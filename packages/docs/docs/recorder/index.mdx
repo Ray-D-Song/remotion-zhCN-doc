@@ -1,8 +1,8 @@
 ---
 image: /generated/articles-docs-recorder-index.png
 title: Remotion Recorder
-sidebar_label: Introduction
-crumb: Templates
+sidebar_label: 介绍
+crumb: 模板
 hide_title: true
 ---
 
@@ -13,44 +13,45 @@ hide_title: true
       srcset="/recorder/recorder-logo-dark.gif"
     />
     <img
-      alt="Animated Remotion Recorder Logo"
+      alt="动态 Remotion Recorder Logo"
       src="/recorder/recorder-logo-light.gif"
     />
   </picture>
 </p>
 
-The Remotion Recorder is a video production tool <strong>built entirely in JavaScript</strong>.
+Remotion Recorder 是一个完全使用 JavaScript 构建的视频制作工具。
 
-## Recording
+## 录制
 
-Record your facecam and screen in sync but independently. This allows you to create a dynamic layout later.
+在同步但独立地录制您的面部摄像头和屏幕。这样可以让您稍后创建动态布局。
 
 <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', }}>
-<table style={{  tableLayout: "fixed", width: 950, marginBottom: 0 }}>
+  <table style={{  tableLayout: "fixed", width: 950, marginBottom: 0 }}>
 
-<tr>
-    <td valign="top" style={{width: 950/ 2}}>
-      <img src="/recorder/individual.png"></img>
+    <tr>
+      <td valign="top" style={{width: 950/ 2}}>
+        <img src="/recorder/individual.png"></img>
       </td>
-    <td valign="top" style={{width: 950/ 2}}>
-      <video src="/recorder/volume.mp4" autoPlay muted playsInline loop></video>
-    </td>
+      <td valign="top" style={{width: 950/ 2}}>
+        <video src="/recorder/volume.mp4" autoPlay muted playsInline loop></video>
+      </td>
+    </tr>
 
-  </tr>
-  <tr>
-    <td valign="top" style={{width: 950/ 2}}>
-      Record webcam and display as separate streams. Up to 4 sources can be recorded at the same time!   
-         </td>
-    <td valign="top" style={{width: 950/ 2}}>
-   Ensure you are in the center of the video and you are not too close to the microphone.
-    </td>
-</tr>
-</table>
+    <tr>
+      <td valign="top" style={{width: 950/ 2}}>
+        录制网络摄像头并显示为单独的流。最多可以同时录制 4 个源！   
+      </td>
+      <td valign="top" style={{width: 950/ 2}}>
+        确保您在视频中央，并且不要离麦克风太近。
+      </td>
+    </tr>
+
+  </table>
 </div>
 
-## Different platforms require different formats
+## 不同平台需要不同格式
 
-Each platform has its own conventions for how videos should look.
+每个平台都有自己的视频外观规范。
 
 <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', }}>
 <table style={{  tableLayout: "fixed", width: 950 }}>
@@ -123,37 +124,37 @@ Each platform has its own conventions for how videos should look.
       <strong>
         TikTok, Reels, Shorts{" "}
         <sup>
-          <a href="#tiktok-format">planned</a>
+          <a href="#tiktok-format">计划中</a>
         </sup>
       </strong>
       <div>9:16</div>
-      <div>Safe space at bottom required</div>
-      <div>Word-by-word captions</div>
+      <div>底部需要安全空间</div>
+      <div>逐字字幕</div>
   </td>
   </tr>
 </table>
 </div>
 
-The goal of the Recorder: Edit once <strong>and feel native on each platform</strong>.
+录制器的目标：编辑一次<strong>，在每个平台上都感觉本地化</strong>。
 
-## Captions are essential
+## 字幕至关重要
 
-Generate captions locally using [Whisper.cpp](https://github.com/ggerganov/whisper.cpp). The Recorder will automatically install it for you.  
-AI will make mistakes - so we make it easy to correct them.
+使用[Whisper.cpp](https://github.com/ggerganov/whisper.cpp)在本地生成字幕。录制器将自动为您安装它。  
+AI会犯错 - 所以我们让纠正它们变得容易。
 
 <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', }}>
 <table style={{  tableLayout: "fixed", width: 950, marginBottom: 0 }}>  <tr>
     <td valign="top" style={{width: 950/ 3}}>
       <video src="/recorder/wordlevel.webm" autoPlay muted playsInline loop></video>
-      Captions have word-level timings
+      字幕具有单词级时间
       </td>
     <td valign="top" style={{width: 950/ 3}}>
       <video src="/recorder/noorphans.webm" autoPlay muted playsInline loop></video>
-     Orphan words are avoided by balancing the text layout
+     通过平衡文本布局来避免孤立单词
     </td>
     <td valign="top" style={{width: 950/ 3}}>
       <video src="/recorder/monospace.webm" autoPlay muted playsInline loop></video>
-      Use `backticks` to highlight technical terms
+      使用`反引号`来突出技术术语
     </td>
 
   </tr>
@@ -162,23 +163,24 @@ AI will make mistakes - so we make it easy to correct them.
   <tr style={{borderTop: 0}}>
     <td valign="top" style={{width: 950/ 3}}>
       <video style={{height: 300}} src="/recorder/subseditor.webm" autoPlay muted playsInline loop></video>
-      Fix captions quickly by clicking on a word
+      点击单词快速修复字幕
     </td>
     <td valign="top" style={{width: 950/ 3}}>
       <img style={{ borderRadius: 5}} src="/recorder/autocorrect.png" autoPlay muted playsInline loop></img><br/>
-      Write a JavaScript function to fix common misspellings
+      编写JavaScript函数以修复常见拼写错误
     </td>
     <td valign="top" style={{width: 950/ 3}}>
       <img style={{width: '100%', borderRadius: 5}} src="/recorder/asjson.png" autoPlay muted playsInline loop></img><br/>
-      Captions are stored as editable JSON
+      字幕存储为可编辑的JSON
     </td>
   </tr>
 </table>
 </div>
+```
 
-## Agnostic endcards
+## 通用的结尾画面
 
-Your viewer watched the entire video! Now don't make them forget about you.
+您的观众观看了整个视频！现在不要让他们忘记您。
 
 <div style={{overflowX: 'auto', WebkitOverflowScrolling: 'touch', }}>
 
@@ -195,8 +197,7 @@ Your viewer watched the entire video! Now don't make them forget about you.
           loop
         ></img>
       </p>
-      If you post on Twitter, the call-to-action is "Follow" and your other platforms
-      are linked.
+      如果您在 Twitter 上发布，请使用“关注”作为呼吁行动，并链接到您的其他平台。
     </td>
     <td valign="top" style={{ width: 950 / 2 }}>
       <img
@@ -208,78 +209,77 @@ Your viewer watched the entire video! Now don't make them forget about you.
         loop
       ></img>
       <br />
-      If you post on YouTube, the call to action is "Subscribe" and cutouts for related
-      videos are made.
+      如果您在 YouTube 上发布，请使用“订阅”作为呼吁行动，并制作相关视频的剪辑。
     </td>
   </tr>
 </table>
 </div>
 
-The endcard is written with React and CSS, so can be easily customized.
+结尾画面使用 React 和 CSS 编写，因此可以轻松定制。
 
-## Customization
+## 自定义
 
-Having access to the entire source code, you can use CSS to customize the look of the Recorder.
+通过访问整个源代码，您可以使用 CSS 来自定义 Recorder 的外观。
 
 <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
   <table style={{ tableLayout: "fixed", width: 950 }}>
     <tr style={{ borderTop: 0 }}>
       <td valign="top" style={{ width: 950 / 3 }}>
         <img style={{ borderRadius: 5 }} src="/recorder/theme-light.png"></img>
-        Look of the built-in light theme
+        内置浅色主题的外观
       </td>
       <td valign="top" style={{ width: 950 / 3 }}>
         <img style={{ borderRadius: 5 }} src="/recorder/theme-dark.png"></img>
         <br />
-        Look of the built-in dark theme
+        内置深色主题的外观
       </td>
       <td valign="top" style={{ width: 950 / 3 }}>
         <img style={{ borderRadius: 5 }} src="/recorder/theme-fancy.png"></img>
         <br />
-        Use CSS to make it your own!
+        使用 CSS 定制成您自己的风格！
       </td>
     </tr>
   </table>
 </div>
 
-The Recorder is built with TypeScript and React, and you can fully customize it's behavior.
-It's a hackable video editor.
+Recorder 使用 TypeScript 和 React 构建，您可以完全自定义其行为。
+这是一个可修改的视频编辑器。
 
-## Silence removal
+## 静音去除 
 
-Automatically remove the silence at the start and end of your take.
+自动删除您的录音开始和结束处的静音。
 
-## Music
+## 音乐 
 
-Add background music to your video and automatically fade between the different sections.  
-Three exclusive tracks are included that you may use for your video.
+为您的视频添加背景音乐，并在不同部分之间自动淡入淡出。  
+包含三首独家音轨，您可以在视频中使用。
 
-## Layouting
+## 布局 
 
-Whether you only record your facecam, or also your display, the Recorder always finds the ideal layout - even if you mix landscape and portrait videos.
+无论您只录制自己的面部摄像头，还是同时录制显示屏，录制器总是能找到最理想的布局 - 即使您混合了横向和纵向视频。
 
-## Transitions
+## 过渡 
 
-Enable clean transitions between scenes - no matter if you change the layout during the video.
+在场景之间启用干净的过渡 - 无论您在视频中是否更改布局。
 
-## Chapters
+## 章节 
 
-Mark a scene as the beginning of a new chapter and automatically generate animated chapters.
+将一个场景标记为新章节的开始，并自动生成动画章节。
 
-## B-Roll
+## B-Roll 
 
-Add images and videos on top of your facecam or display while your voiceover is playing to give the video more depth.
+在您的面部摄像头或显示屏上添加图像和视频，同时播放配音，以使视频更具深度。
 
-## Exporting
+## 导出 
 
-Export your video with much control over the encoding options.  
-Render a video with a single click on a button, the CLI, Node.JS APIs, GitHub Actions, or even on AWS Lambda!
+以对编码选项有很大控制的方式导出您的视频。  
+通过单击按钮、CLI、Node.JS API、GitHub Actions，甚至在AWS Lambda上渲染视频！
 
-## Customization
+## 自定义 
 
-The Remotion Recorder ships source code.  
-You can customize it to your liking if you have TypeScript and React knowledge.
+Remotion Recorder附带源代码。  
+如果您了解TypeScript和React知识，可以根据自己的喜好进行定制。
 
 ---
 
-<sup id="tiktok-format">1)</sup> 9:16 format is not yet implemented.
+<sup id="tiktok-format">1)</sup> 尚未实现9:16格式。

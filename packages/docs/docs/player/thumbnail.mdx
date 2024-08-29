@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-player-thumbnail.png
 id: thumbnail
-title: "<Thumbnail>"
+title: "<缩略图>"
 crumb: "@remotion/player"
 ---
 
-_available from v3.2.41_
+_从 v3.2.41 开始可用_
 
-A component which can be rendered in a regular React App (for example: for example: [Next.JS](https://nextjs.org), [Vite.js](https://vitejs.dev), [Create React App](https://create-react-app.dev/)) to display a single frame of a video.
+一个组件，可以在常规的 React 应用中渲染（例如：例如：[Next.JS](https://nextjs.org), [Vite.js](https://vitejs.dev), [Create React App](https://create-react-app.dev/)），用于显示视频的单帧。
 
 ```tsx twoslash title="MyApp.tsx"
 // @allowUmdGlobalAccess
@@ -38,64 +38,64 @@ export const App: React.FC = () => {
 
 ## API
 
-### `component` or `lazyComponent`
+### `component` 或 `lazyComponent`
 
-Pass a React component in directly **or** pass a function that returns a dynamic import. Passing neither or both of the props is an error.
+直接传入一个 React 组件 **或** 传入一个返回动态导入的函数。同时传入或不传入这两个 props 都会导致错误。
 
-If you use `lazyComponent`, wrap it in a `useCallback()` to avoid constant rendering. [See here for an example.](/docs/player/examples#loading-a-component-lazily)
+如果使用 `lazyComponent`，请将其包装在 `useCallback()` 中，以避免不断渲染。[查看这里以获取示例。](/docs/player/examples#loading-a-component-lazily)
 
 :::note
-Thumbnail does not use [`<Composition>`](/docs/composition)'s. Pass your component directly and do not wrap it in a `<Composition>` component.
+缩略图不使用 [`<Composition>`](/docs/composition)。直接传入您的组件，不要将其包装在 `<Composition>` 组件中。
 :::
 
 ### `frameToDisplay`
 
-Index of the frame rendered by the composition in the Thumbnail.
+在缩略图中由合成渲染的帧的索引。
 
 ### `compositionWidth`
 
-The width you would like the video to have when rendered as an MP4. Use `style={{width: <width>}}` to define a width to be assumed in the browser.
+当作为 MP4 渲染时，您希望视频具有的宽度。使用 `style={{width: <width>}}` 来定义浏览器中假定的宽度。
 
 :::note
-**Example**:
-If you want to render a Full HD video, set `compositionWidth` to `1920` and `compositionHeight` to `1080`. By default, the thumbnail will also assume these dimensions.
-To make it smaller, pass a `style` prop to give the Thumbnail a different width: `{"style={{width: 400}}"}`. See [Player Scaling](/docs/player/scaling) to learn more.
+**示例**：
+如果要渲染全高清视频，请将 `compositionWidth` 设置为 `1920`，`compositionHeight` 设置为 `1080`。默认情况下，缩略图也会假定这些尺寸。
+要使其变小，请传递一个 `style` 属性，为缩略图指定不同的宽度：`{"style={{width: 400}}"}`。查看 [播放器缩放](/docs/player/scaling) 以了解更多信息。
 :::
 
 ### `compositionHeight`
 
-The height of the canvas in pixels.
-The height you would like the video to have when rendered as an MP4. Use `style={{height: <height>}}` to define a height to be assumed in the browser.
+画布的高度（以像素为单位）。
+当作为 MP4 渲染时，您希望视频具有的高度。使用 `style={{height: <height>}}` 来定义浏览器中假定的高度。
 
 ### `durationInFrames`
 
-The duration of the video in frames. Must be an integer and greater than 0.
+视频的帧数。必须是大于 0 的整数。
 
 :::note
-This prop is required for the Thumbnail component because your component may render differently based on what `useVideoConfig()` returns.
+这个 prop 对于缩略图组件是必需的，因为您的组件可能根据 `useVideoConfig()` 返回的内容而呈现不同。
 :::
 
 ### `fps`
 
-The frame rate of the video. Must be a number.
+视频的帧率。必须是一个数字。
 
 :::note
-This prop is required for the Thumbnail component because your component may render differently based on what `useVideoConfig()` returns.
+这个属性对于缩略图组件是必需的，因为您的组件可能根据`useVideoConfig()`返回的内容而呈现不同。
 :::
 
 ### `errorFallback`
 
-_optional_
+_可选的_
 
-A callback for rendering a custom error message. See [Handling errors](#handling-errors) section for an example.
+用于渲染自定义错误消息的回调函数。请参阅[处理错误](#handling-errors)部分以查看示例。
 
 ### `renderLoading`
 
-_optional_
+_可选的_
 
-A callback function that allows you to return a custom UI that gets displayed while the thumbnail is loading.
+一个回调函数，允许您返回一个自定义 UI，在缩略图加载时显示。
 
-The first parameter of the callback function contains the `height` and `width` of the thumbnail as it gets rendered.
+回调函数的第一个参数包含缩略图的`height`和`width`，因为它被渲染。
 
 ```tsx twoslash
 import { RenderLoading, Thumbnail } from "@remotion/player";
@@ -131,34 +131,34 @@ const MyApp: React.FC = () => {
 ```
 
 :::info
-A thumbnail needs to be loaded if it contains elements that use React Suspense, or if the `lazyComponent` prop is being used.
+如果缩略图包含使用React Suspense的元素，或者正在使用`lazyComponent`属性，则需要加载缩略图。
 :::
 
 ### `inputProps`
 
-_optional_
+_可选的_
 
-Pass props to the component that you have specified using the `component` prop. The Typescript definition takes the shape of the props that you have given to your `component`. Default `undefined`.
+将props传递给您使用`component`属性指定的组件。Typescript定义采用您给`component`传递的props的形状。默认为`undefined`。
 
 ### `style`
 
-_optional_
+_可选的_
 
-A regular `style` prop for a HTMLDivElement. You can pass a different height and width if you would like different dimensions for the thumbnail than the original composition dimensions.
+用于HTMLDivElement的常规`style`属性。如果您希望缩略图具有不同的尺寸，则可以传递不同的高度和宽度。
 
 ### `className`<AvailableFrom v="3.1.3" />
 
-_optional_
+_可选的_
 
-A HTML class name to be applied to the container.
+要应用于容器的HTML类名。
 
 ### `overflowVisible`<AvailableFrom v="4.0.173"/>
 
-Makes the Player render things outside of the canvas. Useful if you have interactive elements in the video such as draggable elements.
+使播放器在画布外呈现内容。如果视频中有可拖动元素等交互元素，则此选项很有用。
 
 ## ThumbnailRef
 
-You may attach a ref to the thumbnail and get some layout info.
+您可以附加一个ref到缩略图，并获取一些布局信息。
 
 ```tsx twoslash {15}
 // @allowUmdGlobalAccess
@@ -196,11 +196,11 @@ const MyComp: React.FC = () => {
 };
 ```
 
-The following methods are available on the thumbnail ref:
+以下方法可在缩略图ref上使用：
 
 ### `getContainerNode()`
 
-Gets the container `HTMLDivElement` of the thumbnail. Useful if you'd like to manually attach listeners to the thumbnail element.
+获取缩略图的容器`HTMLDivElement`。如果您想要手动将侦听器附加到缩略图元素，则此方法很有用。
 
 ```tsx twoslash
 import { ThumbnailRef } from "@remotion/player";
@@ -230,19 +230,19 @@ useEffect(() => {
 
 ### `getScale()`
 
-Returns a number which says how much the content is scaled down compared to the natural composition size. For example, if the composition is `1920x1080`, but the thumbnail is 960px in width, this method would return `0.5`.
+返回一个数字，表示内容相对于自然组合尺寸缩小了多少。例如，如果组合是`1920x1080`，但缩略图宽度为960px，则此方法将返回`0.5`。
 
 ### `addEventListener()`
 
-Start listening to an event. See the [Events](#events) section to see the function signature and the available events.
+开始监听事件。请查看[Events](#events)部分以查看函数签名和可用事件。
 
 ### `removeEventListener()`
 
-Stop listening to an event. See the [Events](#events) section to see the function signature and the available events.
+停止监听事件。请查看[Events](#events)部分以查看函数签名和可用事件。
 
-## Events
+## 事件
 
-Using a [thumbnail ref](#thumbnailref), you can bind event listeners to get notified of certain events of the thumbnail.
+使用[缩略图引用](#thumbnailref)，您可以绑定事件监听器以获取有关缩略图的特定事件的通知。
 
 ```tsx twoslash
 import { ThumbnailRef } from "@remotion/player";
@@ -263,9 +263,9 @@ useEffect(() => {
 
 ### `error`
 
-Fires when an error or uncaught exception has happened in the thumbnail.
+在缩略图中发生错误或未捕获异常时触发。
 
-You may get the error by reading the `e.detail.error` value:
+您可以通过读取`e.detail.error`值来获取错误：
 
 ```tsx twoslash
 import { ThumbnailRef } from "@remotion/player";
@@ -279,23 +279,23 @@ ref.current?.addEventListener("error", (e) => {
 
 ### `waiting`<AvailableFrom v="4.0.125" />
 
-Fires when the Player has entered into the [native buffering state](/docs/player/buffer-state).
+当播放器进入[本机缓冲状态](/docs/player/buffer-state)时触发。
 
-Read here [how to best implement state management](/docs/player/buffer-state#possible-states).
+在这里阅读[如何最佳实现状态管理](/docs/player/buffer-state#possible-states)。
 
 ### `resume`<AvailableFrom v="4.0.125" />
 
-Fires when the Player has exited the [native buffering state](/docs/player/buffer-state).
+当播放器退出[本机缓冲状态](/docs/player/buffer-state)时触发。
 
-Read here [how to best implement state management](/docs/player/buffer-state#possible-states).
+在这里阅读[如何最佳实现状态管理](/docs/player/buffer-state#possible-states)。
 
-## Handling errors
+## 处理错误
 
-See: [`<Player>` -> Handling errors](/docs/player/player#handling-errors)
+查看：[`<Player>` -> 处理错误](/docs/player/player#handling-errors)
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/player/src/Thumbnail.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/player/src/Thumbnail.tsx)
 - [`<Composition>`](/docs/composition)
 - [`<Player>`](/docs/player)
 
@@ -307,3 +307,4 @@ See: [`<Player>` -> Handling errors](/docs/player/player#handling-errors)
     },
   ]}
 />
+

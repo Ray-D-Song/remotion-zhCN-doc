@@ -7,22 +7,22 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Retrieves a list of Remotion services deployed to GCP Cloud Run.
+检索部署到 GCP Cloud Run 的 Remotion 服务列表。
 
-The parameter `compatibleOnly` determines whether only services that are compatible with the installed version of Remotion Cloud Run should be returned.
+参数 `compatibleOnly` 决定是否仅返回与安装的 Remotion Cloud Run 版本兼容的服务。
 
 :::note
-The Cloud Run service is versioned and the version of the service must match the version of the `@remotion/cloudrun` package. So if you upgrade Remotion, you should deploy a new service or otherwise you might get an empty array from this function.
+Cloud Run 服务是有版本的，服务的版本必须与 `@remotion/cloudrun` 包的版本匹配。因此，如果您升级 Remotion，您应该部署一个新服务，否则您可能会从此函数中获得一个空数组。
 :::
 
-To get information about only a single service, use [`getServiceInfo()`](/docs/cloudrun/getserviceinfo).
+要仅获取有关单个服务的信息，请使用 [`getServiceInfo()`](/docs/cloudrun/getserviceinfo)。
 
-If you are sure that a service exists, you can also guess the name of it using [`speculateServiceName()`](/docs/cloudrun/speculateservicename) and save an API call to Cloud Run.
+如果您确定服务存在，还可以使用 [`speculateServiceName()`](/docs/cloudrun/speculateservicename) 猜测其名称，并保存一次对 Cloud Run 的 API 调用。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -48,16 +48,16 @@ for (const service of info) {
 ```
 
 :::note
-Import from [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) to not import the whole renderer, which cannot be bundled.
+从 [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) 导入，以避免导入整个渲染器，因为它无法捆绑。
 :::
 
-## Argument
+## 参数
 
-An object containing the following properties:
+包含以下属性的对象：
 
 ### `region`
 
-The [GCP region](/docs/cloudrun/region-selection) that you would like to query.
+您想要查询的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ```ts twoslash
 // @module: esnext
@@ -84,47 +84,57 @@ for (const service of info) {
 
 ### `compatibleOnly`
 
-If `true`, only services that match the version of the current Remotion Cloud run package are returned. If `false`, all Remotion services are returned.
+如果为 `true`，则仅返回与当前 Remotion Cloud Run 包版本匹配的服务。如果为 `false`，则返回所有 Remotion 服务。
 
-## Return value
+## 返回值
 
-A promise resolving to an **array of objects** with the following properties:
+一个解析为具有以下属性的 **对象数组** 的 Promise：
 
 ### `serviceName`
 
-The name of the service.
+服务的名称。
 
 ### `memoryLimit`
 
-The upper bound on the amount of RAM that the Cloud Run service can consume.
+Cloud Run 服务可以消耗的 RAM 量的上限。
 
 ### `cpuLimit`
 
-The maximum number of CPU cores that the Cloud Run service can use to process requests.
+Cloud Run 服务用于处理请求的 CPU 核心的最大数量。
 
 ### `remotionVersion`
 
-The Remotion version of the service. Remotion is versioning the Cloud Run service and a render can only be triggered from a version of `@remotion/cloudrun` that is matching the one of the service.
+服务的 Remotion 版本。Remotion 正在为 Cloud Run 服务进行版本控制，只能从与服务版本匹配的 `@remotion/cloudrun` 版本触发渲染。
+
+
 
 ### `timeoutInSeconds`
 
-The timeout that has been assigned to the Cloud Run service.
+已分配给 Cloud Run 服务的超时时间。
+
+
 
 ### `uri`
 
-The endpoint of the service.
+服务的端点。
+
+
 
 ### `region`
 
-The region of the deployed service. Useful if passing 'all regions' to the region input.
+部署服务的区域。如果将 '所有区域' 传递给区域输入，则此项很有用。
+
+
 
 ### `consoleUrl`
 
-A link to the GCP console page for this service. Specifically, a link to logs display.
+指向此服务的 GCP 控制台页面的链接。具体来说，是指向日志显示的链接。
 
-## See also
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-services.ts)
+
+## 参见
+
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-services.ts)
 - [`getServiceInfo()`](/docs/cloudrun/getserviceinfo)
 - [`deployService()`](/docs/cloudrun/deployservice)
 - [`deleteService()`](/docs/cloudrun/deleteservice)

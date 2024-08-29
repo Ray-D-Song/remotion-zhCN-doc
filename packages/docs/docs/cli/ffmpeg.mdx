@@ -6,22 +6,23 @@ crumb: "@remotion/cli"
 sidebar_label: "ffmpeg"
 ---
 
-_available since v4.0_
+_自 v4.0 起可用_
 
-In order to use `ffmpeg` without having to directly install it, Remotion provides it via `npx remotion ffmpeg`.
+为了能够使用 `ffmpeg` 而无需直接安装它，Remotion 通过 `npx remotion ffmpeg` 提供了它。
 
-Note that in order to keep the binary size small, the FFmpeg binary only understand the codecs that Remotion itself supports: H.264, H.265, VP8, VP9 and ProRes. A binary from the 6.0 release line of FFmpeg is used.
+请注意，为了保持二进制文件的大小，FFmpeg 二进制文件仅支持 Remotion 本身支持的编解码器：H.264、H.265、VP8、VP9 和 ProRes。使用的是 FFmpeg 6.0 发行线的二进制文件。
 
-# Example
+# 示例
 
-Convert a video file to an audio file
+将视频文件转换为音频文件
 
 ```bash
 npx remotion ffmpeg -i input.mp4 output.mp3
 ```
 
-To find out more about FFmpeg, visit their [docs](https://ffmpeg.org/documentation.html).
+要了解更多关于 FFmpeg 的信息，请访问他们的 [文档](https://ffmpeg.org/documentation.html)。
 
-## See also
+## 另请参阅
 
 - [`npx remotion ffprobe`](/docs/cli/ffprobe)
+

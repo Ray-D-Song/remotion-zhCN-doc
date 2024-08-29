@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-loop.png
 id: loop
-title: <Loop>
+title: <循环>
 crumb: "API"
 ---
 
@@ -15,9 +15,9 @@ const BlueSquare: React.FC = () => <div></div>
 // - BlueSquare
 ```
 
-_available from v2.5.0_
+_从 v2.5.0 开始提供_
 
-The `<Loop />` component allows you to quickly lay out an animation so it repeats itself.
+`<Loop />` 组件允许您快速布置一个动画，使其重复播放。
 
 ```tsx twoslash title="MyComp.tsx"
 // @include: example-BlueSquare
@@ -33,40 +33,40 @@ const MyComp = () => {
 ```
 
 :::note
-Good to know: You can nest loops within each other and they will cascade.
+好好知道：您可以相互嵌套循环，它们将级联。
 :::
 
 ## API
 
-The Loop component is a high order component and accepts, besides it's children, the following props:
+Loop 组件是一个高阶组件，除了它的子元素之外，还接受以下 props：
 
 ### `durationInFrames`
 
-How many frames one iteration of the loop should be long.
+循环的每一次迭代应该持续多少帧。
 
 ### `times`
 
-_optional_
+_可选_
 
-How many times to loop the content. By default it will be `Infinity`.
+循环内容的次数。默认情况下为 `Infinity`。
 
 ### `layout`
 
-_optional_
+_可选_
 
-Either `"absolute-fill"` _(default)_ or `"none"`.  
-By default, your content will be absolutely positioned.  
-If you would like to disable layout side effects, pass `layout="none"`.
+要么是 `"absolute-fill"`（_默认_）要么是 `"none"`。  
+默认情况下，您的内容将被绝对定位。  
+如果您想要禁用布局副作用，请传递 `layout="none"`。
 
 ### `style`<AvailableFrom v="3.3.4"/>
 
-_optional_
+_可选_
 
-CSS styles to be applied to the container. If `layout` is set to `none`, there is no container and setting this style is not allowed.
+要应用于容器的 CSS 样式。如果 `layout` 设置为 `none`，则没有容器，不允许设置此样式。
 
-## Examples
+## 示例
 
-All the examples below are based on the following animation of a blue square:
+以下所有示例都基于以下蓝色正方形的动画：
 
 <LoopExamples />
 <br />
@@ -79,7 +79,7 @@ const MyComp = () => {
 };
 ```
 
-### Continuous loop
+### 连续循环
 
 <LoopExamples type="base" />
 <br />
@@ -97,7 +97,7 @@ const MyComp = () => {
 };
 ```
 
-### Fixed count loop
+### 固定次数循环
 
 <LoopExamples type="times" />
 <br />
@@ -115,7 +115,7 @@ const MyComp = () => {
 };
 ```
 
-### Nested loop
+### 嵌套循环
 
 <LoopExamples type="nested" />
 <br />
@@ -137,13 +137,13 @@ const MyComp = () => {
 
 ## `useLoop()`<AvailableFrom v="4.0.142" />
 
-A child component can use the `Loop.useLoop()` hook to get information about the current loop.  
-You should check for `null`, which is the case if the component is not inside a loop.
+子组件可以使用 `Loop.useLoop()` 钩子来获取有关当前循环的信息。  
+您应该检查 `null`，如果组件不在循环中，则为此情况。
 
-If inside a loop, an object with two properties is returned:
+如果在循环中，则返回一个具有两个属性的对象：
 
-- `durationInFrames`: The duration of the loop in frames as passed to the `<Loop />` component.
-- `iteration`: The current iteration of the loop, starting at 0.
+- `durationInFrames`：以帧为单位传递给 `<Loop />` 组件的循环持续时间。
+- `iteration`：循环的当前迭代，从 0 开始。
 
 ```tsx twoslash
 import React from "react";
@@ -172,7 +172,8 @@ const Child = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/loop/index.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/loop/index.tsx)
 - [`<Sequence>`](/docs/sequence)
+```

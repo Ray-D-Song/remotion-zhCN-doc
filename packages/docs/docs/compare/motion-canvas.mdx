@@ -1,31 +1,31 @@
 ---
 image: /generated/articles-docs-compare-motion-canvas.png
-title: How does Remotion compare to Motion Canvas?
-crumb: "FAQ"
-sidebar_label: Difference to Motion Canvas
+title: Remotion与Motion Canvas有何不同？
+crumb: "常见问题"
+sidebar_label: 与Motion Canvas的区别
 ---
 
-Here are a few differences between Remotion and [Motion Canvas](https://motioncanvas.io/) to help you decide which library is best.  
-The comparison has been authored by Remotion with input from the Motion Canvas community.
+以下是Remotion和[Motion Canvas](https://motioncanvas.io/)之间的一些区别，以帮助您决定哪个库更适合您。  
+这份比较由Remotion编写，同时也得到了Motion Canvas社区的意见。
 
 ## Web vs. Canvas
 
-Remotion uses a whole DOM tree for the video, while Motion Canvas uses a single `<canvas>` element.
+Remotion使用整个DOM树来制作视频，而Motion Canvas则使用单个`<canvas>`元素。
 
-Remotion may render more types of content, but needs a headless browser to create a video.  
-Motion Canvas can only render canvas-based content, but may do so in the browser.
+Remotion可以渲染更多类型的内容，但需要一个无头浏览器来创建视频。  
+Motion Canvas只能渲染基于canvas的内容，但可以在浏览器中执行此操作。
 
-## API comparison
+## API比较
 
-Remotion lets you to render React markup based on the current time. React is a popular library for building UIs.
+Remotion允许您根据当前时间渲染基于React的标记。React是一个用于构建UI的流行库。
 
-Motion Canvas uses an imperative API. Rather than rendering markup based on a timestamp, elements are added procedurally to the timeline.
+Motion Canvas使用命令式API。与根据时间戳渲染标记不同，元素是按程序添加到时间线中的。
 
-Remotions programming style can be described as "declarative" and "keyframe-based", while the terms "imperative" and "procedural" describe Motion Canvas well.
+Remotion的编程风格可以描述为“声明式”和“关键帧为基础”，而“命令式”和“程序化”这些术语很好地描述了Motion Canvas。
 
-Here is an identical animation (Red circle turning into an orange one, then jumping to the right using a spring animation) in Remotion and Motion Canvas:
+以下是在Remotion和Motion Canvas中相同的动画（红色圆圈变成橙色圆圈，然后使用弹簧动画向右跳转）：
 
-```tsx twoslash title="Remotion Implementation"
+```tsx twoslash title="Remotion实现"
 import {
   AbsoluteFill,
   interpolate,
@@ -74,7 +74,7 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-```tsx title="Motion Canvas Implementation"
+```tsx title="Motion Canvas实现"
 import { makeScene2D } from "@motion-canvas/2d";
 import { Circle } from "@motion-canvas/2d/lib/components";
 import { SmoothSpring, spring } from "@motion-canvas/core/lib/tweening";
@@ -90,33 +90,33 @@ export default makeScene2D(function* (view) {
 });
 ```
 
-## Broad vs. specialized
+## 广泛 vs. 专业化
 
-Remotion tries to make as few assumptions over the content of the video as possible and supports a wide variety of use cases.  
-Motion Canvas is designed for informative vector animations and ships built-in APIs to optimize for this use case.
+Remotion尽量少做关于视频内容的假设，并支持各种用例。  
+Motion Canvas专为信息向量动画而设计，并提供内置API以优化此用例。
 
-## Special qualities of each library
+## 每个库的特殊特性
 
-Each library has unique features that you might find useful:
+每个库都有您可能发现有用的独特功能：
 
-**Remotion** has:
+**Remotion** 具有：
 
-- APIs for server-side rendering
-- functionalities for making apps that create programmatic video
-- packages for Three.JS, GIFs, Lottie and more.
+- 用于服务器端渲染的API
+- 用于创建编程视频应用的功能
+- 用于Three.JS、GIF、Lottie等的包。
 
-**Motion Canvas has**:
+**Motion Canvas具有**：
 
-- time events and properties that can be manipulated through the GUI
-- the ability to sync audio through the UI
-- built-in components for LaTeX and code block animations.
+- 可通过GUI操纵的时间事件和属性
+- 通过UI同步音频的能力
+- 用于LaTeX和代码块动画的内置组件。
 
-## Commercial vs. Open Source
+## 商业版 vs. 开源版
 
-Remotion is source-available software that requires a license for use in companies, while Motion Canvas is truly open source software.
+Remotion 是源代码可用的软件，需要公司使用许可证，而 Motion Canvas 是真正的开源软件。
 
-While Remotion costs money for use in a company, we are able to reinvest this money into further improving Remotion.
+虽然 Remotion 在公司使用需要花钱，但我们可以将这笔钱重新投资到进一步改进 Remotion 中。
 
-## Which one should I choose?
+## 我应该选择哪一个？
 
-It depends - choose the right library based on the features that sound useful to you and the mental model that you feel most comfortable with.
+这取决于 - 根据对你有用的功能和你感觉最舒适的思维模式选择合适的库。

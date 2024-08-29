@@ -1,87 +1,87 @@
 ---
 image: /generated/articles-docs-cli-render.png
 title: npx remotion render
-sidebar_label: render
-crumb: CLI Reference
+sidebar_label: 渲染
+crumb: CLI 参考
 ---
 
-Render a video or audio based on the entry point, the composition ID and save it to the output location.
+根据入口点、合成 ID 渲染视频或音频，并将其保存到输出位置。
 
 ```bash
 npx remotion render <entry-point|serve-url>? <composition-id> <output-location>
 ```
 
-You may pass a [Serve URL](/docs/terminology/serve-url) or an [entry point](/docs/terminology/entry-point) as the first argument, otherwise the entry point will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将 [Serve URL](/docs/terminology/serve-url) 或 [入口点](/docs/terminology/entry-point) 作为第一个参数传递，否则入口点将会被 [确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-If `composition-id` is not passed, Remotion will ask you to select a composition.  
-If `output-location` is not passed, the media will be rendered into the `out` folder.
+如果未传递 `composition-id`，Remotion 将要求您选择一个合成。  
+如果未传递 `output-location`，媒体将被渲染到 `out` 文件夹中。
 
-## Flags
+## 标志
 
-Besides choosing a video and output location with the command line arguments, the following flags are supported:
+除了使用命令行参数选择视频和输出位置外，还支持以下标志：
 
 ### `--props`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a serialized JSON string (`--props='{"hello": "world"}'`) or a path to a JSON file (`./path/to/props.json`).  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选合成的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)  
+必须是一个序列化的 JSON 字符串 (`--props='{"hello": "world"}'`) 或一个指向 JSON 文件的路径 (`./path/to/props.json`)。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 :::note
-Inline JSON string isn't supported on Windows shells because it removes the `"` character, use a file name instead.
+在 Windows shell 上不支持内联 JSON 字符串，因为它会移除 `"` 字符，请改用文件名。
 :::
 
 ### `--height`<AvailableFrom v="3.2.40" />
 
-[Overrides composition height.](/docs/config#overrideheight)
+[覆盖合成高度。](/docs/config#overrideheight)
 
 ### `--width`<AvailableFrom v="3.2.40" />
 
-[Overrides composition width.](/docs/config#overridewidth)
+[覆盖合成宽度。](/docs/config#overridewidth)
 
 ### `--concurrency`
 
-[How many CPU threads to use.](/docs/config#setconcurrency) Minimum 1. The maximum is the amount of threads you have (In Node.JS `os.cpus().length`). You can also provide a percentage value (e.g. 50%).
+[使用多少 CPU 线程。](/docs/config#setconcurrency) 最小为 1。最大值为您拥有的线程数量（在 Node.JS 中为 `os.cpus().length`）。您还可以提供一个百分比值（例如 50%）。
 
 ### `--pixel-format`
 
-[Set a custom pixel format. See here for available values.](/docs/config#setpixelformat)
+[设置自定义像素格式。请查看此处可用的值。](/docs/config#setpixelformat)
 
 ### `--image-format`<AvailableFrom v="1.4.0" />
 
-[`jpeg` or `png` - JPEG is faster, but doesn't support transparency.](/docs/config#setvideoimageformat) The default image format is `jpeg` since v1.1.
+[`jpeg` 或 `png` - JPEG 更快，但不支持透明度。](/docs/config#setvideoimageformat) 默认图像格式自 v1.1 起为 `jpeg`。
 
 ### `--config`<AvailableFrom v="1.2.0" />
 
-Specify a location for the Remotion config file.
+指定 Remotion 配置文件的位置。
 
 ### `--env-file`<AvailableFrom v="2.2.0" />
 
-Specify a location for a dotenv file. Default `.env`.
+指定 dotenv 文件的位置。默认为 `.env`。
 
 ### `--jpeg-quality`<AvailableFrom v="4.0.0" />
 
-[Value between 0 and 100 for JPEG rendering quality](/docs/config#setjpegquality). Doesn't work when PNG frames are rendered.
+[JPEG 渲染质量介于 0 和 100 之间](/docs/config#setjpegquality)。在渲染 PNG 帧时不起作用。
 
 ### ~~`--quality`~~<AvailableFrom v="1.4.0" />
 
-Renamed to `--jpeg-quality` in v4.0.0
+在 v4.0.0 中更名为 `--jpeg-quality`。
 
 ### `--output` <AvailableFrom v="4.0.0" />
 
-Sets the output file path, as an alternative to the `output-location` positional argument.
+设置输出文件路径，作为 `output-location` 位置参数的替代。
 
 ### `--overwrite`
 
-[Write to output even if file already exists.](/docs/config#setoverwriteoutput). This flag is enabled by default, use `--overwrite=false` to disable it.
+[即使文件已存在也写入输出。](/docs/config#setoverwriteoutput) 默认情况下启用此标志，使用 `--overwrite=false` 来禁用它。
 
 ### `--sequence`<AvailableFrom v="1.4.0" />
 
-[Pass this flag if you want an image sequence as the output instead of a video.](/docs/config#setimagesequence)
+[如果要将图像序列作为输出而不是视频，请传递此标志。](/docs/config#setimagesequence)
 
 ### `--codec`<AvailableFrom v="1.4.0" />
 
-[`h264` or `h265` or `png` or `vp8` or `vp9` or `mp3` or `aac` or `wav` or `prores` or `h264-mkv`](/docs/config#setcodec). If you don't supply `--codec`, it will use the H.264 encoder.
+[`h264` 或 `h265` 或 `png` 或 `vp8` 或 `vp9` 或 `mp3` 或 `aac` 或 `wav` 或 `prores` 或 `h264-mkv`](/docs/config#setcodec)。如果不提供 `--codec`，将使用 H.264 编码器。
 
 ### `--audio-codec`<AvailableFrom v="3.3.42" />
 
@@ -105,7 +105,7 @@ Sets the output file path, as an alternative to the `output-location` positional
 
 ### `--prores-profile`<AvailableFrom v="2.1.6" />
 
-[Set the ProRes profile](/docs/config#setproresprofile). This option is only valid if the [`codec`](#--codec) has been set to `prores`. Possible values: `4444-xq`, `4444`, `hq`, `standard`, `light`, `proxy`. See [here](https://video.stackexchange.com/a/14715) for explanation of possible values. Default: `hq`.
+[设置 ProRes 档案](/docs/config#setproresprofile)。仅当 [`codec`](#--codec) 设置为 `prores` 时才有效。可能的值：`4444-xq`、`4444`、`hq`、`standard`、`light`、`proxy`。有关可能值的解释，请参见[此处](https://video.stackexchange.com/a/14715)。默认值：`hq`。
 
 ### `--x264-preset`<AvailableFrom v="4.2.2" />
 
@@ -113,33 +113,33 @@ Sets the output file path, as an alternative to the `output-location` positional
 
 ### `--crf`<AvailableFrom v="1.4.0" />
 
-[To set Constant Rate Factor (CRF) of the output](/docs/config#setcrf). Minimum 0. Use this rate control mode if you want to keep the best quality and care less about the file size. This option cannot be set if `--video-bitrate` is set.
+[设置输出的 Constant Rate Factor (CRF)](/docs/config#setcrf)。最小为 0。如果希望保持最佳质量并较少关心文件大小，请使用此速率控制模式。如果设置了 `--video-bitrate`，则无法设置此选项。
 
 ### `--browser-executable`<AvailableFrom v="1.5.0" />
 
-[Path to a Chrome executable](/docs/config#setbrowserexecutable). If not specified and Remotion cannot find one, it will download one during rendering.
+[Chrome可执行文件的路径](/docs/config#setbrowserexecutable)。如果未指定并且Remotion找不到可执行文件，则在渲染过程中将下载一个。
 
 ### `--scale`
 
-[Scales the output frames by the factor you pass in.](/docs/scaling) For example, a 1280x720px frame will become a 1920x1080px frame with a scale factor of `1.5`. Vector elements like fonts and HTML markups will be rendered with extra details. `scale` must be greater than 0 and less than equal to 16. Default: `1`.
+[按照传入的因子缩放输出帧。](/docs/scaling) 例如，一个 1280x720px 的帧将以 `1.5` 的缩放因子变为 1920x1080px 的帧。像字体和 HTML 标记这样的矢量元素将以更多细节呈现。`scale` 必须大于 0 且小于等于 16。默认值：`1`。
 
 ### `--frames`<AvailableFrom v="2.0.0" />
 
-[Render a subset of a video](/docs/config#setframerange). Example: `--frames=0-9` to select the first 10 frames. To render a still, use the `still` command.
+[渲染视频的子集](/docs/config#setframerange)。例如：`--frames=0-9` 选择前 10 帧。要渲染静帧，请使用 `still` 命令。
 
 ### `--every-nth-frame`<AvailableFrom v="3.1.0" />
 
-[Render only every nth frame.](/docs/config#seteverynthframe) This option may only be set when rendering GIFs. This allows you to lower the FPS of the GIF.
+[仅渲染每第 n 帧。](/docs/config#seteverynthframe) 此选项仅在渲染 GIF 时可设置。这允许您降低 GIF 的帧速率。
 
-For example only every second frame, every third frame and so on. Only works for rendering GIFs. [See here for more details.](/docs/render-as-gif#reducing-frame-rate)
+例如，仅每隔一帧、每隔三帧等。仅适用于渲染 GIF。[更多详情请参见此处。](/docs/render-as-gif#reducing-frame-rate)
 
 ### `--muted`<AvailableFrom v="3.2.1" />
 
-[Disables audio output.](/docs/cli/render#--muted) This option may only be used when rendering a video.
+[禁用音频输出。](/docs/cli/render#--muted) 此选项仅在渲染视频时可用。
 
 ### `--enforce-audio-track`<AvailableFrom v="3.2.1" />
 
-[Render a silent audio track if there wouldn't be one otherwise.](/docs/cli/render#--enforce-audio-track).
+[如果没有音频轨道，则渲染一个静音音轨。](/docs/cli/render#--enforce-audio-track)。
 
 ### `--number-of-gif-loops`<AvailableFrom v="3.1.0" />
 
@@ -147,15 +147,15 @@ For example only every second frame, every third frame and so on. Only works for
 
 ### `--bundle-cache`<AvailableFrom v="2.0.0" />
 
-[Enable or disable Webpack caching](/docs/config#setcachingenabled). This flag is enabled by default, use `--bundle-cache=false` to disable caching.
+[启用或禁用 Webpack 缓存](/docs/config#setcachingenabled)。此标志默认启用，使用 `--bundle-cache=false` 禁用缓存。
 
 ### `--log`
 
-[Set the log level](/docs/config#setlevel). Increase or decrease the amount of output. Acceptable values: `error`, `warn`, `info` (_default_), `verbose`
+[设置日志级别](/docs/config#setlevel)。增加或减少输出量。可接受的值：`error`、`warn`、`info`（_默认_）、`verbose`
 
 ### `--port`
 
-[Set a custom HTTP server port that will be used to host the Webpack bundle](/docs/config#setrendererport). If not defined, Remotion will try to find a free port.
+[设置用于托管 Webpack bundle 的自定义 HTTP 服务器端口](/docs/config#setrendererport)。如果未定义，Remotion 将尝试找到一个空闲端口。
 
 ### `--public-dir`<AvailableFrom v="3.2.13" />
 
@@ -163,23 +163,23 @@ For example only every second frame, every third frame and so on. Only works for
 
 ### `--timeout`
 
-Define how long a single frame may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout) in milliseconds. Default: `30000`.
+定义单个帧在解析所有 [`delayRender()`](/docs/delay-render) 调用之前的超时时间（以毫秒为单位）。默认值：`30000`。
 
 :::info
-Not to be confused with the [`--timeout` flag when deploying a Lambda function](/docs/lambda/cli/functions#--timeout).
+不要与部署 Lambda 函数时的 [`--timeout` 标志](/docs/lambda/cli/functions#--timeout) 混淆。
 :::
 
 ### `--ignore-certificate-errors`<AvailableFrom v="2.6.5" />
 
-Results in invalid SSL certificates in Chrome, such as self-signed ones, being ignored.
+导致 Chrome 忽略无效的 SSL 证书，如自签名证书。
 
 ### `--disable-web-security`<AvailableFrom v="2.6.5" />
 
-This will most notably disable CORS in Chrome among other security features.
+这将主要在 Chrome 中禁用 CORS 和其他安全功能。
 
 ### `--disable-headless`<AvailableFrom v="2.6.5" />
 
-Opens an actual browser during rendering to observe the render.
+在渲染过程中打开一个实际的浏览器以观察渲染。
 
 ### `--gl`
 
@@ -187,7 +187,7 @@ Opens an actual browser during rendering to observe the render.
 
 ### `--user-agent`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置 headless Chrome 浏览器所假定的自定义用户代理。
 
 ### `--offthreadvideo-cache-size-in-bytes`<AvailableFrom v="4.0.23"/>
 
@@ -219,12 +219,14 @@ Lets you set a custom user agent that the headless Chrome browser assumes.
 
 ### ~~`--ffmpeg-executable`~~
 
-_removed in v4.0_
+_在 v4.0 中已移除_
 
-[Set a custom `ffmpeg` executable](/docs/config#setffmpegexecutable). If not defined, a `ffmpeg` executable will be searched in `PATH`.
+[设置自定义 `ffmpeg` 可执行文件](/docs/config#setffmpegexecutable)。如果未定义，将在 `PATH` 中搜索 `ffmpeg` 可执行文件。
 
 ### ~~`--ffprobe-executable`~~ <AvailableFrom v="3.0.17" />
 
-_removed in v4.0_
+_在 v4.0 中已移除_
 
-[Set a custom `ffprobe` executable](/docs/config#setffprobeexecutable). If not defined, a `ffprobe` executable will be searched in `PATH`.
+[设置自定义 `ffprobe` 可执行文件](/docs/config#setffprobeexecutable)。如果未定义，将在 `PATH` 中搜索 `ffprobe` 可执行文件。
+
+I'm ready to translate the Markdown content into Chinese. Please go ahead and paste the content for translation.

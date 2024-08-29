@@ -4,11 +4,11 @@ title: measureText()
 crumb: "@remotion/layout-utils"
 ---
 
-_Part of the [`@remotion/layout-utils`](/docs/layout-utils) package._
+_属于 [`@remotion/layout-utils`](/docs/layout-utils) 包。_
 
-Calculates the width and height of specified text to be used for layout calculations. Only works in the browser, not in Node.js or Bun.
+计算指定文本的宽度和高度，用于布局计算。仅在浏览器中有效，不适用于 Node.js 或 Bun。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { measureText } from "@remotion/layout-utils";
@@ -30,73 +30,73 @@ measureText({
 
 ## API
 
-This function has a cache. If there are two duplicate arguments inputs, the second one will return the first result without repeating the calculation.
+此函数具有缓存。如果有两个重复的参数输入，第二个将返回第一个结果，而不会重复计算。
 
-The function takes the following options:
+该函数接受以下选项：
 
 ### `text`
 
-_Required_ _string_
+_必需_ _字符串_
 
-Any string.
+任意字符串。
 
 ### `fontFamily`
 
-_Required_ _string_
+_必需_ _字符串_
 
-Same as CSS style `font-family`
+与 CSS 样式 `font-family` 相同
 
 ### `fontSize`
 
-_Required_ _number_ / _string_
+_必需_ _数字_ / _字符串_
 
-Same as CSS style `font-size`. Since v4.0.125, strings are allowed too, before only numbers.
+与 CSS 样式 `font-size` 相同。自 v4.0.125 起，也允许字符串，之前仅允许数字。
 
 ### `fontWeight`
 
-_string_
+_字符串_
 
-Same as CSS style `font-weight`
+与 CSS 样式 `font-weight` 相同
 
 ### `letterSpacing`
 
-_string_
+_字符串_
 
-Same as CSS style `font-spacing`.
+与 CSS 样式 `font-spacing` 相同。
 
 ### `fontVariantNumeric`<AvailableFrom v="4.0.57"/>
 
-_string_
+_字符串_
 
-Same as CSS style `font-variant-numeric`.
+与 CSS 样式 `font-variant-numeric` 相同。
 
 ### `textTransform`<AvailableFrom v="4.0.140"/>
 
-_string_
+_字符串_
 
-Same as CSS style `text-transform`.
+与 CSS 样式 `text-transform` 相同。
 
 ### `validateFontIsLoaded?`<AvailableFrom v="4.0.136"/>
 
-_boolean_
+_布尔值_
 
-If set to `true`, will take a second measurement with the fallback font and if it produces the same measurements, it assumes the fallback font was used and will throw an error.
+如果设置为 `true`，将使用回退字体进行第二次测量，如果产生相同的测量结果，则假定使用了回退字体，并将抛出错误。
 
 ### `additionalStyles`<AvailableFrom v="4.0.140"/>
 
-_object, optional_
+_对象，可选_
 
-Additional CSS properties that affect the layout of the text.
+影响文本布局的其他 CSS 属性。
 
-## Return value
+## 返回值
 
-An object with `height` and `width`
+一个具有 `height` 和 `width` 的对象
 
-## Important considerations
+## 重要考虑事项
 
-See [Best practices](/docs/layout-utils/best-practices) to ensure you get correct measurements.
+请参阅 [最佳实践](/docs/layout-utils/best-practices) 以确保您获得正确的测量结果。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/layout-utils/src/layouts/measure-text.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/layout-utils/src/layouts/measure-text.ts)
 - [`@remotion/layout-utils`](/docs/layout-utils)

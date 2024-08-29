@@ -1,20 +1,20 @@
 ---
 image: /generated/articles-docs-overwriting-webpack-config.png
 id: webpack
-title: Custom Webpack config
-crumb: "How To"
+title: 自定义 Webpack 配置
+crumb: "如何"
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Remotion ships with [it's own Webpack configuration](https://github.com/remotion-dev/remotion/blob/main/packages/bundler/src/webpack-config.ts).
+Remotion 集成了[自己的 Webpack 配置](https://github.com/remotion-dev/remotion/blob/main/packages/bundler/src/webpack-config.ts)。
 
-You can override it reducer-style by creating a function that takes the previous Webpack configuration and returns the the new one.
+您可以通过创建一个函数来覆盖它的 reducer 样式，该函数接受先前的 Webpack 配置并返回新的配置。
 
-## When rendering using the command line
+## 在命令行中渲染时
 
-In your [`remotion.config.ts`](/docs/config) file, you can call [`Config.overrideWebpackConfig()`](/docs/config#overridewebpackconfig) from `@remotion/cli/config`.
+在您的 [`remotion.config.ts`](/docs/config) 文件中，您可以从 `@remotion/cli/config` 中调用 [`Config.overrideWebpackConfig()`](/docs/config#overridewebpackconfig)。
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -34,12 +34,12 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 ```
 
 :::info
-Using the reducer pattern will help with type safety, give you auto-complete, ensure forwards-compatibility and keep it completely flexible - you can override just one property or pass in a completely new Webpack configuration.
+使用 reducer 模式将有助于类型安全，提供自动完成，确保向前兼容性并保持完全灵活 - 您可以仅覆盖一个属性或传入一个全新的 Webpack 配置。
 :::
 
-## When using `bundle()` and `deploySite()`
+## 使用 `bundle()` 和 `deploySite()` 时
 
-When using the Node.JS APIs - [`bundle()`](/docs/bundle) for SSR or [`deploySite()`](/docs/lambda/deploysite) for Lambda, you also need to provide the Webpack override, since the Node.JS APIs do not read from the config file. We recommend you put the webpack override in a separate file so you can read it from both the command line and your Node.JS script.
+在使用 Node.JS API - [`bundle()`](/docs/bundle) 用于 SSR 或 [`deploySite()`](/docs/lambda/deploysite) 用于 Lambda 时，您还需要提供 Webpack 覆盖，因为 Node.JS API 不会从配置文件中读取。我们建议您将 webpack 覆盖放在一个单独的文件中，以便您可以从命令行和您的 Node.JS 脚本中读取它。
 
 ```ts twoslash title="src/webpack-override.ts"
 import { WebpackOverrideFn } from "@remotion/bundler";
@@ -64,7 +64,7 @@ import { webpackOverride } from "./src/webpack-override";
 Config.overrideWebpackConfig(webpackOverride);
 ```
 
-With `bundle`:
+使用 `bundle` 时：
 
 ```ts twoslash title="my-script.js"
 // @filename: ./src/webpack-override.ts
@@ -82,7 +82,7 @@ await bundle({
 });
 ```
 
-Or while using with `deploySite`:
+或者在使用 `deploySite` 时：
 
 ```ts twoslash title="my-script.js"
 // @filename: ./src/webpack-override.ts
@@ -105,15 +105,15 @@ await deploySite({
 });
 ```
 
-## Snippets
+## 代码片段
 
-### Enabling MDX support
+### 启用 MDX 支持
 
-1. Install the following dependencies:
+1. 安装以下依赖项：
 
 <Installation pkg="@mdx-js/loader @mdx-js/react" />
 
-2. Create a file with the Webpack override:
+2. 创建一个带有 Webpack 覆盖的文件：
 
 ```ts twoslash title="enable-mdx.ts"
 import { WebpackOverrideFn } from "@remotion/bundler";
@@ -142,7 +142,7 @@ export const enableMdx: WebpackOverrideFn = (currentConfiguration) => {
 };
 ```
 
-3. Add it to the config file:
+3. 将其添加到配置文件中：
 
 ```ts twoslash title="remotion.config.ts"
 // @filename: ./src/enable-mdx.ts
@@ -156,29 +156,29 @@ import { enableMdx } from "./src/enable-mdx";
 Config.overrideWebpackConfig(enableMdx);
 ```
 
-4. Add it to your [Node.JS API calls as well if necessary](#when-using-bundle-and-deploysite).
+4. 如果需要，也将其添加到您的[Node.JS API调用中](#when-using-bundle-and-deploysite)。
 
-5. Create a file which contains `declare module '*.mdx';` in your project to fix a TypeScript error showing up.
+5. 在您的项目中创建一个包含 `declare module '*.mdx';` 的文件，以修复 TypeScript 错误。
 
-### Enable TailwindCSS support
+### 启用 TailwindCSS 支持
 
 - [TailwindCSS V3](/docs/tailwind)
 - [TailwindCSS V2 (Legacy)](/docs/tailwind-legacy)
 
-### Enable SASS/SCSS support
+### 启用 SASS/SCSS 支持
 
-The easiest way is to use the `@remotion/enable-scss`.  
-Follow these [instructions](/docs/enable-scss/overview) to enable it.
+最简单的方法是使用 `@remotion/enable-scss`。  
+按照这些[说明](/docs/enable-scss/overview)来启用它。
 
-### Enable SVGR support
+### 启用 SVGR 支持
 
-This allows you to enable `import` SVG files as React components.
+这允许您将 `import` SVG 文件作为 React 组件。
 
-1. Install the following dependency:
+1. 安装以下依赖项：
 
 <Installation pkg="@svgr/webpack" />
 
-2. Declare an override function:
+2. 声明一个覆盖函数：
 
 ```ts twoslash title="src/enable-svgr.ts"
 import { WebpackOverrideFn } from "@remotion/bundler";
@@ -216,7 +216,7 @@ export const enableSvgr: WebpackOverrideFn = (currentConfiguration) => {
 };
 ```
 
-3. Add the override function to your [`remotion.config.ts`](/docs/config) file:
+3. 将覆盖函数添加到您的 [`remotion.config.ts`](/docs/config) 文件中：
 
 ```ts twoslash title="remotion.config.ts"
 // @filename: ./src/enable-svgr.ts
@@ -230,17 +230,17 @@ import { enableSvgr } from "./src/enable-svgr";
 Config.overrideWebpackConfig(enableSvgr);
 ```
 
-4. Add it to your [Node.JS API calls as well if necessary](#when-using-bundle-and-deploysite).
+4. 如果需要，也将其添加到您的[Node.JS API调用中](#when-using-bundle-and-deploysite)。
 
-5. Restart the Remotion Studio.
+5. 重新启动 Remotion Studio。
 
-### Enable support for GLSL imports
+### 启用 GLSL 导入支持
 
-1. Install the following dependencies:
+1. 安装以下依赖项：
 
 <Installation pkg="glsl-shader-loader glslify glslify-import-loader raw-loader" />
 
-2. Declare a webpack override:
+2. 声明一个 webpack 覆盖：
 
 ```ts twoslash title="src/enable.glsl.ts"
 import { WebpackOverrideFn } from "@remotion/bundler";
@@ -278,7 +278,7 @@ import { enableGlsl } from "./src/enable-glsl";
 Config.overrideWebpackConfig(enableGlsl);
 ```
 
-3. Add the following to your [entry point](/docs/terminology/entry-point) (e.g. `src/index.ts`):
+3. 将以下内容添加到您的[入口点](/docs/terminology/entry-point)（例如 `src/index.ts`）：
 
 ```ts
 declare module "*.glsl" {
@@ -287,14 +287,14 @@ declare module "*.glsl" {
 }
 ```
 
-4. Add it to your [Node.JS API calls as well if necessary](#when-using-bundle-and-deploysite).
+4. 如果需要，也将其添加到您的[Node.JS API调用中](#when-using-bundle-and-deploysite)。
 
-5. Reset the webpack cache by deleting the `node_modules/.cache` folder.
-6. Restart the Remotion Studio.
+5. 通过删除 `node_modules/.cache` 文件夹来重置 webpack 缓存。
+6. 重新启动 Remotion Studio。
 
-### Enable WebAssembly
+### 启用 WebAssembly
 
-There are two WebAssembly modes: asynchronous and synchronous. We recommend testing both and seeing which one works for the WASM library you are trying to use.
+有两种 WebAssembly 模式：异步和同步。我们建议测试两种模式，看看哪种适用于您尝试使用的 WASM 库。
 
 ```ts twoslash title="remotion.config.ts - synchronous"
 import { Config } from "@remotion/cli/config";
@@ -310,10 +310,10 @@ Config.overrideWebpackConfig((conf) => {
 ```
 
 :::note
-Since Webpack does not allow synchronous WebAssembly code in the main chunk, you most likely need to declare your composition using [`lazyComponent`](/docs/composition#example-using-lazycomponent) instead of `component`. Check out a [demo project](https://github.com/remotion-dev/id3-tags) for an example.
+由于 Webpack 不允许在主块中使用同步 WebAssembly 代码，您很可能需要使用 [`lazyComponent`](/docs/composition#example-using-lazycomponent) 来声明您的组合，而不是 `component`。查看一个[演示项目](https://github.com/remotion-dev/id3-tags)以获取示例。
 :::
 
-```ts twoslash title="remotion.config.ts - asynchronous"
+```ts twoslash title="remotion.config.ts - 异步"
 import { Config } from "@remotion/cli/config";
 
 Config.overrideWebpackConfig((conf) => {
@@ -326,31 +326,31 @@ Config.overrideWebpackConfig((conf) => {
 });
 ```
 
-After you've done that, clear the Webpack cache:
+完成后，请清除 Webpack 缓存：
 
 ```bash
 rm -rf node_modules/.cache
 ```
 
-After restarting, you can import `.wasm` files using an import statement.
+重新启动后，您可以使用 import 语句导入 `.wasm` 文件。
 
-Add the Webpack override to your [Node.JS API calls as well if necessary](#when-using-bundle-and-deploysite).
+如果需要，在您的 [Node.JS API 调用](#when-using-bundle-and-deploysite) 中添加 Webpack 覆盖。
 
-### Use legacy babel loader
+### 使用传统的 babel loader
 
-See [Using legacy Babel transpilation](/docs/legacy-babel).
+请参阅[使用传统的 Babel 转译](/docs/legacy-babel)。
 
-## Enable TypeScript aliases
+## 启用 TypeScript 别名
 
-See [TypeScript aliases](/docs/typescript-aliases).
+请参阅[TypeScript 别名](/docs/typescript-aliases)。
 
-## Customizing configuration file location
+## 自定义配置文件位置
 
-You can pass a `--config` option to the command line to specify a custom location for your configuration file.
+您可以在命令行中传递 `--config` 选项来指定配置文件的自定义位置。
 
-## Importing ES Modules in remotion.config.ts<AvailableFrom v="4.0.117"/>
+## 在 remotion.config.ts 中导入 ES 模块<AvailableFrom v="4.0.117"/>
 
-The [config file](/docs/config) gets executed in a CommonJS environment. If you want to import ES modules, you can pass an async function to `Config.overrideWebpackConfig`:
+[配置文件](/docs/config) 在 CommonJS 环境中执行。如果您想要导入 ES 模块，可以将异步函数传递给 `Config.overrideWebpackConfig`：
 
 ```ts twoslash title="remotion.config.ts"
 // @filename: src/enable-sass.ts
@@ -367,6 +367,7 @@ Config.overrideWebpackConfig(async (currentConfiguration) => {
 });
 ```
 
-## See also
+## 参见
 
-- [Configuration file](/docs/config)
+- [配置文件](/docs/config)
+```

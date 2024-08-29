@@ -5,24 +5,22 @@ sidebar_label: "<TransitionSeries>"
 title: "<TransitionSeries>"
 ---
 
-_available from v4.0.59_
+_从 v4.0.59 开始可用_
 
 import { TransitionsDuration } from "../../components/TransitionsDuration";
 
-The `<TransitionSeries>` component behaves the same as the [`<Series>`](/docs/series) component, but allows for `<TransitionSeries.Transition>` components to be rendered between `<TransitionSeries.Sequence>` components.
+`<TransitionSeries>` 组件的行为与 [`<Series>`](/docs/series) 组件相同，但允许在 `<TransitionSeries.Sequence>` 组件之间渲染 `<TransitionSeries.Transition>` 组件。
 
-Each transition consists of two parts:
+每个过渡由两部分组成：
 
-<Step>1</Step> <code>presentation</code>: The effect that is being used, for
-example <a href="/docs/transitions/presentations/fade"><code>fade()</code></a> or <a href="/docs/transitions/presentations/wipe"><code>wipe()</code></a>.<br />
+<Step>1</Step> <code>presentation</code>: 正在使用的效果，例如 <a href="/docs/transitions/presentations/fade"><code>fade()</code></a> 或 <a href="/docs/transitions/presentations/wipe"><code>wipe()</code></a>。<br />
 
-<Step>2</Step> <code>timing</code>: The duration and the progress curve, for
-example <a href="/docs/transitions/timings/springtiming"><code>springTiming()</code></a> or <a href="/docs/transitions/timings/lineartiming"><code>linearTiming()</code></a>
+<Step>2</Step> <code>timing</code>: 持续时间和进度曲线，例如 <a href="/docs/transitions/timings/springtiming"><code>springTiming()</code></a> 或 <a href="/docs/transitions/timings/lineartiming"><code>linearTiming()</code></a>
 
 <br />
 <br />
 
-This package has some presentations and timings built-in, but custom ones can be created as well.
+此软件包内置了一些演示和定时，但也可以创建自定义的。
 
 ```tsx twoslash title="MyComp.tsx"
 import { AbsoluteFill } from "remotion";
@@ -69,30 +67,30 @@ export const MyComp: React.FC = () => {
 
 ### `<TransitionSeries>`
 
-Inherits the [`from`](/docs/sequence#from), [`name`](/docs/sequence#name), [`className`](/docs/sequence#classname), and [`style`](/docs/sequence#style) props from [`<Sequence>`](/docs/sequence).
+继承了 [`<Sequence>`](/docs/sequence) 的 [`from`](/docs/sequence#from)、[`name`](/docs/sequence#name)、[`className`](/docs/sequence#classname) 和 [`style`](/docs/sequence#style) 属性。
 
-The `<TransitionSeries>` component can only contain `<TransitionSeries.Sequence>` and `<TransitionSeries.Transition>` components.
+`<TransitionSeries>` 组件只能包含 `<TransitionSeries.Sequence>` 和 `<TransitionSeries.Transition>` 组件。
 
 ### `<TransitionSeries.Sequence>`
 
-Inherits the [`durationInFrames`](/docs/sequence#durationinframes), [`name`](/docs/sequence#name), [`className`](/docs/sequence#classname), [`style`](/docs/sequence#style), [`premountFor`](/docs/sequence#premountfor) and [`layout`](/docs/sequence#layout) props from [`<Sequence>`](/docs/sequence).
+继承了 [`<Sequence>`](/docs/sequence) 的 [`durationInFrames`](/docs/sequence#durationinframes)、[`name`](/docs/sequence#name)、[`className`](/docs/sequence#classname)、[`style`](/docs/sequence#style)、[`premountFor`](/docs/sequence#premountfor) 和 [`layout`](/docs/sequence#layout) 属性。
 
-As children, put the contents of your scene.
+作为子元素，放置您场景的内容。
 
 ### `<TransitionSeries.Transition>`
 
-Takes two props:
+接受两个属性：
 
-- `timing`: A timing of type `TransitionTiming`. See [Timings](/docs/transitions/timings) for more information.
-- `presentation?`: A presentation of type `TransitionPresentation`. If not specified, the default value is `slide()`. See [Presentations](/docs/transitions/presentations) for more information.
+- `timing`: 类型为 `TransitionTiming` 的定时。有关更多信息，请参阅 [Timings](/docs/transitions/timings)。
+- `presentation?`: 类型为 `TransitionPresentation` 的演示。如果未指定，默认值为 `slide()`。有关更多信息，请参阅 [Presentations](/docs/transitions/presentations)。
 
-Must be a direct child of `<TransitionSeries>`.  
-At least one `<TransitionSeries.Sequence>` component must come before or after the `<TransitionSeries.Transition>` component.  
-It is not allowed for two `<TransitionSeries.Transition>` components to be next to each other.
+必须是`<TransitionSeries>`的直接子元素。  
+至少一个`<TransitionSeries.Sequence>`组件必须在`<TransitionSeries.Transition>`组件之前或之后。  
+不允许两个`<TransitionSeries.Transition>`组件相邻。
 
-## Enter and exit animations
+## 进入和退出动画
 
-You don't necessarily have to use `<TransitionSeries>` for transitions between scenes. You can also use it to animate the entrace or exit of a scene by putting a transition first or last in the `<TransitionSeries>`.
+您不一定要使用`<TransitionSeries>`来在场景之间进行过渡。您还可以使用它来动画场景的进入或退出，方法是将过渡放在`<TransitionSeries>`的第一个或最后一个位置。
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -135,9 +133,9 @@ const BasicTransition = () => {
 };
 ```
 
-## Duration of a `<TransitionSeries>`
+## `<TransitionSeries>`的持续时间
 
-Consider this example:
+考虑以下示例：
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -183,13 +181,13 @@ const BasicTransition = () => {
 };
 ```
 
-`A` is visible for 40 frames, `B` for 60 frames and the duration of the transition is 30 frames.  
-During this time, both slides are rendered. This means the total duration of the animation is `60 + 40 - 30 = 70`.
+`A`在40帧内可见，`B`在60帧内可见，过渡的持续时间为30帧。  
+在此期间，两个幻灯片都会被渲染。这意味着动画的总持续时间为`60 + 40 - 30 = 70`。
 
 <TransitionsDuration />
 
 <details>
-<summary>Example with 3 slides</summary>
+<summary>具有3个幻灯片的示例</summary>
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -242,37 +240,36 @@ const BasicTransition = () => {
 };
 ```
 
-- The first slide is shown for 40 frames
-- The second slide is shown for 60 frames
-- The third slide is shown for 90 frames
-- There are two transitions, one 30 frames long and one 45 frames long
+- 第一张幻灯片显示40帧
+- 第二张幻灯片显示60帧
+- 第三张幻灯片显示90帧
+- 有两个过渡，一个30帧长，一个45帧长
 
-1. Sum up the durations: `40 + 60 + 90 = 190`
-2. Subtract the duration of the transitions: `190 - 30 - 45 = 115`
+1. 总结持续时间：`40 + 60 + 90 = 190`
+2. 减去过渡的持续时间：`190 - 30 - 45 = 115`
 
 </details>
 
-## Getting the duration of a transition
+## 获取过渡的持续时间
 
-You can get the duration of a transition by calling `getDurationInFrames()` on the timing:
+您可以通过在时间轴上调用`getDurationInFrames()`来获取过渡的持续时间：
 
-```tsx twoslash title="Assuming a framerate of 30fps"
+```tsx twoslash title="假设帧速率为30fps"
 import { springTiming } from "@remotion/transitions";
 
 springTiming({ config: { damping: 200 } }).getDurationInFrames({ fps: 30 }); // 23
 ```
 
-## Rules
+## 规则
 
-<Step>1</Step> It is forbidden to have a transition that is longer than the duration
-of the previous or next sequence. <br />
-<Step>2</Step> There can be no two transitions next to each other. <br />
-<Step>3</Step> There must be at least one sequence before or after a transition.
+<Step>1</Step> 不允许有比前一个或后一个序列的持续时间更长的过渡。<br />
+<Step>2</Step> 两个过渡之间不能相邻。<br />
+<Step>3</Step> 在过渡之前或之后必须至少有一个序列。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/TransitionSeries.tsx)
-- [Transitions](/docs/transitioning)
-- [Timings](/docs/transitions/timings)
-- [Presentations](/docs/transitions/presentations)
-- [`<Series>`](/docs/series)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/TransitionSeries.tsx)
+- [过渡效果](/docs/transitioning)
+- [时间设置](/docs/transitions/timings)
+- [演示文稿](/docs/transitions/presentations)
+- [`<系列>`](/docs/series)

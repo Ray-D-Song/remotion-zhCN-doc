@@ -1,26 +1,26 @@
 ---
 image: /generated/articles-docs-lambda-authentication.png
 id: authentication
-title: Authentication
+title: 认证
 crumb: "Lambda"
 ---
 
-You can authenticate with the `@remotion/lambda` package either using:
+您可以使用 `@remotion/lambda` 包进行身份验证，方法如下：
 
-- an `REMOTION_AWS_PROFILE` or `AWS_PROFILE` environment variable pointing to a file
-- `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` environment variables
-- `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables
+- 使用指向文件的 `REMOTION_AWS_PROFILE` 或 `AWS_PROFILE` 环境变量
+- 使用 `REMOTION_AWS_ACCESS_KEY_ID` 和 `REMOTION_AWS_SECRET_ACCESS_KEY` 环境变量
+- 使用 `AWS_ACCESS_KEY_ID` 和 `AWS_SECRET_ACCESS_KEY` 环境变量
 
-Environment variables sitting in a `.env` file are automatically picked up if you use the Remotion CLI, but not if you use the Node.JS APIs. If multiple ways are provided, Remotion will use the order above and use the first credentials found.
+如果您使用 Remotion CLI，则会自动读取位于 `.env` 文件中的环境变量，但如果您使用 Node.JS APIs，则不会。如果提供了多种方式，Remotion 将按照上述顺序使用第一个找到的凭据。
 
-We recommend using the environment variable variants prefixed with `REMOTION_` because:
+我们建议使用以 `REMOTION_` 为前缀的环境变量变体，因为：
 
-- On some environments, the unprefixed variants may be reserved (e.g. Vercel deployments)
-- Confusing conflicts between Remotion and the AWS CLI may be caused if you use the unprefixed versions.
+- 在某些环境中，未带前缀的变体可能已被保留（例如 Vercel 部署）
+- 如果使用未带前缀的版本，可能会导致 Remotion 与 AWS CLI 之间的冲突。
 
-## Rotating credentials
+## 旋转凭据
 
-Using more than one AWS account can be a viable scaling strategy to increase the [concurrency limit](/docs/lambda/concurrency). To do so, you can set new values for the `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` or other environment variables before making an operation using `@remotion/lambda`. Below is an implementation example.
+使用多个 AWS 帐户可以是一种可行的扩展策略，以增加[并发限制](/docs/lambda/concurrency)。为此，您可以在使用 `@remotion/lambda` 进行操作之前，为 `REMOTION_AWS_ACCESS_KEY_ID` 和 `REMOTION_AWS_SECRET_ACCESS_KEY` 或其他环境变量设置新值。以下是一个实现示例。
 
 ```ini title=".env"
 # Account 1
@@ -33,7 +33,7 @@ AWS_SECRET_2=M/
 ```
 
 :::note
-You need to read the `.env` file yourself using the [`dotenv`](https://npmjs.org/packages/dotenv) package.
+您需要使用 [`dotenv`](https://npmjs.org/packages/dotenv) 包自行读取 `.env` 文件。
 :::
 
 ```tsx twoslash title="rotate-credentials.ts"
@@ -62,11 +62,11 @@ const setEnvForKey = (key: number) => {
 setEnvForKey(getRandomAwsAccount());
 ```
 
-## Using an AWS profile
+## 使用 AWS 配置文件
 
-_available from v3.3.9_
+_从 v3.3.9 开始可用_
 
-If you prefer [AWS profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html), you may use them. The list of profiles is located at `~/.aws/credentials` on macOS and Linux and has the following format:
+如果您更喜欢 [AWS 配置文件](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)，您可以使用它们。配置文件列表位于 macOS 和 Linux 上的 `~/.aws/credentials`，格式如下：
 
 ```ini title="~/.aws/credentials"
 [default]
@@ -78,30 +78,30 @@ aws_access_key_id = YOUR_ACCESS_KEY_ID
 aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 ```
 
-In this example, we added a `remotion` profile. Now, by setting `REMOTION_AWS_PROFILE=remotion`, you can select the profile and don't need to pass each environment variable separately anymore.
+在此示例中，我们添加了一个 `remotion` 配置文件。现在，通过设置 `REMOTION_AWS_PROFILE=remotion`，您可以选择配置文件，而无需再单独传递每个环境变量。
 
-## Skipping the credentials check<AvailableFrom v="4.0.160"/>
+## 跳过凭证检查<AvailableFrom v="4.0.160"/>
 
-There are other ways the S3 client can authenticate, like from EC2 instance metadata.  
-If you have set this up, you may set the `REMOTION_SKIP_AWS_CREDENTIALS_CHECK` environment variable to any value.
+S3 客户端可以通过其他方式进行身份验证，比如来自 EC2 实例元数据。  
+如果您已经设置了这个，您可以将 `REMOTION_SKIP_AWS_CREDENTIALS_CHECK` 环境变量设置为任何值。
 
 ```ts
 process.env.REMOTION_SKIP_AWS_CREDENTIALS_CHECK = "1";
 ```
 
-Remotion will not check the credentials and will not throw an error if they are not set.  
-However, if there is a misconfiguration, you may still get an error from the AWS SDK.  
-Also read the note about [caching clients](#disable-caching).
+Remotion 将不会检查凭证，如果未设置凭证也不会抛出错误。  
+但是，如果存在配置错误，您仍然可能会从 AWS SDK 得到错误。  
+还请阅读关于[禁用缓存客户端](#disable-caching)的注意事项。
 
-## Disable caching<AvailableFrom v="4.0.160"/>
+## 禁用缓存<AvailableFrom v="4.0.160"/>
 
-AWS clients are cached to save memory and speed up initialization.  
-The cache key is based on the credentials and the region.
+为了节省内存并加快初始化速度，AWS 客户端被缓存起来。  
+缓存键基于凭证和区域。
 
-If you opted out of [the credentials check](#skipping-the-credentials-check), the instance is cached for the lifetime of the process.  
-If you want to disable the cache, set the `REMOTION_SKIP_AWS_CREDENTIALS_CHECK` environment variable to any value.  
-It's unlikely you need to set this value. This is only if you change the way you authenticate between API calls.
+如果您选择了[跳过凭证检查](#skipping-the-credentials-check)，该实例将在进程的生命周期内被缓存。  
+如果您想禁用缓存，请将 `REMOTION_SKIP_AWS_CREDENTIALS_CHECK` 环境变量设置为任何值。  
+您不太可能需要设置这个值。只有在您在 API 调用之间更改身份验证方式时才需要。
 
-## See also
+## 参见
 
-- [Region selection](/docs/lambda/region-selection)
+- [区域选择](/docs/lambda/region-selection)

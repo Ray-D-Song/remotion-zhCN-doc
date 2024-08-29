@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-layers.png
 id: layers
-title: Layers
-crumb: "Designing videos"
+title: 图层
+crumb: "设计视频"
 ---
 
-Unlike normal websites, a video has fixed dimensions. That means, it is okay to use `position: "absolute"`!
+与普通网站不同，视频具有固定的尺寸。这意味着可以使用 `position: "absolute"`！
 
-In Remotion, you often want to "layer" elements on top of each other.  
-This is a common pattern in video editors, and in Photoshop.
+在 Remotion 中，您经常希望将元素“层叠”在一起。  
+这是视频编辑器和 Photoshop 中的常见模式。
 
-An easy way to do it is using the [`<AbsoluteFill>`](/docs/absolute-fill) component:
+一个简单的方法是使用 [`<AbsoluteFill>`](/docs/absolute-fill) 组件：
 
 ```tsx twoslash title="MyComp.tsx"
 import React from "react";
@@ -30,9 +30,9 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-This will render the text on top of the image.
+这将在图像上方呈现文本。
 
-If you want to only show an element for a certain duration, you can use a [`<Sequence>`](/docs/sequence) component, which by default is also absolutely positioned.
+如果您只想在特定持续时间内显示一个元素，可以使用 [`<Sequence>`](/docs/sequence) 组件，默认情况下也是绝对定位的。
 
 ```tsx twoslash title="MyComp.tsx"
 import React from "react";
@@ -52,10 +52,11 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-The lower the absolutely positioned element is in the tree, the higher it will be in the layer stack.  
-If you are aware of this behavior, you can use it to your advantage and avoid using `z-index` in most cases.
+绝对定位的元素在树中的位置越低，它在图层堆栈中的位置就越高。  
+如果您了解这种行为，您可以利用它，并在大多数情况下避免使用 `z-index`。
 
-## See also
+## 参见
 
 - [`<AbsoluteFill>`](/docs/absolute-fill)
 - [`<Sequence>`](/docs/sequence)
+

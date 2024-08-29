@@ -7,7 +7,7 @@ crumb: "@remotion/install-whisper-cpp"
 
 # installWhisperCpp()<AvailableFrom v="4.0.115"/>
 
-Installs a Whisper.cpp version into a folder.
+将 Whisper.cpp 版本安装到文件夹中。
 
 ```tsx twoslash title="install-whisper.mjs"
 // @module: esnext
@@ -21,49 +21,49 @@ const { alreadyExisted } = await installWhisperCpp({
 });
 ```
 
-On Windows, if the provided version is not in semantic version format (e.g., `1.5.4`), the installation will throw an error. The function expects a precompiled semantic versioned release available for download.
+在 Windows 上，如果提供的版本不是语义版本格式（例如 `1.5.4`），安装将抛出错误。该函数期望有一个可供下载的预编译语义版本发布。
 
-On other platforms, the source is cloned from GitHub and built.
+在其他平台上，源代码将从 GitHub 克隆并构建。
 
-If you install Whisper.cpp into a folder which is in a Git repository, you should add the folder to the `.gitignore` file.
+如果将 Whisper.cpp 安装到一个位于 Git 存储库中的文件夹中，您应该将该文件夹添加到 `.gitignore` 文件中。
 
-If the output folder already exists, the function will not do anything and return `{ alreadyExisted: true }`.
+如果输出文件夹已经存在，则该函数将不执行任何操作并返回 `{ alreadyExisted: true }`。
 
-You also need to download a model for Whisper.cpp to work. You can do this with the [`downloadWhisperModel()`](/docs/install-whisper-cpp/download-whisper-model) function.
+您还需要下载一个 Whisper.cpp 模型才能使 Whisper.cpp 正常工作。您可以使用 [`downloadWhisperModel()`](/docs/install-whisper-cpp/download-whisper-model) 函数来完成此操作。
 
-## Options
+## 选项
 
 ### `to`
 
-The folder to install Whisper.cpp into.
+要将 Whisper.cpp 安装到的文件夹。
 
 ### `version`
 
-The version of Whisper.cpp to install. Don't include the `v` prefix.
-This can be either a hash of a Whisper.cpp commit or a semantic version of an official release.
+要安装的 Whisper.cpp 版本。不要包含 `v` 前缀。
+这可以是 Whisper.cpp 提交的哈希值，也可以是官方发布的语义版本。
 
 :::info
-On Windows, currently only release tags of Whisper.cpp are supported (e.g `1.5.4`).
+在 Windows 上，目前仅支持 Whisper.cpp 的发布标签（例如 `1.5.4`）。
 :::
 
 ### `printOutput?`
 
-Whether to print the output of the installation process to the console. Defaults to `true`.
+是否将安装过程的输出打印到控制台。默认为 `true`。
 
 ### `signal?`<AvailableFrom v="4.0.156" />
 
-A signal from an [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) to cancel the installation process.
+来自 [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) 的信号，用于取消安装过程。
 
-## Return value
+## 返回值
 
-Returns a `Promise` that resolves to an object with the following property:
+返回一个解析为具有以下属性的对象的 `Promise`：
 
 ### `alreadyExisted`
 
-Whether the folder already existed. If it did, and contains the necessary executable, the function did not perform any installation and returned `true`. If the executable is missing in the existing folder, the function expects manual deletion of the folder before attempting another installation.
+文件夹是否已经存在。如果存在，并且包含必要的可执行文件，则函数不会执行任何安装操作并返回 `true`。如果现有文件夹中缺少可执行文件，则函数期望在尝试另一个安装之前手动删除该文件夹。
 
-## See also
+## 参考资料
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/install-whisper-cpp/src/install-whisper-cpp.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/install-whisper-cpp/src/install-whisper-cpp.ts)
 - [`@remotion/install-whisper-cpp`](/docs/install-whisper-cpp)
 - [`downloadWhisperModel()`](/docs/install-whisper-cpp/download-whisper-model)

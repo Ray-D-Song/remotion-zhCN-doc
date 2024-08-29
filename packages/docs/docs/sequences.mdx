@@ -1,9 +1,9 @@
 ---
 image: /generated/articles-docs-sequences.png
 id: reusability
-title: Making components reusable
-sidebar_label: Reuse components
-crumb: 'The power of React'
+title: 使组件可重用
+sidebar_label: 重用组件
+crumb: 'React 的力量'
 ---
 
 ```twoslash include example
@@ -20,9 +20,9 @@ const Title: React.FC<{title: string}> = ({title}) => {
 // - Title
 ```
 
-React components allow us to encapsulate video logic and reuse the same visuals multiple times.
+React 组件允许我们封装视频逻辑并多次重用相同的视觉效果。
 
-Consider a title - to make it reusable, factor it out into its own component:
+考虑一个标题 - 为了使其可重用，将其分解为自己的组件：
 
 ```tsx twoslash title="MyComposition.tsx"
 import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
@@ -47,9 +47,9 @@ export const MyVideo = () => {
 };
 ```
 
-To render multiple instances of the title, duplicate the `<Title>` component.
+要呈现多个标题实例，请复制 `<Title>` 组件。
 
-You can also use the [`<Sequence>`](/docs/sequence) component to limit the duration of the first title and time-shift the appearance of the second title.
+您还可以使用 [`<Sequence>`](/docs/sequence) 组件来限制第一个标题的持续时间，并调整第二个标题的出现时间。
 
 ```tsx twoslash
 // @include: example-Title
@@ -70,13 +70,14 @@ export const MyVideo = () => {
 };
 ```
 
-You should see two titles appearing after each other.
+您应该看到两个标题依次出现。
 
-Note that the value of [`useCurrentFrame()`](/docs/use-current-frame) has been shifted in the second instance, so that it returns `0` only when the absolute time is `40`. Before that, the sequence was not mounted at all.
+请注意，[`useCurrentFrame()`](/docs/use-current-frame) 的值在第二个实例中已经移动，因此仅当绝对时间为 `40` 时才返回 `0`。在此之前，该序列根本没有被挂载。
 
-Sequences by default are absolutely positioned - you can use [`layout="none"`](/docs/sequence#layout) to make them render like a regular `<div>`.
+默认情况下，序列是绝对定位的 - 您可以使用 [`layout="none"`](/docs/sequence#layout) 来使它们呈现为常规的 `<div>`。
 
-## See also
+## 另请参阅
 
-- [`<Sequence>` component](/docs/sequence)
-- [How do I combine compositions?](/docs/miscellaneous/snippets/combine-compositions)
+- [`<Sequence>` 组件](/docs/sequence)
+- [如何组合组合？](/docs/miscellaneous/snippets/combine-compositions)
+

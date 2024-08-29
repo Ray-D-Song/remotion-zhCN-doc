@@ -7,17 +7,17 @@ crumb: "@remotion/media-parser"
 ---
 
 :::warning
-**Unstable API**: This package is experimental. We might change the API at any time, until we remove this notice.
+**不稳定的 API**：此包是实验性的。我们可能随时更改 API，直到删除此通知。
 :::
 
 
-A reader for `@remotion/media-parser` that reads from a [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) object.  
-It only works in the browser.  
-Useful if you want to parse a video from a `<input type="file">` element.
+一个用于 `@remotion/media-parser` 的阅读器，从一个 [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) 对象中读取。  
+它只在浏览器中工作。  
+如果您想要从 `<input type="file">` 元素解析视频，这将非常有用。
 
-## Example
+## 示例
 
-```tsx twoslash title="Reading a local file"
+```tsx twoslash title="读取本地文件"
 // @module: es2022
 // @target: es2017
 import React, {useCallback} from 'react';

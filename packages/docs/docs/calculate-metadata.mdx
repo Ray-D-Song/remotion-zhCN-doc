@@ -7,25 +7,24 @@ crumb: "API"
 
 # calculateMetadata()<AvailableFrom v="4.0.0" />
 
-`calculateMetadata` is a prop that gets passed to [`<Composition>`](/docs/composition) and takes a callback function which may transform metadata.
+`calculateMetadata` 是一个传递给 [`<Composition>`](/docs/composition) 的 prop，它接受一个回调函数，该函数可以转换元数据。
 
-Use it if you:
+如果您：
 
-<Step>1</Step> need to make the duration, width, height, or fps <a href="/docs/dynamic-metadata">dynamic based on some data</a>
+<Step>1</Step> 需要根据某些数据使持续时间、宽度、高度或帧速率 <a href="/docs/dynamic-metadata">动态变化</a>
 <br />
-<Step>2</Step> want to transform the props passed to the composition, for example
-to do <a href="/docs/data-fetching">data fetching</a>
+<Step>2</Step> 想要转换传递给合成的 props，例如执行 <a href="/docs/data-fetching">数据获取</a>
 <br />
-<Step>3</Step> want to add a per-composition default codec
+<Step>3</Step> 想要添加每个合成的默认编解码器
 <br />
-<Step>4</Step> want to run code once, before the actual render starts.
+<Step>4</Step> 想要在实际渲染开始之前运行一次代码
 
-The `calculateMetadata()` function is called a single time, independently from the concurrency of the render.  
-It runs in a separate tab, as part of the render process calling [`selectComposition()`](/docs/renderer/select-composition).
+`calculateMetadata()` 函数仅调用一次，与渲染的并发无关。  
+它在一个单独的标签页中运行，作为调用 [`selectComposition()`](/docs/renderer/select-composition) 的渲染过程的一部分。
 
-## Usage / API
+## 用法 / API
 
-Define a function, you may type it using `CalculateMetadataFunction` - the generic argument takes the props of the component of your composition:
+定义一个函数，您可以使用 `CalculateMetadataFunction` 进行类型标注 - 通用参数接受您合成组件的 props：
 
 ```tsx twoslash title="src/Root.tsx"
 // @filename: MyComp.tsx
@@ -79,32 +78,33 @@ export const Root: React.FC = () => {
 };
 ```
 
-As argument, you get an object with the following properties:
+作为参数，您会得到一个具有以下属性的对象：
 
-- `defaultProps`: Only the default props, taken from the [`defaultProps`](/docs/composition#defaultprops) prop or the Remotion Studio Data sidebar.
-- `props`: The [resolved props](/docs/props-resolution), taking input props into account.
-- `abortSignal`: An [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) which you can use to abort network requests if [the default props have been changed](/docs/data-fetching#aborting-stale-requests) in the meanwhile.
-- `compositionId` (_available from v4.0.98_): The ID of the current composition
+- `defaultProps`: 仅来自 [`defaultProps`](/docs/composition#defaultprops) prop 或 Remotion Studio 数据侧边栏的默认 props。
+- `props`: [已解析的 props](/docs/props-resolution)，考虑了输入 props。
+- `abortSignal`: 一个 [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal)，您可以使用它来中止网络请求，如果 [默认 props 在此期间已更改](/docs/data-fetching#aborting-stale-requests)。
+- `compositionId` (_从 v4.0.98 开始可用_): 当前合成的 ID
 
-The function must return an pure JSON-serializable object, which can contain the following properties:
+该函数必须返回一个纯 JSON 可序列化对象，其中可以包含以下属性：
 
-- `props` _optional_: The [final props](/docs/props-resolution) the component receives. It must have the [same shape](/docs/data-fetching#usage) as the `props` received by this function. The props must be a plain object and must not contain any non-JSON-serializable values, except `Date`, `Map`, `Set` and [`staticFile()`](/docs/staticfile).
-- `durationInFrames` _optional_: The duration of the composition in frames
-- `width` _optional_: The width of the composition in pixels
-- `height` _optional_: The height of the composition in pixels
-- `fps` _optional_: The frames per second of the composition
-- `defaultCodec` _optional_: The default codec to use for the composition.
+- `props` _可选_: 组件接收的 [最终 props](/docs/props-resolution)。它必须具有与此函数接收的 `props` 相同的 [形状](/docs/data-fetching#usage)。props 必须是一个普通对象，不能包含任何非 JSON 可序列化值，除了 `Date`、`Map`、`Set` 和 [`staticFile()`](/docs/staticfile)。
+- `durationInFrames` _可选_: 合成的帧数持续时间
+- `width` _可选_: 合成的像素宽度
+- `height` _可选_: 合成的像素高度
+- `fps` _可选_: 合成的帧速率
+- `defaultCodec` _可选_: 用于合成的默认编解码器。
 
-If you return a field, it will take precendence over the props directly passed to the composition. The defaultCodec returned will have a higher priority than the config file, but less priority than explicitly passing the option to renderMedia() i.e. the composition will be rendered with this codec if nothing with higher priority was specified.
+如果返回一个字段，它将优先于直接传递给组合的 props。返回的 defaultCodec 将比配置文件具有更高的优先级，但比显式传递给 renderMedia() 的选项优先级低，即如果未指定具有更高优先级的内容，则将使用此编解码器渲染组合。
 
-The function may be `async`.
+该函数可能是 `async`。
 
-The function must resolve within the [timeout](/docs/delay-render#timeout).
+该函数必须在 [timeout](/docs/delay-render#timeout) 内解析。
 
-The function will get executed every time the props in the [Remotion Studio](/docs/visual-editing) changes.
+每当 [Remotion Studio](/docs/visual-editing) 中的 props 更改时，该函数将被执行。
 
-## See also
+## 另请参阅
 
 - [`<Composition>`](/docs/composition)
-- [Data fetching](/docs/data-fetching)
-- [Dynamic metadata](/docs/dynamic-metadata)
+- [数据获取](/docs/data-fetching)
+- [动态元数据](/docs/dynamic-metadata)
+

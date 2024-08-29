@@ -2,63 +2,67 @@
 slug: 2-4
 title: Remotion 2.4
 author: Jonny Burger
-author_title: Remotion Creator
+author_title: Remotion 创始人
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
-image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%202.4&description=Redesigned%20editor,%20UI%20helpers%20and%20%20%22New%20composition%22%20dialog
+image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%202.4&description=重新设计的编辑器，UI 助手和“新合成”对话框
 ---
 
-In this release, we are revamping the Remotion Preview interface to make it easier on the eyes and add new features. While Remotion will always be about leveraging code instead of clicking buttons, we want to add complementary helpers to help you get your videos done faster!
+在这个版本中，我们正在重新设计 Remotion 预览界面，使其更易于阅读并添加新功能。虽然 Remotion 总是关于利用代码而不是点击按钮，但我们希望添加辅助工具来帮助您更快地完成视频制作！
 
-## New toolbar
+## 新工具栏
 
-All the actions that can be performed in the editor are now organized in a toolbar at the top, plus we added quick links to resources such as Documentation, Changelog, GitHub, Support options and our social media accounts ([follow us over there!](https://instagram.com/remotion)).
+现在，可以在顶部的工具栏中组织在编辑器中可以执行的所有操作，此外，我们还添加了快速链接到资源，如文档、更改日志、GitHub、支持选项以及我们的社交媒体账号（[在那里关注我们！](https://instagram.com/remotion)）。
 
 <p align="center">
   <img src="/img/toolbar.gif" style={{maxWidth: 500}} />
 </p>
 
-## "New composition" helper
+## “新合成”助手
 
-You can press <kbd>N</kbd> to bring up a modal that helps you generate code for creating a new `<Composition />` or `<Still />`. Drag the sliders to quickly adjust the dimensions and duration of the video. Lock or unlock the aspect ratio. Click the numbers to enter an exact value. Receive warnings on invalid configuration. Once you are happy with the code, you can click the copy button and paste it in your `src/Root.tsx` file.
+您可以按 <kbd>N</kbd> 键打开一个模态框，帮助您生成用于创建新的 `<Composition />` 或 `<Still />` 的代码。拖动滑块快速调整视频的尺寸和持续时间。锁定或解锁纵横比。单击数字输入确切值。在配置无效时接收警告。一旦您对代码满意，就可以单击复制按钮并将其粘贴到您的 `src/Root.tsx` 文件中。
 
 <p align="center">
   <img src="/img/newcomp.png" style={{maxWidth: 650}} />
 </p>
 
-## "Keyboard shortcuts" pane
+## “键盘快捷键”窗格
 
-To get an overview of all keyboard shortcuts, you can now press <kbd>?</kbd> to bring up a list of all shortcuts.
+要查看所有键盘快捷键的概述，现在可以按 <kbd>?</kbd> 键显示所有快捷键列表。
 
 <p align="center">
   <img src="/img/keyboard-shortcuts.png" style={{maxWidth: 450}} />
 </p>
 
-## Improved keyboard navigation
+## 改进的键盘导航
 
-For those true hackers that don't use mouses, we optimized the whole new UI to be usable with just the keyboard. Use the <kbd>Tab</kbd> key to focus items, the arrow keys to navigate through menus. Press <kbd>Enter</kbd> or <kbd>Space</kbd> to click on items. Use <kbd>Escape</kbd> to quit modals and menus.
+对于那些不使用鼠标的真正黑客，我们优化了整个新 UI，只需使用键盘即可使用。使用 <kbd>Tab</kbd> 键聚焦项目，使用箭头键在菜单中导航。按 <kbd>Enter</kbd> 或 <kbd>Space</kbd> 单击项目。使用 <kbd>Escape</kbd> 退出模态框和菜单。
 
 <p align="center">
   <img src="/img/keyboard-navigation.gif" style={{maxWidth: 600}} />
 </p>
 
-## Built with 0 dependencies
+## 使用 0 个依赖构建
 
-We want to add new features to the Preview, but not bloat Remotion by adding tons of third-party packages that increase startup time and at some point will cause you to fight with your package manager. So we carefully crafted the editor with no dependencies except React and Remotion (which also only has `react` and `react-dom` as it's only dependencies).
+我们希望为预览添加新功能，但不想通过添加大量第三方包使 Remotion 变得臃肿，这些包会增加启动时间，并最终导致您与包管理器作斗争。因此，我们精心打造了没有除 React 和 Remotion 外任何依赖的编辑器（Remotion 本身也只有 `react` 和 `react-dom` 作为其唯一的依赖项）。
 
-## Other improvements
+## 其他改进
 
-- **New `<Series />` component**: Introduced in 2.3.2, we added a new [`<Series />`](/docs/series) component that helps you layout many sequences in a row. See this post ([Instagram](https://www.instagram.com/p/CTMCMX1q-Lm/) | [Twitter](https://twitter.com/JNYBGR/status/1432225492116123651)) for additional infographic explanation!
+- **新的 `<Series />` 组件**：在 2.3.2 版本中引入了一个新的 [`<Series />`](/docs/series) 组件，可帮助您在一排中布局许多序列。查看此帖子（[Instagram](https://www.instagram.com/p/CTMCMX1q-Lm/) | [Twitter](https://twitter.com/JNYBGR/status/1432225492116123651)）以获取额外的信息图解！
 
-- **Better handling for browser autoplay policies**: If you use the [`<Player />`](/docs/player) and include audio in it, you might hit a browser limitation where audio cannot be played because of a browsers autoplay policy. Remotion can now avoid some of those scenarios by playing some silent audio when the user actively triggers a play on the Remotion Player. If you then later in the video want to play some audio, Remotion will route that audio to an `<audio />` tag that was already playing silent audio and was already freed from the playback restrictions of the browser. You can control the amount of silent audio tags that Remotion should place using the [`numberOfSharedAudioTags`](/docs/player/autoplay#use-the-numberofsharedaudiotags-property) prop.
+- **更好地处理浏览器自动播放策略**：如果您在 [`<Player />`](/docs/player) 中包含音频，则可能会遇到浏览器限制的情况，因为由于浏览器的自动播放策略，音频无法播放。Remotion 现在可以通过在用户主动触发 Remotion Player 播放时播放一些静音音频来避免其中一些情况。如果您稍后想要播放一些音频，则 Remotion 将将该音频路由到已经播放静音音频并已从浏览器的播放限制中释放的 `<audio />` 标签。您可以使用 [`numberOfSharedAudioTags`](/docs/player/autoplay#use-the-numberofsharedaudiotags-property) 属性控制 Remotion 应放置的静音音频标签的数量。
 
-- **Better handling of invalid dimensions**: It turns out that MP4s can only have even dimensions. So while a 1000x1000px MP4 is completely fine, a 999x999px MP4 is not possible according to the spec. Instead of erroring out when rendering, we now warn you early using a new ESLint rule, and also when you use the "New composition" dialog.
+- **更好地处理无效尺寸**：事实证明，MP4 只能具有偶数尺寸。因此，虽然 1000x1000px 的 MP4 完全没问题，但根据规范，999x999px 的 MP4 是不可能的。现在，在渲染时不再出现错误，而是通过新的 ESLint 规则和在使用“新合成”对话框时提前警告您。
 
-- **Bug fixed when using `frameRange`:** A one-off error would cause the wrong frames being rendered when using the `frameRange` option. If you specified a frame range of `0-20`, the frames `-1` until `19` would be rendered. This is now rectified, if you were reliant on this option, please make sure your video renders as intended after the update!
+- **修复使用 `frameRange` 时的错误**：在使用 `frameRange` 选项时，一个一次性错误会导致渲染错误的帧。如果您指定了 `0-20` 的帧范围，则会渲染帧 `-1` 到 `19`。现在已经纠正了这个问题，如果您依赖此选项，请确保更新后您的视频按预期渲染！
 
-- **Component mounts directly at desired frame**:
-  During rendering, previously the browser would always mount the React component at frame `0`, and then update the component with the initial frame that should be rendered. This is now changed, so if you are e.g. using the `frameRange` option to render frames `20-39`, your component will now never mount at frame `0` after this update.
 
-## Up next
 
-We are working on revamping the rendering pipeline and adding more ways to render a Remotion video and plan to release this as a major version bump (v3.0) with some breaking changes. Stay tuned for announcements on how we make Remotion much easier to scale.
+This is the translated text in Chinese. Let me know if you need any more translations.
+
+- **组件直接挂载到所需的帧**:
+  在渲染过程中，以前浏览器总是会将 React 组件挂载在帧 `0`，然后使用应该渲染的初始帧更新组件。现在已经更改了这一点，因此，如果您例如使用 `frameRange` 选项来渲染帧 `20-39`，在此更新后，您的组件现在永远不会在帧 `0` 处挂载。
+
+## 接下来
+
+我们正在努力改进渲染流程，并添加更多渲染 Remotion 视频的方式，并计划将其作为一个主要版本升级（v3.0）发布，其中包含一些破坏性更改。请继续关注我们发布的公告，了解我们如何使 Remotion 更易于扩展。

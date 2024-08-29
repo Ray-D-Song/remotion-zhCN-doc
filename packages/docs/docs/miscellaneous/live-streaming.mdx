@@ -1,16 +1,17 @@
 ---
 image: /generated/articles-docs-miscellaneous-live-streaming.png
-crumb: "FAQ"
-title: Can Remotion be used for live streaming?
-sidebar_label: Live streaming
+crumb: "常见问题"
+title: Remotion 可以用于直播吗？
+sidebar_label: 直播
 ---
 
-Remotion is not designed for broadcasting. It's use case is to render fixed-length videos which content is deterministic from start to end.
+Remotion 不是为广播设计的。它的用例是渲染固定长度的视频，其内容从头到尾是确定的。
 
-Live streaming requires a different approach. Content is not known in advance, being able to react to events is often necessary, the video is not fixed-length and broadcasting is extremely performance sensitive, with all frames needing to be rendered in real-time.
+直播需要采用不同的方法。内容事先不知道，通常需要能够对事件做出反应，视频长度不固定，广播极其性能敏感，所有帧都需要实时渲染。
 
-Remotion declarative approach based on browser APIs is not suitable for this use case.
+Remotion 基于浏览器 API 的声明式方法不适用于这种用例。
 
-For streamers wanting to leverage web technologies in their livestream, we recommend that they build a web app with transparent background and add it as a browser source to [OBS](https://obsproject.com/).
+对于希望在直播中利用 Web 技术的流媒体用户，我们建议他们构建一个具有透明背景的 Web 应用，并将其作为浏览器源添加到 [OBS](https://obsproject.com/) 中。
 
-You may create stinger transitions for OBS with Remotion, see an [example](https://github.com/JonnyBurger/ledevevent-stinger) here.
+您可以使用 Remotion 为 OBS 创建过渡效果，这里有一个 [示例](https://github.com/JonnyBurger/ledevevent-stinger)。
+

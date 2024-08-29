@@ -1,54 +1,54 @@
 ---
 image: /generated/articles-docs-ffmpeg.png
-title: Installing FFmpeg
-sidebar_label: Installing FFmpeg
+title: 安装 FFmpeg
+sidebar_label: 安装 FFmpeg
 crumb: "(you don't have to)"
 ---
 
 :::info
-Since Remotion v4.0, Remotion comes bundled with a lightweight version of FFmpeg. An installation of FFmpeg is no longer needed.
+自 Remotion v4.0 起，Remotion 预装了一个轻量级版本的 FFmpeg。不再需要安装 FFmpeg。
 :::
 
-## FFmpeg in V3 of Remotion
+## Remotion V3 中的 FFmpeg
 
-**The following documentation is an archival for how FFmpeg worked in v3.0.**
+**以下文档是关于 v3.0 版本中 FFmpeg 工作方式的存档。**
 
-Remotion requires FFmpeg to encode videos. Since v3.3, you do not need to install FFmpeg manually. This page documents the behavior of Remotion for developers needing advanced control.
+Remotion 需要 FFmpeg 来编码视频。自 v3.3 版本以来，您无需手动安装 FFmpeg。本页面记录了需要对 Remotion 进行高级控制的开发人员的 Remotion 行为。
 
-### `ffmpeg` and `ffprobe`
+### `ffmpeg` 和 `ffprobe`
 
-Two binaries are required for Remotion: `ffmpeg` and `ffprobe`. When talking about FFmpeg in the documentation, it may also refer to FFprobe.
+Remotion 需要两个二进制文件：`ffmpeg` 和 `ffprobe`。在文档中提到 FFmpeg 时，也可能指的是 FFprobe。
 
-### Auto-install
+### 自动安装
 
-When rendering a video and binaries are not found, Remotion will download them from the internet and put it inside your `node_modules` folder. The binary will not get added to your `PATH`, so if you type in `ffmpeg` into your Terminal, it may not be found. However, Remotion will be able to use it
+当渲染视频时，如果找不到二进制文件，Remotion 将从互联网下载它们并放入您的 `node_modules` 文件夹中。该二进制文件不会添加到您的 `PATH` 中，因此如果您在终端中键入 `ffmpeg`，可能找不到它。但是，Remotion 将能够使用它。
 
-#### Supported architectures
+#### 支持的架构
 
-Auto-install is supported on the following platforms:
+自动安装支持以下平台：
 
-- Linux, x86_64,
-- macOS, Intel
-- macOS, Apple Silicon
-- Windows, x86_64
+- Linux，x86_64，
+- macOS，Intel
+- macOS，Apple Silicon
+- Windows，x86_64
 
-For other platforms, you need to supply your own binaries.
+对于其他平台，您需要提供自己的二进制文件。
 
-#### Triggering auto-install
+#### 触发自动安装
 
-By rendering a video, the download of FFmpeg will be triggered automatically.
+通过渲染视频，将自动触发 FFmpeg 的下载。
 
-On servers, it might be of use to install the binaries before the first render, so no time is wasted once the first render begins.
+在服务器上，在第一次渲染之前安装二进制文件可能很有用，这样一旦第一次渲染开始，就不会浪费时间。
 
-- Using the CLI, you can run [`npx remotion install ffmpeg`](/docs/cli/install) and `npx remotion install ffprobe` to trigger auto-install of binaries. If the binaries exist, the command will do nothing. This requires `@remotion/cli` to be installed.
-- The [`@remotion/renderer`](/docs/renderer) package exposes [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) and [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe) functions
+- 使用 CLI，您可以运行 [`npx remotion install ffmpeg`](/docs/cli/install) 和 `npx remotion install ffprobe` 来触发二进制文件的自动安装。如果二进制文件存在，则该命令将不执行任何操作。这需要安装 `@remotion/cli`。
+- [`@remotion/renderer`](/docs/renderer) 包公开了 [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) 和 [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe) 函数
 
-### Order of priority
+### 优先级顺序
 
-In case of multiple binaries being supplied, they priority order is the following:
+如果提供了多个二进制文件，则其优先级顺序如下：
 
-- If a binary was supplied using the `ffmpegExecutable` or `ffprobeExecutable` option, it will be used.
-- If `ffmpeg` or `ffprobe` is in the `PATH`, it will be used.
-- If a binary was previously installed by Remotion into `node_modules`, it will be used.
-- If a binary can be downloaded from the internet, Remotion will do so and use it.
-- Failure if no binary was found using the logic above.
+- 如果使用了 `ffmpegExecutable` 或 `ffprobeExecutable` 选项提供了二进制文件，则将使用该文件。
+- 如果 `ffmpeg` 或 `ffprobe` 在 `PATH` 中，将使用它。
+- 如果之前由 Remotion 安装到 `node_modules` 中的二进制文件，则将使用它。
+- 如果可以从互联网下载二进制文件，则 Remotion 将这样做并使用它。
+- 如果根据上述逻辑未找到任何二进制文件，则操作失败。

@@ -5,7 +5,7 @@ title: random()
 crumb: "API"
 ---
 
-The `random()` API will give deterministic pseudorandom values between `0` and `1`. Unlike the `Math.random()` function, Remotions function takes in a seed which can be a `number` or a `string`. If the seed is the same, the output is always the same.
+`random()` API 将提供在 `0` 和 `1` 之间的确定性伪随机值。与 `Math.random()` 函数不同，Remotion 函数接受一个种子，该种子可以是一个 `number` 或一个 `string`。如果种子相同，则输出始终相同。
 
 ```ts twoslash
 import { random } from "remotion";
@@ -24,13 +24,13 @@ const randomCoordinates = new Array(10).fill(true).map((a, i) => {
 random(); // Error: random() argument must be a number or a string
 ```
 
-## Use cases
+## 使用情况
 
-Randomness can be used to create interesting visualizations, such as particle effect for example. Since Remotion renders a video on multiple threads and opens the website multiple times, the value returned by a `Math.random()` call will not be the same across multiple threads, making it hard to create animations based on randomness. Using this API will ensure that the pseudorandom number will be the same always.
+随机性可用于创建有趣的可视化效果，例如粒子效果。由于 Remotion 在多个线程上渲染视频并多次打开网站，因此通过 `Math.random()` 调用返回的值在多个线程中不同，这使得基于随机性创建动画变得困难。使用此 API 将确保伪随机数始终相同。
 
-## Accessing true randomness
+## 访问真随机性
 
-Calling `Math.random()` results in an ESLint warning in Remotion since often it leads to bugs in rendering. If you are sure you want a true random number, and want to bypass this message without adding an ignore comment, use `random(null)`
+调用 `Math.random()` 在 Remotion 中会导致 ESLint 警告，因为通常会导致渲染中的错误。如果您确定要一个真随机数，并且想要绕过此消息而不添加忽略注释，请使用 `random(null)`
 
 ```ts twoslash
 const random = (seed: number | string | null) => Math.random();
@@ -39,7 +39,7 @@ const random = (seed: number | string | null) => Math.random();
 random(null) === random(null); // false
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/random.ts)
-- [Using randomness](/docs/using-randomness)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/random.ts)
+- [使用随机性](/docs/using-randomness)

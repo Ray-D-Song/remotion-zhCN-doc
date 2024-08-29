@@ -6,15 +6,15 @@ title: "preloadFont()"
 crumb: "@remotion/preload"
 ---
 
-_This function is part of the [`@remotion/preload`](/docs/preload) package._
+_此函数是 [`@remotion/preload`](/docs/preload) 包的一部分。_
 
-This function preloads a font so that when an [`<Img>`](/docs/img) tag is mounted, it can display immediately.
+此函数预加载字体，以便在挂载 [`<Img>`](/docs/img) 标签时，可以立即显示。
 
-While preload is not necessary for rendering, it can help with seamless playback in the [`<Player />`](/docs/player) and in the Studio.
+虽然预加载对于渲染并非必需，但它可以帮助在 [`<Player />`](/docs/player) 和 Studio 中实现无缝播放。
 
-An alternative to `preloadFont()` is the [`prefetch()`](/docs/prefetch) API. See [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch) to decide which one is better for your usecase.
+`preloadFont()` 的替代方案是 [`prefetch()`](/docs/prefetch) API。查看 [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch) 来决定哪个更适合您的用例。
 
-## Usage
+## 用法
 
 ```tsx twoslash
 import { preloadFont } from "@remotion/preload";
@@ -27,19 +27,19 @@ const unpreload = preloadFont(
 unpreload();
 ```
 
-## How it works
+## 工作原理
 
-A `<link rel="preload" as="font">` tag gets added to the head element of the document.
+一个 `<link rel="preload" as="font">` 标签会被添加到文档的 head 元素中。
 
-## Handle redirects
+## 处理重定向
 
-If the font URL redirects to another URL, preloading the original URL does not work.
+如果字体 URL 重定向到另一个 URL，则预加载原始 URL 将无效。
 
-If the URL you include is unknown, use [`resolveRedirect()`](/docs/preload/resolve-redirect) to programmatically obtain the final URL following potential redirects.
+如果您包含的 URL 是未知的，请使用 [`resolveRedirect()`](/docs/preload/resolve-redirect) 来以编程方式获取遵循潜在重定向的最终 URL。
 
-If the resource does not support CORS, `resolveRedirect()` will fail. If the resource redirects, and does not support CORS, you cannot preload the asset.
+如果资源不支持 CORS，`resolveRedirect()` 将失败。如果资源重定向，并且不支持 CORS，则无法预加载该资产。
 
-This snippet tries to preload a font on a best-effort basis. If the redirect cannot be resolved, it tries to preload the original URL.
+此代码片段尝试尽最大努力预加载字体。如果无法解析重定向，则尝试预加载原始 URL。
 
 ```tsx twoslash
 import { preloadFont, resolveRedirect } from "@remotion/preload";
@@ -72,6 +72,7 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/preload/src/preload-font.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/preload/src/preload-font.ts)
+

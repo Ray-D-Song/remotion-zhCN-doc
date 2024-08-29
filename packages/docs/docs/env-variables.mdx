@@ -1,71 +1,71 @@
 ---
 image: /generated/articles-docs-env-variables.png
 id: env-variables
-title: Environment variables
-crumb: "How To"
+title: 环境变量
+crumb: "如何"
 ---
 
-_Available from v2.1.2._
+_从 v2.1.2 版本开始可用。_
 
-Remotion supports environment variables being passed directly from the CLI, using a `.env` file and from the [`renderMedia()`](/docs/renderer/render-media) function.
+Remotion 支持直接从 CLI 传递环境变量，使用 `.env` 文件以及 [`renderMedia()`](/docs/renderer/render-media) 函数。
 
-## Passing variables from the CLI
+## 从 CLI 传递变量
 
-If you want to pass an environment variable from the CLI, you need to prefix it with `REMOTION_`. This is a security feature to prevent your whole environment (which could contain sensitive information) being included in a Webpack bundle.
+如果您想从 CLI 传递环境变量，需要使用 `REMOTION_` 作为前缀。这是一个安全功能，可以防止您的整个环境（可能包含敏感信息）被包含在 Webpack 捆绑包中。
 
-You can pass environment variables in development mode and while rendering. For example:
+您可以在开发模式和渲染时传递环境变量。例如：
 
 ```bash
 REMOTION_MY_VAR=hello_world npm start
 ```
 
-In your project, you can access the variable using `process.env.REMOTION_MY_VAR`.
+在您的项目中，您可以使用 `process.env.REMOTION_MY_VAR` 访问该变量。
 
-## Using a dotenv file
+## 使用 dotenv 文件
 
-[Dotenv](https://www.npmjs.com/package/dotenv) support is built in if you use the CLI.  
-If you use the Node.JS APIs, the `.env` file **is not automatically read** and you need to use the `dotenv` package yourself.
+如果您使用 CLI，则内置支持 [Dotenv](https://www.npmjs.com/package/dotenv)。  
+如果您使用 Node.JS API，则 `.env` 文件**不会自动读取**，您需要自己使用 `dotenv` 包。
 
-Place a `.env` file in the [root](/docs/terminology/remotion-root) of your project and fill it with key-value pairs.
+在您的项目的 [根目录](/docs/terminology/remotion-root)中放置一个 `.env` 文件，并填充键值对。
 
 ```ini title=".env"
 MY_VAR=hello
 ANOTHER_VAR=world
 ```
 
-In your Remotion frontend code you can read `process.env` to get an object of environment variables: `{"MY_VAR": "hello", "ANOTHER_VAR": "world"}`.
+在您的 Remotion 前端代码中，您可以使用 `process.env` 读取一个环境变量对象：`{"MY_VAR": "hello", "ANOTHER_VAR": "world"}`。
 
-Since `v4.0.110`, the following locations will get automatically recognized:
+自 `v4.0.110` 版本开始，以下位置将自动被识别：
 
-- `.env` in your [Remotion Root](/docs/terminology/remotion-root)
-- `.env.local` in your [Remotion Root](/docs/terminology/remotion-root)
+- 在您的 [Remotion Root](/docs/terminology/remotion-root) 中的 `.env` 文件
+- 在您的 [Remotion Root](/docs/terminology/remotion-root) 中的 `.env.local` 文件
 
-You can see which config file gets read by adding a `--log=verbose` flag to your command and looking out for the following log:
+您可以通过向您的命令添加 `--log=verbose` 标志并查看以下日志来查看哪个配置文件被读取：
 
 ```
 Loaded env file from /Users/my-user/remotion-project/.env.local.
 ```
 
-You can override the location of your dotenv file using the [configuration file setting](/docs/config#setdotenvlocation) or the [CLI flag](/docs/cli).
+您可以使用 [配置文件设置](/docs/config#setdotenvlocation) 或 [CLI 标志](/docs/cli) 覆盖您的 dotenv 文件位置。
 
-## Using in Node.js APIs
+## 在 Node.js API 中使用
 
-When using the [Node.js APIs](/docs/renderer) such as [`renderMedia()`](/docs/renderer/render-media) or [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda), the environment variables are **not** picked up automatically.
+当使用 [Node.js API](/docs/renderer) 时，如 [`renderMedia()`](/docs/renderer/render-media) 或 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)，环境变量**不会**被自动获取。
 
-The reason is that one might integrate Remotion as a small part of a big application and if Remotion would read the `.env` file automatically and forward all variables to renders, it would lead to a security issue.
+原因是有人可能将 Remotion 集成为大型应用程序的一小部分，如果 Remotion 自动读取 `.env` 文件并将所有变量转发到渲染器，这将导致安全问题。
 
-To pass environment variables while server-side-rendering, pass an object to the [`envVariables` option of `renderMedia()`](/docs/renderer/render-media#envvariables).
+在服务器端渲染时传递环境变量，请将对象传递给 [`renderMedia()` 的 `envVariables` 选项](/docs/renderer/render-media#envvariables)。
 
-If you want to read the environment variables from a `.env` file, use the [dotenv](https://www.npmjs.com/package/dotenv) package.
+如果要从 `.env` 文件中读取环境变量，请使用 [dotenv](https://www.npmjs.com/package/dotenv) 包。
 
-## The `envVariables` option
+## `envVariables` 选项
 
-The `envVariables` option of [`renderMedia()`](/docs/renderer/render-media#envvariables), [`renderMediaOnLambda`](/docs/lambda/rendermediaonlambda) accepts an object of key-value pairs.  
-These values can then be read from `process.env` inside your React component.
+[`renderMedia()`](/docs/renderer/render-media#envvariables)、[`renderMediaOnLambda`](/docs/lambda/rendermediaonlambda) 的 `envVariables` 选项接受一个键值对对象。  
+然后可以从 React 组件内部的 `process.env` 中读取这些值。
 
-The option is not for authenticating with AWS - instead, load the AWS credentials using one of the described methods above.
+该选项不用于与 AWS 进行身份验证 - 取而代之的是，使用上述描述的方法之一加载 AWS 凭据。
 
-## See also
+## 另请参阅
 
 - [`renderMedia()` - envVariables](/docs/renderer/render-media#envvariables)
 - [`renderFrames()` - envVariables](/docs/renderer/render-frames#envvariables)

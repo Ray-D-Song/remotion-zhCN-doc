@@ -1,58 +1,58 @@
 ---
 image: /generated/articles-docs-studio-deploy-static.png
-title: Deploy Remotion Studio as static site
-sidebar_label: Deploy as static site
+title: 将 Remotion Studio 部署为静态站点
+sidebar_label: 部署为静态站点
 crumb: "Remotion Studio"
 ---
 
-_available from v4.0.97_
+_从 v4.0.97 版本开始可用_
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-You can deploy the Remotion Studio as a static site, for example to Vercel or Netlify.  
-While the Render button will be disabled, it may be used as a [Serve URL](/docs/terminology/serve-url) to pass to rendering APIs.  
-Make sure you are on at least v4.0.97 to use this feature - use `npx remotion upgrade` to upgrade.
+您可以将 Remotion Studio 部署为静态站点，例如到 Vercel 或 Netlify。  
+虽然“渲染”按钮将被禁用，但它可以作为[服务 URL](/docs/terminology/serve-url)用于传递给渲染 API。  
+确保您至少使用 v4.0.97 版本才能使用此功能 - 使用 `npx remotion upgrade` 进行升级。
 
-## Export the Remotion Studio as a static site
+## 将 Remotion Studio 导出为静态站点
 
-To export the Remotion Studio as a static site, run the [`remotion bundle`](/docs/cli/bundle) command:
+要将 Remotion Studio 导出为静态站点，请运行 [`remotion bundle`](/docs/cli/bundle) 命令：
 
 ```bash
 npx remotion bundle
 ```
 
-The output will be in the `build` folder.  
-We recommend to add `build` to your `.gitignore` file. The command will offer to do it for you when you run it.
+输出将位于 `build` 文件夹中。  
+我们建议将 `build` 添加到您的 `.gitignore` 文件中。当您运行命令时，它将提供选项为您执行此操作。
 
-## Deploy to Vercel
+## 部署到 Vercel
 
-To deploy to Vercel, connect your repository to Vercel.
+要部署到 Vercel，请将您的存储库连接到 Vercel。
 
-In the "Build and Output" settings, enable "OVERRIDE" and set the following:
+在“构建和输出”设置中，启用“覆盖”并设置以下内容：
 
-- **Build Command**: `bunx remotion bundle`
-- **Output Directory**: `build`
-- **Installation Command**: _Leave default_
+- **构建命令**：`bunx remotion bundle`
+- **输出目录**：`build`
+- **安装命令**：_保持默认_
 
 ![Alt text](https://github.com/remotion-dev/remotion/assets/86873911/ac38e1fb-0c95-4f64-b2b9-b72b90d69f22)
 
 :::note
-Using bunx as a script runner is slightly faster than using `npx`.
+使用 bunx 作为脚本运行器比使用 `npx` 稍快。
 :::
 
-## Deploy to Netlify
+## 部署到 Netlify
 
-Connect your repository to Netlify.
+将您的存储库连接到 Netlify。
 
-- **Base directory**: _Leave default_
-- **Build command**: `npx remotion bundle`
-- **Publish directory**: `build`
-- **Functions directory**: _Leave default_
+- **基本目录**：_保持默认_
+- **构建命令**：`npx remotion bundle`
+- **发布目录**：`build`
+- **函数目录**：_保持默认_
 
-## Deploy to GitHub Pages
+## 部署到 GitHub Pages
 
-<Step>1</Step> Create the following file in your repo:
+<Step>1</Step> 在您的存储库中创建以下文件：
 
 ```yaml title=".github/workflows/deploy-studio.yml"
 name: Deploy Remotion studio
@@ -80,20 +80,20 @@ jobs:
           folder: build
 ```
 
-The above code will deploy the bundled Remotion Studio to a branch `gh-pages`.
+上述代码将将打包的 Remotion Studio 部署到一个名为 `gh-pages` 的分支。
 
 :::note
-The --public-path flag for `npx remotion bundle` is available only from remotion version `4.0.127`
+`npx remotion bundle` 的 --public-path 标志仅在 remotion 版本 `4.0.127` 及以上可用。
 :::
 
-<Step>3</Step> Go to the settings of your repository (github.com/[username]/[repo]/settings/pages) <br />
+<Step>3</Step> 转到您存储库的设置页面 (github.com/[username]/[repo]/settings/pages) <br />
 
-<Step>4</Step> In the Branch section, select the <code>gh-pages</code> branch and
-click save.
 
-## Rendering from a URL
+<Step>4</Step> 在分支部分，选择 <code>gh-pages</code> 分支并保存。
 
-The deployed URL is a [Serve URL](/docs/terminology/serve-url) can also be used to render a video:
+## 从 URL 渲染
+
+部署的 URL 是一个 [Serve URL](/docs/terminology/serve-url)，也可用于渲染视频：
 
 <Tabs
 defaultValue="cli"
@@ -106,13 +106,13 @@ values={[
 }>
 <TabItem value="cli">
 
-Minimal example:
+最简示例：
 
 ```bash
 npx remotion render https://remotion-helloworld.vercel.app
 ```
 
-Specify "HelloWorld" [composition ID](/docs/terminology/composition#composition-id) and [input props](/docs/terminology/input-props):
+指定 "HelloWorld" [composition ID](/docs/terminology/composition#composition-id) 和 [input props](/docs/terminology/input-props)：
 
 ```bash
 npx remotion render https://remotion-helloworld.vercel.app HelloWorld --props '{"titleText":"Hello World"}'
@@ -149,7 +149,7 @@ await renderMedia({
 });
 ```
 
-Refer to [`renderMedia()`](/docs/renderer/render-media) to see all available options.
+参考 [`renderMedia()`](/docs/renderer/render-media) 查看所有可用选项。
 
   </TabItem>
 
@@ -177,7 +177,7 @@ const { bucketName, renderId } = await renderMediaOnLambda({
 });
 ```
 
-You need to complete the [Remotion Lambda Setup](/docs/lambda/setup) first.
+首先需要完成 [Remotion Lambda 设置](/docs/lambda/setup)。
 
   </TabItem>
 
@@ -210,7 +210,8 @@ if (result.type === "success") {
 }
 ```
 
-You need to complete the [Remotion Cloud Run Setup](/docs/cloudrun-alpha) first.
+首先需要完成 [Remotion Cloud Run 设置](/docs/cloudrun-alpha)。
 
   </TabItem>
 </Tabs>
+

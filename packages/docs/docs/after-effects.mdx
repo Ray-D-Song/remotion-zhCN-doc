@@ -1,59 +1,60 @@
 ---
 image: /generated/articles-docs-after-effects.png
 id: after-effects
-title: Import from After Effects
+title: 从 After Effects 导入
 slug: after-effects
-crumb: "Integrations"
+crumb: "集成"
 ---
 
 import {InlineStep} from '../components/InlineStep';
 
-If you are a After Effects user, you might find it useful to convert your After Effects compositions to Remotion compositions. You can use the [`@remotion/lottie`](/docs/lottie) package for this.
+如果您是 After Effects 用户，您可能会发现将 After Effects 组合转换为 Remotion 组合很有用。您可以使用 [`@remotion/lottie`](/docs/lottie) 包来实现此目的。
 
 :::note
-Remotion compositions got their name because After Effects coined this term!
+Remotion 组合得名于 After Effects 创造了这个术语！
 :::
 
-### Install the Bodymovin plugin
+### 安装 Bodymovin 插件
 
-- Make sure After Effects is closed.
-- Go to [this site](https://aescripts.com/learn/zxp-installer/) and download the ZXP installer for your platform.
-- Click [here](https://github.com/airbnb/lottie-web/blob/master/build/extension/bodymovin.zxp?raw=true) to download the latest Bodymovin plugin.
-- Open the ZXP installer and drag the bodymovin file into it.
+- 确保关闭 After Effects。
+- 前往[此网站](https://aescripts.com/learn/zxp-installer/)，下载适用于您平台的 ZXP 安装程序。
+- 点击[这里](https://github.com/airbnb/lottie-web/blob/master/build/extension/bodymovin.zxp?raw=true)下载最新的 Bodymovin 插件。
+- 打开 ZXP 安装程序，将 bodymovin 文件拖入其中。
 
-### Create a composition
+### 创建组合
 
-Open After Effects and create a new project and then click `New composition`.
+打开 After Effects 并创建一个新项目，然后点击 `新建组合`。
 
 <img src="/img/lottie/new-composition.png"/>
 
-### Create your animation
+### 创建动画
 
-Design your animation in After Effects. In this basic example, we used the rounded rectangle tool to draw a blue rounded square and then opened the transform menu and clicked the stopwatch icon to set keyframes for position and rotation to create a simple entrance effect.
+在 After Effects 中设计您的动画。在这个基本示例中，我们使用圆角矩形工具绘制了一个蓝色的圆角正方形，然后打开变换菜单，点击表达式图标为位置和旋转设置关键帧，以创建一个简单的入场效果。
 
 <img src="/img/lottie/animation.png"/>
 
-### Allow export as JSON
+### 允许导出为 JSON
 
-In the After Effects menu, go to `Preferences -> Scripting & Expressions...`. Enable the first option: `Allow Scripts to Write Files and Access Network`. You only need to do this once.
+在 After Effects 菜单中，转到 `首选项 -> 脚本和表达式...`。启用第一个选项：`允许脚本写入文件和访问网络`。您只需要执行一次此操作。
 
 <img src="/img/lottie/scripting.png"/>
 
-### Open the Bodymovin plugin
+### 打开 Bodymovin 插件
 
-In the After Effects menu, go to `Window -> Extensions -> Bodymovin`.
+在 After Effects 菜单中，转到 `窗口 -> 扩展 -> Bodymovin`。
 
 <img src="/img/lottie/bodymovin.png"/>
 
-### Export the animation as JSON
+### 将动画导出为 JSON
 
-First, select the composition <InlineStep>1</InlineStep>. Then press the export icon <InlineStep>2</InlineStep>. You will be prompted for a location to save the JSON file.
-Click Render <InlineStep>3</InlineStep> to write the file.
+首先选择组合 <InlineStep>1</InlineStep>。然后按导出图标 <InlineStep>2</InlineStep>。系统会提示您选择保存 JSON 文件的位置。
+点击渲染 <InlineStep>3</InlineStep> 以写入文件。
 <img src="/img/lottie/bodymovin-tutorial.png"/>
 
-### Import the file into Remotion
 
-Copy the file into the Remotion project. The recommended way is to put the JSON inside the `public/` folder of Remotion (create it if necessary) and then load it using [`staticFile()`](/docs/staticfile):
+### 将文件导入到 Remotion
+
+将文件复制到 Remotion 项目中。推荐的方法是将 JSON 放在 Remotion 的 `public/` 文件夹中（如有必要，请创建该文件夹），然后使用 [`staticFile()`](/docs/staticfile) 进行加载：
 
 ```tsx twoslash title="Animation.tsx"
 import { Lottie, LottieAnimationData } from "@remotion/lottie";
@@ -92,13 +93,14 @@ const Balloons = () => {
 };
 ```
 
-## Finetuning
+## 调整
 
-It is advised to make your composition [the same size and duration](/docs/lottie/getlottiemetadata) as the original composition in After Effects. Congrats, you're playing an After Effects animation in Remotion! 🎉
+建议将您的合成物[大小和持续时间](/docs/lottie/getlottiemetadata)与 After Effects 中的原始合成物相同。恭喜，您正在在 Remotion 中播放 After Effects 动画！🎉
 
 <img src="/img/lottie/result.gif"/>
 
-## See also
+## 参见
 
-- [Using LottieFiles](/docs/lottie/lottiefiles)
+- [使用 LottieFiles](/docs/lottie/lottiefiles)
 - [`getLottieMetadata()`](/docs/lottie/getlottiemetadata)
+

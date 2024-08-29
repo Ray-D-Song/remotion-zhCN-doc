@@ -1,33 +1,28 @@
----
-image: /generated/articles-docs-troubleshooting-loading-root-component.png
-id: loading-root-component
-title: Root component Timeout
-crumb: "Troubleshooting"
----
-
-If you get an error message:
+如果您收到错误消息：
 
 ```
 A delayRender() "Loading root component" was called but not cleared after 28000ms
 ```
 
-You have specified an [entry point](/docs/terminology/entry-point) that does not call [`registerRoot()`](/docs/register-root).
+您已指定一个[入口点](/docs/terminology/entry-point)，但未调用[`registerRoot()`](/docs/register-root)。
 
-In most of the templates, the entry point is `src/index.ts`.
+在大多数模板中，入口点是 `src/index.ts`。
 
-- Maybe you have specified the list of compositions (`src/Root.tsx` in most templates) instead.
-- Maybe you have specified the filename of a component that you want to render.
+- 可能您已指定要呈现的组合列表（在大多数模板中是 `src/Root.tsx`）。
+- 可能您已指定要呈现的组件的文件名。
 
-Ensure that you are passing the file that calls [`registerRoot()`](/docs/register-root) as the entry point.
+确保将调用[`registerRoot()`](/docs/register-root)的文件作为入口点传递。
 
-In the CLI, the entry point is passed as an argument to the render command:
+在 CLI 中，入口点作为参数传递给 render 命令：
 
 ```
 npx remotion render [entry-point]
 ```
 
-In the [`bundle()`](/docs/bundle) and [`deploySite()`](/docs/lambda/deploysite) Node.JS apis, you pass the entry point via the [`entryPoint`](/docs/terminology/entry-point) property.
+在 [`bundle()`](/docs/bundle) 和 [`deploySite()`](/docs/lambda/deploysite) Node.JS API 中，您通过 [`entryPoint`](/docs/terminology/entry-point) 属性传递入口点。
 
-## See also
+## 另请参阅
 
-- [Timeout](/docs/timeout)
+- [超时](/docs/timeout) 
+
+

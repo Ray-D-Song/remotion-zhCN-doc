@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-render-all.png
 id: render-all
-title: Render all compositions
-crumb: "Techniques"
+title: 渲染所有合成
+crumb: "技术"
 ---
 
-In some scenarios, you might find it useful to render all compositions.
+在某些情况下，您可能会发现渲染所有合成很有用。
 
-## Via CLI
+## 通过 CLI
 
-You can combine the [`npx remotion compositions`](/docs/cli/compositions) command with a bash loop:
+您可以将 [`npx remotion compositions`](/docs/cli/compositions) 命令与 bash 循环结合使用：
 
 ```sh title="render-all.sh"
 compositions=($(npx remotion compositions src/index.ts -q))
@@ -20,19 +20,19 @@ do
 done
 ```
 
-You can execute it using:
+您可以使用以下命令执行：
 
 ```sh
 sh ./render-all.sh
 ```
 
 :::note
-This only works on UNIX-based systems (Linux, macOS) and on WSL in Windows.
+这仅适用于基于 UNIX 的系统（Linux、macOS）和 Windows 中的 WSL。
 :::
 
-## Via Node.JS script
+## 通过 Node.JS 脚本
 
-You can create a script that fits you using the [Node.JS APIs](/docs/renderer). Below is an example
+您可以使用 [Node.JS APIs](/docs/renderer) 创建适合您的脚本。以下是一个示例
 
 ```ts twoslash title="render-all.mjs"
 // @module: esnext
@@ -64,11 +64,12 @@ for (const composition of compositions) {
 }
 ```
 
-```bash title="Execute"
+```bash title="执行"
 node render-all.mjs
 ```
 
-## See also
+## 另请参阅
 
-- [Render your video](/docs/render)
+- [渲染您的视频](/docs/render)
 - [@remotion/renderer](/docs/renderer)
+

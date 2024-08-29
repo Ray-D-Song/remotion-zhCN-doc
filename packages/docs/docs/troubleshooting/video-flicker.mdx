@@ -1,12 +1,12 @@
 ---
 image: /generated/articles-docs-troubleshooting-video-flicker.png
 id: player-flicker
-title: "Avoiding flickering in <Player>"
-sidebar_label: Avoiding flickers
+title: "<Player> 中避免闪烁"
+sidebar_label: 避免闪烁
 crumb: "Frame-perfection"
 ---
 
-Consider the following markup:
+考虑以下标记：
 
 ```tsx twoslash title="MyComponent.tsx"
 import { AbsoluteFill, Sequence, OffthreadVideo } from "remotion";
@@ -25,59 +25,61 @@ const MyComponent: React.FC = () => {
 };
 ```
 
-Since Remotion is only aware of the current frame, the video with the source `video2.mp4` will only start loading once it starts appearing in the scene. This can lead to an effect in the Player where some frames will be empty, since the loading of the video will usually not complete immediately.
+由于 Remotion 只知道当前帧，具有源 `video2.mp4` 的视频只会在出现在场景中时开始加载。这可能导致播放器中的某些帧为空，因为视频的加载通常不会立即完成。
 
-This is a design tradeoff of Remotion, but can be fought with different levels of aggression.
+这是 Remotion 的设计权衡，但可以通过不同程度的侵略来对抗。
 
-## Strategies
+## 策略
 
-### Option 1: Ignore
+### 选项 1：忽略
 
-This effect is only happening in the Remotion Studio and the Remotion Player, and will not appear in the rendered video. If you are only looking for a frame-perfect rendered video, you do not need to take additional steps.
+这种效果仅在 Remotion Studio 和 Remotion Player 中发生，不会出现在渲染的视频中。如果您只想要一个帧完美的渲染视频，您无需采取额外步骤。
 
-### Option 2: Pause the `<Player />` when media is buffering
+### 选项 2：在媒体缓冲时暂停 `<Player />`
 
-You may want to pause the `<Player>` temporarily to allow loading of the assets and resume once the assets are ready for playback.
+您可能希望暂时暂停 `<Player>`，以允许资产加载，并在资产准备好播放时恢复。
 
-You can do so by adding a `pauseWhenBuffering` prop to your [`<OffthreadVideo>`](/docs/video/#pausewhenbuffering), [`<OffthreadVideo>`](/docs/offthreadvideo/#pausewhenbuffering), [`<Audio>`](/docs/audio/#pausewhenbuffering) and [`<Img>`](/docs/img#pausewhenloading) tags. [Learn more about the buffer state.](/docs/player/buffer-state)
+您可以通过向您的 [`<OffthreadVideo>`](/docs/video/#pausewhenbuffering)、[`<OffthreadVideo>`](/docs/offthreadvideo/#pausewhenbuffering)、[`<Audio>`](/docs/audio/#pausewhenbuffering) 和 [`<Img>`](/docs/img#pausewhenloading) 标签添加 `pauseWhenBuffering` 属性来实现这一点。[了解有关缓冲状态的更多信息。](/docs/player/buffer-state)
 
-### Option 3: Preloading to avoid network request
+### 选项 3：预加载以避免网络请求
 
-You may signal to the browser to preload videos and other assets, so that when the embedded element appears in the video, it can save the network request.
+您可以向浏览器发出信号，预加载视频和其他资产，以便当嵌入元素出现在视频中时，可以节省网络请求。
 
-See [Preloading](/docs/player/preloading) for instructions on how to achieve this.
-
-:::note
-The signal that you give to the browser may be ignored, for example if the device has data saver or battery saver mode enabled. This is specifically a concern for mobile devices.
-:::
-
-### Option 4: Premounting the video<AvailableFrom v="4.0.140"/>
-
-You can mount a sequence a few frames earlier than when it starts to appear.  
-This will give it time to load before it is visible to the user, which can help to avoid flickering.
-
-See [Premounting](/docs/player/premounting) for an example.
-
-### Option 5: Prefetching as blob URL to more aggressively avoid network request
-
-By [prefetching](/docs/prefetch) an asset, it will be downloaded and cached into memory. Unlike preloading, you force the browser to download the asset, however, you can only use the loaded asset once it has fully downloaded.
+请参阅 [预加载](/docs/player/preloading) 以了解如何实现此目的。
 
 :::note
-Even a preloaded asset or prefetched needs to be mounted in the DOM and be decoded by the browser, which can take a short amount of time.
+您向浏览器发出的信号可能会被忽略，例如，如果设备启用了数据节省或电池节省模式。这特别是移动设备的一个问题。
 :::
 
-### Option 6: Prefetching as Base64 to avoid network request and local HTTP server
+### 选项 4：预挂载视频<AvailableFrom v="4.0.140"/>
 
-In Safari prefetching as described in Option <InlineStep>5</InlineStep> is not enough, since the Blob URL will be saved to disk and a slight delay may still occur even if the asset is pre-saved.
+您可以在视频开始出现之前几帧挂载一个序列。  
+这将为其加载提供时间，使其在对用户可见之前加载，有助于避免闪烁。
 
-Alternatively, the [`prefetch()`](/docs/prefetch) function allows to fetch an asset and save it in memory as Base64, which does not require the blob URL to be loaded from disk through HTTP.
+请参阅[预挂载](/docs/player/premounting)以查看示例。
 
-## See also
+### 选项 5：将预取作为 Blob URL 更积极地避免网络请求
 
-- [Preloading assets](/docs/player/preloading)
-- [Displaying a buffer state](/docs/buffer-state)
+通过[预取](/docs/prefetch)资产，它将被下载并缓存在内存中。与预加载不同，您强制浏览器下载资产，但是只有在资产完全下载后才能使用加载的资产。
+
+:::note
+即使预加载的资产或预取的资产也需要在 DOM 中挂载并由浏览器解码，这可能需要一小段时间。
+:::
+
+### 选项 6：将预取作为 Base64 以避免网络请求和本地 HTTP 服务器
+
+在 Safari 中，如选项 <InlineStep>5</InlineStep> 中描述的预取还不够，因为 Blob URL 将保存到磁盘上，即使资产已经预先保存，仍可能会出现轻微延迟。
+
+或者，[`prefetch()`](/docs/prefetch) 函数允许获取资产并将其保存在内存中作为 Base64，这不需要通过 HTTP 从磁盘加载 Blob URL。
+
+## 另请参阅
+
+- [预加载资产](/docs/player/preloading)
+- [显示缓冲状态](/docs/buffer-state)
 - [`prefetch()`](/docs/prefetch)
 - [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch)
 - [`preloadVideo()`](/docs/preload/preload-video)
-- [Flickering (during rendering)](/docs/flickering)
-- [Premounting](/docs/player/premounting)
+- [闪烁（在渲染期间）](/docs/flickering)
+- [预挂载](/docs/player/premounting)
+
+

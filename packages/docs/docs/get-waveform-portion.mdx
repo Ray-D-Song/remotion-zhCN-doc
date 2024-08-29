@@ -5,55 +5,55 @@ id: get-waveform-portion
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions._
+_`@remotion/media-utils` 包中的辅助函数之一。_
 
-Takes bulky waveform data (for example fetched by [`getAudioData()`](/docs/get-audio-data)) and returns a trimmed and simplified version of it, for simpler visualization. This function is suitable if you only need volume data, if you need more detailed data about each frequency range, use [`visualizeAudio()`](/docs/visualize-audio).
+接受庞大的波形数据（例如通过 [`getAudioData()`](/docs/get-audio-data) 获取）并返回修剪和简化版本，以便更简单地进行可视化。如果您只需要音量数据，则此函数适用；如果您需要有关每个频率范围的更详细数据，请使用 [`visualizeAudio()`](/docs/visualize-audio)。
 
-## Arguments
+## 参数
 
-An object with the following arguments:
+具有以下参数的对象：
 
 ### `audioData`
 
 _AudioData_
 
-Information about the audio. Use [`getAudioData()`](/docs/get-audio-data) to fetch it.
+有关音频的信息。使用 [`getAudioData()`](/docs/get-audio-data) 进行获取。
 
 ### `startTimeInSeconds`
 
 _number_
 
-Trim the waveform to exclude all data before `startTimeInSeconds`.
+将波形修剪以排除 `startTimeInSeconds` 之前的所有数据。
 
 ### `durationInSeconds`
 
 _number_
 
-trim the waveform to exclude all data after `startTimeInSeconds + durationInSeconds`.
+将波形修剪以排除 `startTimeInSeconds + durationInSeconds` 之后的所有数据。
 
 ### `numberOfSamples`
 
 _number_
 
-How big you want the result array to be. The function will compress the waveform to fit in `numberOfSamples` data points.
+您希望结果数组有多大。该函数将压缩波形以适应 `numberOfSamples` 个数据点。
 
-## Return value
+## 返回值
 
-`Bar[]` - An array of objects with the following properties:
+`Bar[]` - 一个具有以下属性的对象数组：
 
 ### `index`
 
 _number_
 
-The index of the datapoint, starting at 0. Useful for specifying as React `key` attribute without getting a warning.
+数据点的索引，从 0 开始。可用于指定为 React `key` 属性而不会收到警告。
 
 ### `amplitude`
 
 _number_
 
-A value describing the amplitude / volume / loudness of the audio. Values range between 0 and 1.
+描述音频振幅 / 音量 / 响度的值。值范围在 0 到 1 之间。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: ESNext
@@ -83,12 +83,12 @@ const waveformPortion = await getWaveformPortion({
 console.log(waveformPortion.length); // 10
 ```
 
-## Alternatives
+## 替代方案
 
-The [`visualizeAudio()`](/docs/visualize-audio) function is more suitable for visualizing audio based on frequency properties of the audio (bass, mids, highs, etc).
+[`visualizeAudio()`](/docs/visualize-audio) 函数更适合基于音频的频率属性（低音、中音、高音等）进行可视化。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-waveform-portion.ts)
-- [Using audio](/docs/using-audio)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-waveform-portion.ts)
+- [使用音频](/docs/using-audio)
 - [`<Audio/>`](/docs/audio)

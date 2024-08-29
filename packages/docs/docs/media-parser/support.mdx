@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-media-parser-support.png
 id: support
-title: Runtime support
+title: 运行支持
 slug: /media-parser/support
 crumb: "@remotion/media-parser"
 ---
 
-`@remotion/media-parser` works in the Browser, Node.js and Bun.  
+`@remotion/media-parser` 在浏览器、Node.js 和 Bun 中运行。
 
-However, all of these require some quite modern versions (considered modern as of August 2024).
+然而，所有这些都需要一些相当现代的版本（截至 2024 年 8 月）。
 
-## For parsing
+## 用于解析
 
-For parsing a video, the following minimum versions are required:
+要解析视频，需要以下最低版本：
 
 - Node.js: 20.0.0
 - Bun 1.0.0
@@ -21,19 +21,21 @@ For parsing a video, the following minimum versions are required:
 - Safari 16.4
 - Firefox 128
 
-### Feature detection
+### 功能检测
 
-Use this to check if the runtime supports `parseMedia()`:
+使用以下代码检查运行时是否支持 `parseMedia()`：
 
 ```tsx
 const canUseMediaParser = typeof fetch === 'function' && typeof new ArrayBuffer().resize === 'function';
 ```
 
-## For using WebCodecs
+## 用于使用 WebCodecs
 
-WebCodecs support is not tied to `@remotion/media-parser` itself, but if you use it to extract samples, you need to use the following minimum versions:
+WebCodecs 支持与 `@remotion/media-parser` 本身无关，但如果您使用它来提取样本，则需要使用以下最低版本：
 
 - Chrome 94
 - Edge 94
-- Safari 16.4 - No support for `AudioDecoder`
-- Firefox - No support, but in development
+- Safari 16.4 - 不支持 `AudioDecoder`
+- Firefox - 没有支持，但正在开发中
+
+

@@ -6,29 +6,29 @@ slug: /lambda/validatewebhooksignature
 crumb: "Lambda API"
 ---
 
-_Available from v3.2.30_
+_从 v3.2.30 版本开始可用_
 
-Validates that the signature that was received by a [webhook](/docs/lambda/webhooks) endpoint is authentic. If the validation fails, an error is thrown.
+验证由 [webhook](/docs/lambda/webhooks) 端点接收的签名是否真实。如果验证失败，将抛出错误。
 
 ## API
 
-The function accepts an object with three key-value pairs:
+该函数接受一个包含三个键值对的对象：
 
 ### `secret`
 
-The same webhook secret that was passed to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)'s webhook options.
+与 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 的 webhook 选项传递的相同的 webhook 密钥。
 
 ### `body`
 
-The body that was received by the endpoint - takes a parsed JSON object, not a `string`.
+端点接收的主体 - 接受解析后的 JSON 对象，而不是 `string`。
 
 ### `signatureHeader`
 
-The `X-Remotion-Signature` header from the request that was received by the endpoint.
+从端点接收的请求的 `X-Remotion-Signature` 标头。
 
-## Example
+## 示例
 
-In the following Next.JS webhook endpoint, an error gets thrown if the signature does not match the one expected one or is missing..
+在下面的 Next.JS webhook 端点中，如果签名与预期的签名不匹配或缺失，则会抛出错误。
 
 ```tsx twoslash title="pages/api/webhook.ts"
 type NextApiRequest = {
@@ -68,9 +68,10 @@ export default async function handler(
 }
 ```
 
-See [Webhooks](/docs/lambda/webhooks) for an Express example.
+查看 [Webhooks](/docs/lambda/webhooks) 以获取 Express 示例。
 
-## See also
+## 另请参阅
 
 - [Webhooks](/docs/lambda/webhooks)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/validate-webhook-signature.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/validate-webhook-signature.ts)
+

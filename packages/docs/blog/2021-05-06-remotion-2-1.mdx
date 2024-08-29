@@ -1,68 +1,69 @@
+```markdown
 ---
 slug: 2-1
 title: Remotion 2.1
 author: Jonny Burger
-author_title: Indie Hacker
+author_title: 独立开发者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
 import { PlayerExampleWithControls } from "../components/PlayerExampleWithControls.tsx";
 
-This releases features new utility functions, improved developer experience and an experimental release of the Remotion Player!
+这个版本发布了新的实用功能、改进的开发者体验以及实验性的 Remotion 播放器发布！
 
-## New `interpolateColors()` function 🌈
+## 新的 `interpolateColors()` 函数 🌈
 
-Now you can easily animate between colors and mix colors to create interesting animations using [`interpolateColors()`](/docs/interpolate-colors).
+现在您可以轻松地在颜色之间进行动画处理，并混合颜色以创建有趣的动画，使用 [`interpolateColors()`](/docs/interpolate-colors)。
 
-I personally used it to recreate [Apple's 'Spring Loaded' logo in Remotion](https://github.com/jonnyburger/spring-loaded) using only `<div>` elements.
+我个人使用它在 Remotion 中重新创建了[苹果的“Spring Loaded”标志](https://github.com/jonnyburger/spring-loaded)，仅使用 `<div>` 元素。
 
 <img src="https://github.com/JonnyBurger/spring-loaded/raw/main/out.gif" />
 
-Thanks for [Shankhadeep Dey](https://github.com/Iamshankhadeep) for implementing this feature!
+感谢 [Shankhadeep Dey](https://github.com/Iamshankhadeep) 实现了这个功能！
 
-## New `measureSpring()` function 🌀
+## 新的 `measureSpring()` 函数 🌀
 
-One problem when using a spring animation for transitions
-is that you don't know the duration of the animation. This is why we added a new [`measureSpring()`](/docs/measure-spring) function!
+使用弹簧动画进行过渡时的一个问题是，您不知道动画的持续时间。这就是为什么我们添加了一个新的 [`measureSpring()`](/docs/measure-spring) 函数！
 
-Now you can adjust your timings in Remotion dynamically when changing spring configurations.
+现在您可以在更改弹簧配置时动态调整 Remotion 中的时间。
 
-Thanks to [Samuel Rodriguez-Lozano](https://github.com/samuel3105) for implementing this feature!
+感谢 [Samuel Rodriguez-Lozano](https://github.com/samuel3105) 实现了这个功能！
 
-## Documentation and developer experience updates
+## 文档和开发者体验更新
 
-We invested time in making sure that if something goes wrong, you don't get stuck. Here are some things we did to improve your experience with Remotion:
+我们花费了时间确保如果出现问题，您不会陷入困境。以下是我们为改进您在 Remotion 中的体验所做的一些工作：
 
-- If you encounter a timeout, you will now see a stacktrace of where the `delayRender()` handle was not cleared. We also now have a [troubleshooting page for timeouts](/docs/timeout) and link to the documentation if you encounter the error.
-- If you use Chromium and import an MP4 video, you get a more helpful error and we link to a [help page](/docs/media-playback-error).
-- We added a guide for improving [performance](/docs/performance) while development and while rendering.
-- The server-side rendering APIs [`bundle()`](/docs/bundle), [`getCompositions()`](/docs/renderer/get-compositions), [`renderFrames()`](/docs/renderer/render-frames) and [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) with all their parameters are now more properly documented.
-- If an exception is thrown while rendering, the log output in the console is now better.
+- 如果遇到超时，您现在将看到未清除 `delayRender()` 句柄的堆栈跟踪。我们现在还有一个[超时故障排除页面](/docs/timeout)，并在遇到错误时链接到文档。
+- 如果您使用 Chromium 并导入 MP4 视频，您将获得更有帮助的错误信息，并链接到[帮助页面](/docs/media-playback-error)。
+- 我们添加了一个指南，以改进在开发和渲染时的[性能](/docs/performance)。
+- 服务器端渲染的 API [`bundle()`](/docs/bundle)、[`getCompositions()`](/docs/renderer/get-compositions)、[`renderFrames()`](/docs/renderer/render-frames) 和 [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) 及其所有参数现在都有更详细的文档。
+- 如果在渲染时抛出异常，控制台中的日志输出现在更好。
+```
 
-## Alpha release of `@remotion/player`
+## `@remotion/player` 的 Alpha 版本
 
-We are working on a Remotion player component that you can import into your React app. Today we are prereleasing the player for those who wish to experiment and provide us with feedback. Let us know what you think!
+我们正在开发一个 Remotion 播放器组件，您可以将其导入到您的 React 应用程序中。今天，我们为那些希望尝试并向我们提供反馈的人预发布了播放器。请告诉我们您的想法！
 
-[**Read the documentation for `@remotion/player`**](/docs/player)
+[**阅读 `@remotion/player` 的文档**](/docs/player)
 <PlayerExampleWithControls />
 
-## Test coverage updates
+## 测试覆盖率更新
 
-We now have over 450 tests, and the Remotion core has a test coverage of over 80% now. Thanks to Tobias Boner, Calvin Falter and Jonas Brunner for continuining their massive testign initiative!
+我们现在拥有超过 450 个测试，Remotion 核心现在的测试覆盖率已经超过 80%。感谢 Tobias Boner、Calvin Falter 和 Jonas Brunner 持续进行大规模的测试倡议！
 
-We now also test across different node versions (12, 14 and 16), npm versions (v6 and v7) and FFMPEG versions (4.1 and 4.4) in addition to testing on 3 different operating systems so we can confidently release new features quickly.
+我们现在还跨不同的 Node 版本（12、14 和 16）、npm 版本（v6 和 v7）以及 FFMPEG 版本（4.1 和 4.4）进行测试，除了在 3 个不同的操作系统上进行测试，以便我们可以自信地快速发布新功能。
 
-For contributors, we now have a [TESTING.md](https://github.com/remotion-dev/remotion/blob/main/TESTING.md) file.
+对于贡献者，我们现在有一个 [TESTING.md](https://github.com/remotion-dev/remotion/blob/main/TESTING.md) 文件。
 
-## Miscellaneous
+## 其他
 
-- You can now press <kbd>Shift+Right Arrow</kbd> to jump 1 second forward in the timeline and <kbd>Shift+Left Arrow</kbd> to jump 1 second back.
-- `npm init video` will now setup a Remotion project with NPM, `yarn create video` will setup a project with Yarn.
-- Node 16 and NPM 7 is now better supported, no warnings will be shown during installation and execution.
-- Fixed several audio rendering issues: [#292](https://github.com/remotion-dev/remotion/issues/292 [#293](https://github.com/remotion-dev/remotion/issues/293) [#320](https://github.com/remotion-dev/remotion/issues/320)
-- When the update banner appears in the editor, you can now click to copy the command.
-- You can now pass a React `ref` to `<Audio/>` and `<Video />` tags.
-- We revamped the CLI output! How do you like it?
-- The preview size option in the editor is now persisted, thanks [Oluwatobiju Judah](https://github.com/Tobijudah)!
-- In the editor, the transparency toggle is now enabled by default.
+- 您现在可以按 <kbd>Shift+Right Arrow</kbd> 键在时间轴中向前跳转 1 秒，按 <kbd>Shift+Left Arrow</kbd> 键向后跳转 1 秒。
+- `npm init video` 现在将使用 NPM 设置一个 Remotion 项目，`yarn create video` 将使用 Yarn 设置一个项目。
+- Node 16 和 NPM 7 现在得到更好的支持，安装和执行过程中不会显示任何警告。
+- 修复了几个音频渲染问题：[#292](https://github.com/remotion-dev/remotion/issues/292) [#293](https://github.com/remotion-dev/remotion/issues/293) [#320](https://github.com/remotion-dev/remotion/issues/320)
+- 当编辑器中出现更新横幅时，您现在可以单击以复制命令。
+- 您现在可以将 React 的 `ref` 传递给 `<Audio/>` 和 `<Video />` 标签。
+- 我们改进了 CLI 输出！您喜欢吗？
+- 编辑器中的预览大小选项现在是持久的，感谢 [Oluwatobiju Judah](https://github.com/Tobijudah)！
+- 在编辑器中，默认情况下启用了透明度切换。

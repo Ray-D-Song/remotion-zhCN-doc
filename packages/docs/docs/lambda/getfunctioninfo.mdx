@@ -6,13 +6,13 @@ slug: /lambda/getfunctioninfo
 crumb: "Lambda API"
 ---
 
-Gets information about a function given its name and region.
+获取给定函数的信息，根据其名称和区域。
 
-To get a list of deployed functions, use [`getFunctions()`](/docs/lambda/getfunctions).
+要获取已部署函数的列表，请使用[`getFunctions()`](/docs/lambda/getfunctions)。
 
-To deploy a function, use [`deployFunction()`](/docs/lambda/deployfunction).
+要部署函数，请使用[`deployFunction()`](/docs/lambda/deployfunction)。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -31,50 +31,50 @@ console.log(info.version); // '2021-07-14'
 console.log(info.timeoutInSeconds); // 120
 ```
 
-## Arguments
+## 参数
 
-An object containing the following properties:
+包含以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) the function resides in.
+函数所在的[AWS区域](/docs/lambda/region-selection)。
 
 ### `functionName`
 
-The name of the function.
+函数的名称。
 
 ### `logLevel?`<AvailableFrom v="4.0.115"/>
 
 <Options id="log"/>
 
-## Return value
+## 返回值
 
-If the function does not exist, an error is thrown by the AWS SDK.
-If the function exists, promise resolving to an object with the following properties is returned:
+如果函数不存在，则 AWS SDK 会抛出错误。
+如果函数存在，则返回一个解析为具有以下属性的对象的 Promise：
 
 ### `memorySizeInMb`
 
-The amount of memory allocated to the function.
+分配给函数的内存量。
 
 ### `diskSizeInMb`
 
-The amount of disk space allocated to the function.
+分配给函数的磁盘空间量。
 
 ### `functionName`
 
-The name of the function.
+函数的名称。
 
 ### `version`
 
-The version of the function. Remotion is versioning the Lambda function and a render can only be triggered from a version of `@remotion/lambda` that is matching the one of the function.
+函数的版本。Remotion 正在对 Lambda 函数进行版本控制，只能从与函数版本匹配的 `@remotion/lambda` 版本触发渲染。
 
 ### `timeoutInSeconds`
 
-The timeout that has been assigned to the Lambda function.
+已分配给 Lambda 函数的超时时间。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-function-info.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-function-info.ts)
 - [`getFunctions()`](/docs/lambda/getfunctions)
 - [`deployFunction()`](/docs/lambda/deployfunction)
 - [`deleteFunction()`](/docs/lambda/deletefunction)

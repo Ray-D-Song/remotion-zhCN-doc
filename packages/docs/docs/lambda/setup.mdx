@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-lambda-setup.png
 id: setup
-title: Setup
+title: 设置
 slug: /lambda/setup
 crumb: "Lambda"
 ---
@@ -13,72 +13,72 @@ import TabItem from '@theme/TabItem';
   minutes={18}
   href="https://www.youtube.com/watch?v=kFVd3KnfwYY"
   thumb="https://i.ytimg.com/vi/kFVd3KnfwYY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCJOz2mu_A24NvjFQGm6GjUVssnUQ"
-  title="How to set up Remotion Lambda"
+  title="如何设置 Remotion Lambda"
 />
 
-## 1. Install `@remotion/lambda`
+## 1. 安装 `@remotion/lambda`
 
 <Installation pkg="@remotion/lambda"/>
 
-## 2. Create role policy
+## 2. 创建角色策略
 
-- Go to [AWS account IAM Policies section](https://console.aws.amazon.com/iamv2/home?#/policies)
-- Click on "Create policy"
-- Click on JSON
-- In your project, type `npx remotion lambda policies role` in the command line and copy it into the "JSON" field on AWS.
-- Click next. On the tags page, you don't need to fill in anything. Click next again.
-- Give the policy **exactly** the name `remotion-lambda-policy`. The other fields can be left as they are.
+- 进入 [AWS 账户 IAM 策略部分](https://console.aws.amazon.com/iamv2/home?#/policies)
+- 点击 "创建策略"
+- 点击 JSON
+- 在项目中，在命令行中键入 `npx remotion lambda policies role` 并将其复制到 AWS 的 "JSON" 字段中。
+- 点击下一步。在标签页上，您无需填写任何内容。再次点击下一步。
+- 将策略**精确地**命名为 `remotion-lambda-policy`。其他字段可以保持不变。
 
-## 3. Create a role
+## 3. 创建角色
 
-- Go to [AWS account IAM Roles section](https://console.aws.amazon.com/iamv2/home#/roles)
-- Click "Create role".
-- Under "Use cases", select "Lambda". Click next.
-- Under "Permissions policies", filter for `remotion-lambda-policy` and click the checkbox to assign this policy. Click next.
-- In the final step, name the role `remotion-lambda-role` **exactly**. You can leave the other fields as is.
-- Click "Create role" to confirm.
+- 进入 [AWS 账户 IAM 角色部分](https://console.aws.amazon.com/iamv2/home#/roles)
+- 点击 "创建角色"。
+- 在 "用例" 下，选择 "Lambda"。点击下一步。
+- 在 "权限策略" 下，过滤 `remotion-lambda-policy` 并选中复选框以分配此策略。点击下一步。
+- 在最后一步中，将角色命名为 `remotion-lambda-role` **精确地**。其他字段可以保持不变。
+- 点击 "创建角色" 以确认。
 
-## 4. Create a user
+## 4. 创建用户
 
-- Go to [AWS account IAM Users section](https://console.aws.amazon.com/iamv2/home#/users)
-- Click `Add users`
-- Enter any username, such as `remotion-user`.
-- **Don't check** the "Enable console access" option. You don't need it.
-- Click "Next".
-- Click "Next" again without changing any settings. You should now be on the "Review and Create" step.
-- Click "Create user".
+- 进入 [AWS 账户 IAM 用户部分](https://console.aws.amazon.com/iamv2/home#/users)
+- 点击 `添加用户`
+- 输入任何用户名，例如 `remotion-user`。
+- **不要勾选** "启用控制台访问" 选项。您不需要它。
+- 点击 "下一步"。
+- 再次点击 "下一步"，不要更改任何设置。您现在应该在 "审阅并创建" 步骤上。
+- 点击 "创建用户"。
 
-## 5. Create an access key for the user
+## 5. 为用户创建访问密钥
 
-- Go to [AWS account IAM Users section](https://console.aws.amazon.com/iamv2/home#/users)
-- Click on the name of the user that was created in step 4.
-- Navigate to the "Security Credentials" tab, and scroll down to the "Access Keys" section.
-- Click the "Create access key" button.
-- Select "Application running on an AWS compute service".
-- Ignore warnings that might appear and check the "I understand the recommendations..." checkbox.
-- Click "Next".
-- Click "Create access key".
-- Add a `.env` file to your project's root and add the credentials you just copied in the following format:
+- 进入 [AWS 账户 IAM 用户部分](https://console.aws.amazon.com/iamv2/home#/users)
+- 点击步骤 4 中创建的用户的名称。
+- 转到 "安全凭证" 选项卡，并滚动到 "访问密钥" 部分。
+- 点击 "创建访问密钥" 按钮。
+- 选择 "在 AWS 计算服务上运行的应用程序"。
+- 忽略可能出现的警告，并选中 "我了解建议..." 复选框。
+- 点击 "下一步"。
+- 点击 "创建访问密钥"。
+- 在项目的根目录中添加一个 `.env` 文件，并以以下格式添加刚刚复制的凭据：
 
 ```txt title=".env"
 REMOTION_AWS_ACCESS_KEY_ID=<Access key ID>
 REMOTION_AWS_SECRET_ACCESS_KEY=<Secret access key>
 ```
 
-## 6. Add permissions to your user
+## 6. 为您的用户添加权限
 
-- Go to [AWS account IAM Users section](https://console.aws.amazon.com/iamv2/home#/users)
-- Select the user you just created.
-- Click "Add inline policy" under the "Add Permissions" dropdown in the "Permissions policies" panel.
-- Click the tab "JSON".
-- Enter in your terminal: `npx remotion lambda policies user` and copy into the AWS text field what gets printed.
-- Click "Review policy".
-- Give the policy a name. For example `remotion-user-policy`, but it can be anything.
-- Click "Create policy" to confirm.
+- 转到[AWS账户IAM用户部分](https://console.aws.amazon.com/iamv2/home#/users)
+- 选择您刚创建的用户。
+- 在“权限策略”面板中的“添加权限”下拉菜单中单击“添加内联策略”。
+- 单击“JSON”选项卡。
+- 在终端中输入：`npx remotion lambda policies user`，并将打印出的内容复制到AWS文本字段中。
+- 单击“Review policy”。
+- 为策略命名。例如`remotion-user-policy`，但也可以是其他任何名称。
+- 单击“Create policy”以确认。
 
-## 7. Optional: Validate the permission setup
+## 7. 可选：验证权限设置
 
-Check all user permissions and validate them against the AWS Policy simulator by executing the following command:
+通过执行以下命令检查所有用户权限，并使用AWS策略模拟器验证它们：
 
 ```bash
 npx remotion lambda policies validate
@@ -86,9 +86,9 @@ npx remotion lambda policies validate
 
 <hr/>
 
-For the following steps, you may execute them on the CLI, or programmatically using the Node.JS APIs.
+对于接下来的步骤，您可以在CLI上执行它们，也可以使用Node.JS API以编程方式执行。
 
-## 8. Deploy a function
+## 8. 部署一个函数
 
 <Tabs
 defaultValue="cli"
@@ -99,7 +99,7 @@ values={[
 }>
 <TabItem value="cli">
 
-Deploy a function that can render videos into your AWS account by executing the following command:
+通过执行以下命令部署一个可以在您的AWS账户中渲染视频的函数：
 
 ```bash
 npx remotion lambda functions deploy
@@ -108,7 +108,7 @@ npx remotion lambda functions deploy
 </TabItem>
 <TabItem value="node">
 
-You can deploy a function that can render videos into your AWS account using [`deployFunction()`](/docs/lambda/deployfunction).
+您可以使用[`deployFunction()`](/docs/lambda/deployfunction)部署一个可以在您的AWS账户中渲染视频的函数。
 
 ```ts twoslash
 // @module: ESNext
@@ -124,13 +124,13 @@ const { functionName } = await deployFunction({
 });
 ```
 
-The function name is returned which you'll need for rendering.
+函数名称将被返回，您将需要它来进行渲染。
 </TabItem>
 </Tabs>
 
-The function consists of necessary binaries and JavaScript code that can take a [serve URL](/docs/terminology/serve-url) and make renders from it. A function is bound to the Remotion version, if you upgrade Remotion, you [need to deploy a new function](/docs/lambda/upgrading). A function does not include your Remotion code, it will be deployed in the next step instead.
+该函数包含了必要的二进制文件和JavaScript代码，可以从[serve URL](/docs/terminology/serve-url)获取并进行渲染。函数与Remotion版本绑定，如果您升级Remotion，您需要[部署一个新函数](/docs/lambda/upgrading)。函数不包括您的Remotion代码，您需要在下一步中部署它。
 
-## 9. Deploy a site
+## 9. 部署一个站点
 
 <Tabs
 defaultValue="cli"
@@ -141,20 +141,20 @@ values={[
 }>
 <TabItem value="cli">
 
-Run the following command to deploy your Remotion project to an S3 bucket. Pass as the last argument the [entry point](/docs/terminology/entry-point) of the project.
+运行以下命令将您的 Remotion 项目部署到 S3 存储桶。将项目的 [入口点](/docs/terminology/entry-point) 作为最后一个参数传递。
 
 ```bash
 npx remotion lambda sites create src/index.ts --site-name=my-video
 ```
 
-A [Serve URL](/docs/terminology/serve-url) will be printed pointing to the deployed project.
+将打印一个指向部署项目的 [服务 URL](/docs/terminology/serve-url)。
 
-When you update your Remotion video in the future, redeploy your site. Pass the same [`--site-name`](/docs/lambda/cli/sites#--site-name) to overwrite the previous deploy. If you don't pass [`--site-name`](/docs/lambda/cli/sites#--site-name), a unique URL will be generated on every deploy.
+在将来更新 Remotion 视频时，请重新部署您的站点。传递相同的 [`--site-name`](/docs/lambda/cli/sites#--site-name) 来覆盖先前的部署。如果不传递 [`--site-name`](/docs/lambda/cli/sites#--site-name)，则每次部署都会生成一个唯一的 URL。
 
 </TabItem>
 <TabItem value="node">
 
-First, you need to create an S3 bucket in your preferred region. If one already exists, it will be used instead:
+首先，您需要在您首选的区域创建一个 S3 存储桶。如果已经存在一个存储桶，则将使用该存储桶：
 
 ```ts twoslash
 // @module: ESNext
@@ -167,7 +167,7 @@ const { bucketName } = await getOrCreateBucket({
 });
 ```
 
-Next, upload your Remotion project to an S3 bucket. Specify the entry point of your Remotion project, this is the file where [`registerRoot()`](/docs/register-root) is called.
+接下来，将您的 Remotion 项目上传到 S3 存储桶。指定您的 Remotion 项目的入口点，这是调用 [`registerRoot()`](/docs/register-root) 的文件。
 
 ```ts twoslash
 // @module: ESNext
@@ -187,22 +187,22 @@ const { serveUrl } = await deploySite({
 });
 ```
 
-When you update your Remotion video in the future, redeploy your site. Pass the same [`siteName`](/docs/lambda/deploysite#sitename) to overwrite the previous deploy. If you don't pass [`siteName`](/docs/lambda/deploysite#sitename), a unique URL will be generated on every deploy.
+在将来更新 Remotion 视频时，请重新部署您的站点。传递相同的 [`siteName`](/docs/lambda/deploysite#sitename) 来覆盖先前的部署。如果不传递 [`siteName`](/docs/lambda/deploysite#sitename)，则每次部署都会生成一个唯一的 URL。
 
 </TabItem>
 </Tabs>
 
-## 10. Check AWS concurrency limit
+## 10. 检查 AWS 并发限制
 
-Check the concurrency limit that AWS has given to your account:
+检查 AWS 给予您账户的并发限制：
 
 ```
 npx remotion lambda quotas
 ```
 
-By default, it is `1000` concurrent invocations per region. However, new accounts might have a limit [as low as `10`](/docs/lambda/troubleshooting/rate-limit#exception-new-accounts-using-aws-lambda). Each Remotion render may use as much as 200 functions per render concurrently, so if your assigned limit is very low, [you might want to request an increase right away](/docs/lambda/troubleshooting/rate-limit#request-an-increase).
+默认情况下，每个区域的并发调用限制为 `1000`。但是，新账户的限制可能低至 [`10`](/docs/lambda/troubleshooting/rate-limit#exception-new-accounts-using-aws-lambda)。每个 Remotion 渲染可能会同时使用多达 200 个函数，因此如果您被分配的限制非常低，[您可能希望立即请求增加限制](/docs/lambda/troubleshooting/rate-limit#request-an-increase)。
 
-## 11. Render a video
+## 11. 渲染视频
 
 <Tabs
 defaultValue="cli"
@@ -213,18 +213,18 @@ values={[
 }>
 <TabItem value="cli">
 
-Take the URL you received from the step 9 - your "serve URL" - and run the following command. Also pass in the [ID of the composition](/docs/composition) you'd like to render.
+获取您从第9步收到的URL - 您的"serve URL" - 并运行以下命令。还要传入您想要渲染的[合成物的ID](/docs/composition)。
 
 ```bash
 npx remotion lambda render <serve-url> <composition-id>
 ```
 
-Progress will be printed until the video finished rendering. Congrats! You rendered your first video using Remotion Lambda 🚀
+直到视频渲染完成，进度将被打印出来。恭喜！您使用 Remotion Lambda 渲染了您的第一个视频 🚀
 
 </TabItem>
 <TabItem value="node">
 
-You already have the function name from a previous step. But since you only need to deploy a function once, it's useful to retrieve the name of your deployed function programmatically before rendering a video in case your Node.JS program restarts. We can call [`getFunctions()`](/docs/lambda/getfunctions) with the `compatibleOnly` flag to get only functions with a matching version.
+您已经从之前的步骤中获得了函数名称。但由于您只需要部署一次函数，因此在渲染视频之前以编程方式检索已部署函数的名称是很有用的，以防您的 Node.JS 程序重新启动。我们可以使用 `compatibleOnly` 标志调用 [`getFunctions()`](/docs/lambda/getfunctions) 来仅获取具有匹配版本的函数。
 
 ```ts twoslash
 // @module: ESNext
@@ -243,7 +243,7 @@ const functions = await getFunctions({
 const functionName = functions[0].functionName;
 ```
 
-We can now trigger a render using the [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) function.
+现在，我们可以使用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 函数触发渲染。
 
 ```ts twoslash
 // @module: ESNext
@@ -277,7 +277,7 @@ const { renderId, bucketName } = await renderMediaOnLambda({
 });
 ```
 
-The render will now run and after a while the video will be available in your S3 bucket. You can at any time get the status of the video render by calling [`getRenderProgress()`](/docs/lambda/getrenderprogress).
+现在渲染将运行，一段时间后视频将在您的 S3 存储桶中可用。您随时可以通过调用 [`getRenderProgress()`](/docs/lambda/getrenderprogress) 来获取视频渲染的状态。
 
 ```ts twoslash
 // @module: ESNext
@@ -328,15 +328,15 @@ while (true) {
 }
 ```
 
-This code will poll every second to check the progress of the video and exit the script if the render is done. Congrats! [Check your S3 Bucket](https://s3.console.aws.amazon.com/s3/) - you just rendered your first video using Remotion Lambda 🚀
+此代码将每秒轮询以检查视频的进度，并在渲染完成时退出脚本。恭喜！[检查您的 S3 存储桶](https://s3.console.aws.amazon.com/s3/) - 您刚刚使用 Remotion Lambda 渲染了您的第一个视频 🚀
 
 </TabItem>
 </Tabs>
 
-## Next steps
+## 下一步
 
-- Select [which region(s)](/docs/lambda/region-selection) you want to run Remotion Lambda in.
-- Familiarize yourself with the CLI and the Node.JS APIs (list in sidebar).
-- Learn how to [upgrade Remotion Lambda](/docs/lambda/upgrading).
-- Before going live, go through the [Production checklist](/docs/lambda/checklist).
-- If you have any questions, go through the [FAQ](/docs/lambda/faq) or ask in our [Discord channel](https://remotion.dev/discord)
+- 选择您想要在其中运行 Remotion Lambda 的[区域](/docs/lambda/region-selection)。
+- 熟悉 CLI 和 Node.JS API（在侧边栏中列出）。
+- 学习如何[升级 Remotion Lambda](/docs/lambda/upgrading)。
+- 在上线之前，请查看[生产清单](/docs/lambda/checklist)。
+- 如果您有任何问题，请查看[FAQ](/docs/lambda/faq)或在我们的[Discord 频道](https://remotion.dev/discord)中提问。

@@ -1,43 +1,44 @@
 ---
 image: /generated/articles-docs-contributing-feature.png
-title: Implementing a new feature
-crumb: Contributing
+title: 实现新功能
+crumb: 贡献
 ---
 
-We are happy to accept contributions to the Remotion project that implement new features.
+## 设置
 
-## Setup
+请查看 [CONTRIBUTING.md](https://github.com/remotion-dev/remotion/blob/main/CONTRIBUTING.md) 文件，了解如何设置项目。
 
-See the [CONTRIBUTING.md](https://github.com/remotion-dev/remotion/blob/main/CONTRIBUTING.md) file for instructions on how to set up the project.
+## 我们重视的事项
 
-## What's important to us
+- **规划**：事先发出信号，表示您想提出该功能，可以通过开启一个问题并提及您想要处理它来实现。  
+  这样我们有机会评论我们是否喜欢该功能，并让我们讨论架构。
+- **通用性**：功能应尽可能不带有主观意见。请尽量使决策不针对您的用例，而是尽可能使功能通用，以便每个人都可以使用。
+- **大小**：功能不应通过添加可避免的依赖项来使轻量级包变得臃肿。如果有很多不是每个人都需要的依赖项，考虑将该功能作为单体库中的新包。
+- **文档**：功能应有文档，并且文档质量应与其他文档相同。
 
-- **Planning**: Signal beforehand that you would like to propose the feature by opening an issue and mentioning that you would like to work on it.  
-  This gives us the chance to comment on whether we like the feature and lets us discuss the architecture.
-- **Generic:** The feature should be as unopinionated as possible. Instead of making decisions that are specific to your usecase, try to make the feature as generic as possible so that it can be used by everyone.
-- **Size**: The feature should not bloat lightweight packages by adding dependencies that can be avoided. Consider if the feature should be a new package in a monorepo if there are a lot of dependencies that are not needed by everyone.
-- **Documentation:** The feature should be documented and the documentation should have the same level of quality as the rest docs.
+## 技术标准
 
-## Technical standards
+- **TypeScript 或 Rust**：代码应使用这两种语言之一编写。
+- **测试**：如果有意义，请添加测试。
+- **向前兼容性**：请考虑功能在未来可能如何发展。在 API 的输入和输出中使用对象可以更容易地在未来添加新属性。
+- **向后兼容性**：除非该功能进入主要版本，否则您的功能不能破坏现有代码，如果 Remotion 升级。
+- **命名约定**：变量应使用 `camelCase`。如果 API 与数值值交互，则应包含单位。例如，使用 `durationInFrames` 而不是 `duration` 或 `timeoutInMilliseconds` 而不是 `timeout`。
 
-- **TypeScript or Rust**: The code should be written in one of these two languages.
-- **Tests**: Add tests if you think it makes sense.
-- **Forward-compatibility**: Be mindful of how the feature might evolve in the future. Using objects in the input and output of an API makes it easier to add new properties in the future.
-- **Backwards-compatibility**: Your feature cannot break existing code if Remotion is upgraded, unless the feature lands in a major version.
-- **Naming conventions**: Use `camelCase` for variables. If the API interfaces with numeric values, the unit should be included. For example `durationInFrames` instead of `duration` or `timeoutInMilliseconds` instead of `timeout`.
+## 图标
 
-## Icons
+Remotion 在 Remotion Studio 中使用 [Font Awesome](https://fontawesome.com/) v5.15.4 提供的图标。 
 
-Remotion uses [Font Awesome](https://fontawesome.com/) v5.15.4 for the icons in the Remotion Studio.
 
-We have a license and can grant access to Pro icons if needed.
 
-## Communicate with us
+我们有许可证，如果需要，可以授予对专业图标的访问权限。
 
-Use the `#development` channel on [Discord](https://remotion.dev/discord) to quickly ask questions and get feedback.
+## 与我们联系
 
-## See also
+使用 [Discord](https://remotion.dev/discord) 上的 `#development` 频道快速提出问题并获得反馈。
 
-- [Implementing a new option](/docs/contributing/option)
-- [Writing documentation](/docs/contributing/docs)
-- [How to take a bounty issue](/docs/contributing/bounty)
+## 另请参阅
+
+- [实现新选项](/docs/contributing/option)
+- [撰写文档](/docs/contributing/docs)
+- [如何处理赏金问题](/docs/contributing/bounty)
+

@@ -6,11 +6,11 @@ title: "flip()"
 
 # flip()<AvailableFrom v="4.0.54"/>
 
-A presentation where the exiting slide flips by 180 degrees, revealing the next slide on the back side.
+一个演示，退出幻灯片翻转180度，显示下一张幻灯片的背面。
 
 <Demo type="flip" />
 
-## Example
+## 示例
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -58,11 +58,11 @@ const BasicTransition = () => {
 
 ## API
 
-Takes an object with the following properties:
+接受一个具有以下属性的对象：
 
 ### `direction`
 
-One of `from-left`, `from-right`, `from-top`, `from-bottom`.
+其中之一：`from-left`，`from-right`，`from-top`，`from-bottom`。
 
 ```tsx twoslash title="TypeScript type"
 import { FlipDirection } from "@remotion/transitions/flip";
@@ -72,25 +72,25 @@ const flipDirection: FlipDirection = "from-left";
 
 ### `perspective?`
 
-The CSS `perspective` of the flip animation. Defaults to `1000`.
+翻转动画的CSS `perspective`。默认为 `1000`。
 
 ### `outerEnterStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the outer element when the scene is is entering.
+场景进入时外部元素的样式。
 
 ### `outerExitStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the outer element when the scene is exiting.
+场景退出时外部元素的样式。
 
 ### `innerEnterStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the inner element when the scene is entering.
+场景进入时内部元素的样式。
 
 ### `innerExitStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the inner element when the scene is exiting.
+场景退出时内部元素的样式。
 
-## See also
+## 另请参阅
 
-- [Source code for this presentation](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/flip.tsx)
-- [Presentations](/docs/transitions/presentations)
+- [此演示的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/flip.tsx)
+- [演示](/docs/transitions/presentations)

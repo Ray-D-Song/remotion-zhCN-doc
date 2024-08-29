@@ -1,28 +1,26 @@
 ---
 image: /generated/articles-docs-contributing-presentation.png
-title: Contribute your own presentation
-sidebar_label: Adding new presentations
-crumb: Contributing
+title: 贡献您自己的演示文稿
+sidebar_label: 添加新演示文稿
+crumb: 贡献
 ---
 
-Make your custom presentation accessible for others in the `@remotion/transitions` package.
+## 设置 remotion 项目
 
-## Setup the remotion project
+如果这是您的第一次贡献，请查看 <a href="https://github.com/remotion-dev/remotion/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> 文件，了解如何贡献以及设置 remotion 项目的说明。
 
-If this is your first contribution, see the <a href="https://github.com/remotion-dev/remotion/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> file for information on how to contribute and instructions to set up the remotion project.
+## 如何进行
 
-## How to proceed
-
-<Step>1</Step> Create a custom transition. Loook at the <a href="/docs/transitions/presentations/custom">custom presentation</a> docs to see how it's done.<br/>
-<Step>2</Step>Add your presentation to the remotion monorepository under <code>packages/transitions/src/presentations</code>.<br/>
-<Step>3</Step> In the <code>bundle.ts</code>, add your presentation to the <code>presentations array</code>.
+<Step>1</Step> 创建一个自定义过渡效果。查看 <a href="/docs/transitions/presentations/custom">自定义演示文稿</a> 文档，了解如何操作。<br/>
+<Step>2</Step> 将您的演示文稿添加到 remotion monorepository 的 <code>packages/transitions/src/presentations</code> 目录下。<br/>
+<Step>3</Step> 在 <code>bundle.ts</code> 中，将您的演示文稿添加到 <code>presentations array</code> 中。
 <br/>
 
 ```tsx
   const presentations = ['slide', 'flip', 'wipe', 'fade', ..., 'yourPresentation'];
 ```
 
-<Step>4</Step> Add your presentation to the <code>exports</code> of the <code>package.json</code> at <code>packages/transition/package.json</code> as well as to the <code>typesVersions</code>, so it can be correctly imported in other remotion projects.
+<Step>4</Step> 将您的演示文稿添加到 <code>package.json</code> 的 <code>exports</code> 中，路径为 <code>packages/transition/package.json</code>，同时也添加到 <code>typesVersions</code> 中，以便在其他 remotion 项目中正确导入。
 
 ```json
 "exports": {
@@ -42,20 +40,20 @@ If this is your first contribution, see the <a href="https://github.com/remotion
   }
 ```
 
-Make sure to `pnpm build` in `remotion/packages/transitions` so your transition gets usable in your remotion repository.
+确保在 `remotion/packages/transitions` 中运行 `pnpm build`，以便您的过渡效果可以在 remotion 存储库中使用。
 
-<Step>5</Step> Write a documentation for your presentation. Have a look at the presentations linked in the <a href="/docs/transitions/presentations">presentation</a> docs for reference. The documentation should consist of the following parts:
+<Step>5</Step> 为您的演示文稿编写文档。查看演示文稿文档中链接的演示文稿，以供参考。文档应包括以下部分：
 
-- A `short description` of what your presentation does.
-- A `demo` of your presentation. For instructions, have a look at the `demo` paragraph in the [contributing to the documentation](/docs/contributing/docs#demos) page, or have a look at the source code of other presentation documentations ([presentationType].mdx files).
-- An `example code snippet` showing how to use your presentation . See the [type safe snippets](/docs/contributing/docs#type-safe-snippets) docs for instructions on typesafe code snippets.
-- The API of your presentation
+- 您的演示文稿的 `简短描述`。
+- 您的演示文稿的 `演示`。有关说明，请查看 [贡献文档](/docs/contributing/docs#demos) 页面中的 `演示` 段落，或查看其他演示文档（[presentationType].mdx 文件）的源代码。
+- 一个显示如何使用您的演示文稿的 `示例代码片段`。请参阅 [类型安全代码片段](/docs/contributing/docs#type-safe-snippets) 文档，了解有关类型安全代码片段的说明。
+- 您的演示文稿的 API。
 
-&nbsp;&nbsp;&nbsp;&nbsp; For more help on how to write a documentation, see the [contributing to the documentation](/docs/contributing/docs) page.
+&nbsp;&nbsp;&nbsp;&nbsp;如需了解如何编写文档，请参阅[贡献文档](/docs/contributing/docs)页面。
 
-<Step>6</Step> Add your presentation to the table of contents at <a href="/docs/transitions/presentations">docs/transitions/presentations</a> by creating a <code>&lt;TOCItem&gt;</code> containing a link to your documentation, a <code>&lt;PresentationPreview</code> displaying your presentation and a one-liner describing what your presentation does.
+<Step>6</Step>将您的演示文稿添加到目录表中，位于<a href="/docs/transitions/presentations">docs/transitions/presentations</a>，方法是创建一个<code>&lt;TOCItem&gt;</code>，其中包含指向您文档的链接，一个<code>&lt;PresentationPreview</code>显示您的演示文稿，并描述您的演示文稿功能的一句话。
 
-```tsx title="Example TOCItem"
+```tsx title="示例 TOCItem"
 <TOCItem link="/docs/transitions/presentations/yourPresentation">
   <div style={row}>
     <PresentationPreview
@@ -72,10 +70,11 @@ Make sure to `pnpm build` in `remotion/packages/transitions` so your transition 
 </TOCItem>
 ```
 
-An pull request for reference containing all required steps and filechanges can be found <a href="https://github.com/remotion-dev/remotion/pull/3199/files">here</a>.
+包含所有必需步骤和文件更改的参考拉取请求可以在<a href="https://github.com/remotion-dev/remotion/pull/3199/files">此处</a>找到。
 
-## See also
+## 另请参阅
 
-- [Implementing a new feature](/docs/contributing/feature)
-- [Writing documentation](/docs/contributing/docs)
-- [How to take a bounty issue](/docs/contributing/bounty)
+- [实现新功能](/docs/contributing/feature)
+- [编写文档](/docs/contributing/docs)
+- [如何处理赏金问题](/docs/contributing/bounty)
+

@@ -1,141 +1,44 @@
 ---
 image: /generated/articles-docs-troubleshooting-defaultprops-too-big.png
 id: defaultprops-too-big
-sidebar_label: defaultProps too big
-title: defaultProps too big - could not serialize
-crumb: "Troubleshooting"
+sidebar_label: defaultProps太大
+title: defaultProps太大 - 无法序列化
+crumb: "故障排除"
 ---
 
-If you experience an error during rendering:
+如果在渲染过程中遇到错误：
 
 ```
-defaultProps too big - could not serialize - the defaultProps of composition with ID "[composition-id]" - the object that was passed to defaultProps was too big. Learn how to mitigate this error by visiting https://remotion.dev/docs/troubleshooting/serialize-defaultprops
+defaultProps太大 - 无法序列化 - 传递给具有ID“[composition-id]”的组合的defaultProps - 传递给defaultProps的对象太大。通过访问https://remotion.dev/docs/troubleshooting/serialize-defaultprops 了解如何解决此错误
 ```
 
-It means the object that was passed to [`defaultProps`](/docs/composition#defaultprops) for the specified composition is too big that Chrome cannot serialize it into a string.
+这意味着传递给指定组合的[`defaultProps`](/docs/composition#defaultprops)的对象太大，Chrome无法将其序列化为字符串。
 
-If you see this variant of the error:
+如果看到此错误的变体：
 
 ```
-defaultProps too big - Could not serialize - an object that was passed to defaultProps was too big. Learn how to mitigate this error by visiting https://remotion.dev/docs/troubleshooting/serialize-defaultprops
+defaultProps太大 - 无法序列化 - 传递给defaultProps的对象太大。通过访问https://remotion.dev/docs/troubleshooting/serialize-defaultprops 了解如何解决此错误
 ```
 
-The [`defaultProps`](/docs/composition#defaultprops) is not too big, but the list of compositions as a whole is too big to serialize.
+[`defaultProps`](/docs/composition#defaultprops)并非太大，但整个组合列表太大而无法序列化。
 
-## Why this error occurs
+## 为什么会出现此错误
 
-Remotion is trying to gather a list of compositions using [`getCompositions()`](/docs/renderer/get-compositions), and is copying them from the headless browser into Node.JS. During this operation, the JavaScript object needs to be converted into a string. The upper limit for this is 256MB, however dependending on the machine Remotion runs on, the error may also occur on smaller payloads.
+Remotion正在尝试使用[`getCompositions()`](/docs/renderer/get-compositions)获取组合列表，并将它们从无头浏览器复制到Node.JS中。在此操作期间，JavaScript对象需要转换为字符串。这个上限为256MB，但取决于Remotion运行的机器，错误也可能发生在较小的有效负载上。
 
-## How to fix the error
+## 如何修复错误
 
-Avoid passing huge data payloads to `defaultProps`. Instead, derive the big data payload inside the component based on slim `defaultProps`. For example:
+避免将巨大的数据有效负载传递给`defaultProps`。而是基于精简的`defaultProps`在组件内部派生大数据有效负载。例如：
 
-- Instead of passing a data URL or Buffer that represents an asset, pass a URL to the asset and fetch the asset from inside the composition
-- Don't fetch an audio visualization using [`getAudioData()`](/docs/get-audio-data) and pass it as default props - instead, pass the URL of the audio asset and fetch the audio visualization inside the component.
+- 不要传递表示资产的数据URL或缓冲区，而是传递资产的URL并从组合内部获取资产
+- 不要使用[`getAudioData()`](/docs/get-audio-data)获取音频可视化并将其作为默认props传递 - 而是传递音频资产的URL并在组件内部获取音频可视化。 
 
-Example:
 
-```tsx twoslash title="❌ Avoid - big data chunk as defaultProps"
-import { AudioData, getAudioData } from "@remotion/media-utils";
-import { useEffect, useState } from "react";
-import {
-  cancelRender,
-  Composition,
-  continueRender,
-  delayRender,
-  staticFile,
-} from "remotion";
 
-// MyComp.tsx
-const MyComp: React.FC<{
-  audioData: AudioData | null;
-}> = ({ audioData }) => {
-  return null;
-};
+这可能会导致问题，因为`audioData`变量可能会变得非常大，因为它包含有关波形的原始数据，而Remotion需要将这些数据序列化为字符串，这样做很慢，可能会导致此错误。相反，传递音频URL，并在组件内部进行音频数据获取：
 
-// src/Root.tsx
-const RemotionRoot = () => {
-  const [audioData, setAudioData] = useState<AudioData | null>(null);
-  const [handle] = useState(() => delayRender());
+## 另请参阅
 
-  useEffect(() => {
-    getAudioData(staticFile("audio.mp3"))
-      .then((data) => {
-        setAudioData(data);
-        continueRender(handle);
-      })
-      .catch((e) => {
-        cancelRender(e);
-      });
-  }, [handle]);
-
-  return (
-    <Composition
-      id="my-comp"
-      durationInFrames={90}
-      width={1080}
-      height={1080}
-      fps={1080}
-      component={MyComp}
-      defaultProps={{
-        audioData,
-      }}
-    />
-  );
-};
-```
-
-This can lead to problems because the `audioData` variable can become very big since it contains raw data about the waveform, and Remotion needs to serialize this data into a string, which is slow and can lead to this error. Instead, pass the audio URL and do the audio data fetching inside the component:
-
-```tsx twoslash title="✅ Do - Fetch data inside composition"
-import { getAudioData } from "@remotion/media-utils";
-import { useEffect, useState } from "react";
-import {
-  cancelRender,
-  Composition,
-  continueRender,
-  delayRender,
-  staticFile,
-} from "remotion";
-
-// MyComp.tsx
-const MyComp: React.FC<{ src: string }> = ({ src }) => {
-  const [audioData, setAudioData] = useState<any>(undefined);
-  const [handle] = useState(() => delayRender());
-
-  useEffect(() => {
-    getAudioData(src)
-      .then((data) => {
-        setAudioData(data);
-        continueRender(handle);
-      })
-      .catch((e) => {
-        cancelRender(e);
-      });
-  }, [handle]);
-
-  return null;
-};
-
-// src/Root.tsx
-const RemotionRoot = () => {
-  return (
-    <Composition
-      id="my-comp"
-      durationInFrames={90}
-      width={1080}
-      height={1080}
-      fps={1080}
-      component={MyComp}
-      defaultProps={{
-        src: staticFile("audio.mp3"),
-      }}
-    />
-  );
-};
-```
-
-## See also
-
-- [Parameterized rendering](/docs/parameterized-rendering)
+- [参数化渲染](/docs/parameterized-rendering)
 - [`<Composition>`](/docs/composition)
+

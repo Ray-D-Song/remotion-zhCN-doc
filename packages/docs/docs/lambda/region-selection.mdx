@@ -1,60 +1,60 @@
 ---
 image: /generated/articles-docs-lambda-region-selection.png
 id: region-selection
-title: Region selection
+title: 区域选择
 slug: /lambda/region-selection
 crumb: "Lambda"
 ---
 
 import {LambdaRegionList} from '../../components/lambda/regions.tsx';
 
-Before going live with Remotion Lambda, you need to think about into which AWS region you are deploying your function and bucket.
+在使用 Remotion Lambda 之前，您需要考虑将函数和存储桶部署到哪个 AWS 区域。
 
-This document explains how to select a region and which considerations you need to make.
+本文档解释了如何选择区域以及需要考虑的因素。
 
-## Available regions
+## 可用区域
 
-The following AWS regions are available:
+以下 AWS 区域可用：
 
 <LambdaRegionList />
 
-You can call [`getRegions()`](/docs/lambda/getregions) or type [`npx remotion lambda regions`](/docs/lambda/cli/regions) to get this list programmatically.
+您可以调用 [`getRegions()`](/docs/lambda/getregions) 或键入 [`npx remotion lambda regions`](/docs/lambda/cli/regions) 以编程方式获取此列表。
 
 :::note
-Support for regions `eu-west-3`, `eu-south-1`, `eu-north-1`, `us-west-1`, `af-south-1`, `ap-east-1`, `ap-northeast-2`, `ap-northeast-3`, `ca-central-1`, `me-south-1`, `sa-east-1` has been added in v3.3.7.
+在 v3.3.7 中添加了对区域 `eu-west-3`、`eu-south-1`、`eu-north-1`、`us-west-1`、`af-south-1`、`ap-east-1`、`ap-northeast-2`、`ap-northeast-3`、`ca-central-1`、`me-south-1`、`sa-east-1` 的支持。
 :::
 
-## Default region
+## 默认区域
 
-The default region is `us-east-1`.
+默认区域为 `us-east-1`。
 
-## Selecting a region
+## 选择区域
 
-There are 3 ways to select a region:
+有 3 种选择区域的方式：
 
-- When using the Node.JS APIs, you have to pass the region explicitly to each function. Make sure your projects satisfy the Typescript types or follow the documentation.
+- 在使用 Node.JS API 时，您必须显式地将区域传递给每个函数。确保您的项目满足 TypeScript 类型或遵循文档。
 
-- When using the CLI, you can set the region using the `REMOTION_AWS_REGION` environment variable. It's best to put it in a `.env` file so you don't forget it sometimes.
+- 在使用 CLI 时，您可以使用 `REMOTION_AWS_REGION` 环境变量设置区域。最好将其放在 `.env` 文件中，以免有时会忘记。
 
 :::info
-The variable is called `REMOTION_AWS_REGION` because in Cloud providers like Vercel, `AWS_REGION` is a reserved environment variable name. However, Remotion does also accept the latter if you use it locally.
+该变量称为 `REMOTION_AWS_REGION`，因为在像 Vercel 这样的云提供商中，`AWS_REGION` 是一个保留的环境变量名称。但是，如果您在本地使用它，Remotion 也接受后者。
 :::
 
-- You can also pass the `--region` flag to all CLI commands to override the region. The flag takes precedence over the environment variable.
+- 您还可以将 `--region` 标志传递给所有 CLI 命令以覆盖区域。该标志优先于环境变量。
 
 :::info
-The REMOTION_AWS_REGION environment variable and `--region` flag do not have an effect when using the Node.JS APIs. You need to pass a region explicitly.
+当使用 Node.JS API 时，`REMOTION_AWS_REGION` 环境变量和 `--region` 标志不起作用。您需要显式传递区域。
 :::
 
-If you don't set a region, Remotion will use the default region.
+如果您没有设置区域，Remotion 将使用默认区域。
 
-## Which region should I choose?
+## 我应该选择哪个区域？
 
-Different regions have different pricing. Use the following table to get a sense of the pricing differences.
+不同的区域有不同的定价。使用以下表格来了解定价差异。
 
-Data may be out of date, please consult the [AWS Lambda Pricing page](https://aws.amazon.com/lambda/pricing/) for the latest information.
+数据可能已过时，请查阅[**AWS Lambda Pricing page**](https://aws.amazon.com/lambda/pricing/)获取最新信息。
 
-| Region         | Price per GB-second |
+| Region         | 每GB秒价格           |
 | -------------- | ------------------- |
 | ap-east-1      | 0.0000183000        |
 | af-south-1     | 0.0000176800        |
@@ -78,25 +78,25 @@ Data may be out of date, please consult the [AWS Lambda Pricing page](https://aw
 | us-west-1      | 0.0000133334        |
 | us-west-2      | 0.0000133334        |
 
-Previously, this section mentioned differences in the amount of concurrent lambdas that can be run in a region. This is no longer the case.
+此前，本节提到了各地区可同时运行的 Lambda 数量的差异。这不再适用。
 
-## Enabling regions in the AWS console
+## 在 AWS 控制台中启用地区
 
-Some regions that are supported by Remotion are not enabled by default in an AWS account. If you get a message:
+Remotion 支持的一些地区在 AWS 帐户中默认未启用。如果收到以下消息：
 
 ```
-The security token included in the request is invalid
+请求中包含的安全令牌无效
 ```
 
-see [here]
+请参见[此处]
 
-## Other considerations
+## 其他考虑事项
 
-- The function and S3 bucket must be in the same region to eliminate latency across datacenters. Rendering with functions and buckets that have mismatching regions is not supported
+- 函数和 S3 存储桶必须位于同一地区，以消除数据中心之间的延迟。不支持使用具有不匹配地区的函数和存储桶进行渲染
 
-- You may deploy your whole architecture to different regions to further increase the amount of renders you can make concurrently. This has the advantage of higher redundancy, but a potential drawback of hitting a non-warm function.
+- 您可以将整个架构部署到不同的地区，以进一步增加可以同时进行的渲染数量。这样做的优势是更高的冗余性，但可能的缺点是可能会触发非热函数。
 
-- Some regions are more expensive than others (for example `af-south-1`).
-  Consult the [Lambda Pricing page](https://aws.amazon.com/lambda/pricing/) from AWS.
+- 一些地区比其他地区更昂贵（例如 `af-south-1`）。
+  请参阅来自 AWS 的[**Lambda Pricing page**](https://aws.amazon.com/lambda/pricing/)。
 
-- Some regions [are disabled by default](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) and you need to enable them in your AWS account before you can use them.
+- 一些区域[默认情况下被禁用](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)，您需要在您的AWS账户中启用它们才能使用。

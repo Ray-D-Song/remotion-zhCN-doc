@@ -6,20 +6,21 @@ crumb: "@remotion/cli"
 sidebar_label: "ffprobe"
 ---
 
-_available since v4.0_
+_自 v4.0 起可用_
 
-In order to use `ffprobe` without having to directly install it, Remotion provides it via `npx remotion ffprobe`.
+为了能够使用 `ffprobe` 而无需直接安装它，Remotion 通过 `npx remotion ffprobe` 提供了它。
 
-Note that in order to keep the binary size small, the FFprobe binary only understand the codecs that Remotion itself supports: H.264, H.265, VP8, VP9 and ProRes. A binary from the 6.0 release line of FFprobe is used.
+请注意，为了保持二进制文件的大小，FFprobe 二进制文件仅支持 Remotion 本身支持的编解码器：H.264、H.265、VP8、VP9 和 ProRes。使用的是来自 FFprobe 6.0 发行线的二进制文件。
 
-# Example
+# 示例
 
 ```bash
 npx remotion ffprobe your_video.mp4
 ```
 
-To find out more about FFprobe, visit their [docs](https://ffmpeg.org/ffprobe.html).
+要了解更多关于 FFprobe 的信息，请访问他们的[文档](https://ffmpeg.org/ffprobe.html)。
 
-## See also
+## 另请参阅
 
 - [`npx remotion ffmpeg`](/docs/cli/ffmpeg)
+

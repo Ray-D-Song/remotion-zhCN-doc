@@ -12,7 +12,7 @@ const BlueSquare: React.FC = () => <div></div>
 // - BlueSquare
 ```
 
-By using a sequence, you can time-shift the display of your components or parts of your animation in the video.
+通过使用序列，您可以在视频中对组件或动画的部分进行时间偏移显示。
 
 ```tsx twoslash title="MyTrailer.tsx"
 import { Sequence } from "remotion";
@@ -44,26 +44,26 @@ const MyTrailer = () => {
   <em>
     <code>&lt;Intro&gt;</code>
   </em>{" "}
-  will show from frame 0-29.
+  将在帧0至29之间显示。
 </sub>
 <br />
 <sub>
   <em>
     <code>&lt;Clip&gt;</code>
   </em>{" "}
-  will show from frame 30 on until frame 59.
+  将在帧30至59之间显示。
 </sub>
 <br />
 <sub>
   <em>
     <code>&lt;Outro&gt;</code>
   </em>{" "}
-  will show from frame 60 on until the end of the composition.
+  将在帧60之后一直显示到合成结束。
 </sub>
 <br />
 <br />
 
-All children of a `<Sequence>` that call [`useCurrentFrame()`](/docs/use-current-frame) will receive a value that is shifted by [`from`](#from).
+所有调用[`useCurrentFrame()`](/docs/use-current-frame)的`<Sequence>`子元素将收到一个由[`from`](#from)偏移的值。
 
 ```tsx twoslash title="MyTrailer.tsx"
 import { Sequence, useCurrentFrame } from "remotion";
@@ -83,29 +83,29 @@ const MyTrailer = () => {
 ```
 
 <sub>
-  At frame <code>0</code>, this would render{" "}
-  <code>&lt;div&gt;0&lt;/div&gt;</code>.
+  在帧<code>0</code>时，这将呈现{" "}
+  <code>&lt;div&gt;0&lt;/div&gt;</code>。
 </sub>
 <br />
 <sub>
-  At frame <code>30</code>, this would render{" "}
-  <code>&lt;div&gt;30&lt;/div&gt;&lt;div&gt;0&lt;/div&gt;</code>.
+  在帧<code>30</code>时，这将呈现{" "}
+  <code>&lt;div&gt;30&lt;/div&gt;&lt;div&gt;0&lt;/div&gt;</code>。
 </sub>
 <br />
 <br />
 
-Using the [`durationInFrames`](#durationinframes) prop, you can define for how long the children of a `<Sequence>` should be mounted.
+使用[`durationInFrames`](#durationinframes)属性，您可以定义`<Sequence>`的子元素应该挂载多长时间。
 
-By default, the children of a `<Sequence>` are wrapped in an [`<AbsoluteFill>`](/docs/absolute-fill) component. If you don't want this behavior, add [`layout="none"`](#layout) as a prop.
+默认情况下，`<Sequence>`的子元素将包装在一个[`<AbsoluteFill>`](/docs/absolute-fill)组件中。如果您不希望这种行为，请将[`layout="none"`](#layout)作为属性添加。
 
-## Cascading
+## 级联
 
-You can nest sequences within each other and they will cascade.  
-For example, a sequence that starts at frame 60 which is inside a sequence that starts at frame 30 will have it's children start at frame 90.
+您可以相互嵌套序列，它们将级联。  
+例如，在帧30开始的序列内部的序列，将使其子元素从帧90开始。
 
-## Examples
+## 示例
 
-All the examples below are based on the following animation of a blue square:
+以下所有示例都基于以下蓝色正方形的动画：
 
 <SequenceForwardExample type="base" />
 
@@ -119,9 +119,11 @@ const MyVideo = () => {
 };
 ```
 
-### Delay
+### 延迟
 
-If you would like to delay the content by say 30 frames, you can wrap it in <br/> `<Sequence from={30}>`.
+
+
+如果您想延迟内容，可以将其包裹在 `<br/>` `<Sequence from={30}>` 中。
 
 <SequenceForwardExample type="delay" />
 <br />
@@ -139,9 +141,9 @@ const MyVideo = () => {
 };
 ```
 
-### Trim end
+### 裁剪结尾
 
-Wrap your component in a `<Sequence>` with a finite `durationInFrames` prop to make it unmount after the duration has passed.
+将您的组件包裹在 `<Sequence>` 中，并使用有限的 `durationInFrames` 属性使其在持续时间结束后卸载。
 
 <SequenceForwardExample type="clip" />
 <br />
@@ -159,10 +161,10 @@ const ClipExample: React.FC = () => {
 };
 ```
 
-### Trim start
+### 裁剪开头
 
-Wrap the square in `<Sequence>` with a negative `from` value to trim the beginning of the content.  
-By shifting the time backwards, the animation has already progressed by 15 frames when the content appears.
+将正方形包裹在带有负 `from` 值的 `<Sequence>` 中，以裁剪内容的开头。  
+通过向后移动时间，当内容出现时，动画已经进行了 15 帧。
 
 <SequenceForwardExample type="trim-start" />
 <br />
@@ -177,11 +179,11 @@ const TrimStartExample: React.FC = () => {
 };
 ```
 
-### Trim and delay
+### 裁剪和延迟
 
-Wrap the content in two `<Sequence>`'s.  
-To the inner one, pass a negative start value `from={-15}` to trim away the first 15 frames of the content.  
-To the outer one we pass a positive value `from={30}` to then shift it forwards by 30 frames.
+将内容包裹在两个 `<Sequence>` 中。  
+对于内部的 `<Sequence>`，传递负的起始值 `from={-15}` 以裁剪掉内容的前 15 帧。  
+对于外部的 `<Sequence>`，我们传递正值 `from={30}`，然后将其向前移动 30 帧。
 
 <SequenceForwardExample type="trim-and-delay" />
 <br />
@@ -201,80 +203,81 @@ const TrimAndDelayExample: React.FC = () => {
 };
 ```
 
-## Play Sequences sequentially
+## 依次播放序列
 
-See the [`<Series />`](/docs/series) helper component, which helps you calculate markup that makes sequences play after each other.
+查看 [`<Series />`](/docs/series) 辅助组件，它可以帮助您计算使序列依次播放的标记。
 
-## Props
+## 属性
 
-The Sequence component is a high order component and accepts, besides children, the following props:
+Sequence 组件是一个高阶组件，除了 children 外，还接受以下属性：
 
 ### `from`
 
-_optional_ (From v3.2.36, _required_ in previous versions)
+_可选的_（从 v3.2.36 开始，之前版本中为 _必需的_）
 
-At which frame it's children should assume the video starts. When the sequence is at `frame`, it's children are at frame `0`.
-From v3.2.36 onwards, this prop will be optional; by default, it will be 0.
+其子元素应该假定视频开始的帧数。当序列在 `frame` 时，其子元素在帧 `0` 处。
+从 v3.2.36 开始，此属性将是可选的；默认情况下为 0。
 
 ### `durationInFrames`
 
-_optional_
+_可选的_
 
-For how many frames the sequence should be displayed. Children are unmounted if they are not within the time range of display. By default it will be `Infinity` to avoid limit the duration of the sequence.
+序列应该显示多少帧。如果子元素不在显示时间范围内，则会卸载。默认情况下为 `Infinity`，以避免限制序列的持续时间。
 
 ### `height`<AvailableFrom v="4.0.80"/>
 
-_optional_
 
-Gives the sequence a specific `style={{height: height}}` style and overrides `height` that is returned by the [`useVideoConfig()`](/docs/use-video-config) hook in child components. Useful for including a component that was designed for a specific height.
+### `_optional_`
+
+为序列提供特定的 `style={{height: height}}` 样式，并覆盖子组件中由 [`useVideoConfig()`](/docs/use-video-config) 钩子返回的 `height`。适用于包含为特定高度设计的组件。
 
 ### `width`<AvailableFrom v="4.0.80"/>
 
 _optional_
 
-Gives the sequence a specific `style={{width: width}}` style and overrides `width` that is returned by the [`useVideoConfig()`](/docs/use-video-config) hook in child components. Useful for including a component that was designed for a specific width.
+为序列提供特定的 `style={{width: width}}` 样式，并覆盖子组件中由 [`useVideoConfig()`](/docs/use-video-config) 钩子返回的 `width`。适用于包含为特定宽度设计的组件。
 
 ### `name`
 
 _optional_
 
-You can give your sequence a name and it will be shown as the label of the sequence in the timeline of the Remotion Studio. This property is purely for helping you keep track of sequences in the timeline.
+您可以为序列指定一个名称，在 Remotion Studio 时间轴中显示为序列的标签。此属性纯粹是为了帮助您在时间轴中跟踪序列。
 
 ### `layout`
 
 _optional_
 
-Either `"absolute-fill"` _(default)_ or `"none"` By default, your sequences will be absolutely positioned, so they will overlay each other. If you would like to opt out of it and handle layouting yourself, pass `layout="none"`. Available since v1.4.
+可以是 `"absolute-fill"` _(默认)_ 或 `"none"`。默认情况下，您的序列将被绝对定位，因此它们将重叠在一起。如果您希望退出此设置并自行处理布局，请传递 `layout="none"`。自 v1.4 起可用。
 
 ### `style`<AvailableFrom v="3.0.27"/>
 
 _optional_
 
-CSS styles to be applied to the container. If `layout` is set to `none`, there is no container and setting this style is not allowed.
+要应用于容器的 CSS 样式。如果 `layout` 设置为 `none`，则没有容器，不允许设置此样式。
 
 ### `className`<AvailableFrom v="3.3.45"/>
 
 _optional_
 
-A class name to be applied to the container. If `layout` is set to `none`, there is no container and setting this style is not allowed.
+要应用于容器的类名。如果 `layout` 设置为 `none`，则没有容器，不允许设置此样式。
 
 ### `premountFor`<AvailableFrom v="4.0.140" />
 
 _optional_
 
-[Premount](/docs/player/premounting) the sequence for a set number of frames.
+为一组帧[预挂载](/docs/player/premounting)序列。
 
 ### `showInTimeline`<AvailableFrom v="4.0.110" />
 
 _optional_
 
-If set to `false`, the track will not be shown in the Studio's timeline.  
-Child `<Sequence>`'s will show by default, unless `showInTimeline` is also set to false.  
-This behavior is stable as of v4.0.110, previously the behavior was different, but this prop not documented.
+如果设置为 `false`，则不会在 Studio 的时间轴中显示该轨道。  
+默认情况下，子 `<Sequence>` 会显示，除非 `showInTimeline` 也设置为 false。  
+此行为自 v4.0.110 版本稳定，之前行为不同，但未记录此属性。
 
-## Adding a ref
+## 添加引用
 
-You can add a [React ref](https://react.dev/learn/manipulating-the-dom-with-refs) to an `<Sequence>` from version `v3.2.13` on. If you use TypeScript, you need to type it with `HTMLDivElement`:
+您可以从版本 `v3.2.13` 开始为 `<Sequence>` 添加 [React 引用](https://react.dev/learn/manipulating-the-dom-with-refs)。如果使用 TypeScript，您需要使用 `HTMLDivElement` 对其进行类型化。
 
 ```tsx twoslash
 import { useRef } from "react";
@@ -292,13 +295,13 @@ const MyComp = () => {
 };
 ```
 
-## Note for `@remotion/three`
+## `@remotion/three`的注意事项
 
-A `<Sequence>` by default will return a `<div>` component which is not allowed inside a [`<ThreeCanvas>`](/docs/three-canvas). Avoid an error by passing `layout="none"` to `<Sequence>`. Example: `<Sequence layout="none">`.
+默认情况下，`<Sequence>` 将返回一个 `<div>` 组件，这在 [`<ThreeCanvas>`](/docs/three-canvas) 内是不允许的。通过向 `<Sequence>` 传递 `layout="none"` 来避免错误。例如：`<Sequence layout="none">`。
 
-## See also
+## 参见
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/Sequence.tsx)
-- [Reuse components using Sequences](/docs/reusability)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/Sequence.tsx)
+- [重用组件使用 Sequences](/docs/reusability)
 - [`<Composition />`](/docs/composition)
 - [`<Series />`](/docs/series)

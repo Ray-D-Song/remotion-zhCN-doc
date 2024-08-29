@@ -5,46 +5,46 @@ title: --gl flag
 crumb: Flags
 ---
 
-When rendering a video in Remotion, different [GL](https://en.wikipedia.org/wiki/OpenGL) renderer backends can be selected.
+在 Remotion 中渲染视频时，可以选择不同的 [GL](https://en.wikipedia.org/wiki/OpenGL) 渲染后端。
 
-The following renderer backends are supported in Remotion:
+以下是 Remotion 支持的渲染后端：
 
-- <code>null</code> - default, lets Chrome decide
+- <code>null</code> - 默认值，让 Chrome 决定
 - <code>angle</code>
 - <code>egl</code>
 - <code>swiftshader</code>
-- <code>vulkan</code> (from Remotion v4.0.41)
-- <code>angle-egl</code> (from Remotion v4.0.52)
-- <code>swangle</code> - default on Lambda
+- <code>vulkan</code> (从 Remotion v4.0.41 开始)
+- <code>angle-egl</code> (从 Remotion v4.0.52 开始)
+- <code>swangle</code> - Lambda 上的默认值
 
-## Recommended renderers
+## 推荐的渲染器
 
-<Step>1</Step> If you use WebGL/Three.js:
+<Step>1</Step> 如果您使用 WebGL/Three.js：
 
-- On a desktop, `angle` is recommended
-- On a [cloud instance with a GPU](/docs/miscellaneous/cloud-gpu), `angle-egl` is recommended
-- On Lambda, use `swangle` (default on Lambda)
-- On a machine with no GPU, `swangle` is recommended. Rendering might be slow.
+- 在桌面上，推荐使用 `angle`
+- 在带 GPU 的[云实例](/docs/miscellaneous/cloud-gpu)上，推荐使用 `angle-egl`
+- 在 Lambda 上，使用 `swangle` (Lambda 上的默认值)
+- 在没有 GPU 的机器上，推荐使用 `swangle`。渲染可能会很慢。
 
-<Step>2</Step> If you don't use WebGL/Three.js, the default renderer (<code>null</code> on local, <code>swangle</code> on Lambda) are the best choice.<br/>
+<Step>2</Step> 如果您不使用 WebGL/Three.js，则默认渲染器（本地上的 <code>null</code>，Lambda 上的 <code>swangle</code>）是最佳选择。<br/>
 
-## Using the GPU
+## 使用 GPU
 
-In cases where a GPU could be beneficial for rendering, it can often make sense to use the <code>angle</code> renderer (<code>angle-egl</code> on Linux). An in-depth explanation when and how to use it is given in [this article](/docs/gpu).
+在渲染时 GPU 可能有益的情况下，通常可以使用 <code>angle</code> 渲染器（Linux 上的 <code>angle-egl</code>）。关于何时以及如何使用它的深入解释，请参阅[本文](/docs/gpu)。
 
-⚠️ Memory leaks are a known problem with <code>angle</code>. We recommend to split up long renders into multiple parts when rendering large videos, since sometimes renders can fail due to memory leaks.
+⚠️ <code>angle</code> 存在已知的内存泄漏问题。我们建议在渲染大型视频时将长时间渲染拆分为多个部分，因为有时渲染可能因内存泄漏而失败。
 
-Currently, GitHub Actions will fail when using <code>angle</code>, since Actions runners don't have a GPU.
+目前，使用 <code>angle</code> 时 GitHub Actions 将失败，因为 Actions 运行程序没有 GPU。
 
-## Selecting the renderer backend
+## 选择渲染后端
 
-The renderer backend can be set in different ways:
+可以通过不同方式设置渲染后端：
 
-### Via Node.JS APIs
+### 通过 Node.JS API
 
-In [`getCompositions()`](/docs/renderer/get-compositions#chromiumoptions), [`renderStill()`](/docs/renderer/render-still#gl), [`renderMedia()`](/docs/renderer/render-media#gl), [`renderFrames()`](/docs/renderer/render-frames#gl), [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda#gl), [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#gl) and [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#gl), you can pass [`chromiumOptions.gl`](/docs/renderer/render-still#gl).
+在 [`getCompositions()`](/docs/renderer/get-compositions#chromiumoptions)、[`renderStill()`](/docs/renderer/render-still#gl)、[`renderMedia()`](/docs/renderer/render-media#gl)、[`renderFrames()`](/docs/renderer/render-frames#gl)、[`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda#gl)、[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#gl) 和 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#gl) 中，您可以传递 [`chromiumOptions.gl`](/docs/renderer/render-still#gl)。
 
-### Via Config file
+### 通过配置文件
 
 ```tsx twoslash
 import { Config } from "@remotion/cli/config";
@@ -55,17 +55,18 @@ Config.setChromiumOpenGlRenderer("angle");
 ```
 
 :::note
-The config file only applies to CLI commands.
+配置文件仅适用于 CLI 命令。
 :::
 
 :::note
-Prior to `v3.3.39`, the option was called `Config.Puppeteer.setChromiumOpenGlRenderer()`.
+在 `v3.3.39` 之前，该选项被称为 `Config.Puppeteer.setChromiumOpenGlRenderer()`。
 :::
 
-### Via CLI flag
+### 通过 CLI 标志
 
-Pass [`--gl=[angle,swangle,...]`](/docs/cli) in one of the following commands: [`remotion render`](/docs/cli/render), [`remotion compositions`](/docs/cli/compositions), [`remotion still`](/docs/cli/still), [`remotion lambda render`](/docs/lambda/cli/render), [`remotion lambda still`](/docs/lambda/cli/still), [`remotion lambda compositions`](/docs/lambda/cli/compositions).
+在以下命令中之一中传递 [`--gl=[angle,swangle,...]`](/docs/cli)：[`remotion render`](/docs/cli/render), [`remotion compositions`](/docs/cli/compositions), [`remotion still`](/docs/cli/still), [`remotion lambda render`](/docs/lambda/cli/render), [`remotion lambda still`](/docs/lambda/cli/still), [`remotion lambda compositions`](/docs/lambda/cli/compositions).
 
-## See also
+## 另请参阅
 
-- [Using the GPU](/docs/gpu)
+- [使用 GPU](/docs/gpu)
+

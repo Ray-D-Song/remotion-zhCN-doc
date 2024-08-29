@@ -1,55 +1,53 @@
 ---
 image: /generated/articles-docs-contributing-option.png
-title: Implementing a new option
-crumb: Contributing
+title: 实现新选项
+crumb: 贡献
 ---
 
-Adding a new option to a feature is a great way to contribute to Remotion and enable more use cases.
+## 指定选项的方式
 
-## Ways of specifying an option
+有多种指定选项的方式：
 
-There are multiple ways to specify an option:
-
-- APIs that can be called via Node.JS can directly accept a parameter.
-- Options influencing a render can be added to the render dialog in the [Remotion Studio](/docs/terminology/studio).
-- If the action is available as a [CLI](/docs/cli) command, the option should also be added as a CLI flag.
-- The [config](/docs/config) file can be also be used to specify multiple options. <br/>
+- 可通过 Node.JS 调用的 API 可直接接受参数。
+- 影响渲染的选项可以添加到 [Remotion Studio](/docs/terminology/studio) 中的渲染对话框。
+- 如果操作可作为 [CLI](/docs/cli) 命令使用，则选项也应作为 CLI 标志添加。
+- [配置](/docs/config) 文件也可用于指定多个选项。<br/>
   :::note
-  The config file should not be read when executing a CLI command, otherwise it's values should be ignored.
+  在执行 CLI 命令时不应读取配置文件，否则应忽略其值。
   :::
 
-## Option Resolution
+## 选项解析
 
-The option should be resolved in the following order:
+应按以下顺序解析选项：
 
-<Step>1</Step> Directly passed to the Node.JS API<br/>
-<Step>2</Step> Specified via the render UI in the <a href="/docs/terminology/studio">Remotion Studio</a><br/>
-<Step>3</Step> Specified via <a href="/docs/cli">CLI flag</a><br/>
-<Step>4</Step> Specified via <a href="/docs/config">config file</a><br/>
-<Step>5</Step> Fallback to a default value
+<Step>1</Step> 直接传递给 Node.JS API<br/>
+<Step>2</Step> 通过 <a href="/docs/terminology/studio">Remotion Studio</a> 中的渲染 UI 指定<br/>
+<Step>3</Step> 通过 <a href="/docs/cli">CLI 标志</a> 指定<br/>
+<Step>4</Step> 通过 <a href="/docs/config">配置文件</a> 指定<br/>
+<Step>5</Step> 回退到默认值
 
-## Naming
+## 命名
 
-The option should be named in `camelCase` for options in Node.JS and in `hyphen-case` for options accepted by the CLI.
+应使用 `camelCase` 命名 Node.JS 中的选项，使用 `hyphen-case` 命名 CLI 接受的选项。
 
-Options accepting numerical values should include the unit in the name. For example `durationInFrames` instead of `duration` or `timeoutInMilliseconds` instead of `timeout`.
+接受数值的选项应在名称中包含单位。例如，应使用 `durationInFrames` 而不是 `duration` 或 `timeoutInMilliseconds` 而不是 `timeout`。
 
-## Documentation
+## 文档
 
-The option should be documented in the [API reference](/docs/api) and the [CLI reference](/docs/cli).
+应在 [API 参考](/docs/api) 和 [CLI 参考](/docs/cli) 中记录选项。
 
-Note from which version the option is available.
+请注意选项从哪个版本开始可用。
 
-## Testing changes to the CLI
+## 测试 CLI 更改
 
-Check out the [Running the CLI](/docs/contributing) section in the contributing docs.
+请查看贡献文档中的 [运行 CLI](/docs/contributing) 部分。
 
-## Add CLI autocompletion
+## 添加 CLI 自动完成
 
-In the `cli-autocomplete` package under `src/source.ts`, you can add new options. People who use [Fig](https://fig.io) will then be able to get accurate autocompletion for your feature.
+在 `cli-autocomplete` 包的 `src/source.ts` 中，您可以添加新选项。使用 [Fig](https://fig.io) 的用户将能够准确自动完成您的功能。
 
-## See also
+## 参见
 
-- [Implementing a new feature](/docs/contributing/feature)
-- [Writing documentation](/docs/contributing/docs)
-- [How to take a bounty issue](/docs/contributing/bounty)
+- [实现新功能](/docs/contributing/feature)
+- [撰写文档](/docs/contributing/docs)
+- [如何处理赏金问题](/docs/contributing/bounty)

@@ -1,25 +1,25 @@
 ---
 image: /generated/articles-docs-terminology-entry-point.png
-title: Entry point
-crumb: "Terminology"
+title: 入口点
+crumb: "术语"
 ---
 
-The entry point is the file where the [Remotion CLI](/docs/cli) and [`@remotion/renderer`](/docs/renderer) APIs will look for a Remotion project.
+入口点是[Remotion CLI](/docs/cli)和[`@remotion/renderer`](/docs/renderer) API将查找Remotion项目的文件。
 
-- By default in most templates, it is `src/index.ts`.
-- In older projects, it may have an `.tsx` extension instead of `.ts`.
-- The entry point can be passed to the render command, for example: `npx remotion render src/index.ts`.
-- The entry point should call [`registerRoot()`](/docs/register-root).
-- If you render a video using [`npx remotion render`](/docs/cli/render), the entry point is printed in grey.
-- You can customize the default entry point in the config file using [`Config.setEntryPoint()`](/docs/config#setentrypoint).
+- 在大多数模板中，默认情况下是`src/index.ts`。
+- 在旧项目中，可能会使用`.tsx`扩展名而不是`.ts`。
+- 入口点可以传递给渲染命令，例如：`npx remotion render src/index.ts`。
+- 入口点应该调用[`registerRoot()`](/docs/register-root)。
+- 如果使用[`npx remotion render`](/docs/cli/render)渲染视频，则入口点会以灰色打印出来。
+- 您可以使用[`Config.setEntryPoint()`](/docs/config#setentrypoint)在配置文件中自定义默认入口点。
 
-## Which entry point is being used?
+## 正在使用哪个入口点？
 
-If you call [`npx remotion render`](/docs/cli/render), the entry point and the reason why it was chosen will be printed. The algorithm is as follows:
+如果调用[`npx remotion render`](/docs/cli/render)，将打印出入口点以及选择它的原因。算法如下：
 
-<Step>1</Step> If the entry point is directly passed, for example <code>npx remotion render src/index.ts</code>, use that.<br/>
-<Step>2</Step> Otherwise, if a path was specified in the <a href="/docs/config">Configuration file</a> using <a href="/docs/config#setentrypoint"><code>Config.setEntryPoint()</code></a>, use that. <br/>
-<Step>3</Step> Go through the following common paths and if one exists, use that:
+<Step>1</Step> 如果直接传递了入口点，例如<code>npx remotion render src/index.ts</code>，则使用该入口点。<br/>
+<Step>2</Step> 否则，如果在<a href="/docs/config">配置文件</a>中使用<a href="/docs/config#setentrypoint"><code>Config.setEntryPoint()</code></a>指定了路径，则使用该路径。<br/>
+<Step>3</Step> 遍历以下常见路径，如果存在其中一个，则使用该路径：
 
 <ul>
 <li><code>src/index.ts</code></li>
@@ -32,7 +32,8 @@ If you call [`npx remotion render`](/docs/cli/render), the entry point and the r
 <li><code>remotion/index.mjs</code></li>
 </ul>
 
-## In the Player
+## 在播放器中
 
-In the [Remotion Player](/docs/terminology/player), there is no concept of an entry point.  
-You directly pass a React component and metadata to the [`<Player>`](/docs/player/player).
+在[Remotion播放器](/docs/terminology/player)中，没有入口点的概念。  
+您直接将React组件和元数据传递给[`<Player>`](/docs/player/player)。 
+

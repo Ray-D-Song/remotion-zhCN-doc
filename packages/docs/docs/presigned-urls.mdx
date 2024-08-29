@@ -1,27 +1,27 @@
 ---
 image: /generated/articles-docs-presigned-urls.png
 id: presigned-urls
-title: Upload with a presigned URL
-crumb: "Building video apps"
+title: 使用预签名 URL 进行上传
+crumb: "构建视频应用"
 ---
 
-This article provides guidance for webapps wanting to allow users to upload videos and other assets. We recommend to generate a presigned URL server-side that allows a user to directly upload a file into your cloud storage without having to pass the file through your server.
+本文为希望允许用户上传视频和其他资源的 Web 应用提供指导。我们建议在服务器端生成一个预签名 URL，允许用户直接将文件上传到您的云存储，而无需通过您的服务器传递文件。
 
-You can set constraints such as maximal file size and file type, apply rate limiting, require authentication, and predefine the storage location.
+您可以设置诸如最大文件大小和文件类型的约束，应用速率限制，要求身份验证，并预定义存储位置。
 
-## Why use presigned URL?
+## 为什么使用预签名 URL？
 
-The traditional way of implementing a file upload would be to let the client upload the file onto a server, which then stores the file on disk or forwards the upload to cloud storage. While this approach works, it's not ideal due to several reasons.
+传统的文件上传实现方式是让客户端将文件上传到服务器，然后服务器将文件存储在磁盘上或将上传转发到云存储。虽然这种方法可行，但由于几个原因，它并不理想。
 
-- **Reduce load**: If many clients happen to upload big files on the same server, this server can get slow or even break down under the load. With the presign workflow, the server only needs to create presign URLs, which reduces server load than handling file transfers.
-- **Reduce spam**: To prevent your users using your upload feature as free hosting space, you can deny them a presigned URL if they step over your allowance.
-- **Data safety**: Since a lot of hosting solutions today are ephemeral or serverless, files should not be stored on them. There is no guarantee the files will still exist after a server restart and you might run out of disk space.
+- **减轻负载**：如果许多客户端恰好在同一服务器上上传大文件，该服务器可能会因负载过重而变慢甚至崩溃。通过预签名工作流程，服务器只需创建预签名 URL，这比处理文件传输减轻了服务器负载。
+- **减少垃圾邮件**：为了防止用户将您的上传功能用作免费托管空间，您可以拒绝为他们提供预签名 URL，如果他们超出了您的允许范围。
+- **数据安全**：由于今天许多托管解决方案是临时的或无服务器的，文件不应存储在它们上面。在服务器重新启动后，不能保证文件仍然存在，您可能会耗尽磁盘空间。
 
-## AWS Example
+## AWS 示例
 
-This example assumes user uploads are stored in S3. For other frontends
+此示例假定用户上传存储在 S3 中。对于其他前端
 
-First, accept a file in your frontend, for example using `<input type="file">`. You should get a `File`, from which you can determine the content type and content length:
+首先，在前端接受一个文件，例如使用 `<input type="file">`。您应该获得一个 `File`，从中可以确定内容类型和内容长度：
 
 ```ts twoslash title="App.tsx"
 // @module: ESNext
@@ -34,10 +34,10 @@ const arrayBuffer = await file.arrayBuffer();
 const contentLength = arrayBuffer.byteLength;
 ```
 
-This example uses [`@aws-sdk/s3-request-presigner`](https://github.com/aws/aws-sdk-js-v3/tree/main/packages/s3-request-presigner) and [the AWS SDK imported from `@remotion/lambda`](/docs/lambda/getawsclient). By calling the function below, two URLs are generated:
+此示例使用 [`@aws-sdk/s3-request-presigner`](https://github.com/aws/aws-sdk-js-v3/tree/main/packages/s3-request-presigner) 和 [从 `@remotion/lambda` 导入的 AWS SDK](/docs/lambda/getawsclient)。通过调用下面的函数，将生成两个 URL：
 
-- `presignedUrl` is a URL to which the file can be uploaded to
-- `readUrl` is the URL from which the file can be read from.
+- `presignedUrl` 是文件可以上传到的 URL
+- `readUrl` 是可以从中读取文件的 URL。
 
 ```tsx twoslash title="api/generate-presigned-url.ts"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
@@ -85,14 +85,14 @@ export const generatePresignedUrl = async (
 
 Explanation:
 
-- First, the upload request gets checked for constraints. In this example, we reject uploads that are over 200MB. You could add more constraints or add rate-limiting.
-- The AWS SDK gets imported using [getAwsClient()](/docs/lambda/getawsclient). If you don't use Remotion Lambda, install the [`@aws-sdk/client-s3`](https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-s3) package directly.
-- A [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) gets used as the filename to avoid name clashes.
-- Finally, the presigned URL and output URL get calculated and returned.
+- 首先，上传请求会被检查约束条件。在这个例子中，我们拒绝超过 200MB 的上传。您可以添加更多约束条件或添加速率限制。
+- 使用 [getAwsClient()](/docs/lambda/getawsclient) 导入 AWS SDK。如果您不使用 Remotion Lambda，请直接安装 [`@aws-sdk/client-s3`](https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-s3) 包。
+- 使用 [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) 作为文件名以避免名称冲突。
+- 最后，计算并返回预签名 URL 和输出 URL。
 
-## Using the presigned URL
+## 使用预签名 URL
 
-Send the presigned URL back to the client. Afterwards, you can now perform an upload using the built-in [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) function:
+将预签名 URL 发送回客户端。之后，您现在可以使用内置的 [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 函数执行上传：
 
 ```ts twoslash title="App.tsx"
 // @module: ESNext
@@ -114,6 +114,6 @@ await fetch(presignedUrl, {
 });
 ```
 
-## See also
+## 参见
 
-- [Handling user video uploads](/docs/video-uploads)
+- [处理用户视频上传](/docs/video-uploads)

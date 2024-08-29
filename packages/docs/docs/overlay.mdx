@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-overlay.png
 id: overlay
-title: Creating overlays
+title: 创建叠加层
 ---
 
-If you want to export a Remotion video to use it as an overlay or transition in a conventional video editing software, you can export it as a transparent Apple ProRes file, which is supported by Final Cut Pro, Adobe Premiere and Davinci Resolve.
+如果您想要将 Remotion 视频导出以在传统视频编辑软件中用作叠加层或过渡效果，您可以将其导出为支持 Final Cut Pro、Adobe Premiere 和 Davinci Resolve 的透明 Apple ProRes 文件。
 
-## Exporting a video as ProRes file
+## 将视频导出为 ProRes 文件
 
-<InlineStep>1</InlineStep> Make sure your composition has no background color. If you toggle the transparency option on in the editor, you should see a checkerboard background. <br /> <br/>
+<InlineStep>1</InlineStep> 确保您的合成没有背景颜色。如果您在编辑器中切换透明选项，您应该看到一个棋盘背景。 <br /> <br/>
 
-<InlineStep>2</InlineStep> To export the video as ProRes file, setup the <code>remotion.config.ts</code> file as follows: <br/><br/>
+<InlineStep>2</InlineStep> 要将视频导出为 ProRes 文件，请按照以下步骤设置 <code>remotion.config.ts</code> 文件： <br/><br/>
 
 ```tsx twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -21,19 +21,19 @@ Config.setCodec("prores");
 Config.setProResProfile("4444");
 ```
 
-and trigger the render with
+并使用以下命令触发渲染
 
 ```bash
 npx remotion render
 ```
 
-Alternatively, you can set the settings directly on the command line:
+或者，您可以直接在命令行上设置参数：
 
 ```bash
 npx remotion render --image-format=png --pixel-format=yuva444p10le --codec=prores --prores-profile=4444
 ```
 
-## Use a template
+## 使用模板
 
 import { OverlayDemo } from "../components/OverlayDemo";
 
@@ -52,14 +52,15 @@ const MyVideo: React.FC<{
 
 <OverlayDemo/>
 
-## Use it in your Video Editor
+## 在您的视频编辑软件中使用
 
-Now, you can simply import the video into your video editing software. You can find the video in the out folder of your Remotion project.
+现在，您可以简单地将视频导入到您的视频编辑软件中。您可以在 Remotion 项目的 out 文件夹中找到视频。
 
 import { OverlayInDavinci } from "../components/OverlayInDavinci";
 
 <OverlayInDavinci/>
 
-## See also
+## 参见
 
-- [Transparent videos](/docs/transparent-videos)
+- [透明视频](/docs/transparent-videos)
+

@@ -1,14 +1,15 @@
 ---
 image: /generated/articles-docs-terminology-input-props.png
-title: Input Props
-crumb: "Terminology"
+title: 输入属性
+crumb: "术语"
 ---
 
-Input props are data that can be passed to a render in order to parametrize the video. They can be obtained in two ways:
+输入属性是可以传递给渲染以参数化视频的数据。可以通过两种方式获取这些数据：
 
-- This data is passed as actual React props to the component that you defined in your [composition](/docs/terminology/composition)
-- Using the [`getInputProps()`](/docs/get-input-props) function, you can retrieve the props even outside your component, for example to dynamically change the [duration or dimensions](/docs/dynamic-metadata).
+- 这些数据作为实际的 React props 传递给您在[组合](/docs/terminology/composition)中定义的组件
+- 使用[`getInputProps()`](/docs/get-input-props)函数，您可以在组件外部检索这些 props，例如动态更改[持续时间或尺寸](/docs/dynamic-metadata)。
 
-In the [Remotion Studio](/docs/terminology/studio), you can set [default props](/docs/composition#defaultprops) to serve as placeholder data for designing your video. If your input props don't override the default props, the default props will be used. See: [How props get resolved](/docs/props-resolution)
+在[Remotion Studio](/docs/terminology/studio)中，您可以设置[默认 props](/docs/composition#defaultprops)作为设计视频的占位数据。如果您的输入属性不覆盖默认 props，则将使用默认 props。参见：[如何解析 props](/docs/props-resolution)
 
-In the [Remotion Player](/docs/terminology/player), there are no default props, but you can pass [`inputProps`](/docs/player/player#inputprops) directly to the [`<Player>`](/docs/player).
+在[Remotion Player](/docs/terminology/player)中，没有默认 props，但是您可以直接将[`inputProps`](/docs/player/player#inputprops)传递给[`<Player>`](/docs/player)。 
+

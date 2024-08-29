@@ -4,7 +4,7 @@ title: enableSkia()
 crumb: "@remotion/skia"
 ---
 
-A function that modifies the default Webpack configuration to make the necessary changes to support Skia.
+修改默认的 Webpack 配置以支持 Skia 所需的必要更改的函数。
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -16,10 +16,10 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 ```
 
 :::note
-Prior to `v3.3.39`, the option was called `Config.Bundling.overrideWebpackConfig()`.
+在 `v3.3.39` 之前，该选项称为 `Config.Bundling.overrideWebpackConfig()`。
 :::
 
-If you want to make other configuration changes, you can do so by doing them reducer-style:
+如果您想进行其他配置更改，可以通过 reducer 风格进行更改：
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -35,7 +35,7 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 ```
 
 :::note
-Prior to `v3.3.39`, the option was called `Config.Bundling.overrideWebpackConfig()`.
+在 `v3.3.39` 之前，该选项称为 `Config.Bundling.overrideWebpackConfig()`。
 :::
 
-See the [setup](/docs/skia) to see full instructions on how to setup React Native Skia in Remotion.
+查看[设置](/docs/skia)以查看有关如何在 Remotion 中设置 React Native Skia 的完整说明。

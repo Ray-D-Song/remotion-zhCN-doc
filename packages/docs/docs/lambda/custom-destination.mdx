@@ -1,26 +1,26 @@
 ---
 image: /generated/articles-docs-lambda-custom-destination.png
 id: custom-destination
-sidebar_label: Custom output destination
-title: Customizing Lambda output destination
+sidebar_label: 自定义输出目的地
+title: 自定义 Lambda 输出目的地
 crumb: "Lambda"
 ---
 
-By default a render artifact is saved into the same S3 bucket as where the site is located under the key `renders/${renderId}/out.{extension}` (for example: `renders/hy0k2siao8/out.mp4`)
+默认情况下，渲染文件将保存在与站点位于同一 S3 存储桶中的位置，键为 `renders/${renderId}/out.{extension}`（例如：`renders/hy0k2siao8/out.mp4`）
 
-You can modify the output destination by passing a different filename, writing it into a different bucket or even upload it to a different S3-compatible provider.
+您可以通过传递不同的文件名、将其写入不同的存储桶甚至上传到不同的兼容 S3 提供商来修改输出目的地。
 
-## Customizing the output name
+## 自定义输出名称
 
-To customize the output filename, pass `outName: "my-filename.mp4"` to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname).
+要自定义输出文件名，请将 `outName: "my-filename.mp4"` 传递给 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname)。
 
-On the CLI, use the [`--out-name`](/docs/lambda/cli/render#--out-name) flag.
+在 CLI 中，使用 [`--out-name`](/docs/lambda/cli/render#--out-name) 标志。
 
-The output name must match `/^([0-9a-zA-Z-!_.*'()/]+)$/g`.
+输出名称必须匹配 `/^([0-9a-zA-Z-!_.*'()/]+)$/g`。
 
-## Customizing the output bucket
+## 自定义输出存储桶
 
-To render into a different bucket, specify the `outName` option to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) and pass an object with the `key` and `bucketName` values:
+要渲染到不同的存储桶，请将 `outName` 选项指定为 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 并传递具有 `key` 和 `bucketName` 值的对象：
 
 ```tsx twoslash {13-16}
 // @module: esnext
@@ -46,26 +46,26 @@ const { bucketName, renderId } = await renderMediaOnLambda({
 });
 ```
 
-If you like to use this feature:
+如果您想使用此功能：
 
-- You must extend the [default Remotion policy](/docs/lambda/permissions) to allow read and write access to that bucket.
-- The bucket must be in the same region.
-- When calling APIs such as [`downloadMedia()`](/docs/lambda/downloadmedia) or [`getRenderProgress()`](/docs/lambda/getrenderprogress), you must pass the `bucketName` where the site resides in, not the bucket where the video gets saved.
-- The `key` must match `/^([0-9a-zA-Z-!_.*'()/]+)$/g`
-- The bucketName must match `/^(?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)/`.
+- 您必须扩展[默认 Remotion 策略](/docs/lambda/permissions)以允许对该存储桶进行读取和写入访问。
+- 存储桶必须位于相同的区域。
+- 在调用诸如 [`downloadMedia()`](/docs/lambda/downloadmedia) 或 [`getRenderProgress()`](/docs/lambda/getrenderprogress) 等 API 时，必须传递站点所在的 `bucketName`，而不是视频保存的存储桶。
+- `key` 必须匹配 `/^([0-9a-zA-Z-!_.*'()/]+)$/g`。
+- `bucketName` 必须匹配 `/^(?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)/`。
 
-This feature is not supported from the CLI.
+此功能不受 CLI 支持。
 
-## Saving to another cloud
+## 保存到另一个云
 
-_Available from v3.2.23_
+_从 v3.2.23 版本开始可用_
 
-You can upload the file to another S3-compatible provider.
+您可以将文件上传到另一个兼容 S3 提供商。
 
-- List of supported providers (non-exhaustive): Cloudflare, DigitalOcean Spaces
-- List of unsupported providers (non-exhaustive): Azure Blob Storage (not S3 compatible)
+- 支持的提供商列表（非详尽）：Cloudflare，DigitalOcean Spaces
+- 不支持的提供商列表（非详尽）：Azure Blob Storage（不兼容 S3）
 
-You must pass an `outName` [as specified above](#customizing-the-output-bucket) and also provide an `s3OutputProvider` like in the example below.
+您必须传递一个 `outName` [如上所述](#customizing-the-output-bucket)，并且还要像下面的示例中提供一个 `s3OutputProvider`。
 
 ```tsx twoslash {13-21}
 // @module: esnext
@@ -96,19 +96,19 @@ const { bucketName, renderId } = await renderMediaOnLambda({
 });
 ```
 
-In this example, the output file will be uploaded to DigitalOcean Spaces. The cloud provider will give you the endpoint and credentials.
+在这个示例中，输出文件将被上传到 DigitalOcean Spaces。云提供商将提供给您端点和凭据。
 
-If you want to use this feature, note the following:
+如果您想使用此功能，请注意以下事项：
 
-- When calling [`downloadMedia()`](/docs/lambda/downloadmedia#bucketname) or [`getRenderProgress()`](/docs/lambda/getrenderprogress#bucketname), you must pass the AWS `bucketName` where the site resides in, not the bucket name of the foreign cloud.
-- When calling [`downloadMedia()`](/docs/lambda/downloadmedia) or [`getRenderProgress()`](/docs/lambda/getrenderprogress), you must provide the `s3OutputProvider` option with the same credentials again.
-- By default, Remotion [assumes you use ACL](/docs/lambda/troubleshooting/bucket-disallows-acl) which is less common on other clouds. You need to set `privacy: "no-acl"` if you don't want to use ACL.
+- 在调用 [`downloadMedia()`](/docs/lambda/downloadmedia#bucketname) 或 [`getRenderProgress()`](/docs/lambda/getrenderprogress#bucketname) 时，您必须传递站点所在的 AWS `bucketName`，而不是外部云的存储桶名称。
+- 在调用 [`downloadMedia()`](/docs/lambda/downloadmedia) 或 [`getRenderProgress()`](/docs/lambda/getrenderprogress) 时，您必须再次提供 `s3OutputProvider` 选项与相同的凭据。
+- 默认情况下，Remotion [假定您使用 ACL](/docs/lambda/troubleshooting/bucket-disallows-acl)，这在其他云上不太常见。如果您不想使用 ACL，则需要设置 `privacy: "no-acl"`。
 
-This feature is not supported from the CLI.
+此功能不受 CLI 支持。
 
-## Saving to another AWS region<AvailableFrom v="4.0.112"/>
+## 保存到另一个 AWS 区域<AvailableFrom v="4.0.112"/>
 
-If you plan on saving to another bucket on AWS S3 and would like to use different credentials, you can specify the `region` in the `s3OutputProvider` object.
+如果您计划将文件保存到 AWS S3 上的另一个存储桶，并且希望使用不同的凭据，您可以在 `s3OutputProvider` 对象中指定 `region`。
 
 ```json
 {
@@ -121,9 +121,9 @@ If you plan on saving to another bucket on AWS S3 and would like to use differen
 }
 ```
 
-Note that it is not necessary to provide a custom `s3OutputProvider` if you want to use the same role as you already gave to the Lambda.  
-You may need to extend your [role policy](/docs/lambda/setup#2-create-role-policy) to allow writing to this bucket.
+请注意，如果您希望使用与已经授予 Lambda 的相同角色，则无需提供自定义的 `s3OutputProvider`。  
+您可能需要扩展您的 [角色策略](/docs/lambda/setup#2-create-role-policy) 以允许向此存储桶写入。
 
-## See also
+## 参见
 
-- Customizing the filename when a file is downloaded using `downloadBehavior`: For [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#downloadbehavior) and [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#downloadbehavior)
+- 当使用 `downloadBehavior` 下载文件时自定义文件名：对于 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#downloadbehavior) 和 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#downloadbehavior)

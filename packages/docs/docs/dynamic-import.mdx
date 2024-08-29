@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-dynamic-import.png
-title: Webpack dynamic imports
+title: Webpack 动态导入
 id: webpack-dynamic-imports
-crumb: "Knowledge Base"
+crumb: "知识库"
 ---
 
-A common need in Remotion is to import assets from dynamic paths. This means that sometimes you don't know the exact path of an asset that should be imported upfront and you want to calculate it during runtime.
+在 Remotion 中常见的需求是从动态路径导入资源。这意味着有时您不知道应该提前导入的资源的确切路径，并且希望在运行时计算它。
 
-This can become an unexpected hurdle in Webpack. On this page we collect some tips how to handle dynamic assets.
+这可能会成为 Webpack 中的一个意外障碍。在本页中，我们收集了一些处理动态资源的技巧。
 
-Take this scenario for an example:
+以这种情况为例：
 
 ```tsx twoslash
 import { Img, useCurrentFrame } from "remotion";
@@ -21,26 +21,26 @@ export const DynamicImports: React.FC = () => {
 };
 ```
 
-may result in:
+可能会导致：
 
 ```bash
-Error: Cannot find module './image0.png'
+Error: 无法找到模块 './image0.png'
 ```
 
-even if the file exists. This is because Webpack needs to figure out using static code analysis which assets it should bundle and cannot do so.
+即使文件存在。这是因为 Webpack 需要通过静态代码分析来确定应该捆绑哪些资源，但无法做到这一点。
 
-## Recommended: Use `staticFile()` instead
+## 推荐：使用 `staticFile()` 替代
 
-We recommend that you put the asset inside the `public/` folder and use `staticFile()` to reference it. This new way does not suffer from the underlying problem.
+我们建议将资源放在 `public/` 文件夹中，并使用 `staticFile()` 来引用它。这种新方法不会受到潜在问题的影响。
 
-- [Importing assets](/docs/assets)
+- [导入资源](/docs/assets)
 - [`staticFile()`](/docs/staticfile)
 
-## Write dynamic expressions correctly
+## 正确编写动态表达式
 
-While the example at the top did not work, Webpack is smart enough to do so if you place your expression inside the `require()` or `import()` statement. In this case, Webpack will automatically bundle all `.png` files in the `assets/image` folder even if the asset is never used.
+虽然顶部的示例不起作用，但如果您将表达式放在 `require()` 或 `import()` 语句中，Webpack 足够智能以使其起作用。在这种情况下，即使从未使用过该资源，Webpack 也会自动捆绑 `assets/image` 文件夹中的所有 `.png` 文件。
 
-The following **does** work:
+以下 **可以** 正常工作：
 
 ```tsx twoslash
 import { Img, useCurrentFrame } from "remotion";
@@ -51,11 +51,11 @@ export const DynamicImports: React.FC = () => {
 };
 ```
 
-Please read [the Webpack documentation page](https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import) about this behavior if you would like to learn more.
+如果您想了解更多信息，请阅读[Webpack 文档页面](https://webpack.js.org/api/module-methods/#dynamic-expressions-in-import) 关于此行为的内容。
 
-## Import assets at runtime
+## 在运行时导入资源
 
-Let's imagine a scenario where the asset that should be imported is completely unknown and will be read at runtime, for example through an [input prop](/docs/get-input-props):
+假设应该导入的资源完全未知，并且将在运行时读取，例如通过 [input prop](/docs/get-input-props)：
 
 ```tsx twoslash
 import { getInputProps, Img } from "remotion";
@@ -66,8 +66,8 @@ const DynamicAsset: React.FC = () => {
 };
 ```
 
-This cannot work because Webpack has no idea which assets it has to bundle. Therefore the import has to fail.
-Like above, you can force Webpack to bundle the whole assets folder by putting an expression inside the `require()` statement:
+这是无法工作的，因为 Webpack 不知道它必须捆绑哪些资源。因此，导入将失败。
+与上述类似，您可以通过将表达式放在 `require()` 语句中来强制 Webpack 捆绑整个资源文件夹：
 
 ```tsx twoslash
 import { getInputProps, Img } from "remotion";
@@ -79,6 +79,8 @@ const DynamicAsset: React.FC = () => {
 };
 ```
 
-## Struggling?
+## 遇到困难了吗？
 
-If you still have troubles importing your assets, hit us up on [Discord](https://remotion.dev/discord) or file an issue. We'd love to hear your input about how we can improve and will help you out.
+如果您仍然在导入资产方面遇到困难，请在[Discord](https://remotion.dev/discord)上联系我们或提交问题。我们很乐意听取您的意见，帮助您解决问题。
+
+

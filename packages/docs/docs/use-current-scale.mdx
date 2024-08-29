@@ -7,11 +7,11 @@ crumb: "API"
 
 # useCurrentScale()<AvailableFrom v="4.0.125" />
 
-With this hook, you can retrieve the scale factor of the canvas.  
-Useful for if you want to [measure DOM nodes](/docs/measuring).
+使用此钩子，您可以检索画布的缩放因子。  
+如果您想要[测量 DOM 节点](/docs/measuring)，这将非常有用。
 
-In the [Studio](/docs/terminology/studio), it will correspond to the zoom level - the value is `1` if the zoom is at 100%.  
-In the [Player](/docs/terminology/player), it will correspond to the scale that is needed to fit the video canvas in the Player.
+在[Studio](/docs/terminology/studio)中，它将对应于缩放级别 - 如果缩放为 100%，则值为 `1`。  
+在[Player](/docs/terminology/player)中，它将对应于需要将视频画布适配到播放器中所需的比例。
 
 ```tsx twoslash title="MyComp.tsx"
 import { Sequence, useCurrentScale } from "remotion";
@@ -23,9 +23,9 @@ const MyVideo = () => {
 };
 ```
 
-If you are outside of a Remotion context, the hook will throw an error.  
-If you want to avoid this error and return a default scale, you can pass an options object with the property `dontThrowIfOutsideOfRemotion` set to `true`.  
-In this case, the hook will return `1`.
+如果您不在 Remotion 上下文之外，该钩子将引发错误。  
+如果您想避免此错误并返回默认比例，您可以传递一个带有属性 `dontThrowIfOutsideOfRemotion` 设置为 `true` 的选项对象。  
+在这种情况下，该钩子将返回 `1`。
 
 ```tsx twoslash title="MyComp.tsx"
 import { useCurrentScale } from "remotion";
@@ -37,7 +37,7 @@ const MyRegularReactComponent = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/use-current-scale.ts)
-- [Measuring DOM nodes](/docs/measuring)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/use-current-scale.ts)
+- [测量 DOM 节点](/docs/measuring)

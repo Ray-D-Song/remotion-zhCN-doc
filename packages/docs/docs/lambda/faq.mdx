@@ -1,92 +1,94 @@
 ---
 image: /generated/articles-docs-lambda-faq.png
-sidebar_label: FAQ
-title: FAQ
+sidebar_label: 常见问题
+title: 常见问题
 slug: /lambda/faq
 crumb: "Lambda"
 ---
 
-Some commonly asked questions about Remotion Lambda.
+有关 Remotion Lambda 的一些常见问题。
 
-### Is Lambda self-hosted?
+### Lambda 是自托管的吗？
 
-Yes, you host Remotion Lambda in your own AWS account. Remotion does not offer a hosted rendering solution at this time.
+是的，您需要在自己的 AWS 账户中托管 Remotion Lambda。目前 Remotion 不提供托管的渲染解决方案。
 
-### Do I need to deploy a function for each render?
+### 每次渲染都需要部署一个函数吗？
 
-No, in general you only need to deploy one function and it will be capable of rendering multiple videos, even across different projects.
+一般来说，您只需要部署一个函数，它就能够渲染多个视频，甚至跨不同项目。
 
-There are three exceptions when it is possible to deploy multiple functions:
+有三种情况下可能需要部署多个函数：
 
-- If you are using multiple regions, you need to deploy a function for each region.
-- If you are upgrading to a newer version of Remotion Lambda, you need to deploy a new function. You can then run the new and the old function side-by-side. The `@remotion/lambda` CLI will always choose the function in your AWS account that has the same version as the client package. If you use the [`getFunctions()`](/docs/lambda/getfunctions) Node.JS API, set the [`compatibleOnly`](/docs/lambda/getfunctions#compatibleonly) flag to `true` to filter out functions that don't match the version of the `@remotion/lambda` package.
-- If you are deploying a function with a different memory size, disk size or timeout, a new function can be created. However, currently if multiple suitable functions are available, Remotion will choose one at random. So you should only use this strategy to change the parameters of the function without causing downtime.
+- 如果您使用多个区域，需要为每个区域部署一个函数。
+- 如果您要升级到 Remotion Lambda 的新版本，需要部署一个新函数。然后您可以同时运行新旧函数。`@remotion/lambda` CLI 将始终选择您 AWS 账户中与客户端包版本相同的函数。如果使用 [`getFunctions()`](/docs/lambda/getfunctions) Node.JS API，请将 [`compatibleOnly`](/docs/lambda/getfunctions#compatibleonly) 标志设置为 `true`，以过滤掉与 `@remotion/lambda` 包版本不匹配的函数。
+- 如果要部署具有不同内存大小、磁盘大小或超时时间的函数，则可以创建一个新函数。但是，目前如果有多个合适的函数可用，Remotion 将随机选择一个。因此，您应该只使用此策略来更改函数的参数而不会导致停机时间。
 
-### Do I need to create multiple buckets?
+### 是否需要创建多个存储桶？
 
-Only [one bucket per region is recommended](/docs/lambda/multiple-buckets).
+只建议[每个区域一个存储桶](/docs/lambda/multiple-buckets)。
 
-### Do I need to deploy multiple sites?
+### 是否需要部署多个站点？
 
-You can deploy one site and use it for as many renders as you need. If you have multiple sites, you can deploy all of them and reuse the same Lambda function.
+您可以部署一个站点，并根据需要进行多次渲染。如果有多个站点，您可以部署它们所有，并重复使用相同的 Lambda 函数。
 
-### What if I want to render longer videos?
+### 如果我想渲染更长的视频怎么办？
 
-You don't need to worry about the timeout of a Lambda function because Remotion splits the video in many parts and renders them in parallel. However, you need to be aware of the storage limits that may not be exceeded. See: [Disk size](/docs/lambda/disk-size)
+您不需要担心 Lambda 函数的超时，因为 Remotion 将视频分割成多个部分并并行渲染它们。但是，您需要注意可能不得超过的存储限制。请参阅：[磁盘大小](/docs/lambda/disk-size) 
 
-### Why are you not using Amazon EFS?
+### 为什么您不使用Amazon EFS？
 
-We have evaluated Amazon Elastic File System (EFS) and we found the speed benefits of EFS are not substantial enough to warrant the increased complexity - for EFS to be integrated, VPC and security groups need to be created which will disable public internet access. To restore public internet access, a persistent EC2 instance needs to be created for proxying the traffic, negating many benefits of Lambda.
+我们已经评估了Amazon Elastic File System（EFS），发现EFS的速度优势不足以证明增加的复杂性 - 要集成EFS，需要创建VPC和安全组，这将禁用公共互联网访问。要恢复公共互联网访问，需要创建一个持久的EC2实例来代理流量，抵消了Lambda的许多优势。
 
-### How much does Remotion Lambda cost?
+### Remotion Lambda的成本是多少？
 
-There are two cost components: The Remotion licensing fee (see [pricing](https://www.remotion.pro), only applies if you are a company) and the AWS costs. AWS cost is dependant on the amount of memory that you assign to your lambda function. We estimate the Lambda costs for you and report it in the API response.
+有两个成本组成部分：Remotion许可费（请参阅[定价](https://www.remotion.pro)，仅适用于公司），以及AWS成本。 AWS成本取决于您为Lambda函数分配的内存量。我们会为您估算Lambda的成本，并在API响应中报告。
 
-### How can I upgrade/redeploy a Lambda function?
+### 如何升级/重新部署Lambda函数？
 
-Remotion will look for a version of the lambda function that matches the Node.JS library / CLI.
+Remotion将查找与Node.JS库/CLI匹配的Lambda函数版本。
 
-If you don't rely on the old function anymore, you can first delete all existing functions:
+如果您不再依赖旧函数，可以首先删除所有现有函数：
 
 ```bash
 npx remotion lambda functions rmall
 ```
 
-You can deploy a new function using:
+您可以使用以下命令部署新函数：
 
 ```bash
 npx remotion lambda functions deploy
 ```
 
-If you are using the Node.JS APIs, the following APIs are useful: [`getFunctions()`](/docs/lambda/getfunctions), [`deployFunction()`](/docs/lambda/deployfunction) and [`deleteFunction()`](/docs/lambda/deletefunction).
+如果您正在使用Node.JS API，则以下API非常有用：[`getFunctions()`](/docs/lambda/getfunctions)，[`deployFunction()`](/docs/lambda/deployfunction)和[`deleteFunction()`](/docs/lambda/deletefunction)。
 
-### Can I modify the code that is run inside the Lambda?
+### 我可以修改在Lambda内运行的代码吗？
 
-The code that is run inside the Lambda is an executor binary that is provided by Remotion. You cannot write code to run inside the function that Remotion deploys for you, but you can make use of many configuration options and call a Remotion Lambda function from another Lambda function using APIs like [renderMediaOnLambda](/docs/lambda/rendermediaonlambda).
+在Lambda内运行的代码是由Remotion提供的执行器二进制文件。您不能编写要在Remotion为您部署的函数内运行的代码，但可以利用许多配置选项，并使用像[renderMediaOnLambda](/docs/lambda/rendermediaonlambda)这样的API从另一个Lambda函数调用Remotion Lambda函数。
 
-The source code of what is run inside a Remotion Lambda function [can be found here](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/functions/index.ts) and forked if necessary. We recommend to reach out to the Remotion team first and check if a fork is really necessary.
+在Remotion Lambda函数内运行的源代码[可以在此处找到](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/functions/index.ts)，如果需要，可以进行分叉。我们建议首先与Remotion团队联系，并检查是否真的需要进行分叉。
 
-### Can I make a site private?
+### 我可以将网站设为私密吗？
 
-When you render a video on Lambda, you specify a [Serve URL](/docs/terminology/serve-url) pointing to a Webpack bundle of Remotion code.  
-This is a URL that, if known, can be publicly accessed by anyone.  
+在 Lambda 上渲染视频时，您需要指定一个 [Serve URL](/docs/terminology/serve-url)，指向 Remotion 代码的 Webpack 捆绑包。  
+这是一个 URL，如果被知晓，任何人都可以公开访问。  
 
-The Lambda function needs to spawn a headless browser and visit this URL in order to render the video.  
-The items in the bucket cannot be made private because they need to be accessible via URL in the headless browser.
+Lambda 函数需要启动一个无头浏览器并访问此 URL 以渲染视频。  
+存储桶中的项目不能设为私密，因为它们需要通过 URL 在无头浏览器中访问。
 
-Make sure to not hardcode sensitive data in your code, such as API keys, or user data.  
-Instead, use the [`inputProps`](/docs/lambda/rendermediaonlambda#inputprops) and [`envVariables`](/docs/lambda/rendermediaonlambda#envvariables) options of [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) to pass data during the render.  
-Those values will never be publicly accessible.  
+确保不要在代码中硬编码敏感数据，如 API 密钥或用户数据。  
+相反，使用 [`inputProps`](/docs/lambda/rendermediaonlambda#inputprops) 和 [`envVariables`](/docs/lambda/rendermediaonlambda#envvariables) 选项的 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 在渲染过程中传递数据。  
+这些值永远不会公开访问。  
 
-By making your site available under a Serve URL, you may expose your minified React code.  
-This is normally not a problem, because any website will expose their minified frontend code.  
+通过将您的网站提供在 Serve URL 下，您可能会暴露您的被缩小的 React 代码。  
+通常这不是问题，因为任何网站都会暴露他们的被缩小的前端代码。  
 
-If you would like to make your site more private, you can:
+如果您希望使您的网站更私密，您可以：
 
-- Use a longer site name that is harder to guess
-- Place a `robots.txt` in the root of your bucket with a `Disallow: /` rule to prevent crawlers from accessing your site and your site showing up in search results.
+- 使用更难猜测的更长的网站名称
+- 在您的存储桶根目录中放置一个 `robots.txt` 文件，其中包含一个 `Disallow: /` 规则，以防止爬虫访问您的网站并使您的网站出现在搜索结果中。
 
-#### Only you can trigger renders on your account
+#### 只有您可以触发您账户上的渲染
 
-Making the site accessible via a Serve URL will not allow anyone to trigger a Lambda render on your account.  
-The URL only serves HTML, JavaScript and assets, but does expose access to invoking any computation on your AWS account.
+通过 Serve URL 访问网站不会允许任何人触发您账户上的 Lambda 渲染。  
+该 URL 仅提供 HTML、JavaScript 和资源，但确实公开了在您的 AWS 账户上调用任何计算的访问权限。  
+
+

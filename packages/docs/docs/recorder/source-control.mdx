@@ -1,51 +1,51 @@
 ---
 image: /generated/articles-docs-recorder-source-control.png
-title: Source Control
+title: 源代码控制
 crumb: Recorder
 ---
 
-By default the `public` folder is added to the `.gitignore` file. This means your recordings are not stored in Git.  
-The videos are being kept locally and only changes to the code can be staged.
+默认情况下，`public` 文件夹会被添加到 `.gitignore` 文件中。这意味着您的录像不会存储在 Git 中。  
+视频会被保存在本地，只有代码的更改才能被暂存。
 
-We set this as default because GitHub does not allow repositores bigger than 1GB and you may run into an error quickly.
+我们将此设置为默认，因为 GitHub 不允许大于 1GB 的存储库，您可能会很快遇到错误。
 
-## Enable Git LFS storage
+## 启用 Git LFS 存储
 
 :::note
-We use Git LFS ourselves and recommend setting this up.
+我们自己使用 Git LFS，并建议您设置这个。
 :::
 
-If you want to add all your recordings to your repository, you can use Git LFS.
+如果您想将所有录像添加到您的存储库中，您可以使用 Git LFS。
 
-Your Git provider might charge you for storage.  
-A GitHub account includes 1 GiB of free storage and 1 GiB a month of free bandwidth.  
-[Afterwards, you can buy a 50GB data pack for $5](https://docs.github.com/en/billing/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage).
+您的 Git 提供商可能会向您收取存储费用。  
+GitHub 账户包括 1 GiB 的免费存储空间和每月 1 GiB 的免费带宽。  
+[之后，您可以购买一个 50GB 的数据包，价格为 $5](https://docs.github.com/en/billing/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage).
 
-### 1. Track public folder
+### 1. 跟踪 public 文件夹
 
-Comment the line in `.gitignore` that ignores the `public` folder:
+注释掉 `.gitignore` 中忽略 `public` 文件夹的行：
 
 ```diff title="Comment out this line"
 - public/**/*.{mp4,webm,mov}
 + # public/**/*.{mp4,webm,mov}
 ```
 
-### 2. Setup Git LFS
+### 2. 设置 Git LFS
 
-1. [Download Git LFS](https://git-lfs.com/).
-2. Initialize Git LFS in your repository:
+1. [下载 Git LFS](https://git-lfs.com/).
+2. 在您的存储库中初始化 Git LFS：
 
 ```bash
 git lfs install
 ```
 
-3. Configure Git LFS to track all .mp4 files located in the /public and all its subfolders:
+3. 配置 Git LFS 跟踪位于 /public 及其所有子文件夹中的所有 .mp4 文件：
 
 ```bash
 git lfs track public/**/*.mp4
 ```
 
-### 3. Commit and push
+### 3. 提交和推送
 
 ```bash
 git add .gitattributes

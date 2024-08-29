@@ -6,15 +6,15 @@ slug: /lambda/getcompositionsonlambda
 crumb: "Lambda API"
 ---
 
-_available from v3.3.2_
+_从 v3.3.2 开始可用_
 
-Gets the compositions inside a Lambda function.
+获取 Lambda 函数内的组合。
 
-Note that you can also get the compositions of a site that is hosted on Lambda using [`getCompositions()`](/docs/renderer/get-compositions). Vice versa, you can also get the compositions from a serve URL that is not hosted on AWS Lambda using `getCompositionsOnLambda()`.
+请注意，您还可以使用 [`getCompositions()`](/docs/renderer/get-compositions) 获取托管在 Lambda 上的站点的组合。反之亦然，您还可以使用 `getCompositionsOnLambda()` 从未托管在 AWS Lambda 上的服务 URL 获取组合。
 
-You should use `getCompositionsOnLambda()` if you cannot use [`getCompositions()`](/docs/renderer/get-compositions) because the machine cannot run Chrome.
+如果机器无法运行 Chrome，则应使用 `getCompositionsOnLambda()`，而无法使用 [`getCompositions()`](/docs/renderer/get-compositions)。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -33,58 +33,58 @@ console.log(compositions); // See below for an example value
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从 `@remotion/lambda/client` 导入此函数，以避免在[无服务器函数](/docs/lambda/light-client)中出现问题。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+具有以下属性的对象：
 
 ### `functionName`
 
-The name of the deployed Lambda function that should be used to ge the list of compositions.
-Use [`deployFunction()`](/docs/lambda/deployfunction) to create a new function and [`getFunctions()`](/docs/lambda/getfunctions) to obtain currently deployed Lambdas.
+应用于获取组合列表的部署 Lambda 函数的名称。
+使用 [`deployFunction()`](/docs/lambda/deployfunction) 创建新函数，并使用 [`getFunctions()`](/docs/lambda/getfunctions) 获取当前部署的 Lambdas。
 
 ### `region`
 
-In which region your Lambda function is deployed.
+Lambda 函数部署的区域。
 
 ### `serveUrl`
 
-A URL pointing to a Remotion project. Use [`deploySite()`](/docs/lambda/deploysite) to deploy a Remotion project.
+指向 Remotion 项目的 URL。使用 [`deploySite()`](/docs/lambda/deploysite) 部署 Remotion 项目。
 
 ### `inputProps`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a JSON object.  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)  
+必须是 JSON 对象。  
+可以使用 [`getInputProps()`](/docs/get-input-props) 从根组件读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 ### `envVariables?`
 
-_optional - default `{}`_
+_可选 - 默认值 `{}`_
 
-See [`renderMedia() -> envVariables`](/docs/renderer/render-media#envvariables).
+参见 [`renderMedia() -> envVariables`](/docs/renderer/render-media#envvariables)。
 
 ### `timeoutInMilliseconds?`
 
-A number describing how long the function may take in milliseconds to evaluate the list of compositions [before it times out](/docs/timeout). Default: `30000`
+描述函数在多少毫秒内评估组合列表[超时之前](/docs/timeout)的数字。默认值：`30000`
 
 ### `chromiumOptions?`
 
-Allows you to set certain Chromium / Google Chrome flags. See: [Chromium flags](/docs/chromium-flags).
+允许您设置某些 Chromium / Google Chrome 标志。请参见：[Chromium flags](/docs/chromium-flags).
 
 #### `disableWebSecurity`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-This will most notably disable CORS among other security features.
+这将主要禁用 CORS 和其他安全功能。
 
 #### `ignoreCertificateErrors`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored.
+导致无效的 SSL 证书（如自签名证书）被忽略。
 
 #### `gl`
 
@@ -92,19 +92,19 @@ Results in invalid SSL certificates, such as self-signed ones, being ignored.
 
 #### `userAgent`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置头less Chrome 浏览器所假定的自定义用户代理。
 
 ### `forceBucketName?`
 
-_available from v3.3.42_
+_从 v3.3.42 开始可用_
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让 Remotion 自动发现正确的存储桶。
 
 ### `logLevel?`
 
 <Options id="log"/>
 
-Logs can be read through the CloudWatch URL that this function returns.
+可以通过此函数返回的 CloudWatch URL 读取日志。
 
 ### `offthreadVideoCacheSizeInBytes?`<AvailableFrom v="4.0.23"/>
 
@@ -112,13 +112,13 @@ Logs can be read through the CloudWatch URL that this function returns.
 
 ### ~~`dumpBrowserLogs?`~~
 
-_optional - default `false`, deprecated in v4.0_
+_可选 - 默认 `false`，在 v4.0 中已弃用_
 
-Deprecated in favor of [`logLevel`](#loglevel).
+已弃用，推荐使用 [`logLevel`](#loglevel)。
 
-## Return value
+## 返回值
 
-Returns a promise that resolves to an array of available compositions. Example value:
+返回一个解析为可用组合数组的 Promise。示例值：
 
 ```ts twoslash
 [
@@ -143,5 +143,5 @@ Returns a promise that resolves to an array of available compositions. Example v
 ];
 ```
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-compositions-on-lambda.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-compositions-on-lambda.ts)
 - [getCompositions()](/docs/renderer/get-compositions)

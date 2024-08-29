@@ -1,57 +1,57 @@
 ---
 image: /generated/articles-docs-recorder-record-index.png
-title: Record using the interface
-sidebar_label: Using the interface
+title: 使用界面录制
+sidebar_label: 使用界面
 crumb: Recorder
 ---
 
 import { RecordingButton } from "../../../components/recorder/RecordButton";
 
-The Recorder ships with its own recording interface.  
-From it, you can record a clip and add it as a scene to your project.
+Recorder 配备了自己的录制界面。  
+通过它，您可以录制一个剪辑并将其添加为项目的一个场景。
 
-If you haven't done so, start the Remotion Recorder:
+如果您还没有这样做，请启动 Remotion Recorder：
 
 ```tsx
 bun start
 ```
 
-A Vite app will listen on [`http://localhost:4000`](http://localhost:4000).  
-Open this URL in the browser.  
-Give the page access to the webcam and microphone.
+一个 Vite 应用程序将监听 [`http://localhost:4000`](http://localhost:4000)。  
+在浏览器中打开此 URL。  
+允许页面访问摄像头和麦克风。
 
-## Select the composition
+## 选择组合
 
-Recordings need to be stored in a subfolder of `public` with the name of the composition ID.  
-For example, if you want to record for the composition `my-video`, recordings will be stored under `public/my-video`.
+录制需要存储在 `public` 的子文件夹中，文件夹的名称为组合 ID。  
+例如，如果您想为组合 `my-video` 进行录制，录制将存储在 `public/my-video` 下。
 
-In the top right corner, use the dropdown to "Create a new folder".  
-Give it the same name as the ID of the composition you want to record for.  
-The folder will be created and your subsequent recordings will be saved in this folder.
+在右上角，使用下拉菜单选择“创建新文件夹”。  
+将其命名为您要为其录制的组合的 ID。  
+文件夹将被创建，并且您的后续录制将保存在此文件夹中。
 
-## Select sources
+## 选择来源
 
-In the top left panel, select your webcam and microphone.  
-In the top right panel, optionally select the screen you want to record.
+在左上面板中，选择您的摄像头和麦克风。  
+在右上面板中，可以选择要录制的屏幕。
 
-You can record more sources, but out of the box, the Remotion Recorder does not do anything with them.
+您可以录制更多来源，但是默认情况下，Remotion Recorder 不会对它们执行任何操作。
 
-## Before starting
+## 开始之前
 
-Say "Test One Two Three" and ensure the volume meter is not going into the red zone.
+说“测试一二三”，确保音量表没有进入红色区域。
 
-Make sure you are centered in the video. You can enable the crop target overlay to see how the video will crop when miniaturized.
+确保您在视频中心。您可以启用裁剪目标叠加图层，以查看视频在缩小时将如何裁剪。
 
-Prefer making short recordings. You're less likely to make a mistake and it's easy to stitch them together.
+最好进行短时间录制。您不太可能犯错误，并且很容易将它们拼接在一起。
 
-There is no countdown – The recording will start immediately.  
-However, the Recorder will later automatically trim away the silence in the beginning.
+没有倒计时 - 录制将立即开始。  
+但是，Recorder 稍后将自动修剪掉开头的沉默部分。
 
-Take a deep breath and think of what you are about to say and show.
+深呼吸，考虑一下您即将说和展示的内容。
 
-You're ready to record!
+您已准备好录制！
 
-## Start the recording
+## 开始录制
 
 <div
   style={{
@@ -62,10 +62,10 @@ You're ready to record!
   }}
 >
   <div>
-    To start recording, press <kbd>R</kbd> or click{" "}
+    要开始录制，请按 <kbd>R</kbd> 键或单击{" "}
   </div>
   <RecordingButton type="start" />
-  <div>in the top left corner.</div>
+  <div>在左上角。</div>
 </div>
 <br />
 <div
@@ -76,44 +76,44 @@ You're ready to record!
     flexWrap: "wrap",
   }}
 >
-  <div>Once you are done with the scene, click</div>
+  <div>完成场景后，单击</div>
   <RecordingButton type="stop" />
-  <div>.</div>
+  <div>。</div>
 </div>
 
-## Selecting a take
+## 选择一个镜头
 
-After you have recorded a scene and you are happy with your take, click "Use this take".
+在录制了一个场景并且对你的镜头感到满意后，点击“使用此镜头”。
 
-The server will then do the following:
+服务器将执行以下操作：
 
-- Convert the videos from WebM to MP4
-- Put them into your project under `public/[composition-id]`.
-- Caption the files with Whisper.cpp
+- 将视频从 WebM 转换为 MP4 格式
+- 将它们放入你的项目中，路径为 `public/[composition-id]`
+- 使用 Whisper.cpp 为文件加上字幕
 
-## Discard a take
+## 放弃一个镜头
 
-If you have taken a recording that you don't want to use, click "Discard and retake" to clear the existing recording from memory.
+如果你录制了一个你不想使用的镜头，点击“放弃并重新录制”以清除内存中的现有录制。
 
 ## record.remotion.dev
 
-You can also use the hosted version of the recoding interface at [record.remotion.dev](https://record.remotion.dev).
+你也可以使用托管版本的录制界面，网址为 [record.remotion.dev](https://record.remotion.dev)。
 
-It will not allow you to select a save destination, but instead download the recordings to your `Downloads` folder.
+它不会让你选择保存位置，而是会将录制下载到你的 `Downloads` 文件夹中。
 
-They will have names like `webcam171234567890.webm` and `display171234567890.webm`.
+它们的文件名会像 `webcam171234567890.webm` 和 `display171234567890.webm` 这样。
 
-To copy the recordings to your Remotion project and also convert them to MP4, first open `copy.ts` in your code editor. Set the `prefix` at the top of your file to the ID of the composition that you gave when you first created a new video.
+要将录制复制到你的 Remotion 项目并将它们转换为 MP4 格式，首先在你的代码编辑器中打开 `copy.ts`。将文件顶部的 `prefix` 设置为你在首次创建新视频时提供的组合 ID。
 
 ```ts title="copy.ts"
 const prefix = "<id-of-your-composition>";
 ```
 
-Then run the `copy.ts` script whenever you want to save a take and immediately generate captions:
+然后在想要保存一个镜头并立即生成字幕时运行 `copy.ts` 脚本：
 
 ```bash
 bun copy.ts
 bun sub.ts
 ```
 
-If you want to not use a take, just make another recording. The `copy.ts` script will only take the recordings with the latest timestamp.
+如果你不想使用一个镜头，只需进行另一次录制。`copy.ts` 脚本将仅获取具有最新时间戳的录制。

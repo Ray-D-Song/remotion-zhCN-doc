@@ -2,17 +2,17 @@
 image: /generated/articles-docs-4-0-alpha.png
 id: 4-0-alpha
 title: v4.0 Alpha
-crumb: "Version Upgrade"
+crumb: "版本升级"
 ---
 
-Remotion 4.0 has now been released. This page has been archived.
+Remotion 4.0 现已发布。此页面已被归档。
 
-Thanks for testing and reporting bugs! 🎉
+感谢您的测试和报告错误！🎉
 
-## How to upgrade
+## 如何升级
 
-See the [changelog](#changelog) to find the latest version.
-Upgrade `remotion` and all packages starting with `@remotion` to the latest version, e.g. `4.0.0`:
+查看 [更新日志](#changelog) 以找到最新版本。
+将 `remotion` 和所有以 `@remotion` 开头的包升级到最新版本，例如 `4.0.0`：
 
 ```diff title="package.json"
 - "remotion": "^3.3.87"
@@ -29,132 +29,132 @@ Upgrade `remotion` and all packages starting with `@remotion` to the latest vers
 + "@remotion/renderer": "4.0.0-alpha13"
 ```
 
-Make sure the versions don't have a `^` character in front of it.
+确保版本号前面没有 `^` 字符。
 
-Most important breaking changes:
+最重要的破坏性更改：
 
-<Step>1</Step> The config file must now import the config like the following:<br/>
+<Step>1</Step> 现在配置文件必须像以下方式导入配置：<br/>
 
 ```ts
 import { Config } from "@remotion/cli/config";
 ```
 
-<Step>2</Step> Also in the config file:<br/>
+<Step>2</Step> 同样在配置文件中：<br/>
 
 ```ts
 Config.setImageFormat("jpeg");
 ```
 
-has been replaced with
+已被替换为
 
 ```ts
 Config.setVideoImageFormat("jpeg");
 ```
 
-See how to migrate: [Migration guide](/docs/4-0-migration)
+查看迁移指南：[迁移指南](/docs/4-0-migration)
 
-## Changelog
+## 更新日志
 
 ### `4.0.0-alpha22`
 
-Release candidate!
+发布候选版本！
 
-- Fix rotated videos with OffthreadVideo
-- `height`, `width` etc. is optional when passing `calculateMetadata()`
+- 修复使用 OffthreadVideo 旋转视频的问题
+- 传递 `calculateMetadata()` 时 `height`、`width` 等是可选的
 
 ### `4.0.0-alpha21`
 
-- calculateMetadata() behaves correctly on Lambda
-- Fixed known crashes with OffthreadVideo
+- `calculateMetadata()` 在 Lambda 上的行为正确
+- 修复 OffthreadVideo 的已知崩溃
 
 ### `4.0.0-alpha19`
 
-- Nicer logging
-- Warn if props are bigger than 10MB
-- Upgrade ESBuild to 0.18 (TS 5.0 support)
+- 更好的日志记录
+- 如果属性大于 10MB，则发出警告
+- 将 ESBuild 升级到 0.18（支持 TS 5.0）
 
 ### `4.0.0-alpha18`
 
-- Nicer and less buggy logging in the CLI
+- CLI 中更好且更少错误的日志记录
 
 ### `4.0.0-alpha16`
 
-- Intention: Lower the minimum required `glibc` version on Linux x64 to support Ubuntu 20.04
+- 目的：降低 Linux x64 上所需的最低 `glibc` 版本，以支持 Ubuntu 20.04
 
 ### `4.0.0-alpha14`
 
-- Make renders via the CLI faster using a reusable server
-- `console.log`'s are symbolicated when rendering locally using `--log=verbose`
-- Fix bug in composition metadata resolution
-- New design for the schema editor
-- Upgrade TypeScript ESLint, Prettier and Turborepo
+- 使用可重用服务器通过 CLI 更快地进行渲染
+- 在本地使用 `--log=verbose` 渲染时，`console.log` 已被符号化
+- 修复合成元数据解析中的错误
+- 模式编辑器的新设计
+- 升级 TypeScript ESLint、Prettier 和 Turborepo
 
 ### `4.0.0-alpha13`
 
-- Fix editor props not being applied
+- 修复未应用编辑器属性的问题
 
 ### `4.0.0-alpha12`
 
-- More performant Studio
+- 更高性能的 Studio
 
 ### `4.0.0-alpha11`
 
-- Performance improvements for the Remotion Studio
-- Your component should do less unnecessary re-renders.
+- Remotion Studio 的性能改进
+- 您的组件应该减少不必要的重新渲染。
 
-### `4.0.0-alpha10`
-
-- Renamed Remotion Preview to Remotion Studio
-- Various fixes for the Remotion Studio
-- New prop for Composition: `calculateMetadata`! See: [Data fetching](/docs/data-fetching) and [Variable metadata](/docs/dynamic-metadata)
+- 将 Remotion 预览重命名为 Remotion Studio
+- 为 Remotion Studio 进行了各种修复
+- Composition 的新属性：`calculateMetadata`！请查看：[数据获取](/docs/data-fetching) 和 [变量元数据](/docs/dynamic-metadata)
 
 ### `4.0.0-alpha9`
 
-- Various polish for the Remotion Preview
+- 为 Remotion 预览进行了各种修饰
 
 ### `4.0.0-alpha8`
 
-- Props editor polish
-- Fix a crash with `<OffthreadVideo>`
+- Props 编辑器修饰
+- 修复了 `<OffthreadVideo>` 导致的崩溃
 
 ### `4.0.0-alpha7`
 
-- Fix bugs reported with `<OffthreadVideo>` and more verbose logging
-- Refined editor
-- Fix Lambda issues
-- Revamped CLI verbose logging mode
-- FFmpeg is now in the Lambda function instead of a Lambda Layer
+- 修复了与 `<OffthreadVideo>` 报告的 bug 以及更详细的日志记录
+- 优化了编辑器
+- 修复了 Lambda 问题
+- 重新设计了 CLI 详细日志记录模式
+- 现在 FFmpeg 已经在 Lambda 函数中，而不是 Lambda Layer 中
 
 ### `4.0.0-alpha6`
 
-- Fixes `EACCES` errors appearing
-- GUI design improvements
-- Fix warnings if Zod is not installed
-- Breaking change: `staticFile()` now encodes the filename using `encodeURIComponent`. You don't have to and should not do it manually anymore - see migration guide
+- 修复了出现的 `EACCES` 错误
+- GUI 设计改进
+- 修复了如果未安装 Zod 则会出现警告
+- 破坏性更改：`staticFile()` 现在使用 `encodeURIComponent` 对文件名进行编码。您不必手动执行此操作，也不应该手动执行 - 请参阅迁移指南
 
 ### `4.0.0-alpha5`
 
-May 3rd 2023:
+2023年5月3日：
 
-- Features the new Rust renderer enabling faster `<OffthreadVideo>`!
-- `z` is not exported from Remotion anymore, instead, just install `zod`!
-- `zColor` is now to be installed from `@remotion/zod-types`
-- Overall polish of the editor
+- 具有新的 Rust 渲染器，实现更快的 `<OffthreadVideo>`！
+- `z` 不再从 Remotion 导出，而是只需安装 `zod`！
+- `zColor` 现在应从 `@remotion/zod-types` 安装
+- 编辑器整体修饰
 
 ### `4.0.0-alpha.185+1b8f0e746`
 
-- Fix rendering with FFmpeg on Linux
-- Make all strings `as const` when saving back to the root file to ensure type safety.
-- New [`zColor()`](/docs/zod-types/z-color) API
-- New sidebar design and new mechanism for toggling sidebars
-- Create new array items
-- Zod union type support
-- Overall polish!
+- 修复了在 Linux 上使用 FFmpeg 渲染
+- 当保存回根文件时，确保将所有字符串`as const`，以确保类型安全。
+- 新的 [`zColor()`](/docs/zod-types/z-color) API
+- 新的侧边栏设计和切换侧边栏的新机制
+- 创建新的数组项
+- Zod 联合类型支持
+- 整体修饰！
 
 ### `4.0.0-alpha.127+bcc7f944b`
 
-Improve the saving back to code feature if you are using `as const`.
+如果您使用 `as const`，改进了保存回代码功能。
 
 ### `4.0.0-alpha.115+764023ad5`
 
-Initial v4 alpha release
+初始 v4 alpha 版本发布
+
+

@@ -6,13 +6,13 @@ crumb: "@remotion/studio"
 
 # updateDefaultProps()<AvailableFrom v="4.0.154"/>
 
-Updates the default props in the Props Editor (in the right sidebar in the Studio).  
-Your component will be re-rendered with the new props.  
-The props will **not** be saved to the [Root file](/docs/terminology/root-file) - use [`saveDefaultProps()`](/docs/studio/save-default-props) for that.
+更新 Props 编辑器（在 Studio 中右侧边栏中）中的默认 props。  
+您的组件将使用新的 props 重新渲染。  
+这些 props **不会** 保存到[根文件](/docs/terminology/root-file) - 请使用 [`saveDefaultProps()`](/docs/studio/save-default-props) 来保存。
 
-## Examples
+## 示例
 
-```tsx twoslash title="Setting {color: 'green'} as the default props"
+```tsx twoslash title="将 {color: 'green'} 设置为默认 props"
 // @target: esnext
 import { updateDefaultProps } from "@remotion/studio";
 
@@ -26,9 +26,9 @@ updateDefaultProps({
 });
 ```
 
-You can access the current unsaved default props to only override part of it (reducer-style):
+您可以访问当前未保存的默认 props 以仅覆盖其中的一部分（类似于 reducer 风格）：
 
-```tsx twoslash title="Accessing the current props"
+```tsx twoslash title="访问当前 props"
 // @target: esnext
 import { saveDefaultProps } from "@remotion/studio";
 
@@ -40,9 +40,9 @@ await saveDefaultProps({
 });
 ```
 
-If you only want to override on top of the saved changes:
+如果您只想在保存的更改之上进行覆盖：
 
-```tsx twoslash title="Accessing the saved props"
+```tsx twoslash title="访问保存的 props"
 // @target: esnext
 import { updateDefaultProps } from "@remotion/studio";
 
@@ -57,9 +57,9 @@ updateDefaultProps({
 });
 ```
 
-If you have a Zod schema, you can also access its runtime value:
+如果您有 Zod 模式，则还可以访问其运行时值：
 
-```tsx twoslash title="Save props from the Props Editor"
+```tsx twoslash title="从 Props 编辑器保存 props"
 // @target: esnext
 import { updateDefaultProps } from "@remotion/studio";
 
@@ -76,20 +76,21 @@ updateDefaultProps({
 });
 ```
 
-## Requirements
+## 要求
 
-In order to use this function:
+为了使用此功能：
 
-<Step>1</Step> You need to be inside the Remotion Studio.
+<Step>1</Step> 您需要在 Remotion Studio 中。
 <br />
-<Step>2</Step> The Studio must be running (no static deployment)
+<Step>2</Step> Studio 必须在运行中（不能是静态部署）
 <br />
-<Step>3</Step> <code>zod</code> needs to be installed.
+<Step>3</Step> 必须安装 <code>zod</code>。
 <br />
 <br />
 
-Otherwise, the function will throw.
+否则，该函数将抛出异常。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/update-default-props.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/update-default-props.ts)
+

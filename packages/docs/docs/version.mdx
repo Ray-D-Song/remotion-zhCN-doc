@@ -1,29 +1,30 @@
 ---
 image: /generated/articles-docs-version.png
 id: version
-title: VERSION
+title: 版本
 crumb: "API"
 ---
 
-You may import this constant to get the current version of Remotion.
+您可以导入此常量以获取 Remotion 的当前版本。
 
-Only the version of the [`remotion`](/docs/remotion) package will be reported.  
-A [version conflict](/docs/cli/versions) with other Remotion packages cannot be ruled out.
+只会报告 [`remotion`](/docs/remotion) 包的版本。  
+无法排除与其他 Remotion 包的 [版本冲突](/docs/cli/versions)。
 
-```ts twoslash title="Importing VERSION from remotion"
+```ts twoslash title="从 remotion 导入 VERSION"
 import { VERSION } from "remotion";
 
 console.log(VERSION); // "4.0.57";
 ```
 
-You can also import it from `remotion/version` to avoid importing Remotion and its dependencies (i.e, `react` and `react-dom`):
+您还可以从 `remotion/version` 导入它，以避免导入 Remotion 及其依赖项（即 `react` 和 `react-dom`）：
 
-```ts twoslash title="Importing VERSION from remotion/version"
+```ts twoslash title="从 remotion/version 导入 VERSION"
 import { VERSION } from "remotion/version";
 
 console.log(VERSION); // "4.0.57";
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this constant](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/version.ts)
+- [此常量的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/version.ts)
+

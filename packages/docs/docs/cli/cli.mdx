@@ -1,24 +1,24 @@
 ---
 image: /generated/articles-docs-cli-cli.png
-title: Command line reference
-sidebar_label: CLI reference
+title: 命令行参考
+sidebar_label: CLI 参考
 id: cli
 ---
 
 import {TableOfContents} from '../../components/TableOfContents/cli';
 
-## How to use
+## 如何使用
 
-You can run the CLI by installing `@remotion/cli` and running:
+您可以通过安装 `@remotion/cli` 并运行以下命令来运行 CLI：
 
-- `npx remotion` inside a npm project
-- `yarn remotion` inside a Yarn project
-- `pnpm exec remotion` inside a pnpm project.
-- `bunx remotion` inside a Bun project
+- 在 npm 项目中运行 `npx remotion`
+- 在 Yarn 项目中运行 `yarn remotion`
+- 在 pnpm 项目中运行 `pnpm exec remotion`
+- 在 Bun 项目中运行 `bunx remotion`
 
-For brevity, in the documentation we always say `npx remotion`.
+为简洁起见，在文档中我们总是使用 `npx remotion`。
 
-Inside an npm script, you don't need the `npx` prefix:
+在 npm 脚本中，您不需要 `npx` 前缀：
 
 ```json title="package.json"
 {
@@ -28,11 +28,11 @@ Inside an npm script, you don't need the `npx` prefix:
 }
 ```
 
-### Using Bun<AvailableFrom v="4.0.118" />
+### 使用 Bun<AvailableFrom v="4.0.118" />
 
-By default, the `npx remotion` command is being executed using Node.  
-Even `bunx remotion` is using Node, unless you add the `--bun` flag.  
-To use Bun, replace `remotion` with `remotionb`.
+默认情况下，`npx remotion` 命令是使用 Node 执行的。  
+即使 `bunx remotion` 也是使用 Node，除非您添加 `--bun` 标志。  
+要使用 Bun，请将 `remotion` 替换为 `remotionb`。
 
 ```json title="package.json"
 {
@@ -42,24 +42,25 @@ To use Bun, replace `remotion` with `remotionb`.
 }
 ```
 
-## Commands
+## 命令
 
-The following commands are available - you can always run them using `npx remotion` or even without the `npx` prefix if you put the command inside an npm script.
+以下命令可用 - 您可以始终使用 `npx remotion` 运行它们，甚至如果将命令放在 npm 脚本中，则无需 `npx` 前缀。
 
 <TableOfContents />
 
-## Example command
+## 示例命令
 
 ```
 npx remotion render --codec=vp8 HelloWorld out/video.webm
 ```
 
-## Fig.io autocompletion
+## Fig.io 自动补全
 
-Install [Fig](https://fig.io) (macOS only) to add Remotion autocomplete to your terminal.  
-Type `npx remotion` to start getting suggestions.
+安装 [Fig](https://fig.io)（仅限 macOS）以将 Remotion 自动补全添加到您的终端。  
+键入 `npx remotion` 开始获取建议。
 
-## See also
+## 参见
 
-- [Render your video](/docs/render)
-- [Configuration file](/docs/config)
+- [渲染您的视频](/docs/render)
+- [配置文件](/docs/config)
+

@@ -6,11 +6,11 @@ slug: /lambda/deletefunction
 crumb: "Lambda API"
 ---
 
-Deletes a deployed Lambda function based on its name.
+根据函数名称删除已部署的 Lambda 函数。
 
-To retrieve a list of functions, call [`getFunctions()`](/docs/lambda/getfunctions) first.
+要检索函数列表，请先调用 [`getFunctions()`](/docs/lambda/getfunctions)。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -30,24 +30,25 @@ for (const fn of functions) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) to which the function was deployed to.
+部署函数的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `functionName`
 
-The name of the function to be deleted.
+要删除的函数的名称。
 
-## Return value
+## 返回值
 
-Nothing. If the deletion failed, the function rejects with an error.
+无。如果删除失败，函数将拒绝并返回错误。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/delete-function.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/delete-function.ts)
 - [deployFunction()](/docs/lambda/deployfunction)
 - [getFunctions()](/docs/lambda/getfunctions)
+

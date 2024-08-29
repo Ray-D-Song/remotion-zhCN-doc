@@ -1,27 +1,28 @@
 ---
 image: /generated/articles-docs-troubleshooting-could-not-be-parsed-as-a-value-list.png
-sidebar_label: Source could not be parsed
-title: The source provided could not be parsed as a value list
-crumb: 'Browser quirks'
+sidebar_label: 无法解析源
+title: 提供的源无法解析为值列表
+crumb: '浏览器怪癖'
 ---
 
-The following error message:
+以下错误消息：
 
 ```
-The source provided ([...]) could not be parsed as a value list.
+提供的源 ([...]) 无法解析为值列表。
 ```
 
-can happen when the wrong syntax is passed to the `FontFace` API.
+可能发生在向 `FontFace` API 传递错误的语法时。
 
-Older versions on Chrome, including Chrome 104 which runs in Remotion Lambda does not support the FontFace syntax without quotes.
+包括在 Remotion Lambda 中运行的 Chrome 104 在内的较旧版本的 Chrome 不支持不带引号的 FontFace 语法。
 
-```txt title="❌ Without quotes"
+```txt title="❌ 不带引号"
 src: url(font.woff2) format(woff2);
 ```
 
-```txt title="✅ With quotes"
+```txt title="✅ 带引号"
 src: url('font.woff2') format('woff2');
 ```
 
-To fix the issue, always include quotes.  
-Use [`@remotion/fonts`](/docs/fonts-api) to use an abstraction that helps you avoid this mistake.
+要解决此问题，请始终包含引号。  
+使用 [`@remotion/fonts`](/docs/fonts-api) 来使用一个帮助您避免此错误的抽象。  
+

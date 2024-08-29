@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-freeze.png
 id: freeze
-title: <Freeze>
+title: <冻结>
 crumb: "API"
 ---
 
@@ -12,15 +12,15 @@ const BlueSquare: React.FC = () => <div></div>
 // - BlueSquare
 ```
 
-_Available from v2.2.0._
+_从 v2.2.0 版本开始可用。_
 
-When using the `<Freeze/>` component, all of its children will freeze to the frame that you specify as a prop.
+当使用 `<冻结/>` 组件时，所有子元素都将冻结在您指定的帧上。
 
-If a component is a child of `<Freeze/>`, calling the [`useCurrentFrame()`](/docs/use-current-frame) hook will always return the frame number you specify, irrespective of any [`<Sequence>`](/docs/sequence).
+如果一个组件是 `<冻结/>` 的子元素，调用 [`useCurrentFrame()`](/docs/use-current-frame) 钩子将始终返回您指定的帧编号，而不受任何 [`<序列>`](/docs/sequence) 的影响。
 
-[`<Video />`](/docs/video) and [`<OffthreadVideo />`](/docs/video) elements will be paused and [`<Audio />`](/docs/audio) elements will render muted.
+[`<视频 />`](/docs/video) 和 [`<离线视频 />`](/docs/video) 元素将被暂停，而 [`<音频 />`](/docs/audio) 元素将以静音方式渲染。
 
-## Example
+## 示例
 
 ```tsx twoslash title="MyComp.tsx"
 // @include: example-BlueSquare
@@ -38,18 +38,18 @@ const MyVideo = () => {
 
 ## API
 
-The Freeze component is a high order component and accepts, besides it's children, the following props:
+冻结组件是一个高阶组件，除了它的子元素外，还接受以下 props：
 
 ### `frame`
 
-At which frame it's children should freeze.
+子元素应该在哪一帧冻结。
 
 ### `active`<AvailableFrom v="4.0.127"/>
 
-Deactivate freezing component by passing `false`.  
-You may also pass a callback function and accept the current frame and return a boolean.
+通过传递 `false` 来停用冻结组件。  
+您还可以传递一个回调函数，并接受当前帧并返回一个布尔值。
 
-```tsx twoslash title="From frame 30 on"
+```tsx twoslash title="从第30帧开始"
 // @include: example-BlueSquare
 // ---cut---
 import { Freeze } from "remotion";
@@ -63,12 +63,13 @@ const MyVideo = () => {
 };
 ```
 
-## Demo
+## 演示
 
 <FreezeExample />
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/freeze.tsx)
-- [`<Video/>` Playback speed](/docs/video#playbackrate)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/freeze.tsx)
+- [`<视频/>` 播放速度](/docs/video#playbackrate)
 - [`useCurrentFrame()`](/docs/use-current-frame)
+

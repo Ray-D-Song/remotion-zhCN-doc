@@ -1,14 +1,14 @@
 ---
 image: /generated/articles-docs-miscellaneous-automatic-duration.png
-sidebar_label: Automatic duration
-title: Calculating the duration of a composition automatically
-crumb: 'FAQ'
+sidebar_label: 自动时长
+title: 自动计算合成的时长
+crumb: '常见问题'
 ---
 
-It is currently **not supported** to derive the duration of a composition be from the content. The reason for it are the following:
+目前**不支持**从内容中推导合成的时长。其原因如下：
 
-- **Not all compositions are finite:**  
-  Here is an example of a component of which it is impossible to calculate the duration of:
+- **并非所有合成都是有限的：**  
+  这里有一个无法计算时长的组件示例：
 
   ```tsx twoslash title="InfiniteComposition.tsx"
   import React from 'react';
@@ -20,10 +20,10 @@ It is currently **not supported** to derive the duration of a composition be fro
   };
   ```
 
-- **`<Series>` and `<Sequence>` can be dynamic too**  
-  While it is true that many compositions use [`<Sequence>`](/docs/sequence) or [`<Series>`](/docs/series) from which the duration could be derived in many cases, it is also not a bulletproof solution.
+- **`<Series>` 和 `<Sequence>` 也可以是动态的**  
+  虽然许多合成使用 [`<Sequence>`](/docs/sequence) 或 [`<Series>`](/docs/series)，在许多情况下可以从中推导出时长，但这也不是一个绝对可靠的解决方案。
 
-  It is perfectly acceptable to change the values of the `from` or `durationInFrames` props of a [`<Sequence>`](/docs/sequence) over time:
+  完全可以随时间更改 [`<Sequence>`](/docs/sequence) 的 `from` 或 `durationInFrames` 属性的值：
 
   ```tsx twoslash title="ChangingDuration.tsx"
   import {Sequence, useCurrentFrame} from 'remotion';
@@ -40,11 +40,12 @@ It is currently **not supported** to derive the duration of a composition be fro
   };
   ```
 
-  A practical usecase of this is [to change the speed of a video over time](/docs/miscellaneous/snippets/accelerated-video).
+  这的一个实际用例是[随时间改变视频的速度](/docs/miscellaneous/snippets/accelerated-video)。
 
-- **Remotion is only aware of the current frame:**  
-  Remotion does not see the component statically like we do as developers, instead it only renders it at a certain point in time. To reliably determine when a component stops rendering markup, Remotion would have to loop through all frames until the markup stops which could be an expensive operation.
+- **Remotion 仅了解当前帧：**  
+  Remotion 不像我们开发者那样静态地看待组件，而是仅在特定时间点渲染它。要可靠地确定组件何时停止渲染标记，Remotion 必须循环遍历所有帧，直到标记停止，这可能是一个昂贵的操作。
 
-In summary, the dynamicity of React does not allow for a simple solution of deriving the duration reliably. We foresee that if a heuristic is used to determine the duration and it gets it wrong, it will lead to hard to debug cases.
+总之，React 的动态性不允许简单地可靠地推导出时长的解决方案。我们预见，如果使用启发式方法来确定时长并且出错，将导致难以调试的情况。
 
-We suggest to calculate the duration using the [dynamic duration method](/docs/dynamic-metadata) described here.
+我们建议使用此处描述的[动态时长方法](/docs/dynamic-metadata)来计算时长。  
+

@@ -1,8 +1,8 @@
 ---
 image: /generated/articles-docs-lambda-troubleshooting-debug.png
 id: debug
-sidebar_label: Debugging failures
-title: Debugging failed Lambda renders
+sidebar_label: 调试失败
+title: 调试失败的 Lambda 渲染
 crumb: "Lambda"
 ---
 
@@ -10,99 +10,101 @@ crumb: "Lambda"
   minutes={11}
   href="https://youtu.be/pwVEzTQ6VYE"
   thumb="https://i.ytimg.com/vi/pwVEzTQ6VYE/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDGudSHhI9u7kkShN_awBk3hbQ9mA"
-  title="How to troubleshoot and debug for Remotion Lambda"
+  title="如何为 Remotion Lambda 进行故障排除和调试"
 />
 
-There are four reasons renders may fail:
+渲染可能失败的四个原因：
 
-<div><Step>1</Step> An error occurs in your React code. </div>
-<div><Step>2</Step> A timeout occurs after calling <a href="/docs/delay-render"><code>delayRender()</code></a>.</div>
-<div><Step>3</Step> The Lambda function rendering one of the chunks times out.</div>
-<div><Step>4</Step> The main Lambda function times out. </div>
+<div><Step>1</Step> React 代码出现错误。</div>
+<div><Step>2</Step> 在调用 <a href="/docs/delay-render"><code>delayRender()</code></a> 后发生超时。</div>
+<div><Step>3</Step> 渲染一个块的 Lambda 函数超时。</div>
+<div><Step>4</Step> 主 Lambda 函数超时。</div>
 
-## Error in React code
+## React 代码中的错误
 
-If your code throws an error, you will see the error in the logs. If you are rendering via the CLI, the error will be symbolicated which can help you find the error in your code.
-Try to fix the error, redeploy the site and re-render.
+如果您的代码抛出错误，您将在日志中看到错误信息。如果通过 CLI 进行渲染，错误将被符号化，这有助于您找到代码中的错误。
+尝试修复错误，重新部署站点并重新渲染。
 
-## Understanding which timeout occurred
+## 理解发生的超时
 
-If your error message reads that a [`delayRender()`](/docs/delay-render) call timed out, a function has called [`delayRender()`](/docs/delay-render) but did not call [`continueRender()`](/docs/delay-render) within the timeout period. This is usually caused by a bug in your code. See [Debugging timeout](/docs/timeout) for more tips.
+如果您的错误消息显示 [`delayRender()`](/docs/delay-render) 调用超时，表示一个函数调用了 [`delayRender()`](/docs/delay-render) 但未在超时期间内调用 [`continueRender()`](/docs/delay-render)。这通常是由代码中的错误引起的。查看 [调试超时](/docs/timeout) 获取更多提示。
 
 :::note
-You can increase the timeout by passing `timeoutInMilliseconds` to [`renderMediaOnLamba()`](/docs/lambda/rendermediaonlambda) or passing `--timeout` to the CLI when rendering a video. Don't confuse it with the `--timeout` flag for the CLI when deploying a function (see below).
+您可以通过将 `timeoutInMilliseconds` 传递给 [`renderMediaOnLamba()`](/docs/lambda/rendermediaonlambda) 或在渲染视频时通过 CLI 传递 `--timeout` 来增加超时时间。不要将其与在部署函数时通过 CLI 传递 `--timeout` 标志混淆（见下文）。
 :::
 <br />
-If your error message reads that the main Lambda function has timed out, it means that the render was still ongoing, but the maximum execution duration of the Lambda function has been hit. This is caused by either: <br/> <br/>
+如果您的错误消息显示主 Lambda 函数已超时，这意味着渲染仍在进行中，但 Lambda 函数的最大执行持续时间已达到。这可能是由以下原因引起：<br/> <br/>
 
-- A render that takes too long to complete within the specified duration. In that case, you should increase the function timeout by passing `--timeout` to the CLI [when deploying a function](/docs/lambda/cli/functions).
-- A render that has a bottleneck and completes slowly on Lambda. In that case, you should identify the bottleneck by measuring and optimizing the render. See [Optimizing for speed](/docs/lambda/optimizing-speed) for more tips.
-- A chunk is getting stuck, making it impossible for the main function to complete the task of concatenating the chunks. You should identify the chunk that is getting stuck by looking at the logs. See below for how to do this.
+- 渲染在指定持续时间内完成时间过长。在这种情况下，您应通过在部署函数时通过 CLI 传递 `--timeout` 来增加函数超时时间。
+- 渲染存在瓶颈且在 Lambda 上完成速度较慢。在这种情况下，您应通过测量和优化渲染来识别瓶颈。查看 [优化速度](/docs/lambda/optimizing-speed) 获取更多提示。
+- 一个块被卡住，使主函数无法完成连接块的任务。您应通过查看日志来识别被卡住的块。查看下文了解如何执行此操作。
 
-## Inspecting the logs
+## 检查日志
 
-<Step>1</Step> Get the Log URL:
+<Step>1</Step> 获取日志URL：
 
-- If you use the CLI, add `--log=verbose` to the command. This will print a CloudWatch link to the console.
-- When using [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) add `logLevel: "verbose"` as an option. You will get a `cloudWatchLogs` field in the return value.
+- 如果您使用CLI，请在命令中添加 `--log=verbose`。这将在控制台打印一个CloudWatch链接。
+- 当使用[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)时，将 `logLevel: "verbose"` 添加为一个选项。您将在返回值中得到一个 `cloudWatchLogs` 字段。
 
-Open this link and log into AWS if needed. A log stream will open.
+打开此链接，如果需要，请登录AWS。将打开一个日志流。
 
 <img src="/img/cloudwatch.png" /> <br/><br/>
 
-By default, the filter is set to:
+默认情况下，过滤器设置为：
 
 ```
 "method=renderer,renderId=[render-id]"
 ```
 
-### Find the logs of a specific chunk
+### 查找特定块的日志
 
-Tweak the query to find the logs of a specific chunk:
+调整查询以查找特定块的日志：
 
 ```
 method=renderer,renderId=[render-id],chunk=12
 ```
 
-will for example find the log stream of chunk 12. If your viewport is big enough, you will also see the chunk numbers in the summary view straight away.
+例如，将找到块12的日志流。如果您的视口足够大，您还将立即在摘要视图中看到块号。
 
-Click the blue link in the `Log stream name` column to open the log stream. If you don't see any blue links, click "Display", then select "View in columns with details".
+单击 `Log stream name` 列中的蓝色链接以打开日志流。如果您看不到任何蓝色链接，请单击“Display”，然后选择“View in columns with details”。
 
-In the logstream, you will see debug logging from Remotion as well as any `console.log` statements from your React code.
+在日志流中，您将看到来自Remotion的调试日志以及来自您的React代码的任何 `console.log` 语句。
 
-### Find the logs of the main function
+### 查找主函数的日志
 
-Tweakt the query to find the logs of the main function:
+调整查询以查找主函数的日志：
 
 ```
 method=launch,renderId=[render-id]
 ```
 
-You should get one result.
-Click the blue link in the `Log stream name` column to open the log stream. If you don't see any blue links, click "Display", then select "View in columns with details".
+您应该会得到一个结果。
+单击 `Log stream name` 列中的蓝色链接以打开日志流。如果您看不到任何蓝色链接，请单击“Display”，然后选择“View in columns with details”。
 
-## Finding the chunk that failed
+## 查找失败的块
 
-To find which chunks failed to render, add `--log=verbose` to the Lambda render while rendering via the CLI. Look for a log statement `Render folder: ` to find the link to the render folder in S3.  
-When using [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda), you will get a `folderInS3Console` field in the return value.
+要查找未能渲染的块，请在通过CLI渲染Lambda时添加 `--log=verbose`。查找一个名为 `Render folder: ` 的日志语句以找到S3中渲染文件夹的链接。  
+当使用[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)时，您将在返回值中得到一个 `folderInS3Console` 字段。
 
-After opening the link, open the `chunks` subfolder. Go through each existing chunk and find the ones that are missing. The missing chunks are the ones that failed to render.
+打开链接后，打开 `chunks` 子文件夹。浏览每个现有的块，并找到那些缺失的块。缺失的块是未能渲染的块。
 
 <img src="/img/chunks.png" /> <br/><br/>
 
-After you've identified which chunks are missing, [inspect the logs](#inspecting-the-logs) for that chunk to find the cause of the error.
+在确定缺失的块之后，[检查日志](#inspecting-the-logs) 以找出错误的原因。
 
-## Increasing the timeout
+## 增加超时时间
 
-Note that two types of timeouts come into play in Remotion:
+请注意，在 Remotion 中有两种超时时间：
 
-- The `delayRender()` timeout. This is the timeout that is defined using `--timeout` when calling [`npx remotion lambda render`](/docs/lambda/cli/render) or using `timeoutInMilliseconds` when calling [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
-- The Lambda function timeout. This is the timeout that is defined using `--timeout` when calling [`npx remotion lambda functions deploy`](/docs/lambda/cli/functions) or using `timeoutInSeconds` when calling [`deployFunction()`](/docs/lambda/deployfunction).
+- `delayRender()` 超时时间。这是在调用 [`npx remotion lambda render`](/docs/lambda/cli/render) 时使用 `--timeout` 定义的超时时间，或者在调用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 时使用 `timeoutInMilliseconds` 定义的超时时间。
+- Lambda 函数超时时间。这是在调用 [`npx remotion lambda functions deploy`](/docs/lambda/cli/functions) 时使用 `--timeout` 定义的超时时间，或者在调用 [`deployFunction()`](/docs/lambda/deployfunction) 时使用 `timeoutInSeconds` 定义的超时时间。
 
-## See also
+## 另请参阅
 
-- [Debugging timeouts](/docs/timeout)
-- [Optimizing for speed](/docs/lambda/optimizing-cost)
-- [Rate limits](/docs/lambda/troubleshooting/rate-limit)
-- [Lambda Limits](/docs/lambda/limits)
-- [Lambda insights](/docs/lambda/insights)
+- [调试超时](/docs/timeout)
+- [优化速度](/docs/lambda/optimizing-cost)
+- [速率限制](/docs/lambda/troubleshooting/rate-limit)
+- [Lambda 限制](/docs/lambda/limits)
+- [Lambda 洞察](/docs/lambda/insights) 
+
+

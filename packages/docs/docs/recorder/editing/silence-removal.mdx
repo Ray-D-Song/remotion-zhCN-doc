@@ -1,32 +1,32 @@
 ---
 image: /generated/articles-docs-recorder-editing-silence-removal.png
-title: Silence removal
-crumb: Recorder
+title: 静音去除
+crumb: 录制器
 ---
 
-When captions are generated, the Whisper.cpp timestamps are taken to determine the start and end of the transcription.
+当生成字幕时，将使用 Whisper.cpp 时间戳来确定转录的开始和结束。
 
-Therefore, you should make sure captions are generated before you manually trim the video.
+因此，在您手动修剪视频之前，应确保生成字幕。
 
-## Edit the transcript to fix mistakes
+## 编辑转录以纠正错误
 
-The easiest way to fix mistakes is to [click on a caption](/docs/recorder/editing/captions) and edit the transcript.  
-The first non-empty token determines the start trim.  
-The last non-empty token determines the end trim.
+修正错误的最简单方法是[单击字幕](/docs/recorder/editing/captions)并编辑转录。  
+第一个非空令牌确定开始修剪。  
+最后一个非空令牌确定结束修剪。
 
-## Apply an offset
+## 应用偏移量
 
-In the right hand side default props editor, apply a `startOffset` to the scene.  
-The offset is in frames.
+在右侧的默认属性编辑器中，对场景应用 `startOffset`。  
+偏移量以帧为单位。
 
-A negative offset will start the video earlier, a positive offset will start the video later.
+负偏移将使视频提前开始，正偏移将使视频稍后开始。
 
-To change the end trim, apply a `endOffset` to the scene. It follows the same logic as the start offset.
+要更改结束修剪，请对场景应用 `endOffset`。其逻辑与开始偏移相同。
 
-## Customizing the logic
+## 自定义逻辑
 
-The logic for determining the start and end timestamp is in [`remotion/calculate-metadata/add-metadata-to-scene.ts`](https://github.com/remotion-dev/recorder/blob/main/remotion/calculate-metadata/add-metadata-to-scene.ts#L56).
+确定开始和结束时间戳的逻辑在 [`remotion/calculate-metadata/add-metadata-to-scene.ts`](https://github.com/remotion-dev/recorder/blob/main/remotion/calculate-metadata/add-metadata-to-scene.ts#L56) 中。
 
-The default start padding is a 0.25 seconds and the default end padding is a 0.5 seconds.
+默认的开始填充为 0.25 秒，默认的结束填充为 0.5 秒。
 
-These values are defined in [`remotion/calculate-metadata/get-start-end-frame.ts`](https://github.com/remotion-dev/recorder/blob/main/remotion/calculate-metadata/get-start-end-frame.ts#L8)
+这些值在 [`remotion/calculate-metadata/get-start-end-frame.ts`](https://github.com/remotion-dev/recorder/blob/main/remotion/calculate-metadata/get-start-end-frame.ts#L8) 中定义。

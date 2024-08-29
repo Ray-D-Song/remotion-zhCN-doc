@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-recorder-editing-cutting-clips.png
-title: Cutting clips
-crumb: Recorder
+title: 剪辑片段
+crumb: 录制器
 ---
 
-The recommended way is to record many small bite-sized clips with the Recording interface and create many scenes.  
-You will have to do less re-takes due to mistakes and having multiple scenes allows adding transitions inbetween.
+推荐的方法是使用录制界面记录许多小的片段，并创建许多场景。  
+由于错误较少且有多个场景，您将不必重复拍摍。
 
-If this is unfeasible and you already have a long recording that you would like to split after the fact, you can use the following script:
+如果这不可行，并且您已经有一个长时间的录制，想要事后拆分，您可以使用以下脚本：
 
 ```tsx title="cut.ts"
 import { $ } from "bun";
@@ -111,23 +111,25 @@ if (existsSync(captionsFile)) {
 }
 ```
 
-The following is a destructive action - commit your changes before you run this.
+以下是一个破坏性操作 - 在运行此操作之前，请提交您的更改。
 
-To use this script, find the file that you would like to split, e.g. `my-video/webcam123456789012345.mp4`.  
-Execute the following on the command line:
+要使用此脚本，请找到您想要拆分的文件，例如 `my-video/webcam123456789012345.mp4`。  
+在命令行上执行以下操作：
 
 ```shell
 bun cut.ts my-video 123456789012345 2.0
-#          ^ comp   ^timestamp      ^ cut point in seconds
+#          ^ comp   ^时间戳      ^ 秒为单位的切割点
 ```
 
-This will split all recordings into two.  
-It will also delete the captions file – to regenerate it, run:
+这将把所有录制分成两部分。  
+它还会删除字幕文件 - 要重新生成它，请运行：
 
 ```shell
 bun sub.ts
 ```
 
-Now, in the Studio, [add a new scene](/docs/recorder/editing/#add-new-scenes-to-the-composition) after the one you just edited.
+现在，在 Studio 中，在您刚刚编辑的场景后[添加一个新场景](/docs/recorder/editing/#add-new-scenes-to-the-composition)。
 
-We plan on adding a GUI shortcut for this workflow in the future.
+我们计划在未来为此工作流程添加一个 GUI 快捷方式。 
+
+

@@ -5,21 +5,21 @@ title: getStaticFiles()
 crumb: "API"
 ---
 
-_Available from v3.3.26._
+_从 v3.3.26 版本开始可用。_
 
 :::note
-This API is being moved to the `@remotion/studio` package. Prefer importing the API from [`@remotion/studio`](/docs/studio/get-static-files) instead of `remotion`.
+此 API 正在迁移到 `@remotion/studio` 包中。建议从 [`@remotion/studio`](/docs/studio/get-static-files) 导入 API，而不是从 `remotion` 导入。
 :::
 
-Gets an array containing all files in the `public/` folder.  
-You can reference them by using [`staticFile()`](/docs/staticfile).
+获取包含 `public/` 文件夹中所有文件的数组。  
+您可以通过使用 [`staticFile()`](/docs/staticfile) 来引用它们。
 
 :::warning
-This feature _only_ works in Remotion Studio and during rendering, otherwise it returns an empty array.  
+此功能仅在 Remotion Studio 中以及在渲染期间有效，否则将返回一个空数组。  
 :::
 
 :::note
-On Linux, watching for changes in subdirectories is only supported from Node.js v19.1.0. If you use a version earlier than that, you need to refresh the Remotion Studio browser tab manually.
+在 Linux 上，从 Node.js v19.1.0 开始，才支持监视子目录中的更改。如果您使用早于该版本的版本，则需要手动刷新 Remotion Studio 浏览器选项卡。
 :::
 
 ```tsx twoslash title="example.ts"
@@ -60,27 +60,27 @@ const data = files.find((f) => {
 
 ## API
 
-Takes no arguments and returns an array of object, each of which have four entries:
+不接受任何参数，并返回一个对象数组，每个对象都有四个条目：
 
-- `name`: The path relative to the public folder.
+- `name`: 相对于 public 文件夹的路径。
   :::note
-  Contains forward slashes `/` even on Windows.
-  :::note
+  即使在 Windows 上也包含正斜杠 `/`。
+  :::
 
-- `src`: The path with a prefix. The prefix changes whenever the Studio server restarts.
-- `sizeInBytes`: The file size. If it is a symbolic link, the file size of the original is reported.
-- `lastModified`: Last modified date in Unix timestamp in milliseconds.
+- `src`: 带有前缀的路径。每当 Studio 服务器重新启动时，前缀都会更改。
+- `sizeInBytes`: 文件大小。如果是符号链接，则报告原始文件的文件大小。
+- `lastModified`: 最后修改日期，以毫秒为单位的 Unix 时间戳。
 
-## Maximum files
+## 最大文件数
 
-For performance, only the first 10000 items are fetched and displayed.
+为了性能考虑，只获取和显示前 10000 个项目。
 
-**Changelog**
+**变更日志**
 
-Before v4.0.64, only the first 1000 items were displayed.
+在 v4.0.64 之前，仅显示前 1000 个项目。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/get-static-files.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/get-static-files.ts)
 - [`staticFile()`](/docs/staticfile)
 - [`watchStaticFile()`](/docs/watchstaticfile)

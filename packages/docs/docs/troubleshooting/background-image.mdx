@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-troubleshooting-background-image.png
-sidebar_label: Flickering with background-image
-title: Flickering when using background-image or mask-image
-crumb: "Common mistakes"
+sidebar_label: 使用背景图像时闪烁
+title: 使用背景图像或遮罩图像时出现闪烁
+crumb: "常见错误"
 ---
 
-The following code is discouraged in Remotion:
+在 Remotion 中不建议使用以下代码：
 
-```tsx twoslash title="❌ Don't do this"
+```tsx twoslash title="❌ 不要这样做"
 const src = "abc";
 // ---cut---
 const myMarkup = (
@@ -21,15 +21,15 @@ const myMarkup = (
 );
 ```
 
-## Problem
+## 问题
 
-Remotion has no way of knowing when the image is finished loading because it is impossible to determine so when loading an image through `background-image`, `mask-image`, or other CSS properties. This will lead to Remotion not waiting for the image to be loaded during rendering and cause visible flickers.
+Remotion 无法确定图像何时加载完成，因为通过 `background-image`、`mask-image` 或其他 CSS 属性加载图像时无法确定。这将导致 Remotion 在渲染过程中不等待图像加载完成，从而导致可见的闪烁。
 
-## Solution
+## 解决方案
 
-Use the [`<Img>`](/docs/img) tag instead and place it in an [`<AbsoluteFill>`](/docs/absolute-fill):
+使用 [`<Img>`](/docs/img) 标签，并将其放置在 [`<AbsoluteFill>`](/docs/absolute-fill) 中：
 
-```tsx twoslash title="✅ Do this"
+```tsx twoslash title="✅ 这样做"
 const src = "abc";
 // ---cut---
 import { AbsoluteFill, Img } from "remotion";
@@ -51,13 +51,13 @@ const myMarkup = (
 );
 ```
 
-The next will be placed on top of the image and will not flicker.
+下一个将放置在图像上方，不会闪烁。
 
-## Workaround
+## 解决方法
 
-If you cannot use an [`<Img>`](/docs/img) tag, for example because you need to use `mask-image()`, render an adjacent `<Img>` tag that renders the same src and place it outside the viewport:
+如果无法使用 [`<Img>`](/docs/img) 标签，例如因为需要使用 `mask-image()`，则渲染一个渲染相同 src 的相邻 `<Img>` 标签，并将其放置在视口之外：
 
-```tsx twoslash title="✅ Do this"
+```tsx twoslash title="✅ 这样做"
 const src = "abc";
 // ---cut---
 import { Img } from "remotion";
@@ -83,10 +83,12 @@ const myMarkup = (
 );
 ```
 
-The hidden `<Img>` tag ensures the image will download completely which allows the `background-image` will fully render.
+隐藏的 `<Img>` 标签确保图像将完全下载，从而使 `background-image` 完全渲染。
 
-## See also
+## 参见
 
 - [`<Img>`](/docs/img)
-- [Flickering](/docs/flickering)
-- [Flickering with Next.js' Image tag](/docs/troubleshooting/nextjs-image)
+- [闪烁](/docs/flickering)
+- [使用 Next.js 的 Image 标签时出现闪烁](/docs/troubleshooting/nextjs-image) 
+
+

@@ -1,25 +1,25 @@
 ---
 image: /generated/articles-docs-ssr-legacy.png
 id: ssr-legacy
-title: Server-Side Rendering (v1 and v2)
-crumb: "Legacy docs"
+title: 服务器端渲染（v1 和 v2）
+crumb: "传统文档"
 ---
 
 :::info
-This documentation is how server-side rendering worked in Remotion v1 and Remotion v2. To see rendering in [3.0 and above, click here.](/docs/ssr)
+这份文档介绍了 Remotion v1 和 Remotion v2 中的服务器端渲染工作原理。要查看 [3.0 及以上版本的渲染，请点击这里。](/docs/ssr)
 :::
 
-Remotion's rendering engine is built upon Node.JS, which makes it exceptionally easy to render a video in the cloud.
+Remotion 的渲染引擎建立在 Node.JS 上，这使得在云端渲染视频变得异常简单。
 
-Since Remotion is built with tech (_Node.JS, FFMPEG, Puppeteer_) that works well cross-platform, you can without much hassle run it on a Linux-based system or even dockerize your video.
+由于 Remotion 是使用跨平台技术（_Node.JS、FFMPEG、Puppeteer_）构建的，您可以轻松在基于 Linux 的系统上运行它，甚至可以将您的视频容器化。
 
-On this page, we demonstrate the server-rendering capabilities on Remotion using examples [built into the template](/docs/ssr)!
+在这个页面上，我们展示了 Remotion 在模板中内置的示例，展示了其服务器端渲染功能 [（内置于模板中）](/docs/ssr)！
 
-## Render a video programmatically
+## 以编程方式渲染视频
 
-The NPM package `@remotion/renderer` provides you with an API for rendering the videos programmatically. You can make a video in three steps: creating a Webpack bundle, rendering the frames, and stitching them together to a MP4. This gives you more independence and allows you for example to skip the stitching process, if you just want a PNG sequence.
+NPM 包 `@remotion/renderer` 为您提供了一个用于以编程方式渲染视频的 API。您可以通过三个步骤制作视频：创建一个 Webpack bundle，渲染帧，并将它们拼接成 MP4。这使您更加独立，例如，允许您跳过拼接过程，如果您只想要一个 PNG 序列。
 
-Follow this commented example to see how to render a video:
+按照下面的示例来查看如何渲染视频：
 
 ```tsx
 import { bundle } from "@remotion/bundler";
@@ -118,9 +118,10 @@ const start = async () => {
 start();
 ```
 
-## API reference
+## API 参考
 
 - [bundle()](/docs/bundle)
 - [getCompositions()](/docs/renderer/get-compositions)
 - [renderMedia()](/docs/renderer/render-media)
 - [stitchFramesToVideo()](/docs/renderer/stitch-frames-to-video)
+

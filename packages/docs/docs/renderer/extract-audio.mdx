@@ -8,12 +8,12 @@ crumb: "@remotion/renderer"
 # extractAudio()<AvailableFrom v="4.0.49" />
 
 :::note
-This function is meant to be used **in Node.js applications**. It cannot run in the browser.
+此函数旨在用于 **Node.js 应用程序**。无法在浏览器中运行。
 :::
 
-Extracts the audio from a video source and saves it to the specified output path. It does not convert the audio to a different format.
+从视频源中提取音频并将其保存到指定的输出路径。它不会将音频转换为不同的格式。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: ESNext
@@ -36,24 +36,24 @@ await extractAudio({
 ```
 
 :::info
-Pass an absolute path to `extractAudio()`. URLs are not supported.
+将绝对路径传递给 `extractAudio()`。不支持 URL。
 :::
 
-## Arguments
+## 参数
 
-An object containing the following properties:
+包含以下属性的对象：
 
 ### `videoSource`
 
 _string_
 
-The path to the video source from which the audio will be extracted.
+要从中提取音频的视频源路径。
 
 ### `outputPath`
 
 _string_
 
-The path where the extracted audio will be saved. The file extension must match the audio codec. To find the appropriate file extension, use [`getVideoMetadata()`](/docs/renderer/get-video-metadata) to read the field `audioFileExtension`.
+提取的音频将保存到的路径。文件扩展名必须与音频编解码器匹配。要找到适当的文件扩展名，请使用 [`getVideoMetadata()`](/docs/renderer/get-video-metadata) 读取字段 `audioFileExtension`。
 
 ### `logLevel?`
 
@@ -63,11 +63,11 @@ The path where the extracted audio will be saved. The file extension must match 
 
 <Options id="binaries-directory" />
 
-## Return Value
+## 返回值
 
-The function returns a `Promise<void>`, which resolves once the audio extraction is complete.
+该函数返回一个 `Promise<void>`，一旦音频提取完成，该 Promise 将解析。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/extract-audio.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/extract-audio.ts)
 - [getVideoMetadata()](/docs/renderer/get-video-metadata)

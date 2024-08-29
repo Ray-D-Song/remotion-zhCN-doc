@@ -1,39 +1,41 @@
 ---
 image: /generated/articles-docs-recorder-captions.png
-title: Generate captions
-crumb: Recorder
+title: 生成字幕
+crumb: 录制器
 ---
 
-To generate captions, the Remotion Recorder uses [Whisper.cpp](https://github.com/ggerganov/whisper.cpp) for fast and accurate transcriptions.
-Each time you record a clip with the Remotion Recorder, captions are automatically generated and persisted to same folder as your recordings.
+要生成字幕，Remotion Recorder 使用 [Whisper.cpp](https://github.com/ggerganov/whisper.cpp) 进行快速准确的转录。
+每次使用 Remotion Recorder 录制剪辑时，字幕会自动生成并保存到与您的录音相同的文件夹中。
 
-## Installing Whisper.cpp
+## 安装 Whisper.cpp
 
-The very first time you finish recording a clip, Whisper.cpp and a 1.5GB model will be installed on your computer. This may take a few minutes.
-Once installed, captions for the `webcam` clip will be generated.
+第一次完成录制剪辑时，Whisper.cpp 和一个 1.5GB 的模型将会安装到您的计算机上。这可能需要几分钟的时间。
+安装完成后，将会生成 `webcam` 剪辑的字幕。
 
 :::note
-Captions are only generated for files with the `webcam` prefix.
+仅为带有 `webcam` 前缀的文件生成字幕。
 :::
 
-## Make corrections
+## 进行更正
 
-If the AI has made a mistake, no problem, there are various ways to correct the transcriptions manually. [See here how to do this](/docs/recorder/editing/captions).
+如果 AI 出现错误，没问题，有多种方式可以手动更正转录。[查看这里如何操作](/docs/recorder/editing/captions)。
 
-## Generate captions via CLI
+## 通过 CLI 生成字幕
 
-For [external recordings](/docs/recorder/external-recordings), you can also generate captions via the CLI.
+对于[外部录制](/docs/recorder/external-recordings)，您也可以通过 CLI 生成字幕。
 
 ```
 bun sub.ts
 ```
 
-Note that the names of the files you want to transcribe need to start with the prefix `webcam`, all other files will be ingored.
-The JSON files containing the captions will be generated and saved under `public/<composition-id>/sub[timestamp].json`.
+请注意，您想转录的文件的名称需要以 `webcam` 前缀开头，其他文件将被忽略。
+包含字幕的 JSON 文件将会生成并保存在 `public/<composition-id>/sub[timestamp].json` 下。
 
-## Non-english languages
+## 非英语语言
 
-If you do not record in English, edit the `config/whisper.ts` file.
+如果您不是用英语录制，请编辑 `config/whisper.ts` 文件。
 
-Set the language to a [supported value](/docs/install-whisper-cpp/transcribe#language) change change the `model` to a [supported value](/docs/install-whisper-cpp/download-whisper-model#model) that does not end in `.en`.  
-It is advised to choose a larger model if you are transcribing in a non-english language.
+将语言设置为 [支持的值](/docs/install-whisper-cpp/transcribe#language)，并将 `model` 更改为不以 `.en` 结尾的 [支持的值](/docs/install-whisper-cpp/download-whisper-model#model)。
+建议在非英语语言中转录时选择一个更大的模型。 
+
+

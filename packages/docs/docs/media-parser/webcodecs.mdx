@@ -1,23 +1,22 @@
 ---
 image: /generated/articles-docs-media-parser-webcodecs.png
 id: webcodecs
-title: Decoding a video with WebCodecs and @remotion/media-parser
+title: 使用 WebCodecs 和 @remotion/media-parser 解码视频
 sidebar_label: WebCodecs
 slug: /media-parser/webcodecs
 crumb: "@remotion/media-parser"
 ---
 
-
-[`parseMedia()`](/docs/media-parser/parse-media) is able to extract tracks and samples from audio and video in a format that is suitable for usage with WebCodecs APIs.  
+[`parseMedia()`](/docs/media-parser/parse-media) 能够从音频和视频中提取轨道和样本，以适合与 WebCodecs API 一起使用的格式。
 
 :::warning
-**Unstable API**: This package is experimental. We might change the API at any time, until we remove this notice.
+**不稳定的 API**：此软件包是实验性的。我们可能随时更改 API，直到我们删除此通知。
 :::
 
 
-## Minimal example
+## 最小示例
 
-```tsx twoslash title="Reading video frames"
+```tsx twoslash title="读取视频帧"
 // @module: es2022
 // @target: es2017
 import {parseMedia, OnAudioTrack, OnVideoTrack} from '@remotion/media-parser';
@@ -37,59 +36,59 @@ const result = await parseMedia({
 });
 ```
 
-## Why is this useful?
+## 这有什么用处？
 
-WebCodecs is the fastest way to decode videos in the browser.  
-WebAssembly solutions need to strip the CPU-specific optimizations and cannot benefit from hardware acceleration.
+WebCodecs 是在浏览器中解码视频的最快方式。  
+WebAssembly 解决方案需要剥离特定于 CPU 的优化，并且无法受益于硬件加速。
 
-To decode a video using WebCodecs, the binary format of a video needs to be understood and parsed.  
-This is a meticulous task that requires a lot of domain knowledge.  
+要使用 WebCodecs 解码视频，需要理解和解析视频的二进制格式。  
+这是一项需要大量领域知识的细致任务。
 
-Video files usually come in one of two container formats: ISO BMFF (.mp4, .mov) or Matroska (.webm, .mkv).  
-Libraries like mp4box.js do a good job of parsing these containers, but are scoped to the specific container format, meaning you need to mix multiple libraries.  
+视频文件通常以两种容器格式之一出现：ISO BMFF（.mp4、.mov）或 Matroska（.webm、.mkv）。  
+像 mp4box.js 这样的库很好地解析了这些容器，但是仅限于特定的容器格式，这意味着您需要混合多个库。
 
-[`parseMedia()`](/docs/media-parser/parse-media) allows to to read an arbitrary video file (in the future: an arbitrary media file) and interface with it regardless of container, video codec and audio codec.  
+[`parseMedia()`](/docs/media-parser/parse-media) 允许读取任意视频文件（将来：任意媒体文件）并与之交互，而不受容器、视频编解码器和音频编解码器的限制。
 
-It uses modern Web APIs like `fetch()`, `ReadableStream` and resizeable ArrayBuffers, and returns data structures that are designed to be used with WebCodecs APIs.
+它使用现代 Web API，如 `fetch()`、`ReadableStream` 和可调整大小的 ArrayBuffers，并返回设计用于与 WebCodecs API 一起使用的数据结构。
 
-## Will Remotion switch to WebCodecs?
+## Remotion 会转换到 WebCodecs 吗？
 
-Not in the foreseeable future - Remotion currently renders videos with FFmpeg and a headless browser.  
-FFmpeg is just as fast as WebCodecs (they share the same code) - therefore it is not necessary to switch to WebCodecs.
+在可预见的未来不会 - Remotion 目前使用 FFmpeg 和无头浏览器渲染视频。  
+FFmpeg 与 WebCodecs 一样快（它们共享相同的代码）- 因此没有必要转换到 WebCodecs。
 
-Remotion cannot export videos in the browser, because browsers don't have APIs for capturing the viewport.  
-An exception is the `canvas` element, however Remotion supports all ways of drawing to the viewport: HTML, CSS, SVG, and Canvas.
+Remotion 无法在浏览器中导出视频，因为浏览器没有用于捕获视口的 API。  
+一个例外是 `canvas` 元素，但是 Remotion 支持所有绘制到视口的方式：HTML、CSS、SVG 和 Canvas。
 
-We are interested in WebCodecs because it still has the potential to solve a lot of problems for developers and `@remotion/media-parser` as a whole can solve a lot of problems for users.
+我们对WebCodecs感兴趣，因为它仍然有潜力解决许多开发人员的问题，而`@remotion/media-parser`作为一个整体可以解决许多用户的问题。
 
-See also: [Can I render videos in the browser?](/docs/miscellaneous/render-in-browser).
+另请参阅：[我可以在浏览器中渲染视频吗？](/docs/miscellaneous/render-in-browser).
 
-## Practical considerations
+## 实际考虑
 
-If you use `parseMedia()` with codecs, make the following considerations for your implementation.
+如果您在实现中使用了带有编解码器的`parseMedia()`，请考虑以下内容。
 
-### Check browser support for `@remotion/media-parser`
+### 检查浏览器是否支持`@remotion/media-parser`
 
-Remotion requires the `fetch()` and Resizeable ArrayBuffer APIs to be present.  
-Check if your runtime supports these APIs before you use `parseMedia()`.
+Remotion需要`fetch()`和Resizeable ArrayBuffer API。  
+在使用`parseMedia()`之前，请检查您的运行时是否支持这些API。
 
 ```tsx
 const canUseMediaParser = typeof fetch === 'function' && typeof new ArrayBuffer().resize === 'function';
 ```
 
-### Check if browser has `VideoDecoder` and `AudioDecoder`
+### 检查浏览器是否具有`VideoDecoder`和`AudioDecoder`
 
-Chrome has both `VideoDecoder` and `AudioDecoder`.  
-Firefox has support for `VideoDecoder` and `AudioDecoder` only if the `dom.media.webcodecs.enabled` flag is enabled.  
-Safari has support for `VideoDecoder`, but not `AudioDecoder`. You can decode the video track but not the audio track.
+Chrome同时具有`VideoDecoder`和`AudioDecoder`。  
+Firefox仅在启用`dom.media.webcodecs.enabled`标志时才支持`VideoDecoder`和`AudioDecoder`。  
+Safari支持`VideoDecoder`，但不支持`AudioDecoder`。您可以解码视频轨道但无法解码音频轨道。
 
 :::note
-Please help [improve this page](https://github.com/remotion-dev/remotion/edit/main/packages/docs/docs/media-parser/webcodecs.mdx) if this information is outdated.
+如果此信息已过时，请帮助[改进此页面](https://github.com/remotion-dev/remotion/edit/main/packages/docs/docs/media-parser/webcodecs.mdx)。
 :::
 
-You can choose to not receive samples if the corresponding decoder is not supported in the browser.
+如果浏览器不支持相应的解码器，您可以选择不接收样本。
 
-```tsx twoslash title="Rejecting samples"
+```tsx twoslash title="拒绝样本"
 // @noErrors
 import type {OnAudioTrack, OnVideoTrack} from '@remotion/media-parser';
 
@@ -112,13 +111,13 @@ const onAudioTrack: OnAudioTrack = (track) => {
 };
 ```
 
-### Check if the browser supports the codec
+### 检查浏览器是否支持编解码器
 
-Not all browsers support all codecs that `parseMedia()` emits.  
-The best way is to use `AudioDecoder.isConfigSupported()` and `VideoDecoder.isConfigSupported()` to check if the browser supports the codec.  
-These are async APIs, fortunately `onAudioTrack` and `onVideoTrack` allow async code as well.
+并非所有浏览器都支持`parseMedia()`发出的所有编解码器。  
+最佳方法是使用`AudioDecoder.isConfigSupported()`和`VideoDecoder.isConfigSupported()`来检查浏览器是否支持编解码器。  
+这些是异步API，幸运的是`onAudioTrack`和`onVideoTrack`也允许异步代码。
 
-```tsx twoslash title="Checking if the browser supports the codec"
+```tsx twoslash title="检查浏览器是否支持编解码器"
 // @noErrors
 import type {OnAudioTrack, OnVideoTrack} from '@remotion/media-parser';
 
@@ -146,17 +145,17 @@ const onAudioTrack: OnAudioTrack = async (track) => {
 ```
 
 :::note
-Perform these checks in addition to the previously mentioned ones.
+除了先前提到的检查之外，还要执行这些检查。
 :::
 
-### Error handling
+### 错误处理
 
-If an error occurs, you get the error in the `error` callback that you passed to the `VideoDecoder` or `AudioDecoder` constructor.  
-The decoder `state` will switch to `"closed"`, however, you will still receive samples.  
+如果发生错误，您将在传递给`VideoDecoder`或`AudioDecoder`构造函数的`error`回调中收到错误。  
+解码器的`state`将切换为`"closed"`，但您仍将收到样本。  
 
-If the decoder is in `"closed"` state, you should stop passing them to VideoDecoder.
+如果解码器处于`"closed"`状态，则应停止将它们传递给VideoDecoder。
 
-```tsx twoslash title="Error handling"
+```tsx twoslash title="错误处理"
 import type {OnVideoTrack} from '@remotion/media-parser';
 
 const onVideoTrack: OnVideoTrack = async (track) => {
@@ -171,21 +170,21 @@ const onVideoTrack: OnVideoTrack = async (track) => {
 ```
 
 :::note
-- The same logic goes for `AudioDecoder`.  
-- You should still perform the checks previously mentioned, but they are omitted from this example.  
+- 对于`AudioDecoder`也适用相同的逻辑。  
+- 你仍然应执行先前提到的检查，但它们在此示例中被省略了。  
 :::
 
-### Queuing samples
+### 排队样本
 
-Extracting samples is the fast part, decoding them is the slow part.  
-If too many samples are in the queue, it will negatively impact the performance of the page.  
+提取样本是快速部分，解码它们是慢速部分。  
+如果队列中有太多样本，将会对页面的性能产生负面影响。  
 
-Fortunately, the parsing process can be temporarily paused while the decoder is busy.  
-For this, make the sample processing function async. Remotion will await it before processing the file further.
+幸运的是，在解码器忙碌时，解析过程可以暂时暂停。  
+为此，将样本处理函数设置为异步。Remotion将在继续处理文件之前等待它。
 
-This will make it so that samples that are not yet needed are not kept in memory, keeping the decoding process efficient.
+这将使尚未需要的样本不会保留在内存中，从而保持解码过程的高效性。
 
-```tsx twoslash title="Only keeping 10 samples in the queue at a time"
+```tsx twoslash title="一次仅保留10个样本在队列中"
 import type {OnVideoTrack} from '@remotion/media-parser';
 
 const onVideoTrack: OnVideoTrack = async (track) => {
@@ -212,16 +211,16 @@ const onVideoTrack: OnVideoTrack = async (track) => {
 ```
 
 :::note
-- The same logic goes for `AudioDecoder`.  
-- You should still perform the checks previously mentioned, but they are omitted from this example.  
+- 对于`AudioDecoder`也适用相同的逻辑。  
+- 你仍然应执行先前提到的检查，但它们在此示例中被省略了。  
 :::
 
-### Handling stretched videos
+### 处理拉伸视频
 
-Some videos don't have the same dimensions internally as they are presented.  
-For example, [this sample video](https://github.com/remotion-dev/remotion/blob/main/packages/example/public/stretched-vp8.webm) has a coded width of 1440, but a presentation width of 1920.
+有些视频在内部的尺寸与呈现的尺寸不同。  
+例如，[此示例视频](https://github.com/remotion-dev/remotion/blob/main/packages/example/public/stretched-vp8.webm) 的编码宽度为1440，但呈现宽度为1920。
 
-```tsx twoslash title="Handling stretched videos"
+```tsx twoslash title="处理拉伸视频"
 import type {OnVideoTrack} from '@remotion/media-parser';
 
 const onVideoTrack: OnVideoTrack = async (track) => {
@@ -241,18 +240,18 @@ const onVideoTrack: OnVideoTrack = async (track) => {
 };
 ```
 
-This means the frame is internally encoded in a 4:3 aspect ratio, but the frame should as a 16:9.  
-By passing all of `codedWidth`, `codedHeight`, `displayAspectWidth` and `displayAspectHeight` to `new EncodedVideoChunk()`, the decoder should handle the stretching correctly.
+这意味着帧在内部以4:3的宽高比编码，但应以16:9的宽高比显示。  
+通过将`codedWidth`、`codedHeight`、`displayAspectWidth`和`displayAspectHeight`全部传递给`new EncodedVideoChunk()`，解码器应正确处理拉伸。
 
-### Handling rotation
+### 处理旋转
 
-WebCodecs do not seem to consider rotation.  
-For example, this [video recorded with an iPhone](https://github.com/remotion-dev/remotion/blob/main/packages/example/public/iphone-hevc.mov) has metadata that it should be displayed at 90 degrees rotation.
+WebCodecs似乎不考虑旋转。  
+例如，这个[使用iPhone录制的视频](https://github.com/remotion-dev/remotion/blob/main/packages/example/public/iphone-hevc.mov) 具有应该以90度旋转显示的元数据。
 
-`VideoDecoder` is not able to rotate the video for you, so you might need to do it yourself, for example by drawing it to a canvas.  
-Fortunately `parseMedia()` returns the rotation of the track:
+`VideoDecoder`无法为您旋转视频，因此您可能需要自行处理，例如通过将其绘制到画布上。  
+幸运的是，`parseMedia()`返回轨道的旋转：
 
-```tsx twoslash title="Handling stretched videos"
+```tsx twoslash title="处理拉伸视频"
 import type {OnVideoTrack} from '@remotion/media-parser';
 
 const onVideoTrack: OnVideoTrack = async (track) => {
@@ -261,14 +260,14 @@ const onVideoTrack: OnVideoTrack = async (track) => {
 };
 ```
 
-See here for an example of how a [video frame is turned into a bitmap](https://github.com/remotion-dev/remotion/blob/1a99dadcd8e700bf94abdfa3f5506329d6c9c182/packages/example/src/Encoder/SrcEncoder.tsx#L98-L102) and rotated.
+查看这里的示例，了解[如何将视频帧转换为位图](https://github.com/remotion-dev/remotion/blob/1a99dadcd8e700bf94abdfa3f5506329d6c9c182/packages/example/src/Encoder/SrcEncoder.tsx#L98-L102)并进行旋转。
 
-### Understanding the different dimensions of a video
+### 理解视频的不同维度
 
-As just mentioned, some videos might be stretched or rotated.  
-In an extreme case, it is possible that you stumble opon a video that has three different dimensions.
+正如刚才提到的，一些视频可能会被拉伸或旋转。  
+在极端情况下，可能会遇到具有三个不同维度的视频。
 
-```tsx twoslash title="Handling stretched videos"
+```tsx twoslash title="处理拉伸视频"
 import type {OnVideoTrack} from '@remotion/media-parser';
 
 const onVideoTrack: OnVideoTrack = async (track) => {
@@ -287,19 +286,19 @@ const onVideoTrack: OnVideoTrack = async (track) => {
 };
 ```
 
-The meaning of it is:
+其含义是：
 
-- `codedWidth` and `codedHeight` are the dimensions of the video in the codec's internal format.
-- `displayAspectWidth` and `displayAspectHeight` are scaled dimensions of how the video should be displayed, but with rotation not yet applied.
+- `codedWidth` 和 `codedHeight` 是视频在编解码器内部格式中的尺寸。
+- `displayAspectWidth` 和 `displayAspectHeight` 是视频应该显示的缩放尺寸，但尚未应用旋转。
 :::note
-These are not necessarily the actual dimensions of how a video is presented to the user, because rotation is not yet applied.  
-The fields are named like this because they correspond with what should be passed to `new EncodedVideoChunk()`.
+这些不一定是视频呈现给用户的实际尺寸，因为尚未应用旋转。  
+这些字段的命名是这样的，因为它们对应于应传递给 `new EncodedVideoChunk()` 的内容。
 :::
-- `width` and `height` are the dimensions of the video how it would be displayed by a Player.
+- `width` 和 `height` 是播放器显示视频时的尺寸。
 
-### Google Chrome quirks
+### Google Chrome 的怪癖
 
-We find that as of now, `AudioDecoder.isConfigSupported()` are not 100% reliable. For example, Chrome marks this config as supported, but then throws an error nonetheless.
+我们发现截至目前，`AudioDecoder.isConfigSupported()` 不是100%可靠的。例如，Chrome标记此配置为受支持，但仍然会抛出错误。
 
 ```tsx
 const config = {codec: 'opus', numberOfChannels: 6, sampleRate: 44100};
@@ -310,18 +309,18 @@ const decoder = new AudioDecoder({ error: console.error, output: console.log });
 decoder.configure(config); // Unsupported configuration. Check isConfigSupported() prior to calling configure().
 ```
 
-Consider this in your implementation.
+在您的实现中考虑这一点。
 
-### Safari performance
+### Safari 性能
 
-We find that with our reference implementation, Safari chokes on decoding the full Big Buck Bunny video. Tips are welcome, and otherwise we encourage to consider if and which parts of WebCodecs APIs you want to support.
+我们发现在我们的参考实现中，Safari 在解码完整的 Big Buck Bunny 视频时会出现问题。欢迎提供建议，否则我们鼓励您考虑是否以及要支持 WebCodecs API 的哪些部分。
 
-## Reference implementation
+## 参考实现
 
-A testbed with many different codecs and edge cases is available [here](https://github.com/remotion-dev/remotion/blob/main/packages/example/src/DecoderDemo.tsx).  
-Follow [these instructions](https://www.remotion.dev/docs/contributing#testing-your-changes) to run the testbed locally.
+一个包含许多不同编解码器和边缘情况的测试平台可在[此处](https://github.com/remotion-dev/remotion/blob/main/packages/example/src/DecoderDemo.tsx)找到。  
+按照[这些说明](https://www.remotion.dev/docs/contributing#testing-your-changes)在本地运行测试平台。```
 
-## License reminder
+## 许可证提醒   
 
-Like Remotion itself, this package is licensed under the [Remotion License](https://remotion.dev/license).  
-TL;DR: Individuals and small teams can use this package, but teams of 4+ people [need a company license](https://remotion.pro/license).
+与 Remotion 本身一样，此软件包根据 [Remotion 许可证](https://remotion.dev/license) 进行许可。  
+简而言之：个人和小团队可以使用此软件包，但4人以上的团队需要一份 [公司许可证](https://remotion.pro/license)。

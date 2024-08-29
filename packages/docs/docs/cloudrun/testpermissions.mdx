@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Makes a call to the [Test Iam Permissions](https://cloud.google.com/resource-manager/reference/rest/v3/projects/testIamPermissions) method of the Resource Manager API in GCP, which returns the list of permissions the Service Account has on the GCP Project. This is then validated against the list of permissions required for the version of Remotion.
+调用 GCP 中 Resource Manager API 的 [Test Iam Permissions](https://cloud.google.com/resource-manager/reference/rest/v3/projects/testIamPermissions) 方法，该方法返回服务帐号在 GCP 项目上拥有的权限列表。然后将其与 Remotion 版本所需的权限列表进行验证。
 
-The CLI equivalent is `npx remotion cloudrun permissions`.
+CLI 等效命令为 `npx remotion cloudrun permissions`。
 
-The function does not reject with an error if a permission is missing, rather the missing permission is indicated in the return value.
+如果缺少权限，则该函数不会拒绝错误，而是在返回值中指示缺少的权限。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -32,15 +32,15 @@ for (const result of results) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following property:
+具有以下属性的对象：
 
 ### `onTest?`
 
-_optional_
+_可选_
 
-A callback function that gets called every time a new test has been executed. This allows you to react to new test results coming in much faster than waiting for the return value of the function. Example:
+每次执行新测试时调用的回调函数。这使您可以更快地对新的测试结果做出反应，而不必等待函数的返回值。示例：
 
 ```ts twoslash
 // @module: esnext
@@ -56,19 +56,20 @@ const { results } = await testPermissions({
 });
 ```
 
-## Return value
+## 返回值
 
-**An array of objects** containing simulation results of each necessary permission. The objects contain the following keys:
+**包含每个必要权限的模拟结果的对象数组**。对象包含以下键：
 
 ### `decision`
 
-Either `true` or `false`.
+为 `true` 或 `false`。
 
 ### `permissionName`
 
-The identifier of the required permission. See the [Permissions page](/docs/cloudrun/permissions) to see a list of required permissions.
+所需权限的标识符。请查看 [权限页面](/docs/cloudrun/permissions) 查看所需权限列表。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/iam-validation/testPermissions.ts)
-- [Permissions](/docs/cloudrun/permissions)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/iam-validation/testPermissions.ts)
+- [权限](/docs/cloudrun/permissions)
+

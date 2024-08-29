@@ -1,26 +1,28 @@
+```
 ---
 image: /generated/articles-docs-enametoolong.png
 id: enametoolong
-title: ENAMETOOLONG
-crumb: "Troubleshooting"
+title: 文件名过长
+crumb: "故障排除"
 ---
 
 ```
-Command failed with ENAMETOOLONG: ffmpeg ...
+ENAMETOOLONG: ffmpeg ... 命令失败
 ```
 
-This error occurs if Remotion is used on Windows and too many audio layers are in the video so that an FFmpeg command gets generated that is longer than the maximum allowed Windows command length (8192 characters).
+如果在 Windows 上使用 Remotion 并且视频中有太多音频层，导致生成的 FFmpeg 命令长度超过 Windows 允许的最大命令长度（8192 个字符），就会出现此错误。
 
-Unfortunately, FFmpeg does not have any other alternative way to specify a massive amount of inputs, so Remotion can not fix this issue. Here are some recommendations instead:
+不幸的是，FFmpeg 没有其他替代方法来指定大量输入，因此 Remotion 无法解决此问题。以下是一些建议：
 
-## Mute videos that have no sound
+## 将没有声音的视频静音
 
-If you have videos without sound, add the `muted` property, so they won't be added to the mix.
+如果有没有声音的视频，请添加 `muted` 属性，这样它们就不会被添加到混合中。
 
-## Use a different operating system
+## 使用不同的操作系统
 
-macOS and Linux have a much longer maximum command length. Render the same video on a different operating system or use Linux for Windows Subsystem.
+macOS 和 Linux 具有更长的最大命令长度。在不同操作系统上渲染相同的视频，或者在 Windows 子系统中使用 Linux。
 
-## Render the video partially
+## 部分渲染视频
 
-Render only a portion of a video using the [`--frames`](/docs/cli/render#--frames) property, and add portions together using an [FFmpeg concat command](https://stackoverflow.com/a/11175851)
+仅使用 [`--frames`](/docs/cli/render#--frames) 属性渲染视频的一部分，并使用 [FFmpeg concat 命令](https://stackoverflow.com/a/11175851) 将部分组合在一起
+```

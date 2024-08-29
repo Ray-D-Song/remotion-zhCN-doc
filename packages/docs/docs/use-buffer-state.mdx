@@ -5,9 +5,9 @@ id: use-buffer-state
 crumb: "API"
 ---
 
-_available from 4.0.111_
+_从4.0.111版本开始可用_
 
-You can use this hook inside your [composition](/docs/terminology/composition) to retrieve functions that can inform the Player that your component is currently loading data.
+您可以在您的[组合](/docs/terminology/composition)中使用此钩子来检索可以通知播放器您的组件当前正在加载数据的函数。
 
 ```tsx twoslash title="MyComp.tsx"
 import React from "react";
@@ -34,20 +34,20 @@ const MyComp: React.FC = () => {
 
 ## API
 
-Returns an object with one method:
+返回一个具有一个方法的对象：
 
 ### `delayPlayback()`
 
-Tells the Player to delay playback until you call `unblock()`.
+告诉播放器延迟播放，直到您调用`unblock()`。
 
-## Usage notes
+## 使用说明
 
-### Handle unmounting
+### 处理卸载
 
-The user might seek to a different portion of the video which is immediately available.  
-Use the cleanup function of <code>useEffect()</code> to clear the handle when your component is unmounted.
+用户可能会寻找视频的不同部分，这些部分立即可用。  
+使用<code>useEffect()</code>的清理函数在您的组件卸载时清除处理。
 
-```tsx twoslash title="❌ Causes problems with React strict mode"
+```tsx twoslash title="❌ 与React严格模式冲突"
 import React, { useState } from "react";
 import { useBufferState } from "remotion";
 
@@ -65,11 +65,11 @@ const MyComp: React.FC = () => {
 };
 ```
 
-### Avoid calling inside `useState()`
+### 避免在`useState()`内调用
 
-While the following implementation works in production, it fails in development if you are inside React Strict mode, because the `useState()` hook is called twice, which causes the first invocation of the buffer to never be cleared and the video to buffer forever.
+虽然以下实现在生产环境中有效，但在开发中失败，如果您在React严格模式内部，因为`useState()`钩子被调用两次，导致缓冲的第一次调用永远不会被清除，视频将永远缓冲。
 
-```tsx twoslash title="❌ Doesn't clear the buffer handle when seeking to a different portion of a video"
+```tsx twoslash title="❌ 在寻找视频的不同部分时不清除缓冲处理"
 import React, { useState } from "react";
 import { useBufferState } from "remotion";
 
@@ -91,13 +91,13 @@ const MyComp: React.FC = () => {
 };
 ```
 
-### Together with `delayRender()`
+### 与`delayRender()`一起使用
 
-[`delayRender()`](/docs/delay-render) is a different API that comes into play during rendering.
+[`delayRender()`](/docs/delay-render)是一个在渲染过程中发挥作用的不同API。
 
-If you are loading data, you might want to both delay the screenshotting of your component during rendering and start a buffering state during Preview, in which case you need to use both APIs together.
+如果您正在加载数据，您可能希望在渲染过程中延迟组件的截图以及在预览期间启动缓冲状态，这种情况下，您需要同时使用这两个API。
 
-```tsx twoslash title="Using delayRender() and delayPlayback() together"
+```tsx twoslash title="同时使用delayRender()和delayPlayback()"
 import React from "react";
 import { useBufferState, delayRender, continueRender } from "remotion";
 
@@ -122,6 +122,7 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Buffer state](/docs/player/buffer-state)
+- [缓冲状态](/docs/player/buffer-state)
+

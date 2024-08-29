@@ -1,38 +1,38 @@
 ---
 image: /generated/articles-docs-cloudrun-upgrading.png
 id: upgrading
-title: Upgrading Cloud Run
+title: 升级 Cloud Run
 slug: /cloudrun/upgrading
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以保持最新的破坏性更改。</p>
 </ExperimentalBadge>
 
 import {Prerelease} from "../../components/PrereleaseVersion"
 
-- Determine the newest version from the [Releases page](https://github.com/remotion-dev/remotion/releases).
-- Upgrade all packages to the newest version (`@remotion/cloudrun`, but also `remotion`, `@remotion/cli` etc.)
+- 从 [发布页面](https://github.com/remotion-dev/remotion/releases) 确定最新版本。
+- 将所有包升级到最新版本（`@remotion/cloudrun`，以及 `remotion`，`@remotion/cli` 等）。
 
 <Prerelease onlySnippet packageName="@remotion/cloudrun"/>
 
-- (Optional): Remove the old versions of the service:
+- （可选）：删除旧版本的服务：
 
 :::info
-You only should do this if the service is not being used anymore. If you are still using it in production, you can just skip this step.
+只有在服务不再使用时才应执行此操作。如果仍在生产中使用，请跳过此步骤。
 :::
 
 ```
 npx remotion cloudrun services rmall -y
 ```
 
-- Deploy the newest version of the Remotion Cloud Run service:
+- 部署最新版本的 Remotion Cloud Run 服务：
 
 ```
 npx remotion cloudrun services deploy
 ```
 
-- Update the site:
+- 更新站点：
 
 ```
 npx remotion cloudrun sites create src/index.ts --site-name=my-name
@@ -40,18 +40,20 @@ npx remotion cloudrun sites create src/index.ts --site-name=my-name
 
 :::info
 
-Pass `--site-name` with the name of an existing site to update it. The URL will stay the same but older services may not be able to render the updated site.
+使用现有站点的名称传递 `--site-name` 以更新它。URL 将保持不变，但旧服务可能无法呈现更新后的站点。
 
-If you don't pass `--site-name` a new site URL will be generated. You'll need to update the [`serveUrl`](/docs/cloudrun/rendermediaoncloudrun#serveurl) parameter in your [`renderMediaOnCloudrun()`](/docs/cloudrun/rendermediaoncloudrun) calls. Old deployed services can still render by specifying the old serve URL.
+如果不传递 `--site-name`，将生成一个新的站点 URL。您需要更新 [`serveUrl`](/docs/cloudrun/rendermediaoncloudrun#serveurl) 参数在您的 [`renderMediaOnCloudrun()`](/docs/cloudrun/rendermediaoncloudrun) 调用中。旧部署的服务仍然可以通过指定旧的 serve URL 进行呈现。
 :::
 
-## Separating production and testing environments
+## 分离生产和测试环境
 
-If you already shipped Remotion Cloud Run to production, you can upgrade without incurring any downtime:
+如果您已将 Remotion Cloud Run 部署到生产环境，您可以在不产生任何停机时间的情况下进行升级：
 
-- Each deployed service has a version (see them using `npx remotion cloudrun services ls`).  
-  Use the same version of the `@remotion/cloudrun` package to invoke the function.
+- 每个部署的服务都有一个版本（使用 `npx remotion cloudrun services ls` 查看它们）。
+  使用相同版本的 `@remotion/cloudrun` 包来调用函数。 
 
-- You can have multiple services with different versions deployed. Use the [`compatibleOnly`](/docs/cloudrun/getservices#compatibleonly) parameter to find services that match the version of the `@remotion/cloudrun` package.
 
-- Sites/`serveUrl`'s also are version-dependant. Create them with the same version of Remotion that you render them with. Remotion will tolerate mismatches if there are no incompatibilities, but will issue a warning that you might not have all the newest features and bugfixes in the bundled site.
+
+- 您可以部署具有不同版本的多个服务。使用[`compatibleOnly`](/docs/cloudrun/getservices#compatibleonly)参数查找与`@remotion/cloudrun`包版本匹配的服务。
+
+- Sites/`serveUrl`也取决于版本。请使用与您渲染它们的Remotion相同的版本创建它们。如果没有不兼容性，Remotion将容忍不匹配，但会发出警告，指出您可能没有捆绑站点中的所有最新功能和错误修复。

@@ -4,11 +4,11 @@ title: preloadGif()
 crumb: "@remotion/gif"
 ---
 
-_available from v3.3.38_
+_从 v3.3.38 版本开始可用_
 
-Call `preloadGif(src)` with the URL of the GIF that you would like to load and the GIF will be prepared for display in the [`<Player>`](/docs/player).
+调用 `preloadGif(src)` 并传入您想要加载的 GIF 的 URL，GIF 将被准备好以在 [`<Player>`](/docs/player) 中显示。
 
-The function returns an object with two entries: `waitUntilDone()` that returns a Promise which can be awaited and `free()` which will cancel preloading or free up the memory if the GIF is not being used anymore.
+该函数返回一个包含两个条目的对象：`waitUntilDone()` 返回一个可以等待的 Promise，`free()` 可以取消预加载或释放内存，如果 GIF 不再被使用。
 
 ```ts twoslash
 import { preloadGif } from "@remotion/gif";
@@ -25,7 +25,8 @@ waitUntilDone().then(() => {
 });
 ```
 
-## See also
+## 另请参阅
 
 - [`<Gif>`](/docs/gif)
-- [Preloading](/docs/preload)
+- [预加载](/docs/preload)
+

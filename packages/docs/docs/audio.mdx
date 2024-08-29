@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-audio.png
-title: <Audio>
+title: <音频>
 id: audio
-crumb: "How to"
+crumb: "如何"
 ---
 
-Using this component, you can add audio to your video. All audio formats which are supported by Chromium are supported by the component.
+使用此组件，您可以向您的视频添加音频。所有Chromium支持的音频格式都受到该组件的支持。
 
 ## API
 
 ### `src`
 
-[Put an audio file into the `public/` folder](/docs/assets) and use [`staticFile()`](/docs/staticfile) to reference it.
+[将音频文件放入 `public/` 文件夹](/docs/assets) 并使用 [`staticFile()`](/docs/staticfile) 来引用它。
 
 ```tsx twoslash
 import { AbsoluteFill, Audio, staticFile } from "remotion";
@@ -27,9 +27,9 @@ export const MyVideo = () => {
 
 ### `volume`
 
-The component also accepts a `volume` props which allows you to control the volume of the audio in it's entirety or frame by frame. Read the page on [using audio](/docs/using-audio) to learn more.
+该组件还接受一个 `volume` 属性，允许您控制音频的整体音量或逐帧音量。阅读 [使用音频](/docs/using-audio) 页面以了解更多信息。
 
-```tsx twoslash title="Setting a static volume"
+```tsx twoslash title="设置静态音量"
 import { AbsoluteFill, Audio, staticFile } from "remotion";
 
 export const MyVideo = () => {
@@ -41,7 +41,7 @@ export const MyVideo = () => {
 };
 ```
 
-```tsx twoslash title="Changing the volume over time"
+```tsx twoslash title="随时间改变音量"
 import { AbsoluteFill, Audio, interpolate, staticFile } from "remotion";
 
 export const MyVideo = () => {
@@ -59,29 +59,29 @@ export const MyVideo = () => {
 ```
 
 :::note
-On iOS Safari, it's not possible to granularly change the volume of a media tag.  
-Only values `0` and `1` will be respected by the browser.
+在 iOS Safari 上，无法精细地更改媒体标签的音量。  
+浏览器只会尊重值 `0` 和 `1`。
 :::
 
 ### `loopVolumeCurveBehavior`<AvailableFrom v="4.0.142" />
 
-Controls the `frame` which is returned when using the [`volume`](#volume) callback function and adding the [`loop`](#loop) attribute.
+控制在使用 [`volume`](#volume) 回调函数并添加 [`loop`](#loop) 属性时返回的 `frame`。
 
-Can be either `"repeat"` (default, start from 0 on each iteration) or `"extend"` (keep increasing frames).
+可以是 `"repeat"`（默认值，在每次迭代时从 0 开始）或 `"extend"`（保持增加帧）。
 
 ### `startFrom` / `endAt`
 
-`<Audio>` has two more helper props you can use:
+`<音频>` 还有两个更多的辅助属性可供使用：
 
-- `startFrom` will remove a portion of the audio at the beginning
-- `endAt` will remove a portion of the audio at the end
+- `startFrom` 将在开头删除音频的一部分
+- `endAt` 将在结尾删除音频的一部分
 
-In the following example, we assume that the [`fps`](/docs/composition#fps) of the composition is `30`.
+在以下示例中，我们假设合成的 [`fps`](/docs/composition#fps) 是 `30`。
 
-By passing `startFrom={60}`, the playback starts immediately, but with the first 2 seconds of the audio trimmed away.  
-By passing `endAt={120}`, any audio after the 4 second mark in the file will be trimmed away.
+通过传递 `startFrom={60}`，播放立即开始，但音频的前 2 秒将被裁剪掉。  
+通过传递 `endAt={120}`，文件中 4 秒标记后的任何音频都将被裁剪掉。
 
-The audio will play the range from `00:02:00` to `00:04:00`, meaning the audio will play for 2 seconds.
+音频将播放从 `00:02:00` 到 `00:04:00` 的范围，意味着音频将播放 2 秒。
 
 ```tsx twoslash
 import { AbsoluteFill, Audio, staticFile } from "remotion";
@@ -97,9 +97,9 @@ export const MyVideo = () => {
 
 ### `playbackRate`<AvailableFrom v="2.2.0"/>
 
-You can use the `playbackRate` prop to control the speed of the audio. `1` is the default and means regular speed, `0.5` slows down the audio so it's twice as long and `2` speeds up the audio so it's twice as fast.
+您可以使用 `playbackRate` 属性来控制音频的速度。`1` 是默认值，表示正常速度，`0.5` 会减慢音频速度，使其变为原来的两倍长，`2` 会加快音频速度，使其变为原来的两倍快。
 
-While Remotion doesn't limit the range of possible playback speeds, in development mode the [`HTMLMediaElement.playbackRate`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate) API is used which throws errors on extreme values. At the time of writing, Google Chrome throws an exception if the playback rate is below `0.0625` or above `16`.
+虽然 Remotion 不限制可能的播放速度范围，在开发模式下使用 [`HTMLMediaElement.playbackRate`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate) API，当播放速度超出极端值时会抛出错误。在撰写本文时，Google Chrome 在播放速度低于 `0.0625` 或高于 `16` 时会抛出异常。
 
 ```tsx twoslash
 import { AbsoluteFill, Audio, staticFile } from "remotion";
@@ -115,7 +115,7 @@ export const MyVideo = () => {
 
 ### `muted`<AvailableFrom v="2.0.0"/>
 
-The `muted` prop will be respected. It will lead to no audio being played while still keeping the audio tag mounted. It's value may change over time, for example to only mute a certain section of the audio.
+`muted` 属性将被尊重。这将导致不播放任何音频，同时保持音频标签已挂载。其值可能随时间而变化，例如仅静音音频的某个特定部分。
 
 ```tsx twoslash
 import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from "remotion";
@@ -132,13 +132,13 @@ export const MyVideo = () => {
 
 ### `name`<AvailableFrom v="4.0.71"/>
 
-_optional_
+_可选_
 
-A name and that will be shown as the label of the sequence in the timeline of the Remotion Studio. This property is purely for helping you keep track of items in the timeline.
+一个名称，将显示为 Remotion Studio 时间轴中序列的标签。此属性仅用于帮助您在时间轴中跟踪项目。
 
 ### `loop`<AvailableFrom v="3.2.29"/>
 
-You can use the `loop` prop to loop audio.
+您可以使用 `loop` 属性来循环播放音频。
 
 ```tsx twoslash
 import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from "remotion";
@@ -155,42 +155,42 @@ export const MyVideo = () => {
 
 ### `toneFrequency`<AvailableFrom v="4.0.47"/>
 
-Adjust the pitch of the audio - will only be applied during rendering.
+调整音频的音调 - 仅在渲染期间应用。
 
-Accepts a number between `0.01` and `2`, where `1` represents the original pitch. Values less than `1` will decrease the pitch, while values greater than `1` will increase it.
+接受一个介于 `0.01` 和 `2` 之间的数字，其中 `1` 代表原始音调。小于 `1` 的值将降低音调，而大于 `1` 的值将增加音调。
 
-A `toneFrequency` of 0.5 would lower the pitch by half, and a `toneFrequency` of `1.5` would increase the pitch by 50%.
+`toneFrequency` 为 0.5 会将音调降低一半，而 `toneFrequency` 为 `1.5` 会将音调提高 50%。
 
 ### `acceptableTimeShiftInSeconds`<AvailableFrom v="3.2.42"/>
 
-In the [Remotion Studio](/docs/terminology/studio) or in the [Remotion Player](/docs/player), Remotion will seek the audio if it gets too much out of sync with Remotion's internal time - be it due to the audio loading or the page being too slow to keep up in real-time. By default, a seek is triggered if `0.45` seconds of time shift is encountered. Using this prop, you can customize the threshold.
+在 [Remotion Studio](/docs/terminology/studio) 或 [Remotion Player](/docs/player) 中，如果音频与 Remotion 的内部时间相差太大 - 无论是由于音频加载还是页面无法实时跟上 - Remotion 将寻找音频。默认情况下，如果遇到 `0.45` 秒的时间偏移，将触发一次寻找。使用此属性，您可以自定义阈值。
 
 ### `allowAmplificationDuringRender`<AvailableFrom v="3.3.17"/>
 
-Make values for [`volume`](#volume) greater than `1` result in amplification during renders.
-In the Remotion Studio, the volume will be limited to `1`, since the browser cannot amplify audio.
+使 [`volume`](#volume) 大于 `1` 的值在渲染期间产生放大效果。
+在 Remotion Studio 中，音量将限制为 `1`，因为浏览器无法放大音频。
 
 ### `pauseWhenBuffering`<AvailableFrom v="4.0.111"/>
 
-If set to `true` and the audio is buffering, the Player will enter into the [native buffering state](/docs/player/buffer-state). The default is `false`, but will become `true` in Remotion 5.0.
+如果设置为 `true` 并且音频正在缓冲，播放器将进入[本机缓冲状态](/docs/player/buffer-state)。默认值为 `false`，但在 Remotion 5.0 中将变为 `true`。
 
 ### `showInTimeline`<AvailableFrom v="4.0.122"/>
 
-If set to `false`, no layer will be shown in the timeline of the Remotion Studio. The default is `true`.
+如果设置为 `false`，则不会在 Remotion Studio 的时间轴中显示任何图层。默认值为 `true`。
 
 ### `delayRenderTimeoutInMilliseconds`<AvailableFrom v="4.0.140" />
 
-Customize the [timeout](/docs/delay-render#modifying-the-timeout) of the [`delayRender()`](/docs/delay-render) call that this component makes.
+自定义此组件调用的 [`delayRender()`](/docs/delay-render) 的[超时](/docs/delay-render#modifying-the-timeout)。
 
 ### `delayRenderRetries`<AvailableFrom v="4.0.140" />
 
-Customize the [number of retries](/docs/delay-render#retrying) of the [`delayRender()`](/docs/delay-render) call that this component makes.
+自定义此组件调用的 [`delayRender()`](/docs/delay-render) 的[重试次数](/docs/delay-render#retrying)。
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/audio/Audio.tsx)
-- [Using audio](/docs/using-audio)
-- [Audio visualization](/docs/audio-visualization)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/audio/Audio.tsx)
+- [使用音频](/docs/using-audio)
+- [音频可视化](/docs/audio-visualization)
 - [`<Video />`](/docs/video)
 
 <Credits
@@ -203,7 +203,7 @@ Customize the [number of retries](/docs/delay-render#retrying) of the [`delayRen
       username: "evoxf1",
       contribution: (
         <>
-          <code>toneFrequency</code> prop
+          <code>toneFrequency</code> 属性
         </>
       ),
     },

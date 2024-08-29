@@ -1,11 +1,11 @@
 ---
 image: /generated/articles-docs-lambda-light-client.png
-sidebar_label: Light client
-title: Light client
+sidebar_label: 轻客户端
+title: 轻客户端
 crumb: "Lambda"
 ---
 
-The following methods and types can be imported from `@remotion/lambda/client`:
+以下方法和类型可以从 `@remotion/lambda/client` 中导入：
 
 ```tsx twoslash
 // organize-imports-ignore
@@ -32,15 +32,15 @@ import {
 ```
 
 :::info
-`getServiceClient()` was included from v4.0.60 to v4.0.81 by mistake. Use [`getAwsClient()`](/docs/lambda/getawsclient) instead.
+`getServiceClient()` 在 v4.0.60 到 v4.0.81 之间被错误地包含了。请使用 [`getAwsClient()`](/docs/lambda/getawsclient) 代替。
 :::
 
-These functions don't have any dependencies on our renderer and can be bundled for example with ESBuild or Webpack (like is the case for example in Next.js).
+这些函数不依赖于我们的渲染器，并且可以与 ESBuild 或 Webpack 一起打包（例如在 Next.js 中的情况）。
 
-Importing the light client on edge frameworks (Vercel Edge, Cloudflare Workers) is currently not supported.
+目前不支持在边缘框架（Vercel Edge、Cloudflare Workers）上导入轻客户端。
 
-**We don't recommend calling these functions from the browser directly, as you will leak your AWS credentials.**
+**我们不建议直接从浏览器调用这些函数，因为这样会泄漏您的 AWS 凭据。**
 
-Instead, this light client is meant to reduce the bundle size and avoid problems if you are calling Remotion Lambda APIs from another Lambda function and therefore need to bundle your function code.
+相反，这个轻客户端旨在减小捆绑包大小，并避免问题，如果您从另一个 Lambda 函数调用 Remotion Lambda API，并且因此需要捆绑您的函数代码。
 
-Commonly, Next.JS serverless endpoints or similar use AWS Lambda functions under the hood, for which `@remotion/lambda/client` can be used.
+通常，Next.JS 无服务器端点或类似的使用 AWS Lambda 函数作为底层，其中可以使用 `@remotion/lambda/client`。

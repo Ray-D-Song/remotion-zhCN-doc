@@ -2,79 +2,79 @@
 slug: 3-0
 title: Remotion 3.0
 author: Jonny Burger
-author_title: Chief Hacker @ Remotion
+author_title: Remotion首席黑客
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%203.0&description=@remotion/lambda,%20faster%20rendering,%20renderMedia()%20and%20React%2018
 ---
 
-After more than 10 months in development and 1400 commits, it feels so good to announce Remotion 3.0!
+经过超过10个月的开发和1400次提交，很高兴地宣布Remotion 3.0！
 
-I am convinced that Remotion Lambda is the best piece of software that I have ever written. It is the final puzzle piece needed to complete our vision: A full stack for developing video apps! Enjoy the changelog, and if you haven't, [check out the Remotion 3.0 Trailer](https://www.youtube.com/watch?v=GN2jkJphR5M).
+我相信Remotion Lambda是我编写过的最好的软件。这是完成我们愿景所需的最后一块拼图：用于开发视频应用程序的全栈！享受更新日志，如果还没有，请[查看Remotion 3.0预告片](https://www.youtube.com/watch?v=GN2jkJphR5M)。
 
-## Announcing Remotion Lambda
+## 宣布Remotion Lambda
 
-[Remotion Lambda](/lambda) is a distributed video renderer based on AWS Lambda. It is made for self-hosting, so you deploy it to your AWS account. Once your Lambda function is up, you can give it rendering tasks, which it will split up into many small units of work that get processed in parallel by spawning itself many times.
+[Remotion Lambda](/lambda)是基于AWS Lambda的分布式视频渲染器。它适用于自托管，因此您可以将其部署到您的AWS帐户中。一旦您的Lambda函数启动，您可以为其提供渲染任务，它将将其拆分为许多小工作单元，并通过多次生成自身并行处理这些任务。
 
-Lambda is the best of all worlds:
+Lambda是所有世界的最佳选择：
 
-- **Fast**: Lambda can render a video up to many times faster than the fastest consumer computers. The longer the video, the higher the speed gain. The Remotion Lambda trailer was rendered in 15 seconds instead of 60 seconds, and a 2 hour video was rendered in just 12 minutes<sup>[1]</sup>.
+- **快速**：Lambda可以比最快的消费者计算机快多次渲染视频。视频越长，速度增益越高。Remotion Lambda预告片的渲染时间从60秒缩短到15秒，一部2小时的视频仅需12分钟<sup>[1]</sup>。
 
-- **Cheap**: You only pay for when you are rendering. The Lambda functions use ARM architecture for best price-performance efficiency.
+- **便宜**：您只在渲染时支付费用。Lambda函数使用ARM架构，具有最佳的价格性能效率。
 
-- **Scalable**: You can render many multiple videos at the same time. Lambda [concurrency limits](/docs/lambda/troubleshooting/rate-limit) apply, but can be increased.
+- **可扩展**：您可以同时渲染多个视频。Lambda的[并发限制](/docs/lambda/troubleshooting/rate-limit)适用，但可以增加。
 
-- **Easy**: Chromium and FFMPEG are already pre-installed, and we handled all the edge cases. You only need to code your video, follow the steps to deploy a function and invoke a render.
+- **简单**：Chromium和FFMPEG已经预安装，我们处理了所有边缘情况。您只需要编写您的视频，按照部署函数和调用渲染的步骤即可。
 
-All functionality is available via CLI commands and Node.JS functions. We've written 45 pages of documentation, released over 50 alpha versions to testers, and written many tests from unit to end-to-end. Lambda is mature and used in production by companies like [Combo](https://joincombo.com) and [Jupitrr](https://jupitrr.com).
+所有功能均可通过CLI命令和Node.JS函数使用。我们编写了45页的文档，向测试人员发布了50多个alpha版本，并编写了许多从单元测试到端到端测试的测试。Lambda已经成熟，并且被像[Combo](https://joincombo.com)和[Jupitrr](https://jupitrr.com)这样的公司用于生产。
 
-## Parallel rendering and encoding
+## 并行渲染和编码
 
-Previously, rendering frames, and stitching them together to a video has been a sequential process where one step can start once the other has finished. In Remotion 3.0, stitching can start while rendering is still in progress! This will result on average in a 10-15% speedup.
+以前，渲染帧并将它们拼接成视频是一个顺序过程，其中一个步骤只能在另一个步骤完成后开始。在 Remotion 3.0 中，拼接可以在渲染仍在进行中时开始！这将平均加快速度10-15%。
 
-Additionally, downloading audio assets now happens earlier in the rendering pipeline and if you rely on remote audio, you should see a handsome speedup as well.
+此外，现在下载音频资产的时间点提前到了渲染管道中，如果您依赖远程音频，您也应该看到一个明显的加速。
 
 <video src="/img/renderandencode.mp4" muted autoPlay loop playsInline/>
 
-## New `renderMedia()` API
+## 新的 `renderMedia()` API
 
-A new function has been added to `@remotion/renderer` called [`renderMedia()`](/docs/renderer/render-media). It combines already existing functions [renderFrames()](/docs/renderer/render-frames) and [stitchFramesToVideo()](/docs/renderer/stitch-frames-to-video) but takes advantage of the new parallel rendering pipeline. It can render videos as well as audio and requires fewer arguments, so it's a win for speed and ease of use!
+在 `@remotion/renderer` 中添加了一个新函数叫做 [`renderMedia()`](/docs/renderer/render-media)。它结合了已经存在的函数 [renderFrames()](/docs/renderer/render-frames) 和 [stitchFramesToVideo()](/docs/renderer/stitch-frames-to-video)，并利用了新的并行渲染管道。它可以渲染视频和音频，并且需要更少的参数，因此在速度和易用性上都是一个胜利！
 
-## New `openBrowser()` API
+## 新的 `openBrowser()` API
 
-Since opening and closing a browser instance can take time, we introduce a new API called [`openBrowser()`](/docs/renderer/open-browser) for opening an instance of Puppeteer that you can use across the SSR APIs: [`renderMedia()`](/docs/renderer/render-media), [`renderStill()`](/docs/renderer/render-still), [`getCompositions()`](/docs/renderer/get-compositions), and [`renderFrames()`](/docs/renderer/render-frames).
+由于打开和关闭浏览器实例可能需要时间，我们引入了一个名为 [`openBrowser()`](/docs/renderer/open-browser) 的新 API，用于打开一个 Puppeteer 实例，您可以在 SSR API 中使用：[`renderMedia()`](/docs/renderer/render-media)、[`renderStill()`](/docs/renderer/render-still)、[`getCompositions()`](/docs/renderer/get-compositions) 和 [`renderFrames()`](/docs/renderer/render-frames)。
 
-## Better error reporting
+## 更好的错误报告
 
-We are taking an initiative to make error easier to understand. While much of error handling has been handled by third-party libraries until now, we've inlined the logic, allowing us to streamline it. Minified errors are being symbolicated, we've implemented a new error overlay, and timeout errors are more descriptive. Let us know what you think!
+我们正在采取措施使错误更易于理解。尽管到目前为止，大部分错误处理都是由第三方库处理的，但我们已经内联了逻辑，使我们能够简化它。缩小的错误正在被符号化，我们实现了一个新的错误叠加层，超时错误更具描述性。请告诉我们您的想法！
 
 <img src="/img/stacktrace.png"/>
 
-<p align="center"><sup>A minified error that happened inside a Chrome browser inside a remote Lambda function displays a proper stacktrace!</sup></p>
+<p align="center"><sup>在远程 Lambda 函数内部的 Chrome 浏览器中发生的缩小错误显示了正确的堆栈跟踪！</sup></p>
 <img src="/img/browserstacktrace.png"/>
-<p align="center"><sup>Our custom error overlay has the ability to open the troublesome file in your default editor, and look for similar GitHub issues.</sup></p>
+<p align="center"><sup>我们的自定义错误叠加层可以打开有问题的文件，查找类似的 GitHub 问题。</sup></p>
 
-## Config file can now import other files.
+## 配置文件现在可以导入其他文件。
 
-In the `remotion.config.ts` file, you can now import other files. Under the hood, we use ESBuild instead of Typescript to read the file. This was a paint point before: Node.JS APIs don't read from the config file and require you to specify the options explicitly. Configuration such as a [Webpack config override](/docs/webpack) could not be shared in a good way between CLI and Node.JS renders so far, which we address with this change.
+在 `remotion.config.ts` 文件中，您现在可以导入其他文件。在底层，我们使用 ESBuild 而不是 Typescript 来读取文件。这是一个痛点：Node.JS API 不会从配置文件中读取，并要求您明确指定选项。迄今为止，CLI 和 Node.JS 渲染之间无法以良好的方式共享配置，例如 [Webpack 配置覆盖](/docs/webpack)，我们通过这个更改来解决这个问题。
 
-## React 18 supported
+## 支持 React 18
 
-React 18 is now supported and we recommend that you upgrade to it. See our [React 18 upgrade guide](/docs/react-18) on how to do it!
+现在支持 React 18，并建议您升级到它。请查看我们的 [React 18 升级指南](/docs/react-18) 以了解如何进行升级！
 
-## Node 14, ESLint 8
+## Node 14，ESLint 8
 
-Keeping our stack modern allows us to move faster and also, eliminate dependencies.
+保持我们的堆栈现代化可以让我们更快地前进，同时也消除依赖关系。
 
-With Remotion 3.0, support for Node 12 is dropped, and we officially support Node 18.
-Our ESLint config has been updated to take advantage of ESLint 8, which is now also officially supported.
+在 Remotion 3.0 中，不再支持 Node 12，并且我们正式支持 Node 18。
+我们的 ESLint 配置已更新以利用 ESLint 8，这也是官方支持的。
 
-## How to update
+## 如何更新
 
-Read the [migration guide](/docs/3-0-migration) to update to Remotion 3.0. The most severe breaking changes revolve around server-side rendering in an attempt to make it faster and simpler. Other than SSR changes and the Node 14 requirement, nothing should break.
+阅读 [迁移指南](/docs/3-0-migration) 以更新到 Remotion 3.0。最严重的破坏性更改围绕着服务器端渲染，旨在使其更快速和更简单。除了 SSR 更改和 Node 14 要求之外，不应该出现其他破坏性更改。
 
 ---
 
-[1] See [the trailer repository](https://github.com/remotion-dev/trailer-lambda) for instructions on how to reproduce.
+[1] 请查看 [预告片存储库](https://github.com/remotion-dev/trailer-lambda) 以获取如何复制的说明。
 
-[2] Rendering the composition `2hrvideo` in the `example` folder in the Remotion repository with `--frames-per-lambda=1080`, a Lambda function running on the `arm64` architecture with 2048MB RAM, on warm Lambdas in the us-east-1 region.
+[2] 在 us-east-1 地区的温暖 Lambda 上，使用 `--frames-per-lambda=1080` 在 Remotion 存储库的 `example` 文件夹中渲染 `2hrvideo` 组合，Lambda 函数在 `arm64` 架构上运行，内存为 2048MB。

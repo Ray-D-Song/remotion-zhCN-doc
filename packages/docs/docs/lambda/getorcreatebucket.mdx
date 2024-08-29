@@ -6,9 +6,9 @@ slug: /lambda/getorcreatebucket
 crumb: "Lambda API"
 ---
 
-Creates a bucket for Remotion Lambda in your S3 account. If one already exists, it will get returned instead.
+在您的S3帐户中为Remotion Lambda创建一个存储桶。如果已经存在一个存储桶，则会返回该存储桶。
 
-**Only 1 bucket per region** is necessary for Remotion Lambda to function.
+**每个区域只需要一个存储桶** 来使Remotion Lambda正常运行。
 
 ```ts twoslash
 // @module: ESNext
@@ -20,13 +20,13 @@ const { bucketName } = await getOrCreateBucket({ region: "us-east-1" });
 console.log(bucketName); // "remotionlambda-32df3p"
 ```
 
-## Arguments
+## 参数
 
-An object with the following property:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) which you want to create a bucket in.
+您希望在其中创建存储桶的[AWS区域](/docs/lambda/region-selection)。
 
 ### `enableFolderExpiry`<AvailableFrom v="4.0.32" />
 
@@ -34,28 +34,29 @@ The [AWS region](/docs/lambda/region-selection) which you want to create a bucke
 
 ### ~~`onBucketEnsured?`~~
 
-_removed in v4.0, optional_
+_在v4.0中已移除，可选_
 
-Allows to pass a callback after the bucket was created and before the S3 website option was enabled. This option exists so the CLI can better visualize the progress.  
-Removed in v4.0 since we don't use the website option anymore.
+允许在创建存储桶后并在启用S3网站选项之前传递回调。此选项存在是为了CLI能更好地可视化进度。  
+自v4.0起已移除，因为我们不再使用网站选项。
 
 ### `forcePathStyle?`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将`forcePathStyle`传递给AWS S3客户端。如果您不知道这是什么，您可能不需要它。
 
-## Return value
+## 返回值
 
-A promise resolving to an object with the following properties:
+一个解析为具有以下属性的对象的Promise：
 
 ### `bucketName`
 
-The name of your bucket that was found or created.
+找到或创建的存储桶的名称。
 
 ### `alreadyExisted`<AvailableFrom v="3.3.78" />
 
-A boolean indicating whether the bucket already existed or was newly created.
+一个布尔值，指示存储桶是否已经存在或是新创建的。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-or-create-bucket.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-or-create-bucket.ts)
 - [getFunctions()](/docs/lambda/getfunctions)
+

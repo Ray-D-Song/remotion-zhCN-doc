@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-lambda-cli-sites.png
 id: sites
-sidebar_label: sites
+sidebar_label: 站点
 title: 'npx remotion lambda sites'
 slug: /lambda/cli/sites
-crumb: 'Lambda CLI Reference'
+crumb: 'Lambda CLI 参考'
 ---
 
-The `npx remotion lambda sites` command allows to create, view and delete Remotion projects in your S3 bucket.
+`npx remotion lambda sites` 命令允许在您的 S3 存储桶中创建、查看和删除 Remotion 项目。
 
 - [`create`](#create)
 - [`ls`](#ls)
@@ -20,27 +20,27 @@ The `npx remotion lambda sites` command allows to create, view and delete Remoti
 npx remotion lambda sites create <entry-point>?
 ```
 
-You may pass an [entry point](/docs/terminology/entry-point) as the first argument, otherwise the entry point will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将 [入口点](/docs/terminology/entry-point) 作为第一个参数传递，否则入口点将会被 [确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-Bundle and upload a Remotion video to an S3 bucket.
+将 Remotion 视频打包并上传到 S3 存储桶。
 
-The result will be a URL such as `https://remotionlambda-12345.s3.eu-central-1.amazonaws.com/sites/abcdef/index.html`.
+结果将是一个 URL，例如 `https://remotionlambda-12345.s3.eu-central-1.amazonaws.com/sites/abcdef/index.html`。
 
 :::note
-If you make changes locally, you need to redeploy the site. Use [`--site-name`](#--site-name) to overwrite an existing site.
+如果您在本地进行更改，您需要重新部署站点。使用 [`--site-name`](#--site-name) 来覆盖现有站点。
 :::
 
-You can use this "Serve URL" to render a video on Remotion Lambda using:
+您可以使用此“Serve URL”在 Remotion Lambda 上渲染视频：
 
-- The [`npx remotion lambda render`](/docs/lambda/cli/render) and [`npx remotion lambda still`](/docs/lambda/cli/still) commands
-- The [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) and [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) functions.
-- Locally using the [`renderMedia()`](/docs/renderer/render-media) and [`renderStill()`](/docs/renderer/render-still) functions.
-- Locally using the [`npx remotion render`](/docs/cli) and [`npx remotion still`](/docs/cli) commands
+- 使用 [`npx remotion lambda render`](/docs/lambda/cli/render) 和 [`npx remotion lambda still`](/docs/lambda/cli/still) 命令
+- 使用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 和 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 函数。
+- 在本地使用 [`renderMedia()`](/docs/renderer/render-media) 和 [`renderStill()`](/docs/renderer/render-still) 函数。
+- 在本地使用 [`npx remotion render`](/docs/cli) 和 [`npx remotion still`](/docs/cli) 命令
 
-If you are rendering on Lambda, you can also pass the site Name (in this case `abcdef`) as an abbreviation.
+如果您在 Lambda 上进行渲染，您还可以将站点名称（在本例中为 `abcdef`）作为缩写传递。
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
     (1/3) [====================] Bundled video 3975ms
     <br />
@@ -49,22 +49,22 @@ If you are rendering on Lambda, you can also pass the site Name (in this case `a
     (3/3) [====================] Uploaded to S3 25118ms
     <br />
     <br />
-    Deployed to S3!
+    部署到 S3！
     <br />
     Serve URL: https://remotionlambda-12345.s3.eu-central-1.amazonaws.com/sites/abcdef/index.html
     <br />
-    Site Name: abcdef
+    站点名称: abcdef
     <br />
   </pre>
 </details>
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select. Both project and function should be in this region.
+选择的[AWS区域](/docs/lambda/region-selection)。项目和函数都应该在此区域内。
 
 ### `--site-name`
 
-Uploads the project to a specific directory and returns a deterministic URL. If a site already existed under this name, it will be overwritten. Can only contain the following characters: `0-9`, `a-z`, `A-Z`, `-`, `!`, `_`, `.`, `*`, `'`, `(`, `)`
+将项目上传到特定目录并返回确定性URL。如果已经存在具有此名称的站点，则将被覆盖。只能包含以下字符：`0-9`、`a-z`、`A-Z`、`-`、`!`、`_`、`.`、`*`、`'`、`(`、`)`
 
 ```
 npx remotion lambda sites create src/index.ts --site-name=my-project
@@ -72,11 +72,11 @@ npx remotion lambda sites create src/index.ts --site-name=my-project
 
 ### `--force-bucket-name`<AvailableFrom v="3.3.42" />
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让 Remotion 自动发现正确的存储桶。
 
 ### `--privacy`<AvailableFrom v="3.3.97" />
 
-Either `public` (default) or `no-acl` if you are not using ACL. Sites must have a public URL to be able to be rendered on Lambda, since the headless browser opens that URL.
+可以是 `public`（默认）或 `no-acl`（如果不使用 ACL）。站点必须具有公共URL才能在Lambda上呈现，因为无头浏览器会打开该URL。
 
 ### `--public-dir`<AvailableFrom v="4.0.140" />
 
@@ -96,7 +96,7 @@ Either `public` (default) or `no-acl` if you are not using ACL. Sites must have 
 
 ### `--force-path-style`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果你不知道这是什么，你可能不需要它。
 
 <br />
 <br />
@@ -108,12 +108,12 @@ Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, yo
 npx remotion lambda sites ls
 ```
 
-Get a list of sites. The URL that is printed can be passed to the `render` command to render a video.
+获取站点列表。打印的URL可以传递给 `render` 命令以呈现视频。
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    Site Name Bucket Size Last updated
+    站点名称 存储桶 大小 最后更新时间
     <br />
     pr6fwglz05 remotionlambda-abcdefg 14.7 MB 2021-12-02
     <br />
@@ -126,21 +126,20 @@ Get a list of sites. The URL that is printed can be passed to the `render` comma
   </pre>
 </details>
 
-
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select. Both project and function should be in this region.
+选择的[AWS区域](/docs/lambda/region-selection)。项目和函数都应该在这个区域内。
 
 ### `--quiet`, `-q`
 
-Returns only a list of space-separated sites.
+仅返回一个以空格分隔的站点列表。
 
 ```
 npx remotion lambda sites ls -q
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
     pr6fwglz05 testbed
     <br />
@@ -149,121 +148,123 @@ npx remotion lambda sites ls -q
 
 ### `--force-path-style`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将`forcePathStyle`传递给AWS S3客户端。如果你不知道这是什么，你可能不需要它。
 
 
 ## rm
 
-Removes a site (or multiple) from S3 by its ID.
+通过其ID从S3中删除一个（或多个）站点。
 
 ```bash
 npx remotion lambda sites rm abcdef
-npx remotion lambda sites rm abcdef my-project # multiple at once
+npx remotion lambda sites rm abcdef my-project # 一次删除多个
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    Site abcdef in bucket remotionlambda-gc1w0xbfzl (14.7 MB): Delete? (Y/n): Y
+    站点abcdef在桶remotionlambda-gc1w0xbfzl中（14.7 MB）：删除？（Y/n）：Y
     <br />
-    Deleted sites/abcdef/052787b08233d85edebfc4ce4610944e.mp4
+    已删除站点/abcdef/052787b08233d85edebfc4ce4610944e.mp4
     <br />
-    Deleted sites/abcdef/258.bundle.js
+    已删除站点/abcdef/258.bundle.js
     <br />
-    Deleted sites/abcdef/15.bundle.js
+    已删除站点/abcdef/15.bundle.js
     <br />
-    Deleted sites/abcdef/249.bundle.js.map
+    已删除站点/abcdef/249.bundle.js.map
     <br />
-    Deleted sites/abcdef/263.bundle.js
+    已删除站点/abcdef/263.bundle.js
     <br />
-    Deleted sites/abcdef/143.bundle.js
+    已删除站点/abcdef/143.bundle.js
     <br />
-    Deleted sites/abcdef/258.bundle.js.map
+    已删除站点/abcdef/258.bundle.js.map
     <br />
-    Deleted sites/abcdef/15.bundle.js.map
+    已删除站点/abcdef/15.bundle.js.map
     <br />
-    Deleted sites/abcdef/185.bundle.js.map
+    已删除站点/abcdef/185.bundle.js.map
     <br />
-    Deleted sites/abcdef/249.bundle.js
+    已删除站点/abcdef/249.bundle.js
     <br />
-    Deleted sites/abcdef/143.bundle.js.map
+    已删除站点/abcdef/143.bundle.js.map
     <br />
-    Deleted sites/abcdef/185.bundle.js
+    已删除站点/abcdef/185.bundle.js
     <br />
-    Deleted sites/abcdef/1f2d09019ff34eed846a5151b8561d5b.mp4
+    已删除站点/abcdef/1f2d09019ff34eed846a5151b8561d5b.mp4
     <br />
-    Deleted sites/abcdef/263.bundle.js.map
+    已删除站点/abcdef/263.bundle.js.map
     <br />
-    Deleted sites/abcdef/268.bundle.js
+    已删除站点/abcdef/268.bundle.js
     <br />
-    Deleted sites/abcdef/378.bundle.js.map
+    已删除站点/abcdef/378.bundle.js.map
     <br />
-    Deleted sites/abcdef/268.bundle.js.map
+    已删除站点/abcdef/268.bundle.js.map
     <br />
-    Deleted sites/abcdef/378.bundle.js
+    已删除站点/abcdef/378.bundle.js
     <br />
-    Deleted sites/abcdef/2b91c5234e41d3c36d4bf6df37876958.webm
+    已删除站点/abcdef/2b91c5234e41d3c36d4bf6df37876958.webm
     <br />
-    Deleted sites/abcdef/450.bundle.js
+    已删除站点/abcdef/450.bundle.js
     <br />
-    Deleted sites/abcdef/46.bundle.js.map
+    已删除站点/abcdef/46.bundle.js.map
     <br />
-    Deleted sites/abcdef/46.bundle.js
+    已删除站点/abcdef/46.bundle.js
     <br />
-    Deleted sites/abcdef/450.bundle.js.map
+    已删除站点/abcdef/450.bundle.js.map
     <br />
-    Deleted sites/abcdef/534.bundle.js.map
+    已删除站点/abcdef/534.bundle.js.map
     <br />
-    Deleted sites/abcdef/569.bundle.js
+    已删除站点/abcdef/569.bundle.js
     <br />
-    Deleted sites/abcdef/3577958454aa99ad707b596f65151746.webm
+    已删除站点/abcdef/3577958454aa99ad707b596f65151746.webm
     <br />
-    Deleted sites/abcdef/534.bundle.js
+    已删除站点/abcdef/534.bundle.js
     <br />
-    Deleted sites/abcdef/575.bundle.js.map
+    已删除站点/abcdef/575.bundle.js.map
     <br />
-    Deleted sites/abcdef/575.bundle.js
+    已删除站点/abcdef/575.bundle.js
     <br />
-    Deleted sites/abcdef/569.bundle.js.map
+    已删除站点/abcdef/569.bundle.js.map
     <br />
-    Deleted sites/abcdef/801.bundle.js
+    已删除站点/abcdef/801.bundle.js
     <br />
-    Deleted sites/abcdef/7badbf53d3130d91b90c46181a2ecdc4.webm
+    已删除站点/abcdef/7badbf53d3130d91b90c46181a2ecdc4.webm
     <br />
-    Deleted sites/abcdef/801.bundle.js.map
+    已删除站点/abcdef/801.bundle.js.map
     <br />
-    Deleted sites/abcdef/873.bundle.js
+    已删除站点/abcdef/873.bundle.js
     <br />
-    Deleted sites/abcdef/98.bundle.js.map
+    已删除站点/abcdef/98.bundle.js.map
     <br />
-    Deleted sites/abcdef/bff822b868a2b87b31877f3606c9cc13.mp3
+    已删除站点/abcdef/bff822b868a2b87b31877f3606c9cc13.mp3
     <br />
-    Deleted sites/abcdef/873.bundle.js.map
+    已删除站点/abcdef/873.bundle.js.map
     <br />
-    Deleted sites/abcdef/98.bundle.js
+    已删除站点/abcdef/98.bundle.js
     <br />
-    Deleted sites/abcdef/a2f36e3a48b4989e0da1fea9959fb35f.mp3
+    已删除站点/abcdef/a2f36e3a48b4989e0da1fea9959fb35f.mp3
     <br />
-    Deleted sites/abcdef/bundle.js
+    已删除站点/abcdef/bundle.js
     <br />
-    Deleted sites/abcdef/bundle.js.map
+    已删除站点/abcdef/bundle.js.map
     <br />
-    Deleted sites/abcdef/a7d87d9934059032eebb9c1536378a2a.webm
+    已删除站点/abcdef/a7d87d9934059032eebb9c1536378a2a.webm
     <br />
-    Deleted sites/abcdef/index.html
+    已删除站点/abcdef/index.html
     <br />
-    Deleted site abcdef and freed up 14.7 MB.
+    已删除站点abcdef并释放了14.7 MB。
     <br />
   </pre>
 </details>
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select. Both project and function should be in this region.
+选择的[AWS区域](/docs/lambda/region-selection)。项目和函数都应该在这个区域内。
+
+
 
 ### `--yes`, `-y`
 
-Removes a site without asking for confirmation.
+删除站点时无需确认。
 
 ```
 npx remotion lambda sites rm abcdef -y
@@ -271,123 +272,123 @@ npx remotion lambda sites rm abcdef -y
 
 ### `--force-bucket-name`<AvailableFrom v="3.3.42" />
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议使用](/docs/lambda/multiple-buckets)，最好让 Remotion 自动发现正确的存储桶。
 
 ### `--force-path-style`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果你不知道这是什么，你可能不需要它。
 
 ## rmall
 
-Remove all sites in the selected AWS region.
+删除所选 AWS 区域中的所有站点。
 
 ```bash
 npx remotion lambda sites rmall
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    Site abcdef in bucket remotionlambda-gc1w0xbfzl (14.7 MB): Delete? (Y/n): Y
+    站点 abcdef 在存储桶 remotionlambda-gc1w0xbfzl 中（14.7 MB）：要删除吗？（Y/n）：Y
     <br />
-    Deleted sites/abcdef/052787b08233d85edebfc4ce4610944e.mp4
+    已删除 sites/abcdef/052787b08233d85edebfc4ce4610944e.mp4
     <br />
-    Deleted sites/abcdef/258.bundle.js
+    已删除 sites/abcdef/258.bundle.js
     <br />
-    Deleted sites/abcdef/15.bundle.js
+    已删除 sites/abcdef/15.bundle.js
     <br />
-    Deleted sites/abcdef/249.bundle.js.map
+    已删除 sites/abcdef/249.bundle.js.map
     <br />
-    Deleted sites/abcdef/263.bundle.js
+    已删除 sites/abcdef/263.bundle.js
     <br />
-    Deleted sites/abcdef/143.bundle.js
+    已删除 sites/abcdef/143.bundle.js
     <br />
-    Deleted sites/abcdef/258.bundle.js.map
+    已删除 sites/abcdef/258.bundle.js.map
     <br />
-    Deleted sites/abcdef/15.bundle.js.map
+    已删除 sites/abcdef/15.bundle.js.map
     <br />
-    Deleted sites/abcdef/185.bundle.js.map
+    已删除 sites/abcdef/185.bundle.js.map
     <br />
-    Deleted sites/abcdef/249.bundle.js
+    已删除 sites/abcdef/249.bundle.js
     <br />
-    Deleted sites/abcdef/143.bundle.js.map
+    已删除 sites/abcdef/143.bundle.js.map
     <br />
-    Deleted sites/abcdef/185.bundle.js
+    已删除 sites/abcdef/185.bundle.js
     <br />
-    Deleted sites/abcdef/1f2d09019ff34eed846a5151b8561d5b.mp4
+    已删除 sites/abcdef/1f2d09019ff34eed846a5151b8561d5b.mp4
     <br />
-    Deleted sites/abcdef/263.bundle.js.map
+    已删除 sites/abcdef/263.bundle.js.map
     <br />
-    Deleted sites/abcdef/268.bundle.js
+    已删除 sites/abcdef/268.bundle.js
     <br />
-    Deleted sites/abcdef/378.bundle.js.map
+    已删除 sites/abcdef/378.bundle.js.map
     <br />
-    Deleted sites/abcdef/268.bundle.js.map
+    已删除 sites/abcdef/268.bundle.js.map
     <br />
-    Deleted sites/abcdef/378.bundle.js
+    已删除 sites/abcdef/378.bundle.js
     <br />
-    Deleted sites/abcdef/2b91c5234e41d3c36d4bf6df37876958.webm
+    已删除 sites/abcdef/2b91c5234e41d3c36d4bf6df37876958.webm
     <br />
-    Deleted sites/abcdef/450.bundle.js
+    已删除 sites/abcdef/450.bundle.js
     <br />
-    Deleted sites/abcdef/46.bundle.js.map
+    已删除 sites/abcdef/46.bundle.js.map
     <br />
-    Deleted sites/abcdef/46.bundle.js
+    已删除 sites/abcdef/46.bundle.js
     <br />
-    Deleted sites/abcdef/450.bundle.js.map
+    已删除 sites/abcdef/450.bundle.js.map
     <br />
-    Deleted sites/abcdef/534.bundle.js.map
+    已删除 sites/abcdef/534.bundle.js.map
     <br />
-    Deleted sites/abcdef/569.bundle.js
+    已删除 sites/abcdef/569.bundle.js
     <br />
-    Deleted sites/abcdef/3577958454aa99ad707b596f65151746.webm
+    已删除 sites/abcdef/3577958454aa99ad707b596f65151746.webm
     <br />
-    Deleted sites/abcdef/534.bundle.js
+    已删除 sites/abcdef/534.bundle.js
     <br />
-    Deleted sites/abcdef/575.bundle.js.map
+    已删除 sites/abcdef/575.bundle.js.map
     <br />
-    Deleted sites/abcdef/575.bundle.js
+    已删除 sites/abcdef/575.bundle.js
     <br />
-    Deleted sites/abcdef/569.bundle.js.map
+    已删除 sites/abcdef/569.bundle.js.map
     <br />
-    Deleted sites/abcdef/801.bundle.js
+    已删除 sites/abcdef/801.bundle.js
     <br />
-    Deleted sites/abcdef/7badbf53d3130d91b90c46181a2ecdc4.webm
+    已删除 sites/abcdef/7badbf53d3130d91b90c46181a2ecdc4.webm
     <br />
-    Deleted sites/abcdef/801.bundle.js.map
+    已删除 sites/abcdef/801.bundle.js.map
     <br />
-    Deleted sites/abcdef/873.bundle.js
+    已删除 sites/abcdef/873.bundle.js
     <br />
-    Deleted sites/abcdef/98.bundle.js.map
+    已删除 sites/abcdef/98.bundle.js.map
     <br />
-    Deleted sites/abcdef/bff822b868a2b87b31877f3606c9cc13.mp3
+    已删除 sites/abcdef/bff822b868a2b87b31877f3606c9cc13.mp3
     <br />
-    Deleted sites/abcdef/873.bundle.js.map
+    已删除 sites/abcdef/873.bundle.js.map
     <br />
-    Deleted sites/abcdef/98.bundle.js
+    已删除 sites/abcdef/98.bundle.js
     <br />
-    Deleted sites/abcdef/a2f36e3a48b4989e0da1fea9959fb35f.mp3
+    已删除 sites/abcdef/a2f36e3a48b4989e0da1fea9959fb35f.mp3
     <br />
-    Deleted sites/abcdef/bundle.js
+    已删除 sites/abcdef/bundle.js
     <br />
-    Deleted sites/abcdef/bundle.js.map
+    已删除 sites/abcdef/bundle.js.map
     <br />
-    Deleted sites/abcdef/a7d87d9934059032eebb9c1536378a2a.webm
+    已删除 sites/abcdef/a7d87d9934059032eebb9c1536378a2a.webm
     <br />
-    Deleted sites/abcdef/index.html
+    已删除 sites/abcdef/index.html
     <br />
-    Deleted site abcdef and freed up 14.7 MB.
+    已删除站点 abcdef 并释放了 14.7 MB。
     <br />
   </pre>
 </details>
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select. Both project and function should be in this region.
+选择的[AWS区域](/docs/lambda/region-selection)。项目和函数都应该在此区域内。
 
 ### `--yes`, `-y`
 
-Removes all sites without asking for confirmation.
+删除所有站点而无需确认。
 
 ```
 npx remotion lambda sites rmall -y
@@ -395,8 +396,8 @@ npx remotion lambda sites rmall -y
 
 ### `--force-bucket-name`<AvailableFrom v="3.3.42" />
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让 Remotion 自动发现正确的存储桶。
 
 ### `--force-path-style`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果你不知道这是什么，你可能不需要它。

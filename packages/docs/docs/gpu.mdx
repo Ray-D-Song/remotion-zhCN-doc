@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-gpu.png
 id: gpu
-title: Using the GPU
-sidebar_label: Using the GPU
+title: 使用 GPU
+sidebar_label: 使用 GPU
 crumb: "Need for Speed"
 ---
 
-Some types of content in Remotion can benefit from a GPU being available on the machine that is used for rendering.  
-By default in many cases, the GPU is disabled in headless mode, which can lead to a significant slowdown in rendering time.
+在 Remotion 中的某些内容可以从用于渲染的机器上可用的 GPU 中受益。  
+在许多情况下，默认情况下，GPU 在无头模式下是禁用的，这可能会导致渲染时间显着减慢。
 
-## Content accelerated by the GPU
+## 通过 GPU 加速的内容
 
-- WebGL content (Three.JS, Skia, P5.js, Mapbox etc.)
+- WebGL 内容（Three.JS、Skia、P5.js、Mapbox 等）
 - `box-shadow`
 - `text-shadow`
 - `background-image: linear-gradient()`
@@ -19,38 +19,38 @@ By default in many cases, the GPU is disabled in headless mode, which can lead t
 - `filter: blur()`
 - `filter: drop-shadow()`
 - `transform`
-- Many 2D Canvas operations
+- 许多 2D 画布操作
 
-If a GPU is available, it should be enabled by default while in the Remotion Studio or Remotion Player.  
-However, in headless mode, Chromium disables the GPU, leading to a significant
-slowdown in rendering time.
+如果 GPU 可用，应在 Remotion Studio 或 Remotion Player 中默认启用。  
+然而，在无头模式下，Chromium 禁用 GPU，导致渲染时间显着减慢。
 
-## Content not accelerated by the GPU
+## 通过 GPU 不加速的内容
 
-Contrary to popular belief, the following content is not accelerated by the GPU:
+与普遍看法相反，以下内容不会通过 GPU 加速：
 
 - `<Video>`
 - `<OffthreadVideo>`
-- [Canvas pixel manipulation](/docs/video-manipulation)
+- [画布像素操作](/docs/video-manipulation)
 
-Furthermore, the encoding of the video is not accelerated by the GPU at this point.
+此外，视频的编码在此阶段不会通过 GPU 加速。
 
-## Use the `--gl` flag to enable the GPU during rendering
+## 使用 `--gl` 标志在渲染过程中启用 GPU
 
-See [here](/docs/gl-options) for recommendations which OpenGL backend you should use during rendering.
+请参阅[此处](/docs/gl-options)以获取有关在渲染过程中应使用哪个 OpenGL 后端的建议。
 
-## GPU for server-side rendering
+## 服务器端渲染使用 GPU
 
-[See here](/docs/miscellaneous/cloud-gpu) for an example on how to use the GPU during server-side rendering.
+请参阅[此处](/docs/miscellaneous/cloud-gpu)以获取有关如何在服务器端渲染过程中使用 GPU 的示例。
 
-## Using the GPU on Lambda
+## 在 Lambda 上使用 GPU
 
-AWS Lambda instances have no GPU, so it is not possible to use it.
+AWS Lambda 实例没有 GPU，因此无法使用。
 
-## What are your experiences?
+## 您的经验如何？
 
-We'd love to learn and document more findings about the GPU. Let us know and we will amend this document!
+我们很乐意了解并记录有关 GPU 的更多发现。告诉我们，我们将修订此文档！
 
-## See also
+## 另请参阅
 
-- [OpenGL renderer backends](/docs/gl-options)
+- [OpenGL 渲染器后端](/docs/gl-options)
+

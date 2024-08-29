@@ -4,9 +4,9 @@ title: resetPath()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.40_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.40版本开始可用_
 
-Translates an SVG path so that the top-left corner of the [bounding box](/docs/paths/get-bounding-box) is at `0, 0`. Useful for simplifying the math when transforming the coordinates of an SVG path.
+将SVG路径转换，使得[bounding box](/docs/paths/get-bounding-box)的左上角位于`0, 0`。在转换SVG路径的坐标时，简化数学运算时非常有用。
 
 ```tsx twoslash title="reset-path.ts"
 import { resetPath } from "@remotion/paths";
@@ -14,9 +14,10 @@ import { resetPath } from "@remotion/paths";
 const newPath = resetPath("M 10 10 L 20 20"); // M 0 0 L 10 10
 ```
 
-This function will throw if the SVG path is invalid.
+如果SVG路径无效，此函数将抛出异常。
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/reset-path.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/reset-path.ts)
+

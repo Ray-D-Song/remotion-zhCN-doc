@@ -7,14 +7,14 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Creates a [GCP Cloud Run](https://cloud.google.com/run) service in your GCP project that will be able to render a video in the cloud.
+在您的 GCP 项目中创建一个能够在云中渲染视频的 [GCP Cloud Run](https://cloud.google.com/run) 服务。
 
-If a service with the same Remotion version, memory limit, cpu limit and timeout already existed in the specified region, it will be returned instead without a new one being created. This means this service can be treated as idempotent.
+如果在指定区域中已经存在具有相同 Remotion 版本、内存限制、CPU 限制和超时的服务，则将返回该服务，而不会创建新服务。这意味着此服务可以被视为幂等。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -32,58 +32,60 @@ const { shortName } = await deployService({
 console.log(shortName);
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `memoryLimit`
 
-The upper bound on the amount of RAM that the Cloud Run service can consume. By default we recommend a value of 2GiB. You may increase or decrease it depending on how memory-consuming your video is. The minimum allowed number is `512MiB`, the maximum allowed number is `32GiB`. Since the costs of Remotion Cloud Run is directly proportional to the amount of RAM, we recommend to keep this amount as low as possible. As the Memory limit is raised, there is a [corresponding minimum CPU Limit](https://cloud.google.com/run/docs/configuring/memory-limits#cpu-minimum) that must be observed.
+Cloud Run 服务可以消耗的 RAM 上限。默认情况下，我们建议使用 2GiB 的值。您可以根据视频的内存消耗情况增加或减少该值。允许的最小数字为 `512MiB`，允许的最大数字为 `32GiB`。由于 Remotion Cloud Run 的成本与 RAM 的数量成正比，我们建议尽可能将此数量保持较低。随着内存限制的提高，必须遵守相应的 [最小 CPU 限制](https://cloud.google.com/run/docs/configuring/memory-limits#cpu-minimum)。
 
 ### `cpuLimit`
 
-The maximum number of CPU cores that the Cloud Run service can use to process requests. The default is 1. As the CPU limit is raised, there is a [corresponding minimum Memory Limit](https://cloud.google.com/run/docs/configuring/cpu#setting) that must be observed.
+Cloud Run 服务用于处理请求的 CPU 核心数上限。默认值为 1。随着 CPU 限制的提高，必须遵守相应的 [最小内存限制](https://cloud.google.com/run/docs/configuring/cpu#setting)。
 
 ### `minInstances`
 
-The minimum number of service instances to have available, regardless of requests. The default is 0. Some users may wish to increase the minimum instances so that renders are started faster, though this would only reduce cold start time for simultaneous renders up to that minimum limit. [Read more about the minimum instance limit here](/docs/cloudrun/instancecount#minimum-instance-count)
+无论请求如何，要保持可用的服务实例的最小数量。默认值为 0。一些用户可能希望增加最小实例数，以便更快地启动渲染，尽管这只会减少同时渲染直到达到该最小限制的冷启动时间。[在此处阅读有关最小实例限制的更多信息](/docs/cloudrun/instancecount#minimum-instance-count) 
+
 
 :::warning
-Any running instances, even if they are not performing a render, will be billable in GCP. The default minimum number of instances is zero, which means that when no requests are made to your service, you are not billed.
+任何正在运行的实例，即使它们没有执行渲染，也将在 GCP 中产生费用。默认最小实例数为零，这意味着当没有请求发送到您的服务时，您不会被收费。
 :::
 
 ### `maxInstances`
 
-The maximum number of service instances that can be create by GCP in response to incoming requests. The default is 100. [Read more about the maximum instance limit here](/docs/cloudrun/instancecount#maximum-instance-count)
+GCP 可以响应传入请求创建的服务实例的最大数量。默认值为 100。[在此处阅读有关最大实例限制的更多信息](/docs/cloudrun/instancecount#maximum-instance-count)
 
 ### `timeoutSeconds`
 
-How long the Cloud Run Service may run before it gets killed. Must be below 3600 seconds.
+Cloud Run 服务在被终止之前可以运行的时间。必须低于 3600 秒。
 
 ### `projectID`
 
-The [project ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#:~:text=to%20be%20unique.-,Project%20ID,-%3A%20A%20globally%20unique) of the GCP Project that has been configured for Remotion Cloud Run.
+已为 Remotion Cloud Run 配置的 GCP 项目的 [项目 ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects#:~:text=to%20be%20unique.-,Project%20ID,-%3A%20A%20globally%20unique)。
 
 ### `region`
 
-The [GCP region](/docs/cloudrun/region-selection) which you want to deploy the Cloud Run Service too.
+您希望部署 Cloud Run 服务的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `performImageVersionValidation`
 
-Default as true. This will validate that an image exists in the public Artifact Registry that matches the Remotion Version you are trying to deploy. Can be set false for a potential time saving.
+默认为 true。这将验证公共 Artifact Registry 中是否存在与您尝试部署的 Remotion 版本匹配的映像。可以设置为 false 以节省时间。
 
-## Return value
+## 返回值
 
-An object with the following values:
+一个具有以下值的对象：
 
-- `fullName` (_string_): The full name of the service just created, in the form `projects/{projectId}/locations/{region}/services/{serviceName}`.
-- `shortName` (_string_): The name of the service just created, as it appears in the console.
-- `uri` (_string_): The endpoint of the service just created.
-- `alreadyExists`: (_boolean_): Whether the creation was skipped because the service already existed.
+- `fullName`（_字符串_）：刚刚创建的服务的全名，格式为 `projects/{projectId}/locations/{region}/services/{serviceName}`。
+- `shortName`（_字符串_）：刚刚创建的服务的名称，如在控制台中显示的那样。
+- `uri`（_字符串_）：刚刚创建的服务的端点。
+- `alreadyExists`：（_布尔值_）：是否因为服务已经存在而跳过了创建。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/deploy-service.ts)
-- [CLI equivalent: npx remotion cloudrun services deploy](/docs/cloudrun/cli/services#deploy)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/deploy-service.ts)
+- [CLI 等效命令：npx remotion cloudrun services deploy](/docs/cloudrun/cli/services#deploy)
 - [deleteService()](/docs/cloudrun/deleteservice)
 - [getServices()](/docs/cloudrun/getservices)
+

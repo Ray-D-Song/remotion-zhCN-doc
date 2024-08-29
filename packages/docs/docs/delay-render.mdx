@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-delay-render.png
 id: delay-render
-title: delayRender() and continueRender()
+title: delayRender() 和 continueRender()
 sidebar_label: delayRender()
-crumb: "How to"
+crumb: "如何"
 ---
 
-By calling `delayRender()`, you are signaling that a frame should not be immediately rendered and instead should wait on an asynchronous task to complete.
+通过调用 `delayRender()`，您在表示一个帧不应立即渲染，而应等待异步任务完成。
 
-This method is useful if you want to call an API to fetch data before you render.
+如果您想在渲染之前调用 API 来获取数据，则此方法很有用。
 
-`delayRender()` returns a handle. Once you have fetched data or finished the asynchronous task, you should call `continueRender(handle)` to let Remotion know that you are now ready to render.
+`delayRender()` 返回一个句柄。一旦您获取了数据或完成了异步任务，应调用 `continueRender(handle)`，以通知 Remotion 您现在已准备好进行渲染。
 
-## Example
+## 示例
 
 ```tsx twoslash {6, 13}
 import { useCallback, useEffect, useState } from "react";
@@ -44,21 +44,21 @@ export const MyVideo = () => {
 };
 ```
 
-## Timeout
+## 超时
 
-You need to call `continueRender()` within 30 seconds of page load. This is the default timeout of puppeteer and it will throw if you miss to call `continueRender()`. You can [customize the timeout](/docs/timeout#increase-timeout).
+您需要在页面加载后的 30 秒内调用 `continueRender()`。这是 puppeteer 的默认超时时间，如果您忘记调用 `continueRender()`，它将抛出异常。您可以[自定义超时时间](/docs/timeout#increase-timeout)。
 
-If `continueRender()` is not called within the timeout frame, the render will fail with an exception similarly to this:
+如果在超时帧内未调用 `continueRender()`，渲染将失败，并显示类似于以下内容的异常：
 
 ```
 A delayRender() was called but not cleared after 28000ms. See https://remotion.dev/docs/timeout for help. The delayRender was called
 ```
 
-See the [Timeout](/docs/timeout) page to troubleshoot timeouts.
+请查看[超时](/docs/timeout)页面以解决超时问题。
 
-## Adding a label<AvailableFrom v="2.6.13"/>
+## 添加标签<AvailableFrom v="2.6.13"/>
 
-If you encounter a timeout and don't know where it came from, you can add a label as a parameter:
+如果遇到超时问题并且不知道其来源，可以将标签作为参数添加：
 
 ```tsx twoslash
 import { delayRender } from "remotion";
@@ -68,19 +68,19 @@ import { delayRender } from "remotion";
 delayRender("Fetching data from API...");
 ```
 
-If the call times out, the label will be referenced in the error message:
+如果调用超时，错误消息中将引用该标签：
 
 ```
 Uncaught Error: A delayRender() "Fetching data from API..." was called but not cleared after 28000ms. See https://remotion.dev/docs/timeout for help. The delayRender was called
 ```
 
-## Concurrency
+## 并发
 
-Multiple pages are used for rendering, so delayRender() can be called multiple times for a render. If you are doing an API request, you can speed up the render and avoid rate limits by caching the request, for example by storing the data in `localStorage`.
+用于渲染的是多个页面，因此可以多次调用 delayRender() 进行渲染。如果正在进行 API 请求，可以通过缓存请求来加快渲染速度并避免速率限制，例如通过将数据存储在 `localStorage` 中。
 
-## Multiple calls
+## 多次调用
 
-You can call `delayRender()` multiple times. The render will be blocked for as long as at least one blocking handle exists and that has not been cleared by `continueRender()`.
+您可以多次调用 `delayRender()`。只要至少存在一个阻塞句柄且尚未通过 `continueRender()` 清除，渲染将被阻塞。
 
 ```tsx twoslash
 import { useEffect, useState } from "react";
@@ -100,11 +100,11 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## Encapsulation
+## 封装
 
-You should put `delayRender()` calls inside your components rather than placing them as a top-level statement, to avoid blocking a render if a different composition is rendered. Also, in the example below the call is wrapped in a `useState()` to avoid creating multiple blocking calls when the component rerenders.
+您应该将 `delayRender()` 调用放在组件内部，而不是将其放在顶层语句中，以避免在渲染不同组合时阻塞渲染。此外，在下面的示例中，调用被包裹在 `useState()` 中，以避免在组件重新渲染时创建多个阻塞调用。
 
-```tsx twoslash title="❌ Don't do this" {4-7}
+```tsx twoslash title="❌ 不要这样做" {4-7}
 import { useEffect } from "react";
 import { continueRender, delayRender } from "remotion";
 
@@ -122,9 +122,9 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## Failing with an error<AvailableFrom v="3.3.44" />
+## 出现错误时<AvailableFrom v="3.3.44" />
 
-If your code fails to do an asynchronous operation and you want to cancel the render, you can call [`cancelRender()`](/docs/cancel-render) with an error message. This will automatically cancel all `delayRender()` calls to not further delay the render.
+如果您的代码未能执行异步操作并且您希望取消渲染，您可以调用带有错误消息的 [`cancelRender()`](/docs/cancel-render)。这将自动取消所有 `delayRender()` 调用，以避免进一步延迟渲染。
 
 ```tsx twoslash title="MyComposition.tsx"
 import React, { useEffect, useState } from "react";
@@ -145,12 +145,12 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Retrying<AvailableFrom v="4.0.140"/>
+## 重试<AvailableFrom v="4.0.140"/>
 
-If an operation is flaky (for example, if loading an asset from a CDN does sometimes give 5xx errors), you can pass an object with a `retries` value as a second argument.  
-If a `delayRender()` call is not cleared within the timeout, the whole browser tab will be closed and the frame will be retried from scratch.
+如果某个操作不稳定（例如，从 CDN 加载资源有时会出现 5xx 错误），您可以传递一个带有 `retries` 值的对象作为第二个参数。  
+如果 `delayRender()` 调用在超时内未清除，则整个浏览器选项卡将被关闭，并且将从头开始重试帧。
 
-```tsx twoslash title="Retrying a delayRender()"
+```tsx twoslash title="重试 delayRender()"
 import { delayRender } from "remotion";
 
 delayRender("Loading asset...", {
@@ -158,13 +158,13 @@ delayRender("Loading asset...", {
 });
 ```
 
-The [`<Img>`](/docs/img#delayrenderretries), [`<Audio>`](/docs/audio#delayrenderretries), [`<Video>`](/docs/video#delayrenderretries) and [`<IFrame>`](/docs/iframe#delayrenderretries) tags support a `delayRenderRetries` prop to control the value of `retries` for the `delayRender()` call that those components make.
+[`<Img>`](/docs/img#delayrenderretries)、[`<Audio>`](/docs/audio#delayrenderretries)、[`<Video>`](/docs/video#delayrenderretries) 和 [`<IFrame>`](/docs/iframe#delayrenderretries) 标签支持一个 `delayRenderRetries` 属性，用于控制这些组件进行的 `delayRender()` 调用的 `retries` 值。
 
-## Modifying the timeout<AvailableFrom v="4.0.140"/>
+## 修改超时时间<AvailableFrom v="4.0.140"/>
 
-In addition to the [global timeout](/docs/timeout#increase-timeout) that can be set, the timeout can be modified on a per-`delayRender()` level.
+除了可以设置的[全局超时时间](/docs/timeout#increase-timeout)，超时时间可以在每个 `delayRender()` 级别上进行修改。
 
-```tsx twoslash title="Modifying the timeout of a delayRender()"
+```tsx twoslash title="修改 delayRender() 的超时时间"
 import { delayRender } from "remotion";
 
 delayRender("Loading asset...", {
@@ -172,15 +172,15 @@ delayRender("Loading asset...", {
 });
 ```
 
-The [`<Img>`](/docs/img#delayrendertimeoutinmilliseconds), [`<Audio>`](/docs/audio#delayrendertimeoutinmilliseconds), [`<Video>`](/docs/video#delayrendertimeoutinmilliseconds) and [`<IFrame>`](/docs/iframe#delayrendertimeoutinmilliseconds) tags support a `delayRenderTimeoutInMilliseconds` prop to control the value of `timeoutInMilliseconds` for the `delayRender()` call that those components make.
+[`<Img>`](/docs/img#delayrendertimeoutinmilliseconds)、[`<Audio>`](/docs/audio#delayrendertimeoutinmilliseconds)、[`<Video>`](/docs/video#delayrendertimeoutinmilliseconds) 和 [`<IFrame>`](/docs/iframe#delayrendertimeoutinmilliseconds) 标签支持一个 `delayRenderTimeoutInMilliseconds` 属性，用于控制这些组件进行的 `delayRender()` 调用的 `timeoutInMilliseconds` 值。```
 
-## Difference to `useBufferState().delayPlayback()`
+## 与 `useBufferState().delayPlayback()` 的区别
 
-[`useBufferState()`](/docs/use-buffer-state) is a different API that allows pausing playback in the [Studio](/docs/terminology/studio) and in the [Player](/docs/terminology/player).
+[`useBufferState()`](/docs/use-buffer-state) 是一个不同的 API，允许在 [Studio](/docs/terminology/studio) 和 [Player](/docs/terminology/player) 中暂停播放。
 
-If you are loading data, you might want to both delay the screenshotting of your component during rendering and start a buffering state during Preview, in which case you need to use both APIs together.
+如果您正在加载数据，您可能希望在渲染过程中延迟组件的截图，并在预览期间启动缓冲状态，在这种情况下，您需要同时使用这两个 API。
 
-```tsx twoslash title="Using delayRender() and delayPlayback() together"
+```tsx twoslash title="同时使用 delayRender() 和 delayPlayback()"
 import React from "react";
 import { useBufferState, delayRender, continueRender } from "remotion";
 
@@ -205,10 +205,10 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/delay-render.ts)
-- [Data fetching](/docs/data-fetching)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/delay-render.ts)
+- [数据获取](/docs/data-fetching)
 - [continueRender()](/docs/continue-render)
 - [cancelRender()](/docs/cancel-render)
 - [useDelayRender()](/docs/miscellaneous/snippets/use-delay-render)

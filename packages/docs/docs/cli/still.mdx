@@ -1,88 +1,86 @@
 ---
 image: /generated/articles-docs-cli-still.png
 title: npx remotion still
-sidebar_label: still
-crumb: CLI Reference
+sidebar_label: 静帧
+crumb: CLI 参考
 ---
 
-_Available from v2.3._
+_从 v2.3 版本开始可用。_
 
-Render a still frame based on the entry point, the composition ID and save it to the output location.
+基于入口点、组合 ID 渲染静帧，并将其保存到输出位置。
 
 ```bash
 npx remotion still <serve-url|entry-point>? [<composition-id>] [<output-location>]
 ```
 
-You may pass a [Serve URL](/docs/terminology/serve-url) or an [entry point](/docs/terminology/entry-point) as the first argument, otherwise the entry point will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将 [Serve URL](/docs/terminology/serve-url) 或 [入口点](/docs/terminology/entry-point) 作为第一个参数传递，否则入口点将会被 [确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-If `output-location` is not passed, the still will be rendered into the `out` folder.  
-If `composition-id` is also not passed, Remotion will let you select a composition.
+如果未传递 `output-location`，则静帧将被渲染到 `out` 文件夹中。  
+如果也未传递 `composition-id`，Remotion 将允许您选择一个组合。
 
-## Flags
+## 标志
 
 ### `--props`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a serialized JSON string (`--props='{"hello": "world"}'`) or a path to a JSON file (`./path/to/props.json`).  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)  
+必须是一个序列化的 JSON 字符串 (`--props='{"hello": "world"}'`) 或一个指向 JSON 文件的路径 (`./path/to/props.json`)。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 :::note
-Inline JSON string isn't supported on Windows shells because it removes the `"` character, use a file name instead.
+在 Windows shell 上不支持内联 JSON 字符串，因为它会移除 `"` 字符，请改用文件名。
 :::
 
 ### `--image-format`
 
-`jpeg`, `png`, `webp` or `pdf`. The default is `png`.
+`jpeg`、`png`、`webp` 或 `pdf`。默认为 `png`。
 
 ### `--config`
 
-Specify a location for the Remotion config file.
+指定 Remotion 配置文件的位置。
 
 ### `--env-file`
 
-Specify a location for a dotenv file - Default `.env`. [Read about how environment variables work in Remotion.](/docs/env-variables)
+指定 dotenv 文件的位置 - 默认为 `.env`。[了解 Remotion 中环境变量的工作原理。](/docs/env-variables)
 
 ### `--jpeg-quality` <AvailableFrom v="4.0.0" />
 
-[Value between 0 and 100 for JPEG rendering quality](/docs/config#setjpegquality). Doesn't work when PNG frames are rendered.
+JPEG 渲染质量的取值范围为 0 到 100。[设置 JPEG 渲染质量](/docs/config#setjpegquality)。在渲染 PNG 帧时不起作用。
 
 ### ~~`--quality`~~ <AvailableFrom v="1.4.0" />
 
-Renamed to `--jpeg-quality` in v4.0.0
+在 v4.0.0 版本中更名为 `--jpeg-quality`。
 
 ### `--output` <AvailableFrom v="4.0.0" />
 
-Sets the output file path, as an alternative to the `output-location` positional argument.
+设置输出文件路径，作为 `output-location` 位置参数的替代。
 
 ### `--overwrite`
 
-[Write to output even if file already exists.](/docs/config#setoverwriteoutput). This flag is enabled by default, use `--overwrite=false` to disable it.
-
 ### `--browser-executable`
 
-[Path to a Chrome executable](/docs/config#setbrowserexecutable). If not specified and Remotion cannot find one, it will download one during rendering.
+[浏览器可执行文件的路径](/docs/config#setbrowserexecutable)。如果未指定，并且 Remotion 无法找到一个，它将在渲染过程中下载一个。
 
 ### `--scale`
 
-[Scales the output frames by the factor you pass in.](/docs/scaling) For example, a 1280x720px frame will become a 1920x1080px frame with a scale factor of `1.5`. Vector elements like fonts and HTML markups will be rendered with extra details. `scale` must be greater than 0 and less than equal to 16. Default: `1`.
+[按照传入的因子缩放输出帧。](/docs/scaling) 例如，一个 1280x720px 的帧将在缩放因子为 `1.5` 的情况下变为一个 1920x1080px 的帧。像字体和 HTML 标记这样的矢量元素将以更多细节进行渲染。`scale` 必须大于 0 且小于等于 16。默认值：`1`。
 
 ### `--frame`
 
-Which frame should be rendered. Example `--frame=10`. Default `0`.  
-From v3.2.27, negative values are allowed, with `-1` being the last frame.
+应该渲染哪个帧。例如 `--frame=10`。默认值 `0`。  
+从 v3.2.27 开始，允许使用负值，其中 `-1` 为最后一个帧。
 
 ### `--bundle-cache`
 
-[Enable or disable Webpack caching](/docs/config#setcachingenabled). This flag is enabled by default, use `--bundle-cache=false` to disable caching.
+[启用或禁用 Webpack 缓存](/docs/config#setcachingenabled)。此标志默认为启用，使用 `--bundle-cache=false` 来禁用缓存。
 
 ### `--log`
 
-[Set the log level](/docs/config#setlevel). Increase or decrease the amount of output. Acceptable values: `error`, `warn`, `info` (_default_), `verbose`
+[设置日志级别](/docs/config#setlevel)。增加或减少输出量。可接受的值：`error`、`warn`、`info`（_默认_）、`verbose`。
 
 ### `--port`
 
-[Set a custom HTTP server port to serve the Webpack bundle](/docs/config#setport). If not defined, Remotion will try to find a free port.
+[设置用于提供 Webpack bundle 的自定义 HTTP 服务器端口](/docs/config#setport)。如果未定义，Remotion 将尝试找到一个空闲端口。
 
 ### `--public-dir`<AvailableFrom v="3.2.13" />
 
@@ -90,35 +88,37 @@ From v3.2.27, negative values are allowed, with `-1` being the last frame.
 
 ### `--timeout`
 
-Define how long a single frame may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout) in milliseconds. Default: `30000`.
+定义单个帧在解析所有 [`delayRender()`](/docs/delay-render) 调用之前可能花费的时间，以毫秒为单位。默认值：`30000`。
 
 :::info
-Not to be confused with the [`--timeout` flag when deploying a Lambda function](/docs/lambda/cli/functions#--timeout).
+不要与部署 Lambda 函数时的 [`--timeout` 标志](/docs/lambda/cli/functions#--timeout) 混淆。
 :::
 
 ### `--ignore-certificate-errors`<AvailableFrom v="2.6.5" />
 
-Results in invalid SSL certificates in Chrome, such as self-signed ones, being ignored.
+导致 Chrome 忽略无效的 SSL 证书，如自签名证书。
 
 ### `--disable-web-security`<AvailableFrom v="2.6.5" />
 
-This will most notably disable CORS in Chrome among other security features.
+这将主要在 Chrome 中禁用 CORS 等安全功能。
 
 ### `--disable-headless`<AvailableFrom v="2.6.5" />
 
-Opens an actual browser during rendering to observe the render.
-
 ### `--gl`
 
-<Options id="gl" cli />
+在渲染期间打开一个实际的浏览器以观察渲染。
+
+
 
 ### `--user-agent`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置一个自定义用户代理，供无头 Chrome 浏览器使用。
+
+
 
 ### `--offthreadvideo-cache-size-in-bytes`<AvailableFrom v="4.0.23"/>
 
-<Options id="offthreadvideo-cache-size-in-bytes" />
+<Options id="offthreadvideo-cache-size-in-bytes"/>
 
 ### `--enable-multiprocess-on-linux`<AvailableFrom v="4.0.42"/>
 
@@ -130,12 +130,12 @@ Lets you set a custom user agent that the headless Chrome browser assumes.
 
 ### ~~`--ffmpeg-executable`~~
 
-_removed in v4.0_
+_在 v4.0 中已移除_
 
-[Set a custom `ffmpeg` executable](/docs/config#setffmpegexecutable). If not defined, a `ffmpeg` executable will be searched in `PATH`.
+[设置自定义 `ffmpeg` 可执行文件](/docs/config#setffmpegexecutable)。如果未定义，将在 `PATH` 中搜索 `ffmpeg` 可执行文件。
 
 ### ~~`--ffprobe-executable`~~
 
-_removed in v4.0_
+_在 v4.0 中已移除_
 
-[Set a custom `ffprobe` executable](/docs/config#setffprobeexecutable). If not defined, a `ffprobe` executable will be searched in `PATH`.
+[设置自定义 `ffprobe` 可执行文件](/docs/config#setffprobeexecutable)。如果未定义，将在 `PATH` 中搜索 `ffprobe` 可执行文件。

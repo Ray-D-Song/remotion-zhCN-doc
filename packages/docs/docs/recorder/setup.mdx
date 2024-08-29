@@ -1,57 +1,58 @@
 ---
 image: /generated/articles-docs-recorder-setup.png
-title: Setup
-crumb: Recorder
+title: 设置
+crumb: 录制器
 ---
 
-# Setup
+# 设置
 
-First, [purchase](/docs/recorder/buy) the Recorder to [get access to the repo](https://github.com/remotion-dev/recorder).
+首先，[购买](/docs/recorder/buy) 录制器以[获取存储库访问权限](https://github.com/remotion-dev/recorder)。
 
-## 1. Fork and clone
+## 1. 复制和克隆
 
-[Create a fork](https://github.com/remotion-dev/recorder/fork) of the `remotion-dev/recorder` repository.  
-Clone the repository using `git clone` and `cd` into the directory.
+[创建一个分支](https://github.com/remotion-dev/recorder/fork) 从 `remotion-dev/recorder` 存储库。  
+使用 `git clone` 克隆存储库并进入该目录。
 
 :::note
-You need to keep your fork **private** to not leak the source code of the Remotion Recorder.
+您需要将您的分支保持**私有**，以防泄漏 Remotion Recorder 的源代码。
 :::
 
-Then, clone your fork to get the project locally.
+然后，克隆您的分支以在本地获取项目。
 
-## 2. Install Bun
+## 2. 安装 Bun
 
-The Remotion Recorder requires [Bun](https://bun.sh/), with the minimum version being 1.1.11. To install it, run
+Remotion Recorder 需要 [Bun](https://bun.sh/)，最低版本为 1.1.11。要安装它，请运行
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
 
-## 3. Install dependencies
+## 3. 安装依赖项
 
-Once Bun is installed, run
+一旦安装了 Bun，运行
 
 ```bash
 bun i
 ```
 
-to install all the neccessary dependencies.
+以安装所有必要的依赖项。
 
-## 4. Install Whisper.cpp
+## 4. 安装 Whisper.cpp
 
-_optional_
+_可选_
 
-This is a good time to initialize Whisper.cpp for captioning.  
-This will install Whisper.cpp and download the model (the default being 1.5GB).
+现在是初始化 Whisper.cpp 以进行字幕处理的好时机。  
+这将安装 Whisper.cpp 并下载模型（默认大小为 1.5GB）。
 
 ```
 bun sub.ts
 ```
 
-## 5. Run the Remotion Recorder
+## 5. 运行 Remotion Recorder
 
-Once done, you are ready to start the Remotion Recorder:
+完成后，您可以开始运行 Remotion Recorder：
 
 ```bash
 bun start
 ```
+

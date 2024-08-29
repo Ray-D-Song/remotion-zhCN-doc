@@ -1,117 +1,118 @@
 ---
 image: /generated/articles-docs-cli-benchmark.png
-title: npx remotion benchmark
+title: npx remotion 基准测试
 sidebar_label: benchmark
-crumb: CLI Reference
+crumb: CLI 参考
 ---
 
-_available from v3.2.28_
+_从 v3.2.28 版本开始可用_
 
-Measures render time by running a render multiple times, if desired with multiple compositions and concurrency values to compare against each other.
+通过多次运行渲染来测量渲染时间，如果需要，可以使用多个组合和并发值进行比较。
 
 ```bash
 npx remotion benchmark src/index.ts [composition-ids]
 ```
 
-You can provide multiple composition IDs separated by comma, ex: `npx remotion benchmark src/index.ts --codec=h264 Main,Canvas,CSS`
+您可以提供多个由逗号分隔的组合 ID，例如：`npx remotion benchmark src/index.ts --codec=h264 Main,Canvas,CSS`
 
-If `composition-ids` is not passed, Remotion will let you select compositions from a list.
+如果未传递 `composition-ids`，Remotion 将让您从列表中选择组合。
 
-## Flags
+## 标志
 
 ### `--runs`
 
-_optional. Default is 3_
+_可选。默认值为 3_
 
-Specify how many times video must be rendered. Default value is 3.
+指定必须渲染视频的次数。默认值为 3。
 
 ### `--concurrencies`
 
-_optional_
+_可选_
 
-You can specify which concurrency value should be used while rendering the video. Multiple concurrency values can be passed separated by comma. Learn more about [concurrency](/docs/terminology/concurrency)
+您可以指定在渲染视频时应使用哪个并发值。可以通过逗号分隔传递多个并发值。了解更多关于[并发性](/docs/terminology/concurrency)
 
 ### `--codec`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--codec)
+继承自 [`npx remotion render`](/docs/cli/render#--codec)
 
 ### `--audio-codec`<AvailableFrom v="3.3.42" />
 
-_optional_
+_可选_
 
 <Options id="audio-codec" />
 
 ### `--crf`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--crf)
+继承自 [`npx remotion render`](/docs/cli/render#--crf)
 
 ### `--frames`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--frames)
+继承自 [`npx remotion render`](/docs/cli/render#--frames)
 
 ### `--image-format`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--image-format)
+继承自 [`npx remotion render`](/docs/cli/render#--image-format)
 
 ### `--pixel-format`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--pixel-format)
+继承自 [`npx remotion render`](/docs/cli/render#--pixel-format)
 
 ### `--props`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--props)
+继承自 [`npx remotion render`](/docs/cli/render#--props)
 
 ### `--prores-profile`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--prores-profile)
+继承自 [`npx remotion render`](/docs/cli/render#--prores-profile)
 
 ### `--jpeg-quality`
 
-_optional, available from v4.0.0_
+_可选，从 v4.0.0 版本开始可用_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--jpeg-quality)
+继承自 [`npx remotion render`](/docs/cli/render#--jpeg-quality)
 
 ### ~~`--quality`~~
 
-_optional, removed in v4.0.0_
+_可选，已在 v4.0.0 版本中移除_
 
-Renamed to `--jpeg-quality`.
+重命名为 `--jpeg-quality`。
 
 ### `--log`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--log)
+继承自 [`npx remotion render`](/docs/cli/render#--log)
 
 ### `--ignore-certificate-errors`
 
-_optional_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--ignore-certificate-errors)
+_可选_
+
+继承自[`npx remotion render`](/docs/cli/render#--ignore-certificate-errors)
 
 ### `--disable-web-security`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--disable-web-security)
+继承自[`npx remotion render`](/docs/cli/render#--disable-web-security)
 
 ### `--disable-headless?`
 
-_optional_
+_可选_
 
 <Options id="disable-headless"  />
 
@@ -121,99 +122,100 @@ _optional_
 
 ### `--gl`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--gl)
+继承自[`npx remotion render`](/docs/cli/render#--gl)
 
 ### `--timeout`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--timeout)
+继承自[`npx remotion render`](/docs/cli/render#--timeout)
 
 ### `--scale`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--scale)
+继承自[`npx remotion render`](/docs/cli/render#--scale)
 
 ### `--port`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--port)
+继承自[`npx remotion render`](/docs/cli/render#--port)
 
 ### `--number-of-gif-loops`
 
-_optional_
+_可选_
 
 <Options id="number-of-gif-loops" />
 
 ### `--every-nth-frame`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--every-nth-frame)
+继承自[`npx remotion render`](/docs/cli/render#--every-nth-frame)
 
 ### `--log`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--log)
+继承自[`npx remotion render`](/docs/cli/render#--log)
 
 ### `--muted`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--muted)
+继承自[`npx remotion render`](/docs/cli/render#--muted)
 
 ### `--enforce-audio-track`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--enforce-audio-track)
+继承自[`npx remotion render`](/docs/cli/render#--enforce-audio-track)
 
 ### `--browser-executable`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--browser-executable)
+继承自[`npx remotion render`](/docs/cli/render#--browser-executable)
 
 ### `--public-dir`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--public-dir)
+继承自[`npx remotion render`](/docs/cli/render#--public-dir)
 
 ### `--config`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--config)
+继承自[`npx remotion render`](/docs/cli/render#--config)
 
 ### `--bundle-cache`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--bundle-cache)
+继承自[`npx remotion render`](/docs/cli/render#--bundle-cache)
 
 ### `--video-bitrate`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--video-bitrate)
+继承自[`npx remotion render`](/docs/cli/render#--video-bitrate)
 
 ### `--audio-bitrate`
 
-_optional_
+_可选_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--audio-bitrate)
+继承自[`npx remotion render`](/docs/cli/render#--audio-bitrate)
 
 ### `--offthreadvideo-cache-size-in-bytes`<AvailableFrom v="4.0.23"/>
 
 <Options id="offthreadvideo-cache-size-in-bytes" />
 
 ### `--color-space`<AvailableFrom v="4.0.28"/>
+
 
 <Options cli id="color-space" />
 
@@ -223,12 +225,13 @@ Inherited from [`npx remotion render`](/docs/cli/render#--audio-bitrate)
 
 ### ~~`--ffmpeg-executable`~~
 
-_optional, removed in v4.0_
+_可选的，在v4.0中已移除_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--ffmpeg-executable)
+继承自[`npx remotion render`](/docs/cli/render#--ffmpeg-executable)
 
 ### ~~`--ffprobe-executable`~~
 
-_optional, removed in v4.0_
+_可选的，在v4.0中已移除_
 
-Inherited from [`npx remotion render`](/docs/cli/render#--ffprobe-executable-)
+继承自[`npx remotion render`](/docs/cli/render#--ffprobe-executable-)
+

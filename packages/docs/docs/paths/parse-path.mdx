@@ -4,9 +4,9 @@ title: parsePath()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.40_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.40版本开始可用_
 
-Parses an SVG string path into an array of `Instruction`'s.
+将SVG字符串路径解析为`Instruction`数组。
 
 ```tsx twoslash title="reset-path.ts"
 import { parsePath } from "@remotion/paths";
@@ -21,17 +21,17 @@ const newPath = parsePath("M 10 10 L 20 20");
 */
 ```
 
-This function will throw if the SVG path is invalid.
+如果SVG路径无效，此函数将抛出异常。
 
-## Return type type
+## 返回类型
 
-An array of `Instruction`'s. The `Instruction` type can also be imported from `@remotion/paths`:
+一个`Instruction`数组。`Instruction`类型也可以从`@remotion/paths`中导入：
 
 ```ts twoslash
 import type { Instruction } from "@remotion/paths";
 ```
 
-The type has the following shape:
+该类型具有以下结构：
 
 ```ts twoslash
 export type Instruction =
@@ -155,8 +155,9 @@ export type Instruction =
     };
 ```
 
-## See also
+## 参见
 
 - [`serializeInstructions()`](/docs/paths/serialize-instructions)
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/parse-path.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/parse-path.ts)
+

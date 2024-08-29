@@ -4,9 +4,9 @@ title: fitText()
 crumb: "@remotion/layout-utils"
 ---
 
-_Part of the [`@remotion/layout-utils`](/docs/layout-utils) package. Available from v4.0.88_
+_属于 [`@remotion/layout-utils`](/docs/layout-utils) 包。从 v4.0.88 版本开始可用_
 
-Calculates the `font-size` needed to fit a text into a given width.
+计算适合给定宽度的文本所需的 `font-size`。
 
 ```tsx twoslash title="FitText.tsx"
 import { fitText } from "@remotion/layout-utils";
@@ -40,77 +40,77 @@ const { fontSize } = fitText({
 
 ## API
 
-Accepts an object with the following properties:
+接受具有以下属性的对象：
 
 ### `text`
 
 _string_
 
-The text to fit.
+要适应的文本。
 
 ### `withinWidth`
 
 _number_
 
-The width to fit the text into.
+要适应文本的宽度。
 
 :::info
-In the default Remotion stylesheet, borders shrink the container due to `box-sizing: border-box`.  
-Subtract any borders, or use `outline` instead of `border`.
+在默认的 Remotion 样式表中，由于 `box-sizing: border-box`，边框会使容器收缩。  
+减去任何边框，或者使用 `outline` 而不是 `border`。
 :::
 
 ### `fontFamily`
 
 _string_
 
-The `font-family` CSS property you are going to assign to the text.
+您将分配给文本的 `font-family` CSS 属性。
 
 :::info
-The font needs to be loaded before this API is being called.  
-If you use [`@remotion/google-fonts`](/docs/google-fonts), wait until [`waitUntilDone()`](/docs/google-fonts/load-font#waituntildone) resolves first.
+在调用此 API 之前，需要加载字体。  
+如果您使用 [`@remotion/google-fonts`](/docs/google-fonts)，请等到 [`waitUntilDone()`](/docs/google-fonts/load-font#waituntildone) 解析完成。
 :::
 
 ### `fontWeight`
 
 _string | number, optional_
 
-Pass this option if you are going to assign a `font-weight` CSS property to the text.
+如果要为文本分配 `font-weight` CSS 属性，则传递此选项。
 
 ### `letterSpacing`
 
 _string, optional_
 
-Pass this option if you are going to assign a `letter-spacing` CSS property to the text.
+如果要为文本分配 `letter-spacing` CSS 属性，则传递此选项。
 
 ### `fontVariantNumeric`
 
 _string, optional_
 
-Pass this option if you are going to assign a `font-variant-numeric` CSS property to the text.
+如果要为文本分配 `font-variant-numeric` CSS 属性，则传递此选项。
 
 ### `textTransform`<AvailableFrom v="4.0.140"/>
 
 _string_
 
-Same as CSS style `text-transform`.
+与 CSS 样式 `text-transform` 相同。
 
 ### `validateFontIsLoaded?`<AvailableFrom v="4.0.136"/>
 
 _boolean_
 
-If set to `true`, will take a second measurement with the fallback font and if it produces the same measurements, it assumes the fallback font was used and will throw an error.
+如果设置为 `true`，将使用回退字体进行第二次测量，如果产生相同的测量结果，则假定使用了回退字体，并将抛出错误。
 
 ### `additionalStyles`<AvailableFrom v="4.0.140"/>
 
 _object, optional_
 
-Additional CSS properties that affect the layout of the text.
+影响文本布局的其他 CSS 属性。
 
-## Return value
+## 返回值
 
-An object with `fontSize` in pixels. Assign this to the `style` prop of your text element.
+一个具有以像素为单位的 `fontSize` 的对象。将其分配给文本元素的 `style` 属性。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { fitText } from "@remotion/layout-utils";
@@ -162,17 +162,17 @@ export const FitText: React.FC<{ text: string }> = ({ text }) => {
 
 Notes:
 
-- A maximum font size of `80` was specified to prevent the text from becoming too large.
-- The `fontFamily` and `fontWeight` were passed to the `div` element to ensure that the text is rendered with the same font as the one used by `fitText()`.
-- The `outline` CSS property was used instead of `border`.  
-  This is because in Remotion, the border is inside by default and shrinks the container, due to `box-sizing: border-box` being in the default stylesheet.
+- 为防止文本过大，指定了最大字体大小为 `80`。
+- 将 `fontFamily` 和 `fontWeight` 传递给 `div` 元素，以确保文本使用与 `fitText()` 使用的相同字体相同。
+- 使用 `outline` CSS 属性而不是 `border`。  
+  这是因为在 Remotion 中，默认情况下边框在内部，并且由于默认样式表中存在 `box-sizing: border-box`，边框会使容器收缩。
 
-## Important considerations
+## 重要考虑事项
 
-See [Best practices](/docs/layout-utils/best-practices) to ensure you get correct measurements.
+请查看[最佳实践](/docs/layout-utils/best-practices)以确保您获得正确的测量值。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/layout-utils/src/layouts/fit-text.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/layout-utils/src/layouts/fit-text.ts)
 - [`@remotion/layout-utils`](/docs/layout-utils)
 - [`@remotion/google-fonts`](/docs/google-fonts)

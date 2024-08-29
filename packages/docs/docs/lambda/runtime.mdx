@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-lambda-runtime.png
 id: runtime
-title: Runtime
+title: 运行环境
 slug: /lambda/runtime
 crumb: "Lambda"
 ---
@@ -9,44 +9,45 @@ crumb: "Lambda"
 import { DefaultMemorySize } from "../../components/lambda/default-memory-size";
 import { DefaultTimeout } from "../../components/lambda/default-timeout";
 
-This page describes the environment that the Lambda function is running in.
+本页面描述了 Lambda 函数运行的环境。
 
-## Node.JS Version
+## Node.JS 版本
 
-The Lambda function uses a NodeJS version from the `18.x` release line.  
-The Lambda runtime will get locked to
+Lambda 函数使用 `18.x` 发行线的 NodeJS 版本。  
+如果您的用户策略包含 `lambda:PutRuntimeManagementConfig`，Lambda 运行时将被锁定为
 
 ```
 arn:aws:lambda:${region}::runtime:b97ad873eb5228db2e7d5727cd116734cc24c92ff1381739c4400c095404a2d3
 ```
 
-if your user policy includes `lambda:PutRuntimeManagementConfig`, which is recommended.  
-Otherwise, future updates to the runtime by AWS have the potential to break the function. If you don't have this permission in your policy, a warning will be printed.
+这是推荐的做法。否则，AWS 对运行时的未来更新可能会导致函数出现问题。如果您的策略中没有此权限，将会打印警告。
 
 <details>
-  <summary>Changelog</summary>
-  Before Remotion v4.0.0, the Node.JS version was <code>14.x</code>.
+  <summary>变更日志</summary>
+  在 Remotion v4.0.0 之前，Node.JS 版本为 <code>14.x</code>。
 </details>
 
-## Memory size
+## 内存大小
 
-The default is <DefaultMemorySize/> MB. You can configure it by passing an argument to [`deployFunction()`](/docs/lambda/deployfunction) or by passing a `--memory` flag to the CLI when deploying a function.
+默认值为 <DefaultMemorySize/> MB。您可以通过向 [`deployFunction()`](/docs/lambda/deployfunction) 传递参数或在部署函数时向 CLI 传递 `--memory` 标志来配置它。
 
-## Timeout
+## 超时时间
 
-The default is <DefaultTimeout /> seconds. You can configure it when calling [`deployFunction()`](/docs/lambda/deployfunction) or by passing a `--timeout` flag to the CLI when deploying a function.
+默认值为 <DefaultTimeout /> 秒。您可以在调用 [`deployFunction()`](/docs/lambda/deployfunction) 时配置它，或在部署函数时向 CLI 传递 `--timeout` 标志。
 
-Note that you probably don't need to increase it - Since the video is rendered by splitting it into many parts and those parts are rendered in parallel, there are rare cases where you need more than <DefaultTimeout /> seconds.
+请注意，您可能不需要增加它 - 由于视频被分割成许多部分并且这些部分是并行渲染的，很少有情况需要超过 <DefaultTimeout /> 秒。
 
-## Storage space
+## 存储空间
 
-The function has between [512MB and 10GB of storage space](/docs/lambda/disk-size) in total available for video rendering depending on your configuration. Keep in mind that the concatenations of various chunks into one video takes place within a Lambda function, so the space must suffice for both the chunks and the output video.
+根据您的配置，函数总共有 [512MB 到 10GB 的存储空间](/docs/lambda/disk-size) 用于视频渲染。请记住，各种块的连接成一个视频发生在 Lambda 函数内部，因此空间必须足够容纳块和输出视频。
 
-## Core count / vCPUs
+## 核心数量 / vCPUs
 
-The amount of cores inside a Lambda is dependent on the amount of memory you give it. According to [this research](https://web.archive.org/web/20230331040434/https://www.sentiatechblog.com/aws-re-invent-2020-day-3-optimizing-lambda-cost-with-multi-threading), these are the tiers:
+Lambda 中的核心数量取决于您分配的内存量。根据 [这项研究](https://web.archive.org/web/20230331040434/https://www.sentiatechblog.com/aws-re-invent-2020-day-3-optimizing-lambda-cost-with-multi-threading)，这些是分层的：
 
-| Memory         | vCPUs |
+
+
+| 内存           | vCPUs |
 | -------------- | ----- |
 | 128 - 3008 MB  | 2     |
 | 3009 - 5307 MB | 3     |
@@ -54,31 +55,31 @@ The amount of cores inside a Lambda is dependent on the amount of memory you giv
 | 7077 - 8845 MB | 5     |
 | 8846+ MB       | 6     |
 
-You can render multiple frames at once inside a Lambda function by using the [`concurrencyPerLambda`](/docs/lambda/rendermediaonlambda#concurrencyperlambda) option.
+您可以通过使用 [`concurrencyPerLambda`](/docs/lambda/rendermediaonlambda#concurrencyperlambda) 选项在 Lambda 函数内同时渲染多个帧。
 
 ## Chrome
 
-The function already includes a running version of Chrome.
-The browser was compiled including the proprietary codecs, so you can include MP4 videos into your project.
+该函数已经包含了一个运行版本的 Chrome 浏览器。
+该浏览器已经编译包含专有编解码器，因此您可以将 MP4 视频包含到您的项目中。
 
-| Remotion version      | Chrome version |
+| Remotion 版本         | Chrome 版本    |
 | --------------------- | -------------- |
-| From 5.0.0 (upcoming) | 123.0.6312.86  |
-| From 4.0.0            | 114.0.5731.1   |
-| From 3.2.0            | 104.0.5112.64  |
-| From 3.0.8            | 101.0.4951.68  |
-| From 3.0.0            | 98.0.4758.139  |
+| 从 5.0.0（即将发布） | 123.0.6312.86  |
+| 从 4.0.0              | 114.0.5731.1   |
+| 从 3.2.0              | 104.0.5112.64  |
+| 从 3.0.8              | 101.0.4951.68  |
+| 从 3.0.0              | 98.0.4758.139  |
 
 ## FFMPEG
 
-Since Remotion 4.0, the function already includes an FFMPEG 6.0 binary that was compiled to support all [codecs](/docs/encoding) that Remotion supports.
+自 Remotion 4.0 起，该函数已经包含了一个 FFMPEG 6.0 二进制文件，该文件经过编译以支持 Remotion 支持的所有 [编解码器](/docs/encoding)。
 
 <details>
 <summary>
-Before v4.0.0
+v4.0.0 之前
 </summary>
-Version built from source: <code>N-104627-g40cf317d09</code> (corresponds to v4.4)  
-Configuration:
+从源代码构建的版本: <code>N-104627-g40cf317d09</code>（对应 v4.4）  
+配置:
 
 <pre>
   --prefix=/home/ec2-user/ffmpeg_build --pkg-config-flags=--static
@@ -91,9 +92,9 @@ Configuration:
 
 </details>
 
-## Fonts
+## 字体
 
-The function includes the following fonts:
+该函数包含以下字体：
 
 - Noto Color Emoji
 - Noto Sans Black
@@ -107,7 +108,7 @@ The function includes the following fonts:
 - Noto Sans Tamil Regular
 - Noto Sans Thai Regular
 
-Since December 2021 the following fonts are also available **only on the `arm64` version of Remotion Lambda:**
+自 2021 年 12 月起，以下字体也仅在 `arm64` 版本的 Remotion Lambda 上可用：
 
 - Noto Sans Simplified Chinese Regular
 - Noto Sans Simplified Chinese Bold
@@ -118,25 +119,27 @@ Since December 2021 the following fonts are also available **only on the `arm64`
 - Noto Sans Japanese Regular
 - Noto Sans Japanese Bold
 
-If you'd like to use different fonts, we recommend using Webfonts.
 
-While the set of default fonts that we can include must be kept small in order to save space, we are happy to hear feedback if you encounter a scenario where characters cannot be rendered.
 
-## Customize layers
+如果您想使用不同的字体，我们建议使用Webfonts。
 
-See: [Customize Lambda layers](/docs/lambda/custom-layers) to learn about how you can customize this stack.
+虽然我们可以包含的默认字体集必须保持较小以节省空间，但如果您遇到无法呈现字符的情况，我们很乐意听取反馈意见。
 
-## Runtime changes in Remotion 5.0
+## 自定义层
 
-Remotion 5.0 will use the following runtime:
+请参阅：[自定义 Lambda 层](/docs/lambda/custom-layers) 以了解如何自定义此堆栈。
 
-- Node.js 20.x instead of 18.x
-- Chrome 123.0.6312.86 instead of 114.0.5731.1.
-- AWS Lambda runtime locked to `arn:aws:lambda:${region}::runtime:b97ad873eb5228db2e7d5727cd116734cc24c92ff1381739c4400c095404a2d3`
+## Remotion 5.0 中的运行时更改
 
-Available from v4.0.148: You may opt to use the new runtime by setting `enableV5Runtime: true` in the [`deployFunction()`](/docs/lambda/deployfunction) function.  
-If you use the CLI, pass `--enable-v5-runtime` to the [`npx remotion lambda functions deploy`](/docs/lambda/cli/functions#deploy) command.
+Remotion 5.0 将使用以下运行时：
 
-## See also
+- Node.js 20.x 而不是 18.x
+- Chrome 123.0.6312.86 而不是 114.0.5731.1。
+- AWS Lambda 运行时锁定为 `arn:aws:lambda:${region}::runtime:b97ad873eb5228db2e7d5727cd116734cc24c92ff1381739c4400c095404a2d3`
 
-- [Customize Lambda layers](/docs/lambda/custom-layers)
+从 v4.0.148 开始：您可以通过在 [`deployFunction()`](/docs/lambda/deployfunction) 函数中设置 `enableV5Runtime: true` 来选择使用新的运行时。  
+如果您使用 CLI，请在 [`npx remotion lambda functions deploy`](/docs/lambda/cli/functions#deploy) 命令中传递 `--enable-v5-runtime`。
+
+## 另请参阅
+
+- [自定义 Lambda 层](/docs/lambda/custom-layers)

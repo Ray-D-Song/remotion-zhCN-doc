@@ -1,53 +1,55 @@
 ---
 image: /generated/articles-docs-cloudrun-region-selection.png
 id: region-selection
-title: Region selection
+title: 区域选择
 slug: /cloudrun/region-selection
 crumb: "Cloud Run"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以保持与重大更改的最新信息。</p>
 </ExperimentalBadge>
 
 import {GcpRegionList} from '../../components/cloudrun/regions.tsx';
 
-Before going live with Remotion Cloud Run, you need to think about into which GCP region you are deploying your service and bucket (which will hold your sites and renders).
+在启用 Remotion Cloud Run 之前，您需要考虑将服务和存储桶（用于保存站点和渲染）部署到哪个 GCP 区域。
 
-This document explains how to select a region and which considerations you need to make.
+本文档解释了如何选择区域以及需要考虑的因素。
 
-## Available regions
+## 可用区域
 
-The following GCP regions are available:
+以下 GCP 区域可用：
 
 <GcpRegionList />
 
-You can call [`getRegions()`](/docs/cloudrun/getregions) or type [`npx remotion cloudrun regions`](/docs/cloudrun/cli/regions) to get this list programmatically.
+您可以调用 [`getRegions()`](/docs/cloudrun/getregions) 或键入 [`npx remotion cloudrun regions`](/docs/cloudrun/cli/regions) 以编程方式获取此列表。
 
-## Default region
+## 默认区域
 
-The default region is `us-east1`.
+默认区域为 `us-east1`。
 
-## Selecting a region
+## 选择区域
 
-There are 3 ways to select a region:
+有 3 种选择区域的方式：
 
-- When using the Node.JS APIs, you have to pass the region explicitly to each function. Make sure your projects satisfy the Typescript types or follow the documentation.
+- 使用 Node.JS API 时，您必须显式地将区域传递给每个函数。确保您的项目符合 TypeScript 类型或遵循文档。
 
-- When using the CLI, you can set the region using the `REMOTION_GCP_REGION` environment variable. It's best to put it in a `.env` file so you don't forget it sometimes.
+- 使用 CLI 时，您可以使用 `REMOTION_GCP_REGION` 环境变量设置区域。最好将其放在 `.env` 文件中，以免有时会忘记。
 
-- You can also pass the `--region` flag to all CLI commands to override the region. The flag takes precedence over the environment variable.
+- 您还可以向所有 CLI 命令传递 `--region` 标志以覆盖区域。该标志优先于环境变量。
 
 :::info
-The REMOTION_GCP_REGION environment variable and `--region` flag do not have an effect when using the Node.JS APIs. You need to pass a region explicitly.
+当使用 Node.JS API 时，`REMOTION_GCP_REGION` 环境变量和 `--region` 标志不起作用。您需要显式传递区域。
 :::
 
-If you don't set a region, Remotion will use the default region.
+如果您未设置区域，Remotion 将使用默认区域。
 
-## Which region should I choose?
+## 我应该选择哪个区域？
 
-Note that each region falls into one of two different pricing tiers. Some regions also offer low CO<sub>2</sub> intensity electricity usage. The full list of regions per tier is available in the [Cloud Run Docs](https://cloud.google.com/run/docs/locations).
+请注意，每个区域都属于两种不同的定价层。一些区域还提供低 CO<sub>2</sub> 强度的电力使用。每个定价层的完整区域列表可在 [Cloud Run 文档](https://cloud.google.com/run/docs/locations) 中找到。
 
-## Other considerations
+## 其他考虑事项
 
-- The Cloud Run service and Cloud Storage bucket should be in the same region to eliminate latency across datacenters.
+- Cloud Run 服务和 Cloud Storage 存储桶应位于同一地区，以消除数据中心之间的延迟。
+
+

@@ -1,5 +1,3 @@
-import type { CubeDirection } from "@remotion-dev/cube-presentation";
-import { cube } from "@remotion-dev/cube-presentation";
 import type { PlayerRef } from "@remotion/player";
 import { Player } from "@remotion/player";
 import type {
@@ -154,14 +152,9 @@ export const ClockWipeDemo: React.FC<{}> = () => {
   );
 };
 
-export const CubeDemo: React.FC<{ readonly direction: CubeDirection }> = ({
-  direction,
-}) => {
+export const CubeDemo: React.FC = () => {
   return (
-    <SampleTransition
-      effect={cube({ direction })}
-      durationRestThreshold={0.001}
-    />
+    <div>Nothing here</div>
   );
 };
 

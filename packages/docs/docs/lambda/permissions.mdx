@@ -1,79 +1,80 @@
 ---
 image: /generated/articles-docs-lambda-permissions.png
-sidebar_label: Permissions
-title: Permissions
+sidebar_label: 权限
+title: 权限
 crumb: 'Lambda'
 ---
+
 
 import {UserPolicy} from '../../components/lambda/user-permissions.tsx';
 import {RolePolicy} from '../../components/lambda/role-permissions.tsx';
 
-This document describes the necessary permissions for Remotion Lambda and explains to those interested why the permissions are necessary.
+本文描述了 Remotion Lambda 所需的权限，并向感兴趣的人解释了为什么这些权限是必要的。
 
-For a step by step guide on how to set up permissions, [follow the setup guide](/docs/lambda/setup).
+要逐步设置权限，请参阅[设置指南](/docs/lambda/setup)。
 
-## User permissions
+## 用户权限
 
-This policy should be assigned to the **AWS user**. To do so, go to the [AWS console](https://console.aws.amazon.com/console/home) ➞ [IAM](https://console.aws.amazon.com/iam/home) ➞ [Users](https://console.aws.amazon.com/iamv2/home#/users) ➞ Your created Remotion user ➞ Permissions tab ➞ Add inline policy ➞ JSON.
+此策略应分配给 **AWS 用户**。要这样做，请转到[AWS 控制台](https://console.aws.amazon.com/console/home) ➞ [IAM](https://console.aws.amazon.com/iam/home) ➞ [用户](https://console.aws.amazon.com/iamv2/home#/users) ➞ 您创建的 Remotion 用户 ➞ 权限选项卡 ➞ 添加内联策略 ➞ JSON。
 
 <details>
   <summary>
-    Show full user permissions JSON file for latest Remotion Lambda version
+    显示最新 Remotion Lambda 版本的完整用户权限 JSON 文件
   </summary>
   <UserPolicy />
 </details>
 
 :::info
-You can always get the suitable permission file for your Remotion Lambda version by typing `npx remotion lambda policies user`.
+您可以通过输入 `npx remotion lambda policies user` 获取适合您的 Remotion Lambda 版本的权限文件。
 :::
 
-## Role permissions
+## 角色权限
 
-This policy should be assigned to the **role `remotion-lambda-role`** in your AWS account. The permissions below are given to the Lambda function itself.
+此策略应分配给您 AWS 帐户中的 **角色 `remotion-lambda-role`**。以下权限授予 Lambda 函数本身。
 
-To assign, go to [AWS console](https://console.aws.amazon.com/console/home) ➞ [IAM](https://console.aws.amazon.com/iam/home) ➞ [Roles](https://console.aws.amazon.com/iamv2/home#/roles) ➞ [`remotion-lambda-role`](https://console.aws.amazon.com/iam/home#/roles/remotion-lambda-role) ➞ Permissions tab ➞ [Add inline policy](https://console.aws.amazon.com/iam/home#/roles/remotion-lambda-role$createPolicy?step=edit).
+要分配，请转到[AWS 控制台](https://console.aws.amazon.com/console/home) ➞ [IAM](https://console.aws.amazon.com/iam/home) ➞ [角色](https://console.aws.amazon.com/iamv2/home#/roles) ➞ [`remotion-lambda-role`](https://console.aws.amazon.com/iam/home#/roles/remotion-lambda-role) ➞ 权限选项卡 ➞ [添加内联策略](https://console.aws.amazon.com/iam/home#/roles/remotion-lambda-role$createPolicy?step=edit)。
 
 <details>
   <summary>
-    Show full role permissions JSON file for latest Remotion Lambda version
+    显示最新 Remotion Lambda 版本的完整角色权限 JSON 文件
   </summary>
   <RolePolicy />
 </details>
 
 :::info
-You can always get the suitable permission file for your Remotion Lambda version by typing `npx remotion lambda policies role`.
+您可以通过输入 `npx remotion lambda policies role` 获取适合您的 Remotion Lambda 版本的权限文件。
 :::
 
-## Validation
+## 验证
 
-There are two ways in which you can test if the permissions for the user have been correctly set up. Either you execute the following command:
+有两种方式可以测试用户权限是否已正确设置。您可以执行以下命令：
 
 ```bash
 npx remotion lambda policies validate
 ```
 
-or if you want to validate it programmatically, using the [`simulatePermissions()`](/docs/lambda/simulatepermissions) function.
+或者如果您想以编程方式进行验证，可以使用[`simulatePermissions()`](/docs/lambda/simulatepermissions)函数。
 
 :::info
-Policies for the role cannot be validated.
+无法验证角色的策略。
 :::
 
-## Explanation
+## 解释
 
-The following table is a breakdown of why Remotion Lambda requires the permissions it does.
+以下表格详细说明了为什么 Remotion Lambda 需要它所需的权限。
 
-### User policies
+### 用户策略
 
 <table>
   <tr>
     <th>
-      Permission
+      权限
     </th>
     <th>
-      Scope
+      范围
     </th>
     <th>
-      Reason
+      原因
     </th>
   </tr>
   <tr>
@@ -82,7 +83,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
     </td>
     <td><code>*</code></td>
     <td>
-      Allows for <code>npx remotion lambda permissions validate</code>.
+      允许执行 <code>npx remotion lambda permissions validate</code>。
     </td>
   </tr>
   <tr>
@@ -91,7 +92,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
     </td>
     <td><code>arn:aws:iam::*:role/remotion-lambda-role</code></td>
     <td>
-    Allows the Lambda function to assume a role with sufficient permissions.
+    允许 Lambda 函数假定具有足够权限的角色。
     </td>
   </tr>
   <tr>
@@ -112,7 +113,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{'arn:aws:s3:::remotionlambda-*'}</code>
     </td>
     <td>
-      Allows to create and delete buckets and objects in your account, make objects public and configure them as websites. Only buckets that start with <code>remotionlambda-</code> can be accessed. 
+      允许在您的帐户中创建和删除存储桶和对象，使对象公开并将其配置为网站。只能访问以 <code>remotionlambda-</code> 开头的存储桶。
     </td>
   </tr>
   <tr>
@@ -123,7 +124,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{'arn:aws:s3:::*'}</code>
     </td>
     <td>
-      Allows listing the names of all buckets in your account, in order to detect an already existing Remotion bucket.
+      允许列出您帐户中所有存储桶的名称，以便检测已存在的 Remotion 存储桶。
     </td>
   </tr>
 
@@ -135,7 +136,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"arn:aws:lambda:*:678892195805:layer:remotion-binaries-*"}</code>
     </td>
     <td>
-    Allows to read Chromium and FFMPEG binaries. These binaries are hosted in an account hosted by Remotion specifically dedicated to hosting those layers in all supported regions.
+    允许读取 Chromium 和 FFMPEG 二进制文件。这些二进制文件托管在 Remotion 专门用于在所有支持的区域中托管这些层的帐户中。
     </td>
   </tr>
   <tr>
@@ -147,7 +148,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"*"}</code>
     </td>
     <td>
-    Allows to read the functions in your AWS account in order to find the correct function to invoke. The loose <code>*</code> permission is because AWS doesn't allow this permission to be tightened.
+    允许读取您 AWS 帐户中的函数，以便找到要调用的正确函数。宽松的 <code>*</code> 权限是因为 AWS 不允许收紧此权限。
     </td>
   </tr>
   <tr>
@@ -164,7 +165,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"arn:aws:lambda:*:*:function:remotion-render-*"}</code>
     </td>
     <td>
-    Allows to create, delete, invoke and configure functions (such as disabling automatic retries). Used by the CLI and the Node.JS APIS to set up, execute and teardown the infrastructure. <code>lambda:TagResource</code> will optionally tag the functions 
+    允许创建、删除、调用和配置函数（例如禁用自动重试）。CLI 和 Node.JS API 使用这些权限来设置、执行和拆卸基础设施。<code>lambda:TagResource</code> 可以选择性地为函数打标签。
     </td>
   </tr>
   <tr>
@@ -176,7 +177,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"arn:aws:logs:*:*:log-group:/aws/lambda/remotion-render-*"}</code>
     </td>
     <td>
-    Allows to create CloudWatch group, so logs can be saved in there later. Simplifies debugging.
+    允许创建 CloudWatch 组，以便稍后将日志保存在其中。简化调试。
     </td>
   </tr>
   <tr>
@@ -190,23 +191,23 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"*"}</code>
     </td>
     <td>
-    Powers the <code>lambda quotas</code> CLI command.
+    为 <code>lambda quotas</code> CLI 命令提供支持。
     </td>
   </tr>
 </table>
 
-### Role policies
+### 角色策略
 
 <table>
   <tr>
     <th>
-      Permission
+      权限
     </th>
     <th>
-      Scope
+      范围
     </th>
     <th>
-      Reason
+      原因
     </th>
   </tr>
   <tr>
@@ -217,7 +218,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"*"}</code>
     </td>
     <td>
-    Get a list of Remotion buckets in order to find existing buckets that start with <code>remotionlambda-</code>.
+    获取 Remotion 存储桶列表，以查找以 <code>remotionlambda-</code> 开头的现有存储桶。
     </td>
   </tr>
   <tr>
@@ -235,7 +236,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"arn:aws:s3:::remotionlambda-*"}</code>
     </td>
     <td>
-  Create and delete buckets and items, make them public or private and fetch their location. Since Remotion stores the videos in an S3 bucket, it needs basic CRUD capabilities over those buckets. The permission only applies to buckets that start with <code>remotionlambda-</code>
+  创建和删除存储桶和项目，使其公开或私有，并获取其位置。由于 Remotion 将视频存储在 S3 存储桶中，因此需要对这些存储桶具有基本的 CRUD 能力。该权限仅适用于以 <code>remotionlambda-</code> 开头的存储桶。
     </td>
   </tr>
   <tr>
@@ -246,7 +247,7 @@ The following table is a breakdown of why Remotion Lambda requires the permissio
       <code>{"arn:aws:lambda:*:*:function:remotion-render*"}</code>
     </td>
     <td>
-Allow the function to recursively invoke itself. A render involves multiple function calls, which is to be orchestrated by the first function call.
+允许函数递归调用自身。渲染涉及多个函数调用，由第一个函数调用进行编排。
     </td>
 
   </tr>
@@ -259,15 +260,15 @@ Allow the function to recursively invoke itself. A render involves multiple func
       <code>{"arn:aws:logs:*:*:log-group:/aws/lambda/remotion-render*"}</code>
     </td>
     <td>
-Allows to write the function logs to CloudWatch for easier debugging.
+允许将函数日志写入 CloudWatch 以便更轻松地进行调试。
     </td>
 
   </tr>
  
 </table>
 
-## See also
+## 参见
 
-- [Set up guide](/docs/lambda/setup)
+- [设置指南](/docs/lambda/setup)
 - [`simulatePermissions()`](/docs/lambda/simulatepermissions)
-- [Permissions Troubleshooting](/docs/lambda/troubleshooting/permissions)
+- [权限故障排除](/docs/lambda/troubleshooting/permissions)

@@ -1,10 +1,10 @@
 ---
 image: /generated/articles-docs-miscellaneous-snippets-fps-converter.png
-title: "FPS converter"
-crumb: "Snippets"
+title: "FPS 转换器"
+crumb: "片段"
 ---
 
-This snippet is useful if you have designed your video with a different frame rate than you want to render in the end. Wrap your markup in the `<FpsConverter>` component override the time of it's children to achieve a different FPS.
+如果您设计的视频帧率与最终渲染的帧率不同，此片段将非常有用。将您的标记包装在 `<FpsConverter>` 组件中，覆盖其子元素的时间以实现不同的 FPS。
 
 ```tsx twoslash title="FpsConverter.tsx"
 import React, { useContext, useMemo } from "react";
@@ -37,7 +37,7 @@ export const FpsConverter: React.FC<{
 };
 ```
 
-```tsx twoslash title="Usage"
+```tsx twoslash title="用法"
 // @filename: "MyComp.tsx"
 export const MyComp = () => {
   return null;

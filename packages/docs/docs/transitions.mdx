@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-transitions.png
 id: transitioning
-title: Transitions
-crumb: "Techniques"
+title: 过渡
+crumb: "技术"
 ---
 
-# Transitions<AvailableFrom v="4.0.59"/>
+# 过渡<AvailableFrom v="4.0.59"/>
 
 import { TransitionsDuration } from "../components/TransitionsDuration";
 import { Presentations } from "../components/TableOfContents/transitions/presentations";
 import { Timings } from "../components/TableOfContents/transitions/timings";
 
-To transition between two types of absolutely positioned content, you can use the [`<TransitionSeries>`](/docs/transitions/transitionseries) component.
+要在两种绝对定位内容之间进行过渡，您可以使用[`<TransitionSeries>`](/docs/transitions/transitionseries)组件。
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -59,53 +59,54 @@ const BasicTransition = () => {
 
 <Demo type="slide" />
 
-## Enter and exit animations
+## 进入和退出动画
 
-You don't necessarily have to use `<TransitionSeries>` for transitions between scenes. You can also use it to animate the entrace or exit of a scene by putting a transition first or last in the `<TransitionSeries>`.
+您不一定要使用`<TransitionSeries>`来在场景之间进行过渡。您还可以使用它来动画化场景的进入或退出，方法是将过渡放在`<TransitionSeries>`的第一个或最后一个位置。
 
-[See example](/docs/transitions/transitionseries#enter-and-exit-animations)
+[查看示例](/docs/transitions/transitionseries#enter-and-exit-animations)
 
-## Duration
+## 时长
 
-In the above example, `A` is visible for 40 frames, `B` for 60 frames and the duration of the transition is 30 frames.  
-During this time, both slides are rendered. This means the total duration of the animation is `60 + 40 - 30 = 70`.
+在上面的示例中，`A`在40帧内可见，`B`在60帧内可见，过渡的持续时间为30帧。  
+在此期间，两个幻灯片都会被渲染。这意味着动画的总持续时间为`60 + 40 - 30 = 70`。
 
 <TransitionsDuration />
 
-## Presentations
+## 演示
 
-A presentation determines the visual of animation.
+演示确定了动画的视觉效果。
 
 <Presentations />
 
-## Timings
+## 时间
 
-A timing determines how long the animation takes and the animation curve.
+时间确定了动画需要多长时间以及动画曲线。
 
 <Timings />
 
-## Audio transitions
+## 音频过渡
 
-See here how to include [audio effects](/docs/transitions/audio-transitions) in your transitions.
+查看如何在您的过渡中包含[音频效果](/docs/transitions/audio-transitions)。
 
-## Getting the duration of a transition
+## 获取过渡的持续时间
 
-You can get the duration of a transition by calling `getDurationInFrames()` on the timing:
+您可以通过在时间轴上调用`getDurationInFrames()`来获取过渡的持续时间：
 
-```tsx twoslash title="Assuming a framerate of 30fps"
+```tsx twoslash title="假设帧速率为30fps"
 import { springTiming } from "@remotion/transitions";
 
 springTiming({ config: { damping: 200 } }).getDurationInFrames({ fps: 30 }); // 23
 ```
 
-## Rules
+## 规则
 
-<Step>1</Step> It is forbidden to have a transition that is longer than the duration
-of the previous or next sequence. <br />
-<Step>2</Step> There can be no two transitions next to each other. <br />
-<Step>3</Step> There must be at least one sequence before or after a transition.
+<Step>1</Step> 不得有比前一个或下一个序列的持续时间更长的过渡。 <br />
+<Step>2</Step> 两个过渡不能相邻。 <br />
+<Step>3</Step> 在过渡之前或之后必须至少有一个序列。 
 
-## See also
+
+
+## 参见
 
 - [`@remotion/transitions`](/docs/transitions)
 - [`<TransitionSeries>`](/docs/transitions/transitionseries)

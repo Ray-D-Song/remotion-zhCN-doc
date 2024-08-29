@@ -1,69 +1,71 @@
 ---
 image: /generated/articles-docs-lambda-without-iam-ec2.png
-title: Authenticating Lambda with EC2
+title: 使用 EC2 对 Lambda 进行身份验证
 slug: /lambda/ec2
-sidebar_label: With EC2 + STS
+sidebar_label: 使用 EC2 + STS
 crumb: "@remotion/lambda"
 ---
 
-EC2 instances have credentials that can interact with the AWS SDK. If you would like to use it with Remotion Lambda, you need to assume the role using STS to generate an access token that can be used by Remotion.
+EC2 实例具有可以与 AWS SDK 交互的凭据。如果您想要将其与 Remotion Lambda 一起使用，您需要使用 STS 假定角色，以生成一个访问令牌，该访问令牌可以被 Remotion 使用。
 
-This guide will demonstrate how to securely interact with Remotion's [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) operations from an AWS EC2 instance using [Node.js](https://nodejs.org/) and [TypeScript](https://www.typescriptlang.org/).
+本指南将演示如何从 AWS EC2 实例使用 [Node.js](https://nodejs.org/) 和 [TypeScript](https://www.typescriptlang.org/) 安全地与 Remotion 的 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 操作进行交互。
 
-To supplement this guide, two projects have been created:
+为了补充本指南，已创建了两个项目：
 
-- The [remotion-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/remotion-app) includes a Remotion composition and utility scripts for deploying and deleting Remotion Lambda infrastructure in AWS. It should be noted that this is the same application as the one featured in the [Serverless Framework guide](/docs/lambda/serverless-framework-integration). Follow the setup [guide](/docs/lambda/serverless-framework-integration#remotion-app), if the Remotion lambda is not yet deployed to your AWS account.
+- [remotion-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/remotion-app) 包括一个 Remotion 组合和用于在 AWS 中部署和删除 Remotion Lambda 基础设施的实用脚本。值得注意的是，这与 [Serverless Framework 指南](/docs/lambda/serverless-framework-integration) 中展示的应用程序相同。如果 Remotion Lambda 尚未部署到您的 AWS 帐户，请按照设置 [指南](/docs/lambda/serverless-framework-integration#remotion-app) 进行操作。
 
-- The [ec2-remotion-lambda](https://github.com/alexfernandez803/remotion-serverless/tree/main/ec2-remotion-lambda) is a TypeScript Node.js application that initiates a video rendering process via a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) endpoint.
+- [ec2-remotion-lambda](https://github.com/alexfernandez803/remotion-serverless/tree/main/ec2-remotion-lambda) 是一个 TypeScript Node.js 应用程序，通过 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) 端点启动视频渲染过程。
 
-## Prerequisites
+## 先决条件
 
-- AWS deployment profile on your local machine, to configure an AWS deployment profile on your local machine.
-- A AWS policy created named `remotion-executionrole-policy` which is created from this [guide](/docs/lambda/without-iam/#1-create-role-policy).
-- An understanding how [IAM](https://docs.aws.amazon.com/iam/index.html) and [Assume Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/example_sts_AssumeRole_section.html) works in AWS.
-- A knowledge of creating and provisioning [EC2](https://aws.amazon.com/ec2/) instances and installing packages in [Ubuntu distro](https://ubuntu.com/). These includes [Git](https://git-scm.com/), [Node.js](https://nodejs.org/en), as you'll as running the nodejs application.
+- 在本地机器上具有 AWS 部署配置文件，以在本地机器上配置 AWS 部署配置文件。
+- 创建名为 `remotion-executionrole-policy` 的 AWS 策略，该策略是从此 [指南](/docs/lambda/without-iam/#1-create-role-policy) 创建的。
+- 了解 AWS 中 [IAM](https://docs.aws.amazon.com/iam/index.html) 和 [假定角色](https://docs.aws.amazon.com/IAM/latest/UserGuide/example_sts_AssumeRole_section.html) 的工作原理。
+- 了解如何在 [EC2](https://aws.amazon.com/ec2/) 实例上创建和配置软件包，并在 [Ubuntu 发行版](https://ubuntu.com/) 上安装软件包。这包括 [Git](https://git-scm.com/)、[Node.js](https://nodejs.org/en)，以及运行 Node.js 应用程序。
 
-## Setup for `ec2-remotion-lambda` application
+## 设置 `ec2-remotion-lambda` 应用程序
 
-### 1. Create the Remotion policy
+### 1. 创建 Remotion 策略
 
-- The `remotion-executionrole-policy` should have been created, if not, follow this [guide](/docs/lambda/without-iam/#1-create-role-policy) in setting this up.
+- 如果尚未创建 `remotion-executionrole-policy`，请按照此[指南](/docs/lambda/without-iam/#1-create-role-policy)进行设置。
 
-### 2. Create role for remotion render execution
+### 2. 为 Remotion 渲染执行创建角色
 
-##### Steps
+##### 步骤
 
-<Step>1</Step>Go to the IAM Roles section of your AWS account.<br/>
-<Step>2</Step>Click "Create role".<br/>
-<Step>3</Step>Under "Select type of trusted entity", select "AWS service", and under "Choose the service that will use this role", select "Lambda". Click "Next: Permissions".<br/>
-<Step>4</Step>Under "Attach permissions policies", search for "remotion-executionrole-policy" and click the checkbox to assign this policy. If the policy has not been created, refer to step 1.<br/>
-<Step>5</Step>Additionally, still in "Attach permissions policies", clear the filter and search for "AWSLambdaBasicExecutionRole". Click the checkbox and click "Next: Tags".<br/>
-<Step>6</Step>On the "Add tags" page, you can optionally add tags to the role. Click "Next: Review".<br/>
-<Step>7</Step>On the "Review" page, name the role "remotion-ec2-executionrole" exactly. Leave the other fields as they are.<br/>
-<Step>8</Step>Click "Create role" to confirm.<br/>
+1.转到您的 AWS 帐户的 IAM 角色部分。<br/>
+2.点击“创建角色”。<br/>
+3.在“选择受信任实体类型”下，选择“AWS 服务”，在“将使用此角色的服务”下，选择“Lambda”。点击“下一步：权限”。<br/>
+4.在“附加权限策略”下，搜索“remotion-executionrole-policy”，并点击复选框以分配此策略。如果尚未创建该策略，请参考步骤 1。<br/>
+5.此外，在“附加权限策略”中，清除筛选器并搜索“AWSLambdaBasicExecutionRole”。点击复选框，然后点击“下一步：标记”。<br/>
+6.在“添加标记”页面上，您可以选择向角色添加标记。点击“下一步：审核”。<br/>
+7.在“审核”页面上，将角色命名为“remotion-ec2-executionrole”。其余字段保持不变。<br/>
+8.点击“创建角色”以确认。<br/>
 
-### 3. Create a role for the EC2 instance
+### 3. 为 EC2 实例创建角色
 
-#### Steps
+#### 步骤
 
-<Step>1</Step>From IAM Roles section of your AWS account.<br/>
-<Step>2</Step>Click "Create role".<br/>
-<Step>3</Step>Under "Select type of trusted entity", select "AWS service", and under "Choose the service that will use this role", select "EC2". Click "Next: Permissions".<br/>
-<Step>4</Step>Under "Attach permissions policies", leave it empty for now. Click "Next: Tags".<br/>
-<Step>5</Step>On the "Add tags" page, you can optionally add tags to the role. Click "Next: Review".<br/>
-<Step>6</Step>On the "Review" page, name the role as "ec2-remotion-role". Leave the other fields as they are.<br/>
-<Step>7</Step>Click "Create role" to confirm.<br/>
-<Step>8</Step>Make a note of the "ARN" for the role. It should be in this format "arn:aws:iam::XXXXXXXX:role/ec2-remotion-role"<br/>
+1.从您的 AWS 帐户的 IAM 角色部分开始。<br/>
+2.点击“创建角色”。<br/>
+3.在“选择受信任实体类型”下，选择“AWS 服务”，在“将使用此角色的服务”下，选择“EC2”。点击“下一步：权限”。<br/>
+4.在“附加权限策略”下，暂时保持为空。点击“下一步：标记”。<br/>
+5.在“添加标记”页面上，您可以选择向角色添加标记。点击“下一步：审核”。<br/>
+6.在“审核”页面上，将角色命名为“ec2-remotion-role”。其余字段保持不变。<br/>
+7.点击“创建角色”以确认。<br/>
+8.记下角色的“ARN”。格式应为“arn:aws:iam::XXXXXXXX:role/ec2-remotion-role”<br/>
 
-### 4. Trust the EC2 role from "remotion-ec2-executionrole"
 
-#### Steps
 
-<Step>1</Step>From the IAM Roles section, find the role created in step 2, or filter roles by name using "remotion-ec2-executionrole".<br/>
-<Step>2</Step>Click on the role to open its details page.<br/>
-<Step>3</Step>From the "Trust relationships" tab, click the "Edit trust relationship" button.<br/>
-<Step>4</Step>Edit the policy statement to add the ARN of the EC2 role (ec2-remotion-role) created in step 3. Add it as one of the principals and as a AWS principal.<br/>
-<Step>5</Step>Save the changes to the trust policy.<br/><br/>
+### 4. 信任"remotion-ec2-executionrole"的EC2角色
+
+#### 步骤
+
+1.从IAM角色部分，找到在步骤2中创建的角色，或者使用"remotion-ec2-executionrole"过滤角色名称。<br/>
+2.单击角色以打开其详细信息页面。<br/>
+3.从"信任关系"选项卡中，单击"编辑信任关系"按钮。<br/>
+4.编辑策略声明以添加在步骤3中创建的EC2角色（ec2-remotion-role）的ARN。将其添加为一个主体和作为AWS主体。<br/>
+5.保存对信任策略的更改。<br/><br/>
 
 ```json title="remotion-ec2-executionrole"
 {
@@ -90,60 +92,62 @@ To supplement this guide, two projects have been created:
 ```
 
 :::info
-This configuration grants authority to `ec2-remotion-role` to assume the role of `remotion-ec2-executionrole` and provides the necessary permissions to access AWS services and resources required by Remotion for video rendering.
+此配置授予`ec2-remotion-role`权限承担`remotion-ec2-executionrole`的角色，并提供访问AWS服务和资源所需的权限，以供Remotion进行视频渲染。
 :::
 
-### 6. Create the EC2 instance
+### 6. 创建EC2实例
 
-#### Steps
+#### 步骤
 
-- From AWS Management console:<br/>
-  <Step>1</Step>Go to the EC2 dashboard by selecting EC2 from the list of services.<br/>
-  <Step>2</Step>Click on the "Launch Instance" button.<br/>
-  <Step>3</Step>Choose an Amazon Machine Image (AMI) that you want to use for your instance. You can select from a variety of pre-configured AMIs, or you can create your own. For this instance chose "Ubuntu AMI".<br/>
-  <Step>4</Step>Select an instance type that you want to use for your instance. The instance type determines the amount of CPU, memory, storage, and networking capacity that your instance will have. The recommended operating system is Ubuntu and at least 1Gib of RAM.<br/>
-  <Step>5</Step>Configure your instance details, such as the number of instances you want to launch, the VPC and subnet you want to use, and any advanced settings you want to enable.<br/>
-  <Step>6</Step>From "Network setting" tick the "Allow SSH traffic from", and from selection of allowing access select "My IP address". This will allow you to connect to the server instance via SSH and SFTP to upload the application code.<br/>
-  <Step>7</Step>From "Network setting" also, click "Allow HTTP traffic from the internet", this will allow the application to be trigger for REST API operation.<br/>
-  <Step>8</Step>Add storage to your instance by selecting the storage type and size you want to use.<br/>
-  <Step>9</Step>From "Advance details", on "IAM instance profile" find the role you specifically created for EC2, this is "ec2-remotion-role".<br/>
-  <Step>10</Step>Review your instance launch details and click the "Launch" button.<br/>
-  <Step>11</Step>Choose an existing key pair or create a new key pair to securely connect to your instance. This key pair is necessary to access your instance via SSH.<br/>
-  <Step>12</Step>Launch your instance by clicking the "Launch Instances" button.<br/>
-  <Step>13</Step>Wait for your instance to launch. Once it's ready, you can connect to it using SSH, RDP, or other remote access methods.<br/>
+- 从AWS管理控制台：<br/>
+  1.通过从服务列表中选择EC2进入EC2仪表板。<br/>
+  2.单击"启动实例"按钮。<br/>
+  3.选择要用于实例的Amazon机器映像（AMI）。您可以从各种预配置的AMI中进行选择，或者您可以创建自己的AMI。对于此实例，请选择"Ubuntu AMI"。<br/>
+  4.选择要用于实例的实例类型。实例类型确定实例将具有的CPU、内存、存储和网络容量。推荐的操作系统是Ubuntu，至少1Gib的RAM。<br/>
+  5.配置实例详细信息，例如您要启动的实例数量、要使用的VPC和子网，以及您要启用的任何高级设置。<br/>
+  6.从"网络设置"中勾选"允许SSH流量"，并从允许访问选择中选择"我的IP地址"。这将允许您通过SSH连接到服务器实例并通过SFTP上传应用程序代码。<br/>
+  7.同样从"网络设置"中，单击"允许来自互联网的HTTP流量"，这将允许应用程序触发REST API操作。<br/>
+  8.通过选择要使用的存储类型和大小为您的实例添加存储。<br/>
+  9.从"高级详细信息"中，在"IAM实例配置文件"中找到您专门为EC2创建的角色，即"ec2-remotion-role"。<br/>
+  10.查看您的实例启动详细信息，然后单击"启动"按钮。<br/>
+  11.选择现有的密钥对或创建新的密钥对以安全连接到您的实例。此密钥对是访问您的实例通过SSH所必需的。<br/>
+  12.通过单击"启动实例"按钮启动您的实例。<br/>
+  13.等待您的实例启动。一旦准备就绪，您可以使用SSH、RDP或其他远程访问方法连接到它。<br/>
 
-### 7. Upload the code to the server and install dependencies
 
-The application requires [Node.js](https://nodejs.org/en) and [NVM](https://github.com/nvm-sh/nvm) on the server. You can follow this guide for installing Node.js. The recommended Node.js version is v18.15.0, and NVM is quite helpful in switching between Node.js versions. Install it and learn how to use it by following this [guide](https://blog.logrocket.com/how-switch-node-js-versions-nvm/).
 
-Upload the application [code](https://github.com/alexfernandez803/remotion-serverless/tree/main/ec2-remotion-lambda) to the EC2 instance by any means you are comfortable with. For this instance, the code was uploaded using an SFTP client named [Cyberduck](https://cyberduck.io/). Upload the application code to the home directory. When logging in from Cyberduck, the default directory is `/home/ubuntu.`
+### 7. 将代码上传到服务器并安装依赖项 
 
-#### Installing the dependencies
+应用程序在服务器上需要 [Node.js](https://nodejs.org/en) 和 [NVM](https://github.com/nvm-sh/nvm)。您可以按照此指南安装 Node.js。推荐的 Node.js 版本是 v18.15.0，NVM 在切换 Node.js 版本方面非常有帮助。安装并学习如何使用它，请参考此 [指南](https://blog.logrocket.com/how-switch-node-js-versions-nvm/)。
 
-<Step>1</Step> Connect to the server using ssh client, below is an example how to connect to the server.<br/>
+通过您熟悉的任何方式将应用程序 [代码](https://github.com/alexfernandez803/remotion-serverless/tree/main/ec2-remotion-lambda) 上传到 EC2 实例。对于此实例，代码是使用名为 [Cyberduck](https://cyberduck.io/) 的 SFTP 客户端上传的。将应用程序代码上传到主目录。从 Cyberduck 登录时，默认目录是 `/home/ubuntu.`
+
+#### 安装依赖项
+
+1. 使用 ssh 客户端连接到服务器，以下是连接到服务器的示例。<br/>
 
 ```
  ssh -i "remotion.pem" ubuntu@example.com
 ```
 
-<Step>2</Step> Go to the application directory<br/>
+2. 进入应用程序目录<br/>
 
 ```bash
 cd ec2-remotion-lambda
 ```
 
-<Step>3</Step> Execute the command below to install application dependencies.<br/>
+3. 执行以下命令以安装应用程序依赖项。<br/>
 
 ```bash
 npm i
 ```
 
-### 8. Configure the application environment variables
+### 8. 配置应用程序环境变量
 
-#### Steps
+#### 步骤
 
-<Step>1</Step>From the application directory, create a file named <code>.env</code><br/>
-<Step>2</Step> Assign values for the environment keys such as <code>PORT</code>, <code>REMOTION_ROLE_ARN</code>, <code>REMOTION_ROLE_SESSION_NAME</code>, <code>API_USERNAME</code>, <code>API_PASSWORD</code><br/><br/>
+1. 从应用程序目录中创建名为 <code>.env</code> 的文件<br/>
+2. 为环境键分配值，例如 <code>PORT</code>、<code>REMOTION_ROLE_ARN</code>、<code>REMOTION_ROLE_SESSION_NAME</code>、<code>API_USERNAME</code>、<code>API_PASSWORD</code><br/><br/>
 
 ```bash title=".env"
 PORT=8080
@@ -153,68 +157,68 @@ API_USERNAME=admin
 API_PASSWORD=password
 ```
 
-- `PORT` represents the which port should the application can run from.
-- `REMOTION_ROLE_ARN` represents the `ARN` of the role which the application `assume` to render the video, for this instance it is `remotion-ec2-executionrole` ARN from `step 2`.
-- `REMOTION_ROLE_SESSION_NAME` a name to uniquely identify the role session when the same role is assumed by different principals.
+- `PORT` 代表应用程序可以运行的端口。
+- `REMOTION_ROLE_ARN` 代表应用程序“假定”以渲染视频的角色的 `ARN`，对于此实例，它是从 `步骤 2` 中的 `remotion-ec2-executionrole` ARN。
+- `REMOTION_ROLE_SESSION_NAME` 是一个用于唯一标识角色会话的名称，当相同角色被不同主体假定时。
 
-The application is secured using `basic authentication` or username and password, in production setting this needs to be updated to a more robust security mechanism.
+应用程序使用`基本身份验证`或用户名和密码进行安全保护，在生产环境中，这需要更新为更强大的安全机制。
 
-- `API_USERNAME` represents the username to use when interacting with the API.
-- `API_PASSWORD` represent the password to use when interacting with the API.
+- `API_USERNAME`代表与API交互时要使用的用户名。
+- `API_PASSWORD`代表与API交互时要使用的密码。
 
-### 9. Run the application from the application directory, by executing the command below
+### 9. 从应用程序目录运行应用程序，执行以下命令
 
 ```bash
 npm run start
 ```
 
-The application will start an http service that is accessible on the port specified on `.env`, for this instance it is in port 8080.
+该应用程序将启动一个 HTTP 服务，可通过`.env`中指定的端口访问，本示例中端口为 8080。
 
-### 9. Interacting with the API
+### 9. 与 API 交互
 
-The application can be interacted with using CURL. To interact with the API, follow the steps below.
+可以使用 CURL 与应用程序进行交互。要与 API 交互，请按照以下步骤操作。
 
-- Since the application is still not a daemon process, launch another shell session to connect to the server.
+- 由于应用程序仍然不是一个守护进程，请启动另一个 shell 会话以连接到服务器。
 
   ```bash
   ssh -i "remotion.pem" ubuntu@example.com
   ```
 
-- Execute the CURL command
+- 执行 CURL 命令
 
-  ```bash title=Request
+  ```bash title=请求
    curl --location --request POST 'http://localhost:8080/render' \
   --header 'Authorization: Basic YWRtaW46cGFzc3dvcmQ='
   ```
 
-  The `Authorization` header is a combination of word `Basic` and a space, then the `base64` encoded username and password joined together by colon, `username:password`.
+  `Authorization` 头部是单词 `Basic` 和一个空格的组合，然后是由冒号连接在一起的 `base64` 编码的用户名和密码。
 
-  From the `/render` API resource, the application will execute this piece of [code](https://github.com/alexfernandez803/remotion-serverless/blob/main/ec2-remotion-lambda/src/services/render-services.ts#L11) This codes assume the role of `ec2-remotion-role`, then provided with temporary access tokens ie `AccessKeyId`, `SecretAccessKey` and `SessionToken`. These credentials will then need to be set as environment variables on the server so that in can be used by the [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) process. Setting the environment parameters route the render process in this (code)[https://github.com/alexfernandez803/remotion-serverless/blob/main/ec2-app/render_handler.ts#L14].
+  从 `/render` API 资源开始，应用程序将执行这段 [代码](https://github.com/alexfernandez803/remotion-serverless/blob/main/ec2-remotion-lambda/src/services/render-services.ts#L11)。这些代码假定了 `ec2-remotion-role` 的角色，然后提供了临时访问令牌，即 `AccessKeyId`、`SecretAccessKey` 和 `SessionToken`。然后需要将这些凭据设置为服务器上的环境变量，以便它们可以被 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 进程使用。设置环境参数将路由渲染过程到这个 [代码](https://github.com/alexfernandez803/remotion-serverless/blob/main/ec2-app/render_handler.ts#L14)。
 
-  ```bash title="API Response"
-  {"message":"Video rendered.","renderId":"px60ct13fy","bucketName":"remotionlambda-apsoutheast2-qv16gcf02l"}
+  ```bash title="API 响应"
+  {"message":"视频已渲染。","renderId":"px60ct13fy","bucketName":"remotionlambda-apsoutheast2-qv16gcf02l"}
   ```
 
-### 10. Cleanup: Destroy the EC2 instance from your AWS account
+### 10. 清理：从您的AWS账户中销毁EC2实例
 
-#### Steps
+#### 步骤
 
-<Step>1</Step>From your AWS account.<br/>
-<Step>2</Step>Click on the "EC2" service from the list of available services.<br/>
-<Step>3</Step>From the EC2 Dashboard, select the instance that you want to destroy. For this instance it's "remotion-server".<br/>
-<Step>4</Step>Make sure that you have selected the correct instance, and then click on the "Actions" button located t the top of the page.<br/>
-<Step>5</Step>In the "Actions" drop-down menu, select "Instance State" and then click on "Terminate" from the sub-menu.<br/>
-<Step>6</Step> A warning message will appear, asking you to confirm the termination. Click on the "Yes, Terminate" button to proceed.<br/>
-<Step>7</Step> Once you confirm the termination, the instance will enter the "shutting-down" state, and it may take a few minutes for the instance to fully terminate.<br/>
-<Step>8</Step> After the instance has been terminated, you will no longer access it or any data that was stored on it.<br/><br/>
+1.从您的AWS账户中。<br/>
+2.从可用服务列表中点击“EC2”服务。<br/>
+3.在EC2仪表板中，选择要销毁的实例。对于此实例，它是“remotion-server”。<br/>
+4.确保您已选择了正确的实例，然后点击页面顶部的“操作”按钮。<br/>
+5.在“操作”下拉菜单中，选择“实例状态”，然后从子菜单中点击“终止”。<br/>
+6.会出现一个警告消息，询问您确认终止操作。点击“是，终止”按钮继续。<br/>
+7.确认终止后，实例将进入“正在关闭”状态，可能需要几分钟才能完全终止实例。<br/>
+8.实例终止后，您将无法再访问它或存储在其中的任何数据。<br/><br/>
 
 :::note
-This is a simple demonstration of using Remotion's Lambda and EC2. To productionize this approach, other steps may be required based on the use case. Implement an enterprise-grade security mechanism, run the application as a service, and have it sit behind a reverse proxy like [Nginx](https://www.nginx.com/).
+这是使用Remotion的Lambda和EC2的简单演示。要将此方法投入生产，可能需要根据用例采取其他步骤。实施企业级安全机制，将应用程序作为服务运行，并使其位于类似[Nginx](https://www.nginx.com/)的反向代理后面。
 :::
 
-## See also
+## 另请参阅
 
-- [Permissions](/docs/lambda/permissions)
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Using the Serverless Framework with Remotion Lambda](/docs/lambda/serverless-framework-integration)
-- [Using Lambda with SQS](/docs/lambda/sqs)
+- [权限](/docs/lambda/permissions)
+- [无IAM用户使用Lambda](/docs/lambda/without-iam)
+- [使用Serverless Framework与Remotion Lambda](/docs/lambda/serverless-framework-integration)
+- [使用Lambda与SQS](/docs/lambda/sqs)

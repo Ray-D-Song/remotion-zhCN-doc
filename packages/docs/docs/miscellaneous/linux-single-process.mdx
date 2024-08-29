@@ -1,43 +1,43 @@
 ---
 image: /generated/articles-docs-miscellaneous-linux-single-process.png
-sidebar_label: Multiple cores on Linux
-title: Multiple cores on Linux
-crumb: 'Server-side rendering'
+sidebar_label: Linux上的多核
+title: Linux上的多核
+crumb: '服务器端渲染'
 ---
 
 :::info
-This document is outdated. As of 4.0.137, the default behavior is to use multi-process mode.  
-The setting still exists, but is `true` by default.
+此文档已过时。从4.0.137版本开始，默认行为是使用多进程模式。  
+该设置仍然存在，但默认值为 `true`。
 :::
 
-By default, Remotion starts the Chromium browser on Linux with the `--single-process` flag. This is because:
+默认情况下，Remotion 在 Linux 上启动 Chromium 浏览器时会使用 `--single-process` 标志。这是因为：
 
-- The sandboxing feature of Chromium is not supported on all Linux distributions
-- Older versions of Chromium used to crash when starting headlessly with multiple processes
-- If some desktop libraries are missing, Chromium could crash on startup on some Distros.
+- Chromium 的沙盒功能不受所有 Linux 发行版支持
+- 旧版本的 Chromium 在无头模式下启动多个进程时会崩溃
+- 如果缺少某些桌面库，Chromium 可能会在某些发行版上启动时崩溃。
 
-This can lead to degraded rendering performance, especially when trying to leverage high-core CPUs and high Remotion concurrency.
+这可能导致渲染性能下降，特别是在尝试利用高核心 CPU 和高 Remotion 并发性时。
 
-## Enable multi-process rendering on Linux
+## 在 Linux 上启用多进程渲染
 
-_available from v4.0.42_
+_从 v4.0.42 版本开始可用_
 
-For now, this option is opt-in. To enable multi-process mode for Chromium during rendering on Linux:
+目前，此选项是选择性的。要在 Linux 上在渲染期间为 Chromium 启用多进程模式：
 
-- **renderMedia()** / **openBrowser()** / **renderFrames()**: Use the [`chromiumOptions.enableMultiProcessOnLinux`](/docs/renderer/render-media#enablemultiprocessonlinux) option.
-- **CLI**: Use the [`--enable-multi-process-on-linux`](/docs/cli/render#--enable-multiprocess-on-linux) flag.
-- **Config file**: Use the [`Config.setChromiumMultiProcessInLinux()`](/docs/config#setchromiummultiprocessonlinux) option.
-- **Remotion Studio**: Check the toggle in the advanced settings.
-- **Cloud Run**: From v4.0.42, this option is automatically enabled.
-- **Lambda**: This option is disabled with no option to enable it because on Amazon Linux, Chrome will crash if the `--single-process` flag is not used. We recommend using more Lambdas instead of more concurrency per Lambda.
+- **renderMedia()** / **openBrowser()** / **renderFrames()**：使用 [`chromiumOptions.enableMultiProcessOnLinux`](/docs/renderer/render-media#enablemultiprocessonlinux) 选项。
+- **CLI**：使用 [`--enable-multi-process-on-linux`](/docs/cli/render#--enable-multiprocess-on-linux) 标志。
+- **配置文件**：使用 [`Config.setChromiumMultiProcessInLinux()`](/docs/config#setchromiummultiprocessonlinux) 选项。
+- **Remotion Studio**：在高级设置中查看切换按钮。
+- **Cloud Run**：从 v4.0.42 版本开始，此选项会自动启用。
+- **Lambda**：在 Amazon Linux 上，如果不使用 `--single-process` 标志，Chrome 将崩溃，因此此选项已禁用且无法启用。我们建议使用更多的 Lambda 而不是每个 Lambda 更多的并发性。
 
-## Should I enable multi-process mode?
+## 我应该启用多进程模式吗？
 
-The answer depends on the Linux environment. If you are running Remotion on a server, you should try to enable multi-process mode and see if it works.
+答案取决于 Linux 环境。如果您在服务器上运行 Remotion，则应尝试启用多进程模式并查看是否有效。
 
-Our recommended [Docker](/docs/docker) image is confirmed working with multi-process mode enabled.
+我们推荐的 [Docker](/docs/docker) 镜像已确认在启用多进程模式时正常工作。
 
-## See also
+## 参见
 
-- [Chromium flags](/docs/chromium-flags)
-- [Dockerizing a Remotion app](/docs/docker)
+- [Chromium 标志](/docs/chromium-flags)
+- [将 Remotion 应用程序 Docker 化](/docs/docker) 

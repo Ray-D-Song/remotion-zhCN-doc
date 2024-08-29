@@ -6,7 +6,7 @@ crumb: API
 
 # `<Artifact>`<AvailableFrom v="4.0.176"/>
 
-By rendering an `<Artifact>` tag in your Remotion markup, [an extra file will get emitted during rendering](/docs/artifacts).
+通过在您的 Remotion 标记中呈现 `<Artifact>` 标签，[在渲染过程中会生成额外的文件](/docs/artifacts)。
 
 ```tsx twoslash title="MyComp.tsx"
 import { Artifact, useCurrentFrame } from "remotion";
@@ -20,7 +20,7 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-If rendered on the CLI or via the Studio, this will emit an additional file:
+如果在 CLI 或通过 Studio 上渲染，这将会生成一个额外的文件：
 
 ```
 $ npx remotion render MyComp
@@ -28,12 +28,12 @@ $ npx remotion render MyComp
 + my-file.txt (12B)
 ```
 
-It is allowed for a composition to emit multiple files.  
-However, the file names must be unique.
+允许一个组合生成多个文件。  
+但是，文件名必须是唯一的。
 
-The component will get evaluated on every frame, which means if you want to emit just one file, only render it on one frame.
+该组件将在每一帧上进行评估，这意味着如果您只想生成一个文件，只需在一个帧上进行渲染。
 
-```tsx twoslash title="❌ Will generate an asset on every frame and throw an error because the file name is not unique"
+```tsx twoslash title="❌ 将在每一帧上生成一个资源并抛出错误，因为文件名不唯一"
 import { Artifact, useCurrentFrame } from "remotion";
 
 export const MyComp: React.FC = () => {
@@ -49,15 +49,15 @@ export const MyComp: React.FC = () => {
 
 ### `filename`
 
-A string that is the name of the file that will be emitted.  
-Use forward slashes only, even on Windows.  
-Must match the regex `/^([0-9a-zA-Z-!_.*'()/:&$@=;+,?]+)/g`.
+一个字符串，表示将要生成的文件的名称。  
+只能使用正斜杠，即使在 Windows 上也是如此。  
+必须匹配正则表达式 `/^([0-9a-zA-Z-!_.*'()/:&$@=;+,?]+)/g`。
 
 ### `content`
 
-A `string` or `Uint8Array` that is the content of the file that will be emitted. Don't consider an `Uint8Array` to be faster, because it needs to be serialized.
+一个 `string` 或 `Uint8Array`，表示将要生成的文件的内容。不要认为 `Uint8Array` 更快，因为它需要被序列化。
 
-## See also
+## 参见
 
-- [Emitting Artifacts](/docs/artifacts)
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/components/Artifact.tsx)
+- [生成资源](/docs/artifacts)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/components/Artifact.tsx)

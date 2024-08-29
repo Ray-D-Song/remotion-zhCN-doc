@@ -6,13 +6,13 @@ crumb: "@remotion/studio"
 
 # watchPublicFolder()<AvailableFrom v="4.0.154"/>
 
-Watches for changes in the [public directory](/docs/terminology/public-dir) and calls a callback function when a file is added, removed or modified.
+监视[public directory](/docs/terminology/public-dir)中的更改，并在添加、删除或修改文件时调用回调函数。
 
 :::note
-This feature is only available within the Remotion Studio environment. In the Player, events will never fire.
+此功能仅在 Remotion Studio 环境中可用。在 Player 中，事件永远不会触发。
 :::
 
-## Example
+## 示例
 
 ```tsx twoslash title="example.tsx"
 import { StaticFile, watchPublicFolder } from "@remotion/studio";
@@ -26,17 +26,18 @@ const { cancel } = watchPublicFolder((newFiles: StaticFile[]) => {
 cancel();
 ```
 
-## Arguments
+## 参数
 
-Takes one argument and returns a function that can be used to `cancel` the event listener.
+接受一个参数并返回一个可用于`cancel`事件监听器的函数。
 
 ### `callback`
 
-A callback function that will be called when the directory is modified. As an argument, an array of [`StaticFile`](/docs/getstaticfiles#api)'s is passed.
+当目录被修改时将调用的回调函数。作为参数传递一个[`StaticFile`](/docs/getstaticfiles#api)数组。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/watch-public-folder.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/watch-public-folder.ts)
 - [`watchStaticFile()`](/docs/studio/watch-static-file)
 - [`staticFile()`](/docs/staticfile)
 - [`getStaticFiles()`](/docs/studio/get-static-files)
+

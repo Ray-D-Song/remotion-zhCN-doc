@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-version-mismatch.png
 id: version-mismatch
-title: Version mismatch
-crumb: "How to fix a"
+title: 版本不匹配
+crumb: "如何修复"
 ---
 
-It is important that all Remotion packages you install (`remotion`, `@remotion/player`, `@remotion/cli`, etc.) have the same version installed. If the versions differ, the packages might not be able to correctly communicate with each other which can introduce subtle bugs or even complete breakage.
+重要的是，您安装的所有 Remotion 包（`remotion`、`@remotion/player`、`@remotion/cli` 等）都安装了相同的版本。如果版本不同，这些包可能无法正确通信，这可能会引入微妙的错误，甚至完全破坏。
 
-## `^` character can be confusing
+## `^` 字符可能会让人困惑
 
-The following `package.json` does **not** ensure that all Remotion versions are the same:
+以下 `package.json` **不** 确保所有 Remotion 版本相同：
 
 ```json title="package.json"
 {
@@ -21,7 +21,7 @@ The following `package.json` does **not** ensure that all Remotion versions are 
 }
 ```
 
-however the following manifest does:
+然而，以下清单确保了：
 
 ```json title="package.json"
 {
@@ -33,11 +33,11 @@ however the following manifest does:
 }
 ```
 
-This is especially true if the packages are installed over time and not all at once. Removing the `^` character is a good way to ensure all Remotion packages have the same version.
+特别是如果这些包是随着时间的推移安装的，而不是一次性安装。删除 `^` 字符是确保所有 Remotion 包具有相同版本的好方法。
 
-## Packages that depend on Remotion
+## 依赖于 Remotion 的包
 
-If you make a Remotion library and put it on npm, make Remotion a `peerDependency` and `devDependency` instead of a dependency:
+如果您制作了一个 Remotion 库并将其放在 npm 上，请将 Remotion 设置为 `peerDependency` 和 `devDependency` 而不是依赖项：
 
 ```json title="package.json"
 {
@@ -51,7 +51,7 @@ If you make a Remotion library and put it on npm, make Remotion a `peerDependenc
 }
 ```
 
-This will make sure that when you then install `my-remotion-library` into your Remotion project, that no duplicates of Remotion will be introduced:
+这将确保当您将 `my-remotion-library` 安装到您的 Remotion 项目中时，不会引入 Remotion 的重复版本：
 
 ```json
 {
@@ -64,18 +64,19 @@ This will make sure that when you then install `my-remotion-library` into your R
 }
 ```
 
-## Checking which versions have been installed
+## 检查已安装的版本
 
-Just because the version in the package.json is `^2.6.11` does not mean that the version `2.6.11` got installed. Use the command:
+仅仅因为 `package.json` 中的版本是 `^2.6.11` 并不意味着安装了版本 `2.6.11`。使用以下命令：
 
 ```bash
 npx remotion versions
 ```
 
-to see which packages and versions your project contains.
+查看您的项目包含的包和版本。
 
-## Testing prereleases
+## 测试预发布版本
 
-If we have given you a prerelease version of Remotion to test, the same principle applies, where you should not just upgrade the affected package, but all packages including `remotion` and packages starting with `@remotion`.
+如果我们给您提供了一个 Remotion 的预发布版本进行测试，同样的原则适用，您不应该只升级受影响的包，而是升级所有包，包括 `remotion` 和以 `@remotion` 开头的包。
 
-**See also:** [Testing prereleases](/docs/prereleases)
+**另请参阅：** [测试预发布版本](/docs/prereleases)
+

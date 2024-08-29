@@ -1,30 +1,30 @@
 ---
 image: /generated/articles-docs-target-closed.png
 id: target-closed
-title: "'Target closed' error message"
-sidebar_label: Target closed
-crumb: "Troubleshooting"
+title: "'目标关闭' 错误消息"
+sidebar_label: 目标关闭
+crumb: "故障排除"
 ---
 
-This error message **comes up when a Chromium Tab crashes**. Read on for possible reasons for this message.
+此错误消息**在 Chromium 选项卡崩溃时出现**。继续阅读可能导致此消息的原因。
 
-## Missing dependencies (Linux users)
+## 缺少依赖项（Linux 用户）
 
-Make sure that you [installed the necessary dependencies](/docs/miscellaneous/linux-dependencies) in Linux for running Chrome.
+确保您已在 Linux 上[安装了运行 Chrome 所需的依赖项](/docs/miscellaneous/linux-dependencies)。
 
-## Out of memory or CPU overload
+## 内存不足或 CPU 过载
 
-A Chrome tab can crash if the process runs out of memory, or if the website stops responding because it uses the CPU too heavily.
+如果进程耗尽内存，或者网站因使用 CPU 过重而停止响应，Chrome 选项卡可能会崩溃。
 
-- [Decrease the concurrency so each tab has more resources](/docs/cli/render#--concurrency)
-- In Remotion Lambda, increase the memory size.
+- [减少并发性，以便每个选项卡具有更多资源](/docs/cli/render#--concurrency)
+- 在 Remotion Lambda 中，增加内存大小。
 
-## Corrupt Google Chrome binary
+## Google Chrome 二进制文件损坏
 
-Locate the binary that you are using to render the video. Run a test whether you can open Google Chrome / Chromium normally on this machine. Potentially reinstall the browser to fix the problem.
+找到您用于渲染视频的二进制文件。在此计算机上运行测试，看看是否可以正常打开 Google Chrome / Chromium。可能需要重新安装浏览器以解决问题。
 
 :::note
-Add `--log=verbose` during a render to print the browser executable that is being used (from Remotion v2.6.7 on).
+在渲染时添加 `--log=verbose` 以打印正在使用的浏览器可执行文件（从 Remotion v2.6.7 开始）。
 :::
 
-Did none of these tips help? File an issue in the Remotion repository.
+这些提示都没有帮助吗？请在 Remotion 存储库中提交问题。

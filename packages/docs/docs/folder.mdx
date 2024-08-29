@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-folder.png
-title: <Folder>
+title: <文件夹>
 id: folder
 crumb: "API"
 ---
 
-_Available from v3.0.1_
+_从 v3.0.1 版本开始可用_
 
-By wrapping a [`<Composition />`](/docs/composition) inside a `<Folder />`, you can visually categorize it in your sidebar, should you have many compositions.
+通过将 [`<Composition />`](/docs/composition) 包裹在 `<Folder />` 中，您可以在侧边栏中对其进行视觉分类，如果您有许多组合的话。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import React from "react";
@@ -43,17 +43,18 @@ export const Video = () => {
 };
 ```
 
-will create a tree structure in the sidebar that looks like this:
+将在侧边栏中创建一个树形结构，如下所示：
 
 <img src="/img/folders.png"/>
 
-## Folder behavior
+## 文件夹行为
 
-- They only visually change the sidebar in the Remotion Studio and have no further behavior.
-- Folder names can only contain `a-z`, `A-Z`, `0-9` and `-`.
-- Folders can be nested.
+- 它们仅在 Remotion Studio 中视觉上更改侧边栏，没有其他行为。
+- 文件夹名称只能包含 `a-z`、`A-Z`、`0-9` 和 `-`。
+- 文件夹可以嵌套。
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/Folder.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/Folder.tsx)
 - [`<Composition />`](/docs/composition)
+

@@ -5,35 +5,35 @@ id: get-image-dimensions
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions. Available from v4.0.143._
+_`@remotion/media-utils` 包中的辅助函数之一。从 v4.0.143 版本开始提供。_
 
-Takes an image `src`, retrieves the dimensions of an image.
+接受一个图片 `src`，检索图片的尺寸。
 
-## Arguments
+## 参数
 
 ### `src`
 
-A string that specifies the URL or path of the image.
+一个指定图片的 URL 或路径的字符串。
 
-## Return value
+## 返回值
 
 _`Promise<ImageDimensions>`_
 
-An object with information about the image dimensions:
+一个包含有关图片尺寸信息的对象：
 
 ### `width`
 
 _number_
 
-The image width, in pixels (px).
+图片宽度，以像素（px）为单位。
 
 ### `height`
 
 _number_
 
-The image height, in pixels (px).
+图片高度，以像素（px）为单位。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: ESNext
@@ -46,16 +46,17 @@ const { width, height } = await getImageDimensions(
 console.log(width, height);
 ```
 
-## Caching behavior
+## 缓存行为
 
-This function is memoizing the results it returns.
+此函数会对其返回的结果进行记忆。
 
-If you pass in the same argument to `src` multiple times, it will return a cached version from the second time on, regardless of if the file has changed.  
-To clear the cache, you have to reload the page.
+如果多次将相同的参数传递给 `src`，它将从第二次开始返回缓存的版本，无论文件是否已更改。  
+要清除缓存，您必须重新加载页面。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-image-dimensions.ts)
-- [Preload image](/docs/preload/preload-image)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-image-dimensions.ts)
+- [预加载图片](/docs/preload/preload-image)
 - [`<Img />`](/docs/img)
 - [`getAudioData()`](/docs/get-audio-data)
+

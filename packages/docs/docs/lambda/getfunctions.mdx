@@ -6,19 +6,19 @@ slug: /lambda/getfunctions
 crumb: "Lambda API"
 ---
 
-Retrieves a list of functions that Remotion deployed to AWS Lambda in a certain region.
+检索 Remotion 部署到 AWS Lambda 的函数列表在特定区域。
 
-The parameter `compatibleOnly` determines whether only functions that are compatible with the installed version of Remotion Lambda should be returned.
+参数 `compatibleOnly` 确定是否仅返回与已安装版本的 Remotion Lambda 兼容的函数。
 
 :::note
-The Lambda function is versioned and the version of the function must match the version of the `@remotion/lambda` package. So if you upgrade Remotion, you should deploy a new function or otherwise you might get an empty array from this function.
+Lambda 函数是有版本的，函数的版本必须与 `@remotion/lambda` 包的版本匹配。因此，如果您升级 Remotion，您应该部署一个新函数，否则您可能会从此函数中获得一个空数组。
 :::
 
-To get information about only a single function, use [`getFunctionInfo()`](/docs/lambda/getfunctioninfo).
+要仅获取有关单个函数的信息，请使用 [`getFunctionInfo()`](/docs/lambda/getfunctioninfo)。
 
-If you are sure that a function exists, you can also guess the name of it using [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) and save an API call to Lambda.
+如果您确信函数存在，还可以使用 [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) 猜测其名称，并节省一次对 Lambda 的 API 调用。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -41,16 +41,16 @@ for (const fn of info) {
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从 `@remotion/lambda/client` 导入此函数，以避免 [在无服务器函数内部](/docs/lambda/light-client) 出现问题。
 :::
 
-## Argument
+## 参数
 
-An object containing the following properties:
+包含以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) that you would like to query.
+您想要查询的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `logLevel?`<AvailableFrom v="4.0.115"/>
 
@@ -58,35 +58,35 @@ The [AWS region](/docs/lambda/region-selection) that you would like to query.
 
 ### `compatibleOnly`
 
-If `true`, only functions that match the version of the current Remotion Lambda package are returned. If `false`, all functions are returned.
+如果为 `true`，则仅返回与当前 Remotion Lambda 包版本匹配的函数。如果为 `false`，则返回所有函数。
 
-## Return value
+## 返回值
 
-A promise resolving to an **array of objects** with the following properties:
+解析为具有以下属性的**对象数组**的 Promise：
 
 ### `functionName`
 
-The name of the function.
+函数的名称。
 
 ### `memorySizeInMb`
 
-The amount of memory allocated to the function.
+分配给函数的内存量。
 
 ### `diskSizeInMb`
 
-The amount of ephemereal disk storage allocated to the function.
+分配给函数的临时磁盘存储量。
 
 ### `version`
 
-The version of the function. Remotion is versioning the Lambda function and a render can only be triggered from a version of `@remotion/lambda` that is matching the one of the function.
+函数的版本。Remotion 对 Lambda 函数进行版本控制，只能从与函数版本匹配的 `@remotion/lambda` 版本触发渲染。
 
 ### `timeoutInSeconds`
 
-The timeout that has been assigned to the Lambda function.
+Lambda函数被分配的超时时间。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-functions.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-functions.ts)
 - [`getFunctionInfo()`](/docs/lambda/getfunctioninfo)
 - [`deployFunction()`](/docs/lambda/deployfunction)
 - [`deleteFunction()`](/docs/lambda/deletefunction)

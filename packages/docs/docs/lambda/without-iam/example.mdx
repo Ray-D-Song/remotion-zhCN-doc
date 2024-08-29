@@ -1,26 +1,26 @@
 ---
 image: /generated/articles-docs-lambda-without-iam-example.png
-title: Example setup without IAM user
-sidebar_label: IAM roles example
-crumb: "IAM Roles Example"
+title: 不使用 IAM 用户的示例设置
+sidebar_label: IAM 角色示例
+crumb: "IAM 角色示例"
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-This is a write up of how to use the [example](https://github.com/alexfernandez803/example-lambda) for the technique described under ["Using Lambda without IAM roles"](/docs/lambda/without-iam).
+这是如何使用[示例](https://github.com/alexfernandez803/example-lambda)来实现["不使用 IAM 角色的 Lambda"](/docs/lambda/without-iam)描述的技术的说明。
 
-## Prequisites
+## 先决条件
 
-- Ensure that your local AWS profile is able to deploy to AWS.
+- 确保您的本地 AWS 配置文件能够部署到 AWS。
 
-## Setup
+## 设置
 
-### 1. Clone or download the project
+### 1. 克隆或下载项目
 
-The project can be found at [`reference project`](https://github.com/alexfernandez803/example-lambda).
+该项目可以在[`参考项目`](https://github.com/alexfernandez803/example-lambda)中找到。
 
-### 2. Install dependencies
+### 2. 安装依赖项
 
 <Tabs
 defaultValue="npm"
@@ -55,16 +55,16 @@ yarn install
 
 </Tabs>
 
-### 3. Create the CDK Stack
+### 3. 创建 CDK Stack
 
-This command will deploy the Lambda function and any other resources in the stack.
+此命令将部署 Lambda 函数和堆栈中的任何其他资源。
 
 ```bash
 npx aws-cdk deploy \
   --outputs-file ./cdk-outputs.json
 ```
 
-The Remotion packages are also bundled into the stack, these ensures that [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) can be executed by the [Lambda function](https://github.com/alexfernandez803/example-lambda/blob/main/src/render-function/index.ts).
+Remotion 包也被捆绑到堆栈中，这确保了[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)可以由[Lambda 函数](https://github.com/alexfernandez803/example-lambda/blob/main/src/render-function/index.ts)执行。
 
 ```json title="package.json"
 {
@@ -77,16 +77,16 @@ The Remotion packages are also bundled into the stack, these ensures that [`rend
 
 ```
 
-The full dependencies are included in the [reference project](https://github.com/alexfernandez803/example-lambda/blob/main/package.json).
+完整的依赖项包含在[参考项目](https://github.com/alexfernandez803/example-lambda/blob/main/package.json)中。
 
-### 4. After deployment
+### 4. 部署后
 
 ```bash
 npx aws-cdk deploy \
   --outputs-file ./cdk-outputs.json
 ```
 
-```bash title="Deployment progress"
+```bash title="部署进度"
 Bundling asset cdk-stack/render-function/Code/Stage...
 
   cdk.out/bundling-temp-5e88d0b45626d59e8e8ddce3b05a886b0e1b381df6e5bbbea1dc2727080641a8/index.js  6.3mb ⚠️
@@ -115,7 +115,7 @@ cdk-stack: deploying... [1/1]
 ✨  Deployment time: 1.39s
 ```
 
-```bash title="Output"
+```bash title="输出"
 Outputs:
 cdk-stack.apiUrl = https://du7jfr.execute-api.us-east-1.amazonaws.com/
 cdk-stack.region = us-east-1
@@ -126,27 +126,27 @@ arn:aws:cloudformation:us-east-1:XXXXXXXXXX:stack/cdk-stack/faf43800-9878-11ed-a
 
 ```
 
-The output contains the API Gateway base URL, region and Cognito client ID and user pool ID, which are used for authentication.
+输出包含 API Gateway 基本 URL、区域以及用于身份验证的 Cognito 客户端 ID 和用户池 ID。
 
-### 5. Cleanup
+### 5. 清理
 
-The following will delete the function, in case it's not needed anymore.
+以下将删除该函数，如果不再需要。
 
 ```bash
 npx aws-cdk destroy
 ```
 
-## Lambda role
+## Lambda角色
 
-The CDK creates an IAM role named `remotionLambdaServerlessRole` which needs the Remotion policy [setup](/docs/lambda/without-iam).
+CDK创建了一个名为`remotionLambdaServerlessRole`的IAM角色，需要Remotion策略[设置](/docs/lambda/without-iam)。
 
-## Test your endpoint
+## 测试您的端点
 
-The API is secured by Cognito which requires an authorization token.
+API由Cognito保护，需要授权令牌。
 
-In order to test, you need to do the steps below, just in case you still don't have frontend.
+为了测试，您需要执行以下步骤，以防您还没有前端。
 
-### 1. Create a Cognito User
+### 1. 创建Cognito用户
 
 ```bash
 aws cognito-idp sign-up \
@@ -155,7 +155,7 @@ aws cognito-idp sign-up \
   --password "compLicat3d123"
 ```
 
-### 2. Confirm the user so they can sign in
+### 2. 确认用户以便他们可以登录
 
 ```bash
 aws cognito-idp admin-confirm-sign-up \
@@ -163,7 +163,7 @@ aws cognito-idp admin-confirm-sign-up \
   --username "sample@test.com"
 ```
 
-### 3. Log the user to retrieve an identity JWT token
+### 3. 登录用户以检索身份JWT令牌
 
 ```bash
 aws cognito-idp initiate-auth \
@@ -174,9 +174,9 @@ aws cognito-idp initiate-auth \
 
 ```
 
-`YOUR_USER_POOL_CLIENT_ID` and `YOUR_USER_POOL_ID` are part of the CDK output.
+`YOUR_USER_POOL_CLIENT_ID`和`YOUR_USER_POOL_ID`是CDK输出的一部分。
 
-```bash title="Output"
+```bash title="输出"
 {
     "ChallengeParameters": {},
     "AuthenticationResult": {
@@ -189,38 +189,38 @@ aws cognito-idp initiate-auth \
 }
 ```
 
-The API will give you a verbose response but will only use the `IdToken`.
+API将给您一个详细的响应，但只会使用`IdToken`。
 
-### 4. Use the token to invoke a request to the endpoint using curl.
+### 4. 使用令牌使用curl调用端点的请求。
 
-#### Request
+#### 请求
 
 ```bash
 curl --location --request POST 'https://du7jfr6.execute-api.us-east-1.amazonaws.com/render' \
---header 'Authorization: Bearer eyJraWQiOiJGcUJFV1B1cHhxM0NXRko0RVN2..........'
+--header 'Authorization: Bearer eyJraWQiOiJGcUJFV1B1cHhxM0NXRko0RVN..........'
 ```
 
-#### Response
+#### 响应
 
 ```bash
 {"message":"SUCCESS","bucketName":"remotionlambda-apsoutheast2-5essis84y1","renderId":"1pwhfhh11z"}
 ```
 
-That's it! You now have an API that you can use to invoke the rendering of a video.
+就是这样！现在您有一个可以用来调用视频渲染的API。
 
 :::warning
-It is important to note that the Lambda function should not be accessible to unauthenticated users.  
-The function uses version 2 of the CDK, which is still being actively developed.
+重要提示：Lambda函数不应该对未经身份验证的用户可访问。  
+该函数使用CDK的第2版，仍在积极开发中。
 :::
 
-## Next Steps
+## 下一步
 
-- [Customize the Lambda function](https://github.com/alexfernandez803/example-lambda/blob/main/src/render-function/index.ts) so that the rendered video will be moved to another directory.
-- Try assigning the Remotion [role](/docs/lambda/without-iam#1-create-role-policy) via CDK [`code`](https://github.com/alexfernandez803/example-lambda/blob/main/lib/remotion-cdk-starter-stack.ts).
-- Add request parameters to the Lambda function as input parameters for [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+- [自定义Lambda函数](https://github.com/alexfernandez803/example-lambda/blob/main/src/render-function/index.ts)，以便渲染的视频将被移动到另一个目录。
+- 尝试通过CDK [`code`](https://github.com/alexfernandez803/example-lambda/blob/main/lib/remotion-cdk-starter-stack.ts) 分配Remotion [角色](/docs/lambda/without-iam#1-create-role-policy)。
+- 为Lambda函数添加请求参数作为[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)的输入参数。
 
-## See also
+## 参见
 
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Permissions](/docs/lambda/permissions)
-- Some code is borrowed from [bobbyhadz.com](https://bobbyhadz.com/blog/aws-cdk-api-authorizer)
+- [在没有 IAM 用户的情况下使用 Lambda](/docs/lambda/without-iam)
+- [权限](/docs/lambda/permissions)
+- 一些代码借鉴自 [bobbyhadz.com](https://bobbyhadz.com/blog/aws-cdk-api-authorizer) 

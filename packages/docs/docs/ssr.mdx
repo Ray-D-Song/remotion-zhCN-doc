@@ -1,47 +1,48 @@
 ---
 image: /generated/articles-docs-ssr.png
 id: ssr
-title: Server-Side Rendering
-crumb: "The power of"
-sidebar_label: Overview
+title: 服务器端渲染
+crumb: "的力量"
+sidebar_label: 概览
 ---
 
 import {TableOfContents} from '../components/TableOfContents/renderer';
 
-Remotion's rendering engine is built with Node.JS, which makes it easy to render a video in the cloud.
+Remotion的渲染引擎是使用Node.JS构建的，这使得在云中渲染视频变得容易。
 
-## Render a video on AWS Lambda
+## 在AWS Lambda上渲染视频
 
-The easiest and fastest way to render videos in the cloud is to use [`@remotion/lambda`](/docs/lambda).
+在云中渲染视频的最简单最快速的方法是使用[`@remotion/lambda`](/docs/lambda)。
 
-## Render a video using Node.js APIs
+## 使用Node.js API渲染视频
 
-We provide a set of APIs to render videos using Node.js and Bun.  
-See an [example](/docs/ssr-node) or the [API reference](/docs/renderer) for more information.
+我们提供了一组API来使用Node.js和Bun来渲染视频。  
+查看[示例](/docs/ssr-node)或[API参考](/docs/renderer)以获取更多信息。
 
-## Render using GitHub Actions
+## 使用GitHub Actions进行渲染
 
-The [Hello World starter template](https://github.com/remotion-dev/template-helloworld) includes a GitHub Actions workflow file [`.github/workflows/render-video.yml`](https://github.com/remotion-dev/template-helloworld/blob/main/.github/workflows/render-video.yml).
+[Hello World入门模板](https://github.com/remotion-dev/template-helloworld)包括一个GitHub Actions工作流文件[`.github/workflows/render-video.yml`](https://github.com/remotion-dev/template-helloworld/blob/main/.github/workflows/render-video.yml)。
 
-<Step>1</Step> Commit the template to a GitHub repository.<br/>
-<Step>2</Step> On GitHub, click the <code>Actions</code> tab.<br/>
-<Step>3</Step> Select the <code>Render video</code> workflow on the left.<br/>
-<Step>4</Step> A <code>Run workflow</code> button should appear. Click it.<br/>
-<Step>5</Step> Fill in the props of the root component and click <code>Run workflow</code>. <br/>
-<Step>6</Step> After the rendering is finished, you can download the video under <code>Artifacts</code>.<br/><br/>
+<Step>1</Step> 将模板提交到GitHub存储库。<br/>
+<Step>2</Step> 在GitHub上，点击<code>Actions</code>选项卡。<br/>
+<Step>3</Step> 在左侧选择<code>Render video</code>工作流。<br/>
+<Step>4</Step> 应该会出现一个<code>Run workflow</code>按钮。点击它。<br/>
+<Step>5</Step> 填写根组件的props并点击<code>Run workflow</code>。<br/>
+<Step>6</Step> 渲染完成后，您可以在<code>Artifacts</code>下下载视频。<br/><br/>
 
-Note that running the workflow may incur costs. However, the workflow will only run if you actively trigger it.
+请注意，运行工作流可能会产生费用。但是，只有在您主动触发时工作流才会运行。
 
-See also: [Passing input props in GitHub Actions](/docs/passing-props#passing-input-props-in-github-actions)
+另请参阅：[在GitHub Actions中传递输入props](/docs/passing-props#passing-input-props-in-github-actions)
 
-## Render a video using Docker
+## 使用Docker渲染视频
 
-See: [Dockerizing a Remotion project](/docs/docker)
+查看：[将Remotion项目Docker化](/docs/docker)
 
-## Render a video using GCP Cloud Run (Alpha)
+## 使用GCP Cloud Run渲染视频（Alpha版）
 
-Check out the experimental [Cloud Run](/docs/cloudrun-alpha) package.
+查看实验性的[Cloud Run](/docs/cloudrun-alpha)包。
 
-## API reference
+## API参考
 
 <TableOfContents />
+

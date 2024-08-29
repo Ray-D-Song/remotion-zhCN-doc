@@ -1,27 +1,26 @@
 ---
 image: /generated/articles-docs-transitions-presentations-custom.png
 crumb: '@remotion/transitions'
-title: 'Custom presentations'
+title: '自定义演示'
 ---
 
-This page describes how to create your own custom effect for [`<TransitionSeries>`](/docs/transitions/transitionseries).
+本页面描述如何为 [`<TransitionSeries>`](/docs/transitions/transitionseries) 创建自定义效果。
 
-## Concept
+## 概念
 
-A presentation is a higher order component which wraps around the entering slide as well as the exiting slide and which implements an effect based on three parameters:
+演示是一个高阶组件，包裹进入幻灯片和退出幻灯片，并基于三个参数实现效果：
 
-<Step>1</Step> The current <code>presentationProgress</code>, influenced by the
-timing of the transition
+<Step>1</Step> 当前的 <code>presentationProgress</code>，受过渡时间的影响
 <br />
-<Step>2</Step> The <code>presentationDirection</code>, either <code>entering</code> or <code>exiting</code>
+<Step>2</Step> <code>presentationDirection</code>，可以是 <code>entering</code> 或 <code>exiting</code>
 <br />
-<Step>3</Step> The <code>presentationDurationInFrames</code> (_available from v4.0.153_)
-<Step>4</Step> Additional developer-defined <code>passedProps</code>
+<Step>3</Step> <code>presentationDurationInFrames</code>（从 v4.0.153 版本开始可用）
+<Step>4</Step> 开发者定义的额外 <code>passedProps</code>
 
-## Boilerplate
+## 样板
 
-A custom presentation is a function which returns an object of type `TransitionPresentation`.  
-It is an object with a React component (`component`) and React props which are passed to the component as `passedProps`.
+自定义演示是一个返回 `TransitionPresentation` 类型对象的函数。  
+它是一个包含 React 组件（`component`）和作为 `passedProps` 传递给组件的 React props 的对象。
 
 ```tsx twoslash title="custom-presentation.tsx"
 import type {TransitionPresentationComponentProps} from '@remotion/transitions';
@@ -47,19 +46,19 @@ export const customPresentation = (
 };
 ```
 
-The `component` is a React component which receives the following props:
+`component` 是一个接收以下 props 的 React 组件：
 
-<Step>1</Step> <code>children</code>: The markup to wrap around
+<Step>1</Step> <code>children</code>: 要包裹的标记
 <br />
-<Step>2</Step> <code>presentationDirection</code>: Either <code>
+<Step>2</Step> <code>presentationDirection</code>: 可以是 <code>
   "entering"
-</code> or <code>"exiting"</code>
+</code> 或 <code>"exiting"</code>
 <br />
-<Step>3</Step> <code>presentationProgress</code>: A number between <code>
+<Step>3</Step> <code>presentationProgress</code>: 介于 <code>
   0
-</code> and <code>1</code> which represents the progress of the transition.
+</code> 和 <code>1</code> 之间的数字，表示过渡的进度。
 <br />
-<Step>4</Step> <code>passedProps</code>: The custom props passed to the presentation
+<Step>4</Step> <code>passedProps</code>: 传递给演示的自定义 props
 
 <br />
 <br />
@@ -85,24 +84,22 @@ const StarPresentation: React.FC<
 };
 ```
 
-## Example
+## 示例
 
 <Demo type="custom-presentation" />
 
-The following example implements a star mask transition:
+以下示例实现了星形遮罩过渡：
 
-<Step>1</Step> Based on the <code>passedProps</code> <code>height</code> and <code>width</code>
-, the inner radius of the star is calculated that will completely fill the canvas.
+<Step>1</Step> 基于 <code>passedProps</code> <code>height</code> 和 <code>width</code>，计算星星的内半径，以完全填充画布。
 <br />
-<Step>2</Step> Using <a href="/docs/shapes"><code>@remotion/shapes</code></a>, an SVG path is calculated, and grown from zero to the full size of the canvas. <br />
-<Step>3</Step> The <code>presentationProgress</code> is used to interpolate the shape
-size. <br /> <Step>4</Step> <a href="/docs/paths"><code>@remotion/paths</code></a> is used to center the star in the middle of the canvas.
+<Step>2</Step> 使用 <a href="/docs/shapes"><code>@remotion/shapes</code></a>，计算 SVG 路径，并从零增长到画布的全尺寸。 <br />
+<Step>3</Step> 使用 <code>presentationProgress</code> 插值形状大小。 <br /> <Step>4</Step> 使用 <a href="/docs/paths"><code>@remotion/paths</code></a> 将星星居中在画布中央。
 <br />
-<Step>5</Step> A <code>clipPath</code> is used to clip the entering slide.
-Inside the container, the <code>children</code> get rendered.
+<Step>5</Step> 使用 <code>clipPath</code> 剪切进入幻灯片。
+在容器内，渲染 <code>children</code>。
 <br />
-<Step>6</Step> The effect is disabled if <code>presentationDirection</code> is set
-to <code>"exiting"</code>{' '}
+<Step>6</Step> 如果 <code>presentationDirection</code> 设置为 <code>"exiting"</code>，则禁用效果。
+
 
 <br />
 <br />
@@ -171,7 +168,7 @@ const StarPresentation: React.FC<
 };
 ```
 
-Example usage:
+示例用法：
 
 ```tsx twoslash title="MyComp.tsx"
 import {springTiming, TransitionSeries} from '@remotion/transitions';
@@ -232,10 +229,11 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## References
+## 参考
 
-See the source code for [already implemented presentations](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations) for a useful reference.
+查看[已实现的演示文稿](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations)的源代码，以获取有用的参考。
 
-## See also
+## 另请参阅
 
-- [Custom timings](/docs/transitions/timings/custom)
+- [自定义时间](/docs/transitions/timings/custom)
+

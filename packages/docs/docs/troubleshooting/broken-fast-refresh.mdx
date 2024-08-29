@@ -1,16 +1,9 @@
----
-image: /generated/articles-docs-troubleshooting-broken-fast-refresh.png
-id: broken-fast-refresh
-title: Fast Refresh not working
-crumb: "Troubleshooting"
----
+如果 Remotion Studio 在您更新文件后没有更新，通常是由于以下两个原因之一：
 
-If the Remotion Studio does not update after you have updated your file, it is usually due to one of two reasons:
+<Step>1</Step> Studio 服务器断开连接：当您退出运行 <code>npx remotion studio</code> 时启动的进程时，通常是使用 <code>Ctrl+C</code> 或退出终端时会发生这种情况。<br/><br/>
 
-<Step>1</Step> Studio server disconnected: This happens when you quit the process that was started when running <code>npx remotion studio</code>, usually using <code>Ctrl+C</code> or by quitting the terminal. <br/><br/>
-
-<Step>2</Step> Mismatched capitalization in the filenames: Ensure that the capitalization of filenames is correct in imports. For example, if your filename is <code>MyComp.tsx</code>, but you import it using <code>{'import {MyComp} from "./myComp.tsx"'}</code>, Fast Refresh may break. <br/><br/>
+<Step>2</Step> 文件名大小写不匹配：确保在导入时文件名的大小写正确。例如，如果您的文件名是 <code>MyComp.tsx</code>，但您使用 <code>{'import {MyComp} from "./myComp.tsx"'}</code> 进行导入，可能会导致 Fast Refresh 出现问题。<br/><br/>
 
 :::note
-This is a bug in Webpack for which [we've filed an issue](https://github.com/webpack/watchpack/issues/228).
+这是 Webpack 中的一个 bug，我们已经[提交了一个问题](https://github.com/webpack/watchpack/issues/228)。
 :::

@@ -1,28 +1,27 @@
 ---
 image: /generated/articles-docs-recorder-upgrading.png
-title: Upgrading
+title: 升级
 crumb: Recorder
 ---
 
-Since the Recorder ships as source code and allows you to hack around with it, your version will diverge from our template, at least once we release an update.
+由于 Recorder 作为源代码发布，允许您对其进行修改，因此您的版本将会与我们的模板有所不同，至少在我们发布更新后会如此。
 
-## Pull updates
+## 拉取更新
 
-You may run
+您可以运行
 
 ```
 bun update.ts
 ```
 
-to copy all files from our template into your version of the Recorder, except the `public`, `config` and `remotion/Root.tsx` folders.
-This upgrades your local Remotion Recorder to the latest version.
+将我们模板中的所有文件复制到您的 Recorder 版本中，但不包括 `public`、`config` 和 `remotion/Root.tsx` 文件夹。这将升级您本地的 Remotion Recorder 到最新版本。
 
-If necessary, compare the changes that we have made the Recorder by visiting the following URL:
+如有必要，可以通过访问以下 URL 比较我们对 Recorder 所做的更改：
 
-## Comparing changes
+## 比较更改
 
 ```
 https://github.com/remotion-dev/recorder/compare/COMMIT_ID...main
 ```
 
-Where `COMMIT_ID` is the commit at which you forked the Recorder.
+其中 `COMMIT_ID` 是您 fork Recorder 时的提交。

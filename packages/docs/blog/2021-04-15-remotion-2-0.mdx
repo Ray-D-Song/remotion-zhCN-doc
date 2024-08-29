@@ -1,15 +1,6 @@
----
-slug: 2-0
-title: Remotion 2.0
-author: Jonny Burger
-author_title: Indie Hacker
-author_url: https://github.com/JonnyBurger
-author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
----
+这是我们迄今为止最大、最好的版本 - 今天我们将发布许多令人惊叹的、备受期待的功能！
 
-This is our biggest and best release so far - today we are unloading a lot of awesome, highly requested features!
-
-## Audio support
+## 音频支持
 
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
@@ -17,23 +8,23 @@ This is our biggest and best release so far - today we are unloading a lot of aw
   </video>
 </div>
 
-We are happy to ship audio support with a flexible API!
+我们很高兴地提供了具有灵活 API 的音频支持！
 
-You can [import one or multiple audio tracks into your project, cut, trim and align them in your composition](/docs/using-audio). The volume can be controlled for the entirety of a track, or you can control it frame by frame to create fade effects and much more. Apply your React mindset - Remotion doesn't care how you render the audio tag, just that it's there. The mechanic of how we tell FFMPEG to mix the audio just like you hear it in the browser preview is really complex and was challenging to build - we are very proud of the outcome!
+您可以[将一个或多个音轨导入到您的项目中，对其进行裁剪、修剪和对齐](/docs/using-audio)。可以控制整个音轨的音量，或者您可以逐帧控制它，以创建淡入淡出效果等等。应用您的 React 思维方式 - Remotion 不关心您如何渲染音频标签，只要它在那里即可。我们告诉 FFMPEG 如何混合音频，就像您在浏览器预览中听到的那样，这个机制非常复杂，构建起来具有挑战性 - 我们为结果感到非常自豪！
 
-## Audio visualization
+## 音频可视化
 
-With newly introduced audio visualization APIs, you can make your visuals react to the frequency of the audio.
+通过新引入的音频可视化 API，您可以使您的视觉效果根据音频的频率做出反应。
 
-What you need are the new [`getAudioData()`](/docs/get-audio-data) and [`visualizeAudio()`](/docs/visualize-audio) APIs that have been published [in it's own package](/docs/media-utils/).
+您需要的是新的 [`getAudioData()`](/docs/get-audio-data) 和 [`visualizeAudio()`](/docs/visualize-audio) API，这些 API 已经发布在[自己的包中](/docs/media-utils/)。
 
-Read more about [audio visualization](/docs/audio-visualization) in the docs or [watch a sample video](https://twitter.com/JNYBGR/status/1378444074634592262) (the source can be found [here](https://github.com/yuta0801/remotion/blob/1103092f4902fb11f41877a05398dab6ce7203e7/packages/example/src/AudioVisualization/index.tsx)).
+在文档中阅读更多关于[音频可视化](/docs/audio-visualization)的内容，或[观看示例视频](https://twitter.com/JNYBGR/status/1378444074634592262)（源代码可以在[这里](https://github.com/yuta0801/remotion/blob/1103092f4902fb11f41877a05398dab6ce7203e7/packages/example/src/AudioVisualization/index.tsx)找到）。
 
-## Export as MP3, AAC, WAV
+## 导出为 MP3、AAC、WAV
 
-You can now also completely omit the video from the output and only emit an audio file. Yes, Remotion can also be used as an audio editing program! Pass `mp3`, `aac` or `wav` as a codec [using the `--codec` flag](/docs/cli/render#--jpeg-quality) or [in your config file](/docs/config#setcodec).
+现在您还可以完全省略输出中的视频，只输出音频文件。是的，Remotion 也可以用作音频编辑程序！通过使用 `--codec` 标志[传递 `mp3`、`aac` 或 `wav` 作为编解码器](/docs/cli/render#--jpeg-quality)或[在您的配置文件中设置编解码器](/docs/config#setcodec)。
 
-## `@remotion/media-utils` package
+## `@remotion/media-utils` 包
 
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
@@ -41,68 +32,76 @@ You can now also completely omit the video from the output and only emit an audi
   </video>
 </div>
 
-This is a new helper package which includes functions useful for dealing with audio. Besides audio visualization, you can also for example measure the duration of an audio or video source, which is really useful for making a composition duration dynamic. The functions included are [`getAudioData()`](/docs/get-audio-data), [`getAudioDuration()`](/docs/get-audio-duration-in-seconds), [`getVideoMetadata()`](/docs/get-video-metadata), [`getWaveformPortion()`](/docs/get-waveform-portion), [`visualizeAudio()`](/docs/visualize-audio) and [`useAudioData()`](/docs/use-audio-data).
+这是一个新的辅助包，其中包含一些处理音频的有用函数。除了音频可视化之外，您还可以例如测量音频或视频源的持续时间，这对于使合成持续时间动态化非常有用。包含的函数有 [`getAudioData()`](/docs/get-audio-data), [`getAudioDuration()`](/docs/get-audio-duration-in-seconds), [`getVideoMetadata()`](/docs/get-video-metadata), [`getWaveformPortion()`](/docs/get-waveform-portion), [`visualizeAudio()`](/docs/visualize-audio) 和 [`useAudioData()`](/docs/use-audio-data)。
 
-All of them except the last one are completely independent from the ideas of Remotion, so they might be a great fit for your other non-Remotion projects as well! This package is MIT-licensed, so you everybody can use it without obtaining a company license.
+除了最后一个之外，它们都与 Remotion 的概念完全独立，因此它们也可能非常适合您的其他非 Remotion 项目！这个包是 MIT 许可的，所以每个人都可以在不获取公司许可的情况下使用它。
 
-## Rich Timeline (experimental)
+## 丰富时间轴（实验性）
 
-With the normal timeline, you don't see the full picture of all the media that you have placed in your composition. The reason is that the visualization you see is based on what's currently rendered at the position of your playhead.
+使用普通时间轴，您无法看到您在合成中放置的所有媒体的完整情况。原因是您看到的可视化是基于当前播放头位置渲染的内容。
 
-Introducing a new timeline mode: The [**rich timeline**](/docs/studio) will render additional frames other than the current one to gather enough information to visualize a full timeline.
-Sequences which are normally not rendered because the playback head is not within the time range of the sequence, will appear because Remotion is doing an additional render at a time where the sequence is visible.
+引入一个新的时间轴模式：[**丰富时间轴**](/docs/studio) 将渲染除当前帧之外的其他帧，以收集足够的信息来可视化完整的时间轴。
+通常不会渲染的序列，因为播放头不在序列的时间范围内，将会出现，因为 Remotion 在序列可见的时间进行额外渲染。
 
 <img src="/img/timeline.png"></img>
 
-By default the **rich timeline** feature is disabled, but will be enabled by default if the feedback is good. You may switch between the rich timeline and simple timeline by clicking the icon with the three lines. Try it out and let us know what you think!
+默认情况下，**丰富时间轴** 功能是禁用的，但如果反馈良好，将会默认启用。您可以通过点击具有三条线图标的图标在丰富时间轴和简单时间轴之间切换。试一试，然后告诉我们您的想法！
 
 <img src="/img/timeline-toggle.png"></img>
 
-## ESBuild loader
+## ESBuild 加载器
 
+
+```html
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
     <source src="/img/esbuild.mp4" type="video/mp4" />
   </video>
 </div>
+```
 
-The traditional transpilation of Javascript and Typescript using `babel-loader` has been replaced by the faster `esbuild-loader` by default.
+使用 `esbuild-loader` 默认替换了使用 `babel-loader` 对 Javascript 和 Typescript 进行传统转译。
 
-This will speed up bundling by a lot - hopefully you won't notice any other differences! If you for some reason need to go back to the previous behavior, you may override the Webpack config - [we are releasing a helper that makes it easy](/docs/legacy-babel).
+这将大大加快捆绑速度 - 希望您不会注意到任何其他差异！如果出于某种原因需要返回到以前的行为，您可以覆盖 Webpack 配置 - [我们发布了一个助手，使其变得容易](/docs/legacy-babel)。
 
+```html
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
     <source src="/img/esbuild-loader.webm" type="video/webm" />
   </video>
 </div>
+```
 
-## Webpack caching
+## Webpack 缓存
 
-Even though transpilation is done using ESBuild now, Webpack is still being used for bundling. We rely on Webpack features such as Hot Module Replacement, asset importing, it's strong loader ecosystem and now it's caching features.
+尽管现在使用 ESBuild 进行转译，但仍然使用 Webpack 进行捆绑。我们依赖于 Webpack 的功能，如热模块替换、资源导入、其强大的加载器生态系统以及现在的缓存功能。
 
-When you run `npm run build` for the first time, you will get a message that a cache is building. From the second time on, bundling will be much faster, even if you change your code. You shouldn't have to ever do it, but you can [opt out of caching](/docs/config#setcachingenabled).
+当您第一次运行 `npm run build` 时，您将收到一个正在构建缓存的消息。从第二次开始，即使更改代码，捆绑速度也会快得多。您不应该经常这样做，但您可以选择[禁用缓存](/docs/config#setcachingenabled)。
 
-## Partial video rendering + Stills
+## 部分视频渲染 + 静帧
 
-Want to render partial video or a still for thumbnail? You can do that with Remotion 2.0. We introduced a new CLI flag `--frames` to render a subset or a still of a video.
+想要渲染部分视频或缩略图？您可以使用 Remotion 2.0 完成。我们引入了一个新的 CLI 标志 `--frames` 来渲染视频的子集或静帧。
 
-`--frames=0-9` (To select the first 10 frames) or `--frames=50` (To render a still of the 51st frame).
+`--frames=0-9`（选择前 10 帧）或 `--frames=50`（渲染第 51 帧的静帧）。
 
-Learn more about the [`--frames`](/docs/config#setframerange) CLI option.
+了解更多关于 [`--frames`](/docs/config#setframerange) CLI 选项的信息。
 
-## `@remotion/gif` component
+## `@remotion/gif` 组件
 
+```html
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
     <source src="/img/gif.mp4" type="video/mp4" />
   </video>
 </div>
+```
 
-A new GIF component released in the `@remotion/gif` package is now available. The `<Gif />` component allows to load a local or remote GIF and synchronizes it with Remotions `useCurrentFrame()`. For that it parses the GIF using WebAssembly - basically it's really cool tech! Thanks a lot to [@jeetiss](https://github.com/jeetiss) for contributing this new component.
+`@remotion/gif` 包中发布了一个新的 GIF 组件。`<Gif />` 组件允许加载本地或远程 GIF，并与 Remotion 的 `useCurrentFrame()` 同步。为此，它使用 WebAssembly 解析 GIF - 基本上是非常酷的技术！非常感谢 [@jeetiss](https://github.com/jeetiss) 贡献了这个新组件。
+```
 
-[Learn more about the GIF component here](/docs/gif).
+[在此处了解有关 GIF 组件的更多信息](/docs/gif).
 
-## Resizable editor panels
+## 可调整大小的编辑器面板
 
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
@@ -110,11 +109,11 @@ A new GIF component released in the `@remotion/gif` package is now available. Th
   </video>
 </div>
 
-In the editor, you can now resize the timeline as well as the left sidebar. Thanks a lot to [Arthur Denner](https://github.com/arthurdenner) for this awesome contribution!
+在编辑器中，您现在可以调整时间轴和左侧边栏的大小。非常感谢 [Arthur Denner](https://github.com/arthurdenner) 为这个出色的贡献！
 
 ## interpolate()
 
-`interpolate()` now supports arrays with lengths bigger than 2. Really useful for a lot of scenarios - for example you can create a combined fade in/fade out transition with one line.
+`interpolate()` 现在支持长度大于 2 的数组。对于许多场景非常有用 - 例如，您可以使用一行代码创建组合的淡入/淡出过渡。
 
 ```tsx
 const opacity = interpolate(
@@ -124,7 +123,7 @@ const opacity = interpolate(
 );
 ```
 
-## 170+ tests added
+## 添加了 170 多个测试
 
 <div>
   <video width="100%" height="100%" controls playsInline autoPlay muted loop>
@@ -132,35 +131,41 @@ const opacity = interpolate(
   </video>
 </div>
 
-While not strictly a new feature, this is definitely worth mentioning.
+虽然不是严格意义上的新功能，但这绝对值得一提。
 
-[Calvin Falter](https://github.com/calvin-f), [Jonas Brunner](https://github.com/j0nezz) and [Tobias Boner](https://github.com/dydent) took Remotion as their project for their university seminar and contributed over 100 tests, strengthening the code and ironing out edge cases.
+[Calvin Falter](https://github.com/calvin-f)、[Jonas Brunner](https://github.com/j0nezz) 和 [Tobias Boner](https://github.com/dydent) 将 Remotion 作为他们大学研讨会的项目，并贡献了超过 100 个测试，加强了代码并解决了边缘情况。
 
-[@cnnr](https://github.com/cnnrhill) contributed a really cool end-to-end test that tests the video seeking of Remotion and makes sure it is frame-accurate by matching the colors in each frame.
+[@cnnr](https://github.com/cnnrhill) 贡献了一个非常酷的端到端测试，测试了 Remotion 的视频寻址，并通过匹配每一帧中的颜色确保其帧精确。 
 
-The remaining added tests are testing the tricky parts of audio rendering. Thanks to test-driven development, we've been able to catch regressions and ship really solid audio support.
+其余添加的测试正在测试音频渲染的棘手部分。感谢测试驱动开发，我们能够捕捉到回归并发布非常稳固的音频支持。
 
-The bottom line: In Remotion 1.5.4 we had total 43 tests, in Remotion 2.0 we added a total of 174 tests to come out at a total of 217.
+总结：在 Remotion 1.5.4 中，我们总共有 43 个测试，在 Remotion 2.0 中，我们添加了总共 174 个测试，总共达到 217 个。
 
-## `<Video/>` and `<Audio/>` have `startFrom` and `endAt` props
+## `<Video/>` 和 `<Audio/>` 现在具有 `startFrom` 和 `endAt` 属性
 
-These new props make it easier to cut the start or the end of the video. This is implemented using sequences, which was also possible before, but this is a convienient shorthand.
+这些新属性使得裁剪视频的开始或结束更加容易。这是使用序列实现的，之前也是可能的，但这是一个方便的简写。
 
-## Fixed: Frame seeking
+## 修复：帧寻址
 
-In Remotion 1.x, a `<Video/>` would not always perfectly synchronize with Remotions time during render. This is now fixed and validated by tests that scan the color of the output frames - [however not in the most efficient way](https://github.com/remotion-dev/remotion/issues/200). Help on improving it further is still welcome.
+在 Remotion 1.x 中，`<Video/>` 不会始终与渲染期间 Remotion 的时间完全同步。现在已经修复，并通过扫描输出帧的颜色进行验证 - [但并非以最有效的方式](https://github.com/remotion-dev/remotion/issues/200)。欢迎继续改进。
 
-## Fixed: Timeouts while importing large videos
+## 修复：导入大视频时的超时问题
 
-Importing files into your webpack bundle that were of significant size (the problems started at around 40MB) led to slow renders and timeouts. This is now fixed by swapping out dependencies and making sure the whole stack supports the HTTP range header well. Now if you seek a video, only the necessary parts will be loaded from the filesystem rather than the whole file being read.
+将大小相当大的文件导入到您的 webpack 包中会导致渲染缓慢和超时（问题在大约 40MB 处开始）。现在通过更换依赖项并确保整个堆栈良好支持 HTTP 范围标头来解决此问题。现在，如果您寻找视频，只会从文件系统加载必要的部分，而不是读取整个文件。
 
-## Breaking changes and upgrade
 
-We've taken this opportunity of a major release to introduce some breaking changes that we think are beneficial for an awesome future of Remotion. Please take a moment to read through the [2.0 Migration guide](/docs/2-0-migration) and see if you are affected.
 
-## The future
+## 破坏性更改和升级
 
-Most of the core functionality for making videos in React is now implemented.
-This gives us time to focus on improving all the areas around it - we are talking better documentation, developer experience, examples, abstractions on top or Remotion, improving speed and reliability of Remotion.
+我们借此主要发布的机会引入了一些我们认为对 Remotion 未来有益的破坏性更改。请花点时间阅读 [2.0 迁移指南](/docs/2-0-migration)，看看您是否受到影响。
 
-Furthermore, we want to provide a way to embed Remotion compositions in traditional web apps and to make server-side rendering easier - stay tuned!
+
+
+## 未来
+
+现在已经实现了在 React 中制作视频的大部分核心功能。
+这使我们有时间专注于改进其周围的所有领域 - 我们谈论更好的文档、开发人员体验、示例、在 Remotion 之上的抽象、提高 Remotion 的速度和可靠性。
+
+此外，我们希望提供一种在传统 Web 应用程序中嵌入 Remotion 组合的方法，并使服务器端渲染更加简单 - 敬请关注！
+
+

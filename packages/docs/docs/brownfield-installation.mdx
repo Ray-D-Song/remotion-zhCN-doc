@@ -1,25 +1,25 @@
 ---
 image: /generated/articles-docs-brownfield-installation.png
 id: brownfield
-title: Installing Remotion in an existing project
-sidebar_label: Installation in existing project
-crumb: 'Brownfield integration'
+title: 在现有项目中安装 Remotion
+sidebar_label: 在现有项目中安装
+crumb: 'Brownfield 集成'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Remotion can be installed into existing projects, such as [Next.JS](https://nextjs.org/), [Remix](https://remix.run/), [Vite](https://vitejs.dev/guide/) or [Create React App](https://create-react-app.dev/), as well as server-only projects that run on Node.JS. Get started by adding the following packages:
+Remotion 可以安装到现有项目中，比如 [Next.JS](https://nextjs.org/)、[Remix](https://remix.run/)、[Vite](https://vitejs.dev/guide/) 或 [Create React App](https://create-react-app.dev/)，以及仅在 Node.JS 上运行的服务器项目。通过添加以下包来开始：
 
 <Installation pkg="remotion @remotion/cli" />
 
-- If you'd like to embed a Remotion video in your existing React app, install [`@remotion/player`](/docs/player/installation) as well.
-- If you'd like to render a video using the Node.JS APIs, install [`@remotion/renderer`](/docs/renderer) as well.
-- If you'd like to trigger a render on Remotion Lambda, install [`@remotion/lambda`](/docs/lambda/setup) as well.
+- 如果您想在现有的 React 应用中嵌入 Remotion 视频，请安装 [`@remotion/player`](/docs/player/installation)。
+- 如果您想使用 Node.JS API 渲染视频，请同时安装 [`@remotion/renderer`](/docs/renderer)。
+- 如果您想在 Remotion Lambda 上触发渲染，请同时安装 [`@remotion/lambda`](/docs/lambda/setup)。
 
-## Setting up the folder structure
+## 设置文件夹结构
 
-Create a new folder for the Remotion files. It can be anywhere and assume any name, in this example we name it `remotion` and put it in the root of our project. Inside the folder you created, create 3 files:
+为 Remotion 文件创建一个新文件夹。它可以放在任何地方，取任何名字，在这个示例中我们将其命名为 `remotion` 并放在项目的根目录下。在您创建的文件夹内，创建 3 个文件：
 
 ```tsx twoslash title="remotion/Composition.tsx"
 export const MyComposition = () => {
@@ -86,35 +86,35 @@ import { RemotionRoot } from "./Root";
 registerRoot(RemotionRoot);
 ```
 
-The file that calls [`registerRoot()`](/docs/register-root) is now your Remotion [**entry point**](/docs/terminology/entry-point).
+调用 [`registerRoot()`](/docs/register-root) 的文件现在是您的 Remotion [**入口点**](/docs/terminology/entry-point)。
 
 :::note
-Watch out for import aliases in your `tsconfig.json` that will resolve `import {...} from "remotion"` to the `remotion` folder. We recommend to not use `paths` without a prefix.
+注意在您的 `tsconfig.json` 中的导入别名，将 `import {...} from "remotion"` 解析为 `remotion` 文件夹。我们建议不要使用没有前缀的 `paths`。
 :::
 
-## Starting the Studio
+## 启动 Studio
 
-Start the Remotion Studio using the following command:
+使用以下命令启动 Remotion Studio：
 
 ```
 npx remotion studio remotion/index.ts
 ```
 
-Replace `remotion/index.ts` with your entrypoint if necessary.
+如有必要，请将 `remotion/index.ts` 替换为您的入口点。
 
-## Render a video
+## 渲染视频
 
-Render our a video using
+渲染视频
 
 ```
 npx remotion render remotion/index.ts MyComp out.mp4
 ```
 
-Replace the entrypoint, composition name and output filename with the values that correspond to your usecase.
+替换入口点、组合名称和输出文件名为与您的用例相对应的值。
 
-## Install the ESLint Plugin
+## 安装 ESLint 插件
 
-Remotion has an ESLint plugin that warns about improper usage of Remotion APIs. To add it to your existing project, install it:
+Remotion 有一个 ESLint 插件，用于警告有关 Remotion API 不当使用的情况。要将其添加到现有项目中，请安装它：
 
 <Tabs
 defaultValue="npm"
@@ -149,7 +149,7 @@ pnpm i @remotion/eslint-plugin
   </TabItem>
 </Tabs>
 
-This snippet will enable the recommended rules only for the Remotion files:
+此代码片段将仅为 Remotion 文件启用推荐规则：
 
 ```json title=".eslintrc"
 {
@@ -163,6 +163,6 @@ This snippet will enable the recommended rules only for the Remotion files:
 }
 ```
 
-## Embed a Remotion video into your React app
+## 在 React 应用中嵌入 Remotion 视频
 
-You can use the `<Player>` component to display a Remotion video in your React project. Read the [separate page](/docs/player/integration) about it for instructions.
+您可以使用 `<Player>` 组件在 React 项目中显示 Remotion 视频。阅读有关此操作的[单独页面](/docs/player/integration)获取说明。

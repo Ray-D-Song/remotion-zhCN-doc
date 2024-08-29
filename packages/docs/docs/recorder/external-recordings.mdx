@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-recorder-external-recordings.png
-title: External recordings
+title: 外部录制
 crumb: Recorder
 ---
 
-You can also include recordings that you recorded externally in your Recorder video.  
-For example, you may edit a vlog with it.
+您还可以在 Recorder 视频中包含您外部录制的录音。  
+例如，您可以用它来编辑 vlog。
 
-## Add files
+## 添加文件
 
-Transfer the recordings from your camera to your computer and put them in the `public/<composition-id>` folder.  
-The file structure should look like this:
+将从相机中录制的录音传输到计算机，并将它们放入 `public/<composition-id>` 文件夹中。  
+文件结构应如下所示：
 
-```bash title="Assuming the composition id is 'vlog'"
+```bash title="假设组合 ID 为 'vlog'"
 public
 ├── vlog
 │ ├── camera10.mov
@@ -21,29 +21,29 @@ public
 
 ```
 
-The prefix must be `"webcam"` for every video.  
-The suffixes must be ascending in the order you want to use the videos.
+每个视频的前缀必须是 `"webcam"`。  
+后缀必须按您想要使用视频的顺序递增。
 
-## Generate captions
+## 生成字幕
 
-Run
+运行
 
 ```bash
 bun sub.ts
 ```
 
-to generate captions for your recordings.
+为您的录音生成字幕。
 
-## Use the videos
+## 使用视频
 
-Now you can add more scenes in the right sidebar to start including the recordings.
+现在，您可以在右侧边栏中添加更多场景，开始包含这些录音。
 
-## iPhone recordings
+## iPhone 录音
 
-iPhone recordings are HEVC videos, which during rendering Chrome cannot get the dimensions of the video.  
-You will get a render failure.
+iPhone 录音是 HEVC 视频，在渲染期间 Chrome 无法获取视频的尺寸。  
+您将收到渲染失败的消息。
 
-Here is a script to convert the recordings to MP4:
+以下是将录音转换为 MP4 的脚本：
 
 ```ts title="convert.ts"
 import { $ } from "bun";
@@ -69,14 +69,14 @@ for (const file of files) {
 }
 ```
 
-Run it using
+使用以下命令运行：
 
 ```sh
 bun convert.ts
 ```
 
-to fix the issue.
+以解决此问题。
 
-## Examples
+## 示例
 
-In the [`our-recorder`](https://github.com/remotion-dev/our-recorder) repository, the compositions `marathon` and `airportrun` are using real-life footage.
+在 [`our-recorder`](https://github.com/remotion-dev/our-recorder) 存储库中，组合 `marathon` 和 `airportrun` 使用了真实的素材。

@@ -1,41 +1,41 @@
 ---
 image: /generated/articles-docs-lambda-multiple-buckets.png
-title: Multiple buckets in Remotion Lambda
+title: Remotion Lambda 中的多个存储桶
 slug: /lambda/multiple-buckets
-sidebar_label: Multiple buckets
+sidebar_label: 多个存储桶
 crumb: "@remotion/lambda"
 ---
 
-The ideal setup is if you use **1 bucket per region and account** that you use Remotion Lambda in.
+理想的设置是，如果您在使用 Remotion Lambda 的每个区域和帐户中使用**1个存储桶**。
 
-While it is discouraged, it is possible to use multiple buckets from version v3.3.42 on.
+虽然不鼓励这样做，但从版本 v3.3.42 开始，可以使用多个存储桶。
 
-## Reasons for 1 bucket
+## 一个存储桶的原因
 
-It is not necessary to create multiple buckets because:
+不需要创建多个存储桶，因为：
 
-- An S3 bucket is an effectively infinitely scalable storage solution.
-- Remotion will perfectly isolate each render so they do not interfere with another.
-- You can give sites a unique identifier to separate production and development environments.
-- The Remotion Lambda function is a binary that does not change with your codebase.
+- S3 存储桶是一个有效的无限可扩展的存储解决方案。
+- Remotion 将完全隔离每个渲染，使它们不会相互干扰。
+- 您可以为站点提供一个唯一标识符，以区分生产和开发环境。
+- Remotion Lambda 函数是一个不随您的代码库变化而变化的二进制文件。
 
-You might intuitively create multiple buckets because you have multiple environments, but it is usually not needed.
+您可能会直觉地创建多个存储桶，因为您有多个环境，但通常是不需要的。
 
-In addition to that, Remotion was not designed for multiple buckets. While you can explicitly specify a bucket name, it is optional and therefore easy to forget.
+除此之外，Remotion 并不是为多个存储桶而设计的。虽然您可以显式指定存储桶名称，但这是可选的，因此很容易忘记。
 
-## Using multiple buckets
+## 使用多个存储桶
 
-If you want to use multiple buckets nonetheless (applying different policies to them or fulfilling business or compliance requirements), you can create more buckets in the AWS console. Don't use [`getOrCreateBucket()`](/docs/lambda/getorcreatebucket) to create them.
+如果您仍然想要使用多个存储桶（为它们应用不同的策略或满足业务或合规要求），您可以在 AWS 控制台中创建更多存储桶。不要使用 [`getOrCreateBucket()`](/docs/lambda/getorcreatebucket) 来创建它们。
 
-Remotion will by default discover buckets automatically and re-use them. If it detects multiple buckets, it will throw an error.
+Remotion 默认会自动发现存储桶并重复使用它们。如果它检测到多个存储桶，将会抛出错误。
 
-In order to avoid this error, you need to additionally explicitly pass the `forceBucketName` option to the following APIs:
+为了避免此错误，您需要额外显式传递 `forceBucketName` 选项给以下 API：
 
 - [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)
 - [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda)
 - [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)
 
-Also you must pass a `--force-bucket-name=your-bucket-name` option to the following CLI commands:
+此外，您必须向以下 CLI 命令传递 `--force-bucket-name=your-bucket-name` 选项：
 
 - [`npx remotion lambda render`](/docs/lambda/cli/render)
 - [`npx remotion lambda still`](/docs/lambda/cli/still)
@@ -44,22 +44,16 @@ Also you must pass a `--force-bucket-name=your-bucket-name` option to the follow
 - [`npx remotion lambda sites rm`](/docs/lambda/cli/sites#rm)
 - [`npx remotion lambda sites rmall`](/docs/lambda/cli/sites#rmall)
 
-Also you are unable to use the following APIs:
+## 删除多余的存储桶
 
-- [`npx remotion lambda sites ls`](/docs/lambda/cli/sites#ls)
-- [`getSites()`](/docs/lambda/getsites)
-- [`getOrCreateBucket()`](/docs/lambda/getorcreatebucket)
-
-## Deleting extraneous buckets
-
-If you got an error message
+如果您收到以下错误消息
 
 ```
 You have multiple buckets [a,b,c] in your S3 region [us-east-1] starting with "remotionlambda-".
 ```
 
-but you were not intending to use multiple buckets, delete the extraneous buckets in the AWS console to fix the error.
+但您并不打算使用多个存储桶，请在 AWS 控制台中删除多余的存储桶以修复错误。
 
-## See also
+## 参见
 
-- [Bucket naming](/docs/lambda/bucket-naming)
+- [存储桶命名](/docs/lambda/bucket-naming)

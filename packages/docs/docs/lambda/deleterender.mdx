@@ -6,7 +6,7 @@ slug: /lambda/deleterender
 crumb: "Lambda API"
 ---
 
-Deletes a rendered video, audio or still and its associated metada.
+删除已渲染的视频、音频或静态图像及其关联的元数据。
 
 ```ts twoslash
 // @module: ESNext
@@ -22,41 +22,41 @@ const { freedBytes } = await deleteRender({
 console.log(freedBytes); // 21249541
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) in which the render has performed.
+执行渲染的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `bucketName`
 
-The bucket name in which the render was stored. This should be the same variable you used for [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda).
+存储渲染的存储桶名称。这应该与您用于 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 的相同变量。
 
 ### `renderId`
 
-The ID of the render. You can retrieve this ID by calling [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda).
+渲染的 ID。您可以通过调用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 来检索此 ID。
 
 ### `customCredentials`
 
-_optional, available from v3.2.23_
+_可选，从 v3.2.23 开始提供_
 
-If the render was saved to a [different cloud](/docs/lambda/custom-destination#saving-to-another-cloud), pass an object with the same `endpoint`, `accessKeyId` and `secretAccessKey` as you passed to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname).
+如果渲染保存到[另一个云](/docs/lambda/custom-destination#saving-to-another-cloud)，请传递一个具有与您传递给 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname) 相同的 `endpoint`、`accessKeyId` 和 `secretAccessKey` 的对象。
 
 ### `forcePathStyle?`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果您不知道这是什么，您可能不需要它。
 
+## 返回值
 
-## Return value
-
-Returns a promise resolving to an object with the following properties:
+返回一个解析为具有以下属性的对象的 Promise：
 
 ### `freedBytes`
 
-The amount of bytes that were removed from the S3 bucket.
+从 S3 存储桶中删除的字节数。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/delete-render.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/delete-render.ts)
+

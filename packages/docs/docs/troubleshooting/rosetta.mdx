@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-troubleshooting-rosetta.png
 id: rosetta
-sidebar_label: Apple Silicon detected
-title: Apple Silicon under Rosetta
-crumb: "Troubleshooting"
+sidebar_label: 检测到 Apple Silicon
+title: 在 Rosetta 下运行 Apple Silicon
+crumb: "故障排除"
 ---
 
-Running Remotion on Apple Silicon (M1 chip) under Rosetta can be up to 2x slower.
+在 Rosetta 下运行 Remotion 在 Apple Silicon（M1 芯片）上可能会慢最多 2 倍。
 
-The recommended way to run Remotion on Apple Silicon is using Node 16 with the native arm64 architecture.
+在 Apple Silicon 上运行 Remotion 的推荐方式是使用具有本机 arm64 架构的 Node 16。
 
-If you encounter the following warning while using `@remotion/renderer`:
+如果在使用 `@remotion/renderer` 时遇到以下警告：
 
 ```
 Apple Silicon detected but running under Rosetta (not arm64 architecture). This will cause performance issues.
@@ -19,20 +19,22 @@ Recommended actions:
  - Run Node using `arch -arm64` architecture
 ```
 
-You are either using Node 14 (which uses Rosetta on Apple M1 chips), or you are running a node version installed with `arch -x86_64`.
+那么您可能正在使用 Node 14（在 Apple M1 芯片上使用 Rosetta），或者正在使用 `arch -x86_64` 安装的 Node 版本。
 
-## Solution
+## 解决方案
 
-1. Upgrade to Node 16 or later
-1. Install Node and run it natively
+1. 升级到 Node 16 或更高版本
+1. 安装 Node 并本机运行
 
-For example, installing node natively using nvm:
+例如，使用 nvm 本机安装 node：
 
 ```
 arch -arm64 zsh
 nvm install 16
 ```
 
-You can check the architecture of your shell by typing in a terminal `arch`.  
-You can check the Node architecture by running in a terminal `node -p process.arch`.  
-If both of these print out `arm64` you are good to go.
+您可以通过在终端中输入 `arch` 来检查您的 shell 架构。
+您可以通过在终端中运行 `node -p process.arch` 来检查 Node 架构。
+如果这两者都打印出 `arm64`，则表示一切正常。 
+
+

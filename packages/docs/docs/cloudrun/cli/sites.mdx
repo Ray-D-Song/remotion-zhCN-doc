@@ -1,19 +1,19 @@
 ---
 image: /generated/articles-docs-cloudrun-cli-sites.png
 id: sites
-sidebar_label: sites
+sidebar_label: 网站
 title: 'npx remotion cloudrun sites'
 slug: /cloudrun/cli/sites
-crumb: 'Cloud Run CLI Reference'
+crumb: 'Cloud Run CLI 参考'
 ---
 
 <ExperimentalBadge>
   <p>
-    Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the{' '}<a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.
+    Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看{' '}<a href="https://remotion.dev/changelog">更改日志以了解最新的重大更改</a>。
   </p>
 </ExperimentalBadge>
 
-The `npx remotion cloudrun sites` command allows to create, view and delete Remotion projects in your Cloud Storage bucket.
+`npx remotion cloudrun sites` 命令允许在您的 Cloud 存储桶中创建、查看和删除 Remotion 项目。
 
 - [`create`](#create)
 - [`ls`](#ls)
@@ -26,31 +26,31 @@ The `npx remotion cloudrun sites` command allows to create, view and delete Remo
 npx remotion cloudrun sites create <entry-point>?
 ```
 
-You may pass an [entry point](/docs/terminology/entry-point) as the first argument, otherwise the entry point will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将 [入口点](/docs/terminology/entry-point) 作为第一个参数传递，否则入口点将被 [确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-Bundle and upload a Remotion video to a Cloud Storage bucket.
+将 Remotion 视频捆绑并上传到 Cloud 存储桶。
 
-The result will be a URL such as `https://storage.googleapis.com/remotioncloudrun-12345/sites/mySite123/index.html`.
+结果将是一个 URL，例如 `https://storage.googleapis.com/remotioncloudrun-12345/sites/mySite123/index.html`。
 
 :::note
-If you make changes locally, you need to redeploy the site. Use [`--site-name`](#--site-name) to overwrite an existing site.
+如果您在本地进行更改，需要重新部署站点。使用 [`--site-name`](#--site-name) 来覆盖现有站点。
 :::
 
-You can use this "Serve URL" to render a video on Remotion Cloud Run using:
+您可以使用此 "Serve URL" 在 Remotion Cloud Run 上渲染视频：
 
-- The [`npx remotion cloudrun render`](/docs/cloudrun/cli/render) command.
-- Locally using the [`renderMedia()`](/docs/renderer/render-media) and [`renderStill()`](/docs/renderer/render-still) functions.
-- Locally using the [`npx remotion render`](/docs/cli) and [`npx remotion still`](/docs/cli) commands
+- 使用 [`npx remotion cloudrun render`](/docs/cloudrun/cli/render) 命令。
+- 在本地使用 [`renderMedia()`](/docs/renderer/render-media) 和 [`renderStill()`](/docs/renderer/render-still) 函数。
+- 在本地使用 [`npx remotion render`](/docs/cli) 和 [`npx remotion still`](/docs/cli) 命令
 
-If you are rendering on Cloud Run, you can also pass the site Name (in this case `mySite123`) as an abbreviation.
+如果您在 Cloud Run 上进行渲染，还可以将站点名称（在本例中为 `mySite123`）作为缩写传递。
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to select. The service accessing the site should also be in this same region to minimise latency.
+选择的 [GCP 区域](/docs/cloudrun/region-selection)。访问站点的服务也应在相同的区域中，以最小化延迟。
 
 ### `--site-name`
 
-Uploads the project to a specific directory and returns a deterministic URL. If a site already existed under this name, in the same region, it will be overwritten. Can only contain the following characters: `0-9`, `a-z`, `A-Z`, `-`, `!`, `_`, `.`, `*`, `'`, `(`, `)`
+将项目上传到特定目录并返回确定性 URL。如果在相同区域下已存在具有此名称的站点，则将其覆盖。只能包含以下字符：`0-9`、`a-z`、`A-Z`、`-`、`!`、`_`、`.`、`*`、`'`、`(`、`)`
 
 ```
 npx remotion cloudrun sites create src/index.ts --site-name=another-site
@@ -66,30 +66,30 @@ npx remotion cloudrun sites create src/index.ts --site-name=another-site
 npx remotion cloudrun sites ls
 ```
 
-Get a list of sites. The URL that is printed can be passed to the `render` command to render a video.
+获取站点列表。打印的 URL 可以传递给 `render` 命令以渲染视频。
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    2 sites in us-east1, in the remotion-example project.
+    2 个站点位于 us-east1，在 remotion-example 项目中。
     <br />
     <br />
-    Site: another-site
+    站点: another-site
     <br />
-    Bucket: remotioncloudrun-12345
+    存储桶: remotioncloudrun-12345
     <br />
-    Region: us-east1
+    区域: us-east1
     <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
+    服务 URL: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
     <br />
     <br />
-    Site: test-site
+    站点: test-site
     <br />
-    Bucket: remotioncloudrun-12345
+    存储桶: remotioncloudrun-12345
     <br />
-    Region: us-east1
+    区域: us-east1
     <br />
-    Serve Url:
+    服务 URL:
     https://storage.googleapis.com/remotioncloudrun-12345/sites/test-site/index.html
     <br />
   </pre>
@@ -97,61 +97,61 @@ Get a list of sites. The URL that is printed can be passed to the `render` comma
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to list sites from.
+[GCP 区域](/docs/cloudrun/region-selection) 以列出站点。
 
 ### `--all-regions`,
 
-Ignores region, returning sites across all regions for the project.
+忽略区域，返回项目中所有区域的站点。
 
 ```
 npx remotion cloudrun sites ls --all-regions
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    3 sites in all regions, in the remotion-example project.
+    3 个站点位于所有区域，在 remotion-example 项目中。
     <br />
     <br />
-    Site: another-site
+    站点: another-site
     <br />
-    Bucket: remotioncloudrun-12345
+    存储桶: remotioncloudrun-12345
     <br />
-    Region: us-east1
+    区域: us-east1
     <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
+    服务 URL: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
     <br />
     <br />
-    Site: test-site
+    站点: test-site
     <br />
-    Bucket: remotioncloudrun-12345
+    存储桶: remotioncloudrun-12345
     <br />
-    Region: us-east1
+    区域: us-east1
     <br />
-    Serve Url:
+    服务 URL:
     https://storage.googleapis.com/remotioncloudrun-12345/sites/test-site/index.html
     <br />
     <br />
-    Site: central-site
+    站点: central-site
     <br />
-    Bucket: remotioncloudrun-abcdefgh
+    存储桶: remotioncloudrun-abcdefgh
     <br />
-    Region: us-central1
+    区域: us-central1
     <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-abcdefgh/sites/central-site/index.html
+    服务 URL: https://storage.googleapis.com/remotioncloudrun-abcdefgh/sites/central-site/index.html
   </pre>
 </details>
 
 ### `--quiet`, `-q`
 
-Returns only a list of space-separated sites.
+仅返回以空格分隔的站点列表。```
 
 ```
 npx remotion cloudrun sites ls -q
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
     another-site test-site central-site
     <br />
@@ -160,43 +160,43 @@ npx remotion cloudrun sites ls -q
 
 ## rm
 
-Removes a site (or multiple) from Cloud Storage by it's ID.
+通过ID从Cloud Storage中删除一个或多个站点。
 
 ```bash
 npx remotion cloudrun sites rm central-site
-npx remotion cloudrun sites rm central-site another-site # multiple at once
+npx remotion cloudrun sites rm central-site another-site # 一次删除多个
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    Site: central-site
+    站点：central-site
     <br />
-    Bucket: remotioncloudrun-abcdefgh
+    存储桶：remotioncloudrun-abcdefgh
     <br />
-    Region: us-central1
+    区域：us-central1
     <br />
-    Serve Url:
+    服务网址：
     https://storage.googleapis.com/remotioncloudrun-abcdefgh/sites/central-site/index.html
     <br />
     <br />
-    Delete? (Y/n) Y<br />
-    Deleted site central-site from bucket remotioncloudrun-abcdefgh.
+    删除？（Y/n）Y<br />
+    从存储桶remotioncloudrun-abcdefgh中删除了站点central-site。
     <br />
   </pre>
 </details>
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to remove sites from.
+要从中删除站点的[GCP区域](/docs/cloudrun/region-selection)。
 
 :::note
-The `rm` command does not support the --all-regions flag, as it is possible to have the same site name in multiple regions. This makes it difficult to remove multiple site-names from multiple regions.
+`rm`命令不支持`--all-regions`标志，因为可能在多个区域中具有相同的站点名称。这使得从多个区域中删除多个站点名称变得困难。
 :::
 
-### `--yes`, `-y`
+### `--yes`，`-y`
 
-Removes a site (or multiple) without asking for confirmation.
+删除一个或多个站点而无需确认。
 
 ```
 npx remotion cloudrun sites rm central-site -y
@@ -204,109 +204,111 @@ npx remotion cloudrun sites rm central-site -y
 
 ## rmall
 
-Remove all sites in the selected GCP project.
+删除所选GCP项目中的所有站点。
 
 ```bash
 npx remotion cloudrun sites rmall
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    Retrieving sites in us-east1.
+    检索us-east1中的站点。
     <br />
     <br />
-    Site: another-site
+    站点：another-site
     <br />
-    Bucket: remotioncloudrun-12345
+    存储桶：remotioncloudrun-12345
     <br />
-    Region: us-east1
+    区域：us-east1
     <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
-    <br />
-    <br />
-    Delete? (Y/n) n<br />
-    Skipping site - another-site.
+    服务网址：https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
     <br />
     <br />
-    <br />
-    Site: test-site
-    <br />
-    Bucket: remotioncloudrun-12345
-    <br />
-    Region: us-east1
-    <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-12345/sites/test-site/index.html
+    删除？（Y/n）n<br />
+    跳过站点 - another-site。
     <br />
     <br />
-    Delete? (Y/n) n<br />
-    Skipping site - test-site.
+    <br />
+    站点：test-site
+    <br />
+    存储桶：remotioncloudrun-12345
+    <br />
+    区域：us-east1
+    <br />
+    服务网址：https://storage.googleapis.com/remotioncloudrun-12345/sites/test-site/index.html
+    <br />
+    <br />
+    删除？（Y/n）n<br />
+    跳过站点 - test-site。
   </pre>
 </details>
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to remove all sites from.
+[删除所有站点的 GCP 区域](/docs/cloudrun/region-selection)。
+
+
 
 ### `--all-regions`,
 
-Ignores region, removing sites across all regions for the project.
+忽略区域，删除项目中所有区域的站点。
 
 ```
 npx remotion cloudrun sites rmall --all-regions
 ```
 
 <details>
-  <summary>Example output</summary>
+  <summary>示例输出</summary>
   <pre>
-    Retrieving sites in all regions.
+    检索所有区域的站点。
     <br />
     <br />
-    Site: another-site
+    站点: another-site
     <br />
-    Bucket: remotioncloudrun-12345
+    存储桶: remotioncloudrun-12345
     <br />
-    Region: us-east1
+    区域: us-east1
     <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
-    <br />
-    <br />
-    Delete? (Y/n) n<br />
-    Skipping site - another-site.
+    服务 URL: https://storage.googleapis.com/remotioncloudrun-12345/sites/another-site/index.html
     <br />
     <br />
-    <br />
-    Site: test-site
-    <br />
-    Bucket: remotioncloudrun-12345
-    <br />
-    Region: us-east1
-    <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-12345/sites/test-site/index.html
-    <br />
-    <br />
-    Delete? (Y/n) n<br />
-    Skipping site - test-site.
+    删除？(Y/n) n<br />
+    跳过站点 - another-site。
     <br />
     <br />
     <br />
-    Site: central-site
+    站点: test-site
     <br />
-    Bucket: remotioncloudrun-abcdefgh
+    存储桶: remotioncloudrun-12345
     <br />
-    Region: us-central1
+    区域: us-east1
     <br />
-    Serve Url: https://storage.googleapis.com/remotioncloudrun-abcdefgh/sites/central-site/index.html
+    服务 URL: https://storage.googleapis.com/remotioncloudrun-12345/sites/test-site/index.html
     <br />
     <br />
-    Delete? (Y/n) n<br />
-    Skipping site - central-site.
+    删除？(Y/n) n<br />
+    跳过站点 - test-site。
+    <br />
+    <br />
+    <br />
+    站点: central-site
+    <br />
+    存储桶: remotioncloudrun-abcdefgh
+    <br />
+    区域: us-central1
+    <br />
+    服务 URL: https://storage.googleapis.com/remotioncloudrun-abcdefgh/sites/central-site/index.html
+    <br />
+    <br />
+    删除？(Y/n) n<br />
+    跳过站点 - central-site。
   </pre>
 </details>
 
 ### `--yes`, `-y`
 
-Removes all sites without asking for confirmation.
+无需确认即可删除所有站点。
 
 ```
 npx remotion cloudrun sites rmall -y

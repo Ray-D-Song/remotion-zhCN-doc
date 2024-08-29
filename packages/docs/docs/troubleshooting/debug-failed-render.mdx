@@ -1,42 +1,46 @@
 ---
 image: /generated/articles-docs-troubleshooting-debug-failed-render.png
-sidebar_label: Debugging render failures
-title: Debugging render failures
-crumb: "Troubleshooting"
+sidebar_label: 调试渲染失败
+title: 调试渲染失败
+crumb: "故障排除"
 ---
 
-Since JavaScript code is executing, it may happen that a render may due to an exception. Here are general tips to troubleshoot the issue.
+由于 JavaScript 代码正在执行，可能会发生由于异常而导致渲染失败的情况。以下是用于排除问题的一般提示。
 
-<Step>1</Step> <strong>Enable verbose logging</strong>
+<Step>1</Step> <strong>启用详细日志记录</strong>
 
-By enabling more detailed logging, all `console.log` statements from your code will be made visible alongside other debugging information.
+通过启用更详细的日志记录，您的代码中的所有 `console.log` 语句将与其他调试信息一起显示。
 
-From the CLI: Add the [`--log=verbose`](/docs/cli/render#--log) flag to your render command.  
-From Node.JS: Add the [`verbose: true`](/docs/renderer/render-media#verbose) options to `renderMedia()`.
+从 CLI：在渲染命令中添加 [`--log=verbose`](/docs/cli/render#--log) 标志。  
+从 Node.JS：在 `renderMedia()` 中添加 [`verbose: true`](/docs/renderer/render-media#verbose) 选项。
 
 :::note
-If you see a log multiple times, it is because the render is split up to multiple threads. Set `--concurrency=1` temporarily to only see each log once.
+如果您多次看到一个日志，那是因为渲染被拆分为多个线程。暂时设置 `--concurrency=1` 以仅查看每个日志一次。
 :::
 
-<Step>2</Step> <strong>Adding logs to your project</strong>
+<Step>2</Step> <strong>向项目添加日志</strong>
 
-Use `console.log` in your code to understand the order things are executing in and verify your assumptions about how your code should behave.
+在您的代码中使用 `console.log` 来了解事物执行的顺序，并验证您对代码应该如何运行的假设。
 
-<Step>3</Step> <strong>Remove components one by one</strong>
+<Step>3</Step> <strong>逐个删除组件</strong>
 
-Remove components until the video is empty. At which point does the error disappear? This can help you identify the component responsible for the render failure.
+逐个删除组件直到视频为空。在哪个时刻错误消失？这可以帮助您确定导致渲染失败的组件。
 
-<Step>4</Step> <strong>Search issues and documentation</strong>
+<Step>4</Step> <strong>搜索问题和文档</strong>
 
-It's also helpful to check for [issues on GitHub](https://github.com/remotion-dev/remotion/issues) to see if other people have encountered similar problems. If you find an issue that matches your problem, you can add a comment to the issue to help the community troubleshoot the problem.
+检查 [GitHub 上的问题](https://github.com/remotion-dev/remotion/issues) 是否有其他人遇到类似的问题也是有帮助的。如果找到与您的问题匹配的问题，您可以在问题下添加评论以帮助社区排除问题。
 
-Also [search the documentation](/search) which has over 300 pages and contains troubleshooting instructions for many common problems.
+还可以 [搜索文档](/search)，其中包含超过 300 页，包含许多常见问题的故障排除说明。
 
-<Step>5</Step> <strong>Ask for help</strong>
+<Step>5</Step> <strong>寻求帮助</strong>
 
-You can ask for help on GitHub and Discord. [Read on to see how to get help](/docs/get-help)!
+您可以在 GitHub 和 Discord 上寻求帮助。[继续阅读以了解如何获取帮助](/docs/get-help)！
 
-## See also
+## 另请参阅
 
-- [Debug failed Lambda renders](/docs/lambda/troubleshooting/debug)
-- [Ask for help](/docs/get-help)
+- [调试失败的 Lambda 渲染](/docs/lambda/troubleshooting/debug)
+- [寻求帮助](/docs/get-help) 
+
+
+
+Please paste the Markdown content you would like me to translate into Chinese.

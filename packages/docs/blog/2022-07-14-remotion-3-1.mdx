@@ -2,7 +2,7 @@
 slug: 3-1
 title: Remotion 3.1
 author: Jonny Burger
-author_title: Chief Hacker @ Remotion
+author_title: Remotion首席黑客
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%203.1&description=GIFs,%20%3COffthreadVideo%3E,%20Springs%20with%20duration,%20TailwindCSS
@@ -12,25 +12,25 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {SpringsWithDurationDemo} from '../components/SpringsWithDurationDemo';
 
-This release brings support for GIF as an output format, official support for Tailwind and makes springs and sequences easier! Plus we recap the best features from v3.0.1 until v3.0.31! 🎉
+此版本支持将GIF作为输出格式，官方支持Tailwind，并使弹簧和序列更容易！此外，我们回顾了从v3.0.1到v3.0.31的最佳功能！🎉
 
-## Render as GIF
+## 作为GIF渲染
 
-[To render a GIF instead of a video](/docs/render-as-gif), pass the `--codec=gif` flag during a render. We tweaked Remotion's rendering process to adapt for the speciality that are GIFs:
+[要渲染为GIF而不是视频](/docs/render-as-gif)，在渲染过程中传递`--codec=gif`标志。我们调整了Remotion的渲染过程，以适应GIF的特殊性：
 
-- Commonly, a GIF has a framerate in the range of 10-15, and so that you don't have to refactor your video, you can use the [`--every-nth-frame`](/docs/cli/render#--every-nth-frame) flag.
+- 通常，GIF的帧速率在10-15范围内，因此您无需重构视频，可以使用[`--every-nth-frame`](/docs/cli/render#--every-nth-frame)标志。
 
-- GIFs are loopable - using the [`--number-of-gif-loops`](/docs/cli/render#--number-of-gif-loops) flag you have control over the GIFs looping behavior!
+- GIF可以循环播放 - 使用[`--number-of-gif-loops`](/docs/cli/render#--number-of-gif-loops)标志，您可以控制GIF的循环行为！
 
-- You can even render your GIF distributed across many small VMs using Remotion Lambda!
+- 您甚至可以使用Remotion Lambda在许多小VM上分布式渲染您的GIF！
 
 <img style={{width: "100%"}} src="/img/render-as-gif.gif" />
 
-<p style={{textAlign: "center"}}><em>You can put <a href="/docs/gif">{"<Gif>"}</a>'s in your GIF!</em></p>
+<p style={{textAlign: "center"}}><em>您可以在GIF中放置<a href="/docs/gif"><Gif /> </a>！</em></p>
 
-## TailwindCSS support
+## TailwindCSS支持
 
-After being broken for a while, [TailwindCSS support](/docs/tailwind) is now stable, and we even made a starter template for it! To get started, [visit our homepage](https://remotion.dev), generate a [GitHub repo from a template](https://github.com/remotion-dev/template-tailwind), try it out [online via StackBlitz](https://stackblitz.com/github/remotion-dev/template-tailwind), or type the following into your terminal:
+在一段时间内出现问题后，[TailwindCSS支持](/docs/tailwind)现在已经稳定，我们甚至为其制作了一个起始模板！要开始，请[访问我们的主页](https://remotion.dev)，从模板生成[GitHub存储库](https://github.com/remotion-dev/template-tailwind)，通过StackBlitz[在线尝试](https://stackblitz.com/github/remotion-dev/template-tailwind)，或在终端中键入以下内容：
 
 <Tabs
 defaultValue="npm"
@@ -67,11 +67,11 @@ yarn create video --tailwind
 
 <img style={{width: "100%"}} src="/img/tailwind.gif" />
 
-<p style={{textAlign: "center"}}><em>Yes, you can write a GIF in Tailwind now.</em></p>
+<p style={{textAlign: "center"}}><em>是的，现在您可以使用Tailwind编写GIF。</em></p>
 
-## Springs with durations
+## 持续时间的弹簧
 
-You can now do this:
+现在您可以这样做：
 
 ```tsx twoslash
 import { spring } from "remotion";
@@ -89,78 +89,78 @@ const value = spring({
 });
 ```
 
-The result will be a spring animation that will take 10 seconds!
+结果将是一个持续10秒的弹簧动画！
 
-Why is this such a game changer? Normally, a spring animation curve is not defined by timing, but by physical parameters. It complicates planning quite a bit, as the duration of a spring is not well-defined. Theoretically, a spring animation is never finished, it keeps on going forever (even though after some time the movement is barely noticeable).
+为什么这是一个如此重要的变革？通常，弹簧动画曲线不是由时间定义的，而是由物理参数定义的。这使得规划变得相当复杂，因为弹簧的持续时间并不明确定义。从理论上讲，弹簧动画永远不会结束，它会永远持续下去（尽管一段时间后，移动几乎是不可察觉的）。
 
-We introduced [measureSpring()](/docs/measure-spring) a while ago which allows you to calculate the duration of a spring by allowing you to set a threshold.
+我们之前引入了[measureSpring()](/docs/measure-spring)，它允许您通过设置阈值来计算弹簧的持续时间。
 
-But to change the duration of a spring, you had to change the physics parameters which then in turn change the animation curve!
+但是要更改弹簧的持续时间，您必须更改物理参数，这将进而改变动画曲线！
 
-Until now - if you pass a duration to a spring, we will detect the trajectory of the curve and stretch it so it fits your duration.
+直到现在 - 如果将持续时间传递给弹簧，我们将检测曲线的轨迹并拉伸它，使其适合您的持续时间。
 
 <SpringsWithDurationDemo />
 
-## `<OffthreadVideo>` component
+## `<OffthreadVideo>` 组件
 
-[This component](/docs/offthreadvideo) is an alternative to the [`<Video>`](/docs/video) component that extracts frames using FFMPEG and renders them inside an [`<Img>`](/docs/img) tag.
+[此组件](/docs/offthreadvideo) 是一个替代[`<Video>`](/docs/video) 组件的组件，它使用FFMPEG提取帧并在[`<Img>`](/docs/img) 标签内呈现它们。
 
-We made the `<OffthreadVideo>` component in order to counteract problems with seeking and throttling that users were reporting with the `<Video>` tag. The new way improves reliability but has it's tradeoffs - read [`<OffthreadVideo> vs <Video>`](/docs/video-vs-offthreadvideo) or check out our [visual explanation on Instagram](https://www.instagram.com/p/CftaiHpMM-L/)!
+我们制作了`<OffthreadVideo>` 组件，以解决用户在`<Video>` 标签中报告的寻找和限制问题。新的方式提高了可靠性，但也有其权衡之处 - 阅读[`<OffthreadVideo> vs <Video>`](/docs/video-vs-offthreadvideo) 或查看我们在Instagram上的[视觉解释](https://www.instagram.com/p/CftaiHpMM-L/)！
 
 <a href="https://www.instagram.com/p/CftaiHpMM-L/">
   <img src="/img/offthreadvideo-all.png" />
-  <p style={{textAlign: "center"}}><em>Follow us on Instagram where we explain concepts visually!</em></p>
+  <p style={{textAlign: "center"}}><em>在Instagram上关注我们，我们会用视觉方式解释概念！</em></p>
 </a>
 
-## `renderMedia()` returns a buffer
+## `renderMedia()` 返回一个缓冲区
 
-Previously you could only save your video to a file when using the [`renderMedia()`](/docs/renderer/render-media) and [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) APIs. Now it can also return a Node.JS [`Buffer`](https://nodejs.org/api/buffer.html)!
+以前，只能在使用 [`renderMedia()`](/docs/renderer/render-media) 和 [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) API 时将视频保存到文件中。现在它还可以返回一个 Node.JS [`Buffer`](https://nodejs.org/api/buffer.html)！
 
-## `@remotion/preload` package
 
-This [new package](/docs/preload) offers three APIs that are handy for preloading assets
-before they appear in the [`<Player>`](/docs/player): [`resolveRedirect()`](/docs/preload/resolve-redirect), [`preloadAudio()`](/docs/preload/preload-audio) and [`preloadVideo()`](/docs/preload/preload-video).
 
-<a href="https://twitter.com/remotion/status/1538809909965357056">
-  <img src="/img/preload-all.png" />
-  <p style={{textAlign: "center"}}><em>We first announce and explain new features on Twitter!</em></p>
-</a>
+## `@remotion/preload` 包
 
-## Sidebar improvements
+这个[新包](/docs/preload)提供了三个 API，非常方便地在它们出现在 [`<Player>`](/docs/player) 中之前预加载资源：[`resolveRedirect()`](/docs/preload/resolve-redirect)、[`preloadAudio()`](/docs/preload/preload-audio) 和 [`preloadVideo()`](/docs/preload/preload-video)。
 
-If your screen real estate is tight, you may also hide the left sidebar now!
 
-<video playsInline src="/img/sidebar.mp4" autoPlay muted loop />
 
-## Built-in color picker
+## 侧边栏改进
 
-In the preview, go to `Tools` -> `Color picker` to trigger an eye dropper that allows you to pick any color from the screen! Only Chrome has this feature enabled for now.
+如果您的屏幕空间有限，现在您也可以隐藏左侧的侧边栏了！
 
-<video playsInline src="/img/colorpicker.mp4" autoPlay muted loop />
 
-## For power users
 
-- Previously you could not wrap your `<Composition>`'s in a React context (e.g. Redux), but this is supported now!
-- If you add `--log=verbose` to a Lambda render, you'll see which frames took the longest to render.
-- If you provide a file for `--props` during the preview, it will now reload the preview if the props have changed.
-- Pressing <kbd>A</kbd> in the preview goes to the beginning of the video, pressing <kbd>E</kbd> goes to the end.
-- Pressing play in the preview, then pressing <kbd>Enter</kbd> pauses the video and goes back to the point where the video started playing.
-- `<Sequence>`'s can now have a `style` prop if the `layout="none"` is not set!
-- You can [customize the binaries for Remotion Lambda renders](/docs/lambda/custom-layers), for example to switch out the Emoji font used.
-- The `registerRoot()` call can now be deferred using `delayRender()`, so asynchronous loading tasks can be completed first.
+## 内置颜色选择器
 
-## Behind the scenes
+在预览中，转到 `Tools` -> `Color picker` 来触发一个取色器，允许您从屏幕中选择任何颜色！目前只有 Chrome 启用了这个功能。
 
-We welcome Patric as our intern! As you can see on our [new team page](/about), we are now a team of three and are in the preparations of our first fundraising round.
+
+
+## 高级用户
+
+- 以前，您不能将 `<Composition>` 包装在 React 上下文（例如 Redux）中，但现在支持了！
+- 如果在 Lambda 渲染中添加 `--log=verbose`，您将看到哪些帧渲染时间最长。
+- 如果在预览中为 `--props` 提供一个文件，现在如果属性发生变化，预览将重新加载。
+- 在预览中按 <kbd>A</kbd> 跳转到视频的开头，按 <kbd>E</kbd> 跳转到结尾。
+- 在预览中播放视频，然后按 <kbd>Enter</kbd> 暂停视频并返回到视频开始播放的位置。
+- 如果 `layout="none"` 未设置，`<Sequence>` 现在可以有一个 `style` 属性！
+- 您可以[自定义 Remotion Lambda 渲染的二进制文件](/docs/lambda/custom-layers)，例如切换使用的 Emoji 字体。
+- 现在可以使用 `delayRender()` 推迟 `registerRoot()` 调用，以便首先完成异步加载任务。
+
+## 幕后
+
+我们欢迎帕特里克加入我们的实习生团队！正如您在我们的[新团队页面](/about)上所看到的，我们现在是一个由三人组成的团队，并且正在为我们的第一轮筹款做准备。
 
 <video playsInline src="/img/patric.mp4" autoPlay muted loop />
 
-<p style={{textAlign: "center"}}><em>Patric's first Remotion video!</em></p>
+<p style={{textAlign: "center"}}><em>帕特里克的第一个 Remotion 视频！</em></p>
 
-Remotion won the "Most Exciting use of Technology Award" at React Summit - we owe it all to you!
+Remotion 在 React Summit 上赢得了“最令人兴奋的技术应用奖” - 我们归功于您！
 
 <img src="/img/award.jpeg" />
 
-Going forward, we want to make Remotion even easier to use through new tools, templates and tips!
+未来，我们希望通过新工具、模板和提示使 Remotion 更易于使用！
 
-And wouldn't it be nice if Remotion was faster - I'm exploring multiple options from an alternative concurrency model to a C++ based rendering solution - stay tuned for what's about to come 🚀
+如果 Remotion 更快会不会更好 - 我正在探索多种选项，从替代并发模型到基于 C++ 的渲染解决方案 - 敬请关注即将到来的内容 🚀
+
+

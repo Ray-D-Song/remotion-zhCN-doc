@@ -1,30 +1,22 @@
 ---
 image: /generated/articles-docs-recorder-editing-captions.png
-title: Edit captions
-sidebar_label: Captions
+title: 编辑字幕
+sidebar_label: 字幕
 crumb: Recorder
 ---
 
-## Correct
+## 修正
 
-If the AI has made a mistake in the caption, there are three different ways to correct them:
+如果 AI 在字幕中出现错误，有三种不同的方法可以进行更正：
 
-<Step>1</Step>Inside the Remotion Studio you can correct it by clicking on the
-faulty caption in the video. This opens a text editor containing the captions,
-from where you can directly edit them. Once you are done with your corrections,
-click on "Done" in the right bottom corner of the editor. This will save the
-changes you made into the JSON file containing your captions.
+<Step>1</Step>在 Remotion Studio 中，您可以通过单击视频中的错误字幕来进行更正。这将打开一个文本编辑器，其中包含字幕，您可以直接编辑它们。完成更正后，单击编辑器右下角的“完成”。这将保存您所做的更改到包含您的字幕的 JSON 文件中。
 <br />
 <br />
 
-<Step>2</Step>You can directly edit your JSON files located at <code>
-  public/[your-composition-id]
-</code> in your project with an editor of your choice.
+<Step>2</Step>您可以直接使用您选择的编辑器编辑位于 <code>public/[your-composition-id]</code> 中的 JSON 文件。
 <br />
 <br />
-<Step>3</Step>If the AI makes the same mistake multiple times, you can also remap
-words programatically inside the <code>config/autocorrect.ts</code> file by adding
-logic inside the <code>autocorrectWord</code> function. For example:
+<Step>3</Step>如果 AI 多次出现相同错误，您还可以通过在 <code>config/autocorrect.ts</code> 文件中添加逻辑到 <code>autocorrectWord</code> 函数来以编程方式重新映射单词。例如：
 
 ```tsx
 const autocorrectWord = (word: Word): Word => {
@@ -40,7 +32,7 @@ const autocorrectWord = (word: Word): Word => {
 };
 ```
 
-## Highlight Words
+## 突出显示单词
 
-To highlight specific words, click on the desired word within the captions. In the opening editor, choose the `monospace` option to apply a monospaced font and default blue color to the selected word.
-If you wish to change the highlighting color, modify the `WORD_HIGHLIGHT_COLOR` constant in the `config/themes.ts` file.
+要突出显示特定单词，请单击字幕中所需的单词。在打开的编辑器中，选择 `monospace` 选项以应用等宽字体和默认蓝色到所选单词。
+如果您希望更改突出显示的颜色，请修改 `config/themes.ts` 文件中的 `WORD_HIGHLIGHT_COLOR` 常量。

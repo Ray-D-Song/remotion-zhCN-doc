@@ -6,29 +6,29 @@ title: "<Gif>"
 crumb: "@remotion/gif"
 ---
 
-_Part of the [`@remotion/gif`](/docs/gif) package_
+_属于 [`@remotion/gif`](/docs/gif) 包_
 
-Displays a GIF that synchronizes with Remotions [`useCurrentFrame()`](/docs/use-current-frame).
+显示一个 GIF，与 Remotion 的 [`useCurrentFrame()`](/docs/use-current-frame) 同步。
 
-## Props
+## 属性
 
 ### `src`
 
-_required_
+_必需_
 
-The source of the GIF. Can be an URL or a local image - see [Importing assets](/docs/assets).
+GIF 的来源。可以是 URL 或本地图片 - 参见 [导入资源](/docs/assets)。
 
 :::note
-Remote GIFs need to support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+远程 GIF 需要支持 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
 
 <details>
-<summary>More info</summary>
+<summary>更多信息</summary>
 <ul>
 <li>
-Remotion's origin is usually <code>http://localhost:3000</code>, but it may be different if rendering on Lambda or the port is busy.
+Remotion 的原始地址通常是 <code>http://localhost:3000</code>，但如果在 Lambda 上渲染或端口繁忙，则可能会有所不同。
 </li>
 <li>
-You can <a href="/docs/chromium-flags#--disable-web-security">disable CORS</a> during renders.
+您可以在渲染期间 <a href="/docs/chromium-flags#--disable-web-security">禁用 CORS</a>。
 </li>
 </ul>
 </details>
@@ -36,57 +36,57 @@ You can <a href="/docs/chromium-flags#--disable-web-security">disable CORS</a> d
 
 ### `width`
 
-The display width.
+显示宽度。
 
 ### `height`
 
-The display height.
+显示高度。
 
 ### `fit`
 
-Must be one of these values:
+必须是以下值之一：
 
-- `'fill'`: The GIF will completely fill the container, and will be stretched if necessary. (_default_)
-- `'contain'`: The GIF is scaled to fit the box, while aspect ratio is maintained.
-- `'cover'`: The GIF completely fills the container and maintains it's aspect ratio. It will be cropped if necessary.
+- `'fill'`：GIF 将完全填充容器，必要时将被拉伸。 (_默认_)
+- `'contain'`：GIF 被缩放以适应框，同时保持纵横比。
+- `'cover'`：GIF 完全填充容器并保持其纵横比。如果需要，将被裁剪。
 
 ### `onLoad`
 
-Callback that gets called once the GIF has loaded and finished processing. As its only argument, the callback gives the following object:
+一旦 GIF 加载并完成处理，将调用的回调。作为唯一参数，回调提供以下对象：
 
-- `width`: Width of the GIF file in pixels.
-- `height`: Height of the GIF file in pixels.
-- `delays`: Array of timestamps of type `number` containing position of each frame.
-- `frames`: Array of frames of type [`ImageData`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData)
+- `width`：GIF 文件的宽度（以像素为单位）。
+- `height`：GIF 文件的高度（以像素为单位）。
+- `delays`：包含每帧位置的 `number` 类型时间戳数组。
+- `frames`：[`ImageData`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData) 类型的帧数组。
 
 ### `style`
 
-Allows to pass in custom CSS styles. You may not pass `width` and `height`, instead use the props `width` and `height` to set the size of the GIF.
+允许传递自定义 CSS 样式。您可能不需要传递 `width` 和 `height`，而是使用属性 `width` 和 `height` 来设置 GIF 的大小。
 
 ### `loopBehavior`<AvailableFrom v="3.3.4" />
 
-The looping behavior of the GIF. Can be one of these values:
+GIF 的循环行为。可以是以下值之一：
 
-- `'loop'`: The GIF will loop infinitely. (_default_)
-- `'pause-after-finish'`: The GIF will play once and then show the last frame.
-- `'unmount-after-finish'`: The GIF will play once and then unmount. Note that if you attach a `ref`, it will become `null` after the GIF has finished playing.
+- `'loop'`：GIF 将无限循环。 (_默认_)
+- `'pause-after-finish'`：GIF 将播放一次，然后显示最后一帧。
+- `'unmount-after-finish'`：GIF 将播放一次，然后卸载。请注意，如果附加了 `ref`，则在 GIF 播放完成后将变为 `null`。
 
 ### `ref`<AvailableFrom v="3.3.88" />
 
-You can add a [React ref](https://react.dev/learn/manipulating-the-dom-with-refs) to `<Gif>`. If you use TypeScript, you need to type it with `HTMLCanvasElement`.
+您可以将 [React ref](https://react.dev/learn/manipulating-the-dom-with-refs) 添加到 `<Gif>`。如果您使用 TypeScript，您需要用 `HTMLCanvasElement` 对其进行类型标注。
 
 ### playbackRate<AvailableFrom v="4.0.44" />
 
-The `playbackRate` prop controls the playback speed of the GIF animation within your Remotion video. It enables you to adjust how fast or slow the GIF animation plays, allowing for precise synchronization with your video content.
+`playbackRate` 属性控制 Remotion 视频中 GIF 动画的播放速度。它允许您调整 GIF 动画的播放速度，从而实现与视频内容的精确同步。
 
-Default: 1 (Normal speed)
-Values:
+默认值：1（正常速度）
+取值：
 
-- `1`: Plays the GIF at normal speed.
-- `< 1`: Slows down the GIF speed (e.g., 0.5 plays it at half speed).
-- `> 1:` Speeds up the GIF speed (e.g., 2.0 plays it at double speed).
+- `1`：以正常速度播放 GIF。
+- `< 1`：减慢 GIF 的播放速度（例如，0.5 以一半速度播放）。
+- `> 1`：加快 GIF 的播放速度（例如，2.0 以两倍速度播放）。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { useRef } from "react";
@@ -111,7 +111,7 @@ export const MyComponent: React.FC = () => {
 };
 ```
 
-## See also
+## 参见
 
 - [`getGifDurationInSeconds()`](/docs/gif/get-gif-duration-in-seconds)
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/gif/src/Gif.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/gif/src/Gif.tsx)

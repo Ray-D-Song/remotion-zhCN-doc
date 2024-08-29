@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-transitions-timings-index.png
-title: Timings
+title: 时间
 crumb: "@remotion/transitions"
 ---
 
-A **timing** together with a presentation forms a transition.  
-Remotion provides certain timings out of the box, but you can also [create your own](/docs/transitions/timings/custom).
+**时间** 与演示一起形成了一个过渡。  
+Remotion提供了一些预设的时间，但你也可以[创建自己的](/docs/transitions/timings/custom)。
 
-## Available timings
+## 可用的时间
 
 import { Timings } from "../../../components/TableOfContents/transitions/timings";
 
 <Timings />
 
-## Getting the duration of a timing
+## 获取时间的持续时间
 
-You can get the duration of a transition by calling `getDurationInFrames()` on the timing:
+您可以通过在时间上调用 `getDurationInFrames()` 来获取过渡的持续时间：
 
-```tsx twoslash title="Assuming a framerate of 30fps"
+```tsx twoslash title="假设帧率为30fps"
 import { springTiming } from "@remotion/transitions";
 
 springTiming({ config: { damping: 200 } }).getDurationInFrames({ fps: 30 }); // 23

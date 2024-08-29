@@ -4,11 +4,11 @@ title: normalizePath()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-Removes all relative coordinates from a path and converts them into absolute coordinates.
+从路径中移除所有相对坐标，并将它们转换为绝对坐标。
 
-Returns a string if the path is valid:
+如果路径有效，则返回一个字符串：
 
 ```tsx twoslash
 import { normalizePath } from "@remotion/paths";
@@ -17,7 +17,7 @@ const normalizedPath = normalizePath("M 50 50 l 100 0");
 console.log(normalizedPath); // "M 50 50 L 150 50"
 ```
 
-The function will throw if the path is invalid:
+如果路径无效，则该函数将抛出错误：
 
 ```tsx twoslash
 import { normalizePath } from "@remotion/paths";
@@ -27,10 +27,11 @@ normalizePath("remotion"); // Error: Malformed path data: ...
 
 ## Credits
 
-Source code stems mostly from [svg-path-reverse](https://www.npmjs.com/package/svg-path-reverse).
+源代码主要来自于[svg-path-reverse](https://www.npmjs.com/package/svg-path-reverse)。
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
 - [`reduceInstructions()`](/docs/paths/reduce-instructions)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/normalize-path.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/normalize-path.ts)
+

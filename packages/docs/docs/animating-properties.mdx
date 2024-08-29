@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-animating-properties.png
 id: animating-properties
-title: Animating properties
-crumb: "The basics"
+title: 属性动画
+crumb: "基础知识"
 ---
 
 import {AnimatingProperties, Springs} from '../components/DocsDark'
 
-Animation works by changing properties over time.  
-Let's create a simple fade in animation.
+动画通过随时间改变属性来实现。  
+让我们创建一个简单的淡入动画。
 
-If we want to fade the text in over 60 frames, we need to gradually change the `opacity` over time so that it goes from 0 to 1.
+如果我们想要在 60 帧内淡入文本，我们需要逐渐改变 `opacity`，使其从 0 变为 1。
 
 ```tsx twoslash {4, 15} title="FadeIn.tsx"
 import { AbsoluteFill, useCurrentFrame } from "remotion";
@@ -37,9 +37,9 @@ export const FadeIn = () => {
 
 <AnimatingProperties />
 
-## Using the interpolate helper function
+## 使用 interpolate 辅助函数
 
-Using the [`interpolate()`](/docs/interpolate) function can make animations more readable. The above animation can also be written as:
+使用 [`interpolate()`](/docs/interpolate) 函数可以使动画更易读。上述动画也可以写成：
 
 ```tsx twoslash
 import { useCurrentFrame } from "remotion";
@@ -56,11 +56,11 @@ const opacity = interpolate(frame, [0, 60], [0, 1], {
 });
 ```
 
-In this example, we map the frames 0 to 60 to their opacity values `(0, 0.0166, 0.033, 0.05 ...`) and use the [`extrapolateRight`](/docs/interpolate#extrapolateright) setting to clamp the output so that it never becomes bigger than 1.
+在这个例子中，我们将帧从 0 到 60 映射到它们的不透明度值 `(0, 0.0166, 0.033, 0.05 ...)`，并使用 [`extrapolateRight`](/docs/interpolate#extrapolateright) 设置来夹紧输出，使其永远不会大于 1。
 
-## Using spring animations
+## 使用弹簧动画
 
-Spring animations are a natural animation primitive. By default, they animate from 0 to 1 over time. This time, let's animate the scale of the text.
+弹簧动画是一种自然的动画基元。默认情况下，它们会随时间从 0 变为 1。这次，让我们动画文本的比例。
 
 ```tsx twoslash {7-12, 20}
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
@@ -88,15 +88,15 @@ export const MyVideo = () => {
 };
 ```
 
-You should see the text jump in.
+您应该看到文本跳动。
 
 <Springs />
 <br />
 
-The default spring configuration leads to a little bit of overshoot, meaning the text will bounce a little bit. See the documentation page for [`spring()`](/docs/spring) to learn how to customize it.
+默认弹簧配置会导致略微超调，意味着文本会有些反弹。查看文档页面 [`spring()`](/docs/spring) 以了解如何自定义它。
 
-## Always animate using `useCurrentFrame()`
+## 始终使用 `useCurrentFrame()` 进行动画
 
-Watch out for flickering issues during rendering that arise if you write animations that are not driven by [`useCurrentFrame()`](/docs/use-current-frame) – for example CSS transitions.
+在渲染过程中要注意闪烁问题，如果您编写的动画不是由 [`useCurrentFrame()`](/docs/use-current-frame) 驱动的话，可能会出现问题，例如 CSS 过渡。
 
-[Read more about how Remotion's rendering works](/docs/flickering) - understanding it will help you avoid issues down the road.
+[阅读更多关于 Remotion 渲染工作原理的信息](/docs/flickering) - 了解这一点将帮助您避免未来出现问题。

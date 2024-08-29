@@ -1,22 +1,22 @@
 ---
 image: /generated/articles-docs-schemas.png
 id: schemas
-title: Defining a schema for your props
-sidebar_label: Defining a schema
-crumb: "How To"
+title: 为您的 props 定义模式
+sidebar_label: 定义模式
+crumb: "如何"
 ---
 
-As an alternative to [using TypeScript types](/docs/parameterized-rendering) to define the shape of the props your component accepts, you may use [Zod](https://zod.dev/) to define a schema for your props. You may do so if you want to edit the props visually in the Remotion Studio.
+作为 [使用 TypeScript 类型](/docs/parameterized-rendering) 来定义组件接受的 props 形状的替代方案，您可以使用 [Zod](https://zod.dev/) 来为您的 props 定义模式。如果您希望在 Remotion Studio 中直观地编辑 props，则可以这样做。
 
-## Prerequisites
+## 先决条件
 
-If you want to use this feature, install `zod@3.22.3` and [`@remotion/zod-types`](/docs/zod-types/) for Remotion-specific types:
+如果您想使用此功能，请安装 `zod@3.22.3` 和 [`@remotion/zod-types`](/docs/zod-types/) 以获取 Remotion 特定类型：
 
 <Installation pkg="@remotion/zod-types zod@3.22.3"/>
 
-## Defining a schema
+## 定义模式
 
-To define a schema for your props, use [`z.object()`](https://zod.dev/?id=objects):
+要为您的 props 定义模式，请使用 [`z.object()`](https://zod.dev/?id=objects):
 
 ```tsx twoslash
 import { z } from "zod";
@@ -27,7 +27,7 @@ export const myCompSchema = z.object({
 });
 ```
 
-Using `z.infer()`, you can turn the schema into a type:
+使用 `z.infer()`，您可以将模式转换为类型：
 
 ```tsx twoslash
 import { z } from "zod";
@@ -49,9 +49,9 @@ export const MyComp: React.FC<z.infer<typeof myCompSchema>> = ({
 };
 ```
 
-## Adding a schema to your composition
+## 将模式添加到您的合成
 
-Use the [`schema`](/docs/composition#schema) prop to attach the schema to your [`<Composition>`](/docs/composition). Remotion will require you to specify matching [`defaultProps`](/docs/composition#schema).
+使用 [`schema`](/docs/composition#schema) 属性将模式附加到您的 [`<Composition>`](/docs/composition)。Remotion 将要求您指定匹配的 [`defaultProps`](/docs/composition#schema)。
 
 ```tsx twoslash title="src/Root.tsx" {3,14-18}
 // @filename: MyComponent.tsx
@@ -101,14 +101,16 @@ export const RemotionRoot: React.FC = () => {
 };
 ```
 
-## Editing props visually
+## 直观地编辑 props
 
-When you have defined a schema for your props, you can [edit them visually in the Remotion Studio](/docs/visual-editing). This is useful if you want to quickly try out different values for your props.
+当您为您的 props 定义了模式后，您可以在 Remotion Studio 中[直观地编辑它们](/docs/visual-editing)。如果您想快速尝试不同的 props 值，则这非常有用。
 
-## Supported types
+## 支持的类型
 
-All schemas that are supported by [Zod](https://zod.dev/) are supported by Remotion.
+Remotion 支持 [Zod](https://zod.dev/) 支持的所有模式。
 
-Remotion requires that the top-level type is a `z.object()`, because the collection of props of a React component is always an object.
+Remotion 要求顶层类型为 `z.object()`，因为 React 组件的 props 集合始终是一个对象。
 
-In addition to the built in types, the `@remotion/zod-types` package also provides [`zColor()`](/docs/zod-types/z-color), including a color picker interface for the Remotion Studio.
+除了内置类型外，`@remotion/zod-types` 包还提供了 [`zColor()`](/docs/zod-types/z-color)，其中包括 Remotion Studio 的颜色选择器界面。 
+
+

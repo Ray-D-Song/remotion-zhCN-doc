@@ -2,16 +2,16 @@
 slug: 1-3
 title: Remotion 1.3
 author: Jonny Burger
-author_title: Indie Hacker
+author_title: 独立开发者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
-Only 1 week after the initial launch, here is Remotion 1.3! In just 7 days, we have merged over 40 pull requests - just amazing! Let's go over the changes in this release.
+距离初始发布仅1周，Remotion 1.3来了！仅仅7天，我们合并了超过40个拉取请求 - 简直太神奇了！让我们看看这个版本的变化。
 
-## 2x faster - again!
+## 速度提升2倍 - 再次！
 
-2 days ago, the rendering time was cut in half, and in this release, we managed to half it again! Check out this benchmark of the [Spotify Wrapped](https://github.com/JonnyBurger/remotion-wrapped) example:
+2天前，渲染时间减半，而在这个版本中，我们又将其减半了！查看这个[Spotify Wrapped](https://github.com/JonnyBurger/remotion-wrapped)示例的基准测试：
 
 Remotion 1.1
 
@@ -31,17 +31,17 @@ Benchmark #1: npm run build -- --overwrite --concurrency=16
   Range (min … max):   17.650 s … 18.264 s    5 runs
 ```
 
-From 98 to 18 seconds - that's 5.5 times faster! At the same time, we have reached an important milestone: This 19-second long 720p video was rendered faster than realtime. Granted, my computer is faster than most (8-core Intel i9-9900K chip), but still very impressive!
+从98秒到18秒 - 快了5.5倍！同时，我们达到了一个重要的里程碑：这个19秒长的720p视频比实时渲染速度更快。尽管我的电脑比大多数电脑更快（8核Intel i9-9900K芯片），但仍然非常令人印象深刻！
 
-We achieved this performance gain through various Puppeteer rendering pipeline optimizations. Big shoutout to [jeetiss](https://github.com/jeetiss) who implemented a sophisticated performance optimization that doesn't require a page reload for each frame anymore.
+我们通过各种Puppeteer渲染管道优化实现了这一性能提升。特别感谢[jeetiss](https://github.com/jeetiss)实现了一项复杂的性能优化，不再需要为每一帧重新加载页面。
 
-## Plain-Javascript support
+## 支持纯JavaScript
 
-My goal was to force Typescript on everybody - but I failed. Support for plain Javascript is now added! See [here](/docs/javascript) how to enable it. Proceed carefully 🙈
+我的目标是强制每个人都使用Typescript - 但我失败了。现在已经添加了对纯JavaScript的支持！查看[这里](/docs/javascript)如何启用它。请小心操作 🙈
 
-## Type-safe configuration file
+## 类型安全的配置文件
 
-Many options which you could pass in via CLI flags, you can now also add by adding a `remotion.config.ts` file in the repo. For example, if you want to increase the concurrency to the amount of threads you have and never want to write `--overwrite`, you can add the following to the config file:
+许多您可以通过CLI标志传递的选项，现在也可以通过在存储库中添加`remotion.config.ts`文件来添加。例如，如果您想将并发性增加到您拥有的线程数量，并且永远不想写`--overwrite`，您可以将以下内容添加到配置文件中：
 
 ```tsx
 import os from "os";
@@ -51,11 +51,11 @@ Config.Rendering.setConcurrency(os.cpus().length);
 Config.Output.setOverwriteOutput(true);
 ```
 
-You can see all the [options on this page](https://www.remotion.dev/docs/config). The goal of making a config file in Typescript is to provide autocomplete, to easily highlight deprecated options and making it easier to show how to migrate in case the options change in the future.
+您可以在[此页面上](https://www.remotion.dev/docs/config)查看所有选项。使用Typescript创建配置文件的目标是提供自动完成功能，轻松突出显示已弃用的选项，并使未来更改选项时更容易展示如何迁移。
 
-## Easing API
+## 缓动 API
 
-While there was an Easing API, it was undocumented. Learn which [Easing methods](/docs/easing) are available and how to use it with [`interpolate()`](/docs/interpolate)!
+尽管存在缓动 API，但它是未记录的。了解可用的[Easing 方法](/docs/easing)以及如何与[`interpolate()`](/docs/interpolate)一起使用！
 
 ```tsx
 import { Easing, interpolate } from "remotion";
@@ -67,30 +67,32 @@ interpolate(frame, [0, 100], {
 });
 ```
 
-## The small things
+## 一些小事
 
-- The exports of Remotion have been cleaned up and the internal stuff has been moved into `Internals`. You shouldn't rely on these APIs are you are at risk of them changing over time.
+- Remotion 的导出已经整理过，并且内部内容已经移动到 `Internals` 中。您不应该依赖这些 API，因为它们可能随时间变化而发生变化。
 
-- [The bundling step now has a progress indicator.](https://github.com/remotion-dev/remotion/pull/83)
+- [现在捆绑步骤有了进度指示器。](https://github.com/remotion-dev/remotion/pull/83)
 
-- [You can now configure a different pixel format that will be passed to FFMPEG](/docs/config#setpixelformat).
+- [您现在可以配置一个不同的像素格式，该格式将传递给 FFMPEG](/docs/config#setpixelformat)。
 
-- [Class properties are now supported.](https://github.com/remotion-dev/remotion/pull/95)
+- [现在支持类属性。](https://github.com/remotion-dev/remotion/pull/95)
 
-- [PNG sequences now have padded filenames (`element-0000.png` instead of `element-0.png`) for better interoperability with ImageMagick and for ensuring the right order in file explorers](https://github.com/remotion-dev/remotion/pull/91)
+- [PNG 序列现在具有填充的文件名（`element-0000.png` 而不是 `element-0.png`），以便更好地与 ImageMagick 进行互操作，并确保文件资源管理器中的正确顺序](https://github.com/remotion-dev/remotion/pull/91)
 
-- [Better error messages for when FFMPEG is not correctly linked on Windows](https://github.com/remotion-dev/remotion/pull/98)
+- [当 FFMPEG 在 Windows 上没有正确链接时，会提供更好的错误消息](https://github.com/remotion-dev/remotion/pull/98)
 
-- [Lots](https://github.com/remotion-dev/remotion/pull/92) [of](https://github.com/remotion-dev/remotion/pull/93) [spelling](https://github.com/remotion-dev/remotion/pull/85) mistakes fixed!
+- [修复了很多](https://github.com/remotion-dev/remotion/pull/92) [拼写](https://github.com/remotion-dev/remotion/pull/93) [错误](https://github.com/remotion-dev/remotion/pull/85)！
 
-- [Added analytics for docs](https://github.com/remotion-dev/remotion/pull/78) - You can see how many page views the Remotion docs get [here](https://app.splitbee.io/public/remotion.dev).
+- [为文档添加了分析](https://github.com/remotion-dev/remotion/pull/78) - 您可以在[这里](https://app.splitbee.io/public/remotion.dev)查看 Remotion 文档的页面浏览量。
 
-- [Fixed an issue with PowerShell](https://github.com/remotion-dev/remotion/pull/97)
+- [修复了 PowerShell 的问题](https://github.com/remotion-dev/remotion/pull/97)
 
-- [Fixed a puppeteer issue "Session closed. Most likely the page has been closed"](https://github.com/remotion-dev/remotion/issues/69).
+- [修复了一个 puppeteer 问题 "Session closed. Most likely the page has been closed"](https://github.com/remotion-dev/remotion/issues/69)。
 
-- Big files have been removed from the repository so it's faster to clone.
+- 从存储库中删除了大文件，因此克隆速度更快。
 
-## In case you missed it
+## 如果您错过了
 
-Another example was added - [Spotify Wrapped!](https://twitter.com/JNYBGR/status/1360269270526136320) This is a fully dynamic example where you can replace all data with a command line flag. There's a 2 hour tutorial on YouTube and the source code is on GitHub.
+添加了另一个示例 - [Spotify Wrapped!](https://twitter.com/JNYBGR/status/1360269270526136320) 这是一个完全动态的示例，您可以使用命令行标志替换所有数据。YouTube 上有一个 2 小时的教程视频，源代码在 GitHub 上。
+
+Please paste the Markdown content you need to be translated into Chinese.

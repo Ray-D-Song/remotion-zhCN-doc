@@ -5,39 +5,39 @@ id: get-gif-duration-in-seconds
 crumb: "@remotion/gif"
 ---
 
-_Part of the [`@remotion/gif`](/docs/gif) package_
+_属于 [`@remotion/gif`](/docs/gif) 包_
 
-_Available from v3.2.22_
+_从 v3.2.22 版本开始可用_
 
-Gets the duration in seconds of a GIF.
+获取 GIF 的持续时间（秒）。
 
 :::note
-Remote GIFs need to support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+远程 GIF 需要支持 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
 
 <details>
-<summary>More info</summary>
+<summary>更多信息</summary>
 <ul>
 <li>
-Remotion's origin is usually <code>http://localhost:3000</code>, but it may be different if rendering on Lambda or the port is busy.
+Remotion 的源通常是 <code>http://localhost:3000</code>，但如果在 Lambda 上渲染或端口繁忙，则可能会有所不同。
 </li>
 <li>
-You can <a href="/docs/chromium-flags#--disable-web-security">disable CORS</a> during renders.
+您可以在渲染期间 <a href="/docs/chromium-flags#--disable-web-security">禁用 CORS</a>。
 </li>
 </ul>
 </details>
 :::
 
-## Arguments
+## 参数
 
 ### `src`
 
-A string pointing to a GIF asset
+指向 GIF 资源的字符串
 
-## Return value
+## 返回值
 
-`Promise<number>` - the duration of the GIF in seconds, not factoring in that whether it is looped.
+`Promise<number>` - GIF 的持续时间（秒），不考虑是否循环播放。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: ESNext
@@ -65,7 +65,8 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
 - [`<Gif>`](/docs/gif/gif)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/gif/src/get-gif-duration-in-seconds.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/gif/src/get-gif-duration-in-seconds.ts)
+

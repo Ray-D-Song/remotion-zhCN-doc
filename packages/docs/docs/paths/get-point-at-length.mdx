@@ -4,12 +4,12 @@ title: getPointAtLength()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-Gets the coordinates of a point which is on an SVG path.
-The first argument is an SVG path, the second one is the length at which the point should be sampled. It must be between `0` and the return value of [`getLength()`](/docs/paths/get-length).
+获取位于SVG路径上的点的坐标。
+第一个参数是SVG路径，第二个参数是应该采样点的长度。它必须介于`0`和[`getLength()`](/docs/paths/get-length)的返回值之间。
 
-An object containing `x` and `y` is returned if the path is valid:
+如果路径有效，则返回一个包含`x`和`y`的对象：
 
 ```tsx twoslash
 import { getPointAtLength } from "@remotion/paths";
@@ -18,7 +18,7 @@ const point = getPointAtLength("M 0 0 L 100 0", 50);
 console.log(point); // { x: 50, y: 0 }
 ```
 
-The function will throw if the path is invalid:
+如果路径无效，则函数会抛出异常：
 
 ```tsx twoslash
 import { getPointAtLength } from "@remotion/paths";
@@ -26,9 +26,9 @@ import { getPointAtLength } from "@remotion/paths";
 getPointAtLength("remotion", 50); // Error: Malformed path data: ...
 ```
 
-## Example: Getting the middle point of a path
+## 示例：获取路径中点的中间点
 
-Use [`getLength()`](/docs/paths/get-length) to get the total length of a path and then multiply it with a number between 0 and 1 to get any point on the path. For example, `length * 0.5` to get the coordinates in the middle of the path.
+使用[`getLength()`](/docs/paths/get-length)获取路径的总长度，然后将其乘以介于0和1之间的数字以获取路径上的任意点。例如，`length * 0.5`以获取路径中点的坐标。
 
 ```tsx twoslash
 import { getLength, getPointAtLength } from "@remotion/paths";
@@ -40,12 +40,13 @@ const point = getPointAtLength(path, length * 0.5);
 console.log(point); // { x: 50, y: 0 }
 ```
 
-## Credits
+## 鸣谢
 
-Source code stems mostly from [svg-path-properties](https://www.npmjs.com/package/svg-path-properties).
+源代码主要来自[svg-path-properties](https://www.npmjs.com/package/svg-path-properties)。
 
-## See also
+## 另请参阅
 
 - [getLength()](/docs/paths/get-length)
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-point-at-length.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-point-at-length.ts)
+

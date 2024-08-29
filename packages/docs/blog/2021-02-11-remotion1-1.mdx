@@ -2,22 +2,22 @@
 slug: 1-1
 title: Remotion 1.1
 author: Jonny Burger
-author_title: Indie Hacker
+author_title: 独立开发者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
-What an extraordinary launch! In less than 24 hours, the Remotion announcement video has gotten more than 100'000 views on Twitter. The feedback was absolutely overwhelming!
+多么非凡的发布！在不到24小时内，Remotion的宣传视频在Twitter上获得了超过100,000次的观看。反馈绝对是压倒性的！
 
-Now it's time to iterate and make Remotion better. This release contains two new features: Customizing the Webpack configuration and new `<Img>` and `</IFrame>` components!
+现在是时候迭代并使Remotion变得更好了。此版本包含两个新功能：自定义Webpack配置和新的`<Img>`和`</IFrame>`组件！
 
-## Customizing Webpack configuration
+## 自定义Webpack配置
 
-**[See docs](/docs/webpack)**
+**[查看文档](/docs/webpack)**
 
-People had wild ideas on what to do with Remotion like importing MDX files or using React Native components. Now it is possible!
+人们对如何使用Remotion有着疯狂的想法，比如导入MDX文件或使用React Native组件。现在这是可能的！
 
-When providing the possibility on how to configure Remotion, it was of big importance to provide both a high degree of flexibility and a good developer experience. This is how you update the webpack config:
+在提供如何配置Remotion的可能性时，提供高度的灵活性和良好的开发者体验非常重要。以下是如何更新webpack配置：
 
 `remotion.config.ts`
 
@@ -38,26 +38,26 @@ overrideWebpackConfig((currentConfiguration) => {
 });
 ```
 
-There is a new Remotion config file, that you can write in Typescript. Updating the Webpack config uses the **reducer pattern**: You get the default configuration and it is your responsibility to return an updated Webpack config. You get type checking, auto completion and the flexibility to either only update a single property or pass in a completely new configuration. No black magic here - since this is just a pure function, the outcome will be very predictable.
+有一个新的Remotion配置文件，您可以用Typescript编写。更新Webpack配置使用**reducer模式**：您获得默认配置，您有责任返回更新后的Webpack配置。您将获得类型检查、自动完成以及灵活性，可以仅更新单个属性或传入全新的配置。这里没有黑魔法 - 因为这只是一个纯函数，结果将是非常可预测的。
 
-## New `<Img />` and `<IFrame />` components
+## 新的`<Img />`和`<IFrame />`组件
 
-**[See docs](/docs/use-img-and-iframe)**
+**[查看文档](/docs/use-img-and-iframe)**
 
-The purpose of these new components is to help with something that is easy to overlook in Remotion: Images or Iframes are being rendered, but Remotion does not wait until the loading of these network resources are complete. The result: Flicker in the end result! The correct thing is [to wait using the `delayRender` API](/docs/data-fetching#fetching-data-before-the-render), but this is not very obvious. Now Remotion comes with built-in components that will wait until assets are loaded.
+这些新组件的目的是帮助解决Remotion中容易忽视的问题：图像或iframe正在被渲染，但Remotion不会等到这些网络资源加载完成。结果是：最终结果中会出现闪烁！正确的做法是[使用`delayRender` API等待](/docs/data-fetching#fetching-data-before-the-render)，但这并不是很明显。现在Remotion带有内置组件，将等待资源加载完成。
 
-### Bonus: ESLint rule
+### 奖励：ESLint 规则
 
-![ESLint rule 'warn-native-media-tag'](https://user-images.githubusercontent.com/1629785/107443059-62829e00-6b38-11eb-9d0e-fb12b68fa2a9.png)
+![ESLint 规则 'warn-native-media-tag'](https://user-images.githubusercontent.com/1629785/107443059-62829e00-6b38-11eb-9d0e-fb12b68fa2a9.png)
 
-To prevent shooting yourself into your foot, Remotion now comes with an ESLint rule that warns if you use the native `<img>`, `<iframe>`, `<video>` or `<audio>` tags. These tags work better when you use the Remotion-wrapped versions instead.
+为了避免自己踩到坑，Remotion 现在配备了一个 ESLint 规则，如果您使用原生的 `<img>`、`<iframe>`、`<video>` 或 `<audio>` 标签，它会发出警告。当您使用 Remotion 封装版本时，这些标签的效果更好。
 
-## Upgrading is easy
+## 升级很容易
 
-Simply type
+只需在您的项目中键入
 
 ```
 npm run upgrade
 ```
 
-in your project and you'll get all the newest Remotion packages! Maybe you also noticed that there is a banner in the editor that notifies you when an upgrade is available.
+您将获得所有最新的 Remotion 包！也许您还注意到编辑器中有一个横幅，通知您何时有可用的升级。

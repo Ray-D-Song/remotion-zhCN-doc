@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-audio-visualization.png
-title: Audio visualization
+title: 音频可视化
 id: audio-visualization
-crumb: "Techniques"
+crumb: "技术"
 ---
 
-Remotion has APIs for visualizing audio, for example for creating audiograms or music visualizers.
+Remotion具有用于可视化音频的API，例如用于创建音频图或音乐可视化器。
 
-The `@remotion/media-utils` package provides helper functions for reading and processing audio. Using the [`getAudioData()`](/docs/get-audio-data) API you can read audio, and using the [`useAudioData()`](/docs/use-audio-data) helper hook you can load this audio data directly into your component.
+`@remotion/media-utils`包提供了用于读取和处理音频的辅助函数。使用[`getAudioData()`](/docs/get-audio-data) API，您可以读取音频，使用[`useAudioData()`](/docs/use-audio-data)辅助钩子，您可以直接将这些音频数据加载到您的组件中。
 
-Using the [`visualizeAudio()`](/docs/visualize-audio) API, you can get an audio spectrum for the current frame, with the `numberOfSamples` parameter being an option to control the amount of detail you need.
+使用[`visualizeAudio()`](/docs/visualize-audio) API，您可以获取当前帧的音频频谱，`numberOfSamples`参数是一个选项，用于控制您需要的详细程度。
 
-Refer to the documentation of the above mentioned functions to learn more.
+请参阅上述函数的文档以了解更多信息。
 
 ```tsx twoslash
 import { useAudioData, visualizeAudio } from "@remotion/media-utils";
@@ -52,8 +52,9 @@ export const MyComponent: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Using audio](/docs/using-audio)
+- [使用音频](/docs/using-audio)
 - [`useAudioData()`](/docs/use-audio-data)
 - [`visualizeAudio()`](/docs/visualize-audio)
+

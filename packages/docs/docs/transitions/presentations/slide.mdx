@@ -1,14 +1,14 @@
 ---
 image: /generated/articles-docs-transitions-presentations-slide.png
-crumb: "@remotion/transitions - Presentations"
+crumb: "@remotion/transitions - 展示"
 title: "slide()"
 ---
 
-A presentation where the entering slide pushes out the exiting slide.
+一个演示，进入幻灯片推出退出幻灯片。
 
 <Demo type="slide" />
 
-## Example
+## 示例
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -56,11 +56,11 @@ const BasicTransition = () => {
 
 ## API
 
-Takes an object with the following properties:
+接受一个具有以下属性的对象：
 
 ### `direction`
 
-One of `from-left`, `from-right`, `from-top`, `from-bottom`.
+其中之一为 `from-left`, `from-right`, `from-top`, `from-bottom`。
 
 ```tsx twoslash title="TypeScript type"
 import { SlideDirection } from "@remotion/transitions/slide";
@@ -70,13 +70,14 @@ const slideDirection: SlideDirection = "from-left";
 
 ### `enterStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the container when the scene is is entering.
+当场景进入时容器的样式。
 
 ### `exitStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the container when the scene is exiting.
+当场景退出时容器的样式。
 
-## See also
+## 参见
 
-- [Source code for this presentation](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/slide.tsx)
-- [Presentations](/docs/transitions/presentations)
+- [此演示的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/slide.tsx)
+- [演示](/docs/transitions/presentations)
+

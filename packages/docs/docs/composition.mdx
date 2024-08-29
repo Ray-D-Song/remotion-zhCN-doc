@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-composition.png
 id: composition
-title: <Composition>
+title: <组合>
 crumb: "API"
 ---
 
-This is the component to use to register a video to make it renderable and make it show up in the sidebar of the Remotion development interface.
+这是用于注册视频以使其可渲染并显示在 Remotion 开发界面侧边栏中的组件。
 
-A composition represents the video you want to create, as a collection of clips (for example, several `<Sequence>`) that will play back to back to form your video.
+一个组合代表您想要创建的视频，作为一系列剪辑（例如，几个 `<Sequence>`），这些剪辑将依次播放以形成您的视频。
 
 ```tsx twoslash title="src/Root.tsx"
 const Component: React.FC = () => null;
@@ -35,71 +35,72 @@ export const RemotionRoot: React.FC = () => {
 
 ## API
 
-A `<Composition />` should be placed within a fragment of the root component (which is registered using [`registerRoot()`](/docs/register-root)).
+应该将 `<Composition />` 放置在根组件的片段中（根组件是使用 [`registerRoot()`](/docs/register-root) 注册的）。
 
-The component takes the following props:
+该组件接受以下 props：
 
 ### `id`
 
-ID of the composition, as shown in the sidebar and also a unique identifier of the composition that you need to specify if you want to render it. The ID can only contain letters, numbers and `-`.
+组合的 ID，在侧边栏中显示，也是您需要指定的组合的唯一标识符，如果要渲染它，则需要指定 ID。ID 只能包含字母、数字和 `-`。
 
 ### `fps`
 
-At how many frames the composition should be rendered.
+组合应该以多少帧渲染。
 
 ### `durationInFrames`
 
-How many frames the composition should be long.
+组合应该有多少帧长。
 
 ### `height`
 
-Height of the composition in pixels.
+组合的高度（以像素为单位）。
 
 ### `width`
 
-Width of the composition in pixels.
+组合的宽度（以像素为单位）。
 
-### `component` **or** `lazyComponent`
+### `component` **或** `lazyComponent`
 
-Pass the component in directly **or** pass a function that returns a dynamic import. Passing neither or both of the props is an error.
+直接传递组件 **或** 传递返回动态导入的函数。传递这两个 props 中的任何一个或两个都将导致错误。
 
 :::note
-If you use `lazyComponent`, Remotion will use React Suspense to load the component. Components will be compiled by Webpack as they are needed, which will reduce startup time of Remotion. If you use `lazyComponent`, you need to use a default export for your component. This is a restriction of React Suspense.
+如果使用 `lazyComponent`，Remotion 将使用 React Suspense 加载组件。组件将根据需要由 Webpack 编译，这将减少 Remotion 的启动时间。如果使用 `lazyComponent`，您需要为组件使用默认导出。这是 React Suspense 的限制。
 :::
 
 ### `defaultProps`
 
-_optional_
+_可选_
 
-Give your component default props. Default props can be overriden using the [Props editor](/docs/visual-editing) and with [Input Props](/docs/props-resolution).
+为您的组件提供默认 props。默认 props 可以使用 [Props 编辑器](/docs/visual-editing) 和 [Input Props](/docs/props-resolution) 进行覆盖。
 
-Props must be an object that contains only pure JSON-serializable values.  
-Functions, classes, and other non-serializable values will be lost while rendering.  
-(This restriction does not apply to the [`<Player>`](/docs/player/player), where you are allowed to pass functions as props.)
+Props 必须是一个仅包含纯 JSON 可序列化值的对象。  
+函数、类和其他不可序列化值在渲染时将丢失。  
+（此限制不适用于 [`<Player>`](/docs/player/player)，在那里您可以将函数作为 props 传递。）
 
-You may in addition use `Date`, `Map`, `Set` and [`staticFile()`](/docs/staticfile) in your default props and Remotion will guarantee the proper serialization.
+
+你可以在默认属性中使用 `Date`、`Map`、`Set` 和 [`staticFile()`](/docs/staticfile)，Remotion 将确保正确的序列化。
 
 :::note
-Type your components using the `React.FC<{}>` type and the `defaultProps` prop will be typesafe.
+使用 `React.FC<{}>` 类型为你的组件进行类型定义，`defaultProps` 属性将具有类型安全性。
 :::
 
 :::note
-Passing huge objects to `defaultProps` can be slow. [Learn how to avoid it.](/docs/troubleshooting/defaultprops-too-big)
+将大型对象传递给 `defaultProps` 可能会导致性能下降。[了解如何避免](/docs/troubleshooting/defaultprops-too-big)。
 :::
 
 :::note
-Use a `type`, not an `interface` to type your `defaultProps`. [Learn why](/docs/4-0-migration#cannot-use-an-interface-for-props)
+使用 `type` 而不是 `interface` 来为你的 `defaultProps` 进行类型定义。[了解原因](/docs/4-0-migration#cannot-use-an-interface-for-props)。
 :::
 
 ### `calculateMetadata`
 
-See: [`calculateMetadata()`](/docs/calculate-metadata)
+查看：[`calculateMetadata()`](/docs/calculate-metadata)
 
 ### `schema`
 
-Pass a Zod schema which your default props must satisfy. By doing so, you enable [visual editing](/docs/visual-editing). See: [Define a schema](/docs/schemas)
+传递一个 Zod 模式，你的默认属性必须满足该模式。通过这样做，你可以启用[可视化编辑](/docs/visual-editing)。查看：[定义模式](/docs/schemas)
 
-## Example using `component`
+## 使用 `component` 的示例
 
 ```tsx twoslash
 // @allowUmdGlobalAccess
@@ -127,7 +128,7 @@ export const MyVideo = () => {
 };
 ```
 
-## Example using `lazyComponent`
+## 使用 `lazyComponent` 的示例
 
 ```tsx
 export const MyVideo = () => {
@@ -146,9 +147,9 @@ export const MyVideo = () => {
 };
 ```
 
-## Organize compositions using folders
+## 使用文件夹组织组合
 
-You can use the [`<Folder />`](/docs/folder) component to organize your compositions in the sidebar.
+你可以使用 [`<Folder />`](/docs/folder) 组件在侧边栏中组织你的组合。
 
 ```tsx twoslash
 import React from "react";
@@ -182,13 +183,15 @@ export const Video = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/Composition.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/Composition.tsx)
 - [registerRoot()](/docs/register-root)
-- [The fundamentals](/docs/the-fundamentals)
-- [CLI options](/docs/cli)
+- [基础知识](/docs/the-fundamentals)
+- [CLI 选项](/docs/cli)
 - [`<Sequence />`](/docs/sequence)
 - [`<Still />`](/docs/still)
 - [`<Folder />`](/docs/folder)
-- [Avoid huge payloads for `defaultProps`](/docs/troubleshooting/defaultprops-too-big)
+- [避免为 `defaultProps` 使用大型数据](/docs/troubleshooting/defaultprops-too-big) 
+
+

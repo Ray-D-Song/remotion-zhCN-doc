@@ -5,63 +5,63 @@ id: visualize-audio
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions._
+_`@remotion/media-utils` 包中的辅助函数之一。_
 
-This function takes in `AudioData` (preferably fetched by the [`useAudioData()`](/docs/use-audio-data) hook) and processes it in a way that makes visualizing the audio that is playing at the current frame easy.
+此函数接收 `AudioData`（最好是通过 [`useAudioData()`](/docs/use-audio-data) 钩子获取）并以一种使得在当前帧播放的音频可视化变得容易的方式进行处理。
 
-## Arguments
+## 参数
 
-Takes an object containing the following values:
+接收一个包含以下值的对象：
 
 ### `audioData`
 
 _`AudioData`_
 
-An object containing audio data. You can fetch this object using [`useAudioData()`](/docs/use-audio-data) or [`getAudioData()`](/docs/get-audio-data).
+包含音频数据的对象。您可以使用 [`useAudioData()`](/docs/use-audio-data) 或 [`getAudioData()`](/docs/get-audio-data) 来获取此对象。
 
 ### `frame`
 
 _`number`_
 
-The time of the track that you want to get the audio information for. The `frame` always refers to the position in the audio track - if you have shifted or trimmed the audio in your timeline, the frame returned by `useCurrentFrame` must also be tweaked before you pass it into this function.
+您想要获取音频信息的轨道时间。`frame` 总是指音频轨道中的位置 - 如果您在时间轴中移动或修剪了音频，则在将其传递到此函数之前，`useCurrentFrame` 返回的帧也必须进行调整。
 
 ### `fps`
 
 _`number`_
 
-The frame rate of the composition. This helps the function understand the meaning of the `frame` input.
+合成的帧速率。这有助于函数理解 `frame` 输入的含义。
 
 ### `numberOfSamples`
 
 `number`
 
-Must be a power of two, such as `32`, `64`, `128`, etc. This parameter controls the length of the output array. A lower number will simplify the spectrum and is useful if you want to animate elements roughly based on the level of lows, mids and highs. A higher number will give the spectrum in more detail, which is useful for displaying a bar chart or waveform-style visualization of the audio.
+必须是二的幂，例如 `32`、`64`、`128` 等。此参数控制输出数组的长度。较低的数字将简化频谱，并且在您希望基本上基于低音、中音和高音的级别对元素进行动画处理时很有用。较高的数字将提供更详细的频谱，这对于显示柱状图或波形样式的音频可视化很有用。
 
 ### `smoothing`
 
 `boolean`
 
-When set to `true` the returned values will be an average of the current, previous and next frames. The result is a smoother transition for quickly changing values. Default value is `true`.
+当设置为 `true` 时，返回的值将是当前、前一个和下一个帧的平均值。结果是对快速变化值进行更平滑的过渡。默认值为 `true`。
 
 ### `optimizeFor?`<AvailableFrom v="4.0.83"/>
 
 _`"accuracy" | "speed"`_
 
-Default `"accuracy"`. When set to `"speed"`, a faster Fast Fourier transform is used. Recommended for Remotion Lambda and when using a high number of samples. Read [user](https://discord.com/channels/809501355504959528/1189048518988550264/1190228606287360030) [experiences](https://discord.com/channels/809501355504959528/1155110845488046111/1155111360481480725) [here](https://github.com/remotion-dev/remotion/issues/2925).
+默认为 `"accuracy"`。当设置为 `"speed"` 时，将使用更快的快速傅里叶变换。推荐用于 Remotion Lambda 和使用大量样本时。阅读[用户](https://discord.com/channels/809501355504959528/1189048518988550264/1190228606287360030) [体验](https://discord.com/channels/809501355504959528/1155110845488046111/1155111360481480725) [此处](https://github.com/remotion-dev/remotion/issues/2925)。
 
-## Return value
+## 返回值
 
 `number[]`
 
-An array of values describing the amplitude of each frequency range. Each value is between 0 and 1. The array is of length defined by the `numberOfSamples` parameter.
+描述每个频率范围幅度的值数组。每个值介于0和1之间。数组的长度由`numberOfSamples`参数定义。
 
-The values on the left of the array are low frequencies (for example bass) and as we move towards the right, we go through the mid and high frequencies like drums and vocals.
+数组左侧的值是低频（例如低音），随着向右移动，我们经过中频和高频，如鼓声和人声。
 
-Usually the values on left side of the array can become much larger than the values on the right. This is not a mistake, but for some visualizations you might have to apply some postprocessing to it, you can flatten the curve by for example mapping each value to a logarithm of the original function.
+通常，数组左侧的值可能比右侧的值大得多。这不是错误，但对于某些可视化，您可能需要对其进行一些后处理，例如将每个值映射到原始函数的对数。
 
-## Example
+## 示例
 
-In this example, we render a bar chart visualizing the audio spectrum of an audio file we imported using [`useAudioData()`](/docs/use-audio-data) and `visualizeAudio()`.
+在此示例中，我们使用[`useAudioData()`](/docs/use-audio-data)和`visualizeAudio()`导入的音频文件渲染了一个条形图，可视化音频频谱。
 
 ```tsx twoslash
 import { useAudioData, visualizeAudio } from "@remotion/media-utils";
@@ -100,9 +100,9 @@ export const MyComponent: React.FC = () => {
 };
 ```
 
-## Postprocessing example
+## 后处理示例
 
-A logarithmic representation of the audio will look more appealing than a linear one. Below is an example of a postprocessing step that looks prettier than the default one.
+音频的对数表示看起来比线性表示更吸引人。以下是一个比默认值更漂亮的后处理步骤示例。
 
 ```tsx twoslash
 import { visualizeAudio } from "@remotion/media-utils";
@@ -146,11 +146,11 @@ const amplitudes = frequencyData.map((value) => {
 });
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/visualize-audio.ts)
-- [Audio visualization](/docs/audio-visualization)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/visualize-audio.ts)
+- [音频可视化](/docs/audio-visualization)
 - [`useAudioData()`](/docs/use-audio-data)
 - [`getAudioData()`](/docs/get-audio-data)
 - [`<Audio/>`](/docs/audio)
-- [Using audio](/docs/using-audio)
+- [使用音频](/docs/using-audio)

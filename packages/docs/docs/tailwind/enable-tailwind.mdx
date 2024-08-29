@@ -4,10 +4,10 @@ title: enableTailwind()
 crumb: '@remotion/tailwind'
 ---
 
-_available from v3.3.95_
+_从 v3.3.95 版本开始可用_
 
-A function that modifies the default Webpack configuration to make the necessary changes to support TailwindCSS.
-See the [setup](/docs/tailwind) to see full instructions on how to setup TailwindCSS in Remotion.
+这是一个函数，它修改默认的 Webpack 配置以进行必要的更改，以支持 TailwindCSS。
+查看[设置](/docs/tailwind)以查看如何在 Remotion 中设置 TailwindCSS 的完整说明。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -18,9 +18,9 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 });
 ```
 
-## Multiple Webpack changes
+## 多个 Webpack 更改
 
-If you want to make other configuration changes, you can do so by doing them reducer-style:
+如果您想进行其他配置更改，可以通过 reducer 风格来实现：
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -35,13 +35,13 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 });
 ```
 
-## Custom Tailwind config location<AvailableFrom v="4.0.187" />
+## 自定义 Tailwind 配置文件位置<AvailableFrom v="4.0.187" />
 
-By default, TailwindCSS will search for a file called `tailwind.config.js` in the current working directory where you executed the Remotion CLI.  
-This is not in line with Remotion which resolves files relative to the [Remotion Root](/docs/terminology/remotion-root).
+默认情况下，TailwindCSS 会在您执行 Remotion CLI 的当前工作目录中搜索名为 `tailwind.config.js` 的文件。  
+这与 Remotion 不一致，Remotion 会相对于[Remotion 根目录](/docs/terminology/remotion-root)解析文件。
 
-This mean if you execute the Remotion CLI from a different directory, Tailwind will not be able to find the config file.  
-To fix this, you can pass the path to the config file as the second argument to `enableTailwind()`:
+这意味着，如果您从不同的目录执行 Remotion CLI，则 Tailwind 将无法找到配置文件。  
+要解决此问题，您可以将配置文件的路径作为 `enableTailwind()` 的第二个参数传递：
 
 ```ts twoslash title="remotion.config.ts"
 import path from 'node:path';

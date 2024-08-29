@@ -1,70 +1,70 @@
 ---
 image: /generated/articles-docs-parameterized-rendering.png
 id: parameterized-rendering
-title: Parameterized videos
-sidebar_label: Passing props
-crumb: "How To"
+title: 参数化视频
+sidebar_label: 传递 props
+crumb: "如何"
 ---
 
-Remotion allows for [ingesting](/docs/passing-props), [validating](/docs/schemas), [visually editing](/docs/visual-editing), and transforming data that may be used to parametrize a video.
+Remotion 允许[摄入](/docs/passing-props)、[验证](/docs/schemas)、[可视化编辑](/docs/visual-editing)和转换可能用于参数化视频的数据。
 
-Data may [influence the content](/docs/data-fetching) of the video, or the [metadata](/docs/dynamic-metadata) such as width, height, duration or framerate.
+数据可能会[影响视频的内容](/docs/data-fetching)，或者[元数据](/docs/dynamic-metadata)如宽度、高度、持续时间或帧速率。
 
-## High-level overview
+## 高级概述
 
-Remotion allows the passing of [props](https://react.dev/learn/passing-props-to-a-component) to a React component.  
-Props are a React concept and take the shape of a JavaScript object.
+Remotion 允许将[props](https://react.dev/learn/passing-props-to-a-component)传递给 React 组件。  
+Props 是 React 的概念，采用 JavaScript 对象的形式。
 
-To determine the data which gets passed to the video, the following steps are taken:
+为确定传递给视频的数据，执行以下步骤：
 
-<Step>1</Step> <strong>Default props</strong> are defined statically, so that the video can be designed in the Studio without any data. <br/>
-
-<ul>
-<li>
-The default props define the shape of the data.
-</li>
-<li>
-A schema can be defined and validated.
-</li>
-<li>
-In absence of data, default props can be edited in the Remotion Studio.
-</li>
-</ul>
-<Step>2</Step> <strong>Input props</strong> may be specified when rendering a video to override the default props.<br/>
-<ul>
-<li>
-Input props will be merged together with default props, where input props have priority.
-</li>
-</ul>
-
-<Step>3</Step> <strong>Using <a href="/docs/data-fetching"><code>calculateMetadata()</code></a></strong>, postprocessing of the props may be performed and metadata be dynamically calculated.<br/>
+<Step>1</Step> <strong>默认 props</strong> 静态定义，以便在 Studio 中设计视频时不需要任何数据。<br/>
 
 <ul>
 <li>
-For example, given a URL is passed as a prop, it may be fetched and the content added to the props.
+默认 props 定义数据的形状。
 </li>
 <li>
-Asynchronous calculation of the video duration and other metadata is also possible here.
+可以定义并验证模式。
+</li>
+<li>
+在没有数据的情况下，可以在 Remotion Studio 中编辑默认 props。
 </li>
 </ul>
-<Step>4</Step> <strong>The final props</strong> are passed to the React component.
+<Step>2</Step> <strong>输入 props</strong> 可在渲染视频时指定，以覆盖默认 props。<br/>
 <ul>
 <li>
-The component may dynamically render content based on the props.
+输入 props 与默认 props 合并，其中输入 props 优先级更高。
 </li>
 </ul>
 
-See [here](/docs/props-resolution) for a visual explanation and more details of how the resolution process works.
+<Step>3</Step> 使用 <strong><a href="/docs/data-fetching"><code>calculateMetadata()</code></a></strong>，可以对 props 进行后处理，并动态计算元数据。<br/>
 
-## Table of contents
+<ul>
+<li>
+例如，如果将 URL 作为 prop 传递，可以获取该 URL 并将内容添加到 props 中。
+</li>
+<li>
+此处还可以进行视频持续时间和其他元数据的异步计算。
+</li>
+</ul>
+<Step>4</Step> <strong>最终 props</strong> 传递给 React 组件。
+<ul>
+<li>
+组件可以根据 props 动态呈现内容。
+</li>
+</ul>
 
-- [Passing props](/docs/passing-props)
-- [Defining a Schema](/docs/schemas)
-- [Visual editing](/docs/visual-editing)
-- [Data fetching](/docs/data-fetching)
-- [Variable metadata](/docs/dynamic-metadata)
-- [How props get resolved](/docs/props-resolution)
+查看[这里](/docs/props-resolution)以获取解析过程的可视化解释和更多详细信息。
 
-## See also
+## 目录
 
-You can use the [Remotion Player](/docs/player) to display a Remotion component in a React app and dynamically change the content without rendering the video, to create experiences where the content updates in real-time.
+- [传递 props](/docs/passing-props)
+- [定义模式](/docs/schemas)
+- [可视化编辑](/docs/visual-editing)
+- [数据获取](/docs/data-fetching)
+- [变量元数据](/docs/dynamic-metadata)
+- [props 解析方式](/docs/props-resolution)
+
+## 参见
+
+您可以使用 [Remotion Player](/docs/player) 在 React 应用中显示 Remotion 组件，并动态更改内容而无需渲染视频，以创建内容实时更新的体验。

@@ -1,8 +1,8 @@
 ---
 image: /generated/articles-docs-transparent-videos.png
 id: transparent-videos
-title: Transparent videos
-crumb: "Techniques"
+title: 透明视频
+crumb: "技术"
 ---
 
 import { TransparentVideoDemo } from "../components/TransparentVideoDemo";
@@ -20,21 +20,21 @@ const MyVideo: React.FC<{
 // - MyVideo
 ```
 
-Chrome and Firefox support WebM videos with alpha channels. That means that on these browsers, you can embed videos with transparency.
+Chrome 和 Firefox 支持带有 alpha 通道的 WebM 视频。这意味着在这些浏览器上，您可以嵌入具有透明度的视频。
 
-If you are lucky enough to visit the website in one of those supported web browsers, check it out:
+如果您有幸在其中一个支持的 Web 浏览器中访问该网站，请查看：
 
 <TransparentVideoDemo />
 
-## Creating a WebM video with Alpha channel
+## 创建带有 Alpha 通道的 WebM 视频
 
-In order to create a transparent video, you need at least version 1.4 of Remotion. Make sure to not set any background (use the checkerboard button to ensure your video is transparent). In order to render your videos transparent, you need to change 3 settings:
+为了创建透明视频，您至少需要 Remotion 的 1.4 版本。确保不设置任何背景（使用棋盘按钮确保您的视频是透明的）。为了使您的视频透明渲染，您需要更改 3 个设置：
 
-- Render each frame as PNG.
-- Use the VP8 or VP9 codec
-- Use the `yuva420p` pixel format.
+- 将每帧渲染为 PNG。
+- 使用 VP8 或 VP9 编解码器
+- 使用 `yuva420p` 像素格式。
 
-If you want to set these options and persist them, add this to your `remotion.config.ts` file (create it if you don't yet have one);
+如果您想设置这些选项并使其持久化，请将以下内容添加到您的 `remotion.config.ts` 文件中（如果尚未创建，请创建）；
 
 ```tsx twoslash
 import { Config } from "@remotion/cli/config";
@@ -44,18 +44,18 @@ Config.setPixelFormat("yuva420p");
 Config.setCodec("vp8");
 ```
 
-You can also set the settings on the command line:
+您也可以在命令行上设置这些选项：
 
 ```bash
 --image-format=png --pixel-format=yuva420p --codec=vp8
 ```
 
-## Creating a ProRes video with Alpha channels
+## 创建带有 Alpha 通道的 ProRes 视频
 
-If you want to export a transparent video for use in another video editing program, Apple ProRes is a more suitable option.
-ProRes is supported by Final Cut Pro, Adobe Premiere and Davinci Resolve.
+如果您想要导出透明视频以在另一个视频编辑程序中使用，Apple ProRes 是一个更合适的选项。
+ProRes 受 Final Cut Pro、Adobe Premiere 和 Davinci Resolve 支持。
 
-Supported since v2.1.7, you can set the codec to `prores` and choose a ProRes profile with alpha support: Either: `4444` or `hq`. The pixel format must be `yuva444p10le`.
+从 v2.1.7 开始支持，您可以将编解码器设置为 `prores` 并选择具有 alpha 支持的 ProRes 配置文件：`4444` 或 `hq`。像素格式必须是 `yuva444p10le`。
 
 ```tsx twoslash
 import { Config } from "@remotion/cli/config";
@@ -66,27 +66,27 @@ Config.setCodec("prores");
 Config.setProResProfile("4444");
 ```
 
-You can also set the settings on the command line:
+您也可以在命令行上设置这些选项：
 
 ```bash
 --image-format=png --pixel-format=yuva444p10le --codec=prores --prores-profile=4444
 ```
 
-## Enabling transparency when using `<OffthreadVideo>`
+## 在使用 `<OffthreadVideo>` 时启用透明度
 
-By default, the [`<OffthreadVideo>`](/docs/offthreadvideo) does not add an alpha layer during export.  
-Add the [`transparent`](/docs/offthreadvideo#transparent) prop to flag that the video has an alpha channel.  
-This slightly reduces the performance of the render.
+默认情况下，[`<OffthreadVideo>`](/docs/offthreadvideo) 在导出时不会添加 alpha 层。
+添加 [`transparent`](/docs/offthreadvideo#transparent) 属性以标记视频具有 alpha 通道。
+这会稍微降低渲染性能。
 
-## Creating a fallback version
+## 创建备用版本
 
-Given the poor browser support, consider making two versions of a video, one with alpha channel, and an opaque video as a fallback. You can achieve this in Remotion using standard React props:
+考虑到浏览器支持较差，可以考虑制作两个版本的视频，一个带有 alpha 通道，另一个是不透明视频作为备用。您可以在 Remotion 中使用标准的 React 属性来实现这一点：
 
 ```tsx twoslash
 // @include: example-MyVideo
 ```
 
-It's a good practice to set a default when defining the composition:
+在定义合成时设置默认值是一个好习惯：
 
 ```tsx twoslash {7-9}
 import { Composition } from "remotion";
@@ -105,7 +105,7 @@ import { Composition } from "remotion";
 />;
 ```
 
-You can then have separate render commands in your package.json:
+然后可以在 package.json 中有单独的渲染命令：
 
 ```json
 "scripts": {
@@ -114,10 +114,9 @@ You can then have separate render commands in your package.json:
 }
 ```
 
-Now you can render two variants of the same video and serve a different one
-based on browser support. You can use APIs like [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source) or the [`canplay`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event) event to determine programmatically if a browser is able to play a video.
+现在您可以渲染同一视频的两个变体，并根据浏览器支持提供不同的视频。您可以使用像 [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source) 或 [`canplay`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event) 事件这样的 API 来以编程方式确定浏览器是否能够播放视频。
 
-## See also
+## 参见
 
-- [CLI options](/docs/cli)
-- [Configuration option](/docs/config)
+- [CLI 选项](/docs/cli)
+- [配置选项](/docs/config)

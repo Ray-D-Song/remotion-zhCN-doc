@@ -1,25 +1,25 @@
 ---
 image: /generated/articles-docs-miscellaneous-snippets-accelerated-video.png
-title: "Change the speed of a video over time"
-crumb: "Snippets"
+title: "随时间改变视频速度"
+crumb: "片段"
 ---
 
 import {AcceleratedVideoExample} from "../../../components/AcceleratedVideoPlayerExample.tsx"
 
-To speed up a video over time - for example to start with regular speed and then increasingly make it faster - we need to write some code to ensure we stay within Remotion's rules.
+要随时间加快视频的速度 - 例如从常速开始，然后逐渐加快速度 - 我们需要编写一些代码来确保我们遵守 Remotion 的规则。
 
-It is not as easy as interpolating the [`playbackRate`](/docs/video#playbackrate):
+这并不像插值[`playbackRate`](/docs/video#playbackrate)那样简单：
 
-```tsx twoslash title="❌ Does not work"
+```tsx twoslash title="❌ 不起作用"
 import { interpolate, Video } from "remotion";
 let frame = 0;
 // ---cut---
 <Video playbackRate={interpolate(frame, [0, 100], [1, 5])} />;
 ```
 
-This is because Remotion will evaluate each frame independently from the other frames. If `frame` is 100, the `playbackRate` evaluates as 5 and Remotion will render the 500th frame of the video, which is undesired because it does not take into account that the speed has been building up to 5 until now.
+这是因为 Remotion 将独立地评估每一帧。如果`frame`为100，`playbackRate`评估为5，Remotion 将渲染视频的第500帧，这是不希望的，因为它没有考虑到速度一直增加到5为止。
 
-The correct way is to calculate the total time that has elapsed until the current frame, by accumulating the playback rates of the previous frames. Then we start the video from that frame and set the playback rate of that current frame to ensure the video plays smoothly.
+正确的方法是计算到当前帧为止已经经过的总时间，通过累积之前帧的播放速率。然后我们从该帧开始播放视频，并设置当前帧的播放速率，以确保视频播放顺畅。
 
 ```tsx twoslash title="✅ AcceleratedVideo.tsx"
 import React from "react";
@@ -53,12 +53,14 @@ export const AcceleratedVideo: React.FC = () => {
 };
 ```
 
-Note that the timeline in the Remotion Studio might move as you play the video because we reposition the sequence over time. This is okay as long as we calculate the frame in an idempotent way.
+请注意，Remotion Studio 中的时间轴可能会随着视频播放而移动，因为我们会随时间重新定位序列。只要我们以幂等的方式计算帧，这是可以接受的。
 
-## Demo
+## 演示
 
 <AcceleratedVideoExample />
 
-## See also
+## 另请参阅
 
-- [`<Video>`](/docs/video)
+- [`<Video>`](/docs/video) 
+
+

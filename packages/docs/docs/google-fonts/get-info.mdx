@@ -6,20 +6,20 @@ crumb: "@remotion/google-fonts"
 
 import {AvailableFonts} from '../../components/AvailableFonts'
 
-_Part of the [`@remotion/google-fonts`](/docs/google-fonts) package_
+_属于[`@remotion/google-fonts`](/docs/google-fonts)包_
 
-Each font exports an `getInfo()` function that can be used to get various information about the font at runtime, such as which weights, styles and subsets are available.
+每种字体都导出一个`getInfo()`函数，可用于在运行时获取有关字体的各种信息，例如可用的权重、样式和子集。
 
-## Usage
+## 用法
 
-To get information about a font, you can import the `info` property:
+要获取有关字体的信息，您可以导入`info`属性：
 
-```tsx twoslash title="Get info about the font"
+```tsx twoslash title="获取字体信息"
 import { getInfo } from "@remotion/google-fonts/Montserrat";
 console.log(getInfo());
 ```
 
-```json title="Example value of info object"
+```json title="info对象的示例值"
 {
   "fontFamily": "Titan One",
   "importName": "TitanOne",
@@ -40,7 +40,7 @@ console.log(getInfo());
 }
 ```
 
-## See also
+## 另请参阅
 
-- [Fonts](/docs/fonts)
+- [字体](/docs/fonts)
 - [`@remotion/google-fonts`](/docs/google-fonts)

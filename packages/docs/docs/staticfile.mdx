@@ -5,9 +5,9 @@ title: staticFile()
 crumb: "API"
 ---
 
-_Available from v2.5.7._
+_从 v2.5.7 版本开始可用。_
 
-Turns a file in your `public/` folder into an URL which you can then load into your project.
+将位于 `public/` 文件夹中的文件转换为 URL，然后可以将其加载到您的项目中。
 
 ```tsx twoslash
 import { Img, staticFile } from "remotion";
@@ -19,9 +19,9 @@ const myImage = staticFile(`/my-image.png`);
 <Img src={myImage} />;
 ```
 
-## Example
+## 示例
 
-Start by creating a `public/` folder in the root of your video project:
+首先在您的视频项目根目录中创建一个 `public/` 文件夹：
 
 ```txt
 my-video/
@@ -36,10 +36,10 @@ my-video/
 ```
 
 :::info
-The `public/` folder should always be in the same folder as your `package.json` that contains the `remotion` dependency, even if your Remotion code lives in a subdirectory.
+`public/` 文件夹应始终与包含 `remotion` 依赖项的 `package.json` 文件夹位于同一目录中，即使您的 Remotion 代码位于子目录中。
 :::
 
-Get an URL reference of your asset:
+获取您的资产的 URL 引用：
 
 ```tsx twoslash
 import { staticFile } from "remotion";
@@ -48,50 +48,50 @@ const myImage = staticFile(`/my-image.png`); // "/static-32e8nd/my-image.png"
 const font = staticFile(`/font.woff2`); // "/static-32e8nd/font.woff2"
 ```
 
-You can now load the asset via:
+现在可以通过以下方式加载资产：
 
-- [`<Img />`](/docs/img), [`<Audio/>`](/docs/audio), [`<Video/>`](/docs/video) tag
+- [`<Img />`](/docs/img), [`<Audio/>`](/docs/audio), [`<Video/>`](/docs/video) 标签
 - Fetch API
 - [FontFace()](/docs/fonts)
-- Any other loader that supports data fetching via URL
+- 任何其他支持通过 URL 进行数据获取的加载程序
 
-## Why can't I just pass a string?
+## 为什么不能只传递一个字符串？
 
-If you are a Create React App or Next.JS user, you might be used to just to be able to reference the asset from a string: `<img src="/my-image.png"/>`. Remotion chooses to be different in that you need to use the `staticFile()` API because:
+如果您是 Create React App 或 Next.JS 用户，您可能习惯于只能从字符串中引用资产：`<img src="/my-image.png"/>`。Remotion 选择使用 `staticFile()` API 与众不同，因为：
 
-- It prevents breaking when deploying your site into a subdirectory of a domain: `https://example.com/my-folder/my-logo.png`
-- It avoids conflicts with composition names which might share the same name (for example `http://localhost:3000/conflicting-name` while running the studio)
-- It allows us to make paths framework-agnostic, so your code can work across Remotion, Create React App, Next.JS and potentially other frameworks.
+- 在将站点部署到域的子目录时，可以防止出现问题：`https://example.com/my-folder/my-logo.png`
+- 避免与可能共享相同名称的组合名称发生冲突（例如在运行工作室时 `http://localhost:3000/conflicting-name`）
+- 允许我们使路径与框架无关，因此您的代码可以在 Remotion、Create React App、Next.JS 和可能其他框架中运行。
 
-## Getting all files in the public folder
+## 获取 public 文件夹中的所有文件
 
-Use the [`getStaticFiles()`](/docs/getstaticfiles) API to get a list of available options.
+使用 [`getStaticFiles()`](/docs/getstaticfiles) API 获取可用选项列表。
 
-## Handling URI-unsafe characters<AvailableFrom v="4.0.0"/>
+## 处理 URI 不安全字符<AvailableFrom v="4.0.0"/>
 
-Since `v4.0`, `staticFile()` encodes the filename using `encodeURIComponent`.  
-If you encoded the path by yourself until now, make sure to drop your encoding before passing the path into `staticFile()` to avoid double encoding.
+自 `v4.0` 版本起，`staticFile()` 使用 `encodeURIComponent` 对文件名进行编码。  
+如果您到目前为止自己对路径进行了编码，请确保在将路径传递给 `staticFile()` 之前删除您的编码，以避免双重编码。
 
-Before `v4.0`, `staticFile()` did not handle URI-unsafe characters contained in the provided path. This could lead to problems in some cases when filenames would contain characters such as `#`, `?` and or `&`.
+在 `v4.0` 之前，`staticFile()` 不处理提供的路径中包含的 URI 不安全字符。这可能会导致一些问题，例如当文件名包含字符 `#`、`?` 或 `&` 时。
 
-### Example
+### 示例
 
-```tsx title="Before v4"
-staticFile("my-image#portrait.png"); //output: "/my-image#portrait.png"
+```tsx title="v4 之前"
+staticFile("my-image#portrait.png"); //输出: "/my-image#portrait.png"
 ```
 
-If this URL is passed to a component accepting an URL, the part after `#` will be left out, leading
-to an error because the file can't be found.
+如果将此 URL 传递给接受 URL 的组件，则 `#` 后面的部分将被省略，导致无法找到文件而出现错误。
 
-```tsx title="Since v4.0.0"
+```tsx title="自 v4.0.0 起"
 staticFile("my-image#portrait.png"); // "/my-image%23portrait.png"
 ```
 
-The image will now be loaded properly, however, you must avoid to encode the filename yourself.
+现在图像将被正确加载，但是您必须避免自行对文件名进行编码。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/static-file.ts)
-- [Loading assets](/docs/assets)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/static-file.ts)
+- [加载资源](/docs/assets)
 - [`getStaticFiles()`](/docs/getstaticfiles)
 - [`watchStaticFile()`](/docs/watchstaticfile)
+

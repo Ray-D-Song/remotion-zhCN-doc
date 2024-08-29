@@ -1,6 +1,6 @@
 ---
 image: /generated/articles-docs-lambda-custom-layers.png
-title: Custom Layers
+title: 自定义层
 slug: custom-layers
 crumb: "Lambda"
 ---
@@ -8,120 +8,120 @@ crumb: "Lambda"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Lambda function [includes Chrome and base fonts by default](/docs/lambda/runtime).
+Lambda函数[默认包含Chrome和基本字体](/docs/lambda/runtime)。
 
-In some advanced use cases, you want to replace certain parts of the stack:
+在一些高级用例中，您可能希望替换堆栈的某些部分：
 
-- Use another Chrome version (you may need to [build it yourself](https://github.com/remotion-dev/chrome-build-instructions/tree/main))
-- Replace default fonts or emojis
+- 使用另一个Chrome版本（您可能需要[自行构建](https://github.com/remotion-dev/chrome-build-instructions/tree/main)）
+- 替换默认字体或表情符号
 
-Before you create a custom stack, feel free to contact us to see if Remotion can provide the changes upstream.
+在创建自定义堆栈之前，请随时与我们联系，以查看Remotion是否可以提供上游更改。
 
-Also consider that the AWS Lambda layers cumulatively may not exceed 250MB extracted, so you need to sacrifice an equal amount of other files.
+还要考虑到AWS Lambda层的累积提取量不得超过250MB，因此您需要牺牲相等数量的其他文件。
 
-If you just want to add fonts, we recommend to use [Web fonts](/docs/fonts) instead.
+如果您只想添加字体，我们建议使用[Web字体](/docs/fonts)。
 
-## Default layers<AvailableFrom v="4.0.205"/>
+## 默认层<AvailableFrom v="4.0.205"/>
 
-Consider using our layer options before creating a custom stack:
+在创建自定义堆栈之前，请考虑使用我们的层选项：
 
-With the default option (`--runtime-preference=cjk` or no option):
+使用默认选项（`--runtime-preference=cjk`或无选项）：
 
-| Item         | Size   |
+| 项目         | 大小   |
 |--------------|--------|
 | chromium     | 188 MB   |
 | emoji-google | 9.9 MB   |
-| fonts        | 1.9 MB   |
+| 字体        | 1.9 MB   |
 | cjk          | 16 MB    |
-| **Total**    | 215.8 MB |
+| **总计**    | 215.8 MB |
 
-With the option [`--runtime-preference=apple-emojis`](/docs/lambda/deployfunction#runtimepreference):
+使用选项[`--runtime-preference=apple-emojis`](/docs/lambda/deployfunction#runtimepreference)：
 
-| Item         | Size   |
+| 项目         | 大小   |
 |--------------|--------|
 | chromium     | 188 MB   |
 | emoji-apple  | 45 MB    |
-| fonts        | 1.9 MB   |
-| **Total**    | 235.9 MB |
+| 字体        | 1.9 MB   |
+| **总计**    | 235.9 MB |
 
 :::note
-Note that by enabling the Apple Emojis, to stay under the 250 MB limit, support for CJK (Chinese, Japanese, Korean) characters will be removed.  
-Google Emojis are also removed.
+请注意，启用苹果表情符号后，为保持在250MB限制以下，将删除对CJK（中文、日文、韩文）字符的支持。  
+Google表情符号也将被删除。
 :::
 
-## Ensure Remotion version
+## 确保Remotion版本
 
-Customizing Remotion Lambda Layers is possible from v3.0.17.  
-Lambda binaries might change in minor Remotion versions, it is your responsibility to keep your versions up to date.
+从v3.0.17开始，可以自定义Remotion Lambda层。  
+Lambda二进制文件可能会在较小的Remotion版本中更改，您有责任保持版本最新。
 
-## Creating a custom binary
+## 创建自定义二进制文件
 
-Go to the [`remotion-dev/lambda-binaries`](https://github.com/remotion-dev/lambda-binaries) repository and clone it.
+转到[`remotion-dev/lambda-binaries`](https://github.com/remotion-dev/lambda-binaries)存储库并克隆它。
 
-The folders `chromium` and `fonts` contain the binaries for the ARM version. The x64 version has been discontinued.
+文件夹 `chromium` 和 `fonts` 包含 ARM 版本的二进制文件。x64 版本已经停止支持。
 
-Put the files that you want in the corresponding folders - for example, add the Apple Emoji Font `AppleColorEmoji.ttf` into the `fonts/.fonts/NotoSans/` folder.
+将您想要的文件放入相应的文件夹 - 例如，将 Apple Emoji 字体 `AppleColorEmoji.ttf` 添加到 `fonts/.fonts/NotoSans/` 文件夹中。
 
-Since the AWS Lambda layers may not exceed 250MB extracted, we need to sacrifice an equal amount of other files - for example by removing `fonts/.fonts/NotoColorEmoji.ttf` and `fonts/.fonts/NotoSansCJKjp-Regular.otf`.
+由于 AWS Lambda 层的提取文件大小不能超过 250MB，我们需要牺牲相同大小的其他文件 - 例如，通过移除 `fonts/.fonts/NotoColorEmoji.ttf` 和 `fonts/.fonts/NotoSansCJKjp-Regular.otf`。
 
-You can see the size of the folders by running:
+您可以通过运行以下命令查看文件夹的大小：
 
 ```bash
 sh size.sh
 ```
 
-If you are done with your changes, run:
+完成更改后，请运行：
 
 ```bash
 sh make.sh
 ```
 
-This will zip the layers and put them as artifacts in the `out` directory.
+这将压缩层并将其作为构件放入 `out` 目录中。
 
-## Creating a Lambda layer
+## 创建 Lambda 层
 
-- Go to your AWS console, select the Lambda product, then select "Layers":
+- 转到 AWS 控制台，选择 Lambda 产品，然后选择“层”：
 
 <img src="/img/lambda-layers-console.png" />
 
-- Select "Create layer" and fill out the name. Upload the created layer from the `out` folder into the form. The fields "Compatible architectures", "Compatible runtimes" and "License" are optional.
+- 选择“创建层”并填写名称。将从 `out` 文件夹中创建的层上传到表单中。字段“兼容架构”、“兼容运行时”和“许可证”是可选的。
 
-- Once the layer is created, you will get a version ARN (example: `arn:aws:lambda:us-east-1:123456789012:layer:apple-emoji:1`). Copy it.
+- 创建层后，您将获得一个版本 ARN（示例：`arn:aws:lambda:us-east-1:123456789012:layer:apple-emoji:1`）。复制它。
 
 :::note
-You need to do this for every AWS region you want to use Remotion Lambda in.
+您需要为要在 Remotion Lambda 中使用的每个 AWS 区域执行此操作。
 :::
 
-## Update the Lambda function
+## 更新 Lambda 函数
 
-Before you continue, make sure a Remotion Lambda function is deployed.
+在继续之前，请确保已部署了 Remotion Lambda 函数。
 
-To switch out the layer of a deployed Lambda function, you can either do it via the AWS console or use a Node.JS script that you can run after every function deploy.
+要更改已部署 Lambda 函数的层，您可以通过 AWS 控制台进行操作，也可以使用一个 Node.JS 脚本，在每次函数部署后运行。
 
 <Tabs
 defaultValue="node"
 values={[
 { label: 'Node.JS', value: 'node', },
-{ label: 'AWS console', value: 'deploy', },
+{ label: 'AWS 控制台', value: 'deploy', },
 ]
 }>
 <TabItem value="deploy">
 
-- Go to your AWS console, select the Lambda product, then select the Lambda function you would like to update.
-- Click on "Layers":
+- 转到 AWS 控制台，选择 Lambda 产品，然后选择要更新的 Lambda 函数。
+- 点击“层”：
 
 <img src="/img/lambda-single-layer.png" />
 
-- Click on "Edit", then select the layer you'd like to replace, then click "Remove", then click "Save".
-- Once returned, click "Add a layer", then click "Specify an ARN", then paste in the layer version ARN you retrieved from the previous step.
-- Click "Verify" and then "Add".
+- 点击“编辑”，然后选择要替换的层，然后点击“移除”，再点击“保存”。
+- 返回后，点击“添加层”，然后点击“指定 ARN”，然后粘贴从上一步中检索到的层版本 ARN。
+- 点击“验证”，然后点击“添加”。
 
-Congrats! You customized your Lambda function.
+恭喜！您已自定义了 Lambda 函数。
 
 </TabItem>
 <TabItem value="node">
 
-Before you can update a function via the Node.JS APIs, you need to [add another rule to your user role](/docs/lambda/setup#5-create-an-access-key-for-the-user):
+在您可以通过 Node.JS APIs 更新函数之前，您需要[为用户角色添加另一个规则](/docs/lambda/setup#5-create-an-access-key-for-the-user)：
 
 ```json
 [
@@ -143,7 +143,7 @@ Before you can update a function via the Node.JS APIs, you need to [add another 
 ]
 ```
 
-Given a region, function name, layer to remove and layer to add, you can use the following snippet to update a function with custom layers
+给定一个区域、函数名称、要移除的层和要添加的层，您可以使用以下代码片段来更新具有自定义层的函数
 
 ```ts
 import { AwsRegion, getAwsClient } from "@remotion/lambda";
@@ -185,6 +185,7 @@ await client.send(
 </TabItem>
 </Tabs>
 
-## See also
+## 参见
 
-- [Lambda runtime](/docs/lambda/runtime)
+- [Lambda 运行时](/docs/lambda/runtime)  
+

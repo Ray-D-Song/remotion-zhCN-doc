@@ -1,30 +1,31 @@
 ---
 image: /generated/articles-docs-cli-browser-ensure.png
-title: npx remotion browser ensure
+title: npx remotion 浏览器 ensure
 crumb: "@remotion/cli"
 sidebar_label: "ensure"
 ---
 
-# npx remotion browser ensure<AvailableFrom v="4.0.137" />
+# npx remotion 浏览器 ensure<AvailableFrom v="4.0.137" />
 
-Ensures that Remotion has a browser it can use for rendering.
+确保 Remotion 有一个可用于渲染的浏览器。
 
 ```
 npx remotion browser ensure
 ```
 
-## Arguments
+## 参数
 
 ### `--browser-executable`
 
-[Path to a custom Chrome executable](/docs/config#setbrowserexecutable). If not specified and Remotion cannot find one, one will be downloaded by this command.
+[自定义 Chrome 可执行文件的路径](/docs/config#setbrowserexecutable)。如果未指定且 Remotion 找不到可用的浏览器，此命令将下载一个。
 
 ### `--log`
 
 <Options id="log" cli />
 
-## See also
+## 参见
 
-- [Source code for this command](https://github.com/remotion-dev/remotion/blob/main/packages/cli/src/browser/ensure.ts)
-- [Chrome Headless Shell](/docs/miscellaneous/chrome-headless-shell)
+- [此命令的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cli/src/browser/ensure.ts)
+- [Chrome 无头浏览器](/docs/miscellaneous/chrome-headless-shell)
 - [`ensureBrowser()`](/docs/renderer/ensure-browser)
+

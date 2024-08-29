@@ -2,7 +2,7 @@
 slug: 2-5
 title: Remotion 2.5
 author: Jonny Burger
-author_title: Remotion Creator
+author_title: Remotion 创始人
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%202.5&description=Loop%20component,%20In/Out%20Markers,%20Variable%20playback%20rate%20and%20more!
@@ -10,113 +10,112 @@ image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%202.5
 
 # Remotion 2.5
 
-We are excited to announce a packed October release!
-We did work in many areas and these improvements will surely boost your productivity!
+我们很高兴地宣布 10 月份的版本发布！我们在许多领域进行了工作，这些改进肯定会提高您的生产力！
 
-## In/Out markers
+## In/Out 标记
 
-You may know this feature from programs like After Effects and Davinci Resolve already. It is as simple as it is useful: You can set an “In” mark and an “Out” mark and the preview will only play whatever is in-between those timestamps. This makes it much easier to visually “debug” a section of the video without having to watch the whole thing.
+您可能已经从类似 After Effects 和 Davinci Resolve 的程序中了解到此功能。它就像它的用途一样简单：您可以设置“In”标记和“Out”标记，预览将仅播放这两个时间戳之间的内容。这使得在不必观看整个视频的情况下，更容易地通过视觉方式“调试”视频的某个部分。
 
 <img src="/img/inout.gif" />
 
-_Thanks to [Ankesh](https://github.com/remotion-dev/remotion/pull/631) for implementing this feature!_
+_感谢 [Ankesh](https://github.com/remotion-dev/remotion/pull/631) 实现了此功能！_
 
-## `<Loop>` component
+## `<Loop>` 组件
 
-Previously, in order to repeat content, you had to manually create a bunch of sequences and calculate the timestamps yourself. We added a helper called [`<Loop />`](/docs/loop) which will repeat it’s children either indefinitely or for a fixed number of times.
-Another benefit is that we display the loop component cleanly in our timeline.
+以前，为了重复内容，您必须手动创建一堆序列并自行计算时间戳。我们添加了一个名为 [`<Loop />`](/docs/loop) 的辅助程序，它将无限次或固定次数重复其子元素。
+另一个好处是我们在时间轴中清晰地显示循环组件。
 
-_Thanks to [Brian Pederson](https://github.com/remotion-dev/remotion/pull/638) for implementing this feature!_
+_感谢 [Brian Pederson](https://github.com/remotion-dev/remotion/pull/638) 实现了此功能！_
 
-## Support for different playback rates
+## 支持不同的播放速率
 
-You can now change the playback rate in the editor and play a video in slow-motion, in fast-forward, and even in reverse! We support speeds between -4x and 4x. This makes debugging animations that don’t look clean much easier.
+您现在可以在编辑器中更改播放速率，并以慢动作、快进甚至倒放的方式播放视频！我们支持 -4x 到 4x 之间的速度。这使得调试看起来不流畅的动画变得更加容易。
 
-It also works in the `<Player />`! See the new [`playbackRate`](/docs/player/player#playbackrate) prop and we also added a [`ratechange`](/docs/player/player#ratechange) event - just like the native HTML5 Video element.
+它还适用于 `<Player />`！查看新的 [`playbackRate`](/docs/player/player#playbackrate) 属性，我们还添加了一个 [`ratechange`](/docs/player/player#ratechange) 事件 - 就像原生的 HTML5 Video 元素一样。
 
 <img src="/img/playbackrate.gif" />
 
-_Thanks to [Brian Pederson](https://github.com/remotion-dev/remotion/pull/656) for implementing this feature!_
+_感谢[Brian Pederson](https://github.com/remotion-dev/remotion/pull/656)实现了这个功能！_
 
-## Support for <kbd>J</kbd>, <kbd>K</kbd>, <kbd>L</kbd> keyboard shortcuts
+## 支持 <kbd>J</kbd>, <kbd>K</kbd>, <kbd>L</kbd> 键盘快捷键
 
-These new shortcuts are super handy for navigating through a timeline. With the <kbd>L</kbd> key, you play the video as normal. Pressing the <kbd>L</kbd> key again will increase the speed to `2x`, and pressing <kbd>L</kbd> three times in total will play the video in `4x`.
+这些新的快捷键对于在时间轴中导航非常方便。使用 <kbd>L</kbd> 键，您可以像平常一样播放视频。再次按下 <kbd>L</kbd> 键将加快速度到 `2x`，总共按下 <kbd>L</kbd> 三次将以 `4x` 播放视频。
 
-The <kbd>J</kbd> key works the same, but plays the video backwards. Now you can reach any point in the video easily with just those two keys, even if the video is playing, without using the mouse.
+<kbd>J</kbd> 键的功能相同，但是会倒放视频。现在，即使视频正在播放，您也可以使用这两个键轻松到达视频的任何点，而无需使用鼠标。
 
-Once you have reached the point where you want to pause the video and continue to code it, the <kbd>K</kbd> key will reset the playback rate to `1x` and pause the video.
+一旦到达想要暂停视频并继续编码的点，<kbd>K</kbd> 键将重置播放速率为 `1x` 并暂停视频。
 
 <img src="/img/jkl.gif" />
 
-Once you learn how to navigate using JKL keys, you'll never use your mouse for scrubbing again!
+一旦学会使用 JKL 键进行导航，您将再也不需要使用鼠标来快进了！
 
-_Thanks to [Brian Pederson](https://github.com/remotion-dev/remotion/pull/656) for implementing this feature!_
+_感谢[Brian Pederson](https://github.com/remotion-dev/remotion/pull/656)实现了这个功能！_
 
 :::tip
-Press the <kbd>?</kbd> button to learn about all keyboard shortcuts!
+按下 <kbd>?</kbd> 按钮了解所有键盘快捷键！
 :::
 
-## `durationInFrames={Infinity}` is now optional
+## `durationInFrames={Infinity}` 现在是可选的
 
-If you wanted to delay an element but not cap it’s duration, you had to explicitly specify `durationInFrames={Infinity}` . Not anymore! This is now the default and may be omitted.
-If you upgrade the `@remotion/eslint-config` package as well, we will even automatically remove the prop when you have autofix enabled!
+如果您想要延迟一个元素但不限制其持续时间，您必须显式指定 `durationInFrames={Infinity}`。不再需要了！这现在是默认值，可以省略。
+如果您升级了 `@remotion/eslint-config` 包，我们甚至会在启用自动修复时自动删除该属性！
 
-_Thanks to [Khalid Ansari](https://github.com/remotion-dev/remotion/pull/621) for implementing this feature!_
+_感谢[Khalid Ansari](https://github.com/remotion-dev/remotion/pull/621)实现了这个功能！_
 
-## Fig autocomplete
+## Fig 自动补全
 
-In case you don’t know [Fig](https://fig.io/), it is a free macOS application that provides autocomplete for the terminal. What sounds like a gimmick, actually works surprisingly well and I personally would miss it a lot if I didn’t have it!
-The Remotion CLI that you can invoke using `npx remotion` now has full autocomplete support in Fig! You have to do nothing except install Fig.
+如果您不了解[Fig](https://fig.io)，它是一个为终端提供自动补全的免费 macOS 应用程序。听起来像是个噱头，但实际上效果出奇的好，如果没有它，我个人会感到很遗憾！您可以使用 `npx remotion` 调用的 Remotion CLI 现在在 Fig 中完全支持自动补全！您只需安装 Fig 即可。
 
-<img src="/img/fig.gif" />
+<img src="/img/fig.gif" /> 
 
-_Thanks to [Mattèo Gauthier](https://github.com/withfig/autocomplete/pull/633) for implementing this feature!_
 
-## Node.JS 17 support
+_感谢 [Mattèo Gauthier](https://github.com/withfig/autocomplete/pull/633) 实现了这个功能！_
 
-This version came out recently and broke almost every Webpack project because legacy crypto functions were removed.
+## Node.JS 17 支持
 
-We added the necessary modifications to our default Webpack config, and [even contributed a pull request to Webpack](https://github.com/webpack/webpack/pull/14557) to fix the last remaining bug that would break Remotion with Node 17! If you are upgrading Node, definitely make sure get this new version of Remotion.
+这个版本最近发布，破坏了几乎所有的 Webpack 项目，因为传统的加密功能被移除了。
 
-## Monorepo migrated to `pnpm`
+我们对我们的默认 Webpack 配置进行了必要的修改，并且[甚至向 Webpack 贡献了一个拉取请求](https://github.com/webpack/webpack/pull/14557)来修复最后剩下的一个会导致 Remotion 在 Node 17 下崩溃的 bug！如果你正在升级 Node，请务必获取 Remotion 的这个新版本。
 
-Contributors to Remotion would previously often struggle to correctly set up our monorepo. Indeed it was hard to correctly link all the packages and too easy to mess it up and run into error messages.
+## Monorepo 迁移到 `pnpm`
 
-This is why we are happy to [have migrated to `pnpm`](https://github.com/remotion-dev/remotion/pull/627), which gets rid of the linking problems and also speeds up installation significantly. In your CI systems, we saw build times go down by 40%, which allows to iterate much more faster.
+对 Remotion 的贡献者们来说，以前经常很难正确设置我们的 monorepo。确实很难正确地链接所有的包，而且很容易搞砸并遇到错误消息。
 
-_Thanks to [Sergio Moreno](https://github.com/remotion-dev/remotion/pull/627) for implementing this migration!_
+这就是为什么我们很高兴[迁移到了 `pnpm`](https://github.com/remotion-dev/remotion/pull/627)，它消除了链接问题，同时也显著加快了安装速度。在你的 CI 系统中，我们看到构建时间减少了 40%，这使得迭代速度更快。
 
-## “Empty” template
+_感谢 [Sergio Moreno](https://github.com/remotion-dev/remotion/pull/627) 实现了这次迁移！_
 
-[A new template](https://github.com/remotion-dev/template-empty) has been added to `npm init video` / `yarn create video`: The blank template.
-This template contains only the bare minimum Remotion boilerplate and a completely empty canvas. It is especially useful for people already familiar with Remotion who would like to skip deleting the Hello World project every time.
+## “空”模板
 
-_Thanks to [Aneesh Relan](https://github.com/remotion-dev/remotion/pull/620) for creating this template!_
+[`npm init video` / `yarn create video` 添加了一个新模板](https://github.com/remotion-dev/template-empty)：空模板。
+这个模板只包含最基本的 Remotion 样板和一个完全空白的画布。对于那些已经熟悉 Remotion 并希望每次都跳过删除 Hello World 项目的人来说，这是特别有用的。
 
-## Render video to `out` folder
+_感谢 [Aneesh Relan](https://github.com/remotion-dev/remotion/pull/620) 创建了这个模板！_
 
-Previously by default, a video would be rendered to `out.mp4` in the root directory of your project. This also meant that in order to ignore it from Git, we had a complicated `.gitignore` by default that would ignore video files in the root but inverse-ignore other video files.
-Time to simplify: From now on, we render a file into an `out` folder by default and simply ignore that folder.
+## 将视频渲染到 `out` 文件夹
 
-_Thanks to [ahmadrosid](https://github.com/remotion-dev/remotion/pull/618) for implementing this feature!_
+以前，默认情况下，视频会被渲染到项目根目录的 `out.mp4` 中。这也意味着为了在 Git 中忽略它，我们默认有一个复杂的 `.gitignore`，它会忽略根目录中的视频文件，但会反向忽略其他视频文件。
+现在是简化的时候了：从现在开始，默认情况下我们将文件渲染到一个 `out` 文件夹中，并简单地忽略该文件夹。
 
-## Updates to `@remotion/three`
+_感谢[ahmadrosid](https://github.com/remotion-dev/remotion/pull/618)实现了这个功能！_
 
-A few interesting updates for users of `@remotion/three`:
+## `@remotion/three` 的更新
 
-- The Three Canvas is now wrapped in `<Suspense>` and the render is delayed until the content has been loaded (unsuspended). This works better with the React Three.JS ecosystem and now components such as `drei`’s `<Environment />` component will work out of the box.
-- We now default to the `angle` OpenGL engine for Google Chrome, which we, through empirical testing, have found to have the best overall support for Three.JS content across platforms.
+对于使用 `@remotion/three` 的用户来说，有一些有趣的更新：
 
-## More updates
+- Three Canvas 现在被包裹在 `<Suspense>` 中，并且在内容加载完成后（解除悬挂）才进行渲染。这与 React Three.JS 生态系统更好地配合，现在像 `drei` 的 `<Environment />` 组件将可以直接使用。
+- 我们现在默认使用 `angle` OpenGL 引擎来适配 Google Chrome，在经验测试中发现它在各个平台上对 Three.JS 内容有最佳的整体支持。
 
-- Added support for OTF fonts - _Thanks [William Candillon](https://github.com/remotion-dev/remotion/pull/637)_!
-- Added possibility to customize `<Player>` error message - _Thanks [AudreyKj](https://github.com/remotion-dev/remotion/pull/654)_!
-- Windows Node.JS 14 cleanup bug fixed - _Thanks [Raznov](https://github.com/remotion-dev/remotion/pull/634)_!
-- Upgraded Docusaurus to the newest version, obtaining the newest features and layouts
+## 更多更新
 
-## Hacktoberfest Roundup
+- 增加了对 OTF 字体的支持 - _感谢[William Candillon](https://github.com/remotion-dev/remotion/pull/637)_！
+- 增加了自定义 `<Player>` 错误消息的可能性 - _感谢[AudreyKj](https://github.com/remotion-dev/remotion/pull/654)_！
+- 修复了 Windows Node.JS 14 清理错误 - _感谢[Raznov](https://github.com/remotion-dev/remotion/pull/634)_！
+- 将 Docusaurus 升级到最新版本，获取最新功能和布局
 
-We opted into participating in Hacktoberfest, and put $100 bounties on [11 issues](https://github.com/remotion-dev/remotion/issues?q=+label%3A%22%F0%9F%A5%A8++hacktoberfest%22+) as an extra incentive!
-Every single of those issue has been picked up and solved! Every contributor did a great job, many greatly surpassing our expectations!
+## Hacktoberfest 总结
 
-Thank you everybody who participated and contributed to this release!
+我们选择参加 Hacktoberfest，并在[11个问题](https://github.com/remotion-dev/remotion/issues?q=+label%3A%22%F0%9F%A5%A8++hacktoberfest%22+)上设置了 100 美元的赏金作为额外激励！
+每一个问题都已被解决！每位贡献者都做得很好，许多人远远超出了我们的期望！
+
+感谢所有参与并贡献于此版本的人！

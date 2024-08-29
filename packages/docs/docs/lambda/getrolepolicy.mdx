@@ -6,13 +6,13 @@ slug: /lambda/getrolepolicy
 crumb: "Lambda API"
 ---
 
-Returns an inline JSON policy to be assigned to the 'remotion-lambda-role' role that needs to be created in your AWS account.
+返回一个内联 JSON 策略，用于分配给在您的 AWS 帐户中需要创建的 'remotion-lambda-role' 角色。
 
-These permissions will be given to the Lambda function itself.
+这些权限将授予 Lambda 函数本身。
 
-See [Setup tutorial](/docs/lambda/setup) for setting up Lambda from scratch or [Role permissions](/docs/lambda/permissions#role-permissions) to see a copy of the current policy file with explanations.
+查看[设置教程](/docs/lambda/setup)以从头开始设置 Lambda，或查看[角色权限](/docs/lambda/permissions#role-permissions)以查看带有解释的当前策略文件的副本。
 
-## Example
+## 示例
 
 ```ts twoslash
 import { getRolePolicy } from "@remotion/lambda";
@@ -27,8 +27,9 @@ console.log(getRolePolicy()); /* `
 ` */
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/iam-validation/role-permissions.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/iam-validation/role-permissions.ts)
 - [getUserPolicy()](/docs/lambda/getuserpolicy)
-- [Permissions](/docs/lambda/permissions)
+- [权限](/docs/lambda/permissions)
+

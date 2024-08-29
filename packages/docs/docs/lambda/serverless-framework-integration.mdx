@@ -1,92 +1,69 @@
 ---
 image: /generated/articles-docs-lambda-serverless-framework-integration.png
-title: Using the Serverless Framework with Remotion Lambda
+title: 使用 Serverless Framework 与 Remotion Lambda
 slug: /lambda/serverless-framework-integration
-sidebar_label: Serverless.com integration
+sidebar_label: Serverless.com 集成
 crumb: '@remotion/lambda'
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+本指南将向您展示如何使用 [Serverless Framework (serverless.com)](https://www.serverless.com/) 与 Remotion。
 
-This guide will show you how to use Remotion with [Serverless Framework (serverless.com)](https://www.serverless.com/).
+为了补充本指南，已创建了两个项目。[remotion-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/remotion-app) 包含一个 Remotion 组合和用于部署和删除 AWS 中 Remotion Lambda 基础设施的实用脚本。
 
-To supplement this guide, two projects have been created. The [remotion-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/remotion-app) contains a Remotion composition and utility scripts for deploying and deleting Remotion Lambda infrastructure in AWS.
+[serverless-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/serverless-app) 包含一个部署两个 Lambda 函数的 Serverless 项目。当调用 [render_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/render_handler.ts) 函数时，将调用部署的 Remotion Lambda 函数来渲染视频。[progress_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/progress_handler.ts) 函数跟踪渲染的进度。
 
-The [serverless-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/serverless-app) contains a Serverless project that deploys two Lambda functions. The [render_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/render_handler.ts) function, when invoked, will call the deployed Remotion Lambda function to render a video. The [progress_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/progress_handler.ts) function tracks the progress of the render.
-
-Both functions are configured to be invoked through [API Gateway](https://aws.amazon.com/api-gateway/) and are secured by [Cognito](https://aws.amazon.com/cognito/). The API Gateway and Cognito setup is automatically created by the Serverless deployment script upon execution of `serverless deploy`.
-This assumes that you have knowledge in using [Serverless Framework](https://www.serverless.com/) and understand the syntax of [serverless.yml](https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml).
+这两个函数都配置为通过 [API Gateway](https://aws.amazon.com/api-gateway/) 调用，并由 [Cognito](https://aws.amazon.com/cognito/) 保护。API Gateway 和 Cognito 的设置会在执行 `serverless deploy` 时由 Serverless 部署脚本自动创建。
+这假设您具有使用 [Serverless Framework](https://www.serverless.com/) 的知识，并了解 [serverless.yml](https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml) 的语法。
 
 ## remotion-app
 
-This contains instructions for setting up and installing the `remotion` Lambda to your AWS account. This deployment is designed to be executed on your local machine.
+这包含了将 `remotion` Lambda 部署到您的 AWS 帐户的设置和安装说明。此部署旨在在您的本地计算机上执行。
 
-### Prequisites
+### 先决条件
 
-- Make sure that your local AWS profile is able to deploy to AWS, or follow this [guide](/docs/lambda/setup) to set up a user for your local machine.
+- 确保您的本地 AWS 配置文件能够部署到 AWS，或按照此 [指南](/docs/lambda/setup) 为您的本地计算机设置用户。
 
-### Setup
+### 设置
 
-#### 1. Clone or download the project
+#### 1. 克隆或下载项目
 
-The project can be found at [`remotion-serverless project`](https://github.com/alexfernandez803/remotion-serverless).
+项目可以在[`remotion-serverless 项目`](https://github.com/alexfernandez803/remotion-serverless)找到。
 
 ```bash
 git clone https://github.com/alexfernandez803/remotion-serverless
 ```
 
-#### 2. Go to `remotion-serverless` and traverse to the `remotion-app` directory
+#### 2. 进入 `remotion-serverless` 并转到 `remotion-app` 目录
 
 ```bash
 cd remotion-serverless && cd remotion-app
 ```
 
-#### 3. Install dependencies
-
-<Tabs
-defaultValue="npm"
-values={[
-{ label: 'npm', value: 'npm', },
-{ label: 'yarn', value: 'yarn', },
-{ label: 'pnpm', value: 'pnpm', },
-]
-}>
-<TabItem value="npm">
+#### 3. 安装依赖项
 
 ```bash
 npm i
 ```
 
-  </TabItem>
-
-  <TabItem value="pnpm">
-
 ```bash
 pnpm i
 ```
-
-  </TabItem>
-  <TabItem value="yarn">
 
 ```bash
 yarn
 ```
 
-  </TabItem>
 
-</Tabs>
+#### 4. 配置凭据
 
-#### 4. Configure credentials
-
-An `.env` file needs to be added to the directory to configure the AWS credentials that the project will use for deployment.
+需要在目录中添加一个 `.env` 文件来配置项目将用于部署的 AWS 凭据。
 
 ```bash title=".env"
 AWS_KEY_1=
 AWS_SECRET_1=
 ```
 
-You can use multiple accounts if you would like to do load-balancing.
+如果您希望进行负载均衡，可以使用多个帐户。
 
 ```bash title=".env"
 AWS_KEY_1=
@@ -95,11 +72,11 @@ AWS_KEY_2=
 AWS_SECRET_2=
 ```
 
-The `AWS_KEY_*` and `AWS_SECRET_*` represent the AWS account credentials that are allowed to deploy the Remotion Lambda function.
+`AWS_KEY_*` 和 `AWS_SECRET_*` 代表允许部署 Remotion Lambda 函数的 AWS 帐户凭据。
 
-#### 5. Deploy the Lambda function
+#### 5. 部署 Lambda 函数
 
-The project has the deployment script configured in [package.json](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/package.json).
+项目在 [package.json](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/package.json) 中配置了部署脚本。
 
 ```json title="package.json"
 {
@@ -113,43 +90,22 @@ The project has the deployment script configured in [package.json](https://githu
 }
 ```
 
-<Tabs
-defaultValue="npm"
-values={[
-{ label: 'npm', value: 'npm', },
-{ label: 'yarn', value: 'yarn', },
-{ label: 'pnpm', value: 'pnpm', },
-]
-}>
-<TabItem value="npm">
-
 ```bash
 npm run deploy-fn
 ```
-
-  </TabItem>
-
-  <TabItem value="pnpm">
 
 ```bash
 pnpm run deploy-fn
 ```
 
-  </TabItem>
-  <TabItem value="yarn">
-
 ```bash
 yarn deploy-fn
 ```
 
-  </TabItem>
 
-</Tabs>
+这将执行[部署函数](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/deploy-lambda-fn.ts)，将 Remotion Lambda 部署到您的 AWS 帐户。
 
-This will execute the [deploy function](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/deploy-lambda-fn.ts) that will deploy the Remotion Lambda to your AWS account.
-
-```bash title="deployment logs"
-
+```
 Found 1 accounts. Deploying...
 Ensured function="remotion-render-3-3-78-mem2048mb-disk2048mb-240sec" to region="ap-southeast-2" in account 1
 entryPoint /xxxx/code/remotion-serverless/remotion-app/src/index.tsx
@@ -157,156 +113,117 @@ Deployed site to region="ap-southeast-2" in account 1 with bucket="remotionlambd
 
 ```
 
-#### 6. (Optional) Delete the lambda function if not needed.
+#### 6. (Optional) 如果不需要，删除 lambda 函数。
 
-<Tabs
-defaultValue="npm"
-values={[
-{ label: 'npm', value: 'npm', },
-{ label: 'yarn', value: 'yarn', },
-{ label: 'pnpm', value: 'pnpm', },
-]
-}>
-<TabItem value="npm">
 
 ```bash
 npm run delete-fn
 ```
 
-  </TabItem>
-
-  <TabItem value="pnpm">
 
 ```bash
 pnpm run delete-fn
 ```
 
-  </TabItem>
-  <TabItem value="yarn">
-
 ```bash
 yarn delete-fn
 ```
 
-  </TabItem>
-
-</Tabs>
-
-This will execute the [delete function](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/delete-lambda-fn.ts) which removes the Remotion Lambda function from your AWS account.
+这将执行 [delete function](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/delete-lambda-fn.ts)，从您的 AWS 账户中删除 Remotion Lambda 函数。
 
 ## serverless-app
 
-This contains instructions for setting up and installing Lambda services [render_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/render_handler.ts) and [progress_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/progress_handler.ts) to your AWS account. This guide is designed to be executed on your local machine.
+这包含了设置和安装 Lambda 服务 [render_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/render_handler.ts) 和 [progress_handler](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/progress_handler.ts) 到您的 AWS 账户的说明。本指南旨在在您的本地计算机上执行。
 
-### Context
+### 上下文
 
-This application has been created by an application example from [serverless examples repo](https://github.com/serverless/examples/tree/v3/aws-node-http-api-typescript) and bootstrapped the application using this command.
+此应用程序是通过 [serverless examples repo](https://github.com/serverless/examples/tree/v3/aws-node-http-api-typescript) 中的一个应用示例创建的，并使用以下命令引导了应用程序。
 
 ```bash title="serverless"
 serverless --template-url=https://github.com/serverless/examples/tree/v3/aws-node-http-api-typescript
 ```
 
-After creating the `serverless` application, update it to the latest version by navigating to the application directory using the terminal.
+创建 `serverless` 应用程序后，通过终端导航到应用程序目录，使用以下命令将其更新到最新版本。
 
 ```bash
 npm update
 ```
 
-### Prerequisites
+### 先决条件
 
-- AWS deployment profile on your local machine, to configure an AWS deployment profile on your local machine, follow the guide provided by the [serverless website](https://www.serverless.com/framework/docs/providers/aws/guide/credentials).
-- To install Serverless, follow this [guide](https://www.serverless.com/framework/docs/getting-started).
-- Register for an [serverless account](https://app.serverless.com/), this give you a dashboard that has features such as function lambda invocations.
-- Create an [organization](https://www.serverless.com/console/docs/product/create-org) on your serverless account to associate your `lambda` applications.
-- A AWS policy created named `remotion-executionrole-policy` which is created from this [guide](/docs/lambda/without-iam/#1-create-role-policy).
+- 在您的本地计算机上配置 AWS 部署配置文件，要配置 AWS 部署配置文件，请按照 [serverless 网站](https://www.serverless.com/framework/docs/providers/aws/guide/credentials) 提供的指南操作。
+- 要安装 Serverless，请按照此 [指南](https://www.serverless.com/framework/docs/getting-started) 操作。
+- 注册一个 [serverless 账户](https://app.serverless.com/)，这将为您提供一个仪表板，具有功能如函数 lambda 调用。
+- 在您的 serverless 账户上创建一个 [组织](https://www.serverless.com/console/docs/product/create-org)，以关联您的 `lambda` 应用程序。
+- 创建一个名为 `remotion-executionrole-policy` 的 AWS 策略，该策略是从此 [指南](/docs/lambda/without-iam/#1-create-role-policy) 创建的。
 
-### Setup
+### 设置
 
-#### 1. Clone or download the project
+#### 1. 克隆或下载项目
 
-The project can be found at [`remotion-serverless project`](https://github.com/alexfernandez803/remotion-serverless).  
-If not done in the previous step, clone the project using:
+项目位于 [`remotion-serverless project`](https://github.com/alexfernandez803/remotion-serverless)。  
+如果在上一步中未完成，请使用以下命令克隆项目：
 
 ```bash
 git clone https://github.com/alexfernandez803/remotion-serverless
 ```
 
-#### 2. Go to `remotion-serverless` and traverse to `serverless-app` directory
+#### 2. 进入 `remotion-serverless` 并转到 `serverless-app` 目录
 
 ```bash
 cd remotion-serverless && cd serverless-app
 ```
 
-#### 3. Install dependencies
+#### 3. 安装依赖项
 
-<Tabs
-defaultValue="npm"
-values={[
-{ label: 'npm', value: 'npm', },
-{ label: 'yarn', value: 'yarn', },
-{ label: 'pnpm', value: 'pnpm', },
-]
-}>
-<TabItem value="npm">
 
 ```bash
 npm i
 ```
 
-  </TabItem>
-
-  <TabItem value="pnpm">
-
 ```bash
 pnpm i
 ```
-
-  </TabItem>
-  <TabItem value="yarn">
 
 ```bash
 yarn
 ```
 
-  </TabItem>
+#### 4. 配置 serverless 执行角色
 
-</Tabs>
+每个函数都分配了一个名为 `remotionLambdaServerlessRole` 的角色，因为这两个函数对 Remotion Lambda 具有相同的访问模式。
 
-#### 4. Configure the serverless execution role
+#### 步骤
 
-Each of the function is assigned with a role named `remotionLambdaServerlessRole` as both function has the same access patterns to the Remotion Lambda.
+- 转到 AWS 账户 IAM 角色部分
+- 点击 "创建角色"。
+- 在 "用例" 下，选择 "Lambda"。点击下一步。
+- 在 "权限策略" 下，过滤 `remotion-executionrole-policy` 并选中复选框以分配此策略。如果尚未创建此 `policy`，请按照此 [指南](/docs/lambda/without-iam/#1-create-role-policy) 设置。
+- 此外，在 "权限策略" 中清除过滤器，然后再次过滤 `AWSLambdaBasicExecutionRole`。选中复选框，然后点击下一步。
+- 在最后一步中，将角色命名为 `remotionLambdaServerlessRole`。您可以将其他字段保留为默认值。
+- 点击 "创建角色" 以确认。
 
-#### Steps
+这些步骤创建了一个名为 `remotionLambdaServerlessRole` 的角色，具有来自 `remotion-executionrole-policy` 和 `AWSLambdaBasicExecutionRole` 的权限，允许 lambda 函数创建 Cloudwatch 日志。该角色由 [serverless.yml](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/serverless.yml#L78) 文件中的两个函数引用，这使得这两个 Lambda 函数能够渲染视频并检查渲染进度。
 
-- Go to AWS account IAM Roles section
-- Click "Create role".
-- Under "Use cases", select "Lambda". Click next.
-- Under "Permissions policies", filter for `remotion-executionrole-policy` and click the checkbox to assign this policy. This `policy` should have been created, if not, follow this [guide](/docs/lambda/without-iam/#1-create-role-policy) in setting this up.
-- Additionally, still in "Permission policies" clear the filter and filter again for `AWSLambdaBasicExecutionRole`. Click the checkbox and click next.
-- In the final step, name the role `remotionLambdaServerlessRole` exactly. You can leave the other fields as is.
-- Click "Create role" to confirm.
+#### 5. 登录到 serverless
 
-This steps creates a role named `remotionLambdaServerlessRole` with permissions from `remotion-executionrole-policy` and `AWSLambdaBasicExecutionRole` which allows the lambda function to create Cloudwatch logs. The role is referenced by the two functions in the [serverless.yml](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/serverless.yml#L78) file, which enables the two Lambda functions to render video and check the progress of the render.
-
-#### 5. Login into serverless
-
-From the `serverless-app` directory, execute the `serverless` command.
+从 `serverless-app` 目录，执行 `serverless` 命令。
 
 ```bash
  serverless login
 ```
 
-Follow the prompt, select `Serverless Framework Dashboard`, this will log you into the serverless website so that your application can have a dashboard.
+按照提示，选择 `Serverless Framework Dashboard`，这将使您登录到 serverless 网站，以便您的应用程序可以拥有仪表板。
 
-#### 6. Initialize the serverless project
+#### 6. 初始化 serverless 项目
 
-From the `serverless-app` directory, execute the `serverless` command.
+从 `serverless-app` 目录，执行 `serverless` 命令。
 
 ```bash
  serverless
 ```
 
-This will setup your project for deployment.
+这将设置您的项目以进行部署。
 
 ```bash title="serverless"
  serverless
@@ -318,11 +235,11 @@ Your service is configured with Serverless Dashboard and is ready to be deployed
 
 ```
 
-Select 'n' for the answer of the prompt.
+选择 'n' 作为提示的答案。
 
-#### 7. Deploy the serverless project
+#### 7. 部署 serverless 项目
 
-From the `serverless-app` directory.
+从 `serverless-app` 目录。
 
 ```bash title="serverless deploy"
  serverless deploy
@@ -349,7 +266,7 @@ functions:
   render_progress: api-render-video-dev-render_progress (44 MB)
 ```
 
-The serverless application is configured to be associated in `changeme` organization dashboard from [serverless dashboard](https://app.serverless.com/).
+serverless 应用程序配置为关联到 `changeme` 组织仪表板中的 [serverless dashboard](https://app.serverless.com/)。
 
 ```bash title="serverless.yml"
 org: changeme
@@ -358,26 +275,26 @@ service: api-render-video
 ....
 ```
 
-#### 8. Remove the serverless project from your AWS account, if not needed anymore
+#### 8. 如果不再需要，从您的 AWS 账户中删除 serverless 项目
 
-From the `serverless-app` directory.
+从 `serverless-app` 目录。
 
 ```bash
  serverless remove
 ```
 
-### Interacting with the API
+### 与 API 交互
 
-The API requires an authorization token to interact with it. To obtain the token, first go to the serverless dashboard to retrieve outputs such as `UserPoolRegion`, `UserPoolId`, and `UserPoolClientId`, which are used to authenticate with Cognito. If you do not have a frontend application, you can create a user and an authentication token manually for the API by following this [guide](/docs/lambda/without-iam/example#test-your-endpoint).
+API 需要授权令牌才能与其交互。要获取令牌，请首先转到 serverless 仪表板，检索输出，如 `UserPoolRegion`、`UserPoolId` 和 `UserPoolClientId`，用于与 Cognito 进行身份验证。如果您没有前端应用程序，可以通过按照此 [指南](/docs/lambda/without-iam/example#test-your-endpoint) 手动为 API 创建用户和身份验证令牌。
 
 <img src="/img/serverless-com-integration-serverlesss-output.png" /> <br />
 <br />
 
-From the guide, `YOUR_USER_POOL_CLIENT_ID` is `UserpoolClientId` and `YOUR_USER_POOL_ID` is the `UserPoolId`, the steps should be followed up to retrieving the `IdToken`.
+从指南中，`YOUR_USER_POOL_CLIENT_ID` 是 `UserpoolClientId`，`YOUR_USER_POOL_ID` 是 `UserPoolId`，应该按照步骤进行操作，直到检索到 `IdToken`。
 
-The base API URL is `https://25w651t09g.execute-api.ap-southeast-2.amazonaws.com/dev/render` from the dashboard output `APIGatewayUrl`.
+基本 API URL 是 `https://25w651t09g.execute-api.ap-southeast-2.amazonaws.com/dev/render`，来自仪表板输出 `APIGatewayUrl`。
 
-#### 1. Render a video
+#### 1. 渲染视频
 
 ```bash title="render video"
 curl --location --request POST 'https://xxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/dev/render' \
@@ -392,9 +309,9 @@ curl --location --request POST 'https://xxxxxxxx.execute-api.ap-southeast-2.amaz
 }
 ```
 
-This will initiate the render of the video and provide output with the `renderId` and `bucketName`. The code for the Lambda function is located [here](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/render_handler.ts).
+这将启动视频的渲染，并提供带有 `renderId` 和 `bucketName` 的输出。Lambda 函数的代码位于 [此处](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/render_handler.ts)。
 
-#### 2. Get the progress of the render
+#### 2. 获取渲染进度
 
 ```bash title="progress"
 curl --location --request GET 'https://xxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/dev/render/i9xnfrgXXXX?bucketName=remotionlambda-apsoutheast2-xxxxxxxx' \
@@ -414,16 +331,17 @@ curl --location --request GET 'https://xxxxxxxx.execute-api.ap-southeast-2.amazo
 }
 ```
 
-This API will provide the progress details of the render, indicating whether it is a `success` or `failure`. If the video render is completed, it will provide the `mediaUrl`, which is a pre-signed URL that makes the video downloadable. The code for the Lambda function is located [here](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/progress_handler.ts).
+此 API 将提供渲染的进度详细信息，指示其是 `success` 还是 `failure`。如果视频渲染完成，它将提供 `mediaUrl`，这是一个预签名 URL，可使视频可下载。Lambda 函数的代码位于 [此处](https://github.com/alexfernandez803/remotion-serverless/blob/main/serverless-app/progress_handler.ts)。
 
 ## Notes
 
-- The deployment of Remotion Lambda is configured to be deployed only to `ap-southeast-2` region to simplify the project, adjust this in the code at [region.ts](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/regions.ts).
+- Remotion Lambda 的部署配置为仅部署到 `ap-southeast-2` 区域，以简化项目，您可以在 [region.ts](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/regions.ts) 的代码中调整此设置。
 
-## See also
+## 参见
 
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Using Lambda with SQS](/docs/lambda/sqs)
-- [Permissions](/docs/lambda/permissions)
+- [不使用 IAM 用户使用 Lambda](/docs/lambda/without-iam)
+- [使用 Lambda 与 SQS](/docs/lambda/sqs)
+- [权限](/docs/lambda/permissions)
 - [Serverless Framework](https://www.serverless.com/framework/docs/getting-started)
-- Some code is borrowed from [github-unwrapped-2021](https://github.com/remotion-dev/github-unwrapped-2021/tree/main/src)
+- 一些代码借鉴自 [github-unwrapped-2021](https://github.com/remotion-dev/github-unwrapped-2021/tree/main/src)
+```

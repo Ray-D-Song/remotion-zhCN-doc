@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-dataset-render.png
 id: dataset-render
-sidebar_label: Render a dataset
-title: Render videos programmatically from a dataset
-crumb: "Tutorials"
+sidebar_label: 渲染数据集
+title: 从数据集中以编程方式渲染视频
+crumb: "教程"
 ---
 
 import { Player } from "@remotion/player";
 import { DatasetDemo } from "../components/Dataset/DatasetDemo";
 
-You can use Remotion to do a batch render to create many videos based on a dataset. In the following example, we are going to turn a JSON dataset into a series of videos.
+您可以使用 Remotion 进行批量渲染，根据数据集创建许多视频。在以下示例中，我们将把一个 JSON 数据集转换为一系列视频。
 
-We'll start by creating a blank Remotion project:
+我们将从创建一个空白的 Remotion 项目开始：
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -56,9 +56,9 @@ yarn create video --blank
 
 </Tabs>
 
-## Sample dataset
+## 示例数据集
 
-JSON is the most convenient format to import in Remotion. If your dataset is in a different format, you can convert it using one of many available libraries on NPM.
+JSON 是在 Remotion 中导入的最方便的格式。如果您的数据集是以不同格式存在的，您可以使用 NPM 上的许多可用库之一进行转换。
 
 ```ts title="my-data.ts"
 export const data = [
@@ -75,9 +75,9 @@ export const data = [
 ];
 ```
 
-## Sample component
+## 示例组件
 
-This component will animate a title, subtitle and image using Remotion. Replace the contents of the `src/Composition.tsx` file with the following:
+此组件将使用 Remotion 动画化标题、副标题和图像。将 `src/Composition.tsx` 文件的内容替换为以下内容：
 
 ```tsx title="Composition.tsx"
 import React from "react";
@@ -174,10 +174,10 @@ export const MyComposition: React.FC<Props> = ({ name, repo, logo }) => {
 
 <DatasetDemo />
 
-## Writing the script
+## 编写脚本
 
-In order to render our videos, we'll first need to bundle our project using Webpack and prepare it for rendering.
-This can be done by using the [`bundle()`](/docs/bundle) function from the [`@remotion/bundler`](/docs/bundler) package. Make sure to include the webpack override in the bundle if you have one.
+为了渲染我们的视频，我们首先需要使用 Webpack 打包我们的项目并准备好进行渲染。
+这可以通过使用 [`@remotion/bundler`](/docs/bundler) 包中的 [`bundle()`](/docs/bundle) 函数来完成。如果有 webpack 覆盖，请确保在捆绑时包含 webpack 覆盖。
 
 ```ts twoslash
 // @filename: webpack-override.ts
@@ -197,13 +197,13 @@ const bundleLocation = await bundle({
 });
 ```
 
-## Rendering videos
+## 渲染视频
 
-Import the dataset and loop over each entry.
+导入数据集并循环遍历每个条目。
 
-Fetch the composition metadata for each render using [`selectComposition()`](/docs/renderer/select-composition). You have the opportunity to parametrize the duration, width and height of the composition based on the data entry with the [`calculateMetadata()`](/docs/dynamic-metadata) function.
+使用 [`selectComposition()`](/docs/renderer/select-composition) 获取每个渲染的组合元数据。您可以使用 [`calculateMetadata()`](/docs/dynamic-metadata) 函数基于数据条目参数化组合的持续时间、宽度和高度。
 
-Trigger a render using [`renderMedia()`](/docs/renderer/render-media) and pass the data entry as [`inputProps`](/docs/renderer/render-media#inputprops). This will pass the object as React props to the component above.
+触发使用 [`renderMedia()`](/docs/renderer/render-media) 并将数据条目作为 [`inputProps`](/docs/renderer/render-media#inputprops) 传递。这将将对象作为 React props 传递给上面的组件。
 
 ```ts twoslash
 // @module: esnext
@@ -247,10 +247,10 @@ for (const entry of data) {
 ```
 
 :::note
-It is not recommended to render more than one video at once.
+不建议同时渲染多个视频。
 :::
 
-## Full script
+## 完整脚本
 
 ```ts twoslash title="render.mjs"
 // @filename: dataset.ts
@@ -305,7 +305,7 @@ for (const entry of data) {
 }
 ```
 
-## Running the script
+## 运行脚本
 
 <Tabs
 defaultValue="Node"
@@ -320,7 +320,7 @@ values={[
 node render.mjs
 ```
 
-To use TypeScript, rename the file to `render.ts`, install `ts-node` from npm and run `ts-node render.ts`. If you get errors, wrap the asynchronous code in an async function and call it.
+要使用 TypeScript，请将文件重命名为 `render.ts`，从 npm 安装 `ts-node` 并运行 `ts-node render.ts`。如果出现错误，请将异步代码包装在异步函数中并调用它。
 
   </TabItem>
   <TabItem value="Bun">
@@ -329,32 +329,33 @@ To use TypeScript, rename the file to `render.ts`, install `ts-node` from npm an
 bun render.mjs
 ```
 
-TypeScript should work out of the box if you rename your file to `render.ts`.
+如果将文件重命名为 `render.ts`，TypeScript 应该可以直接使用。
 
   </TabItem>
 </Tabs>
 
-## Rendering videos from a CSV dataset
+## 从 CSV 数据集渲染视频
 
-Use a package like [`csv2json`](https://www.npmjs.com/package/csv2json) to convert your dataset into a JSON.
+使用类似 [`csv2json`](https://www.npmjs.com/package/csv2json) 的软件包将数据集转换为 JSON。
 
-## See also
+## 参见
 
-- [Example repository using a dataset](https://github.com/alexfernandez803/remotion-dataset)
+- [使用数据集的示例存储库](https://github.com/alexfernandez803/remotion-dataset)
 
 <Credits
   contributors={[
     {
       username: "alexfernandez803",
-      contribution: "Author",
+      contribution: "作者",
     },
     {
       username: "ThePerfectSystem",
-      contribution: "Author",
+      contribution: "作者",
     },
     {
       username: "JonnyBurger",
-      contribution: "Editor",
+      contribution: "编辑",
     },
   ]}
 />
+

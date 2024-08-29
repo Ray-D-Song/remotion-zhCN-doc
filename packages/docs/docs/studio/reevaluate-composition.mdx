@@ -4,19 +4,19 @@ title: reevaluateComposition()
 crumb: "@remotion/studio"
 ---
 
-# reevaluateComposition()<AvailableFrom v="4.0.167"/>
+# 重新评估组合()<AvailableFrom v="4.0.167"/>
 
-Re-runs [`calculateMetadata()`](/docs/calculate-metadata) on the currently selected composition.  
-This is useful if the function relies on:
+重新运行[`calculateMetadata()`](/docs/calculate-metadata)在当前选择的组合上。  
+如果函数依赖于以下内容，则此功能很有用：
 
-- The `public/` folder
-- Randomness
-- Changing network resources
-- Time
+- `public/` 文件夹
+- 随机性
+- 更改网络资源
+- 时间
 
-## Example
+## 示例
 
-```tsx twoslash title="Re-run calculateMetadata() on the currently selected composition"
+```tsx twoslash title="在当前选择的组合上重新运行calculateMetadata()"
 import React, { useCallback } from "react";
 import { reevaluateComposition } from "@remotion/studio";
 
@@ -31,7 +31,8 @@ export const ReevaluateCompositionComp: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/reevaluate-composition.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/reevaluate-composition.ts)
 - [`calculateMetadata()`](/docs/calculate-metadata)
+

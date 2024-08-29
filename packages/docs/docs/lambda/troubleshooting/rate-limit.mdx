@@ -1,56 +1,56 @@
 ---
 image: /generated/articles-docs-lambda-troubleshooting-rate-limit.png
 id: rate-limit
-sidebar_label: Rate Limit
-title: AWS Rate Limit Troubleshooting
-crumb: "Lambda Troubleshooting"
+sidebar_label: 速率限制
+title: AWS 速率限制故障排除
+crumb: "Lambda 故障排除"
 ---
 
-If you get an error message:
+如果您收到错误消息：
 
 ```
 TooManyRequestsException: Rate Exceeded.
 ```
 
-while calling a Lambda function, it means your concurrency limit has been reached.
+在调用 Lambda 函数时，这意味着您的并发限制已达到。
 
-- **Concurrency limit**: The maximum amount of Lambda functions that can run concurrently per region per account.
-- **Burst limit**: The maximum amount of concurrency increase in 10 seconds (the burst limit is 1000)
+- **并发限制**：每个区域每个帐户可以同时运行的 Lambda 函数的最大数量。
+- **突发限制**：在 10 秒内并发增加的最大数量（突发限制为 1000）
 
-## Default concurrency limits
+## 默认并发限制
 
-By default, the concurrency limit is 1000 functions per region, however in some regions the burst limit is only 500, somewhat limiting the scale you can use.
+默认情况下，并发限制为每个区域 1000 个函数，但在某些区域，突发限制仅为 500，从某种程度上限制了您可以使用的规模。
 
-## Exception: New accounts using AWS Lambda
+## 异常情况：使用 AWS Lambda 的新帐户
 
-According to AWS, "some accounts" which are new to AWS Lambda might get a very low concurrency limit such as 10 when they first start with AWS Lambda. In that case, increase the limit via the AWS console or the Remotion CLI (see below).
+根据 AWS 的说法，“一些帐户”在首次使用 AWS Lambda 时可能会获得非常低的并发限制，例如 10。在这种情况下，请通过 AWS 控制台或 Remotion CLI（见下文）增加限制。
 
-## See your limits
+## 查看您的限制
 
-To see your limits, run
+要查看您的限制，请运行
 
 ```
 npx remotion lambda quotas
 ```
 
 :::note
-If you get a permission error, repeat the user policy step in the [Setup Guide](/docs/lambda/setup) and update your user policy file in the AWS console.
+如果出现权限错误，请在 [设置指南](/docs/lambda/setup) 中重复用户策略步骤，并在 AWS 控制台中更新您的用户策略文件。
 :::
 
-## Request an increase
+## 请求增加
 
-You can request a quota increase under [`https://console.aws.amazon.com/servicequotas/home`](https://console.aws.amazon.com/servicequotas/home) or using the [Remotion CLI](/docs/lambda/cli/quotas):
+您可以在 [`https://console.aws.amazon.com/servicequotas/home`](https://console.aws.amazon.com/servicequotas/home) 或使用 [Remotion CLI](/docs/lambda/cli/quotas) 请求配额增加：
 
 ```
 npx remotion lambda quotas increase
 ```
 
 :::note
-This only works for AWS Root accounts, not the children of an organization. You can still request an increase via the console.
+这仅适用于 AWS 根帐户，而不适用于组织的子帐户。您仍然可以通过控制台请求增加。
 :::
 
-[See here](/docs/lambda/limits#if-aws-asks-you-for-the-reason) for a default answer if AWS asks why you requested the increase.
+[在此处查看](/docs/lambda/limits#if-aws-asks-you-for-the-reason) 如果 AWS 询问您请求增加的原因的默认答案。
 
-## Unhelpful?
+## 没有帮助？
 
-Contact the Remotion team, preferrably via [Discord](https://remotion.dev/discord) and we will be happy to help you with your rate limit problem.
+请联系 Remotion 团队，最好通过 [Discord](https://remotion.dev/discord) 联系我们，我们将乐意帮助您解决速率限制问题。

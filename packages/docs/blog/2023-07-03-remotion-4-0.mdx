@@ -2,15 +2,15 @@
 slug: 4-0
 title: Remotion 4.0
 author: Jonny Burger
-author_title: Chief Hacker @ Remotion
+author_title: Remotion首席黑客
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: /img/4-0.png
-description: Introducing visual editing, Rust-powered architecture, and the Render Button.
+description: 介绍视觉编辑、Rust 引擎架构和渲染按钮。
 ---
 
-Welcome to the biggest Remotion update ever!  
-With Remotion 4.0, we offer significant improvements to every workflow.
+欢迎来到迄今为止最大的 Remotion 更新！  
+通过 Remotion 4.0，我们为每个工作流程提供了显著的改进。
 
 <iframe
   style={{
@@ -18,7 +18,7 @@ With Remotion 4.0, we offer significant improvements to every workflow.
     aspectRatio: '16 / 9',
   }}
   src="https://www.youtube.com/embed/S3C9wlPNhkQ"
-  title="YouTube video player"
+  title="YouTube 视频播放器"
   frameborder="0"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowfullscreen
@@ -30,157 +30,159 @@ With Remotion 4.0, we offer significant improvements to every workflow.
 <a style={{
   color: 'var(--text-color)',
   border: '3px solid var(--text-color)',
-display: 'block',
-padding: '10px 15px',
-borderRadius: 10,
-textDecoration: 'none',
+  display: 'block',
+  padding: '10px 15px',
+  borderRadius: 10,
+  textDecoration: 'none',
 }} href="/4">
 
 <div>
-Discover the new features of Remotion 4.0 in a new video every day. <svg style={{verticalAlign: 'text-bottom', marginLeft: 6}} xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M422.6 278.6L445.3 256l-22.6-22.6-144-144L256 66.7 210.8 112l22.6 22.6L322.8 224 32 224 0 224l0 64 32 0 290.7 0-89.4 89.4L210.8 400 256 445.3l22.6-22.6 144-144z"/></svg>
+在每天的新视频中发现 Remotion 4.0 的新功能。 <svg style={{verticalAlign: 'text-bottom', marginLeft: 6}} xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M422.6 278.6L445.3 256l-22.6-22.6-144-144L256 66.7 210.8 112l22.6 22.6L322.8 224 32 224 0 224l0 64 32 0 290.7 0-89.4 89.4L210.8 400 256 445.3l22.6-22.6 144-144z"/></svg>
 </div>
 </a>
 
-## Introducing the Remotion Studio
+## 介绍 Remotion Studio
 
-We added handy features to the Remotion Preview - as a result, it's more than just a preview! Therefore, we renamed it: Say hello to the Remotion Studio.
+我们为 Remotion 预览添加了方便的功能 - 因此，它不仅仅是一个预览！因此，我们将其重命名为：欢迎使用 Remotion Studio。
 
-### Interactive editing of props
+### 交互式编辑 props
 
-The props of a composition can now be defined as a [Zod](https://zod.dev) schema.  
-Doing this will not only make your `defaultProps` typesafe, but also allow you to edit them in the Remotion Studio.
+现在可以将合成的 props 定义为 [Zod](https://zod.dev) 模式。  
+这样做不仅会使您的 `defaultProps` 具有类型安全性，还可以让您在 Remotion Studio 中编辑它们。
 
-Edit numbers, strings, arrays, objects, enums and dates directly using a graphical interface. Even nested data structures can be visualized and edited.
+使用图形界面直接编辑数字、字符串、数组、对象、枚举和日期。甚至可以可视化和编辑嵌套数据结构。
 
-Once you are happy with the changes you've made, you can even save the props back to your project. This works with arbitrary JSON data.
+一旦您对所做的更改满意，甚至可以将 props 保存回您的项目。这适用于任意 JSON 数据。
 
-**Read more**: [Visual editing](/docs/visual-editing)
 
-### Render Button
 
-Instead of typing in a CLI command, you can now simply press a button to render an asset.
+**阅读更多**：[可视化编辑](/docs/visual-editing)
 
-A graphical interface allows you to discover and tweak all options of a render. You can follow the progress of a render in the Remotion Studio, queue multiple renders, and reveal the output in the file explorer.
+### 渲染按钮
 
-Every render triggered through the UI is also trackable in the CLI as usual and synchronizes to other instances of the Remotion Studio.  
-Failed renders show the stack trace and allow for retries with the same configuration.
+现在，您可以通过按下按钮来渲染资源，而不是输入 CLI 命令。
 
-Edited props in the Remotion Studio can be used to render a video using the Render Button as well - which means you can now render a parameterized video by filling out a form and not having to touch any code.
+图形界面允许您发现和调整渲染的所有选项。您可以在 Remotion Studio 中跟踪渲染的进度，排队多个渲染，并在文件资源管理器中查看输出。
 
-**Learn more** on July 5th: [Render Button](/4)
+通过 UI 触发的每个渲染也可以像往常一样在 CLI 中进行跟踪，并与 Remotion Studio 的其他实例同步。  
+失败的渲染会显示堆栈跟踪，并允许使用相同配置重试。
 
-## Rust-powered architecture
+在 Remotion Studio 中编辑的属性也可以用于使用渲染按钮渲染视频 - 这意味着您现在可以通过填写表单而不必触碰任何代码来渲染参数化视频。
 
-Remotion 4.0 ships with a Rust binary that speeds up current and future features.
+**了解更多**：7 月 5 日：[渲染按钮](/4)
 
-### FFmpeg is baked in
+## 由 Rust 驱动的架构
 
-Installing FFmpeg is now superfluous, as each Remotion project comes with a tiny version of FFmpeg baked into it.
+Remotion 4.0 配备了一个 Rust 二进制文件，可以加速当前和未来的功能。
 
-We eliminate the our burden of having to support multiple versions of FFmpeg, and you don't have to worry about installing it anymore.
+### 内置 FFmpeg
 
-We ship a custom build of FFmpeg 6.0, which is much smaller than a version that you would download. On Lambda, it decreases the cold start time of your functions.
+现在安装 FFmpeg 已经不再必要，因为每个 Remotion 项目都附带了一个微小版本的 FFmpeg。
 
-We also get access to the low-level C API that allows us to do things that were not possible before.
+我们消除了支持多个版本的 FFmpeg 的负担，您也不必再担心安装它了。
 
-### Faster `<OffthreadVideo>`
+我们提供了一个自定义构建的 FFmpeg 6.0，比您下载的版本要小得多。在 Lambda 上，它可以减少函数的冷启动时间。
 
-The [`<OffthreadVideo>`](/docs/offthreadvideo) component is the preferred way to embed an existing video into a Remotion project.
+我们还可以访问低级别的 C API，使我们能够做以前不可能的事情。
 
-While previously, frames were extracted using the FFmpeg CLI, we now use the FFmpeg C API to extract frames. Because we can keep the video open between extractions, this is much faster than before
+### 更快的 `<OffthreadVideo>`
 
-Unnecessary redundant decoding work can now be skipped, which makes the component up to [twice as fast](https://github.com/remotion-dev/4-0-benchmark) during rendering!
+[`<OffthreadVideo>`](/docs/offthreadvideo) 组件是将现有视频嵌入到 Remotion 项目中的首选方式。
 
-## Support for WebP and PDF generation
+以前，使用 FFmpeg CLI 提取帧，现在我们使用 FFmpeg C API 提取帧。因为我们可以在提取之间保持视频打开，所以这比以前快得多。
 
-Previously you could generate PNGs and JPEGs using Remotion - now we support WebP and PDF as well!
+现在可以跳过不必要的冗余解码工作，这使得在渲染过程中该组件的速度提高了[两倍](https://github.com/remotion-dev/4-0-benchmark)！
 
-There are plenty of ways you can render stills: the new [Render button](/docs/render), the [`npx remotion still`](/docs/cli/still) command, the [`renderStill()`](/docs/renderer/render-still) Node.JS API, render on Lambda with [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) or on Google Cloud Run using [`renderStillOnCloudrun()`](https://cloudrun.remotion.dev/docs/cloudrun/renderstilloncloudrun)!
+## 支持 WebP 和 PDF 生成
 
-## Easier data-driven videos
 
-We are introducing a new [`calculateMetadata()`](/docs/composition#calculatemetadata) API for the `<Composition>` component. It helps if you want to:
+以前您可以使用 Remotion 生成 PNG 和 JPEG - 现在我们还支持 WebP 和 PDF！
 
-<Step>1</Step> Adjust the duration or resolution based on the props of the React
-component <br />
-<Step>2</Step> Perform data fetching before the video renders <br />
-<Step>3</Step> Precalculate props before mounting the React component <br />
+有很多方法可以渲染静态图像：新的 [渲染按钮](/docs/render)，[`npx remotion still`](/docs/cli/still) 命令，[`renderStill()`](/docs/renderer/render-still) Node.JS API，在 Lambda 上渲染使用 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)，或者在 Google Cloud Run 上使用 [`renderStillOnCloudrun()`](https://cloudrun.remotion.dev/docs/cloudrun/renderstilloncloudrun)！
+
+## 更易于数据驱动的视频
+
+我们为 `<Composition>` 组件引入了一个新的 [`calculateMetadata()`](/docs/composition#calculatemetadata) API。如果您想要：
+
+<Step>1</Step> 根据 React 组件的 props 调整持续时间或分辨率 <br />
+<Step>2</Step> 在视频渲染之前执行数据获取 <br />
+<Step>3</Step> 在挂载 React 组件之前预先计算 props <br />
 <br />
 
-To demonstrate the possibilities of the new API, we made a new section in the docs entirely dedicated to data-driven videos. See: [Parameterized rendering](/docs/parameterized-rendering).
+为了展示新 API 的可能性，我们在文档中专门添加了一个完全专注于数据驱动视频的新部分。请参阅：[参数化渲染](/docs/parameterized-rendering)。
 
-## Upgraded templates
+## 升级的模板
 
-All of our [templates](/templates) have been upgraded to use Remotion 4.0. Many of them make use of the new features, for example the popular [Text-to-speech](/templates/tts) template allows you to customize the text and voice, and the template will automatically adjust the duration of the video to match.
+我们所有的 [模板](/templates) 都已升级为使用 Remotion 4.0。其中许多模板利用了新功能，例如流行的 [文本转语音](/templates/tts) 模板允许您自定义文本和语音，模板将自动调整视频的持续时间以匹配。
 
-We also introduce two new templates: [Text-to-speech (Google)](/templates/google-tts) which is an alternative to the Azure TTS template, as well as [https://www.remotion.dev/templates/stargazer] which is a popular template for celebrating GitHub star milestones and can now be initialized using `npm init video`.
+我们还推出了两个新模板：[文本转语音 (Google)](/templates/google-tts) 是 Azure TTS 模板的替代品，以及 [https://www.remotion.dev/templates/stargazer] 是一个用于庆祝 GitHub 星标里程碑的热门模板，现在可以使用 `npm init video` 进行初始化。
 
-## More features
+## 更多功能
 
-These features added inbetween v3.3 and v4.0 are worth highlighting:
+在 v3.3 和 v4.0 之间添加的这些功能值得强调：
 
-### `@remotion/rive` package
+### `@remotion/rive` 包
 
-[Rive](https://rive.app) is a faster and smaller alternative to Lottie.  
-With the new [`@remotion/rive`](/docs/rive) package, you can include Rive animations in your project.
+[Rive](https://rive.app) 是 Lottie 的更快速更小的替代品。  
+通过新的 [`@remotion/rive`](/docs/rive) 包，您可以在项目中包含 Rive 动画。
 
-### `@remotion/shapes` package
+### `@remotion/shapes` 包
 
-[`@remotion/shapes`](/docs/shapes) is a handy package for including geometric shapes like [`<Triangle>`](/docs/shapes/triangle), [`<Star>`](/docs/shapes/star) or [`<Pie>`](/docs/shapes/pie) in your components!
+[`@remotion/shapes`](/docs/shapes) 是一个方便的包，用于在您的组件中包含几何形状，如 [`<Triangle>`](/docs/shapes/triangle)、[`<Star>`](/docs/shapes/star) 或 [`<Pie>`](/docs/shapes/pie)！
 
-Those components are easy to animate, pure, dependency-free and work well with [`@remotion/paths`](/docs/paths).
+这些组件易于动画化，纯净，无依赖，并且与 [`@remotion/paths`](/docs/paths) 配合良好。
 
-Each shape can be used as a React component [`<Star>`](/docs/shapes/star) or as a pure function that returns an SVG path [`makeStar()`](/docs/shapes/make-star).
+每个形状都可以作为一个 React 组件 [`<Star>`](/docs/shapes/star)，或作为一个返回 SVG 路径的纯函数 [`makeStar()`](/docs/shapes/make-star)。
 
-### `@remotion/tailwind` package
+### `@remotion/tailwind` 包
 
-The new [Tailwind](/docs/tailwind/tailwind) package allows you to install Tailwind more easily in any Remotion project.
+新的 [Tailwind](/docs/tailwind/tailwind) 包使您可以更轻松地在任何 Remotion 项目中安装 Tailwind。
 
-### Finetuned Audio codec
+### 细调音频编解码器
 
-Instead of the audio codec being tied to the video codec, you can now [choose the audio codec independently](/docs/encoding#audio-codec).
+现在，音频编解码器不再与视频编解码器绑定，您现在可以[独立选择音频编解码器](/docs/encoding#audio-codec)。
 
-### Lambda improvements
+### Lambda 改进
 
-- Support for [more regions](/docs/lambda/region-selection) has been added, 20 regions are now supported.
-- The [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) API allows for faster launches of a render.
-- VP9 videos are now supported.
-- [`npx remotion lambda compositions`](/docs/lambda/cli/compositions) and [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda) APIs have now been added.
-- New [PHP](/docs/lambda/php) and [Go](/docs/lambda/go) SDKs
-- New examples for [Serverless](/docs/lambda/serverless-framework-integration) and [SQS](/docs/lambda/sqs) integration.
+- 添加了对[更多地区](/docs/lambda/region-selection)的支持，现在支持 20 个地区。
+- [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) API 可以加快渲染的启动速度。
+- 现在支持 VP9 视频。
+- 添加了 [`npx remotion lambda compositions`](/docs/lambda/cli/compositions) 和 [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda) APIs。
+- 新的 [PHP](/docs/lambda/php) 和 [Go](/docs/lambda/go) SDKs。
+- 为 [Serverless](/docs/lambda/serverless-framework-integration) 和 [SQS](/docs/lambda/sqs) 集成添加了新示例。
 
-### Player improvements
+### 播放器改进
 
-- The Player UI now has an optional [Playback rate control](/docs/player/player#showplaybackratecontrol).
-- The Player now is marked as `"use client"` to support import in React Server Components.
-- New [`mutechange`](/docs/player/player#mutechange), [`scalechange`](/docs/player/player#scalechange), [`volumechange`](/docs/player/player#volumechange) events
+- 播放器 UI 现在具有一个可选的 [播放速率控制](/docs/player/player#showplaybackratecontrol)。
+- 播放器现在标记为 `"use client"`，以支持在 React 服务器组件中导入。
+- 新的 [`mutechange`](/docs/player/player#mutechange)、[`scalechange`](/docs/player/player#scalechange)、[`volumechange`](/docs/player/player#volumechange) 事件。
 
-### ES Module support
+### ES 模块支持
 
-All APIs that can be imported in the browser now have an ES Module version.
+现在，所有可以在浏览器中导入的 API 都有一个 ES 模块版本。
 
-### Font Picker
+### 字体选择器
 
-In your apps, you can now display a [font picker](/docs/font-picker) and load fonts dynamically only when they are needed.
+在您的应用中，您现在可以显示一个 [字体选择器](/docs/font-picker)，并且只在需要时动态加载字体。
 
-### New Core APIs
+### 新核心 API
 
-The [`remotion`](/docs/remotion) package has had the following improvements:
+[`remotion`](/docs/remotion) 包已经有了以下改进：
 
-- [`getStaticFiles()`](/docs/getstaticfiles) allows you get get a list of files in the `public/` folder.
-- [`cancelRender()`](/docs/cancel-render) allows you to abort a render should you run into an error.
-- New Rust-accelerated components: [`<Experimental.Clipper>`](/docs/clipper) and [`<Experimental.Null>`](/docs/null)
-- [`<Series.Sequence>`](/docs/series) and [`<Loop>`](/docs/loop) now support `style` and `ref`.
+- [`getStaticFiles()`](/docs/getstaticfiles) 允许您获取 `public/` 文件夹中的文件列表。
+- [`cancelRender()`](/docs/cancel-render) 允许您在遇到错误时中止渲染。
+- 新的 Rust 加速组件：[`<Experimental.Clipper>`](/docs/clipper) 和 [`<Experimental.Null>`](/docs/null)
+- [`<Series.Sequence>`](/docs/series) 和 [`<Loop>`](/docs/loop) 现在支持 `style` 和 `ref`。
 
-## Join the Cloud Run Alpha
+## 加入 Cloud Run Alpha
 
-As a counterpart for Lambda, we are developing a Google Cloud Run package.  
-The alpha is now available, [help us test it by becoming an early adopter](https://cloudrun.remotion.dev/docs).
+作为 Lambda 的对应物，我们正在开发一个 Google Cloud Run 包。  
+alpha 版本现已可用，[通过成为早期采用者来帮助我们测试](https://cloudrun.remotion.dev/docs)。
 
-## Full Changelog
+## 完整变更日志
 
-See the GitHub release to see the [full changelog](https://github.com/remotion-dev/remotion/releases/tag/v4.0.0).
+查看 GitHub 发布以查看 [完整变更日志](https://github.com/remotion-dev/remotion/releases/tag/v4.0.0)。
 
-## Breaking changes
+## 重大变更
 
-See the [Migration Guide](/docs/4-0-migration) for a full list of breaking changes.
+查看 [迁移指南](/docs/4-0-migration) 以获取完整的重大变更列表。

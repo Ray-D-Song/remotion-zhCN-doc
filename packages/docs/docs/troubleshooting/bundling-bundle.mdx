@@ -1,11 +1,4 @@
----
-image: /generated/articles-docs-troubleshooting-bundling-bundle.png
-sidebar_label: Calling bundle() in bundled code
-title: Calling bundle() in bundled code
-crumb: "Troubleshooting"
----
-
-If you receive the following error:
+如果您收到以下错误：
 
 ```
  ⨯ ./node_modules/@remotion/bundler/node_modules/webpack/lib/FileSystemInfo.js:9:0
@@ -14,7 +7,7 @@ Did you mean './module'?
 Requests that should resolve in the current directory need to start with './'.
 ```
 
-or
+或者
 
 ```
  ⨯ ./node_modules/@remotion/compositor-darwin-arm64/remotion
@@ -22,34 +15,36 @@ Module parse failed: Unexpected character '�' (1:0)
 You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
 ```
 
-it means that the [`bundle()`](/docs/bundle) function is being bundled itself for example by Webpack or ESBuild.
+这意味着[`bundle()`](/docs/bundle)函数本身正在被打包，例如被Webpack或ESBuild打包。
 
-This occurs for example if [`bundle()`](/docs/bundle) or [`deploySite()`](/docs/lambda/deploysite) is being called in a Next.js serverless function.
+例如，如果在Next.js无服务器函数中调用了[`bundle()`](/docs/bundle)或[`deploySite()`](/docs/lambda/deploysite)，就会发生这种情况。
 
-To bundle the `bundle()` function, Webpack needs specific configuration, which is missing.
+要打包`bundle()`函数，Webpack需要特定的配置，但目前缺少这些配置。
 
-However, we don't recommend that you call `bundle()` at runtime at all.
+但是，我们不建议您在运行时调用`bundle()`。
 
-## What you actually want
+## 您实际想要的是什么
 
-Most likely, you don't want to bundle your video at runtime, but rather at build time.
+很可能，您不希望在运行时打包视频，而是在构建时打包。
 
-You only need to re-bundle the video if you change the source code of it. However, this should not be necessary at runtime, as you can parametrize everything without changing the source code.
+只有在更改视频的源代码时才需要重新打包视频。但是，在运行时这是不必要的，因为您可以在不更改源代码的情况下对所有内容进行参数化。
 
-See how to parametrize the [content with input props](/docs/passing-props) as well as the [metadata of your video](/docs/dynamic-metadata).
+查看如何使用[input props](/docs/passing-props)对[视频内容进行参数化](/docs/dynamic-metadata)。
 
-## Recipes
+## 示例
 
-**If you are using a long-running server:** we recommend to call `bundle()` once in a Node.js context and then reusing it for the lifetime of the server. See: [Rendering in Node.js](/docs/ssr-node)
+**如果您正在使用长时间运行的服务器：**我们建议在Node.js上下文中调用`bundle()`一次，然后在服务器的生命周期内重复使用它。参见：[在Node.js中渲染](/docs/ssr-node)
 
-**If you are rendering on Lambda**: Create a bundle and deploy it once either via [`npx remotion sites create`](/docs/lambda/cli/sites#create) or using [`deploySite()`](/docs/lambda/deploysite) in a non-bundled Node.js script and then refer to the bundle via the URL that you get back.
+**如果您在Lambda上渲染**：创建一个捆绑包并通过[`npx remotion sites create`](/docs/lambda/cli/sites#create)或在非捆绑的Node.js脚本中使用[`deploySite()`](/docs/lambda/deploysite)部署一次，然后通过获取的URL引用捆绑包。
 
-In both cases, do all parameterization of the video using [input props](/docs/parameterized-rendering).
+在这两种情况下，使用[input props](/docs/parameterized-rendering)对视频进行所有参数化。
 
-## See also
+## 另请参阅
 
-- [Rendering in Node.js](/docs/ssr-node)
-- [Deploying a site](/docs/lambda/deploysite)
-- [Parameterized rendering](/docs/parameterized-rendering)
+- [在Node.js中渲染](/docs/ssr-node)
+- [部署网站](/docs/lambda/deploysite)
+- [参数化渲染](/docs/parameterized-rendering)
 - [`bundle()`](/docs/bundle)
 - [`deploySite()`](/docs/lambda/deploysite)
+
+I'm ready to translate the Markdown content into Chinese. Please go ahead and paste the content for translation.

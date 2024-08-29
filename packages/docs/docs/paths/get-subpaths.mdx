@@ -4,13 +4,13 @@ title: getSubpaths()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.6_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.6版本开始可用_
 
-Takes an SVG path and returns an array of subpaths.
+接受一个SVG路径并返回一个子路径数组。
 
-Each `M` and `m` statement in a path creates a new subpath.
+路径中的每个`M`和`m`语句都会创建一个新的子路径。
 
-Example of a path that has two straight lines:
+具有两条直线的路径示例：
 
 ```tsx twoslash
 import { getSubpaths } from "@remotion/paths";
@@ -21,7 +21,7 @@ const parts = getSubpaths(`
 `);
 ```
 
-An array is returned containing two parts.
+返回一个包含两部分的数组。
 
 ```tsx twoslash
 import { getSubpaths } from "@remotion/paths";
@@ -37,9 +37,10 @@ console.log(parts[0]); // "M 0 0 L 100 0"
 console.log(parts[1]); // "M 0 100 L 200 100"
 ```
 
-Paths containing relative `m` elements will be converted into `M` elements.
+包含相对`m`元素的路径将被转换为`M`元素。
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-subpaths.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-subpaths.ts)
+

@@ -1,25 +1,26 @@
 ---
 image: /generated/articles-docs-jsx-support.png
 id: javascript
-title: Plain JavaScript
-crumb: "How To"
+title: 纯JavaScript
+crumb: "如何"
 ---
 
-Since Remotion 1.3, you can opt out of Typescript and it's type checking advantages in Remotion. Continue at your own risk.
+自 Remotion 1.3 起，您可以选择退出 Typescript 及其在 Remotion 中的类型检查优势。继续操作需自担风险。
 
-## Opting out of Typescript
+## 选择退出 Typescript
 
-You may import `.js` and `.jsx` files as normal. If you would like to completely move to JS, rename `index.ts` and `Root.tsx` so they have a `.jsx` file extension. Remove types such as `React.FC` and `SpringConfig`.
+您可以像导入 `.js` 和 `.jsx` 文件一样导入。如果您想完全转换为JS，请将 `index.ts` 和 `Root.tsx` 重命名为 `.jsx` 文件扩展名。删除诸如 `React.FC` 和 `SpringConfig` 等类型。
 
-## Upgrading
+## 升级
 
-If you upgrade from Remotion 1.2 or older, consider changing the `npm test` command to also include JavaScript files, and to remove the `tsc` command:
+如果您从 Remotion 1.2 或更旧版本升级，请考虑将 `npm test` 命令更改为包括 JavaScript 文件，并删除 `tsc` 命令：
 
 ```diff
 -  "test": "eslint src --ext ts,tsx && tsc"
 +  "test": "eslint src --ext ts,tsx,js,jsx"
 ```
 
-## See also
+## 另请参阅
 
-- [Custom Webpack config](/docs/webpack) for more advanced tweaking
+- [自定义Webpack配置](/docs/webpack) 以进行更高级的调整
+```

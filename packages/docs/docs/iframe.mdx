@@ -5,14 +5,13 @@ id: iframe
 crumb: "API"
 ---
 
-The `<IFrame />` can be used like the regular `<iframe>` HTML tag.
+`<IFrame />` 可以像常规的 `<iframe>` HTML 标签一样使用。
 
-Remotion automatically wraps the `<iframe>` in a [`delayRender()`](/docs/delay-render) call
-and ensures that the iframe is loaded before rendering the frame.
+Remotion 会自动将 `<iframe>` 包装在 [`delayRender()`](/docs/delay-render) 调用中，并确保在渲染帧之前加载 iframe。
 
-Ideally, the website should not have any animations, since only animations using [`useCurrentFrame()`](/docs/use-current-frame) are supported by Remotion. See [Flickering](/docs/flickering) for an explanation.
+理想情况下，网站不应该有任何动画，因为 Remotion 仅支持使用 [`useCurrentFrame()`](/docs/use-current-frame) 的动画。请参阅 [Flickering](/docs/flickering) 以获取解释。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { IFrame } from "remotion";
@@ -22,22 +21,23 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Props
+## 属性
 
 ### `src`
 
-The URL to load.
+要加载的 URL。
 
 ### `delayRenderTimeoutInMilliseconds`<AvailableFrom v="4.0.140" />
 
-Customize the [timeout](/docs/delay-render#modifying-the-timeout) of the [`delayRender()`](/docs/delay-render) call that this component makes.
+自定义此组件调用的 [`delayRender()`](/docs/delay-render) 的[超时](/docs/delay-render#modifying-the-timeout)。
 
 ### `delayRenderRetries`<AvailableFrom v="4.0.140" />
 
-Customize the [number of retries](/docs/delay-render#retrying) of the [`delayRender()`](/docs/delay-render) call that this component makes.  
-Prefer the [`maxRetries`](/docs/img#maxretries) prop over this.
+自定义此组件调用的 [`delayRender()`](/docs/delay-render) 的[重试次数](/docs/delay-render#retrying)。  
+请优先使用 [`maxRetries`](/docs/img#maxretries) 属性。
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/IFrame.tsx)
-- [Use `<Img>` and `<IFrame>` tags](/docs/use-img-and-iframe)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/IFrame.tsx)
+- [使用 `<Img>` 和 `<IFrame>` 标签](/docs/use-img-and-iframe)
+

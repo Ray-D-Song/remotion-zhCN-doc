@@ -2,67 +2,71 @@
 slug: 2-6
 title: Remotion 2.6
 author: Jonny Burger
-author_title: Remotion Creator
+author_title: Remotion 创始人
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%202.6&description=@remotion/player,%20/public%20folder%20and%20a%20new%20error%20overlay
 ---
 
-The biggest announcement of this release is that the [`@remotion/player`](/player) package is now generally available - but not just that, we have some other sweet new features too!
+这个版本的最大公告是[`@remotion/player`](/player)包现在已经普遍可用 - 但不仅如此，我们还有一些其他很棒的新功能！
 
-## `<Player/>` is now stable
+## `<Player/>` 稳定了
 
 <img src="/img/player-demo.jpg" /><br/>
 <br/>
 
-With the `<Player/>` component, you can embed a Remotion Video inside a React app without rendering the video. The API is modeled after the native HTML `<video>` tag that many developers are already familiar with.
+使用 `<Player/>` 组件，您可以在 React 应用程序中嵌入 Remotion 视频，而无需渲染视频。API 的设计模仿了许多开发人员已经熟悉的原生 HTML `<video>` 标签。
 
-The API allows you to use our predefined controls, or build your own. Familiar UI patterns like volume slider, fullscreen button, as well as gesture mechanics such as click to play/pause are supported.
+该 API 允许您使用我们预定义的控件，或者构建您自己的控件。熟悉的 UI 模式，如音量滑块、全屏按钮，以及手势机制，如单击播放/暂停都得到支持。
 
-You can dynamically update the props of the video at runtime, which creates an experience that stuns user: videos that react to their user input!
+您可以在运行时动态更新视频的属性，从而创造出一个令用户惊叹的体验：视频会根据用户输入做出反应！
 
-On mobile, restrictive policies prevent auto-play of audio content. [We help you](/docs/player/autoplay) architect your player so it can play audio in as many cases as possible while still respecting the browser policies. This includes the option to mount silent audio tags, activate them while the user interacts with the page and use them later to play audio.
+在移动设备上，限制性政策阻止自动播放音频内容。[我们帮助您](/docs/player/autoplay)设计您的播放器，以便在尽可能多的情况下播放音频，同时仍然遵守浏览器政策。这包括选项来挂载静音音频标签，当用户与页面交互时激活它们，并稍后使用它们来播放音频。
 
-In this release, we added a new [`renderLoading`](/docs/player/player#renderloading) prop and wrote docs for how to [scale your player](/docs/player/scaling), [code-sharing between Remotion and Create React App/Next.JS](/docs/player/integration) and [preloading assets](/docs/player/preloading).
+在这个版本中，我们添加了一个新的 [`renderLoading`](/docs/player/player#renderloading) 属性，并编写了关于如何[扩展您的播放器](/docs/player/scaling)、[在 Remotion 和 Create React App/Next.JS 之间共享代码](/docs/player/integration)以及[预加载资源](/docs/player/preloading)的文档。
 
-[See the landing page for `@remotion/player`](/player)  
-[Demo and Documentation](/docs/player)
+[查看 `@remotion/player` 的首页](/player)  
+[演示和文档](/docs/player)
 
-## New error overlay
+## 新的错误叠加
 
-Recently, we broke the error overlay that pops up when your code contains an error. This is now fixed and we went deeper than ever before!
+最近，我们破坏了当您的代码包含错误时弹出的错误叠加层。现在已经修复，而且我们比以往更深入地进行了修复！
+
 
 <img src="/img/error-overlay.png" />
 <br/>
 <br/>
-The Fast Refresh and error overlay is now inlined in our codebase and allows for customization that makes sense for Remotion. The overlay now matches the dark theme of the Remotion Preview and includes handy links such as opening a file in the editor, looking for the error in our GitHub issues and our Discord community.
+现在，快速刷新和错误叠加已经内联到我们的代码库中，并允许进行适合 Remotion 的自定义。叠加现在与 Remotion 预览的深色主题相匹配，并包含方便的链接，例如在编辑器中打开文件，查找错误在我们的 GitHub 问题中以及我们的 Discord 社区。
 
-## Support for `/public` folder
+## 对 `/public` 文件夹的支持
 
-You can now put static files inside a `/public` folder in your Remotion project and load it using the new [`staticFile()`](/docs/staticfile) API.
-If you include the new `<Player />` component in a Create React App or Next.JS project, the folder can be shared across Remotion and the framework you are using.
+您现在可以将静态文件放在 Remotion 项目中的 `/public` 文件夹中，并使用新的 [`staticFile()`](/docs/staticfile) API 加载它。
+如果在 Create React App 或 Next.JS 项目中包含新的 `<Player />` 组件，则该文件夹可以在 Remotion 和您正在使用的框架之间共享。
 
-## `<Audio />` or `<Video />` now support `data:` URLs
+## `<Audio />` 或 `<Video />` 现在支持 `data:` URL
 
-Data URLs are now valid sources for [`<Audio />`](/docs/audio) and [`<Video />`](/docs/video) tags. This is useful for example for tones that are programmatically generated. To help with development of such projects, a new API was added to the `@remotion/media-utils` project: [`audioBufferToDataUrl()`](/docs/audio-buffer-to-data-url). See our festive [Tone.js](https://github.com/remotion-dev/tone-js-example) sample project for an example!
+数据 URL 现在是 [`<Audio />`](/docs/audio) 和 [`<Video />`](/docs/video) 标签的有效来源。例如，这对于以编程方式生成的音调非常有用。为了帮助开发这类项目，`@remotion/media-utils` 项目中添加了一个新的 API：[`audioBufferToDataUrl()`](/docs/audio-buffer-to-data-url)。请查看我们节日版的 [Tone.js](https://github.com/remotion-dev/tone-js-example) 示例项目！
 
-## New audiogram template
+## 新的音频图模板
 
 <img src="/img/audiogram.png" />
 
-When running `npm init video`, there's a new template to choose from: "Audiogram"! This one allows you to convert podcast clips to clean visualizations that you can post on social media.
+运行 `npm init video` 时，现在有一个新模板可供选择："音频图"！这个模板允许您将播客片段转换为干净的可视化效果，您可以在社交媒体上发布。
 
-## `getCompositions()` now returns `defaultProps`
+## `getCompositions()` 现在返回 `defaultProps`
 
-The [`getCompositions()`](/docs/renderer/get-compositions) API has been updated to return a new field for each composition: The `defaultProps` that you have specified for that composition.
+已更新 [`getCompositions()`](/docs/renderer/get-compositions) API，以返回每个组合的一个新字段：您为该组合指定的 `defaultProps`。
 
-## Miscellaneous
+## 其他
 
-- Fixed videos playing in the `<Player />` after they should have ended.
-- Fixed `ended` event in the `<Player />` not firing correctly.
-- Fixed certain vulnerability messages that would show up during installation.
-- Updated `@remotion/three` to use React Three Fiber v7.
+- 修复了在应该结束后继续播放在 `<Player />` 中的视频。
+- 修复了 `<Player />` 中 `ended` 事件未正确触发的问题。
+- 修复了在安装过程中可能出现的某些漏洞消息。
+- 更新了 `@remotion/three`，以使用 React Three Fiber v7。
 
-## What's next
+## 接下来
 
-The next release is finally going to be our new major new release containing a refactor of our rendering pipeline and serverless rendering support. Look out as we release the missing puzzle piece in our vision of programmatic video!
+下一个版本终于将是我们的新主要版本，其中包含我们的渲染管道和无服务器渲染支持的重构。请密切关注，因为我们发布我们的程序化视频愿景中缺失的最后一块拼图！
+
+
+I'm ready to translate the Markdown content into Chinese. Please go ahead and paste the content for translation.

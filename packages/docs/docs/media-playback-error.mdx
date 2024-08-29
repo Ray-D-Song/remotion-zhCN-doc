@@ -1,63 +1,63 @@
 ---
 image: /generated/articles-docs-media-playback-error.png
 id: media-playback-error
-title: "Could not play video/audio with src"
-sidebar_label: Media playback error
-crumb: "Troubleshooting"
+title: "无法播放带有 src 的视频/音频"
+sidebar_label: 媒体播放错误
+crumb: "故障排除"
 ---
 
-The following error may occur in your Remotion project during development or while rendering:
+在开发或渲染过程中，您的 Remotion 项目可能会出现以下错误：
 
 ```diff
-- Error: Could not play video with src [source] [object MediaError]
+- 错误：无法播放带有 src [source] 的视频 [object MediaError]
 ```
 
-or
+或者
 
 ```diff
-- Error: Could not play audio with src [source] [object MediaError]
+- 错误：无法播放带有 src [source] 的音频 [object MediaError]
 ```
 
-This error happens when you are trying to embed a `<Video/>` or `<Audio/>` tag in your Remotion project but the browser is unable to load and play the media. Although the browser does not report the exact error, there are two common reasons for this error.
+当您尝试在 Remotion 项目中嵌入 `<Video/>` 或 `<Audio/>` 标签，但浏览器无法加载和播放媒体时会出现此错误。尽管浏览器没有报告确切的错误，但这种错误有两个常见原因。
 
-## Codec not supported by Chromium
+## Chromium 不支持的编解码器
 
-Unlike Google Chrome, the Chromium Browser does not include proprietary codecs. This means you cannot play MP4/H.264 videos and some audio codecs (more codecs may not be supported).
+与 Google Chrome 不同，Chromium 浏览器不包含专有编解码器。这意味着您无法播放 MP4/H.264 视频和一些音频编解码器（可能不支持更多编解码器）。
 
-**Workaround 1**: Use Chrome, not Chromium.
+**解决方法 1**：使用 Chrome，而不是 Chromium。
 
-**Workaround 2**: Convert videos to WebM, [use Chrome instead of Chromium](/docs/config#setbrowserexecutable), or use [`<OffthreadVideo>`](/docs/offthreadvideo).
+**解决方法 2**：将视频转换为 WebM，[使用 Chrome 而不是 Chromium](/docs/config#setbrowserexecutable)，或使用 [`<OffthreadVideo>`](/docs/offthreadvideo)。
 
 :::note
-Since `v4.0.18`, [downloads a browser](/docs/miscellaneous/chrome-headless-shell) that includes codecs automatically if you don't have a local browser.  
+自 `v4.0.18` 版本起，[如果您没有本地浏览器，则会自动下载包含编解码器的浏览器](/docs/miscellaneous/chrome-headless-shell)。  
 :::
 
-## Invalid source
+## 无效的来源
 
-Make sure you are trying to load a video that is either available locally or publicly on the internet. Open the DevTools, go to the Network tab, track the asset being loaded, and open it in a new tab. Does it actually start playing?
+确保您正在尝试加载的视频是本地可用或公开在互联网上的。打开 DevTools，转到网络选项卡，跟踪正在加载的资源，并在新标签页中打开它。它是否真的开始播放？
 
-## Wrong headers or status code
+## 错误的标头或状态码
 
-In order for the browser being able to play the media, it should be loaded with:
+为了让浏览器能够播放媒体，它应该加载：
 
-- a 200 status code
-- a suitable `Content-Type` header
-- A `Content-Range` header in order to support seeking.
+- 一个 200 状态码
+- 一个适当的 `Content-Type` 标头
+- 一个 `Content-Range` 标头以支持寻址。
 
-Open the DevTools and go to the network tab to validate that this is the case.
+打开 DevTools 并转到网络选项卡，以验证是否符合这些条件。
 
-## Internet Download Manager
+## 互联网下载管理器
 
-[Internet Download Manager](https://www.internetdownloadmanager.com/) is known to manipulate the network traffic causing problems for the browser to load media. Disable it if you have it.
+[互联网下载管理器](https://www.internetdownloadmanager.com/) 会操纵网络流量，导致浏览器无法加载媒体。如果您安装了它，请禁用它。
 
-## Other unsupported codecs
+## 其他不受支持的编解码器
 
-You might be importing a video that is not compatible with Chrome at all, e.g. FLV.
+您可能正在导入一种与 Chrome 完全不兼容的视频，例如 FLV。
 
-## Too many video tags
+## 视频标签过多
 
-The error message might contain `error creating media player`, appearing if too many video tags are created.  
-First check that you are not accidentially creating an infite render loop. For example, changing the `key` frequently will re-create the video tag on every frame:
+如果创建了太多视频标签，可能会出现 `error creating media player` 的错误消息。  
+首先检查您是否意外地创建了一个无限渲染循环。例如，频繁更改 `key` 将在每一帧上重新创建视频标签：
 
 ```tsx twoslash
 const uuidv4 = () => "";
@@ -79,12 +79,12 @@ export default function SBSVideo() {
 }
 ```
 
-If you ruled out this possibility, use [`<OffthreadVideo>`](/docs/offthreadvideo) instead as it does not rely on a `<video>` tag.
+如果排除了这种可能性，请改用 [`<OffthreadVideo>`](/docs/offthreadvideo)，因为它不依赖于 `<video>` 标签。
 
-## Recover from this error<AvailableFrom v="3.3.89" />
+## 从此错误中恢复<AvailableFrom v="3.3.89" />
 
-You can handle this error and replace it with a different video by passing the `onError()` prop to the `<Video>` or `<OffthreadVideo>` component.
+您可以通过将 `onError()` 属性传递给 `<Video>` 或 `<OffthreadVideo>` 组件来处理此错误，并将其替换为不同的视频。
 
-## See also
+## 另请参阅
 
-- [Codec support](/docs/config#setbrowserexecutable)
+- [编解码器支持](/docs/config#setbrowserexecutable)

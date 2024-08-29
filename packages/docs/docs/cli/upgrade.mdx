@@ -1,34 +1,36 @@
 ---
 image: /generated/articles-docs-cli-upgrade.png
-title: npx remotion upgrade
-sidebar_label: upgrade
-crumb: CLI Reference
+title: npx remotion 升级
+sidebar_label: 升级
+crumb: CLI 参考
 ---
 
-Upgrades all Remotion-related packages.
+升级所有与 Remotion 相关的包。
 
 ```
 npx remotion upgrade
 ```
 
-## Flags
+## 标志
 
 ### `--package-manager`<AvailableFrom v="3.2.33"/>
 
-_optional_
+_可选_
 
-Forces a specific package manager to be used. This is useful if you are using Remotion in a monorepo and you want to upgrade all packages at once. By default, Remotion will auto-detect the package manager.
+强制使用特定的包管理器。如果您在 monorepo 中使用 Remotion 并希望一次升级所有包，则这很有用。默认情况下，Remotion 将自动检测包管理器。
 
-Acceptable values are `npm`, `yarn` and `pnpm`
+可接受的值为 `npm`、`yarn` 和 `pnpm`
 
 ### `--version`<AvailableFrom v="4.0.15"/>
 
-Install a specific version. Also enables downgrading to an older version.
+安装特定版本。还可以降级到旧版本。
 
-## Package manager support
+## 包管理器支持
 
-`npm`, `yarn` and `pnpm` are all supported.
+`npm`、`yarn` 和 `pnpm` 都受支持。
 
-## Difference to `npm update`, `yarn upgrade`, `pnpm up`
+## 与 `npm update`、`yarn upgrade`、`pnpm up` 的区别
 
-These commands, when executed without arguments will upgrade all dependencies in your project. We recommend against it because you may unintentionally break other parts of your project when you only wanted to upgrade Remotion.
+这些命令在没有参数的情况下执行时将升级项目中的所有依赖项。我们建议不要这样做，因为您可能会无意中破坏项目的其他部分，而您只想升级 Remotion。
+
+

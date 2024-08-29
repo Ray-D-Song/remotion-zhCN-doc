@@ -1,42 +1,44 @@
 ---
 image: /generated/articles-docs-contributing-formatting.png
-title: Formatting in the Remotion repo
-sidebar_label: Formatting
-crumb: Contributing
+title: 在 Remotion 存储库中的格式设置
+sidebar_label: 格式设置
+crumb: 贡献
 ---
-
-The Remotion codebase uses Prettier and ESLint for formatting and requires all code to be formatted correctly before it is merged.
 
 ## Prettier
 
-In VS Code, you can install the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode). Extensions for other editors are available on the [Prettier website](https://prettier.io/docs/en/editors.html).
+在合并代码之前，Remotion 代码库使用 Prettier 和 ESLint 进行格式设置，并要求所有代码都要正确格式化。
 
-The editor should automatically pick up our `.vscode/settings.json` file and format your code when you save a file.
+### Prettier
 
-To manually format a whole package, run `pnpm exec prettier src --write` on a package. Example:
+在 VS Code 中，您可以安装 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)。其他编辑器的扩展程序可在 [Prettier 网站](https://prettier.io/docs/en/editors.html) 上找到。
+
+编辑器应在您保存文件时自动读取我们的 `.vscode/settings.json` 文件并格式化您的代码。
+
+要手动格式化整个包，请在包上运行 `pnpm exec prettier src --write`。示例：
 
 ```bash
 cd packages/renderer
 pnpm exec prettier src --write
 ```
 
-## ESLint
+### ESLint
 
-ESLint will warn about code style issues and errors. You can install the [ESLint VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension to get warnings in the editor as you write code. Extensions for other editors are available on the [ESLint website](https://eslint.org/docs/user-guide/integrations).
+ESLint 将警告有关代码样式问题和错误。您可以安装 [ESLint VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) 扩展程序，在编写代码时在编辑器中获得警告。其他编辑器的扩展程序可在 [ESLint 网站](https://eslint.org/docs/user-guide/integrations) 上找到。
 
-You can also run `pnpm run lint` in any package to check if there are any errors. Example:
+您还可以在任何包中运行 `pnpm run lint` 来检查是否有任何错误。示例：
 
 ```bash
 cd packages/renderer
 pnpm run lint
 ```
 
-## Testing everything
+## 测试所有内容
 
-You can run
+您可以在根目录中运行
 
 ```bash
 pnpm run stylecheck
 ```
 
-in the root to test locally if the whole repo is well-formatted and will pass the continuous integration checks.
+来本地测试整个存储库是否格式正确，并且能通过持续集成检查。

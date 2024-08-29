@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-troubleshooting-could-not-find-executable-to-run.png
-title: Could not determine executable to run
-crumb: "Troubleshooting"
+title: 无法确定要运行的可执行文件
+crumb: "故障排除"
 ---
 
-If you receive the following error:
+如果您收到以下错误：
 
 ```
 npm ERR! could not determine executable to run
 ```
 
-It may be because you are using the `npx` command but the project is configured to use a different package manager.
+这可能是因为您正在使用 `npx` 命令，但项目配置为使用其他包管理器。
 
-If [Corepack](https://www.totaltypescript.com/how-to-use-corepack) is enabled, the `packageManager` property in `package.json` matters:
+如果启用了 [Corepack](https://www.totaltypescript.com/how-to-use-corepack)，则 `package.json` 中的 `packageManager` 属性很重要：
 
 ```json title="package.json"
 {
@@ -20,12 +20,14 @@ If [Corepack](https://www.totaltypescript.com/how-to-use-corepack) is enabled, t
 }
 ```
 
-If the package manager is set to something else than `npm`, then the `npx` command may give this error message.
+如果包管理器设置为除 `npm` 之外的其他内容，则 `npx` 命令可能会显示此错误消息。
 
-## Resolution
+## 解决方法
 
-Use the correct command runner for your project:
+为您的项目使用正确的命令运行程序：
 
-- If the package manager is set to `pnpm`, use `pnpm exec` instead of `npx`.
-- If the package manager is set to `yarn`, use `yarn` instead of `npx`.
-- If the package manager is set to `bun`, use `bunx` instead of `npx`.
+- 如果包管理器设置为 `pnpm`，请使用 `pnpm exec` 而不是 `npx`。
+- 如果包管理器设置为 `yarn`，请使用 `yarn` 而不是 `npx`。
+- 如果包管理器设置为 `bun`，请使用 `bunx` 而不是 `npx`。
+
+

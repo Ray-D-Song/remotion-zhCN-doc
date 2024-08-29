@@ -5,20 +5,20 @@ title: useOffthreadVideoTexture()
 crumb: "@remotion/three"
 ---
 
-_available from v4.0.83_
+_从 v4.0.83 版本开始可用_
 
-Allows you to use a video in React Three Fiber that is synchronized with Remotion's `useCurrentFrame()`, similar to [`useVideoTexture()`](/docs/use-video-texture), but uses [`<OffthreadVideo>`](/docs/offthreadvideo) instead.
+允许您在 React Three Fiber 中使用与 Remotion 的 `useCurrentFrame()` 同步的视频，类似于 [`useVideoTexture()`](/docs/use-video-texture)，但使用 [`<OffthreadVideo>`](/docs/offthreadvideo)。
 
-This hook only works during rendering. In the Player and the Remotion Studio, use [`useVideoTexture()`](/docs/use-video-texture) instead. See below for an example.
+此钩子仅在渲染期间起作用。在播放器和 Remotion Studio 中，请改用 [`useVideoTexture()`](/docs/use-video-texture)。请参见下面的示例。
 
-This hook was designed to combat limitations of the default `<Video>` element that is used with `useVideoTexture()` hook.
-See: [`<OffthreadVideo> vs <Video>`](/docs/video-vs-offthreadvideo)
+此钩子旨在解决与 `useVideoTexture()` 钩子一起使用的默认 `<Video>` 元素的限制。
+参见：[`<OffthreadVideo> vs <Video>`](/docs/video-vs-offthreadvideo)
 
-The return type of it is a `THREE.Texture | null` which you can assign as a `map` to for example `meshBasicMaterial`. We recommend to only render the material when the texture is not `null` to prevent bugs.
+其返回类型是 `THREE.Texture | null`，您可以将其分配为例如 `meshBasicMaterial` 的 `map`。我们建议仅在纹理不为 `null` 时渲染材质，以防止错误。
 
-## Example
+## 示例
 
-```tsx twoslash title="Simple usage (only works during rendering)"
+```tsx twoslash title="简单用法（仅在渲染期间起作用）"
 import { ThreeCanvas, useOffthreadVideoTexture } from "@remotion/three";
 import { staticFile, useVideoConfig } from "remotion";
 
@@ -39,7 +39,7 @@ const My3DVideo = () => {
 };
 ```
 
-```tsx twoslash title="Use useVideoTexture() only during rendering"
+```tsx twoslash title="仅在渲染期间使用 useVideoTexture()"
 import {
   ThreeCanvas,
   useOffthreadVideoTexture,
@@ -95,40 +95,40 @@ const My3DVideo = () => {
 
 ## API
 
-Takes an object with the following properties:
+接受具有以下属性的对象：
 
 ### `src`
 
-The video source. Can be a URL or a [`staticFile()`](/docs/staticfile).
+视频源。可以是 URL 或 [`staticFile()`](/docs/staticfile)。
 
 ### `playbackRate`
 
-The playback rate of the video. Defaults to `1`.
+视频的播放速率。默认为 `1`。
 
 ### `transparent`
 
-_optional, boolean_
+_可选，布尔值_
 
-If set to `true`, frames will be extracted as PNG, enabling transparency but also slowing down your render.
+如果设置为 `true`，帧将被提取为 PNG，从而启用透明度，但也会减慢渲染速度。
 
-If set to `false` (_default_), frames will be extracted as bitmap (BMP), which is faster.
+如果设置为 `false`（_默认_），帧将被提取为位图（BMP），这更快。
 
 ### `toneMapped`<AvailableFrom v="4.0.117" />
 
-Since Remotion 4.0.117, Remotion will adjust the colors of videos in different color spaces (such as HDR) when converting to RGB, to counteract color shifts.  
-Since the browser is painting in sRGB, this is necessary to ensure that the colors are displayed correctly.  
-This behavior is by default `true` and can be disabled by setting `toneMapped` to `false`.  
-Disabling tone mapping will speed up rendering, but may result in less vibrant colors.
+自 Remotion 4.0.117 版本开始，当将视频转换为 RGB 时，Remotion 将调整不同颜色空间（如 HDR）中的视频颜色，以抵消颜色偏移。
+由于浏览器在 sRGB 中绘制，这是必要的，以确保颜色正确显示。
+此行为默认为 `true`，可以通过将 `toneMapped` 设置为 `false` 来禁用。
+禁用色调映射将加快渲染速度，但可能导致颜色不太鲜艳。
 
-Prior to Remotion 4.0.117, tone mapping was always disabled, and the `toneMapped` prop was not available.
+在 Remotion 4.0.117 之前，色调映射始终被禁用，并且 `toneMapped` 属性不可用。
 
-## Looping a texture
+## 循环纹理
 
-Like `<OffthreadVideo>`, looping a video [is not supported out of the box](/docs/offthreadvideo#looping-a-video) but can be achieved with the `<Loop>` component.
+与 `<OffthreadVideo>` 类似，循环视频[不受支持](/docs/offthreadvideo#looping-a-video) ，但可以通过 `<Loop>` 组件实现。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/three/src/use-offthread-video-texture.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/three/src/use-offthread-video-texture.ts)
 - [`useVideoTexture()`](/docs/use-video-texture)
 - [`<ThreeCanvas />`](/docs/three-canvas)
 - [`<OffthreadVideo> vs <Video>`](/docs/video-vs-offthreadvideo)

@@ -5,17 +5,17 @@ title: <ThreeCanvas>
 crumb: "@remotion/three"
 ---
 
-A wrapper for [React Three Fiber](https://github.com/pmndrs/react-three-fiber)'s `<Canvas />` which synchronizes with Remotions [`useCurrentFrame()`](/docs/use-current-frame).
+一个用于[React Three Fiber](https://github.com/pmndrs/react-three-fiber)的`<Canvas />`的包装器，与Remotion的[`useCurrentFrame()`](/docs/use-current-frame)同步。
 
-Since React Three Fiber is a custom renderer, normally the React contexts that surround it don't work inside. This would normally break the usage of it in Remotion, but this component wraps the contexts so you can write your markup as expected.
+由于React Three Fiber是一个自定义渲染器，通常包围它的React上下文在内部不起作用。这通常会破坏在Remotion中使用它的用法，但是这个组件包装了上下文，因此您可以按预期编写您的标记。
 
-Instead of using React Three Fibers `useFrame` API, you can (and must) write your animations fully declaratively using Remotions `useCurrentFrame` API. This will ensure that you can scrub back and forth in the timeline and pause the animation.
+您可以（并且必须）使用Remotion的`useCurrentFrame` API完全声明性地编写动画，而不是使用React Three Fiber的`useFrame` API。这将确保您可以在时间轴上前后移动并暂停动画。
 
-A browser bug [would normally cause the layout to be broken](https://github.com/pmndrs/react-three-fiber/issues/1394) because we apply a `scale` transform to the canvas in the Studio. To work around this problem, the `<ThreeCanvas />` requires the `width` and `height` props to be set.
+一个浏览器bug[通常会导致布局被破坏](https://github.com/pmndrs/react-three-fiber/issues/1394)，因为我们在Studio中对画布应用了`scale`变换。为了解决这个问题，`<ThreeCanvas />`需要设置`width`和`height`属性。
 
-## Example
+## 示例
 
-A spinning, color changing, scaling cube. This example can also be found in the `examples` folder of the Remotion repo.
+一个旋转、颜色变化、缩放的立方体。此示例也可以在Remotion存储库的`examples`文件夹中找到。
 
 ```tsx twoslash
 import { ThreeCanvas } from "@remotion/three";
@@ -58,10 +58,11 @@ const ThreeBasic: React.FC = () => {
 export default ThreeBasic;
 ```
 
-## Note on `<Sequence>`
+## 关于`<Sequence>`的说明
 
-A [`<Sequence>`](/docs/sequence) by default will return a `<div>` component which is not allowed inside a `<ThreeCanvas>`. To avoid an error, pass `layout="none"` to `<Sequence>`.
+默认情况下，[`<Sequence>`](/docs/sequence)将返回一个不允许在`<ThreeCanvas>`内部的`<div>`组件。为了避免错误，请将`layout="none"`传递给`<Sequence>`。
 
-## See also
+## 参见
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/three/src/ThreeCanvas.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/three/src/ThreeCanvas.tsx)
+

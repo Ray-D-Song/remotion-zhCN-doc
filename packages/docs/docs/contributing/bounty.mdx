@@ -1,62 +1,66 @@
 ---
 image: /generated/articles-docs-contributing-bounty.png
-title: Take and solve bounty issues
-sidebar_label: Bounty issues
-crumb: Contributing
+title: 参与并解决悬赏问题
+sidebar_label: 悬赏问题
+crumb: 贡献
 ---
 
 import { Bounties } from "../../components/Bounties.tsx";
 
-Some issues carry cash bounties that you can earn by solving them.
+一些问题带有现金悬赏，您可以通过解决它们来赚取奖金。
 
 <Bounties />
 
-## Find bounties
+## 查找悬赏
 
-All bounties can be tracked in Remotion’s GitHub Issues. Issues with a bounty have a label `💎 Bounty` on them. <br/>
+所有悬赏都可以在 Remotion 的 GitHub Issues 中跟踪。带有悬赏的问题上有一个标签 `💎 Bounty`。 <br/>
 
-- [View open bounties](https://github.com/remotion-dev/remotion/issues?q=is%3Aopen+label%3A%22%F0%9F%92%8E+Bounty%22+sort%3Aupdated-desc) <br/>
-- [View completed bounties](https://github.com/remotion-dev/remotion/issues?q=label%3A%22%F0%9F%92%8E+Bounty%22+sort%3Aupdated-desc+is%3Aclosed) <br/>
+- [查看开放的悬赏](https://github.com/remotion-dev/remotion/issues?q=is%3Aopen+label%3A%22%F0%9F%92%8E+Bounty%22+sort%3Aupdated-desc) <br/>
+- [查看已完成的悬赏](https://github.com/remotion-dev/remotion/issues?q=label%3A%22%F0%9F%92%8E+Bounty%22+sort%3Aupdated-desc+is%3Aclosed) <br/>
 
-Bounties are also announced in the <a href="https://remotion.dev/discord">Remotion Discord Server</a> in the `#bounties` channel.
+悬赏也会在 <a href="https://remotion.dev/discord">Remotion Discord 服务器</a> 的 `#bounties` 频道中宣布。
 
-## Taking a bounty
+## 接受悬赏
 
-Like a regular issue, you can ask to work on it by commenting on it. For issues with bounties, the Remotion team does a quick screening to see if the experience matches the problem difficulty.
+与普通问题一样，您可以通过评论来表示您愿意解决问题。对于带有悬赏的问题，Remotion 团队会快速筛选以查看经验是否与问题难度匹配。
 
-The assignment is done on a first-come-first-served basis.
+分配是按照先到先得的原则进行的。
 
-Only one bounty at a time is assigned to the same contributor.
+同一贡献者一次只能分配一个悬赏。
 
-## Before starting to solve the issue
+## 开始解决问题之前
 
-Bounties are paid through a third-party platform (i.e., Algora).
+悬赏是通过第三方平台（即 Algora）支付的。
 
-Before you start solving the issue, it’s recommended to create an account on <a href="https://algora.io/">Algora</a>, where you also need to set up and connect your Stripe account. Once you have been assigned the issue and created an account on Algora, you are ready to go.
+在开始解决问题之前，建议您在 <a href="https://algora.io/">Algora</a> 上创建一个帐户，在那里您还需要设置并连接您的 Stripe 帐户。一旦您被分配了问题并在 Algora 上创建了帐户，您就可以开始了。
 
-## Start hacking
+## 开始攻击
 
-It's assumed that you start working on the issue within a reasonable time after it has been assigned to you. Getting stuck is not an issue, but you should communicate it. By telling and describing the challenges, you might get some input from the community, which can help you to solve the issue faster.
+假定您在分配问题后的合理时间内开始解决问题。卡住了不是问题，但您应该进行沟通。通过讲述和描述挑战，您可能会得到社区的一些意见，这有助于您更快地解决问题。
 
-If there is no update from you for a week, and it looks like the issue is abandoned, we reserve the right to reassign the issue to someone else.
+如果您一周内没有更新，并且看起来问题被放弃了，我们保留将问题重新分配给其他人的权利。
 
-## Get help
+## 获取帮助
 
-During [Hacktoberfest](https://github.com/remotion-dev/remotion/issues?q=label%3A%22%F0%9F%A5%A8++hacktoberfest%22+sort%3Aupdated-desc+is%3Aopen) (i.e., October), the Remotion team provides more guidance, since it is about helping first-time contributors.
 
-The rest of the year, there is less guidance provided when tackling a bounty issue. You are expected to have a basic idea how to solve the issue. Of course, questions can always arise, but there is less hand-holding than during Hacktoberfest.
 
-## Acceptance criteria
+在[Hacktoberfest](https://github.com/remotion-dev/remotion/issues?q=label%3A%22%F0%9F%A5%A8++hacktoberfest%22+sort%3Aupdated-desc+is%3Aopen)期间（即十月），Remotion团队提供更多指导，因为这是帮助首次贡献者的活动。
 
-Every bounty issue has a description of what is expected to be delivered. Everytime, the following is expected as well:
+在一年的其余时间里，处理悬赏问题时提供的指导较少。您应该对如何解决问题有基本的了解。当然，总会有问题出现，但与Hacktoberfest期间相比，提供的帮助较少。
 
-- Documentation of new options or features
-- Green checks for tests and formatting
-- No `console.log` and commented out code remaining when you mark the PR as ready
+## 验收标准
 
-## See also
+每个悬赏问题都有一个描述预期交付内容的描述。每次，还期望以下内容：
 
-- [General information](/docs/contributing)
-- [Implementing a new feature](/docs/contributing/feature)
-- [Implementing a new option](/docs/contributing/option)
-- [Writing documentation](/docs/contributing/docs)
+- 新选项或功能的文档
+- 测试和格式的绿色勾选
+- 当您将PR标记为准备就绪时，不应保留`console.log`和注释掉的代码
+
+## 参见
+
+- [一般信息](/docs/contributing)
+- [实现新功能](/docs/contributing/feature)
+- [实现新选项](/docs/contributing/option)
+- [编写文档](/docs/contributing/docs)
+  
+

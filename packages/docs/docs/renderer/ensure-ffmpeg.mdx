@@ -5,13 +5,13 @@ title: ensureFfmpeg()
 crumb: "@remotion/renderer"
 ---
 
-_Available from v3.3, removed from v4.0_
+_从 v3.3 开始可用，从 v4.0 中移除_
 
 :::warning
-This API has been removed in v4.0 and is not necessary to call anymore. This page remains for archival purposes.
+此 API 已在 v4.0 中移除，不再需要调用。此页面仅用于存档目的。
 :::
 
-Checks if the `ffmpeg` binary is installed and if it is not, [downloads it and puts it into your `node_modules` folder](/docs/ffmpeg).
+检查 `ffmpeg` 二进制文件是否已安装，如果没有安装，[将其下载并放入您的 `node_modules` 文件夹](/docs/ffmpeg) 中。
 
 ```ts title="ensure.mjs"
 import { ensureFfmpeg } from "@remotion/renderer";
@@ -19,35 +19,36 @@ import { ensureFfmpeg } from "@remotion/renderer";
 await ensureFfmpeg();
 ```
 
-You might not need to call this function. Remotion will automatically download `ffmpeg` if a render is attempted, and no binary was found.
+您可能不需要调用此函数。如果尝试渲染且未找到二进制文件，则 Remotion 将自动下载 `ffmpeg`。
 
-This function is useful if you need FFmpeg to be ready before the first render is started.
+如果需要在第一次渲染开始之前准备好 FFmpeg，则此函数很有用。
 
-Also call [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe) to get both binaries that Remotion requires.
+还要调用 [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe) 以获取 Remotion 需要的两个二进制文件。
 
-## Options
+## 选项
 
-Optionally, you can pass an object and pass the following options:
+可选地，您可以传递一个对象并传递以下选项：
 
 ### `remotionRoot`
 
 _string_
 
-The directory in which your `node_modules` is located.
+您的 `node_modules` 所在的目录。
 
-## Return value
+## 返回值
 
-A promise which resolves an object with the following properties:
+一个解析为具有以下属性的对象的 Promise：
 
-- `wasAlreadyInstalled`: Boolean whether the binary was downloaded because of this function call.
-- `result`: A string, either `found-in-path`, `found-in-node-modules` or `installed`.
+- `wasAlreadyInstalled`：布尔值，指示是否因为此函数调用而下载了二进制文件。
+- `result`：一个字符串，可以是 `found-in-path`、`found-in-node-modules` 或 `installed`。
 
-## Exceptions
+## 异常
 
-This function throws if no binary was found, the download fails or no binaries are available for your platform.
+如果未找到二进制文件、下载失败或您的平台没有可用的二进制文件，则此函数会抛出异常。
 
-## See also
+## 另请参阅
 
-- CLI equivalent: [`npx remotion install ffmpeg`](/docs/cli/install)
+- CLI 等效命令：[`npx remotion install ffmpeg`](/docs/cli/install)
 - [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe)
-- [Installing FFmpeg](/docs/ffmpeg)
+- [安装 FFmpeg](/docs/ffmpeg)
+

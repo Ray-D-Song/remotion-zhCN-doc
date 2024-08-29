@@ -6,20 +6,20 @@ slug: /lambda/estimateprice
 crumb: "Lambda API"
 ---
 
-Calculates the AWS costs incurred for AWS Lambda given the region, execution duration and memory size based on the AWS Lambda pricing matrix.
+计算基于 AWS Lambda 定价矩阵的区域、执行持续时间和内存大小而产生的 AWS Lambda 成本。
 
-During rendering, many Lambda functions are spawned:
+在渲染期间，会生成许多 Lambda 函数：
 
-- The main function spawns many worker functions, waits for chunks to be rendered, and stitches them together for the full video. This is the longest-running Lambda function.
-- Render functions render a short portion of a video and then shut down.
-- Other short-lived, negligible functions get launched for initializing lambdas and fetching progress.
+- 主函数生成许多工作函数，等待块被渲染，然后将它们拼接在一起以生成完整的视频。这是运行时间最长的 Lambda 函数。
+- 渲染函数渲染视频的一个短部分，然后关闭。
+- 其他短暂的、可以忽略的函数用于初始化 Lambda 和获取进度。
 
-The total duration is the sum of execution duration of all of the above Lambda functions.
-This duration can be passed to `estimatePrice()` to estimate the cost of AWS Lambda.
+总持续时间是上述所有 Lambda 函数的执行持续时间之和。
+可以将此持续时间传递给 `estimatePrice()` 以估算 AWS Lambda 的成本。
 
-The calculated duration does not include costs for S3 and Remotion licensing fees.
+计算的持续时间不包括 S3 和 Remotion 许可费用。
 
-## Example
+## 示例
 
 ```ts twoslash
 import { estimatePrice } from "@remotion/lambda";
@@ -35,34 +35,35 @@ console.log(
 ); // 0.00067
 ```
 
-## Arguments
+## 参数
 
-An object containing the following parameters:
+包含以下参数的对象：
 
 ### `region`
 
-The region in which the Lambda function is executed in. [Pricing varies across regions](/docs/lambda/region-selection#other-considerations).
+Lambda 函数执行的区域。[不同区域的定价有所不同](/docs/lambda/region-selection#other-considerations)。
 
 ### `memorySizeInMb`
 
-The amount of memory that has been given to the Lambda function. May be received with [`getFunctionInfo()`](/docs/lambda/getfunctioninfo).
+分配给 Lambda 函数的内存量。可以使用 [`getFunctionInfo()`](/docs/lambda/getfunctioninfo) 获取。
 
 ### `durationInMilliseconds`
 
-The estimated total execution duration in Milliseconds of all Lambdas combined. See the top of this page for a guide on how to approximate the duration.
+所有 Lambda 组合的预估总执行持续时间（毫秒）。请参考本页顶部的指南以近似持续时间。
 
 ### `lambdasInvoked`
 
-The number of lambdas that were invoked in the rendering process.
+在渲染过程中调用的 Lambda 数量。
 
 ### `diskSizeInMb`
 
-The amount of disk space allocated in megabytes.
+分配的磁盘空间大小（以兆字节为单位）。
 
-## Return value
+## 返回值
 
-The estimated cost in USD as a `number`.
+以 `number` 类型表示的估算成本（美元）。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/estimate-price.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/estimate-price.ts)
+

@@ -1,39 +1,41 @@
 ---
 image: /generated/articles-docs-stills.png
 id: stills
-title: Still images
-crumb: "How to generate"
+title: 静态图像
+crumb: "如何生成"
 ---
 
-_Available from v2.3_
+_从 v2.3 版本开始可用_
 
-Remotion is a great solution for rendering thumbnails of videos or dynamic still images too. See our [Still template](https://github.com/remotion-dev/template-still) for an easy way to get started.
+Remotion 是一个很好的解决方案，用于渲染视频缩略图或动态静态图像。查看我们的[静态模板](https://github.com/remotion-dev/template-still)，以轻松开始。
 
-If you already have a Remotion project, read on how you can render stills.
+如果您已经有一个 Remotion 项目，请继续阅读如何渲染静态图像。
 
-## Defining a still
+## 定义静态图像
 
-Use the [`<Still />`](/docs/still) component instead of the [`<Composition />`](/docs/composition) one to define a still. The timeline will disappear, and you will not have to define a duration or FPS value.
+使用 [`<Still />`](/docs/still) 组件来定义静态图像，而不是使用 [`<Composition />`](/docs/composition)。时间轴将消失，您无需定义持续时间或 FPS 值。
 
-## Rendering via CLI
+## 通过 CLI 渲染
 
-You can use the [`npx remotion still`](/docs/cli/still) command to render a still image. Example command:
+您可以使用 [`npx remotion still`](/docs/cli/still) 命令来渲染静态图像。示例命令：
 
 ```bash
 npx remotion still --props='{"custom": "data"}' my-comp out.png
 ```
 
-You can use the `--image-format` flag to determine the output format. The default format is `png`, with `jpeg`, `webp` and `pdf` being the other options.
+您可以使用 `--image-format` 标志来确定输出格式。默认格式为 `png`，其他选项包括 `jpeg`、`webp` 和 `pdf`。
 
-By default the frame with number of a composition is being rendered, you can control it using the `--frame` flag.
+默认情况下，将渲染一个组合的帧数，您可以使用 `--frame` 标志来控制它。
 
-## Rendering using Node.JS
+## 使用 Node.JS 渲染
 
-You can use the [`renderStill()`](/docs/renderer/render-still) Node.JS API to render a still frame programmatically.
+您可以使用 [`renderStill()`](/docs/renderer/render-still) Node.JS API 来以编程方式渲染静态帧。
 
-## Rendering using serverless
+## 使用无服务器渲染
 
-You can use [Remotion Lambda](/lambda) to render stills:
+您可以使用 [Remotion Lambda](/lambda) 来渲染静态图像：
 
-- Via [CLI](/docs/lambda/cli/still)
-- Via the [renderStillOnLambda](/docs/lambda/renderstillonlambda) API.
+- 通过 [CLI](/docs/lambda/cli/still)
+- 通过 [renderStillOnLambda](/docs/lambda/renderstillonlambda) API。
+
+

@@ -1,47 +1,47 @@
 ---
 image: /generated/articles-docs-miscellaneous-cloud-gpu-docker.png
-title: Setup EC2 for Docker with GPU
-sidebar_label: GPU in the cloud (Docker)
-crumb: "FAQ"
+title: 在 EC2 上设置带 GPU 的 Docker
+sidebar_label: 云中的 GPU（Docker）
+crumb: "常见问题"
 ---
 
-Follow these steps closely to render videos on EC2 in a Docker container.  
-These steps are opinionated, but specify a reference that works.
+遵循以下步骤，以在 EC2 上的 Docker 容器中渲染视频。
+这些步骤是有主观看法的，但指定了一个有效的参考。
 
-A word of warning: Deviating from the instructions, like:
+警告：偏离说明，比如：
 
-- choosing a different AMI
-- choosing a different Docker base
-- choosing something else than EC2
-- choosing a different host machine
+- 选择不同的 AMI
+- 选择不同的 Docker 基础
+- 选择 EC2 之外的其他内容
+- 选择不同的主机
 
-may lead to the GPU not working. In this case, it is hard to debug.  
-We recommend to first follow these instructions and make changes once you have a working setup.
+可能导致 GPU 不起作用。在这种情况下，很难进行调试。
+我们建议首先按照这些说明操作，并在建立起可工作的设置后再进行更改。
 
-## Setup EC2 for Docker with GPU
+## 在 EC2 上设置带 GPU 的 Docker
 
-<Step>1</Step> Follow the instructions for <a href="/docs/miscellaneous/cloud-gpu">GPUs on EC2</a>
-. You can skip installing Chrome, Node.js and cloning the repo to render a video.
+<Step>1</Step> 按照<a href="/docs/miscellaneous/cloud-gpu">EC2 上的 GPU</a>说明操作。
+您可以跳过安装 Chrome、Node.js 和克隆存储库以渲染视频。
 <br />
 
-<Step>2</Step> Install NVIDIA Container toolkit:
+<Step>2</Step> 安装 NVIDIA 容器工具包：
 <br />
 <br />
 
-```bash title="Add keyring"
+```bash title="添加密钥环"
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 sudo apt-get update
 ```
 
-```bash title="Install toolkit"
+```bash title="安装工具包"
 sudo apt-get install -y nvidia-container-toolkit
 ```
 
-<Step>3</Step>Install Docker: <br />
+<Step>3</Step> 安装 Docker：<br />
 <br />
 
-```bash title="Add Docker's official GPG key"
+```bash title="添加 Docker 的官方 GPG 密钥"
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -49,27 +49,27 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 ```
 
-```bash title="Add keyring"
+```bash title="添加密钥环"
 echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 ```
 
-```bash title="Install Docker"
+```bash title="安装 Docker"
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-<Step>4</Step>Configure Docker to use the NVIDIA runtime <br />
+<Step>4</Step>配置Docker以使用NVIDIA运行时 <br />
 <br />
 
-```bash title="Configure the NVIDIA container runtime"
+```bash title="配置NVIDIA容器运行时"
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 ```
 
-<Step>5</Step> Create two files, <code>Dockerfile</code> and <code>entrypoint.sh</code>
-. You can for example create them using the <code>nano ./file-to-create</code> command.
-Use <kbd>Ctrl</kbd>
-<kbd>X</kbd> to save and quit. <br />
+<Step>5</Step> 创建两个文件，<code>Dockerfile</code> 和 <code>entrypoint.sh</code>
+。例如，您可以使用 <code>nano ./file-to-create</code> 命令创建它们。
+使用 <kbd>Ctrl</kbd>
+<kbd>X</kbd> 保存并退出。 <br />
 <br />
 
 ```bash title="Dockerfile"
@@ -98,7 +98,7 @@ CMD ["sh", "./entrypoint.sh"]
 npx remotion render --gl=angle-egl Scene out/video.mp4
 ```
 
-<Step>6</Step> Build the container and run a sample render: <br />
+<Step>6</Step> 构建容器并运行示例渲染: <br />
 <br />
 
 ```bash
@@ -106,24 +106,24 @@ sudo docker build . -t remotion-docker-gpu
 sudo docker run --gpus all --runtime=nvidia -e "NVIDIA_DRIVER_CAPABILITIES=all" remotion-docker-gpu
 ```
 
-## Debugging
+## 调试
 
-Use the [`npx remotion gpu`](/docs/cli/gpu) command to get the output of `chrome://gpu` to verify that the GPU is working.
+使用[`npx remotion gpu`](/docs/cli/gpu) 命令获取 `chrome://gpu` 的输出，以验证 GPU 是否正常工作。
 
-## See also
+## 参见
 
-- [GPUs on EC2](/docs/miscellaneous/cloud-gpu)
-- [Using the GPU](/docs/gpu)
+- [EC2上的GPU](/docs/miscellaneous/cloud-gpu)
+- [使用GPU](/docs/gpu)
 
 <Credits
   contributors={[
     {
       username: "UmungoBungo",
-      contribution: "Workflow author",
+      contribution: "工作流作者",
     },
     {
       username: "kaf-lamed-beyt",
-      contribution: "Writeup",
+      contribution: "撰写",
     },
   ]}
 />

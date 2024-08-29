@@ -1,12 +1,12 @@
 ---
 slug: typeframes
-title: Creating product videos in minutes with Typeframes
+title: 使用 Typeframes 在几分钟内创建产品视频
 image: /img/typeframes.png
 ---
 
 import {NewMuxVideo} from '../src/components/MuxVideo';
 
-[Typeframes](https://typeframes.com) is a tool that helps you create stunning product intro videos for your SaaS product by converting text to video. It simplifies the process, allowing you to plug in your content, choose from a wide variety of effects, and export your video in the desired format.
+[Typeframes](https://typeframes.com) 是一个工具，通过将文本转换为视频，帮助您为 SaaS 产品创建令人惊叹的产品介绍视频。它简化了这个过程，让您可以插入内容，从各种效果中选择，并以所需格式导出视频。
 
 <NewMuxVideo muxId="VasLjYwvbjX8qD2Gr58ujP3Az726hsYHCEj8501uTdg00" style={{
   width: '100%'
@@ -19,50 +19,50 @@ import {NewMuxVideo} from '../src/components/MuxVideo';
 
 <p align="center">
 <em style={{fontSize: "0.9em"}}>
-Typeframes aimes to make video editing for product videos as easy as possible.
+Typeframes 旨在使产品视频的视频编辑尽可能简单。
 </em>
 </p>
 
-**Hi Tibo, could you share a bit about your background and experience with us?**
+**嗨，Tibo，你能和我们分享一下你的背景和经验吗？**
 
-I have been involved in startups for quite some time. I participated in numerous projects that have significantly contributed to my learning and growth. Three years ago, I got into indie hacking again, aspiring to apply and enhance my accumulated experiences.
-I became active on [X](https://twitter.com/tibo_maker) (formerly Twitter), taking on the “build in public” challenge. This involved creating a new product every week, resulting in the creation of ten products in just four months. But it was the eleventh creation, called [Tweet Hunter](https://tweethunter.io/), that gained immediate traction. Initially, it served as a source of inspiration for crafting tweets, but it has transformed into a comprehensive suite of products designed for X.
-Its success was undeniable, and it led to the development of [Taplio](https://taplio.com/), a sister product tailored for LinkedIn users. Tweet Hunter and Taplio eventually caught the attention of [lempire](https://www.lempire.com/), leading to their acquisition.
+我参与创业项目已经有一段时间了。我参与了许多项目，这些项目对我的学习和成长产生了重大影响。三年前，我重新开始进行独立开发，希望应用和提升我积累的经验。
+我开始在 [X](https://twitter.com/tibo_maker)（前身为 Twitter）上活跃起来，接受“公开构建”挑战。这意味着每周创建一个新产品，结果在短短四个月内创建了十个产品。但第十一个创作，名为 [Tweet Hunter](https://tweethunter.io/)，立即引起了轰动。最初，它是用于启发推文创作的工具，但后来演变成了专为 X 设计的一套综合产品。
+它的成功是不可否认的，这导致了 [Taplio](https://taplio.com/) 的开发，这是专为 LinkedIn 用户量身定制的姊妹产品。Tweet Hunter 和 Taplio 最终引起了 [lempire](https://www.lempire.com/) 的注意，导致它们被收购。
 
-More recently, I took the initiative to acquire Typeframes myself, a platform I believe holds immense potential. I was surprised to find it was available for sale, and I am now dedicating my efforts to developing its capabilities further, aiming to establish Typeframes as the premier solution for product videos.
+最近，我主动收购了 Typeframes，这是一个我认为拥有巨大潜力的平台。我惊讶地发现它可以出售，现在我正在致力于进一步发展其功能，旨在将 Typeframes 建立为产品视频的首选解决方案。
 
-**What insights led you to believe that Typeframes was a product in demand before you decided to acquire it?**
+**您是如何得出 Typeframes 是一款备受需求的产品之前决定收购它的见解的？**
 
-Having created numerous product videos myself, I’m well aware of the challenges and the amount of time such videos need. When I stumbled upon Typeframes for the first time, I was amazed how it speeds up the video creation process. Since I’m involved in other products as well, Typeframes is the perfect tool for me because it is an addition to the stack of tools I use to go faster with shipping content to promote new products and features.
+在我自己创建了许多产品视频之后，我深知这类视频所需的挑战和时间。当我第一次接触到 Typeframes 时，我对它加速视频制作过程的能力感到惊讶。由于我还参与其他产品，Typeframes 对我来说是完美的工具，因为它是我用来更快地发布内容以推广新产品和功能的工具堆栈的补充。
 
-I basically applied the same principle as I did for Tweet Hunter and Taplio: If it's making my life easier, it’s probably going to do the same for others. In the end, I just made a bet, and I’m pleased it’s working out so far.
+我基本上应用了我为 Tweet Hunter 和 Taplio 所做的相同原则：如果它让我的生活变得更轻松，那么很可能也会对其他人产生同样的效果。最终，我只是打了个赌，我很高兴目前看来它是成功的。
 
-**After the acquisition, Typeframes seemed to experience quite some growth. Can you share some insights into the adjustments you’ve made to the product?**
+**收购后，Typeframes 似乎经历了相当大的增长。您能分享一些您对产品所做调整的见解吗？**
 
-I’m all about making small, incremental changes that really add up over time. One of the first things we did was roll out a free plan. Now, videos made with this plan have watermarks, but the cool part is that it’s gotten more people trying out and talking about Typeframes, which has really helped spread the word.
+我一直致力于进行小而渐进的变化，随着时间的推移，这些变化确实会累积起来。我们做的第一件事之一是推出了一个免费计划。现在，使用此计划制作的视频会有水印，但很酷的是，这使更多人尝试并谈论 Typeframes，这确实有助于传播信息。
 
-On top of that, I’ve been building the product in public. I’m constantly sharing updates and chatting with users. Sure, it might give some of our ideas away and lead to a few copycats here and there, but I firmly believe in the power of building in public. I think the benefits and the community it builds far outweigh any downsides.
+除此之外，我一直在公开构建产品。我不断分享更新并与用户交流。当然，这可能会透露一些我们的想法，并导致一些模仿者，但我坚信公开构建的力量。我认为它带来的好处和建立的社区远远超过任何不利因素。
 
-**How does Typeframes use Remotion in its infrastructure?**
+**Typeframes 如何在其基础设施中使用 Remotion？**
 
-Remotion is pretty much the magic behind the curtain for us. I can't imagine Typeframes without it in our tech stack.
+对于我们来说，Remotion 几乎就是幕后的魔法。我无法想象没有它的 Typeframes 在我们的技术堆栈中。
 
-We use the Remotion Player to give our users a real-time preview of how their videos are shaping up. They can tweak and play around with the animations and see the changes on the fly. And when it comes to actually rendering the videos, that’s where Remotion Lambda comes in. It handles all the heavy lifting without us needing to manage any servers. This means we don’t have to worry about the scalability of our video rendering.
+我们使用 Remotion Player 为用户提供实时预览，让他们了解他们的视频是如何塑造的。他们可以调整和玩弄动画，并即时查看更改。当涉及实际渲染视频时，Remotion Lambda 就派上用场了。它处理所有繁重的工作，而无需我们管理任何服务器。这意味着我们不必担心视频渲染的可扩展性。
 
-Remotion’s business model is also very encouraging to indie hackers. I’ve got only one person helping me, and we’re keeping things pretty simple. This means it’s not mandatory for us to purchase a Remotion license. However, it’s obvious for us to support Remotion by purchasing a license anyway because it’s providing such value to Typeframes.
+Remotion的商业模式对独立开发者也非常鼓舞人心。我只有一个人帮助我，我们保持事情相当简单。这意味着我们不必购买Remotion许可证。然而，我们显然会通过购买许可证来支持Remotion，因为它为Typeframes提供了如此大的价值。
 
-**You have a massive following on X and LinkedIn but barely one on GitHub. How do you split your time between marketing and coding?**
+**您在X和LinkedIn上拥有庞大的粉丝群，但在GitHub上几乎没有。您如何在营销和编码之间分配时间？**
 
-It’s a sharp observation. Even though I’m an indie hacker and build my products in public, I don’t share my code by default. I assume I will never have a huge following on GitHub.
+这是一个敏锐的观察。尽管我是一名独立开发者，会在公开场合构建我的产品，但我不会默认分享我的代码。我认为我永远不会在GitHub上拥有庞大的粉丝群。
 
-About a quarter of my time goes into marketing on platforms like X, LinkedIn, and Google, while the rest of the time, I’m dedicated to coding and developing the products.
+我的大约四分之一时间用于在X、LinkedIn和Google等平台上进行营销，而其余时间则专注于编码和产品开发。
 
-To some degree, I even mix up those two. I try to develop for marketing. What this means is that when I code, I try to think about how to enable product-led growth. Take the free plan using the watermark I mentioned earlier. Another example would be programmatic SEO and building programmatic pages that may rank on Google. Those things fuel the marketing, and that’s how you grow if you ask me.
+在某种程度上，我甚至将这两者混合在一起。我试图为营销而开发。这意味着当我编码时，我会考虑如何实现产品驱动增长。比如之前提到的使用水印的免费计划。另一个例子是程序化SEO和构建可能在Google上排名的程序化页面。这些事情推动了营销，这就是我认为的成长之道。
 
-**Can you give us a sneak peek into what’s in store for Typeframes?**
+**您能给我们一些关于Typeframes未来计划的小窥探吗？**
 
-It’s always tricky to answer this one. I can tell what’s coming up in the next few weeks or months, but beyond that, it’s really going to depend on how the users react to the new changes we’re rolling out.
+回答这个问题总是有点棘手。我可以告诉你接下来几周或几个月会有什么，但在那之后，真的会取决于用户对我们正在推出的新变化做出的反应。
 
-We've got some exciting developments ahead for Typeframes, and one of the highlights is definitely our upcoming animation library. Picture it as something similar to Canva's image templates, but we're bringing it to life for videos. We look forward to seeing how our users will use Typeframes’ animation library.
+对于Typeframes，我们未来有一些令人兴奋的发展，其中一个亮点绝对是我们即将推出的动画库。可以将其想象为类似于Canva的图像模板，但我们将其带到视频中。我们期待看到我们的用户如何使用Typeframes的动画库。
 
-Editor's note: You can follow Tibo (Thibault Louis-Lucas) on [X](https://twitter.com/tibo_maker) and [LinkedIn](https://www.linkedin.com/in/thibaultll/), where he shares his indie hacker journey and Typeframes’ development.
+编辑注：您可以在[X](https://twitter.com/tibo_maker)和[LinkedIn](https://www.linkedin.com/in/thibaultll/)上关注Tibo（Thibault Louis-Lucas），他在那里分享他的独立开发者之旅和Typeframes的发展。

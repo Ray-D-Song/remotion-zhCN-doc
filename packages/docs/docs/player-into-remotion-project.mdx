@@ -1,26 +1,22 @@
 ---
 image: /generated/articles-docs-player-into-remotion-project.png
 id: player-into-remotion-project
-title: Turn a <Player> into a Remotion project
-crumb: 'Converting Remotion Projects'
+title: 将 <Player> 转换为 Remotion 项目
+crumb: '转换 Remotion 项目'
 ---
 
-If you have a React app that uses the [`<Player>`](/docs/player/player) component, you can turn it also into a Remotion project without having to create a new repository. This will enable you to:
+如果您有一个使用 [`<Player>`](/docs/player/player) 组件的 React 应用程序，您可以将其转换为 Remotion 项目，而无需创建新的存储库。这将使您能够：
 
-<Step>1</Step> Use the <a href="/docs/studio/">Remotion Studio</a>
+<Step>1</Step> 使用 <a href="/docs/studio/">Remotion Studio</a>
 <br />
-<Step>2</Step> Render videos locally
+<Step>2</Step> 本地渲染视频
 <br />
-<Step>2</Step> Create a <a href="/docs/terminology/bundle">
-  Remotion Bundle
-</a> that allows rendering in the cloud
-<br />
+<Step>2</Step> 创建一个允许在云中渲染的 <a href="/docs/terminology/bundle">Remotion Bundle</a>
 
-## Instructions
+## 指令
 
-<Step>1</Step> Ensure that you don't already have a Studio installed - in the following
-templates, the Studio is already installed and can be started using the command <a href="/docs/cli/studio"><code>npx remotion studio</code></a>
-:<br />
+<Step>1</Step> 确保您尚未安装 Studio - 在以下模板中，Studio 已经安装并可以使用命令 <a href="/docs/cli/studio"><code>npx remotion studio</code></a> 启动：
+<br />
 <br />
 
 - [Next.js (App dir)](/templates/next)
@@ -28,13 +24,12 @@ templates, the Studio is already installed and can be started using the command 
 - [Next.js (Pages dir)](/templates/next-pages-dir)
 - [Remix](/templates/remix)
 
-<Step>2</Step> Install the Remotion CLI:
+<Step>2</Step> 安装 Remotion CLI:
 
 <Installation pkg="@remotion/cli" />
 <br />
 
-<Step>3</Step> Make a new folder <code>remotion</code> and add these two files in
-it:
+<Step>3</Step> 创建一个名为 <code>remotion</code> 的新文件夹，并在其中添加以下两个文件：
 <br />
 <br />
 
@@ -98,38 +93,37 @@ import { RemotionRoot } from "./Root";
 registerRoot(RemotionRoot);
 ```
 
-Add the component you previously registered in the `<Player>` also to the `<Composition>`.  
-If necessary, move the components into the <code>remotion</code> directory.
+将您先前在 `<Player>` 中注册的组件也添加到 `<Composition>` 中。  
+如有必要，将组件移动到 <code>remotion</code> 目录中。
 
-The file that calls [`registerRoot()`](/docs/register-root) is now your Remotion [**entry point**](/docs/terminology/entry-point).
+调用 [`registerRoot()`](/docs/register-root) 的文件现在是您的 Remotion [**入口点**](/docs/terminology/entry-point)。
 
-<Step>4</Step> Apply common Webpack overrides that are commonly enabled in React
-apps:
+<Step>4</Step> 应用通常在 React 应用程序中启用的常见 Webpack 覆盖：
 <br />
 <br />
 
 - [TailwindCSS](/docs/tailwind/tailwind)
 - [SCSS](/docs/enable-scss/overview)
-- [TypeScript Aliases](/docs/typescript-aliases#automatically-syncing-webpack-and-typescript-aliases)
+- [TypeScript 别名](/docs/typescript-aliases#automatically-syncing-webpack-and-typescript-aliases)
 
-## Start the Remotion Studio:
+## 启动 Remotion Studio:
 
 ```
 npx remotion studio
 ```
 
-## Render a video
+## 渲染视频 
 
-Render our a video using
+使用以下命令渲染视频：
 
 ```
 npx remotion render remotion/index.ts
 ```
 
-## Set up server-side rendering
+## 设置服务器端渲染 
 
-See [server-side rendering](/docs/ssr) for more information.
+有关更多信息，请参阅[服务器端渲染](/docs/ssr)。
 
-## How do I download a video from the Remotion Player?
+## 如何从 Remotion Player 下载视频？
 
-The video first needs to get rendered - this can only be done on the server. See [ways to render](/docs/render) and [server-side rendering](/docs/ssr) for more information.
+首先需要渲染视频 - 这只能在服务器上完成。有关更多信息，请参阅[渲染方式](/docs/render)和[服务器端渲染](/docs/ssr)。

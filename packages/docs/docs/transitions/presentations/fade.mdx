@@ -4,11 +4,11 @@ crumb: "@remotion/transitions - Presentations"
 title: "fade()"
 ---
 
-A simple fade animation. The incoming slide fades in over the outgoing slide, while the outgoing slide does not change. Works only if the incoming slide is fully opaque.
+一个简单的淡入淡出动画。新幻灯片淡入，而旧幻灯片保持不变。仅当新幻灯片完全不透明时才有效。
 
 <Demo type="fade" />
 
-## Example
+## 示例
 
 ```tsx twoslash title="FadeTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -56,27 +56,28 @@ const BasicTransition = () => {
 
 ## API
 
-An object which takes:
+一个接受以下内容的对象：
 
 ### `enterStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the container element when the scene is is entering.
+场景进入时容器元素的样式。
 
 ### `exitStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the container element when the scene is exiting.
+场景退出时容器元素的样式。
 
 ### `shouldFadeOutExitingScene?`<AvailableFrom v="4.0.166"/>
 
-Whether the exiting scene should fade out or not. Default `false`.
+退出场景是否应该淡出。默认为 `false`。
 
 :::note
-The default is `false` because if both the entering and existing scene are semi-opaque, the whole scene will be semi-opaque, which will make the content underneath shine though.  
-We recommend for transitioning between fully opaque scenes setting this to `false`.  
-If the scenes are not fully covered (like fading between overlays), we recommend setting this to `false`.
+默认为 `false`，因为如果进入和退出场景都是半透明的，整个场景将是半透明的，这将使底部的内容透过来。  
+我们建议在完全不透明的场景之间进行过渡时将其设置为 `false`。  
+如果场景没有完全覆盖（比如在叠加之间淡入淡出），我们建议将其设置为 `false`。
 :::
 
-## See also
+## 另请参阅
 
-- [Source code for this presentation](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/fade.tsx)
-- [Presentations](/docs/transitions/presentations)
+- [此演示的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/fade.tsx)
+- [演示](/docs/transitions/presentations)
+

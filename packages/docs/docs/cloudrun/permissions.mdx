@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-cloudrun-permissions.png
-sidebar_label: Permissions
-title: Permissions
+sidebar_label: 权限
+title: 权限
 crumb: 'Cloud Run'
 ---
 
 <ExperimentalBadge>
   <p>
-    Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the{' '}<a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.
+    Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。查看{' '}<a href="https://remotion.dev/changelog">更改日志</a> 以保持与重大更改的最新信息。
   </p>
 </ExperimentalBadge>
 
@@ -16,45 +16,45 @@ import {
   SAPermissionTable,
 } from '../../components/cloudrun/sa-permissions.tsx';
 
-This document describes the necessary permissions for Remotion Cloud Run and explains to those interested why the permissions are necessary.
+本文描述了 Remotion Cloud Run 所需的必要权限，并向感兴趣的人解释了为什么这些权限是必要的。
 
-For a step by step guide on how to set up permissions, [follow the setup guide](/docs/cloudrun/setup).
+要了解如何设置权限的逐步指南，请[查看设置指南](/docs/cloudrun/setup)。
 
-## Service Account permissions
+## 服务帐号权限
 
-This policy should be assigned to the **Remotion Service Account**. Following the automated setup, this is achieved by creating a custom role with the title _Remotion API Service Account_, and assigning that role to the Remotion Service Account.
+此策略应分配给 **Remotion 服务帐号**。在自动设置之后，通过创建一个名为 _Remotion API 服务帐号_ 的自定义角色，并将该角色分配给 Remotion 服务帐号来实现此目标。
 
-To view and manually edit roles in your GCP project, go to the [Roles page within IAM admin](https://console.cloud.google.com/iam-admin/roles).
+要查看并手动编辑 GCP 项目中的角色，请转到 [IAM 管理员中的角色页面](https://console.cloud.google.com/iam-admin/roles)。
 
-To view and manually edit permissions/roles assigned to Users or Service Accounts in your GCP project, go to the [IAM page within IAM Admin](https://console.cloud.google.com/iam-admin/iam).
+要查看并手动编辑分配给用户或服务帐号的权限/角色，请转到 [IAM 管理员中的 IAM 页面](https://console.cloud.google.com/iam-admin/iam)。
 
 <details>
   <summary>
-    Show full Remotion API Service Account permissions list for the latest
-    Remotion Cloud Run version.
+    显示最新 Remotion Cloud Run 版本的完整 Remotion API 服务帐号权限列表。
   </summary>
   <SAPermissionList />
 </details>
 
 :::info
-You can always get the suitable permission file for your Remotion Cloud Run version by typing `npx remotion cloudrun permissions`.
+您可以通过输入 `npx remotion cloudrun permissions` 来获取适合您的 Remotion Cloud Run 版本的权限文件。
 :::
 
-The following table is a breakdown of why Remotion Cloud Run requires the permissions it does.
+以下表格详细说明了 Remotion Cloud Run 需要的权限。
 
 <SAPermissionTable />
 
-## Validation
+## 验证
 
-There are two ways in which you can test if the permissions for the service account have been correctly set up. Either you execute the following command:
+有两种方法可以测试服务帐号的权限是否已正确设置。您可以执行以下命令之一：
 
 ```bash
 npx remotion cloudrun permissions
 ```
 
-or if you want to validate it programmatically, using the [`testPermissions()`](/docs/cloudrun/testpermissions) function.
+或者，如果您想以编程方式验证它，请使用[`testPermissions()`](/docs/cloudrun/testpermissions)函数。
 
-## See also
+## 另请参阅
 
-- [Set up guide](/docs/cloudrun/setup)
+- [设置指南](/docs/cloudrun/setup)
 - [`testPermissions()`](/docs/cloudrun/testpermissions)
+

@@ -8,9 +8,9 @@ import {WarpTextTutorial} from '../../src/components/tutorials';
 
 <WarpTextTutorial />
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.43_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.43版本开始可用_
 
-Allows you to remap the coordinates of an SVG using a function in order to create a warp effect.
+允许您使用函数重新映射SVG的坐标以创建扭曲效果。
 
 ```tsx twoslash title="warp-path.ts"
 import { warpPath, WarpPathFn } from "@remotion/paths";
@@ -26,10 +26,10 @@ const newPath = warpPath("M 0 0 L 0 100", fn); // M 0 0 L 0.970365514464549 0.78
 <table>
 <tr>
 <th align="center">
-Input
+输入
 </th>
 <th align="center">
-Output
+输出
 </th>
 </tr>
 <tr>
@@ -46,19 +46,21 @@ Output
 </tr>
 </table>
 
-## How it works
+## 如何工作
 
-This function works by splitting SVG instructions into many smaller SVG instructions and then remapping the coordinates of each instruction. This will result in the output being a much SVG path than the input.
+此函数通过将SVG指令拆分为许多较小的SVG指令，然后重新映射每个指令的坐标来运行。这将导致输出比输入更多的SVG路径。
 
-## Arguments
+
+
+## 参数
 
 ### `path`
 
-An SVG path string.
+一个SVG路径字符串。
 
 ### `fn`
 
-A function that takes the coordinates of the SVG path and returns the new coordinates. The type of the function is `WarpPathFn` which can also be imported from `@remotion/paths`.
+一个接受SVG路径坐标并返回新坐标的函数。该函数的类型是`WarpPathFn`，也可以从`@remotion/paths`导入。
 
 ```tsx twoslash
 import { WarpPathFn } from "@remotion/paths";
@@ -73,18 +75,24 @@ const fn: WarpPathFn = ({ x, y }) => ({
 
 #### `interpolationThreshold`
 
-The [interpolation algorithm](/docs/paths/warp-path#how-it-works) will split the SVG path recursively into smaller SVG paths. This option allows you to specify the distance of a segment at which the algorithm should stop dividing the path into smaller segments.
+[插值算法](/docs/paths/warp-path#how-it-works)会将SVG路径递归地拆分为较小的SVG路径。此选项允许您指定算法应在哪个段距离停止将路径分割为较小段的距离。
 
-Since SVG is unitless, the threshold is measured in SVG units.
+由于SVG是无单位的，阈值以SVG单位表示。
 
-By default the threshold is the 1% width or height of the [bounding box](/docs/paths/get-bounding-box) of the path, whichever is bigger. In other terms, it is `Math.max(width, height) * 0.01`.
+默认情况下，阈值是路径的[边界框](/docs/paths/get-bounding-box)的1%宽度或高度，以较大者为准。换句话说，它是`Math.max(width, height) * 0.01`。
+
+
 
 ## Credits
 
-This function is based on the [WarpJS](https://benjamminf.github.io/warpjs/) library and has been converted to use TypeScript and a pure functional programming API.
+此函数基于[WarpJS](https://benjamminf.github.io/warpjs/)库，并已转换为使用TypeScript和纯函数式编程API。
 
-## See also
+
+
+## 参见
 
 - [`@remotion/paths`](/docs/paths)
-- [Example repo](https://github.com/remotion-dev/text-warping)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/warp-path/index.ts)
+- [示例存储库](https://github.com/remotion-dev/text-warping)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/warp-path/index.ts)
+
+

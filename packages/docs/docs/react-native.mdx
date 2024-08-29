@@ -4,36 +4,36 @@ id: react-native
 title: React Native
 ---
 
-Potential support for React Native is currently under consideration.  
-A proof of concept was shown at App.js Conf on May 12th 2023:
+目前正在考虑对 React Native 提供潜在支持。  
+2023年5月12日在 App.js Conf 上展示了一个概念验证：
 
-- [Repository](https://github.com/remotion-dev/react-native-demo)
-- [Talk](https://youtu.be/t0KDn4_zdrk?t=27073) - Timestamp: 7:31:13
+- [存储库](https://github.com/remotion-dev/react-native-demo)
+- [演讲](https://youtu.be/t0KDn4_zdrk?t=27073) - 时间戳：7:31:13
 
-## Current status
+## 当前状态
 
-Remotion is considering adding support for React Native pending positive interest from the React Native community and feedback concerning the architecture.
+Remotion 正在考虑为 React Native 添加支持，前提是得到 React Native 社区的积极兴趣和关于架构的反馈。
 
-### Currently working:
+### 目前可用功能:
 
-- Render videos with any resolution into an MP4
-- `useCurrentFrame()`, `useVideoConfig()`, `spring()`, `interpolate()`, `interpolateColors()` functions
-- Out-of-viewport rendering
+- 将任何分辨率的视频渲染为 MP4
+- `useCurrentFrame()`、`useVideoConfig()`、`spring()`、`interpolate()`、`interpolateColors()` 函数
+- 视口外渲染
 
-### Not working:
+### 不可用功能:
 
-- Audio support
-- Embedded video
-- Multithreaded rendering
-- Other codecs than H264
-- APIs requiring Web APIs, e.g. `<Sequence>`, `<AbsoluteFill>`, etc.
-  -> Workaround: Pass `layout="none"`
+- 音频支持
+- 嵌入式视频
+- 多线程渲染
+- 除 H264 外的其他编解码器
+- 需要 Web API 的 API，例如 `<Sequence>`、`<AbsoluteFill>` 等。
+  -> 解决方法：传递 `layout="none"`
 
-## Feedback
+## 反馈
 
-Create issues on the example repo to give feedback, or use the `#native` channel on [Discord](https://remotion.dev/discord).
+在示例存储库上创建问题以提供反馈，或在 [Discord](https://remotion.dev/discord) 的 `#native` 频道上使用。
 
-## License
+## 许可证
 
-The code that is in the example repository is MIT-licensed.  
-Remotion, a dependency of this example, is licensed under the [Remotion License](https://remotion.dev), which means companies need to acquire a license to support the further development.
+示例存储库中的代码使用 MIT 许可证。  
+作为此示例的依赖项，Remotion 使用 [Remotion 许可证](https://remotion.dev)，这意味着公司需要获取许可证以支持进一步开发。

@@ -1,34 +1,34 @@
 ---
 image: /generated/articles-docs-lambda-upgrading.png
 id: upgrading
-title: Upgrading Lambda
+title: 升级 Lambda
 slug: /lambda/upgrading
 ---
 
 import {Prerelease} from "../../components/PrereleaseVersion"
 
-- Determine the newest version from the [Releases page](https://github.com/remotion-dev/remotion/releases).
-- Upgrade all packages to the newest version (`@remotion/lambda`, but also `remotion`, `@remotion/cli` etc.)
+- 从[发布页面](https://github.com/remotion-dev/remotion/releases)确定最新版本。
+- 将所有包升级到最新版本（`@remotion/lambda`，以及 `remotion`，`@remotion/cli` 等）。
 
 <Prerelease onlySnippet packageName="@remotion/lambda"/>
 
-- (Optional): Remove the old versions of the function:
+- （可选）：移除旧版本的函数：
 
 :::info
-You only should do this if the function is not being used anymore. If you are still using it in production, you can just skip this step.
+只有在函数不再使用时才应执行此操作。如果仍在生产中使用，请跳过此步骤。
 :::
 
 ```
 npx remotion lambda functions rmall -y
 ```
 
-- Deploy the newest version of the Remotion Lambda function:
+- 部署最新版本的 Remotion Lambda 函数：
 
 ```
 npx remotion lambda functions deploy
 ```
 
-- Update the site:
+- 更新站点：
 
 ```
 npx remotion lambda sites create src/index.ts --site-name=my-name
@@ -36,18 +36,22 @@ npx remotion lambda sites create src/index.ts --site-name=my-name
 
 :::info
 
-Pass `--site-name` with the name of an existing site to update it. The URL will stay the same but older functions may not be able to render the updated site.
+使用现有站点名称传递 `--site-name` 以更新站点。URL 将保持不变，但旧函数可能无法渲染更新后的站点。
 
-If you don't pass `--site-name` a new site URL will be generated. You'll need to update the [`serveUrl`](/docs/lambda/rendermediaonlambda#serveurl) parameter in your [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) calls. Old deployed functions can still render by specifying the old serve URL.
+如果不传递 `--site-name`，将生成一个新的站点 URL。您需要更新 [`serveUrl`](/docs/lambda/rendermediaonlambda#serveurl) 参数以在 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 调用中指定旧的 serve URL 仍然可以渲染旧部署的函数。
 :::
 
-## Separating production and testing environments
+## 分离生产和测试环境
 
-If you already shipped Remotion Lambda to production, you can upgrade without incurring any downtime:
+如果您已将 Remotion Lambda 部署到生产环境，您可以在不产生任何停机时间的情况下进行升级：
 
-- Each deployed function has a version (see them using `npx remotion lambda functions ls`).  
-  Use the same version of the `@remotion/lambda` package to invoke the function.
+- 每个部署的函数都有一个版本（使用 `npx remotion lambda functions ls` 查看它们）。
+  使用相同版本的 `@remotion/lambda` 包来调用函数。
 
-- You can have multiple functions with different versions deployed. Use the [`compatibleOnly`](/docs/lambda/getfunctions#compatibleonly) parameter to find functions that match the version of the `@remotion/lambda` package.
+- 您可以部署具有不同版本的多个函数。使用 [`compatibleOnly`](/docs/lambda/getfunctions#compatibleonly) 参数查找与 `@remotion/lambda` 包版本匹配的函数。
 
-- Sites/`serveUrl`'s also are version-dependant. Create them with the same version of Remotion that you render them with. Remotion will tolerate mismatches if there are no incompatibilities, but will issue a warning that you might not have all the newest features and bugfixes in the bundled site.
+- 站点/`serveUrl` 也与版本相关。使用与渲染站点相同版本的 Remotion 创建它们。如果没有不兼容性，Remotion 将容忍不匹配，但会发出警告，指出您可能没有捆绑站点中的所有最新功能和错误修复。 
+
+
+
+Please paste the Markdown content you'd like me to translate into Chinese.

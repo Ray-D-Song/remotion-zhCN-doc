@@ -1,8 +1,8 @@
 ---
 slug: faster-lambda
-title: Lambda renders are now faster
+title: Lambda渲染现在更快了
 author: Jonny Burger
-author_title: Chief Hacker @ Remotion
+author_title: Remotion首席黑客
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: /img/seamless-aac.png
@@ -15,104 +15,104 @@ import { AacKeyframes } from "../components/Aac/AacKeyframes";
 import { AacConcatenationSolution } from "../components/Aac/AacConcatenationSolution";
 import { AacBenchmarks } from "../components/Aac/Benchmarks";
 
-With Remotion v4.0.130, [Remotion Lambda](/lambda) renders now complete significantly faster!  
-The longer the video, the higher the speedup.
+通过Remotion v4.0.130，[Remotion Lambda](/lambda)渲染现在完成得更快！  
+视频越长，加速效果越明显。
 
 <AacBenchmarks />
 <sub style={{ opacity: 0.5, lineHeight: 0.7 }}>
-  Rendering a 1920x1080px video with an <code>&lt;OffthreadVideo&gt;</code> tag
-  loading a 15MB Full HD video and looping it. The Lambda function has been
-  given 3000MB of memory.
+  使用<code>&lt;OffthreadVideo&gt;</code>标签渲染1920x1080px视频，
+  加载一个15MB的全高清视频并循环播放。Lambda函数已分配3000MB内存。
 </sub>
 <br />
 <br />
 
-Thanks to an innovative audio concatenation strategy that we implemented with help from [Max Schnur](https://github.com/maxpower15) from [Wistia](https://wistia.com/), we can skip an audio re-encoding step at the end.
+感谢我们与[Wistia](https://wistia.com/)的[Max Schnur](https://github.com/maxpower15)合作实施的创新音频串联策略，我们可以跳过最后的音频重新编码步骤。
 
-## Audio is the slow part
+## 音频是慢的部分
 
-Remotion Lambda renders portions of a video in parallel and concatenates them at the end.  
-The slow part is actually not the video, but the audio rendering!
+Remotion Lambda并行渲染视频的部分，并在最后将它们连接起来。  
+慢的部分实际上不是视频，而是音频渲染！
 
-While other codecs are possible, a `.mp4` file usually contains AAC audio.
+虽然其他编解码器也是可能的，但`.mp4`文件通常包含AAC音频。
 
-Concatenating the AAC chunks is usually not possible without creating some artifacts.
+通常在不创建任何伪影的情况下无法串联AAC块。
 
-## How AAC works
+## AAC的工作原理
 
-An AAC audio stream contains many packets. Each packet contains exactly 1024 samples.
+AAC音频流包含许多数据包。每个数据包包含确切的1024个样本。
 
 <AacFile />
 
 <br />
 <br />
 
-The duration of the audio must be divisible by 1024 samples. If your audio does not fit, you must pad the last packet with silence!
+音频的持续时间必须是1024个样本的整数倍。如果您的音频不符合，您必须用静音填充最后一个数据包！
 
 <AacPadding />
 <br />
 <br />
 
-When concatenating AAC audio, this padding of silence is noticeable and can be heard as a popping noise:
+在串联AAC音频时，这种填充的静音是明显的，并且可以听到爆裂声：
+
 
 <AacConcatenationProblem />
 <br />
 <br />
 
-To avoid this artifact, the whole audio needs to be re-encoded at the end. The longer the audio, the worse the problem!
+为了避免这种问题，整个音频需要在最后重新编码。音频越长，问题就越严重！
 
-## A packet has dependencies
+## 一个包有依赖关系
 
-Making the problem harder, an AAC packet is not self-contained. The waveform also depends on the previous and next packets!
+让问题更加棘手的是，AAC 包并不是自包含的。波形还取决于前一个和后一个包！
 
 <AacKeyframes />
 <br />
 <br />
 
-This means we cannot create packet-sized audio slices and concatenate them because we'd have to include their padding as well.
+这意味着我们不能创建大小为包的音频片段并将它们连接起来，因为我们还需要包括它们的填充。
 
-## Who can solve this problem?
+## 谁能解决这个问题？
 
-Online resources such as Stack Overflow were quickly exhausted.
+在线资源如 Stack Overflow 很快就被耗尽了。
 
-I went to the [RTC.on](https://rtcon.live/) multimedia conference and talked about this problem in my talk.
+我参加了 [RTC.on](https://rtcon.live/) 多媒体会议，并在我的演讲中谈到了这个问题。
 
-A few listeners came up to me afterwards and gave me a few ideas. I did a session with [Michał Śledź](https://github.com/mickel8) from [Software Mansion](https://swmansion.com/), all of which helped me even understand the problem we are facing in the first place.
+几位听众在演讲结束后走到我面前，给了我一些想法。我和 [Software Mansion](https://swmansion.com/) 的 [Michał Śledź](https://github.com/mickel8) 进行了一次会话，所有这些都帮助我更好地理解我们面临的问题。
 
-No immediate solution was found, but the problem was put aside when we realized that the [`libfdk-aac`](https://github.com/mstorsjo/fdk-aac) encoder is twice as fast as FFmpeg's native encoder, softened the problem for the moment.
+虽然没有找到立即的解决方案，但当我们意识到 [`libfdk-aac`](https://github.com/mstorsjo/fdk-aac) 编码器比 FFmpeg 的原生编码器快两倍时，问题暂时得到缓解。
 
-## An innovative way to concatenate AAC
+## 连接 AAC 的创新方法
 
-Out of the blue, [Max Schnur](https://github.com/maxpower15) from [Wistia](https://wistia.com/) appeared with a solution and posted it on the [Remotion Discord](https://remotion.dev/discord)!
+突然间，[Wistia](https://wistia.com/) 的 [Max Schnur](https://github.com/maxpower15) 提出了一个解决方案，并在 [Remotion Discord](https://remotion.dev/discord) 上发布了！
 
-To seamlessly concatenate AAC:
+为了无缝连接 AAC：
 
-- Each audio segment needs to have a sample count divisible by 1024
-- Each segment should have extra packets at the beginning and the end to not lose the keyframes.
-- The extra padding will be removed when concatenating them together.
+- 每个音频片段的样本数必须是 1024 的倍数
+- 每个片段的开头和结尾都应该有额外的包，以避免丢失关键帧。
+- 在连接它们时将删除额外的填充。
 
 <AacConcatenationSolution />
 <br />
 <br />
 
-There are many tricky aspects to implementing this correctly:
+要正确实现这一点有许多棘手的方面：
 
-- Each audio segment needs to be a bit longer than previously and they need to be slightly overlapping. Extra frames need to be evaluated, but they don't need to be screenshotted.
-- Video chunks should not contain the padding, hence audio and video need to be separated.
-- Depending on the rounding and the position in the audio, between 1 and 3 extra packets are required.
-- The `inpoint` and `outpoint` FFmpeg filters need to be nano-second precise for correct trimming.
-- All audio layers should be resampled to be the same sample rate (we decided for 48000 Hz)
-- Our timeline positioning, volume curves, pitch correction, playback rate capabilities need to continue working.
-- Rendering only a portion of the timeline will shift the start timestamp, which changes the math for each chunk.
-- The video frame rate of (commonly 30fps) and the audio sample rate of (commonly 48000Hz) do seldomly align. By capturing extra frames, we get too much padding which needs to be trimmed off again for each chunk.
-- The FFmpeg `atempo` filter is imprecise: For example, speeding up 80.000 audio samples by 2x will lead to 40.014 audio samples. Tiny imperfections will lead to seamless concatenation not working at all. To fix this, we had to flip the order of trimming and speeding up audio.
-- Not pictured above, each AAC file has a silence of 512 samples at the beginning of the file. This delays all audio slightly, but by adding a negative offset to the MP4 container, this is usually balanced out.
+- 每个音频片段需要比以前长一点，它们需要稍微重叠。需要评估额外的帧，但不需要截图。
+- 视频块不应包含填充，因此音频和视频需要分开。
+- 根据四舍五入和音频中的位置，需要 1 到 3 个额外的包。
+- `inpoint` 和 `outpoint` FFmpeg 滤镜需要纳秒精确以进行正确的修剪。
+- 所有音频层应重新采样为相同的采样率（我们决定使用 48000 Hz）
+- 我们的时间轴定位、音量曲线、音高校正、播放速率功能需要继续工作。
+- 仅渲染时间轴的一部分将会改变起始时间戳，这会改变每个块的数学计算。
+- 视频帧率（通常为 30fps）和音频采样率（通常为 48000Hz）很少对齐。通过捕获额外的帧，我们会得到太多的填充，需要再次修剪掉每个块。
+- FFmpeg 的 `atempo` 滤镜不精确：例如，将 80,000 个音频样本加速 2 倍将导致 40,014 个音频样本。微小的不完美会导致无法无缝连接。为了解决这个问题，我们不得不颠倒修剪和加速音频的顺序。
+- 上面没有显示，每个 AAC 文件在文件开头有 512 个样本的静音。这会稍微延迟所有音频，但通过向 MP4 容器添加负偏移，通常可以平衡这一点。
 
-If all of these factors are accounted for, concatenating AAC chunks will be completely seamless!
+如果考虑了所有这些因素，连接AAC块将会完全无缝！
 
 <AacFile />
 <br />
 <br />
 
-Upgrade to Remotion 4.0.130 or later to benefit from the faster rendering on Lambda.  
-We look forward to engineer even more performance improvements in the future for lower costs and better user experience!
+升级到 Remotion 4.0.130 或更高版本，以从 Lambda 上更快的渲染中受益。  
+我们期待未来为降低成本和提升用户体验而进一步改进性能！

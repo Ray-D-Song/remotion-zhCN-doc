@@ -2,7 +2,7 @@
 image: /generated/articles-docs-motion-blur-camera-motion-blur.png
 title: '<CameraMotionBlur>'
 slug: camera-motion-blur
-crumb: 'Realistic camera effect'
+crumb: '真实相机效果'
 ---
 
 import {CameraMotionBlurExample} from '../../components/CameraMotionBlurExample/CameraMotionBlurExample';
@@ -12,69 +12,62 @@ const RainbowSquare: React.FC = () => <div></div>
 // - RainbowSquare
 ```
 
-_available from v3.2.39_
+_从 v3.2.39 开始可用_
 
-The `<CameraMotionBlur>` produces natural looking motion blur similar to what would be produced by
-a film camera.
+`<CameraMotionBlur>` 产生类似胶片相机产生的自然运动模糊效果。
 
-For this technique to work, the children must be absolutely positioned so many layers can be created without influencing the layout.  
-You can use the [`<AbsoluteFill>`](/docs/absolute-fill) component to absolutely position content.
+为了使这种技术起作用，子元素必须绝对定位，这样就可以创建许多层而不影响布局。  
+您可以使用 [`<AbsoluteFill>`](/docs/absolute-fill) 组件来绝对定位内容。
 
 :::note
-The technique is destructive to colors. It is recommended to keep the `samples` property as low as
-possible and carefully inspect that the output is of acceptable quality.
+这种技术对颜色具有破坏性。建议将 `samples` 属性保持尽可能低，并仔细检查输出是否具有可接受的质量。
 :::
 
 ## API
 
-Wrap your content in `<CameraMotionBlur>` and optionally add the following props in addition.
+将您的内容包装在 `<CameraMotionBlur>` 中，并可以选择添加以下属性。
 
 ### `shutterAngle`
 
-_optional - default: `180`_
+_可选 - 默认值：`180`_
 
-Controls the amount of blur.
+控制模糊程度。
 
-A lower value will result in less blur and a higher value will result in more.
+较低的值会导致较少的模糊，较高的值会导致更多的模糊。
 
-The blur also depends on the frames per second (FPS). Higher FPS will naturally have less blur and
-lower FPS will have more blur.
+模糊还取决于每秒帧数（FPS）。更高的 FPS 自然会有较少的模糊，而较低的 FPS 会有更多的模糊。
 
-In movies and TV common values are (FPS/shutter angle):
+在电影和电视中，常见的值是（FPS/快门角度）：
 
-- 24 fps / 180&deg; or 90&deg;
-- 25 fps / 180&deg; or 90&deg;
-- 30 fps / 180&deg; or 90&deg;
-- 50 fps / 180&deg; or 90&deg;
-- 60 fps / 180&deg; or 90&deg;
+- 24 fps / 180&deg; 或 90&deg;
+- 25 fps / 180&deg; 或 90&deg;
+- 30 fps / 180&deg; 或 90&deg;
+- 50 fps / 180&deg; 或 90&deg;
+- 60 fps / 180&deg; 或 90&deg;
 
 <details>
-<summary>What is "shutter angle"?</summary>
-Many analog film cameras use rotating discs with partial cut-outs to block or let light through to
-expose the analog film. Zero degrees is equal to completely blocking the light, and 360 degrees is
-the same as not blocking any light at all.
+<summary>什么是“快门角度”？</summary>
+许多模拟胶片相机使用带有部分切割的旋转圆盘来阻挡或透过光线以曝光模拟胶片。零度等于完全阻挡光线，而 360 度等同于完全不阻挡任何光线。
 
-The most common values used in the film industry are 90 and 180 degrees. These values are the same
-as what you've experienced in most movies.
+电影行业中最常用的值是 90 和 180 度。这些值与您在大多数电影中体验到的相同。
 
-Read more here: [Rotary disc shutter on Wikipedia](https://en.wikipedia.org/wiki/Rotary_disc_shutter)
+在这里阅读更多：[维基百科上的旋转圆盘快门](https://en.wikipedia.org/wiki/Rotary_disc_shutter)
 
 </details>
 
 ### `samples`
 
-_optional - default: `10`_
+_可选 - 默认值：`10`_
 
-The final image is an average of the samples. For a value of `10` the component will render ten
-frames with different time offsets and combine them into a final image.
+最终图像是样本的平均值。对于值为`10`的情况，组件将渲染十个具有不同时间偏移的帧，并将它们合并成最终图像。
 
 :::caution
-A high number will produce a higher quality blur at the cost of image quality. See example below.
+较高的数值将以图像质量为代价产生更高质量的模糊效果。请参见下面的示例。
 
-Recommended values: 5-10.
+推荐数值：5-10。
 :::
 
-## Example usage
+## 示例用法
 
 ```tsx twoslash
 // @include: example-RainbowSquare
@@ -99,14 +92,14 @@ export const MyComposition = () => {
 };
 ```
 
-## Demo
+## 演示
 
 <CameraMotionBlurExample />
 
-## See also
+## 参见
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/motion-blur/src/CameraMotionBlur.tsx)
-- [Common mistake with `<Trail>` and `<CameraMotionBlur>`](/docs/motion-blur/common-mistake)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/motion-blur/src/CameraMotionBlur.tsx)
+- [`<Trail>` 和 `<CameraMotionBlur>` 的常见错误](/docs/motion-blur/common-mistake)
 
 <Credits
   contributors={[
@@ -120,3 +113,4 @@ export const MyComposition = () => {
     },
   ]}
 />
+

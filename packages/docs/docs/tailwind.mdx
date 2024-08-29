@@ -8,9 +8,9 @@ crumb: "text-lg font-bold"
 import Tabs from "@theme/Tabs";
 import TabItem from '@theme/TabItem';
 
-## Using the template
+## 使用模板
 
-The easiest way to get started with Tailwind and Remotion is to [use the template by cloning it on GitHub](https://github.com/remotion-dev/template-tailwind) or running the following:
+开始使用 Tailwind 和 Remotion 的最简单方法是[克隆 GitHub 上的模板](https://github.com/remotion-dev/template-tailwind)或运行以下命令：
 
 <Tabs
 defaultValue="npm"
@@ -52,11 +52,11 @@ yarn create video -- --tailwind
 
 </Tabs>
 
-## Install in existing project
+## 在现有项目中安装
 
-_from v3.3.95, see [instructions for older versions](https://github.com/remotion-dev/remotion/blob/88a5d8d17f50d6ab2b8a408556118d15a3686343/packages/docs/docs/tailwind.md)_
+_从 v3.3.95 开始，请参阅[旧版本的说明](https://github.com/remotion-dev/remotion/blob/88a5d8d17f50d6ab2b8a408556118d15a3686343/packages/docs/docs/tailwind.md)_
 
-1. Install [`@remotion/tailwind`](/docs/tailwind/tailwind) package and TailwindCSS dependencies.
+1. 安装 [`@remotion/tailwind`](/docs/tailwind/tailwind) 包和 TailwindCSS 依赖项。
 
 <Tabs
 defaultValue="npm"
@@ -90,7 +90,7 @@ pnpm i -D @remotion/tailwind
   </TabItem>
 </Tabs>
 
-2. Add the Webpack override from `@remotion/tailwind` to your config file:
+2. 将 Webpack 覆盖项从 `@remotion/tailwind` 添加到您的配置文件：
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -102,12 +102,12 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 ```
 
 :::note
-Prior to `v3.3.39`, the option was called `Config.Bundling.overrideWebpackConfig()`.
+在 `v3.3.39` 之前，该选项称为 `Config.Bundling.overrideWebpackConfig()`。
 :::
 
-3. If you use the [`bundle()` or `deploySite()` Node.JS API, add the Webpack override to it as well](/docs/webpack#when-using-bundle-and-deploysite).
+3. 如果您使用 [`bundle()` 或 `deploySite()` Node.JS API，请将 Webpack 覆盖项也添加到其中](/docs/webpack#when-using-bundle-and-deploysite)。
 
-4. Create a file `src/style.css` with the following content:
+4. 创建一个名为 `src/style.css` 的文件，并添加以下内容：
 
 ```css title="src/style.css"
 @tailwind base;
@@ -115,13 +115,13 @@ Prior to `v3.3.39`, the option was called `Config.Bundling.overrideWebpackConfig
 @tailwind utilities;
 ```
 
-5. Import the stylesheet in your `src/Root.tsx` file. Add to the top of the file:
+5. 在您的 `src/Root.tsx` 文件中导入样式表。在文件顶部添加：
 
 ```js title="src/Root.tsx"
 import "./style.css";
 ```
 
-6. Add a `tailwind.config.js` file to the root of your project:
+6. 在项目根目录添加一个 `tailwind.config.js` 文件：
 
 ```js title="tailwind.config.js"
 /* eslint-env node */
@@ -134,7 +134,7 @@ module.exports = {
 };
 ```
 
-7. Ensure your `package.json` does not have `"sideEffects": false` set. If it has, declare that CSS files have a side effect:
+7. 确保您的 `package.json` 文件中没有设置 `"sideEffects": false`。如果有，请声明 CSS 文件具有副作用：
 
 ```diff title="package.json"
 {
@@ -144,12 +144,13 @@ module.exports = {
 }
 ```
 
-8. Start using TailwindCSS! You can verify that it's working by adding `className="bg-red-900"` to any element.
+8. 开始使用 TailwindCSS！您可以通过向任何元素添加 `className="bg-red-900"` 来验证它是否起作用。
 
 :::note
-Your package manager might show a peer dependency warning. You can safely ignore it or add `strict-peer-dependencies=false` to your `.npmrc` to suppress it.
+您的软件包管理器可能会显示对等依赖警告。您可以安全地忽略它，或者在您的 `.npmrc` 中添加 `strict-peer-dependencies=false` 来抑制它。
 :::
 
-## See also
+## 另请参阅
 
 - [TailwindCSS v2 (legacy)](/docs/tailwind-legacy)
+```

@@ -8,21 +8,21 @@ crumb: 'Lambda'
 
 import {WebhookTest} from '../../components/lambda/webhook-test';
 
-When rendering on AWS Lambda, Remotion can send webhooks to notify you when the render ends, successfully or with failures. This page describes the webhook payloads and how to set up a webhook API endpoint.
+在 AWS Lambda 上渲染时，Remotion 可以发送 Webhooks 来通知您渲染结束的情况，无论是成功还是失败。本页面描述了 Webhook 负载和如何设置 Webhook API 端点。
 
-Refer to the `renderMediaOnLambda()` documentation to [learn how to trigger a render with webhooks enabled](/docs/lambda/rendermediaonlambda#webhook).
+请参考 `renderMediaOnLambda()` 文档以[了解如何启用 Webhooks 触发渲染](/docs/lambda/rendermediaonlambda#webhook)。
 
-## Setup
+## 设置
 
-You will need to set up an API endpoint with a POST request handler. Make sure that the endpoint is reachable and accepts requests from AWS.
+您需要设置一个带有 POST 请求处理程序的 API 端点。确保端点可访问并接受来自 AWS 的请求。
 
 :::info
-If you run the webhook endpoint on your local machine (i.e. on `localhost`), you will need to set up a public reverse proxy using a tool like [tunnelmole](https://tunnelmole.com/docs), an open source tunneling tool or [ngrok](https://ngrok.com/), a popular closed source tunneling tool. Running either tool will generate a Public URL that will forward to your service on localhost.
+如果您在本地机器上运行 Webhook 端点（即在 `localhost` 上），您需要使用诸如 [tunnelmole](https://tunnelmole.com/docs) 这样的工具来设置一个公共反向代理，或者使用 [ngrok](https://ngrok.com/) 这样的流行闭源隧道工具。运行任一工具都将生成一个公共 URL，该 URL 将转发到您本地服务。
 :::
 
-## Response
+## 响应
 
-Every webhook has the following headers:
+每个 Webhook 都具有以下标头：
 
 ```json
 {
@@ -33,9 +33,9 @@ Every webhook has the following headers:
 }
 ```
 
-You can use these headers to verify the authenticity of the request, to check the status of your rendering process and to check whether the webhook was called from production code deployed to AWS or a demo application such the tool below or your own test suite.
+您可以使用这些标头来验证请求的真实性，检查渲染过程的状态以及检查 Webhook 是否是从部署到 AWS 的生产代码调用的，还是从下面的工具或您自己的测试套件调用的演示应用。
 
-The request body has the following structure:
+请求正文具有以下结构：
 
 ```ts
 type WebhookPayload =
@@ -78,13 +78,13 @@ type WebhookPayload =
     };
 ```
 
-The fields [`renderId`](/docs/lambda/rendermediaonlambda#renderid), [`bucketName`](/docs/lambda/rendermediaonlambda#bucketname) will be returned [just like they are returned by `renderMediaOnLambda()` itself](/docs/lambda/rendermediaonlambda#return-value).
+字段 [`renderId`](/docs/lambda/rendermediaonlambda#renderid)、[`bucketName`](/docs/lambda/rendermediaonlambda#bucketname) 将会被返回，[就像 `renderMediaOnLambda()` 本身返回的一样](/docs/lambda/rendermediaonlambda#return-value)。
 
-You can use the field `customData` to set a JSON-serializable object, which is useful to pass on custom data to the webhook endpoint. **The `customData` field must be less than 1KB (1024 bytes) when serialized, otherwise an error is thrown**. Store larger data in `inputProps` and retrieve it back by calling [`getRenderProgress()`](/docs/lambda/getrenderprogress) and reading `progress.renderMetadata.inputProps`.
+您可以使用字段 `customData` 来设置一个 JSON 可序列化对象，这对于将自定义数据传递给 Webhook 端点非常有用。**当序列化后，`customData` 字段的大小必须小于 1KB（1024 字节），否则会抛出错误**。将较大的数据存储在 `inputProps` 中，并通过调用 [`getRenderProgress()`](/docs/lambda/getrenderprogress) 并读取 `progress.renderMetadata.inputProps` 来检索它。
 
-If the render process times out, the reponse body will not contain any other fields.
+如果渲染过程超时，响应体将不包含任何其他字段。
 
-The `outputUrl`, `outputFile` and `timeToFinish` keys are only returned if the render was successful. Note that a successful render process may still have non-fatal `lambdaErrors`:
+只有在渲染成功时才会返回 `outputUrl`、`outputFile` 和 `timeToFinish` 键。请注意，成功的渲染过程可能仍然存在非致命的 `lambdaErrors`：
 
 ```json
 {
@@ -110,23 +110,23 @@ The `outputUrl`, `outputFile` and `timeToFinish` keys are only returned if the r
 }
 ```
 
-The `errors` array will contain the error message and stack trace of any _fatal_ error that occurs during the render process.
+`errors` 数组将包含在渲染过程中发生的任何 _致命_ 错误的错误消息和堆栈跟踪。
 
-## Validate Webhooks
+## 验证 Webhooks
 
-Remotion will sign all webhook requests if you provide a webhook secret in the CLI arguments.
+如果您在 CLI 参数中提供了一个 webhook 密钥，Remotion 将对所有 webhook 请求进行签名。
 
 :::warning
-If you don't provide a secret, the `X-Remotion-Signature` will be set to `NO_SECRET_PROVIDED`. It is not possible to verify the authenticity and data integrity of a webhook request that is sent with a `NO_SECRET_PROVIDED` signature. If you want to verify incoming webhooks, you must provide a webhook secret.
+如果您没有提供密钥，`X-Remotion-Signature` 将被设置为 `NO_SECRET_PROVIDED`。无法验证使用 `NO_SECRET_PROVIDED` 签名发送的 webhook 请求的真实性和数据完整性。如果您想要验证传入的 webhooks，必须提供一个 webhook 密钥。
 :::
 
-Remotion uses [HMAC](https://en.wikipedia.org/wiki/HMAC) with the [SHA-512 algorithm](https://en.wikipedia.org/wiki/SHA-2) to cryptographically sign the webhook requests it sends. This allows you to verify the authenticity and data integrity of incoming webhook requests.
+Remotion 使用 [HMAC](https://en.wikipedia.org/wiki/HMAC) 与 [SHA-512 算法](https://en.wikipedia.org/wiki/SHA-2) 对其发送的 webhook 请求进行加密签名。这使您能够验证传入 webhook 请求的真实性和数据完整性。
 
-In order to verify a webhook request, you will need to create a hex digest of a SHA-512 HMAC signature using your provided webhook key and the request body. If it matches the `X-Remotion-Signature` header, the request was indeed sent by Remotion and its request body is complete.
+为了验证一个 webhook 请求，您需要使用您提供的 webhook 密钥和请求体创建一个 SHA-512 HMAC 签名的十六进制摘要。如果它与 `X-Remotion-Signature` 头部匹配，则该请求确实是由 Remotion 发送的，其请求体是完整的。
 
-If it does not match, either the data integrity is compromised and the request body is incomplete or the request was not sent by Remotion.
+如果不匹配，要么数据完整性受到损害且请求体不完整，要么该请求不是由 Remotion 发送的。
 
-This is how Remotion calculates the signature:
+这是 Remotion 计算签名的方式：
 
 ```javascript
 import * as Crypto from "crypto";
@@ -141,13 +141,13 @@ function calculateSignature(payload: string, secret?: string) {
 }
 ```
 
-In your webhook endpoint, the `payload` parameter is the request body and the `secret` parameter is your webhook secret.
+在您的 webhook 端点中，`payload` 参数是请求体，`secret` 参数是您的 webhook 密钥。
 
-Instead of validating the signature yourself, you can use the [`validateWebhookSignature()`](/docs/lambda/validatewebhooksignature) function to throw an error if the signature is invalid.
+您可以使用 [`validateWebhookSignature()`](/docs/lambda/validatewebhooksignature) 函数来验证签名是否有效，而无需自行验证签名。
 
-## Example webhook endpoint (Express)
+## 示例 webhook 端点（Express）
 
-You can use any web framework and language to set up your webhook endpoint. The following example is written in JavaScript using the Express framework.
+您可以使用任何 Web 框架和语言来设置您的 webhook 端点。以下示例是使用 Express 框架编写的 JavaScript 示例。
 
 ```javascript title="server.js"
 import express from "express";
@@ -203,11 +203,11 @@ router.post("/my-remotion-webhook-endpoint", jsonParser, (req, res) => {
 });
 ```
 
-## Example webhook endpoint (Next.JS App Router)
+## 示例 Webhook 端点 (Next.JS 应用路由器)
 
-Similary, here is an example endpoint in Next.JS for the App Router.
+同样，在 Next.JS 中为应用路由器提供一个示例端点。
 
-Since this endpoint is going to be executed in an AWS Lambda function on its own, you want to import the Remotion functions from [`@remotion/lambda/client`](/docs/lambda/light-client).
+由于此端点将在 AWS Lambda 函数中独立执行，您需要从 [`@remotion/lambda/client`](/docs/lambda/light-client) 导入 Remotion 函数。
 
 ```tsx twoslash title="app/api/webhook.ts"
 import {
@@ -261,9 +261,9 @@ export const POST = async (req: Request, res: Response) => {
 export const OPTIONS = POST;
 ```
 
-## Example webhook endpoint (Next.JS Pages Router)
+## 示例 Webhook 端点 (Next.JS 页面路由器)
 
-The same endpoint as above, but using the Pages Router.
+与上面相同的端点，但使用页面路由器。
 
 ```tsx twoslash title="pages/api/webhook.ts"
 type NextApiRequest = {
@@ -323,25 +323,25 @@ export default async function handler(
 }
 ```
 
-## Test your webhook endpoint
+## 测试您的 Webhook 端点
 
-You can use this tool to verify that your webhook endpoint is working properly. The tool will send an appropriate demo payload and log the response to the screen. All requests sent by this tool will have the `"X-Remotion-Mode"` header set to `"demo"`.
+您可以使用此工具验证您的 Webhook 端点是否正常工作。该工具将发送一个适当的演示负载并将响应记录到屏幕上。此工具发送的所有请求都将设置 `"X-Remotion-Mode"` 标头为 `"demo"`。
 
 :::info
-This tool sends the demo webhook requests directly from your browser, which has the following implications:
+此工具直接从您的浏览器发送演示 Webhook 请求，这具有以下含义：
 
-- **CORS requirements**:
-  - Make sure your API endpoint is configured to accept requests from `remotion.dev` by setting `"Access-Control-Allow-Origin": "https://www.remotion.dev"`. This is necessary for this tool to work, but **not** for your production webhook endpoint.
-  - You must set `"Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Remotion-Status, X-Remotion-Signature, X-Remotion-Mode"`
-  - You must set `"Access-Control-Allow-Methods": "OPTIONS,POST"`.
-  - Read the error messages in the DevTools to debug potential CORS issues.
-- You can use a server listening on `localhost` and don't need to use a reverse proxy.
+- **CORS 要求**：
+  - 确保您的 API 端点配置为接受来自 `remotion.dev` 的请求，方法是设置 `"Access-Control-Allow-Origin": "https://www.remotion.dev"`。这对于此工具工作是必要的，但对于您的生产 Webhook 端点则不是必需的。
+  - 您必须设置 `"Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Remotion-Status, X-Remotion-Signature, X-Remotion-Mode"`
+  - 您必须设置 `"Access-Control-Allow-Methods": "OPTIONS,POST"`。
+  - 阅读 DevTools 中的错误消息以调试潜在的 CORS 问题。
+- 您可以使用在 `localhost` 上监听的服务器，而无需使用反向代理。
 
 :::info
 
 <WebhookTest />
 
-## See also
+## 另请参阅
 
 - [validateWebhookSignature()](/docs/lambda/validatewebhooksignature)
 - [renderMediaOnLambda()](/docs/lambda/rendermediaonlambda)

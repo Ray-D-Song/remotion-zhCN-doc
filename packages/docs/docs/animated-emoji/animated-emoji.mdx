@@ -1,24 +1,24 @@
 ---
 image: /generated/articles-docs-animated-emoji-animated-emoji.png
 id: animated-emoji
-sidebar_label: "<AnimatedEmoji>"
-title: "<AnimatedEmoji>"
+sidebar_label: "<动态表情>"
+title: "<动态表情>"
 slug: /animated-emoji/animated-emoji
 crumb: "@remotion/animated-emoji"
 ---
 
 import {AvailableEmoji} from "./AvailableEmoji";
 
-_Part of the [`@remotion/animated-emoji`](/docs/animated-emoji) package._
-_available from v4.0.187_
+_来自 [`@remotion/animated-emoji`](/docs/animated-emoji) 包的一部分。_
+_从 v4.0.187 开始可用_
 
-Displays an animated emoji from [Google Fonts Animated Emoji](https://googlefonts.github.io/noto-emoji-animation/).
+显示来自 [Google Fonts Animated Emoji](https://googlefonts.github.io/noto-emoji-animation/) 的动态表情。
 
 :::note
-**Self-hosting**: To load the assets, you need to copy the videos from the `public` folder of [`remotion-dev/animated-emoji`](https://github.com/remotion-dev/animated-emoji) into the `public` folder of your Remotion project.
+**自托管**: 为了加载资源，您需要将视频从 [`remotion-dev/animated-emoji`](https://github.com/remotion-dev/animated-emoji) 的 `public` 文件夹复制到您的 Remotion 项目的 `public` 文件夹中。
 :::
 
-## Example
+## 示例
 
 ```tsx title="Animation.tsx"
 import {AnimatedEmoji} from "@remotion/animated-emoji";
@@ -28,19 +28,19 @@ export const MyAnimation: React.FC = () => {
 };
 ```
 
-## Props
+## 属性
 
 ### `emoji`
 
-See animated versions [here](https://googlefonts.github.io/noto-emoji-animation/).  
-By default, no emoji assets are included. Copy them from the `public` folder of [`@remotion/animated-emoji`](/docs/animated-emoji) into the `public` folder of your Remotion project.
+在此处查看动画版本 [这里](https://googlefonts.github.io/noto-emoji-animation/)。  
+默认情况下，不包含任何表情符号资源。请将它们从 [`@remotion/animated-emoji`](/docs/animated-emoji) 的 `public` 文件夹复制到您的 Remotion 项目的 `public` 文件夹中。
 
 <AvailableEmoji />
 
 ### `scale?`
 
-Change the resolution of the videos to load.  
-By default `1`.
+更改要加载的视频的分辨率。  
+默认为 `1`。
 
 <table>
   <tr>
@@ -65,8 +65,8 @@ By default `1`.
 
 ### `calculateSrc?`
 
-Customize the location where the videos are loaded.  
-This is the default function:
+自定义加载视频的位置。  
+这是默认函数:
 
 ```tsx twoslash title="calculate-src.ts"
 import {staticFile} from "remotion";
@@ -83,7 +83,8 @@ export const defaultCalculateEmojiSrc: CalculateEmojiSrc = ({
 };
 ```
 
-## See also
+## 另请参阅
 
 - [`@remotion/animated-emoji`](/docs/animated-emoji)
 - [`getAvailableEmojis()`](/docs/animated-emoji/get-available-emoji)
+

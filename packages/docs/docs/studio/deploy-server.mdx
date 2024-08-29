@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-studio-deploy-server.png
-title: Deploy the Remotion Studio on a VPS
-sidebar_label: Deploy to a VPS
+title: 在 VPS 上部署 Remotion Studio
+sidebar_label: 部署到 VPS
 crumb: "Remotion Studio"
 ---
 
@@ -9,21 +9,21 @@ crumb: "Remotion Studio"
   minutes={3}
   href="https://www.youtube.com/watch?v=430B9xSs06U"
   thumb="https://i.ytimg.com/vi/430B9xSs06U/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCFJ4FoC-8enbWW4aU8uo9NLhEl6w"
-  title="Deploy the Remotion Studio"
+  title="部署 Remotion Studio"
 />
 
-_available from v4.0.46_
+_从 v4.0.46 版本开始可用_
 
-You can deploy the Remotion Studio to a long-running server in the cloud and make the render UI accessible to your team.  
-To do so, you need to:
+您可以将 Remotion Studio 部署到云中的长期运行服务器，并使渲染 UI 对您的团队可访问。  
+为此，您需要：
 
-- Install Node.js and Chrome
-- Run `npx remotion studio` on the server
-- Ensure port 3000 is available to the internet
+- 安装 Node.js 和 Chrome
+- 在服务器上运行 `npx remotion studio`
+- 确保端口 3000 可以通过互联网访问
 
-The following examples have been tested with the [Hello World](/templates/hello-world) template initialized using `npx create-video@latest`.
+以下示例已经使用 `npx create-video@latest` 初始化了 [Hello World](/templates/hello-world) 模板。
 
-## Dockerizing the Remotion Studio
+## 将 Remotion Studio Docker 化
 
 ```docker title="Dockerfile"
 FROM node:20-bookworm
@@ -62,18 +62,18 @@ CMD ["npx", "remotion studio"]
 
 ## Fly.io
 
-To deploy the Remotion Studio to [Fly.io](https://fly.io):
+要将 Remotion Studio 部署到 [Fly.io](https://fly.io)：
 
-- First add the above `Dockerfile` to the repo.
-- Make the following change to the `Dockerfile` (works from v4.0.125):
+- 首先将上述 `Dockerfile` 添加到存储库中。
+- 对 `Dockerfile` 进行以下更改（从 v4.0.125 版本开始有效）：
 
 ```diff
 - CMD ["npx", "remotion studio"]
 + CMD ["npx", "remotion studio", "--ipv4"]
 ```
 
-- Ensure you are on a paid plan (free plan has too little memory)
-- Use the following command:
+- 确保您使用的是付费计划（免费计划内存太少）
+- 使用以下命令：
 
 ```bash
 fly launch \
@@ -87,7 +87,7 @@ fly launch \
   --dockerfile Dockerfile
 ```
 
-For the following questions, answer no:
+对于以下问题，回答否：
 
 ```txt
 ? Would you like to set up a Postgresql database now? No
@@ -95,43 +95,43 @@ For the following questions, answer no:
 ? Create .dockerignore from 1 .gitignore files? No
 ```
 
-Answer Yes when asking if you want to deploy:
+在询问是否要部署时回答是：
 
 ```
 ? Do you want to deploy now? Yes
 ```
 
-You should get a URL where the Studio was deployed!
+您应该会得到部署 Studio 的 URL！
 
 ## Render.com
 
-To deploy the Remotion Studio to [Render.com](https://render.com):
+要将 Remotion Studio 部署到 [Render.com](https://render.com)：
 
-- First add the above `Dockerfile` to the repo.
-- Create a new "Web Service" and link your repository.
-- Choose at least the "Standard" plan (2GB Memory).
-- Deploy!
+- 首先将上述 `Dockerfile` 添加到存储库中。
+- 创建一个新的 "Web Service" 并链接您的存储库。
+- 至少选择 "Standard" 计划（2GB 内存）。
+- 部署！
 
 ## DigitalOcean App Platform
 
-Is not working at the moment. The Render Button is disabled, because the DigitalOcean HTTP Proxy [does not support server-sent events](https://www.digitalocean.com/community/questions/does-app-platform-support-sse-server-sent-events-application).
+目前无法正常工作。由于 DigitalOcean HTTP 代理不支持服务器发送事件，因此渲染按钮已禁用 [不支持 SSE 服务器发送事件](https://www.digitalocean.com/community/questions/does-app-platform-support-sse-server-sent-events-application)。
 
-A normal DigitalOcean droplet does work, though.
+一般的 DigitalOcean droplet 可以正常工作。
 
-## Scaleway Serverless Container
+## Scaleway 无服务器容器
 
-To deploy the [Scaleway Serverless Container](https://www.scaleway.com/en/serverless-containers/):
+要部署 [Scaleway 无服务器容器](https://www.scaleway.com/en/serverless-containers/):
 
-- First add the above `Dockerfile` to the repository
-- Build your docker image and publish it to a Docker registry (for example a [Scaleway Docker Registry](https://www.scaleway.com/en/docs/containers/container-registry/quickstart/))
-- Then [create your Serverless container namespace](https://www.scaleway.com/en/docs/serverless/containers/how-to/create-a-containers-namespace/) and use [your published docker image](https://www.scaleway.com/en/docs/serverless/containers/how-to/deploy-a-container-from-scaleway-container-registry/).
+- 首先将上述 `Dockerfile` 添加到存储库中
+- 构建您的 Docker 镜像并将其发布到 Docker 注册表（例如 [Scaleway Docker Registry](https://www.scaleway.com/en/docs/containers/container-registry/quickstart/)）
+- 然后 [创建您的无服务器容器命名空间](https://www.scaleway.com/en/docs/serverless/containers/how-to/create-a-containers-namespace/) 并使用 [您发布的 Docker 镜像](https://www.scaleway.com/en/docs/serverless/containers/how-to/deploy-a-container-from-scaleway-container-registry/)。
 
-You can find [an example of a github action workflow that deploy Remotion Studio to Scaleway Serverless Container](https://github.com/lyonjs/shortvid.io/blob/main/.github/workflows/deploy-editor.yml).
+您可以在 [此处找到一个部署 Remotion Studio 到 Scaleway 无服务器容器的 GitHub Action 工作流示例](https://github.com/lyonjs/shortvid.io/blob/main/.github/workflows/deploy-editor.yml)。
 
-## Example for deployment
+## 部署示例
 
-A test project to deploy the Remotion Studio is available [here](https://github.com/remotion-dev/shorts-customizer).
+一个用于部署 Remotion Studio 的测试项目可在 [此处](https://github.com/remotion-dev/shorts-customizer) 找到。
 
-## See also
+## 另请参阅
 
-- [Dockerizing an Remotion app](/docs/docker)
+- [将 Remotion 应用程序制作为 Docker 镜像](/docs/docker) 

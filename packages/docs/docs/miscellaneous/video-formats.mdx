@@ -1,20 +1,21 @@
 ---
 image: /generated/articles-docs-miscellaneous-video-formats.png
-crumb: "FAQ"
-title: Which video formats does Remotion support?
-sidebar_label: Video formats
+crumb: "常见问题"
+title: Remotion支持哪些视频格式？
+sidebar_label: 视频格式
 ---
 
-Remotion supports a variety of video codecs.
+Remotion支持多种视频编解码器。
 
-**Output formats**: Videos can be rendered to `H.264` (MP4), `H.265`, (HEVC), `VP8` and `VP9` (WebM), `ProRes` as well as GIFs. See the [Encoding guide](/docs/encoding) for more detail.
+**输出格式**：视频可以渲染为`H.264`（MP4）、`H.265`（HEVC）、`VP8`和`VP9`（WebM）、`ProRes`以及GIF。更多详细信息请参阅[编码指南](/docs/encoding)。
 
-**Codecs supported for [`<Video>`](/docs/video):** Remotion uses the default `<video>` tag for playback and therefore inherits codec support from the browser.  
-During rendering this means that the Chrome codecs are supported. In the [Remotion Studio](/docs/terminology/studio) and in the [Player](/docs/terminology/player), the codec support from the browser in which the webpage is hosted in applies.  
-Codec support varies between browsers and changes from time to time. Refer to this [MDN article](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs) for browser support.
+**支持的编解码器[`<Video>`](/docs/video)**：Remotion使用默认的`<video>`标签进行播放，因此继承了浏览器的编解码器支持。  
+在渲染过程中，这意味着支持Chrome编解码器。在[Remotion Studio](/docs/terminology/studio)和[播放器](/docs/terminology/player)中，适用于所托管网页所在浏览器的编解码器支持。  
+不同浏览器之间的编解码器支持有所不同，并且随时间变化。请参考此[MDN文章](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs)了解浏览器支持情况。
 
 :::note
-Prior to v4.0.18, if you did not have a local copy of Chrome, Remotion would download a copy of Chromium which [would not support the proprietary H.264 and H.265 codecs](/docs/miscellaneous/chrome-headless-shell).
+在v4.0.18之前，如果您没有Chrome的本地副本，Remotion会下载Chromium的副本，这将[不支持专有的H.264和H.265编解码器](/docs/miscellaneous/chrome-headless-shell)。
 :::
 
-**Codecs supported for [`<OffthreadVideo>`](/docs/offthreadvideo)**: The same support that applies to `<Video>` applies to `<OffthreadVideo>` as well, however, more codecs can be supported during rendering since FFmpeg is used under the hood to read the video file. We however don't maintain an exact list of supported video codecs.
+**支持的编解码器[`<OffthreadVideo>`](/docs/offthreadvideo)**：适用于`<Video>`的支持也适用于`<OffthreadVideo>`，但是在渲染过程中可以支持更多编解码器，因为底层使用了FFmpeg来读取视频文件。但是，我们没有维护受支持的视频编解码器的确切列表。
+```

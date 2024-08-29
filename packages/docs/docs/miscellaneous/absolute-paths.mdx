@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-miscellaneous-absolute-paths.png
-sidebar_label: Absolute paths
-title: Files with absolute paths
-crumb: "FAQ"
+sidebar_label: 绝对路径
+title: 使用绝对路径的文件
+crumb: "常见问题"
 ---
 
-Why is it not possible to use absolute paths to require assets?
+为什么无法使用绝对路径来引用资源？
 
-```tsx title="This does not work"
+```tsx title="这不起作用"
 import { Img } from "remotion";
 
 const MyComp: React.FC = () => {
@@ -15,70 +15,72 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## Browsers don't have access to your filesystem
+## 浏览器无法访问您的文件系统
 
-Remotion runs in a browser during preview and in a headless browser during rendering.  
-By default, browsers don't have access to your filesystem. To read any files, they need to be served via an HTTP server.
+Remotion 在预览期间在浏览器中运行，在渲染期间在无头浏览器中运行。  
+默认情况下，浏览器无法访问您的文件系统。要读取任何文件，它们需要通过 HTTP 服务器提供。
 
-## Only the `public` folder is supported by web frameworks
+## 只有 `public` 文件夹受到 Web 框架支持
 
-To allow importing assets, frameworks for making web apps such as Next.js, Vite, Remix or Create React App expose the `public` folder.
+为了允许导入资源，用于制作 Web 应用程序的框架（如 Next.js、Vite、Remix 或 Create React App）会公开 `public` 文件夹。
 
-We follow this convention in Remotion to allow for seamless code reuse across frameworks - assets that show up in the [Remotion Studio](/docs/studio) also show up in the [Remotion Player](/docs/player).
+在 Remotion 中，我们遵循这个约定，以便在不同框架之间实现无缝的代码重用 - 出现在 [Remotion Studio](/docs/studio) 中的资源也会出现在 [Remotion Player](/docs/player) 中。
 
-Allowing assets to be imported from any folder would break this convention, and they could not be displayed in the Remotion Player.
+允许从任何文件夹导入资源将打破这个约定，并且它们将无法在 Remotion Player 中显示。
 
 <details>
 <summary>
-The <code>public</code> folder convention
+<code>public</code> 文件夹约定
 </summary>
 
-Remotion implements a convention where the <code>public</code> folder in your project is exposed via HTTP server and can be accessed on the same domain as your development server.
+Remotion 实现了一个约定，即您项目中的 <code>public</code> 文件夹通过 HTTP 服务器公开，并且可以在与您的开发服务器相同的域上访问。
 
-In Next.js, Remix, and Vite, if you have a file `public/image.png`, you can access it via `"http://localhost:3000/image.png"`, or just `"/image.png"`
+在 Next.js、Remix 和 Vite 中，如果您有一个文件 `public/image.png`，您可以通过 `"http://localhost:3000/image.png"` 或 `"/image.png"` 访问它。
 
-In Remotion you need to wrap the path in [`staticFile()`](/docs/staticfile), so it would be `staticFile("image.png")`.  
-This ensures that assets are loaded correctly if the webpage is not served on the root path `/`, which is the case on [Remotion Lambda](/docs/lambda) and [Remotion Cloud Run](/docs/cloudrun).
+在 Remotion 中，您需要将路径包装在 [`staticFile()`](/docs/staticfile) 中，因此它将是 `staticFile("image.png")`。  
+这可以确保在网页未在根路径 `/` 上提供的情况下（例如在 [Remotion Lambda](/docs/lambda) 和 [Remotion Cloud Run](/docs/cloudrun) 上），资源可以正确加载。
 
-By using `staticFile()`, you can import assets from the public folder, and it will automatically also work in Remotion Studio as well as Remix, Vite, Next.js and Create React App in case you are using the [Remotion Player](/docs/player).
+通过使用 `staticFile()`，您可以从 public 文件夹导入资源，并且它也会自动在 Remotion Studio 中以及在 Remix、Vite、Next.js 和 Create React App 中工作，如果您正在使用 [Remotion Player](/docs/player)。
 
 </details>
 
-## Absolute paths are not portable
+## 绝对路径不具备可移植性
 
-Before rendering a video, code is bundled to reduce the size of the assets that need to be sent to the browser. Your project with it's `node_modules` folder would be hundreds of megabytes large, but by bundling, the size is reduced drastically.
 
-A bundle can also be uploaded and hosted on the internet, which is what [Remotion Lambda](/docs/lambda) and [Remotion Cloud Run](/docs/cloudrun) do and what is also possible using [regular rendering](/docs/terminology/serve-url).
 
-Because the goal is to reduce the size of the bundle, only the `public` gets copied into the bundle.  
-Files with an absolute path would not be copied into the bundle, and therefore not be available when rendering on another device.
+在渲染视频之前，代码会被捆绑以减小需要发送到浏览器的资产的大小。您的项目及其 `node_modules` 文件夹可能会有数百兆字节大，但通过捆绑，大小会大幅减小。
 
-## Serving the filesystem via HTTP is dangerous
+捆绑后，捆绑包也可以上传并托管在互联网上，这就是 [Remotion Lambda](/docs/lambda) 和 [Remotion Cloud Run](/docs/cloudrun) 所做的，也是使用 [常规渲染](/docs/terminology/serve-url) 可能实现的。
 
-While Remotion could theoretically serve the full filesystem via HTTP so it is accessible via browser, this would be a security risk.  
-Any application or website could then read any file on your computer by making a HTTP request.
+因为目标是减小捆绑包的大小，只有 `public` 文件夹会被复制到捆绑包中。  
+具有绝对路径的文件不会被复制到捆绑包中，因此在另一台设备上渲染时将无法使用。
 
-## What to do instead
+## 通过 HTTP 提供文件系统是危险的
 
-### Use the `public` folder
+虽然理论上 Remotion 可以通过 HTTP 提供完整的文件系统以便通过浏览器访问，但这将是一个安全风险。  
+任何应用程序或网站都可以通过发出 HTTP 请求来读取您计算机上的任何文件。
 
-Preferrably, copy files into the `public` folder and [`staticFile()`](/docs/staticfile) to [import assets](/docs/assets).
+## 替代方法
 
-### Workaround: Use `npx serve`
+### 使用 `public` 文件夹
 
-Sometimes, it is preferrable to not copy all assets into your Remotion project because they are too large.
+最好将文件复制到 `public` 文件夹，并使用 [`staticFile()`](/docs/staticfile) 来[导入资产](/docs/assets)。
 
-In this case, you can use [`npx serve`](https://www.npmjs.com/package/serve) to serve a folder on your computer via HTTP.
+### 解决方法：使用 `npx serve`
+
+有时，最好不将所有资产复制到您的 Remotion 项目中，因为它们太大。
+
+在这种情况下，您可以使用 [`npx serve`](https://www.npmjs.com/package/serve) 来通过 HTTP 在您的计算机上提供文件夹。
 
 ```bash
 npx serve --cors C://Users/Joe/Documents
 ```
 
-You will get a URL that you can use to access the folder via HTTP.  
-Pass URLs of assets to `<Img>`, `<Video>`, `<OffthreadVideo>`, `<Audio>`, `<Gif>` tags to use them in Remotion.
+您将获得一个 URL，您可以使用它通过 HTTP 访问文件夹。  
+将资产的 URL 传递给 `<Img>`、`<Video>`、`<OffthreadVideo>`、`<Audio>`、`<Gif>` 标签以在 Remotion 中使用它们。
 
-If you need to spawn a server programmatically, use [`serve-handler`](https://www.npmjs.com/package/serve-handler).
+如果需要以编程方式生成服务器，请使用 [`serve-handler`](https://www.npmjs.com/package/serve-handler)。
 
-## See also
+## 另请参阅
 
-- [Importing assets](/docs/assets)
+- [导入资产](/docs/assets)

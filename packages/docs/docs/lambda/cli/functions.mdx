@@ -1,24 +1,24 @@
 ---
 image: /generated/articles-docs-lambda-cli-functions.png
 id: functions
-sidebar_label: functions
+sidebar_label: 函数
 title: "npx remotion lambda functions"
 slug: /lambda/cli/functions
-crumb: "Lambda CLI Reference"
+crumb: "Lambda CLI 参考"
 ---
 
 import { DefaultMemorySize } from "../../../components/lambda/default-memory-size";
 import { DefaultTimeout } from "../../../components/lambda/default-timeout";
 import { DefaultLogRetention } from "../../../components/lambda/default-log-retention";
 
-The `npx remotion lambda functions` command allows you to deploy, view and delete AWS lambda functions that can render videos.
+`npx remotion lambda functions` 命令允许您部署、查看和删除可以渲染视频的 AWS Lambda 函数。
 
 - [`deploy`](#deploy)
 - [`ls`](#ls)
 - [`rm`](#rm)
 - [`rmall`](#rmall)
 
-You only need one function per AWS region and Remotion version. Suggested reading: [Do I need to deploy a function for each render?](/docs/lambda/faq#do-i-need-to-deploy-a-function-for-each-render)
+您只需要在每个 AWS 区域和 Remotion 版本中拥有一个函数。建议阅读：[我需要为每个渲染部署一个函数吗？](/docs/lambda/faq#do-i-need-to-deploy-a-function-for-each-render)
 
 ## deploy
 
@@ -26,13 +26,13 @@ You only need one function per AWS region and Remotion version. Suggested readin
 npx remotion lambda functions deploy
 ```
 
-Creates a new function in your AWS account. If a function in the same region, with the same Remotion version, with the same amount of memory, disk space and timeout already exists, the name of the already deployed function will be returned instead.
+在您的 AWS 帐户中创建一个新函数。如果在同一区域中已经存在具有相同 Remotion 版本、相同内存量、磁盘空间和超时时间的函数，则将返回已部署函数的名称。
 
-By default, a CloudWatch Log Group will be created that will log debug information to CloudWatch that you can consult in the case something is going wrong. The default retention period for these logs is 14 days, which can be changed.
+默认情况下，将创建一个 CloudWatch 日志组，该日志组将记录调试信息到 CloudWatch，您可以在出现问题时查看。这些日志的默认保留期为 14 天，可以更改。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
 Region = eu-central-1,
@@ -53,36 +53,36 @@ Deployed as remotion-render-2021-12-17-2048mb-120sec
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select.
+要选择的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `--memory`
 
-Memory size in megabytes. Default: <DefaultMemorySize /> MB.
+内存大小（以兆字节为单位）。默认值：<DefaultMemorySize /> MB。
 
 ### `--disk`
 
-Disk size in megabytes. See also: [Disk size](/docs/lambda/disk-size).
+磁盘大小（以兆字节为单位）。另请参阅：[磁盘大小](/docs/lambda/disk-size)。
 
-| Remotion Version | Default       |
-|------------------|---------------|
-| &lt;5.0.0        | 2048MB        |
-| &gt;=5.0.0       | 10240MB       |
+| Remotion 版本 | 默认值       |
+|--------------|--------------|
+| &lt;5.0.0    | 2048MB       |
+| &gt;=5.0.0   | 10240MB      |
 
 ### `--timeout`
 
-Timeout of the Lambda function. Default: <DefaultTimeout /> seconds.
+Lambda 函数的超时时间。默认值: <DefaultTimeout /> 秒。
 
 :::note
-Not to be confused with the [`--timeout` flag for `npx remotion lambda render` which defines the timeout for `delayRender()`](/docs/cli/render#--timeout).
+不要与 [`npx remotion lambda render` 的 `--timeout` 标志混淆，该标志定义了 `delayRender()` 的超时时间](/docs/cli/render#--timeout)。
 :::
 
 ### `--disable-cloudwatch`
 
-Does not create a CloudWatch log group.
+不创建 CloudWatch 日志组。
 
 ### `--retention-period`
 
-Retention period for the CloudWatch Logs in days. Default: <DefaultLogRetention /> days.
+CloudWatch 日志的保留期限（以天为单位）。默认值: <DefaultLogRetention /> 天。
 
 ### `--enable-lambda-insights`<AvailableFrom v="4.0.61" />
 
@@ -90,35 +90,35 @@ Retention period for the CloudWatch Logs in days. Default: <DefaultLogRetention 
 
 ### `--custom-role-arn`
 
-Use a custom role for the function instead of the default (`arn:aws:iam::[aws-account-id]:role/remotion-lambda-role`)
+使用自定义角色代替默认角色 (`arn:aws:iam::[aws-account-id]:role/remotion-lambda-role`)
 
 ### `--quiet`, `-q`
 
-Only logs the function name.
+仅记录函数名称。
 
 ### `--enable-v5-runtime`<AvailableFrom v="4.0.148" />
 
-Enable the [upcoming v5 runtime](/docs/lambda/runtime#runtime-changes-in-remotion-50) with newer Chrome and Node versions early.
+提前启用[即将推出的 v5 运行时](/docs/lambda/runtime#runtime-changes-in-remotion-50)，使用更新的 Chrome 和 Node 版本。
 
 ### `--vpc-subnet-ids`<AvailableFrom v="4.0.160" />
 
-Comma separated list of VPC subnet IDs to use for the Lambda function VPC configuration.
+用于 Lambda 函数 VPC 配置的 VPC 子网 ID 的逗号分隔列表。
 
 ### `--vpc-security-group-ids`<AvailableFrom v="4.0.160" />
 
-Comma separated list of VPC security group IDs to use for the Lambda function VPC configuration.
+用于 Lambda 函数 VPC 配置的 VPC 安全组 ID 的逗号分隔列表。
 
 ### `--runtime-preference`<AvailableFrom v="4.0.205" />
 
-One of:
+其中之一:
 
-- `default`: Currently resolving to `prefer-cjk`
-- `prefer-apple-emojis`: Use Apple Emojis instead of Google Emojis. CJK characters will be removed.
-- `prefer-cjk`: Include CJK (Chinese, Japanese, Korean) characters and Google Emojis. Apple Emojis will be removed.
+- `default`: 当前解析为 `prefer-cjk`
+- `prefer-apple-emojis`: 使用苹果表情符号而不是谷歌表情符号。CJK 字符将被移除。
+- `prefer-cjk`: 包括 CJK（中文、日文、韩文）字符和谷歌表情符号。苹果表情符号将被移除。
 
 :::note
-Apple Emojis are intellectual property of Apple Inc.  
-You are responsible for the use of Apple Emojis in your project.
+苹果表情符号是 Apple Inc. 的知识产权。  
+您对在项目中使用苹果表情符号负责。
 :::
 
 ## ls
@@ -127,34 +127,33 @@ You are responsible for the use of Apple Emojis in your project.
 npx remotion lambda functions ls
 ```
 
-Lists the functions that you have deployed to AWS in the [selected region](/docs/lambda/region-selection).
+列出您在 [选定的区域](/docs/lambda/region-selection) 中部署到 AWS 的函数。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
-6 functions in the eu-central-1 region<br/>
-Name                                              Version        Memory (MB)    Timeout (sec)  <br/>
-remotion-render-2021-12-16-2048mb-240sec          2021-12-16     2048           240          <br/>
-remotion-render-2021-12-17-2048mb-120sec          2021-12-17     2048           120          <br/>
-remotion-render-2021-12-15-2048mb-240sec          2021-12-15     2048           240
+eu-central-1 区域中的 6 个函数<br/>
+名称                                              版本        内存（MB）    超时时间（秒）  <br/>
+remotion-render-2021-12-16-2048mb-240sec          2021-12-16  2048         240          <br/>
+remotion-render-2021-12-17-2048mb-120sec          2021-12-17  2048         120          <br/>
+remotion-render-2021-12-15-2048mb-240sec          2021-12-15  2048         240
 <br/>
-
 </pre>
 </details>
 
 ### `--compatible-only`<AvailableFrom v="4.0.164" />
 
-Only lists functions that have the same version as the CLI you are calling the command from.
+仅列出与您从中调用命令的 CLI 版本相同的函数。
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select.
+选择的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `--quiet`, `-q`
 
-Prints only the function names in a space-separated list. If no functions exist, prints `()`
+仅以空格分隔的列表形式打印函数名称。如果不存在函数，则打印 `()`
 
 ## rm
 
@@ -162,20 +161,20 @@ Prints only the function names in a space-separated list. If no functions exist,
 npx remotion lambda functions rm remotion-render-2021-12-16-2048mb-240sec
 ```
 
-Removes one or more functions from your AWS infrastructure. Pass a space-separated list of functions you'd like to delete.
+从您的 AWS 基础设施中删除一个或多个函数。传递一个以空格分隔的函数列表以进行删除。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
 <br/>
-Function name:   remotion-render-2021-12-16-2048mb-240sec<br/>
-Memory:          2048MB<br/>
-Timeout:         120sec<br/>
-Version:         2021-12-16<br/>
-Delete? (Y/n):  Y<br/>
-Deleted!
+函数名称：   remotion-render-2021-12-16-2048mb-240sec<br/>
+内存：          2048MB<br/>
+超时：         120sec<br/>
+版本：         2021-12-16<br/>
+删除？（Y/n）：  Y<br/>
+已删除！
 <br/>
 
 </pre>
@@ -183,11 +182,11 @@ Deleted!
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select.
+选择的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `--yes`, `-y`
 
-Skips confirmation.
+跳过确认。
 
 ## rmall
 
@@ -195,27 +194,27 @@ Skips confirmation.
 npx remotion lambda functions rmall
 ```
 
-Removes all functions in a region from your AWS infrastructure.
+从您的 AWS 基础设施中删除区域中的所有函数。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
 <br/>
-Function name:   remotion-render-2021-12-16-2048mb-240sec<br/>
-Memory:          2048MB<br/>
-Timeout:         120sec<br/>
-Version:         2021-12-16<br/>
-Delete? (Y/n):  Y<br/>
-Deleted!
+函数名称：   remotion-render-2021-12-16-2048mb-240sec<br/>
+内存：          2048MB<br/>
+超时：         120sec<br/>
+版本：         2021-12-16<br/>
+删除？（Y/n）：  Y<br/>
+已删除！
 <br/>
-Function name:   remotion-render-2021-12-18-2048mb-240sec<br/>
-Memory:          2048MB<br/>
-Timeout:         120sec<br/>
-Version:         2021-12-16<br/>
-Delete? (Y/n):  Y<br/>
-Deleted!
+函数名称：   remotion-render-2021-12-18-2048mb-240sec<br/>
+内存：          2048MB<br/>
+超时：         120sec<br/>
+版本：         2021-12-16<br/>
+删除？（Y/n）：  Y<br/>
+已删除！
 <br/>
 
 </pre>
@@ -223,13 +222,14 @@ Deleted!
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select.
+选择的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `--yes`, `-y`
 
-Skips confirmation.
+跳过确认。
 
-## See also
+## 另请参阅
 
-- [Do I need to deploy a function for each render?](/docs/lambda/faq#do-i-need-to-deploy-a-function-for-each-render)
-- [Setup guide](/docs/lambda/setup)
+- [每次渲染都需要部署一个函数吗？](/docs/lambda/faq#do-i-need-to-deploy-a-function-for-each-render)
+- [设置指南](/docs/lambda/setup)
+```

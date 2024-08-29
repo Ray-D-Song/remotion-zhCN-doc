@@ -4,7 +4,7 @@ crumb: "@remotion/transitions - Timings"
 title: "springTiming()"
 ---
 
-A timing function for [`<TransitionSeries>`](/docs/transitions/transitionseries) based on [`spring()`](/docs/spring).
+一个基于 [`spring()`](/docs/spring) 的 [`<TransitionSeries>`](/docs/transitions/transitionseries) 的时间函数。
 
 ```tsx twoslash title="SlideTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -58,40 +58,40 @@ const BasicTransition = () => {
 
 ## API
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `config`
 
-_optional_
+_可选_
 
-A spring `config`, see [`spring()`](/docs/spring).
+一个 spring `config`，参见 [`spring()`](/docs/spring)。
 
 ### `durationInFrames`
 
-_optional_
+_可选_
 
-Stretch the timing curve of the animation to a fixed duration.
+将动画的时间曲线拉伸到固定的持续时间。
 
 ### `durationRestThreshold?`
 
-_optional_
+_可选_
 
-At which point the animation is considered to be finished. Defaults: `0.005`
+动画被认为已完成的阈值。默认值：`0.005`
 
 ### `reverse?`<AvailableFrom v="4.0.144" />
 
-_optional_
+_可选_
 
-Reverse the timing curve.
+反转时间曲线。
 
-## Recommendation: Set a low duration rest threshold
+## 推荐：设置低持续时间阈值
 
-The default `durationRestThreshold` is `0.005` (same as `spring()`). This means that if the animations has progressed 99.5%, it is considered to be finished.  
-For a transition, this can lead to a slightly noticeable cutoff of the animation:
+默认的 `durationRestThreshold` 是 `0.005`（与 `spring()` 相同）。这意味着如果动画已经进行了 99.5%，则被认为已完成。  
+对于一个过渡，这可能导致动画略微明显地截断：
 
 <Demo type="slide-long-duration-rest" />
 
-To avoid this, set a low `durationRestThreshold`, we recommend `0.001`.
+为了避免这种情况，设置一个较低的 `durationRestThreshold`，我们建议使用 `0.001`。
 
-Consider that this will also increase the duration of the animation.
-If you set a fixed `durationInFrames`, the animation will feel faster because it for longer it is not considered to be finished.
+请注意，这也会增加动画的持续时间。
+如果设置了固定的 `durationInFrames`，动画会感觉更快，因为在更长的时间内它不会被认为已完成。

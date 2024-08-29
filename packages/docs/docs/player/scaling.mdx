@@ -1,37 +1,37 @@
 ---
 image: /generated/articles-docs-player-scaling.png
 id: scaling
-title: "Sizing"
+title: "尺寸"
 crumb: "@remotion/player"
 ---
 
-The following algorithm is used for calculating the size of the Player:
+用于计算播放器大小的算法如下：
 
-<Step>1</Step> By default, the Player is as big as the composition height, defined by the <code>compositionHeight</code> and <code>compositionWidth</code> props. <br/>
-<Step>2</Step> If <code>height</code> and <code>width</code> is defined using the <code>style</code> property, the player will assume the dimensions you have passed. <br/>
-<Step>3</Step> If a <code>height</code> is passed using the <code>style</code> property, the player will assume that height, and calculate the width based on the aspect ratio of the video. <br/>
-<Step>4</Step> If <code>width</code> is passed using the <code>style</code> property, the player will assume that width and calculate the height based on the aspect ration of the video. <br/><br/>
+<Step>1</Step> 默认情况下，播放器的大小与由<code>compositionHeight</code>和<code>compositionWidth</code>属性定义的合成高度一样大。<br/>
+<Step>2</Step> 如果使用<code>style</code>属性定义了<code>height</code>和<code>width</code>，播放器将采用您传递的尺寸。<br/>
+<Step>3</Step> 如果使用<code>style</code>属性传递了<code>height</code>，播放器将采用该高度，并根据视频的宽高比计算宽度。<br/>
+<Step>4</Step> 如果使用<code>style</code>属性传递了<code>width</code>，播放器将采用该宽度，并根据视频的宽高比计算高度。<br/><br/>
 
 :::note
-Before v3.3.43, if case <InlineStep>3</InlineStep> or <InlineStep>4</InlineStep> happened, a layout shift would occur during mounting because the element was measured. Using a newer version of Remotion will fix this, because it uses the `aspect-ratio` CSS property.
+在v3.3.43之前，如果发生<InlineStep>3</InlineStep>或<InlineStep>4</InlineStep>的情况，由于元素被测量，挂载过程中会发生布局移位。使用更新版本的Remotion将解决此问题，因为它使用`aspect-ratio` CSS属性。
 :::
 
-## Full width
+## 全宽度
 
-By setting the following style:
+通过设置以下样式：
 
 ```tsx
 style={{ width: "100%" }}
 ```
 
-The video will scale to the full width of the parent container, while the height will be calculated based on the aspect ratio of the video.
+视频将按照父容器的全宽度进行缩放，而高度将根据视频的宽高比进行计算。
 
-## Fitting to a container
+## 适应容器
 
-You can use
+您可以使用
 
 ```tsx
 style={{ width: "100%", height: "100%" }}
 ```
 
-to make the `<Player />` fit the whole container. Note that if the player size does not match the video aspect ratio, the video gets scaled down and centered in the player.
+使`<Player />`适应整个容器。请注意，如果播放器大小与视频宽高比不匹配，视频将被缩小并居中显示在播放器中。

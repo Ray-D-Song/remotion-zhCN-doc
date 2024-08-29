@@ -6,15 +6,15 @@ slug: /lambda/simulatepermissions
 crumb: "Lambda API"
 ---
 
-Runs tests through the AWS Simulator ensuring that all the necessary permissions are set for the authenticated user.
+通过 AWS 模拟器运行测试，确保为经过身份验证的用户设置了所有必要的权限。
 
-The CLI equivalent is `npx remotion lambda policies validate`.
+CLI 等效命令为 `npx remotion lambda policies validate`。
 
-The function does not reject with an error if a permission is missing, rather the missing permission is indicated in the return value.
+如果缺少权限，该函数不会拒绝并返回错误，而是在返回值中指示缺少的权限。
 
-This function does only validate the validity of the **user policy**, not the **role policy**.
+此函数仅验证**用户策略**的有效性，而不验证**角色策略**。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -32,19 +32,19 @@ for (const result of results) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) that you would like to query.
+您想要查询的[AWS 区域](/docs/lambda/region-selection)。
 
 ### `onSimulation`
 
-_optional_
+_可选_
 
-A callback function that gets called every time a new simulation has been executed. This allows you to react to new simulation results coming in much faster than waiting for the return value of the function. Example:
+每次执行新模拟时调用的回调函数。这使您可以更快地对新的模拟结果做出反应，而不必等待函数的返回值。示例：
 
 ```ts twoslash
 // @module: esnext
@@ -61,21 +61,22 @@ const { results } = await simulatePermissions({
 });
 ```
 
-## Return value
+## 返回值
 
-**An array of objects** containing simulation results of each necessary permission. The objects contain the following keys:
+包含每个必要权限的模拟结果的**对象数组**。对象包含以下键：
 
 ### `decision`
 
-Either `"allowed"`, `"implicitDeny"` or `"explicitDeny"`.
+`"allowed"`、`"implicitDeny"` 或 `"explicitDeny"`。
 
 ### `name`
 
-The identifier of the required permission. See the [Permissions page](/docs/lambda/permissions) to see a list of required permissions.
+所需权限的标识符。请参阅[权限页面](/docs/lambda/permissions)查看所需权限的列表。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/iam-validation/simulate.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/iam-validation/simulate.ts)
 - [getUserPolicy()](/docs/lambda/getuserpolicy)
 - [getRolePolicy()](/docs/lambda/getrolepolicy)
-- [Permissions](/docs/lambda/permissions)
+- [权限](/docs/lambda/permissions)
+

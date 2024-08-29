@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-4-0-migration.png
 id: 4-0-migration
-title: v4.0 Migration
-crumb: "Version Upgrade"
+title: v4.0 迁移
+crumb: "版本升级"
 ---
 
-When upgrading from Remotion 3 to Remotion 4, note the following changes and apply them to your project.
+在从 Remotion 3 升级到 Remotion 4 时，请注意以下更改并将其应用到您的项目中。
 
-## How to upgrade
+## 如何升级
 
-See the [changelog](https://remotion.dev/changelog) to find the latest version.
-Upgrade `remotion` and all packages starting with `@remotion` to the latest version, e.g. `4.0.0`:
+查看 [变更日志](https://remotion.dev/changelog) 以找到最新版本。
+将 `remotion` 和所有以 `@remotion` 开头的包升级到最新版本，例如 `4.0.0`：
 
 ```diff
 - "remotion": "^3.3.43"
@@ -27,26 +27,26 @@ Upgrade `remotion` and all packages starting with `@remotion` to the latest vers
 + "@remotion/renderer": "4.0.0"
 ```
 
-Run `npm i `, `yarn` or `pnpm i` respectively afterwards.
+然后分别运行 `npm i`、`yarn` 或 `pnpm i`。
 
-## System requirements
+## 系统要求
 
-The minimum Node version is now 16.0.0.
+最低 Node 版本现在为 16.0.0。
 
-Only the following platforms are supported: Windows (x64 only), macOS, Linux.
+仅支持以下平台：Windows（仅限 x64）、macOS、Linux。
 
-Linux distros with glibc need to have at least version 2.35. [See here](https://github.com/remotion-dev/remotion/issues/2439) for more information.
+具有 glibc 的 Linux 发行版需要至少版本 2.35。[在此处查看](https://github.com/remotion-dev/remotion/issues/2439) 更多信息。
 
-## Config file changes
+## 配置文件更改
 
-The CLI configuration file has been moved out from the core Remotion package to `@remotion/cli/config`. Update your imports like this:
+CLI 配置文件已从核心 Remotion 包移动到 `@remotion/cli/config`。更新您的导入如下：
 
 ```diff
 - import {Config} from 'remotion';
 + import {Config} from '@remotion/cli/config';
 ```
 
-The options have been flattened. For example, instead of `Config.Bundling.overrideWebpackConfig`, you now use `Config.overrideWebpackConfig`.
+选项已被展平。例如，不再使用 `Config.Bundling.overrideWebpackConfig`，而是现在使用 `Config.overrideWebpackConfig`。
 
 ```diff
 - Config.Bundling.overrideWebpackConfig()
@@ -56,105 +56,105 @@ The options have been flattened. For example, instead of `Config.Bundling.overri
 + Config.setOverwriteOutput(true);
 ```
 
-Apply this to all configuration calls.
+将此应用于所有配置调用。
 
-## Separating `ImageFormat`
+## 分离 `ImageFormat`
 
-Previously, the `imageFormat` option would be used for both stills and videos. While for stills, PNG is often preferrable, for videos it is overall faster to use JPEG as a default. In Remotion 4.0, the image formats are being separated so you can set defaults for videos and stills separately.
+以前，`imageFormat` 选项将用于静态图像和视频。虽然对于静态图像，PNG 通常更可取，但对于视频来说，默认情况下使用 JPEG 整体速度更快。在 Remotion 4.0 中，图像格式被分开，因此您可以分别为视频和静态图像设置默认值。
 
-- `Config.setImageFormat` got replaced by [`Config.setVideoImageFormat()`](/docs/config#setvideoimageformat) and [`Config.setStillImageFormat()`](/docs/config#setstillimageformat).
+- `Config.setImageFormat` 被 [`Config.setVideoImageFormat()`](/docs/config#setvideoimageformat) 和 [`Config.setStillImageFormat()`](/docs/config#setstillimageformat) 替换。
 
 ```diff
 - Config.setImageFormat('jpeg');
 + Config.setVideoImageFormat('jpeg');
 ```
 
-- The CLI option is still `--image-format` for all commands.
-- The Node.JS API name is still `imageFormat`.
-- The TypeScript type `ImageFormat` has been separated into `StillImageFormat` and `VideoImageFormat`.
-- `StillImageFormat` now also supports `webp` and `pdf`!
+- 所有命令的 CLI 选项仍为 `--image-format`。
+- Node.JS API 名称仍为 `imageFormat`。
+- TypeScript 类型 `ImageFormat` 已分为 `StillImageFormat` 和 `VideoImageFormat`。
+- `StillImageFormat` 现在还支持 `webp` 和 `pdf`！
 
-## Streamlined logging
+## 简化的日志记录
 
-For [`getCompositions()`](/docs/renderer/render-media), [`renderMedia()`](/docs/renderer/render-media), [`renderStill()`](/docs/renderer/render-still), [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda), [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) and [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda):
+对于[`getCompositions()`](/docs/renderer/render-media), [`renderMedia()`](/docs/renderer/render-media), [`renderStill()`](/docs/renderer/render-still), [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda), [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 和 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda):
 
-[`verbose`](/docs/renderer/render-media#verbose) and [`dumpBrowserLogs`](/docs/renderer/render-media#dumpbrowserlogs) have been deprecated in favor of [`"logLevel": "verbose"`](/docs/renderer/render-media#loglevel). This makes the options equivalent to the CLI options.
+[`verbose`](/docs/renderer/render-media#verbose) 和 [`dumpBrowserLogs`](/docs/renderer/render-media#dumpbrowserlogs) 已被弃用，推荐使用 [`"logLevel": "verbose"`](/docs/renderer/render-media#loglevel)。这使得选项等同于 CLI 选项。
 
-## Dropped support for Lambda `architecture`
+## 不再支持 Lambda `architecture`
 
-When deploying a Lambda, you were previously able to choose between the `arm64` and `x86_64` architecture.  
-From v4.0 on, only `arm64` is supported. It should be faster, cheaper and not have any different behavior than `x86_64`.
+在部署 Lambda 时，您以前可以在 `arm64` 和 `x86_64` 架构之间进行选择。  
+从 v4.0 开始，仅支持 `arm64`。这应该更快、更便宜，并且不会有任何与 `x86_64` 不同的行为。
 
-**How to upgrade**:
+**升级方法**:
 
-- Remove the `architecture` option from `estimatePrice()` and `deployFunction()`.
+- 从 `estimatePrice()` 和 `deployFunction()` 中移除 `architecture` 选项。
 
-## Rich timeline removed
+## 移除了丰富的时间轴
 
-The option to use the "Rich timeline" has been removed due to performance problems.  
-The timeline is now always in simple mode, but supports more timeline layers at once.
+由于性能问题，使用 "丰富的时间轴" 选项已被移除。  
+现在时间轴始终处于简单模式，但支持同时显示更多时间轴层。
 
-## ProRes videos now export uncompressed audio by default
+## ProRes 视频现在默认导出未压缩音频
 
-Previously, the `aac` audio codec was the default for ProRes exports. The default is now `pcm_s16le` which stands for uncompressed 16-bit low-endian PCM audio.  
-This change was made since users export ProRes mainly for getting high-quality footage to be further used in video editing programs.
+以前，ProRes 导出的默认音频编解码器是 `aac`。现在默认是 `pcm_s16le`，代表未压缩的 16 位低端 PCM 音频。  
+这一变更是因为用户主要导出 ProRes 以获取高质量素材，以便在视频编辑程序中进一步使用。
 
-## Renamed `quality` option to `jpegQuality`
+## 将 `quality` 选项重命名为 `jpegQuality`
 
-To clarify the meaning of this option, it is now universally called "JPEG Quality". Adjust the following options:
+为了澄清此选项的含义，现在通用称为 "JPEG 质量"。调整以下选项：
 
-- [`npx remotion render`](/docs/cli/render): Use `--jpeg-quality` insted of `--quality`
-- [`npx remotion still`](/docs/cli/still): Use `--jpeg-quality` insted of `--quality`
-- [`npx remotion benchmark`](/docs/cli/benchmark): Use `--jpeg-quality` insted of `--quality`
-- [`npx remotion lambda render`](/docs/lambda/cli/render): Use `--jpeg-quality` insted of `--quality`
-- [`npx remotion lambda still`](/docs/lambda/cli/still): Use `--jpeg-quality` insted of `--quality`
-- [`renderFrames()`](/docs/renderer/render-frames): Use `jpegQuality` instead of `quality`
-- [`renderMedia()`](/docs/renderer/render-media): Use `jpegQuality` instead of `quality`
-- [`renderStill()`](/docs/renderer/render-still): Use `jpegQuality` instead of `quality`
-- [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda): Use `jpegQuality` instead of `quality`
-- [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda): Use `jpegQuality` instead of `quality`
+- [`npx remotion render`](/docs/cli/render): 使用 `--jpeg-quality` 替代 `--quality`
+- [`npx remotion still`](/docs/cli/still): 使用 `--jpeg-quality` 替代 `--quality`
+- [`npx remotion benchmark`](/docs/cli/benchmark): 使用 `--jpeg-quality` 替代 `--quality`
+- [`npx remotion lambda render`](/docs/lambda/cli/render): 使用 `--jpeg-quality` 替代 `--quality`
+- [`npx remotion lambda still`](/docs/lambda/cli/still): 使用 `--jpeg-quality` 替代 `--quality`
+- [`renderFrames()`](/docs/renderer/render-frames): 使用 `jpegQuality` 替代 `quality`
+- [`renderMedia()`](/docs/renderer/render-media): 使用 `jpegQuality` 替代 `quality`
+- [`renderStill()`](/docs/renderer/render-still): 使用 `jpegQuality` 替代 `quality`
+- [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda): 使用 `jpegQuality` 替代 `quality`
+- [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda): 使用 `jpegQuality` 替代 `quality` 
 
-## No more FFmpeg install, `ffmpegExecutable` option removed
 
-FFmpeg is now baked into the `@remotion/renderer` package. Therefore, the `ffmpegExecutable` and `ffprobeExecutable` options have been removed.
 
-Furthermore, the `npx remotion install ffmpeg` and `npx remotion install ffprobe` commands no longer exist.
+## 不再需要安装FFmpeg，`ffmpegExecutable` 选项已移除
 
-**How to upgrade:**
+FFmpeg 现在已经内置到 `@remotion/renderer` 包中。因此，`ffmpegExecutable` 和 `ffprobeExecutable` 选项已被移除。
 
-- Remove the `ffmpegExecutable` option from [`renderMedia()`](/docs/renderer/render-media), [`renderStill()`](/docs/renderer/render-still), [`getCompositions()`](/docs/renderer/get-compositions), [`renderFrames()`](/docs/renderer/render-frames) and [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) calls.
-- Remove the `ffprobeExecutable` option from [`renderMedia()`](/docs/renderer/render-media), [`renderStill()`](/docs/renderer/render-still), [`getCompositions()`](/docs/renderer/get-compositions), [`renderFrames()`](/docs/renderer/render-frames) and [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) calls.
-- Remove all calls to [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg).
-- Remove all calls to [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe).
-- Remove the `--ffmpeg-executable` flag from [`npx remotion render`](/docs/cli/render), [`npx remotion still`](/docs/cli/still) and [`npx remotion benchmark`](/docs/cli/benchmark)
-- Remove the `--ffprobe-executable` flag from [`npx remotion render`](/docs/cli/render), [`npx remotion still`](/docs/cli/still) and [`npx remotion benchmark`](/docs/cli/benchmark)
-- Don't use the [`npx remotion install`](/docs/cli/install) command anymore
+此外，`npx remotion install ffmpeg` 和 `npx remotion install ffprobe` 命令也不再存在。
 
-## Added `npx remotion ffmpeg` and `npx remotion ffprobe`
+**升级方法：**
 
-Since FFmpeg and FFprobe no longer have to be installed, the `ffmpeg` and `ffprobe` commands might also not be in your environment anymore. In order to still be able to use some of FFmpeg's handy commands, we introduced [`npx remotion ffmpeg`](/docs/cli/ffmpeg) and [`npx remotion ffprobe`](/docs/cli/ffprobe).
-Note that in order to keep the binary size small, those FFmpeg binaries only understand the codecs that Remotion itself supports: H.264, H.265, VP8, VP9 and ProRes.
+- 从 [`renderMedia()`](/docs/renderer/render-media)、[`renderStill()`](/docs/renderer/render-still)、[`getCompositions()`](/docs/renderer/get-compositions)、[`renderFrames()`](/docs/renderer/render-frames) 和 [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) 调用中移除 `ffmpegExecutable` 选项。
+- 从 [`renderMedia()`](/docs/renderer/render-media)、[`renderStill()`](/docs/renderer/render-still)、[`getCompositions()`](/docs/renderer/get-compositions)、[`renderFrames()`](/docs/renderer/render-frames) 和 [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) 调用中移除 `ffprobeExecutable` 选项。
+- 移除所有对 [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) 的调用。
+- 移除所有对 [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe) 的调用。
+- 从 [`npx remotion render`](/docs/cli/render)、[`npx remotion still`](/docs/cli/still) 和 [`npx remotion benchmark`](/docs/cli/benchmark) 命令中移除 `--ffmpeg-executable` 标志。
+- 从 [`npx remotion render`](/docs/cli/render)、[`npx remotion still`](/docs/cli/still) 和 [`npx remotion benchmark`](/docs/cli/benchmark) 命令中移除 `--ffprobe-executable` 标志。
+- 不再使用 [`npx remotion install`](/docs/cli/install) 命令
 
-A binary from the 6.0 release line of FFmpeg is used.
+## 新增 `npx remotion ffmpeg` 和 `npx remotion ffprobe`
 
-## Moved `onSlowestFrames` API
+由于不再需要安装 FFmpeg 和 FFprobe，你的环境中可能也不再有 `ffmpeg` 和 `ffprobe` 命令。为了仍然能够使用一些有用的 FFmpeg 命令，我们引入了 [`npx remotion ffmpeg`](/docs/cli/ffmpeg) 和 [`npx remotion ffprobe`](/docs/cli/ffprobe)。请注意，为了保持二进制文件的大小，这些 FFmpeg 二进制文件只支持 Remotion 本身支持的编解码器：H.264、H.265、VP8、VP9 和 ProRes。
 
-In V3, `onSlowestFrames` has been a callback function that you could pass to `renderMedia()`.  
-In V4, this data has been moved to the [return value](/docs/renderer/render-media#return-value).
 
-## ImageFormat removed
+## 移动了 `onSlowestFrames` API
 
-The [@remotion/renderer](/docs/renderer) `ImageFormat` Type got replaced by the more specific Types `VideoImageFormat` and `StillImageFormat`.
+在 V3 中，`onSlowestFrames` 是一个回调函数，你可以将其传递给 `renderMedia()`。  
+在 V4 中，这些数据已经移动到[返回值](/docs/renderer/render-media#return-value)中。
 
-## Removal of deprecated APIs
+## ImageFormat 已移除
 
-- `Config.setOutputFormat()` was deprecated in v1.4 and has now been removed. Use `setImageSequence()`, `setVideoImageFormat()` and `setCodec()` in combination instead.
+[@remotion/renderer](/docs/renderer) 中的 `ImageFormat` 类型已被更具体的类型 `VideoImageFormat` 和 `StillImageFormat` 替换。
 
-- `downloadVideo()` alias has been removed, use [`downloadMedia()`](/docs/lambda/downloadmedia) with the same API instead.
+## 移除了已弃用的 API
 
-- `<MotionBlur>` has been removed. Use [`<Trail>`](/docs/motion-blur/trail) instead.
+- `Config.setOutputFormat()` 在 v1.4 中已弃用，现已移除。请改用 `setImageSequence()`、`setVideoImageFormat()` 和 `setCodec()` 的组合。
 
-- `getParts()` has been removed. Use [`getSubpaths()`](/docs/paths/get-subpaths) instead:
+- `downloadVideo()` 别名已移除，请改用相同 API 的 [`downloadMedia()`](/docs/lambda/downloadmedia)。
+
+- `<MotionBlur>` 已移除，请改用 [`<Trail>`](/docs/motion-blur/trail)。
+
+- `getParts()` 已移除，请改用 [`getSubpaths()`](/docs/paths/get-subpaths)：
 
 ```tsx twoslash title="paths.ts"
 import {
@@ -172,62 +172,64 @@ const end = getPointAtLength(parts[0], length);
 const tangent = getTangentAtLength(parts[0], length / 2);
 ```
 
-- `webpackBundle` has been removed from `renderFrames()` and `renderMedia()` - rename it to `serveUrl` instead
-- `parallelism` has been removed from `renderFrames()` and `renderMedia()` - rename it to `concurrency` instead.
-- `config` has been removed from `renderFrames()` - rename it to `composition` instead.
+- `webpackBundle` 已从 `renderFrames()` 和 `renderMedia()` 中移除 - 请改为使用 `serveUrl`。
 
-## `onBucketEnsured` option has been removed
+- `parallelism` 已从 `renderFrames()` 和 `renderMedia()` 中移除 - 请改为使用 `concurrency`。
 
-The `onBucketEnsured()` option of [`getOrCreateBucket()`](/docs/lambda/getorcreatebucket) has been removed because creating the bucket is the only operation of `getOrCreateBucket()`. Therefore, you can just await the function itself.
+- `config` 已从 `renderFrames()` 中移除 - 请改为使用 `composition`。
 
-## `imageFormat` removed from `<OffthreadVideo>`
+## 移除了 `onBucketEnsured` 选项
 
-Until now, you could optionally pass the `imageFormat` prop into `<OffthreadVideo>`. This option was introduced in order to make transparent videos possible.
+[`getOrCreateBucket()`](/docs/lambda/getorcreatebucket) 的 `onBucketEnsured()` 选项已移除，因为创建存储桶是 `getOrCreateBucket()` 的唯一操作。因此，你可以直接等待函数本身。
 
-Now, you can instead use the optional `transparent` prop.
+## 从 `<OffthreadVideo>` 中移除了 `imageFormat`
 
-Due to this this change, the `OffthreadVideoImageFormat` type is no longer neccessary and has therefore been removed.
+到目前为止，你可以选择将 `imageFormat` 属性传递给 `<OffthreadVideo>`。这个选项是为了实现透明视频。
 
-## `OffthreadVideoImageFormat` removed
+现在，你可以改为使用可选的 `transparent` 属性。
 
-## `<Img>` will cancel the render if the image cannot be loaded
+由于这个更改，`OffthreadVideoImageFormat` 类型不再需要，因此已被移除。
 
-Before, [`<Img>`](/docs/img) would only log to the console if an image cannot be loaded and inevitably lead to a timeout if the error is not handled.
+## 移除了 `OffthreadVideoImageFormat`
 
-If this happens now and the error is not handled, the render will be aborted and the error reported.
+## `<Img>` 如果无法加载图像，将取消渲染
 
-## `crf` is not allowed for GIFs anymore
+以前，[`<Img>`](/docs/img) 只会在无法加载图像时记录到控制台，并最终导致超时，如果错误未被处理。
 
-Previously you were able to set a value for `crf` when rendering a GIF. This was a mistake and GIF does not support them.
+如果现在发生这种情况且错误未被处理，渲染将被中止并报告错误。
 
-## `staticFile()` URI-unsafe characters handling
+## GIF 不再允许使用 `crf`
 
-Previously, [`staticFile()`](/docs/staticfile) did not handle URI-unsafe characters contained in the provided path:
+以前，您可以在渲染 GIF 时为 `crf` 设置一个值。这是一个错误，因为 GIF 不支持它们。
 
-```tsx title="Before v4"
-staticFile("my-image#portrait.png"); //output: "my-image#portrait.png"
+## `staticFile()` 处理 URI 不安全字符
+
+以前，[`staticFile()`](/docs/staticfile) 没有处理提供的路径中包含的 URI 不安全字符：
+
+```tsx title="v4 之前"
+staticFile("my-image#portrait.png"); //输出: "my-image#portrait.png"
 ```
 
-This could lead to problems, when unsafe characters such as `#`, `?` and `&` were part of the filename.
+当不安全字符如 `#`、`?` 和 `&` 是文件名的一部分时，可能会导致问题。
 
-Now, [`staticFile()`](/docs/staticfile) encodes the filename using `encodeURIComponent`:
+现在，[`staticFile()`](/docs/staticfile) 使用 `encodeURIComponent` 对文件名进行编码：
 
-```tsx title="Since v4.0.0"
+```tsx title="v4.0.0 起"
 staticFile("my-image#portrait.png"); // "my-image%23portrait.png"
 ```
 
-## Type `WebpackOverrideFn` moved
+## 类型 `WebpackOverrideFn` 移动
 
-The `WebpackOverrideFn` type useful for overriding the Webpack config in the config file and in [`bundle()`](/docs/bundle) has moved from the `remotion` to the `@remotion/bundler` package.
+用于在配置文件和 [`bundle()`](/docs/bundle) 中覆盖 Webpack 配置的 `WebpackOverrideFn` 类型已从 `remotion` 移动到 `@remotion/bundler` 包中。
 
-**How to upgrade:**
+**如何升级：**
 
-If you encoded the path by yourself until now, don't do so anymore to avoid double encoding.
+如果您到目前为止自己对路径进行编码，请不要再这样做，以避免双重编码。
 
-## `react-native` no longer aliases to `react-native-web`
+## `react-native` 不再自动别名为 `react-native-web`
 
-Remotion no longer aliases `react-native` automatically to `react-native-web`.  
-If you are using `react-native-web`, override the Webpack config like this to restore the previous behavior:
+Remotion 不再自动将 `react-native` 别名为 `react-native-web`。  
+如果您正在使用 `react-native-web`，请像这样覆盖 Webpack 配置以恢复先前的行为：
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -246,17 +248,17 @@ Config.overrideWebpackConfig((config) => {
 });
 ```
 
-The [`@remotion/skia`](/docs/skia) package does not require `react-native` or `react-native-web` anymore.
+[`@remotion/skia`](/docs/skia) 包不再需要 `react-native` 或 `react-native-web`。
 
-## The `TComposition` type now includes a Zod schema
+## `TComposition` 类型现在包含一个 Zod 模式
 
-The `TComposition` type now has two generic arguments:
+`TComposition` 类型现在有两个泛型参数：
 
 ```ts
 export type TComposition<Schema extends AnyZodObject, Props> = {};
 ```
 
-If you need a type for a generic composition, you can use the new `AnyComposition` type:
+如果您需要一个通用组合的类型，可以使用新的 `AnyComposition` 类型：
 
 ```ts
 import { AnyComposition } from "remotion";
@@ -268,21 +270,21 @@ const composition: AnyComposition = {
 };
 ```
 
-## `getCanExtractFramesFast()` function has been removed
+## `getCanExtractFramesFast()` 函数已被移除
 
-The [`getCanExtractFramesFast()`](/docs/renderer/get-can-extract-frames-fast) function has been removed, since frames can always be extracted fast now using `<OffthreadVideo>`.
+[`getCanExtractFramesFast()`](/docs/renderer/get-can-extract-frames-fast) 函数已被移除，因为现在可以始终快速提取帧，使用 `<OffthreadVideo>`。
 
-**How to upgrade:**
+**升级方法：**
 
-You can now remove your re-encoding logic!
+您现在可以移除重新编码逻辑！
 
-## Input props must be an object
+## 输入属性必须是对象
 
-Since the input props are passed to a React component, they must not explicitly be objects (`{}`). You can still use other data structures such as arrays, but they must be wrapped in an object.
+由于输入属性被传递给一个 React 组件，它们不能明确地是对象 (`{}`)。您仍然可以使用其他数据结构，比如数组，但它们必须包装在一个对象中。
 
-## Cannot use an `interface` for props
+## 不能为属性使用 `interface`
 
-The following code now gives a type error:
+以下代码现在会产生类型错误：
 
 ```tsx
 interface MyProps {
@@ -302,8 +304,7 @@ const Hi = (props: MyProps) => {
 />;
 ```
 
-This is because props must now be an object and satisfy the shape `Record<string, unknown>`.  
-`interface`'s do not satisfy this shape, so you must use a `type` instead:
+这是因为属性现在必须是一个对象，并满足形状 `Record<string, unknown>`。`interface` 不满足这种形状，因此您必须使用 `type`：
 
 ```tsx
 type MyProps = {
@@ -311,15 +312,15 @@ type MyProps = {
 };
 ```
 
-See also: [Input props must be an object](/docs/4-0-migration#input-props-must-be-an-object)
+另请参阅：[输入属性必须是对象](/docs/4-0-migration#input-props-must-be-an-object)
 
-## `defaultProps` is required if the component has props
+## 如果组件具有属性，则 `defaultProps` 是必需的
 
-If you register a composition with a component that requires some props, you now are required to provide a `defaultProps` object.
+如果您注册一个需要一些属性的组件的组合，现在您必须提供一个 `defaultProps` 对象。
 
-## `inputProps` option of `renderMedia()` now works differently
+## `renderMedia()` 的 `inputProps` 选项现在工作方式不同
 
-[`renderMedia()`](/docs/renderer/render-media) accepts a `VideoConfig` object for the `composition` option, which now has a `props` field:
+[`renderMedia()`](/docs/renderer/render-media) 现在接受一个 `VideoConfig` 对象作为 `composition` 选项，该对象现在有一个 `props` 字段：
 
 ```tsx twoslash {5-7}
 // @module: esnext
@@ -357,79 +358,80 @@ await renderMedia({
 });
 ```
 
-The `composition.props` are now the effective props that get passed to the component, while `inputProps` are what can be retrieved using [`getInputProps()`](/docs/get-input-props).
+`composition.props` 现在是传递给组件的有效属性，而 `inputProps` 是可以使用 [`getInputProps()`](/docs/get-input-props) 检索的属性。
 
-Previously, `inputProps` would override the default props and be passed to the component.
+以前，`inputProps` 会覆盖默认属性并传递给组件。
 
-The recommended way is to get the `composition` object using [`selectComposition()`](/docs/renderer/select-composition) or [`getCompositions()`](/docs/renderer/get-compositions). However, for the purpose of starting renders faster, the `composition` object may be constructed manually.
+推荐的方法是使用 [`selectComposition()`](/docs/renderer/select-composition) 或 [`getCompositions()`](/docs/renderer/get-compositions) 获取 `composition` 对象。但是，为了更快地开始渲染，可以手动构造 `composition` 对象。
 
-## Changelog
+## 更新日志
 
-- **remotion**: `defaultProps` of a [`<Composition>`](/docs/composition) is now mandatory if the component accepts props
-- **remotion**: [`<Composition>`](/docs/composition) now accepts a schema
-- **remotion**: [`<Composition>`](/docs/composition) now accepts a [`calculateMetadata`](/docs/composition) prop
-- **remotion**: The `OffthreadVideoImageFormat` type has been removed.
-- **remotion**: [`imageFormat`](/docs/offthreadvideo#imageformat-) has been removed from `<OffthreadVideo>`
-- **remotion**: [`transparent`](/docs/offthreadvideo#transparent) has been added to `<OffthreadVideo>`.
-- **remotion**: [`<Img>`](/docs/img) will cancel the render if the image cannot be loaded
-- **remotion**: If an [`<Audio>`](/docs/audio) tag cannot be loaded, it will cancel the render.
-- **remotion**: The `TComposition` type now requires a Zod schema as a generic.
-- **remotion**: Type `WebpackOverrideFn` moved from `remotion` to `@remotion/bundler`
-- **remotion**: [`staticFile()`](/docs/staticfile#handling-uri-unsafe-characters) now supports URI-unsafe characters by default
-- **remotion**: Types: `src` is required for an [`<Img>`](/docs/img) tag
-- **@remotion/bundler**: The development Webpack cache will not be removed anymore if setting [`--bundle-cache=false`](/docs/cli/render#--bundle-cache).
-- **@remotion/bundler**: `react-native` no longer aliases to `react-native-web`
-- **@remotion/bundler**: Webpack has been upgraded to `5.83.1`
-- **@remotion/cli**: `npx remotion preview` is deprecated for [`npx remotion studio`](/docs/cli/studio)
-- **@remotion/cli**: New [Props editor](/docs/visual-editing) allows for editing props with schema
-- **@remotion/cli**: New [Render button](/docs/render) allows for rendering through the CLI
-- **@remotion/cli**: New [`npx remotion ffmpeg`](/docs/cli/ffmpeg) command
-- **@remotion/cli**: New [`npx remotion ffprobe`](/docs/cli/ffprobe) command
-- **@remotion/cli**: Configuration logic has been moved to [`@remotion/cli/config`](/docs/4-0-migration)
-- **@remotion/cli**: [Rich timeline was removed](https://github.com/remotion-dev/remotion/issues/1602#issuecomment-1401618644).
-- **@remotion/cli**: [`Config.*.setOption()`](/docs/4-0-migration) syntax has been removed.
-- **@remotion/cli**: [`Config.setOutputFormat()`](/docs/config#setoutputformat) has now been removed.
-- **@remotion/cli**: Studio now has custom dark scrollbars
-- **@remotion/cli**: New logger for verbose mode: No more interlacing between logs and progress bars
-- **@remotion/cli**: New indicator whether a file has been overwritten (`○`) or newly created (`+`)
-- **@remotion/cli**: Printing server URL again to the console if all Studio instances have been closed
-- **@remotion/cli**: Less React re-renders across the Remotion Studio
-- **@remotion/cli**: Dropdowns cannot overflow anymore
-- **@remotion/cli**: New shortcut for collapsing left sidebar: `Cmd/Ctrl+B`
-- **@remotion/cli** Allow open of the project in editor from the Remotion Studio
-- **@remotion/cli**: `Date` objects now work properly in `defaultProps`
-- **@remotion/cli**: Remotion Studio is tested to work well offline.
-- **@remotion/cli**: "Remotion Preview" has been renamed to ["Remotion Studio"](/docs/studio)
-- **@remotion/eslint-config**: `eslint-plugin-react` has been updated to `7.32.2`
-- **@remotion/eslint-config**: `eslint-plugin-react-hooks` has been updated to `4.6.0`
-- **@remotion/eslint-plugin**: New ESLint rule: Use the right import in the config file
-- **@remotion/lambda**: Lambda does not support the [x86 architecture anymore](/docs/lambda/runtime)
-- **@remotion/lambda**: Chrome on Lambda [has been updated to 114](/docs/lambda/runtime)
-- **@remotion/lambda**: [`downloadVideo()`](/docs/lambda/downloadmedia) alias has been removed.
-- **@remotion/lambda**: [`estimatePrice()`](/docs/lambda/estimateprice) does not accept `architecture` anymore.
-- **@remotion/lambda**: Removed FFmpeg from the Lambda Layer.
-- **@remotion/motion-blur**: [`<MotionBlur>`](/docs/motion-blur/motion-blur) has been removed
-- **@remotion/paths**: [`getParts()`](/docs/paths/get-parts) has been removed
-- **@remotion/renderer**: New [`selectComposition()`](/docs/renderer/select-composition) API
-- **@remotion/renderer**: [`getCanExtractFramesFast()`](/docs/renderer/get-can-extract-frames-fast) has been removed
-- **@remotion/renderer**: FFmpeg is now included in Remotion (v6.0), no need to install it anymore
-- **@remotion/renderer**: [ProRes](/docs/encoding) now exports uncompressed audio by default.
-- **@remotion/renderer**: [`onSlowestFrames`](/docs/renderer/render-media#onslowestframes) has been removed
-- **@remotion/renderer**: [`renderMedia()`](/docs/renderer/render-media#return-value) now returns an object instead of a `Buffer`.
-- **@remotion/renderer**: The `ImageFormat` type has been removed in favor of `StillImageFormat` and `VideoImageFormat`
-- **@remotion/renderer**: You can now [export stills as PDF or WebP](/docs/stills)
-- **@remotion/renderer**: `quality` is now [`jpegQuality`](/docs/renderer/render-media#jpegquality)
-- **@remotion/renderer**: Removed [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) and [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe)
-- **@remotion/renderer**: [`<OffthreadVideo>`](/docs/offthreadvideo) now uses a Rust-based frame extractor
-- **@remotion/renderer**: Noisy Chrome messages are filtered out.
-- **@remotion/renderer**: `console.log` statements in your React app now get printed in a tidy format, contain location, use colors and object previews are printed out.
-- **@remotion/zod-types**: [New package](/docs/zod-types)!
-- Only the following platforms are supported by Remotion now: macOS (x64 and arm64), Windows (x64), Linux (x64 and ARM, GNU Libc and MUSL)
-- All packages: The minimum Node version is now 16.0.0
-- All packages: ESLint has been upgraded to `8.42.0`
-- All packages: TypeScript ESLint has been upgraded to `5.59.9`
-- All packages: ESBuild has been updated to `0.18.6`
-- For contributors: Updated `pnpm` to `8.5.1`
-- For contributors: Doc snippets failing typechecks now show the failing code in CI
-- [New Google TTS template!](/templates/google-tts)
-- [Recommended Docker file](/docs/docker) does not install `ffmpeg` anymore
+- **remotion**：如果组件接受属性，则 [`<Composition>`](/docs/composition) 的 `defaultProps` 现在是必需的
+- **remotion**：[`<Composition>`](/docs/composition) 现在接受一个模式
+- **remotion**：[`<Composition>`](/docs/composition) 现在接受一个 [`calculateMetadata`](/docs/composition) 属性
+- **remotion**：`OffthreadVideoImageFormat` 类型已被移除。
+- **remotion**：[`<OffthreadVideo>`](/docs/offthreadvideo) 中已移除 `imageFormat`
+- **remotion**：在 `<OffthreadVideo>` 中已添加 `transparent`
+- **remotion**：如果无法加载图像，[`<Img>`](/docs/img) 将取消渲染
+- **remotion**：如果无法加载 [`<Audio>`](/docs/audio) 标签，将取消渲染。
+- **remotion**：`TComposition` 类型现在要求一个 Zod 模式作为泛型。
+- **remotion**：`WebpackOverrideFn` 类型已从 `remotion` 移动到 `@remotion/bundler`
+- **remotion**：[`staticFile()`](/docs/staticfile#handling-uri-unsafe-characters) 现在默认支持 URI 不安全字符
+- **remotion**：类型：[`<Img>`](/docs/img) 标签现在需要 `src`
+- **@remotion/bundler**：如果设置 [`--bundle-cache=false`](/docs/cli/render#--bundle-cache)，开发 Webpack 缓存将不再被移除。
+- **@remotion/bundler**：`react-native` 不再别名为 `react-native-web`
+- **@remotion/bundler**：Webpack 已升级到 `5.83.1`
+- **@remotion/cli**：`npx remotion preview` 现在已弃用，改为 [`npx remotion studio`](/docs/cli/studio)
+- **@remotion/cli**：新的 [Props 编辑器](/docs/visual-editing) 允许使用模式编辑属性
+- **@remotion/cli**：新的 [渲染按钮](/docs/render) 允许通过 CLI 进行渲染
+- **@remotion/cli**：新的 [`npx remotion ffmpeg`](/docs/cli/ffmpeg) 命令
+- **@remotion/cli**：新的 [`npx remotion ffprobe`](/docs/cli/ffprobe) 命令
+- **@remotion/cli**：配置逻辑已移动到 [`@remotion/cli/config`](/docs/4-0-migration)
+- **@remotion/cli**：[已移除丰富的时间轴](https://github.com/remotion-dev/remotion/issues/1602#issuecomment-1401618644)。
+- **@remotion/cli**：已移除 [`Config.*.setOption()`](/docs/4-0-migration) 语法。
+- **@remotion/cli**：[`Config.setOutputFormat()`](/docs/config#setoutputformat) 现在已被移除。
+- **@remotion/cli**：Studio 现在具有自定义的深色滚动条
+- **@remotion/cli**：详细模式的新记录器：日志和进度条之间不再交错
+- **@remotion/cli**：现在会显示文件是否被覆盖 (`○`) 或新创建 (`+`)
+- **@remotion/cli**：如果所有 Studio 实例已关闭，再次将服务器 URL 打印到控制台
+- **@remotion/cli**：Remotion Studio 中减少了 React 重新渲染
+- **@remotion/cli**：下拉菜单不再会溢出
+- **@remotion/cli**：折叠左侧边栏的新快捷键：`Cmd/Ctrl+B`
+- **@remotion/cli**：允许从 Remotion Studio 中打开项目编辑器
+- **@remotion/cli**：`Date` 对象现在在 `defaultProps` 中正常工作
+- **@remotion/cli**：已测试 Remotion Studio 在离线状态下的良好工作。
+- **@remotion/cli**："Remotion 预览" 现已更名为 ["Remotion Studio"](/docs/studio)
+- **@remotion/eslint-config**：`eslint-plugin-react` 已更新到 `7.32.2`
+- **@remotion/eslint-config**：`eslint-plugin-react-hooks` 已更新到 `4.6.0`
+- **@remotion/eslint-plugin**：新的 ESLint 规则：在配置文件中使用正确的导入
+- **@remotion/lambda**：Lambda 不再支持 [x86 架构](/docs/lambda/runtime)
+- **@remotion/lambda**：Lambda 上的 Chrome 已更新到 114
+- **@remotion/lambda**：已移除 [`downloadVideo()`](/docs/lambda/downloadmedia) 别名。
+- **@remotion/lambda**：[`estimatePrice()`](/docs/lambda/estimateprice) 不再接受 `architecture`。
+- **@remotion/lambda**：从 Lambda Layer 中移除了 FFmpeg。
+- **@remotion/motion-blur**：[`<MotionBlur>`](/docs/motion-blur/motion-blur) 已移除
+- **@remotion/paths**：已移除 [`getParts()`](/docs/paths/get-parts)
+- **@remotion/renderer**：新的 [`selectComposition()`](/docs/renderer/select-composition) API
+- **@remotion/renderer**：已移除 [`getCanExtractFramesFast()`](/docs/renderer/get-can-extract-frames-fast)
+- **@remotion/renderer**：FFmpeg 现在包含在 Remotion 中（v6.0），不再需要单独安装
+- **@remotion/renderer**：[ProRes](/docs/encoding) 现在默认导出未压缩音频。
+- **@remotion/renderer**：已移除 [`onSlowestFrames`](/docs/renderer/render-media#onslowestframes)
+- **@remotion/renderer**：[`renderMedia()`](/docs/renderer/render-media#return-value) 现在返回一个对象而不是 `Buffer`。
+- **@remotion/renderer**：`ImageFormat` 类型已被移除，改为 `StillImageFormat` 和 `VideoImageFormat`
+- **@remotion/renderer**：现在可以将静止图像导出为 PDF 或 WebP
+- **@remotion/renderer**：`quality` 现在是 [`jpegQuality`](/docs/renderer/render-media#jpegquality)
+- **@remotion/renderer**：已移除 [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) 和 [`ensureFfprobe()`](/docs/renderer/ensure-ffprobe)
+- **@remotion/renderer**：[`<OffthreadVideo>`](/docs/offthreadvideo) 现在使用基于 Rust 的帧提取器
+- **@remotion/renderer**：在 React 应用程序中的 `console.log` 语句现在以整洁的格式打印出来，包含位置，使用颜色，并打印出对象预览。
+- **@remotion/zod-types**：[新包](/docs/zod-types)!
+- 现在 Remotion 仅支持以下平台：macOS（x64 和 arm64）、Windows（x64）、Linux（x64 和 ARM，GNU Libc 和 MUSL）
+- 所有包：最低 Node 版本现在是 16.0.0
+- 所有包：ESLint 已升级到 `8.42.0`
+- 所有包：TypeScript ESLint 已升级到 `5.59.9`
+- 所有包：ESBuild 已更新到 `0.18.6`
+- 对于贡献者：将 `pnpm` 更新到 `8.5.1`
+- 对于贡献者：文档片段失败的类型检查现在会在 CI 中显示失败的代码
+- [新的 Google TTS 模板！](/templates/google-tts)
+- [推荐的 Docker 文件](/docs/docker) 不再安装 `ffmpeg`。
+
+Please paste the Markdown content you'd like me to translate into Chinese.

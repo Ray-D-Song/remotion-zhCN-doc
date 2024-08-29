@@ -1,47 +1,55 @@
 ---
 slug: cloudrun
-title: Remotion Cloud Run
+title: Remotion 云运行
 author: Matt McGillivray
-author_title: Freelance fullstack developer
+author_title: 自由职业全栈开发者
 draft: true
 author_url: https://github.com/umungobungo
 author_image_url: https://avatars2.githubusercontent.com/u/22192773?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
-Welcome to the release notes of a new way to render with Remotion on the cloud! With Remotion Cloud Run, you can now easily render within Google Cloud Platform.
+欢迎阅读有关在云上使用 Remotion 渲染的发布说明！通过 Remotion 云运行，您现在可以轻松在 Google Cloud Platform 中进行渲染。
 
-## Streamlined Project Setup
+## 简化的项目设置
 
-It is not uncommon to see developers needing assistance in [Discord](https://remotion.dev/discord) after a few mis-clicks when setting up Remotion Lambda. For Cloud Run, there are only a few clicks to make in the console, before Terraform takes over to automate the setup process - enabling APIs, creating a role with the required permissions, and creating a Service Account to perform the rendering securely. It even creates your .env file to insert straight into your remotion project!
+在设置 Remotion Lambda 后，经常会看到开发人员在几次误点击后需要在 [Discord](https://remotion.dev/discord) 上寻求帮助。对于 Cloud Run，在控制台中只需点击几下，然后 Terraform 接管自动化设置过程 - 启用 API、创建具有所需权限的角色，并创建一个服务帐号以安全地执行渲染。它甚至会创建您的 .env 文件，可直接插入到您的 remotion 项目中！
 
-## Robust Rendering
+## 强大的渲染
 
-For now, Remotion Cloud Run only supports a single-threaded rendering process. Remotion Lambda can offer greater speed by spinning up multiple functions and rendering chunks in parallel, before stitching them back together. This functionality can often come at a cost of reliability though, and depending on the product you are building, it may be more important to render reliably than to render faster.
+目前，Remotion 云运行仅支持单线程渲染过程。Remotion Lambda 可以通过启动多个函数并并行渲染块，然后将它们拼接在一起来提供更快的速度。不过，这种功能通常会牺牲可靠性，根据您正在构建的产品，可靠性可能比速度更重要。
 
-## Easier to understand concurrency + instance limit
+## 更容易理解的并发性 + 实例限制
 
-Does Lambda have zero concurrency?
+Lambda 是否具有零并发性？
 
-When using AWS Lambda, you may have the situation of allowing multiple users to render videos at the same time, and need to calculate whether you have concurrency left on your account to allow another render. Remotion Lambda spins up multiple lambdas for rendering of chunks in parallel, and this needs to be taken into consideration for simultaneous render requests. In Remotion Cloud Run, you can easily set the instance limit to 100 (the default) and know that if 99 users request a render at the same time, you still have one service instance left.
+在使用 AWS Lambda 时，您可能会遇到允许多个用户同时渲染视频的情况，并需要计算您的帐户上是否还有并发性以允许另一个渲染。Remotion Lambda 会为并行渲染块启动多个 Lambda，这需要考虑到同时渲染请求。在 Remotion 云运行中，您可以轻松将实例限制设置为 100（默认值），并且知道如果有 99 个用户同时请求渲染，您仍然有一个服务实例可用。
 
-## Higher Quota Limits
+## 更高的配额限制
 
-At the time of writing, here are the quota differences in GCP and AWS, and what that could mean for your product:
 
-| Constraint        | AWS Limit  | GCP Limit  | Outcome                                                                                                                                                                                                                                                                                                                                                                                    |
+
+在撰写本文时，以下是GCP和AWS的配额差异，以及这对您的产品可能意味着什么：
+
+| 约束             | AWS 限制   | GCP 限制   | 结果                                                                                                                                                                                                                                                                                                                                                                                    |
 | ----------------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Disk Size         | 10 GB      | 32 GB      | In GCP, you can render videos with a larger file size. File size increases as a combination of quality and video length. Lambda is further limited here due to distributed rendering requiring (generally speaking) a cop of all the chunks before they are stitched together. [This brings Lambda's output down to 5gb](/docs/lambda#limitations).                                        |
-| Minimum Instances |            |            |                                                                                                                                                                                                                                                                                                                                                                                            |
-| Maximum Timeout   | 15 minutes | 60 minutes | This is tricky to compare due to the nature of distributed rendering on Lambda vs. Cloud Run. As Cloud Run is performing all the rendering in one instance, this allows up to 60 minutes for the entire rendering process. For Lambda, each chunk has a maximum timeout of 15 minutes, but also the function that is performing the concatenation needs to be completed within 15 minutes. |
+| 磁盘大小         | 10 GB      | 32 GB      | 在GCP中，您可以使用更大的文件大小渲染视频。文件大小随着质量和视频长度的组合而增加。由于分布式渲染需要（一般而言）在将所有块拼接在一起之前复制所有块，Lambda在这里受到进一步限制。[这将使Lambda的输出降至5GB](/docs/lambda#limitations)。                                        |
+| 最小实例数       |            |            |                                                                                                                                                                                                                                                                                                                                                                                            |
+| 最大超时时间     | 15 分钟    | 60 分钟    | 由于Lambda与Cloud Run上的分布式渲染的性质不同，这很难进行比较。由于Cloud Run在一个实例中执行所有渲染，这允许整个渲染过程最多持续60分钟。对于Lambda，每个块的最大超时时间为15分钟，但执行连接操作的函数也需要在15分钟内完成。 |
 
 ## Node API and CLI
 
-Where possible, the Cloud Run package has aligned naming conventions. For CLI commands, this generally means replacing `lambda` with `cloudrun`, and `function` with `service`.
+在可能的情况下，Cloud Run 包已经对齐了命名约定。对于 CLI 命令，这通常意味着将 `lambda` 替换为 `cloudrun`，将 `function` 替换为 `service`。
 
-## Why choose Cloud Run over Lambda?
 
-Where possible
 
-## New documentation
+## 为什么选择 Cloud Run 而不是 Lambda?
 
-- Cloud Run documentation
+在可能的情况下
+
+
+
+## 新文档
+
+- Cloud Run 文档
+
+

@@ -1,45 +1,45 @@
 ---
 image: /generated/articles-docs-lambda-speed.png
 id: optimizing-speed
-title: Optimizing for speed
+title: 优化速度
 slug: /lambda/optimizing-speed
 crumb: "Lambda"
 ---
 
-On this page, a few strategies are presented for making a render on Lambda as fast as possible.
+在本页面中，介绍了一些使 Lambda 渲染尽可能快的策略。
 
-## Higher concurrency
+## 更高的并发性
 
-Generally, a lower value for [`framesPerLambda`](/docs/lambda/rendermediaonlambda#framesperlambda) will result in higher concurrency and therefore an opportunity to finish the render in less absolute time. At the same time, more overhead will be produced, making the render more expensive. You will also experience diminishing returns, and adding too much concurrency can make the speed slower because the overhead of orchestrating many Lambda functions outweigh the gains.
-See the [Lambda Concurrency](/docs/lambda/concurrency) page for more information.
+通常，较低的 [`framesPerLambda`](/docs/lambda/rendermediaonlambda#framesperlambda) 值将导致更高的并发性，从而有机会在较短的绝对时间内完成渲染。同时，会产生更多的开销，使渲染变得更昂贵。您还将遇到收益递减，并且添加过多的并发性可能会使速度变慢，因为编排许多 Lambda 函数的开销超过了收益。
+有关更多信息，请参阅 [Lambda 并发性](/docs/lambda/concurrency) 页面。
 
-## More memory
+## 更多内存
 
-Adding more memory on Lambda will also scale up the CPU power on Lambda proportionally, therefore making the render faster. At the same time, the cost also linearly increases with the memory you add.
+在 Lambda 上添加更多内存也将按比例增加 Lambda 的 CPU 功率，从而使渲染更快。同时，成本也会随着您添加的内存线性增加。
 
-## `concurrencyPerLambda` property
+## `concurrencyPerLambda` 属性
 
-The [`concurrencyPerLambda`](/docs/lambda/rendermediaonlambda#concurrencyperlambda) property in [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) allows you to open multiple browser tabs in a single Lambda function, therefore opening an opportunity to do more work at once. If the Lambda function is too busy, increasing the concurrency might also be counterproductive.
+[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 中的 [`concurrencyPerLambda`](/docs/lambda/rendermediaonlambda#concurrencyperlambda) 属性允许您在单个 Lambda 函数中打开多个浏览器选项卡，从而有机会一次执行更多工作。如果 Lambda 函数太忙，增加并发性也可能适得其反。
 
-## Use `speculateFunctionName()`
+## 使用 `speculateFunctionName()`
 
-Instead of calling [`getFunctions()`](/docs/lambda/getfunctions), you can call [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) to calculate the name of the function you are about to call to save an API call and save up to 1 second.
+您可以调用 [`speculateFunctionName()`](/docs/lambda/speculatefunctionname) 来计算即将调用的函数的名称，而不是调用 [`getFunctions()`](/docs/lambda/getfunctions)，以节省一个 API 调用并节省高达 1 秒的时间。
 
-## Bucket naming
+## 存储桶命名
 
-If you have a Remotion version before December 2022, then your bucket name might not include the region name in its name. This will result in Remotion having to list all bucket names and query their region before kicking off the render.
+如果您使用的是 2022 年 12 月之前的 Remotion 版本，则您的存储桶名称可能不包含区域名称。这将导致 Remotion 必须列出所有存储桶名称并查询其区域，然后才能启动渲染。
 
-[See this article for more information](/docs/lambda/bucket-naming#aws-region-in-the-name). Consider renaming your bucket or re-setting up Remotion Lambda to gain speed. This especially applies if you are having many Remotion buckets across regions.
+[有关更多信息，请参阅本文](/docs/lambda/bucket-naming#aws-region-in-the-name)。考虑重命名您的存储桶或重新设置 Remotion Lambda 以获得更快的速度。特别适用于跨区域拥有许多 Remotion 存储桶的情况。
 
-## Use MP3 as an audio codec<AvailableFrom v="4.0.16" />
+## 使用 MP3 作为音频编解码器<AvailableFrom v="4.0.16" /> 
 
-By default, a video renders with the `h264` codec and the `aac` audio codec. Setting the [`audioCodec`](/docs/encoding/#audio-codec) to `mp3` will make "Combining videos" stage a lot faster, as the MP3 codec is much faster to encode than AAC. However, **the audio will not play in QuickTime Player and the file size is minimally higher**.
+默认情况下，视频使用 `h264` 编解码器和 `aac` 音频编解码器进行渲染。将 [`audioCodec`](/docs/encoding/#audio-codec) 设置为 `mp3` 将使“合并视频”阶段速度更快，因为 MP3 编解码器比 AAC 编解码器快得多。然而，**音频将无法在 QuickTime Player 中播放，文件大小略高**。
 
-## Optimizing render performance
+## 优化渲染性能 
 
-See the [general performance tips](/docs/performance) which also apply to Lambda.
+请参阅[通用性能提示](/docs/performance)，这些提示也适用于 Lambda。
 
-## See also
+## 另请参阅 
 
-- [Optimizing for cost](/docs/lambda/optimizing-cost)
-- [Performance](/docs/performance)
+- [优化成本](/docs/lambda/optimizing-cost)
+- [性能](/docs/performance)

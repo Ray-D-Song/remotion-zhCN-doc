@@ -1,11 +1,11 @@
 ---
 image: /generated/articles-docs-the-fundamentals.png
 id: the-fundamentals
-title: The fundamentals
-crumb: Getting started
+title: 基础知识
+crumb: 入门指南
 ---
 
-## React components
+## React 组件
 
 ```twoslash include example
 import { AbsoluteFill, useCurrentFrame } from "remotion";
@@ -29,24 +29,24 @@ export const MyComposition = () => {
 // - MyComposition
 ```
 
-The idea of Remotion is to give you a frame number and a blank canvas, to which you can render anything you want using [React](https://react.dev). This is an example React component that renders the current frame as text:
+Remotion 的理念是为您提供一个帧编号和一个空白画布，您可以使用 [React](https://react.dev) 渲染任何您想要的内容。这是一个示例 React 组件，将当前帧渲染为文本：
 
 ```tsx twoslash title="MyComposition.tsx"
 // @include: example-MyComposition
 ```
 
-A video is a function of images over time. If you change content every frame, you'll end up with an animation.
+视频是随时间变化的图像的函数。如果您每帧更改内容，最终会得到一个动画。
 
-## Video properties
+## 视频属性
 
-A video has 4 properties:
+视频有 4 个属性：
 
-- `width` in pixels.
-- `height` in pixels.
-- `durationInFrames`: the number of frames which the video is long.
-- `fps`: framerate of the video.
+- `width`，以像素为单位。
+- `height`，以像素为单位。
+- `durationInFrames`：视频的帧数。
+- `fps`：视频的帧率。
 
-You can obtain these values from the [`useVideoConfig()`](/docs/use-video-config) hook:
+您可以从 [`useVideoConfig()`](/docs/use-video-config) 钩子中获取这些值：
 
 ```tsx twoslash
 import {AbsoluteFill, useVideoConfig} from 'remotion';
@@ -70,14 +70,14 @@ export const MyComposition = () => {
 ```
 
 :::note
-A video's first frame is `0` and its last frame is `durationInFrames - 1`.
+视频的第一帧是 `0`，最后一帧是 `durationInFrames - 1`。
 :::
 
-## Compositions
+## 组合
 
-A composition is the combination of a React component and video metadata.
+组合是 React 组件和视频元数据的结合。
 
-By rendering a [`<Composition>`](/docs/composition) component in `src/Root.tsx`, you can register a renderable video and make it visible in the Remotion sidebar.
+通过在 `src/Root.tsx` 中渲染 [`<Composition>`](/docs/composition) 组件，您可以注册一个可渲染的视频，并在 Remotion 侧边栏中显示它。
 
 ```tsx twoslash title="src/Root.tsx"
 import {Composition} from 'remotion';
@@ -99,6 +99,6 @@ export const RemotionRoot: React.FC = () => {
 ```
 
 :::note
-You can register multiple compositions in `src/Root.tsx` by wrapping them in a React Fragment:  
-`<><Composition/><Composition/></>`. See also: [How to combine compositions?](/docs/miscellaneous/snippets/combine-compositions)
+您可以通过将它们包装在 React Fragment 中在 `src/Root.tsx` 中注册多个组合：  
+`<><Composition/><Composition/></>`。另请参阅：[如何组合组合？](/docs/miscellaneous/snippets/combine-compositions)
 :::

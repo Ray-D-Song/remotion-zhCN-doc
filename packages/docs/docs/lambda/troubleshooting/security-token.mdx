@@ -1,32 +1,33 @@
 ---
 image: /generated/articles-docs-lambda-troubleshooting-security-token.png
-sidebar_label: Security token is invalid
-title: '"The security token included in the request is invalid"'
+sidebar_label: 安全令牌无效
+title: '"请求中包含的安全令牌无效"'
 crumb: "Lambda"
 ---
 
-Some regions that are supported by Remotion are not enabled by default in an AWS account.
+一些 Remotion 支持的区域在 AWS 账户中默认未启用。
 
-If you get a message:
+如果您收到以下消息：
 
 ```
-The security token included in the request is invalid
+请求中包含的安全令牌无效
 ```
 
-it means the region is not enabled in your AWS account.
+这意味着该区域在您的 AWS 账户中未启用。
 
-## Option 1: Enable the regions
+## 选项 1：启用区域
 
-Go to the AWS console, then:
+前往 AWS 控制台，然后：
 
-- <Step>1</Step> Click on your name at the top right
-- <Step>2</Step> Click `Account`
-- <Step>3</Step> Enable the regions that you would like to use.
+- <Step>1</Step> 点击右上角的您的名称
+- <Step>2</Step> 点击 `账户`
+- <Step>3</Step> 启用您想要使用的区域。
 
-## Option 2: Make `getRegions()` return only regions by default
+## 选项 2：使 `getRegions()` 默认仅返回默认启用的区域
 
-Use the [`enabledByDefaultOnly`](/docs/lambda/getregions#enabledbydefaultonly) option.
+使用 [`enabledByDefaultOnly`](/docs/lambda/getregions#enabledbydefaultonly) 选项。
 
-## See also
+## 另请参阅
 
-- [Region selection](/docs/lambda/region-selection)
+- [区域选择](/docs/lambda/region-selection)
+

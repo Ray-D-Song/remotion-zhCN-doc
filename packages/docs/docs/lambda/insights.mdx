@@ -1,30 +1,30 @@
 ---
 image: /generated/articles-docs-lambda-insights.png
-sidebar_label: Insights
-title: Enable Lambda Insights
+sidebar_label: 洞察
+title: 启用 Lambda 洞察
 crumb: "Lambda"
 ---
 
-# Enable Lambda Insights<AvailableFrom v="4.0.61"/>
+# 启用 Lambda 洞察<AvailableFrom v="4.0.61"/>
 
-You may enable [AWS Lambda Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights.html) for your Remotion Lambda function.
+您可以为您的 Remotion Lambda 函数启用[AWS Lambda 洞察](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights.html)。
 
-## Prerequisites
+## 先决条件
 
-<Step>1</Step> Ensure you are on at least Remotion v4.0.61. <br/>
-<Step>2</Step> If you started using Remotion before v4.0.61, update both your <a href="/docs/lambda/permissions#user-permissions">AWS user permission</a> and <a href="/docs/lambda/permissions#role-permissions">AWS role permission</a>, since now more permissions are needed.
+<Step>1</Step> 确保您至少使用 Remotion v4.0.61。<br/>
+<Step>2</Step> 如果您在 v4.0.61 之前开始使用 Remotion，请更新您的<a href="/docs/lambda/permissions#user-permissions">AWS 用户权限</a>和<a href="/docs/lambda/permissions#role-permissions">AWS 角色权限</a>，因为现在需要更多权限。
 
-## Enable Lambda Insights
+## 启用 Lambda 洞察
 
-**Via CLI**:
+**通过 CLI**:
 
 ```
 npx remotion lambda functions deploy --enable-lambda-insights
 ```
 
-If the function already existed before, you need to delete it beforehand.
+如果函数已存在，请先删除它。
 
-**Via Node.js APIs:**
+**通过 Node.js APIs:**
 
 ```tsx twoslash title="deploy.ts" {8, 11-13}
 // @module: ESNext
@@ -46,25 +46,25 @@ const { alreadyExisted } = await deployFunction({
 assert(!alreadyExisted);
 ```
 
-## Add a role to the Lambda function
+## 为 Lambda 函数添加角色
 
-In order to actually allow Lambda to send data to CloudWatch, you need to do this once:
+为了实际允许 Lambda 将数据发送到 CloudWatch，您需要执行以下操作：
 
-- Go to the Lambda Dashboard and select any Remotion Lambda function.
-- In the "Configuration" tab, scroll down to "Monitoring and operations tools" and in the "Additional monitoring tools" section, click "Edit".
-- Toggle the switch to "Enable AWS Lambda Insights". If it is already turned on, disable it, save, and then enable it again.
+- 转到 Lambda 仪表板并选择任何 Remotion Lambda 函数。
+- 在“配置”选项卡中，向下滚动到“监控和运维工具”，在“附加监控工具”部分，单击“编辑”。
+- 切换开关以启用“启用 AWS Lambda 洞察”。如果已经打开，请关闭它，保存，然后再次启用。
 
-This will add the necessary permissions to the role of the Lambda function.  
-All Lambda functions share the same role with the default setup, so you only need to do this once.
+这将向 Lambda 函数的角色添加必要的权限。  
+所有 Lambda 函数在默认设置下共享相同的角色，因此您只需要执行一次此操作。
 
-## View Lambda insights
+## 查看 Lambda 洞察
 
-In your CloudWatch dashboard ([link for `us-east-1`](https://eu-central-1.console.aws.amazon.com/cloudwatch/home)) under Insights ➞ Lambda Insights ➞ Single function, you can view the metrics of the Remotion Lambda function.
+在您的 CloudWatch 仪表板（[`us-east-1` 的链接](https://eu-central-1.console.aws.amazon.com/cloudwatch/home)）下的 Insights ➞ Lambda Insights ➞ 单个函数，您可以查看 Remotion Lambda 函数的指标。
 
-A link to the Lambda insights is also included in the return value of [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 的返回值中还包含了 Lambda 洞察的链接。
 
-If you render via the CLI with the `--log=verbose` flag, a link to the Lambda insights is also printed, regardless of if Lambda insights are enabled or not.
+如果您通过 CLI 使用 `--log=verbose` 标志进行渲染，无论是否启用 Lambda 洞察，都会打印 Lambda 洞察的链接。
 
-## See also
+## 参见
 
-- [Debugging failed Lambda renders](/docs/lambda/troubleshooting/debug)
+- [调试失败的 Lambda 渲染](/docs/lambda/troubleshooting/debug) 

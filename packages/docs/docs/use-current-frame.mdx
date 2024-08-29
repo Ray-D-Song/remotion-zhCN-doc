@@ -5,11 +5,11 @@ id: use-current-frame
 crumb: "API"
 ---
 
-With this hook, you can retrieve the current frame of the video. Frames are 0-indexed, meaning the first frame is `0`, the last frame is the duration of the composition in frames minus one. To learn more about how Remotion works with time, read the page about [the fundamentals](/docs/the-fundamentals).
+使用这个钩子，您可以获取视频的当前帧。帧是从0开始索引的，意味着第一帧是`0`，最后一帧是合成持续时间的帧数减一。要了解有关 Remotion 如何处理时间的更多信息，请阅读有关[基础知识](/docs/the-fundamentals)的页面。
 
-If the component you are writing is wrapped in a [`<Sequence>`](/docs/sequence), `useCurrentFrame` will return the frame relative to when the Sequence starts.
+如果您编写的组件被包裹在[`<Sequence>`](/docs/sequence)中，`useCurrentFrame`将返回相对于 Sequence 开始时的帧。
 
-Say the timeline marker is positioned at frame 25. In the example below, `useCurrentFrame()` will return `25`, except within the Subtitle component, where it will return `15` because it is within a sequence that starts at frame 10.
+假设时间轴标记位于第25帧。在下面的示例中，`useCurrentFrame()`将返回`25`，除了在字幕组件中，它将返回`15`，因为它位于从第10帧开始的序列中。
 
 ```tsx twoslash
 import { Sequence, useCurrentFrame } from "remotion";
@@ -38,11 +38,11 @@ const MyVideo = () => {
 };
 ```
 
-Using `<Sequence />`'s, you can compose multiple elements together and time-shift them independently from each other without changing their animation.
+使用 `<Sequence />`，您可以将多个元素组合在一起，并独立地对它们进行时间偏移，而不改变它们的动画。
 
-### Getting the absolute frame of the timeline
+### 获取时间轴的绝对帧
 
-In rare circumstances, you want access to the absolute frame of the timeline inside a sequence, use `useCurrentFrame()` at the top-level component and then pass it down as a prop to the children of the `<Sequence />`.
+在极少数情况下，您希望在序列内部访问时间轴的绝对帧，请在顶层组件使用 `useCurrentFrame()`，然后将其作为 prop 传递给 `<Sequence />` 的子组件。
 
 ```tsx twoslash
 import { Sequence, useCurrentFrame } from "remotion";
@@ -67,8 +67,8 @@ const MyVideo = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/use-current-frame.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/use-current-frame.ts)
 - [useVideoConfig()](/docs/use-video-config)
 - [`<Sequence />`](/docs/sequence)

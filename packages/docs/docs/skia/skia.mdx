@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-skia-skia.png
 id: skia
-sidebar_label: Overview
+sidebar_label: 概述
 title: "@remotion/skia"
 ---
 
@@ -9,17 +9,17 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {ExperimentalBadge} from '../../components/Experimental';
 
-This package provides utilities useful for integrating [React Native Skia](https://github.com/Shopify/react-native-skia) with Remotion.
+此软件包提供了一些有用的工具，可用于将[React Native Skia](https://github.com/Shopify/react-native-skia)与 Remotion 集成。
 
 <ExperimentalBadge>
-This package is currently a proof of technology.
+此软件包目前仅用作技术验证。
 
-It may change in minor version updates. Monitor this documentation page to see breaking changes when upgrading.
+在次要版本更新中可能会发生更改。升级时，请监视此文档页面以查看重大更改。
 </ExperimentalBadge>
 
-## Installation
+## 安装
 
-Install, `@remotion/skia` as well as `@shopify/react-native-skia`.
+安装 `@remotion/skia` 以及 `@shopify/react-native-skia`。
 
 <Tabs
 defaultValue="npm"
@@ -55,16 +55,16 @@ pnpm i @remotion/skia @shopify/react-native-skia
 </Tabs>
 
 :::note
-Since Remotion `v3.3.93` and React Native Skia `0.1.191`, `react-native-web` is not a dependency anymore. You may remove it from your project.
+自 Remotion `v3.3.93` 和 React Native Skia `0.1.191` 起，`react-native-web` 不再是一个依赖项。您可以从项目中删除它。
 :::
 
-Also update **all the other Remotion packages** to have the same version: `remotion`, `@remotion/cli` and others.
+还要更新**所有其他 Remotion 软件包**，使它们具有相同的版本：`remotion`、`@remotion/cli` 和其他软件包。
 
 :::note
-Make sure no package version number has a `^` character in front of it as it can lead to a version conflict.
+请确保没有软件包版本号前面有 `^` 字符，因为这可能导致版本冲突。
 :::
 
-[Override the Webpack config](/docs/webpack) by using [`enableSkia()`](/docs/skia/enable-skia).
+[覆盖 Webpack 配置](/docs/webpack) 通过使用 [`enableSkia()`](/docs/skia/enable-skia)。
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -76,10 +76,10 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 ```
 
 :::note
-Prior to `v3.3.39`, the option was called `Config.Bundling.overrideWebpackConfig()`.
+在 `v3.3.39` 之前，该选项称为 `Config.Bundling.overrideWebpackConfig()`。
 :::
 
-Next, you need to refactor the [entry point](/docs/terminology/entry-point) file to first load the Skia WebAssembly binary before calling registerRoot():
+接下来，您需要重构[入口点](/docs/terminology/entry-point)文件，以在调用 registerRoot() 之前首先加载 Skia WebAssembly 二进制文件：
 
 ```ts twoslash title="src/index.ts"
 // @filename: ./Root.tsx
@@ -97,11 +97,11 @@ import { registerRoot } from "remotion";
 })();
 ```
 
-You can now start using the [`<SkiaCanvas>`](/docs/skia/skia-canvas) in your Remotion project.
+现在，您可以在 Remotion 项目中开始使用 [`<SkiaCanvas>`](/docs/skia/skia-canvas)。
 
-## Templates
+## 模板
 
-You can find the [starter template](https://github.com/remotion-dev/template-skia) here or install it using:
+您可以在此处找到[起始模板](https://github.com/remotion-dev/template-skia)，或者使用以下命令进行安装：
 
 <Tabs
 defaultValue="npm"
@@ -118,46 +118,46 @@ values={[
 npx create-video --skia
 ```
 
-  </TabItem>
-    <TabItem value="bun">
+</TabItem>
+<TabItem value="bun">
 
 ```bash
 bun create video --skia
 ```
 
-  </TabItem>
+</TabItem>
 
-  <TabItem value="yarn">
+<TabItem value="yarn">
 
 ```bash
 yarn create video --skia
 ```
 
-  </TabItem>
+</TabItem>
 
-  <TabItem value="pnpm">
+<TabItem value="pnpm">
 
 ```bash
 pnpm create video --skia
 ```
 
-  </TabItem>
+</TabItem>
 </Tabs>
 
-## Rendering
+## 渲染
 
-By default Remotion rendering are done on the CPU. Some Skia effects rely on advanced GPU features, which may be slow to run on the CPU depending on the kind of effect you are using. If your Skia export is extremely slow, we found that enabling the GPU via the `--gl=angle` option improves things substantially. Please check out the documentation on [GPU rendering](/docs/gpu).
+默认情况下，Remotion 渲染是在 CPU 上完成的。一些 Skia 特效依赖于高级 GPU 功能，这可能会导致在 CPU 上运行速度较慢，具体取决于您使用的特效类型。如果您的 Skia 导出速度非常慢，我们发现通过 `--gl=angle` 选项启用 GPU 可显著改善情况。请查看关于[GPU 渲染](/docs/gpu)的文档。
 
 ```sh
 remotion render Main out/video.mp4 --gl=angle
 ```
 
-## Resources
+## 资源
 
-- [Example project by William Candillon](https://github.com/wcandillon/remotion-skia-tutorial)
-- [Tutorial for the example project](https://www.youtube.com/watch?v=-7MOoWN2_nk)
+- [William Candillon 的示例项目](https://github.com/wcandillon/remotion-skia-tutorial)
+- [示例项目的教程](https://www.youtube.com/watch?v=-7MOoWN2_nk)
 
-## APIs
+## API
 
 - [`enableSkia()`](/docs/skia/enable-skia)
 - [`<SkiaCanvas />`](/docs/skia/skia-canvas)

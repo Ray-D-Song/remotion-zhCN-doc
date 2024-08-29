@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-player-current-time.png
 id: current-time
-sidebar_label: "Getting the current time"
-title: "Displaying the current time"
+sidebar_label: "获取当前时间"
+title: "显示当前时间"
 slug: /player/current-time
 crumb: "@remotion/player"
 ---
 
-When rendering a [`<Player>`](/docs/player) in your app, special considerations must be taken to prevent constant re-renders of the app or [`<Player>`](/docs/player) if the time changes.
+在应用程序中呈现[`<Player>`](/docs/player)时，必须特别考虑防止应用程序或[`<Player>`](/docs/player)因时间更改而不断重新渲染。
 
-This is why the [`useCurrentFrame()`](/docs/use-current-frame) hook does not work outside a composition.
+这就是为什么[`useCurrentFrame()`](/docs/use-current-frame)钩子在组合之外不起作用。
 
 :::warning
-Do not put this hook into the same component in which the `<Player>` is rendered, otherwise you'll see constant re-renders. Instead, put it inside a component that is rendered adjacent to the component in which the Player is rendered.
+不要将此钩子放入呈现`<Player>`的同一组件中，否则您将看到不断重新渲染。相反，将其放入呈现`Player`的组件旁边的组件中。
 :::
 
-## Synchronizing a component with the Player time
+## 与Player时间同步的组件
 
-If you want to display a component that synchronizes with the time of the player, for example the cursor of a timeline component or a custom time display, you can use the following hook:
+如果要显示与播放器时间同步的组件，例如时间轴组件的光标或自定义时间显示，可以使用以下钩子：
 
 ```tsx twoslash title="use-current-player-frame.ts"
 import { CallbackListener, PlayerRef } from "@remotion/player";
@@ -51,9 +51,9 @@ export const useCurrentPlayerFrame = (ref: React.RefObject<PlayerRef>) => {
 };
 ```
 
-## Usage example
+## 使用示例
 
-Add a ref to a React Player and pass it to another component:
+将React Player添加到引用中并将其传递给另一个组件：
 
 ```tsx twoslash
 // @allowUmdGlobalAccess
@@ -90,7 +90,7 @@ export const App: React.FC = () => {
 };
 ```
 
-This is how a component could access the current time:
+这是组件如何访问当前时间的方式：
 
 ```tsx twoslash title="TimeDisplay.tsx"
 // @filename: ./use-current-player-frame.ts
@@ -139,4 +139,5 @@ export const TimeDisplay: React.FC<{
 };
 ```
 
-This approach is efficient, because only the video itself and the component relying on the time are re-rendering, but the `<App>` component is not.
+这种方法是高效的，因为只有视频本身和依赖于时间的组件会重新渲染，而`<App>`组件不会重新渲染。
+

@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-upgrading.png
-title: Upgrading Remotion
-crumb: "upgrade remotion"
+title: 升级 Remotion
+crumb: "升级 Remotion"
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-The easiest way to do this is to run the following command in the root of your project:
+最简单的方法是在项目的根目录中运行以下命令：
 
 <Tabs
 defaultValue="npx"
@@ -52,31 +52,33 @@ bunx remotion upgrade
 </Tabs>
 
 :::note
-You need the `@remotion/cli` package installed for this.
+您需要安装 `@remotion/cli` 包。
 :::
 
-## Manually upgrading Remotion
+## 手动升级 Remotion
 
-To upgrade Remotion to the latest version, all `@remotion/*` packages and `remotion` must be updated to the same version.
+要将 Remotion 升级到最新版本，所有 `@remotion/*` 包和 `remotion` 必须更新到相同的版本。
 
-Edit the version number in your `package.json` for all packages.
-Delete the `^` in front of the version number in your `package.json` in order to force the exact version you specified.
+编辑 `package.json` 中所有包的版本号。
+删除 `package.json` 中版本号前面的 `^`，以强制使用您指定的确切版本。
 
-## Breaking changes
+## 破坏性更改
 
-Remotion follows semantic versioning.  
-This means if the first number of the version is the same, you can upgrade and your code is backwards-compatible.
+Remotion 遵循语义化版本控制。
+这意味着如果版本号的第一个数字相同，您可以升级而且您的代码是向后兼容的。
 
-Example: If you are on 4.0.0, you can upgrade to 4.1.100 without changing your code.  
-However, to upgrade to 5.0, you will need to follow the [migration guide](/docs/5-0-migration).
+示例：如果您使用的是 4.0.0 版本，您可以升级到 4.1.100 而无需更改您的代码。
+但是，要升级到 5.0 版本，您需要遵循[迁移指南](/docs/5-0-migration)。
 
-Exceptions to the breaking change rule are APIs that are marked as experimental.
+破坏性更改规则的例外是标记为实验性的 API。
 
-## Changelog
+## 更新日志
 
-Visit [remotion.dev/changelog](https://remotion.dev/changelog) to see a list of all changes.
+访问 [remotion.dev/changelog](https://remotion.dev/changelog) 查看所有更改的列表。
 
-## Stable versions
+## 稳定版本
 
-We maintain a repo with the latest stable version of Remotion for customers who need a higher level of stability.  
-Customers may get access to the repo on the [remotion.pro](https://remotion.pro) portal.
+我们维护一个包含 Remotion 最新稳定版本的存储库，供需要更高稳定性水平的客户使用。
+客户可以在 [remotion.pro](https://remotion.pro) 门户获取对该存储库的访问权限。
+
+

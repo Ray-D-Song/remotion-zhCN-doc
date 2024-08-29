@@ -5,9 +5,9 @@ title: getRegions()
 crumb: "Lambda API"
 ---
 
-Gets an array of all supported AWS regions of this release of Remotion Lambda.
+获取此版本的 Remotion Lambda 支持的所有 AWS 区域的数组。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -22,19 +22,20 @@ const regions = getRegions();
 
 ## API
 
-The function takes an optional object, with the following options:
+该函数接受一个可选对象，具有以下选项：
 
 ### `enabledByDefaultOnly`
 
-_available from v3.3.11_
+_从 v3.3.11 开始提供_
 
-Only return [the regions which are enabled by default](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in a new AWS account.
+仅返回[在新的 AWS 帐户中默认启用的区域](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)。
 
-## Return value
+## 返回值
 
-An array of supported regions by this release of Remotion Lambda.
+此版本的 Remotion Lambda 支持的区域数组。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-regions.ts)
-- [Region selection](/docs/lambda/region-selection)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-regions.ts)
+- [区域选择](/docs/lambda/region-selection)
+

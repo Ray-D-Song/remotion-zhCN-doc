@@ -5,11 +5,11 @@ title: audioBufferToDataUrl()
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions. Available from v2.5.7._
+_`@remotion/media-utils` 包中的辅助函数之一。从 v2.5.7 版本开始提供。_
 
-This API takes an [`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) instance and converts it to a Base 64 Data URL so it can be passed to an [`<Audio />`](/docs/audio) tag.
+此 API 接受一个 [`AudioBuffer`](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) 实例，并将其转换为 Base 64 数据 URL，以便将其传递给 [`<Audio />`](/docs/audio) 标签。
 
-## API Usage
+## API 用法
 
 ```tsx twoslash
 const audioBuffer = new AudioBuffer({ length: 0, sampleRate: 44100 });
@@ -19,9 +19,9 @@ import { audioBufferToDataUrl } from "@remotion/media-utils";
 const str = audioBufferToDataUrl(audioBuffer);
 ```
 
-## Example: Rendering a sine tone
+## 示例：渲染正弦波
 
-The following composition will render a sine tone with a C4 pitch.
+以下合成将使用 C4 音高渲染一个正弦波。
 
 ```tsx twoslash
 import { audioBufferToDataUrl } from "@remotion/media-utils";
@@ -89,7 +89,8 @@ export const OfflineAudioBufferExample: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/audio-buffer/audio-url-helpers.ts)
-- [Rendering audio only](/docs/using-audio/#rendering-audio-only)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/audio-buffer/audio-url-helpers.ts)
+- [仅渲染音频](/docs/using-audio/#rendering-audio-only)
+

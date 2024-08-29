@@ -5,9 +5,9 @@ id: use-video-config
 crumb: "API"
 ---
 
-With this hook, you can retrieve some info about the composition you are in.
+使用此钩子，您可以检索有关所在合成的一些信息。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import React from "react";
@@ -24,45 +24,45 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Return value
+## 返回值
 
-A object with the following properties:
+一个具有以下属性的对象：
 
 ### `width`
 
-The width of the composition in pixels, or the `width` of a [`<Sequence>`](/docs/sequence) if the component that calls `useVideoConfig()` is a child of a [`<Sequence>`](/docs/sequence) that defines a width.
+合成的宽度（以像素为单位），或者如果调用 `useVideoConfig()` 的组件是定义了宽度的 [`<Sequence>`](/docs/sequence) 的子组件，则为 [`<Sequence>`](/docs/sequence) 的 `width`。
 
 ### `height`
 
-The height of the composition in pixels, or the `height` of a [`<Sequence>`](/docs/sequence) if the component that calls `useVideoConfig()` is a child of a [`<Sequence>`](/docs/sequence) that defines a height.
+合成的高度（以像素为单位），或者如果调用 `useVideoConfig()` 的组件是定义了高度的 [`<Sequence>`](/docs/sequence) 的子组件，则为 [`<Sequence>`](/docs/sequence) 的 `height`。
 
 ### `fps`
 
-The frame rate of the composition, in frames per seconds.
+合成的帧速率，以每秒帧数为单位。
 
 ### `durationInFrames`
 
-The duration of the composition in frames or the `durationInFrames` of a [`<Sequence>`](/docs/sequence) if the component that calls `useVideoConfig()` is a child of a [`<Sequence>`](/docs/sequence) that defines a `durationInFrames`.
+合成的持续时间（以帧为单位），或者如果调用 `useVideoConfig()` 的组件是定义了 `durationInFrames` 的 [`<Sequence>`](/docs/sequence) 的子组件，则为 [`<Sequence>`](/docs/sequence) 的 `durationInFrames`。
 
 ### `id`
 
-The ID of the composition. This is the same as the `id` prop of the [`<Composition>`](/docs/composition) component.
+合成的 ID。这与 [`<Composition>`](/docs/composition) 组件的 `id` 属性相同。
 
 ### `defaultProps`
 
-The object that you have defined as the `defaultProps` in your composition.
+您在合成中定义为 `defaultProps` 的对象。
 
 ### `props`<AvailableFrom v="4.0.0" />
 
-The props that were passed to the composition, after [all transformations](/docs/props-resolution).
+传递给合成的 props，在[所有转换](/docs/props-resolution)之后。
 
 ### `defaultCodec`<AvailableFrom v="4.0.54" />
 
-The default codec that is used for rendering this composition. Use [`calculateMetadata()`](/docs/calculate-metadata) to modify it.
+用于渲染此合成的默认编解码器。使用 [`calculateMetadata()`](/docs/calculate-metadata) 进行修改。
 
-## See also
+## 另请参阅
 
-These properties are controlled by passing them as props to [`<Composition>`](/docs/composition). Read the page about [the fundamentals](/docs/the-fundamentals) to read how to setup a Remotion project.
+通过将它们作为 props 传递给 [`<Composition>`](/docs/composition) 控制这些属性。阅读有关[基础知识](/docs/the-fundamentals)的页面，了解如何设置 Remotion 项目。
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/use-video-config.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/use-video-config.ts)
 - [useCurrentFrame()](/docs/use-current-frame)

@@ -1,38 +1,40 @@
 ---
 image: /generated/articles-docs-lambda-cost.png
 id: optimizing-cost
-title: Optimizing for cost
+title: 优化成本
 slug: /lambda/optimizing-cost
 crumb: "Lambda"
 ---
 
-On this page, a few strategies for optimizing the cost of using Remotion Lambda are presented.
+在本页面中，介绍了一些优化使用 Remotion Lambda 成本的策略。
 
-## Lower concurrency
+## 降低并发
 
-A lot of compute time is spent on warming up the Lambda function, opening browsers, uploading and downloading assets. By using less Lambda functions, less overhead is being produced which will ultimately result in lower cost, however also in slower render speeds. See the [Lambda Concurrency](/docs/lambda/concurrency) page for more information.
+Lambda 函数的大量计算时间用于启动 Lambda 函数、打开浏览器、上传和下载资产。通过使用更少的 Lambda 函数，可以减少产生的开销，最终会导致更低的成本，但也会导致渲染速度变慢。请查看 [Lambda 并发](/docs/lambda/concurrency) 页面获取更多信息。
 
-## Using cheaper regions
+## 使用更便宜的区域
 
-Not all AWS regions have the same cost. See the [AWS Lambda](https://aws.amazon.com/lambda/pricing/) pricing chart to see if you are using a region that is more expensive.
+并非所有的 AWS 区域成本相同。查看 [AWS Lambda](https://aws.amazon.com/lambda/pricing/) 定价表，以查看您是否使用了更昂贵的区域。
 
-## Pre-compute data
+## 预先计算数据
 
-Consider whether your computation will run on every invoked Lambda function. If possible, pre-compute data once and pass it as [input props](/docs/passing-props#passing-input-props-in-the-cli) to the render.
+考虑您的计算是否会在每次调用 Lambda 函数时运行。如果可能的话，预先计算数据一次，并将其作为 [输入属性](/docs/passing-props#passing-input-props-in-the-cli) 传递给渲染。
 
-## Less memory
+## 减少内存
 
-Reducing the memory will linearly decrease the cost. Try out different values for the memory when deploying a Lambda function and see how low you can set it without experiencing a crash.
+减少内存将线性降低成本。在部署 Lambda 函数时尝试不同的内存值，并查看您可以将其设置多低而不会导致崩溃。
 
-## Make the render more performant
+## 使渲染更高效
 
-Making your render more efficient will also reduce the cost of using Lambda. See the [general performance tips](/docs/performance).
+使您的渲染更高效也会降低使用 Lambda 的成本。请参阅 [一般性能提示](/docs/performance)。
 
-## Real life optimization example
+## 真实优化示例
 
-See [this video](https://www.remotion.dev/docs/lambda/optimizing-cost) of how we optimized the cost of a Lambda function by finding the bottlenecks and eliminating them.
+查看 [此视频](https://www.remotion.dev/docs/lambda/optimizing-cost)，了解我们如何通过找到瓶颈并消除它们来优化 Lambda 函数的成本。
 
-## See also
+## 另请参阅
 
-- [Optimizing for speed](/docs/lambda/optimizing-speed)
-- [Performance](/docs/performance)
+- [优化速度](/docs/lambda/optimizing-speed)
+- [性能](/docs/performance) 
+
+

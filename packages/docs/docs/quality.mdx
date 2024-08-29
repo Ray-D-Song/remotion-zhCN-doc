@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-quality.png
 id: quality
-title: Quality Guide
-crumb: "Make it look good"
+title: 质量指南
+crumb: "使其看起来不错"
 ---
 
-Video encoding involves heavily compressing the video data to reduce the file size, which is a lossy process.  
-This document explains a few factors and settings that can be used to control the quality of the video.
+视频编码涉及大量压缩视频数据以减小文件大小，这是一个有损过程。  
+本文档解释了一些可以用来控制视频质量的因素和设置。
 
 ## CRF
 
-The main setting to control the quality of the video is the [Constant Rate Factor (CRF)](/docs/encoding/#controlling-quality-using-the-crf-setting).  
-All ways to render a video in Remotion allow passing a CRF value. Allowed values depend on the codec.
+控制视频质量的主要设置是[恒定码率因子（CRF）](/docs/encoding/#controlling-quality-using-the-crf-setting)。  
+在 Remotion 中渲染视频的所有方式都允许传递一个 CRF 值。允许的值取决于编解码器。
 
-## Resolution (Unsharp text)
+## 分辨率（文本不清晰）
 
-A somewhat surprising way to lose quality is the fact that many computers have a high-density display, but the dimensions of a video don't consider that.
+一个令人惊讶的失去质量的方式是许多计算机具有高密度显示，但视频的尺寸并未考虑到这一点。
 
-Consider a 1920x1080 video, in which you render text:
+考虑一个 1920x1080 的视频，在其中渲染文本：
 
 ```tsx twoslash
 import { Composition } from "remotion";
@@ -40,42 +40,42 @@ const Root: React.FC = () => {
 };
 ```
 
-If you render it out and embed the video on a webpage:
+如果将其渲染并嵌入到网页中的视频：
 
 ```html
 <video src="video.mp4" width="1920" height="1080"></video>
 ```
 
-You will have a less sharp text if the video is displayed on a high-density display (like a Macbook).  
-This is because the device has a 2x pixel density, but the video is 1920x1080, which means that each pixel is 2x bigger than the device's pixel.  
-To display the font with the same sharpness as on a low-density display, you would need to render a 4K video.
+如果在高密度显示器上显示视频（如 MacBook），文本将不够清晰。  
+这是因为设备具有 2x 像素密度，但视频是 1920x1080，这意味着每个像素比设备的像素大 2 倍。  
+要以与低密度显示器上相同的清晰度显示字体，您需要渲染一个 4K 视频。
 
-Use [Output Scaling](/docs/scaling) to render the video with a higher pixel density.
+使用[输出缩放](/docs/scaling)以更高的像素密度渲染视频。
 
-## JPEG Quality
+## JPEG 质量
 
-Remotion makes screenshots of the browser page by default in JPEG format.  
-The JPEG quality by default is 80 (on a scale of 0 to 100).  
-You may tweak it using the [`--jpeg-quality`](/docs/cli/render#--jpeg-quality) flag or switch to PNG as the image format using [`--image-format=png`](/docs/cli/render#--image-format) (slower).
+Remotion 默认以 JPEG 格式对浏览器页面进行截图。  
+JPEG 质量默认为 80（在 0 到 100 的范围内）。  
+您可以使用 [`--jpeg-quality`](/docs/cli/render#--jpeg-quality) 标志进行调整，或者使用 [`--image-format=png`](/docs/cli/render#--image-format) 切换到 PNG 作为图像格式（速度较慢）。
 
-## Color accuracy
+## 色彩准确性
 
-Export your video in [`bt709`](/docs/cli/render#--color-space) for more accurate colors.
+将您的视频导出为 [`bt709`](/docs/cli/render#--color-space) 以获得更准确的颜色。
 
 :::note
-This will become the default in Remotion 5.0.
+这将成为 Remotion 5.0 的默认设置。
 :::
 
-## GIF Colors
+## GIF 颜色
 
-Ensure you are on at least Remotion version v4.0.138 to get the best color accuracy.  
-GIFs only support a 256 colors palette, which leads to a big quality loss. Embrace it, or choose a different format if it is not acceptable.
+确保您至少使用 Remotion 版本 v4.0.138 以获得最佳的颜色准确性。  
+GIF 只支持 256 种颜色调色板，这会导致严重的质量损失。接受它，或者如果不可接受，请选择其他格式。
 
-## Video bitrate
+## 视频比特率
 
-You can use the [`--video-bitrate`](/docs/cli/render#--video-bitrate) flag to control the bitrate of the video.  
-It is mutually exclusive with [`--crf`](/docs/cli/render#--crf) option, which means you can not use both at the same time.
+您可以使用 [`--video-bitrate`](/docs/cli/render#--video-bitrate) 标志来控制视频的比特率。  
+它与 [`--crf`](/docs/cli/render#--crf) 选项是互斥的，这意味着您不能同时使用两者。
 
-## x264 Preset
+## x264 预设
 
-When exporting a H.264 video, you can use the [`--x264-preset`](/docs/cli/render#--x264-preset) flag to control the quality/speed/compression tradeoff.
+在导出 H.264 视频时，您可以使用 [`--x264-preset`](/docs/cli/render#--x264-preset) 标志来控制质量/速度/压缩的权衡。

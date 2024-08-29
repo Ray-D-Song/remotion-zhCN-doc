@@ -1,11 +1,11 @@
 ---
 image: /generated/articles-docs-non-seekable-media.png
 id: non-seekable-media
-title: Non-seekable media
-crumb: "Troubleshooting"
+title: 不可搜索的媒体
+crumb: "故障排除"
 ---
 
-If you see the following error in the console:
+如果您在控制台中看到以下错误：
 
 ```
 The media [src] cannot be seeked.
@@ -15,13 +15,13 @@ This could be one of two reasons:
 Please see https://remotion.dev/docs/non-seekable-media for assistance.
 ```
 
-## Meaning
+## 含义
 
-This error could occur due to one of two reasons:
+此错误可能由以下两个原因之一引起：
 
-<Step>1</Step> A video or audio has entered the video while not being preloaded. <br/><br/>
+<Step>1</Step> 视频或音频在未预加载的情况下进入视频。<br/><br/>
 
-Most commonly this happens when an audio has been replaced while the video is playing, for example due to user input changing. You can fix this by first [preloading the assets](/docs/player/preloading) before you mount them in an audio tag - for this the assets need to support CORS.
+最常见的情况是，当视频正在播放时替换了音频，例如由于用户输入更改。您可以通过首先在将其挂载到音频标签之前[预加载资产](/docs/player/preloading)来解决此问题 - 为此，资产需要支持 CORS。
 
 ```tsx twoslash
 const setAudioUrl = (url: string) => {};
@@ -48,21 +48,21 @@ const MyComp = () => {
 };
 ```
 
-<Step>2</Step> A video or audio was provided that cannot be seeked to an arbitrary time.
+<Step>2</Step> 提供了无法搜索到任意时间的视频或音频。
 
-The cause for this is that when requesting the media file, either:
+造成这种情况的原因是在请求媒体文件时，要么：
 
-- No `Content-Range` HTTP header has been sent by the server, making it impossible for the browser and therefore for Remotion to seek the media.
-- No `Content-Length` HTTP header has been sent by the server, also preventing seeking.
-- The file does not support [Faststart](https://www.videoconverterfactory.com/tips/mp4-fast-start.html)
+- 服务器未发送`Content-Range` HTTP头，使得浏览器和因此 Remotion 无法搜索媒体。
+- 服务器未发送`Content-Length` HTTP头，也会阻止搜索。
+- 该文件不支持[Faststart](https://www.videoconverterfactory.com/tips/mp4-fast-start.html)
 
-You can verify that this is the problem by opening the video or audio in a new tab and observe that you cannot seek the media.
+您可以通过在新标签中打开视频或音频并观察无法搜索媒体来验证这一问题。
 
-You can determine if a video supports seeking, you can use the [`getVideoMetadata()`](/docs/renderer/get-video-metadata) function.
+要确定视频是否支持搜索，您可以使用[`getVideoMetadata()`](/docs/renderer/get-video-metadata)函数。
 
-<Step>3</Step> Media was prevented from being loaded into a video tag.
+<Step>3</Step> 阻止将媒体加载到视频标签中。
 
-The following headers can prevent a file from being included:
+以下标头可能会阻止文件被包含：
 
 - `X-Frame-Options: DENY`
 - `X-Frame-Options: SAMEORIGIN`
@@ -72,16 +72,16 @@ The following headers can prevent a file from being included:
 - `Content-Security-Policy: frame-ancestors https://example.com/`
 - `Cross-Origin-Resource-Policy: same-origin`
 
-Those videos files cannot be loaded due to policy from the server.
+由于服务器的策略，这些视频文件无法加载。
 
-## Solutions
+## 解决方案
 
-Consider one of these solutions:
+考虑以下解决方案之一：
 
-- Serve the media from a webhost that supports the `Range` header and returns a `Content-Length` and `Content-Range` header.
-- Download the media and import it locally using an `import` or `require()` statement.
-- Use the [`<OffthreadVideo>`](/docs/offthreadvideo) component which will render the video fine. You may still see problems during playback in the Remotion Studio or the [`<Player>`](/docs/player).
+- 从支持`Range`头并返回`Content-Length`和`Content-Range`头的 Web 主机提供媒体。
+- 下载媒体并使用`import`或`require()`语句在本地导入。
+- 使用[`<OffthreadVideo>`](/docs/offthreadvideo)组件，它将正常渲染视频。在 Remotion Studio 或[`<Player>`](/docs/player)中播放时仍可能出现问题。
 
-## See also
+## 参见
 
 - [getVideoMetadata()](/docs/renderer/get-video-metadata)

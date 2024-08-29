@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-google-fonts-index.png
 id: google-fonts
-sidebar_label: Overview
+sidebar_label: 概述
 title: "@remotion/google-fonts"
 ---
 
@@ -9,9 +9,9 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {TableOfContents} from '../../components/TableOfContents/google-fonts';
 
-The `@remotion/google-fonts` package provides APIs for easily integrating [Google Fonts](https://fonts.google.com/) into Remotion.
+`@remotion/google-fonts` 包提供了用于轻松集成 [Google Fonts](https://fonts.google.com/) 到 Remotion 中的 API。
 
-## Installation
+## 安装
 
 <Tabs
 defaultValue="npm"
@@ -46,35 +46,35 @@ pnpm i @remotion/google-fonts
   </TabItem>
 </Tabs>
 
-## Usage
+## 使用
 
-To load a font, import the package `@remotion/google-fonts/<FontName>` and call [`loadFont()`](/docs/google-fonts/load-font).
+要加载字体，请导入 `@remotion/google-fonts/<FontName>` 包并调用 [`loadFont()`](/docs/google-fonts/load-font)。
 
-```tsx twoslash title="Load all font styles"
+```tsx twoslash title="加载所有字体样式"
 import { loadFont } from "@remotion/google-fonts/TitanOne";
 const { fontFamily } = loadFont(); // "Titan One"
 ```
 
-If you want to import multiple fonts and want to avoid a variable name collision, you can import the fonts using an `import * as` statement.
+如果要导入多个字体并避免变量名冲突，可以使用 `import * as` 语句导入字体。
 
-```tsx twoslash title="Scope loadFont() variable"
+```tsx twoslash title="范围 loadFont() 变量"
 import * as Montserrat from "@remotion/google-fonts/Montserrat";
 Montserrat.loadFont();
 ```
 
-Call [`loadFont()`](/docs/google-fonts/load-font) to start the loading process. By default, every style, weight and subset is loaded.
+调用 [`loadFont()`](/docs/google-fonts/load-font) 来开始加载过程。默认情况下，会加载每种样式、权重和子集。
 
-You can pass a style (such as `normal`, `italic`) to only load that specific style. If you want multiple styles, call `loadFont()` multiple times.
+您可以传递一个样式（如 `normal`、`italic`）来仅加载该特定样式。如果需要多个样式，请多次调用 `loadFont()`。
 
-```tsx twoslash title="Load just one style"
+```tsx twoslash title="仅加载一个样式"
 import { loadFont } from "@remotion/google-fonts/TitanOne";
 
 loadFont("normal");
 ```
 
-Use the TypeScript autocomplete to see the available styles. To further narrow down what's being loaded, you can specify `weights` and `subsets`. These options are also typesafe.
+使用 TypeScript 自动完成来查看可用样式。为了进一步缩小加载范围，您可以指定 `weights` 和 `subsets`。这些选项也是类型安全的。
 
-```tsx twoslash title="Load a specific style with limit weights and subsets"
+```tsx twoslash title="加载特定样式并限制权重和子集"
 import * as Montserrat from "@remotion/google-fonts/Montserrat";
 
 Montserrat.loadFont("normal", {
@@ -83,9 +83,9 @@ Montserrat.loadFont("normal", {
 });
 ```
 
-`loadFonts()` returns an object with a `fontFamily` property. You can use the `style` attribute to render text in the font you loaded.
+`loadFonts()` 返回一个带有 `fontFamily` 属性的对象。您可以使用 `style` 属性来以加载的字体渲染文本。
 
-```tsx twoslash title="Use the fontFamily property"
+```tsx twoslash title="使用 fontFamily 属性"
 import { loadFont } from "@remotion/google-fonts/TitanOne";
 import { AbsoluteFill } from "remotion";
 
@@ -104,14 +104,14 @@ export const GoogleFontsDemoComposition = () => {
 };
 ```
 
-To get information about a font, you can import the `getInfo()` function:
+要获取有关字体的信息，您可以导入 `getInfo()` 函数：
 
-```tsx twoslash title="Get info about the font"
+```tsx twoslash title="获取字体信息"
 import { getInfo } from "@remotion/google-fonts/Montserrat";
 console.log(getInfo());
 ```
 
-```json title="Example value of info object"
+```json title="info 对象的示例值"
 {
   "fontFamily": "Titan One",
   "importName": "TitanOne",
@@ -132,7 +132,7 @@ console.log(getInfo());
 }
 ```
 
-To get a list of all available fonts, you can call [`getAvailableFonts()`](/docs/google-fonts/get-available-fonts) imported from `@remotion/google-fonts`:
+要获取所有可用字体的列表，您可以调用从 `@remotion/google-fonts` 导入的 [`getAvailableFonts()`](/docs/google-fonts/get-available-fonts)：
 
 ```ts twoslash
 import { getAvailableFonts } from "@remotion/google-fonts";

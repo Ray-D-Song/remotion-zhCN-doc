@@ -1,30 +1,32 @@
 ---
 image: /generated/articles-docs-cloudrun-multiple-buckets.png
-title: Multiple buckets in Remotion Cloud Run
+title: 在 Remotion Cloud Run 中使用多个存储桶
 slug: /cloudrun/multiple-buckets
-sidebar_label: Multiple buckets
+sidebar_label: 多个存储桶
 crumb: "@remotion/cloudrun"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Remotion Cloud Run supports **1 bucket per region and project** that you use Remotion Cloud Run in. It is not necessary to create multiple buckets because:
+Remotion Cloud Run 支持**每个区域和项目一个存储桶**，您在 Remotion Cloud Run 中使用。不需要创建多个存储桶，因为：
 
-- A Cloud Storage bucket is an effectively infinitely scalable storage solution.
-- Remotion will perfectly isolate each render so they do not interfere with another.
-- You can give sites a unique identifier to separate production and development environments.
-- The Remotion Cloud Run service is a binary that does not change with your codebase.
+- Cloud Storage 存储桶是一个有效的无限可扩展的存储解决方案。
+- Remotion 将完全隔离每个渲染，以确保它们不会相互干扰。
+- 您可以为站点提供一个唯一标识符，以区分生产环境和开发环境。
+- Remotion Cloud Run 服务是一个二进制文件，不会随着您的代码库而更改。
 
-You might intuitively create multiple buckets because you have multiple environments, but it is usually not needed.
+您可能会直观地创建多个存储桶，因为您有多个环境，但通常不需要。
 
-## Deleting extraneous buckets
+## 删除多余的存储桶
 
-If you got an error message
+如果您收到以下错误消息
 
 ```
 You have multiple buckets [remotioncloudrun-1a2b3c4d, remotioncloudrun-howDidThisHappen] in your Cloud Storage region [us-east1] starting with "remotioncloudrun-".
 ```
 
-delete the extraneous buckets in the GCP console to fix the error.
+请在 GCP 控制台中删除多余的存储桶以修复错误。
+
+

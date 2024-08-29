@@ -1,12 +1,12 @@
 ---
 image: /generated/articles-docs-using-randomness.png
 id: using-randomness
-sidebar_label: Randomness
-title: Using randomness
-crumb: "Roll the dice"
+sidebar_label: 随机性
+title: 使用随机性
+crumb: "掷骰子"
 ---
 
-The following thing is an anti-pattern in Remotion:
+在 Remotion 中，以下内容是一种反模式：
 
 ```tsx twoslash
 import { useState } from "react";
@@ -25,11 +25,11 @@ const MyComp: React.FC = () => {
 };
 ```
 
-While this will work during preview, it will break while rendering. The reason is that Remotion is spinning up multiple instances of the webpage to render frames in parallel, and the random values will be different on every instance.
+虽然这在预览时可以工作，但在渲染时会出错。原因是 Remotion 在并行渲染帧时会启动多个网页实例，而随机值在每个实例上都会不同。
 
-## Fixing the problem
+## 修复问题
 
-Use the [`random()`](/docs/random) API from Remotion to get deterministic pseudorandom values. Pass in a seed (number or string) and as long as the seed is the same, the return value will be the same.
+使用 Remotion 中的 [`random()`](/docs/random) API 来获取确定性伪随机值。传入一个种子（数字或字符串），只要种子相同，返回值就会相同。
 
 ```tsx twoslash {5-6}
 import { random } from "remotion";
@@ -46,16 +46,17 @@ const MyComp: React.FC = () => {
 };
 ```
 
-Now the random values will be the same on all threads.
+现在所有线程上的随机值将会相同。
 
-## False positives
+## 误报
 
-Did you get an ESLint warning when using `Math.random()`, but you are fully aware of the circumstances described above? Use `random(null)` to get a true random value without getting a warning.
+当使用 `Math.random()` 时收到 ESLint 警告，但您完全了解上述情况吗？使用 `random(null)` 来获取真正的随机值而不会收到警告。
 
-## Exception: Inside `calculateMetadata()`
+## 例外：在 `calculateMetadata()` 内部
 
-It is safe to use true random values inside [`calculateMetadata()`](/docs/calculate-metadata), as it is only called once and not in parallel.
+在 [`calculateMetadata()`](/docs/calculate-metadata) 中使用真正的随机值是安全的，因为它只会被调用一次，而不是并行调用。
 
-## See also
+## 另请参阅
 
 - [`random()`](/docs/random)
+

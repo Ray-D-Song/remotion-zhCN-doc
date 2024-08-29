@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-video-manipulation.png
 id: video-manipulation
-title: Video manipulation
-crumb: "How To"
+title: 视频处理
+crumb: "如何"
 ---
 
 import { VideoCanvasExamples } from "../components/GreenscreenExamples/index";
 
-You can draw frames of an [`<OffthreadVideo>`](/docs/offthreadvideo) or a [`<Video>`](/docs/video) onto a `<canvas>` element using the [`drawImage()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage) API.
+您可以使用 [`drawImage()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage) API 将 [`<OffthreadVideo>`](/docs/offthreadvideo) 或 [`<Video>`](/docs/video) 的帧绘制到 `<canvas>` 元素上。
 
 :::note
-During preview, makes use of the [`requestVideoFrameCallback()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement/requestVideoFrameCallback) API.  
-Browser support: Firefox 130 (August 2024), Chrome 83, Safari 15.4.
+在预览期间，使用 [`requestVideoFrameCallback()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement/requestVideoFrameCallback) API。  
+浏览器支持：Firefox 130（2024 年 8 月），Chrome 83，Safari 15.4。
 :::
 
-## Basic example
+## 基本示例
 
-In this example, an [`<OffthreadVideo>`](/docs/offthreadvideo) is rendered and made invisible.  
-Every frame that is emitted is drawn to a Canvas and a grayscale [`filter`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter) is applied.
+在此示例中，一个 [`<OffthreadVideo>`](/docs/offthreadvideo) 被渲染并设置为不可见。  
+每发出的帧都会绘制到 Canvas 上，并应用灰度 [`filter`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter)。
 
 <VideoCanvasExamples type="base"/>
 <br/>
@@ -64,9 +64,9 @@ export const VideoOnCanvas: React.FC = () => {
 };
 ```
 
-## Greenscreen example
+## 绿幕示例
 
-In this example, we loop over each pixel in the image buffer and if it's green, we transparentize it. Drag the slider below to turn the video transparent.
+在此示例中，我们遍历图像缓冲区中的每个像素，如果是绿色，则将其透明化。拖动下面的滑块以使视频透明化。
 
 <VideoCanvasExamples type="greenscreen"/>
 <br/>
@@ -151,8 +151,9 @@ export const Greenscreen: React.FC<{
 };
 ```
 
-## Before v4.0.190
+## v4.0.190 之前
 
-Before v4.0.190, the `onVideoFrame` prop of [`<OffthreadVideo>`](/docs/offthreadvideo) and [`<Video>`](/docs/video) was not supported.  
-You could only manipulate a `<Video>` using the `requestVideoFrameCallback` API.  
-Click [here](https://github.com/remotion-dev/remotion/blob/b966d0e99cfb91478ca697675f822284da1f9055/packages/docs/docs/video-manipulation.mdx) to see the old version of this page.
+在 v4.0.190 之前，[`<OffthreadVideo>`](/docs/offthreadvideo) 和 [`<Video>`](/docs/video) 的 `onVideoFrame` 属性不受支持。  
+您只能使用 `requestVideoFrameCallback` API 操纵 `<Video>`。  
+点击[这里](https://github.com/remotion-dev/remotion/blob/b966d0e99cfb91478ca697675f822284da1f9055/packages/docs/docs/video-manipulation.mdx)查看此页面的旧版本。  
+

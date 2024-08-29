@@ -1,13 +1,15 @@
 ---
-image: /generated/articles-docs-terminology-remotion-root.png
+image: /generated/articles-docs-termininology-remotion-root.png
 title: Remotion Root
-crumb: "Terminology"
+crumb: "术语"
 ---
 
-The Remotion Root is the directory in which Remotion commands get executed in.  
-It influences the default location of the [public dir](/docs/terminology/public-dir), the `.env` file and the [config file](/docs/config) amongst others.
+Remotion Root 是 Remotion 命令执行的目录。  
+它影响了 [public dir](/docs/terminology/public-dir)、`.env` 文件以及 [config file](/docs/config) 等的默认位置。
 
-## Which directory is the Remotion Root?
+## Remotion Root 是哪个目录？
 
-To determine the Remotion Root, take the directory from which you execute commands or run scripts, and go upwards until you hit a directory that contains a `package.json` file.  
-Many Remotion CLI commands also print the Remotion Root directory if you pass `--log=verbose`.
+要确定 Remotion Root，请从执行命令或运行脚本的目录开始，向上移动，直到找到一个包含 `package.json` 文件的目录。  
+如果传递 `--log=verbose`，许多 Remotion CLI 命令也会打印 Remotion Root 目录。
+
+

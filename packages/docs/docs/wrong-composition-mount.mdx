@@ -1,29 +1,29 @@
 ---
 image: /generated/articles-docs-wrong-composition-mount.png
 id: wrong-composition-mount
-title: Wrongly mounted <Composition>
-crumb: "Troubleshooting"
+title: 错误地挂载 <Composition>
+crumb: "故障排除"
 ---
 
-## Problem
+## 问题
 
-You are facing the following error:
-
-```
-<Composition> mounted inside another composition.
-```
-
-or, inside a player:
+您遇到了以下错误：
 
 ```
-'<Composition> was mounted inside the `component` that was passed to the <Player>.'
+<Composition> 被挂载在另一个组合中。
 ```
 
-## Solution
+或者，在播放器中：
 
-### In the Remotion Studio
+```
+'<Composition> 被挂载在传递给 <Player> 的 `component` 中。'
+```
 
-The cause for the error is that a [`<Composition>`](/docs/composition) was nested inside the `component` that was passed to another `<Composition>`.
+## 解决方案
+
+### 在 Remotion Studio 中
+
+错误的原因是一个 [`<Composition>`](/docs/composition) 被嵌套在传递给另一个 `<Composition>` 的 `component` 中。
 
 ```tsx twoslash title="❌"
 import { Composition } from "remotion";
@@ -61,18 +61,17 @@ const Index: React.FC = () => {
 ```
 
 :::note
-There is no reason to nest compositions in Remotion.
+在 Remotion 中没有必要嵌套组合。
 
-- Do you want to include a component in another? Mount it directly instead by writing: `<AnotherComp />`
-- Do you want to limit the duration or time-shift another component? Look into [`<Sequence>`](/docs/sequence).
-
+- 想要在另一个组件中包含一个组件吗？直接挂载它，写成：`<AnotherComp />`
+- 想要限制另一个组件的持续时间或时间偏移吗？查看 [`<Sequence>`](/docs/sequence)。
 :::
 
-To fix it, you must remove the nested compositions.
+要修复此问题，您必须移除嵌套的组合。
 
-### In the Remotion Player
+### 在 Remotion Player 中
 
-The cause for the error is that in the component you passed in to the `component` prop of Remotion Player, you are returning a `<Composition>`.
+错误的原因是您在传递给 Remotion Player 的 `component` 属性中返回了一个 `<Composition>`。
 
 ```tsx twoslash title="❌"
 import { Player } from "@remotion/player";
@@ -111,10 +110,10 @@ const Index: React.FC = () => {
 ```
 
 :::note
-There is no use for compositions in `<Player>`. Only use them during rendering and when using the Remotion Studio.
+在 `<Player>` 中没有使用组合的必要。只在渲染时和使用 Remotion Studio 时使用它们。
 :::
 
-To fix it, pass the component directly to the player's [`component`](/docs/player/player#component-or-lazycomponent) prop and provide the [`durationInFrames`](/docs/player/player#durationinframes), [`fps`](/docs/player/player#fps), [`compositionHeight`](/docs/player/player#compositionheight) and [`compositionWidth`](/docs/player/player#compositionwidth) props to the player.
+要修复此问题，请直接将组件传递给播放器的 [`component`](/docs/player/player#component-or-lazycomponent) 属性，并为播放器提供 [`durationInFrames`](/docs/player/player#durationinframes)、[`fps`](/docs/player/player#fps)、[`compositionHeight`](/docs/player/player#compositionheight) 和 [`compositionWidth`](/docs/player/player#compositionwidth) 属性。
 
 ```tsx twoslash title="✅"
 import { Player } from "@remotion/player";
@@ -138,7 +137,7 @@ const Index: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
 - [`<Composition>`](/docs/composition)
 - [`<Player>`](/docs/player)

@@ -4,21 +4,21 @@ title: translatePath()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-Translates the path by the given `x` and `y` coordinates.
+通过给定的`x`和`y`坐标来翻译路径。
 
-## Arguments
+## 参数
 
-The function takes three arguments:
+该函数接受三个参数：
 
-- `path`, the original SVG path.
-- `x`, the amount of horizontal translation.
-- `y` the amount of vertical translation.
+- `path`，原始的SVG路径。
+- `x`，水平平移量。
+- `y`，垂直平移量。
 
-## Return value
+## 返回值
 
-Returns a new `string` containing a path if it is valid:
+如果路径有效，则返回一个包含路径的新`string`：
 
 ```tsx twoslash title='translate-x.ts'
 import { translatePath } from "@remotion/paths";
@@ -45,7 +45,7 @@ const translatedPath = translatePath(
 console.log(translatedPath); // "M 45 70 a 25 25 0 1 1 50 0 a 25, 5 0 1 1 -50 0"
 ```
 
-The function will throw if the path is invalid:
+如果路径无效，该函数将抛出异常：
 
 ```tsx twoslash
 import { translatePath } from "@remotion/paths";
@@ -55,9 +55,10 @@ translatePath("remotion", 10, 0); // Malformed path data: "m" ...
 
 ## Credits
 
-Source code stems mostly from [translate-svg-path](https://github.com/michaelrhodes/translate-svg-path) and [serialize-svg-path](https://github.com/jkroso/serialize-svg-path).
+源代码主要来自于[translate-svg-path](https://github.com/michaelrhodes/translate-svg-path)和[serialize-svg-path](https://github.com/jkroso/serialize-svg-path)。
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/translate-path.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/translate-path.ts)
+

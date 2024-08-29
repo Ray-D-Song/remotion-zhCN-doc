@@ -5,9 +5,9 @@ title: getLottieMetadata()
 crumb: "@remotion/lottie"
 ---
 
-_Part of the [`@remotion/lottie`](/docs/lottie) package._
+_属于 [`@remotion/lottie`](/docs/lottie) 包。_
 
-Using this function, you can get the basic metadata such as dimensions, duration and framerate of a Lottie animation.
+使用此函数，您可以获取 Lottie 动画的基本元数据，如尺寸、持续时间和帧速率。
 
 ```tsx twoslash title="Animation.tsx"
 // @allowUmdGlobalAccess
@@ -176,38 +176,39 @@ const metadata = getLottieMetadata(animationData);
 
 ## API
 
-The function takes one argument, a JavaScript object that adheres to the Lottie schema.
+该函数接受一个参数，一个符合 Lottie 模式的 JavaScript 对象。
 
-### Return value
+### 返回值
 
-If the metadata cannot be parsed, this function returns `null`.
+如果无法解析元数据，则此函数返回 `null`。
 
-If the metadata can be parsed, it returns an object with the following properties:
+如果可以解析元数据，则返回一个具有以下属性的对象：
 
 #### `height`
 
-The natural height of the animation in pixels.
+动画的自然高度（以像素为单位）。
 
 #### `width`
 
-The natural width of the animation in pixels.
+动画的自然宽度（以像素为单位）。
 
 #### `durationInSeconds`
 
-The duration of the animation in seconds, if the `fps` from this object is used.
+动画的持续时间（以秒为单位），如果使用此对象的 `fps`。
 
 #### `durationInFrames`
 
-The duration of the animation in frames, if the `fps` from this object is used.
+动画的持续时间（以帧为单位），如果使用此对象的 `fps`。
 
 :::note
-This value is rounded down to the closest integer, since Remotion does not support non-integer values for `durationInFrames`.
+此值向下舍入到最接近的整数，因为 Remotion 不支持 `durationInFrames` 的非整数值。
 :::
 
 #### `fps`
 
-The natural framerate of the Lottie animation.
+Lottie 动画的自然帧速率。
 
-## See also
+## 另请参阅
 
-- [Change Remotion composition metadata based on Lottie metadata](/docs/dynamic-metadata)
+- [根据 Lottie 元数据更改 Remotion 组合元数据](/docs/dynamic-metadata)
+

@@ -1,57 +1,57 @@
 ---
 image: /generated/articles-docs-cloudrun-generate-env.png
 id: generate-env
-title: Generate .env File
+title: 生成 .env 文件
 crumb: "Cloud Run"
 ---
 
 <ExperimentalBadge>
   <p>
-    Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the{' '}<a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.
+    Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看{' '}<a href="https://remotion.dev/changelog">更改日志以了解最新的重大更改</a>。
   </p>
 </ExperimentalBadge>
 
-As GCP Cloud Shell has access to the project, a script can be run to generate a .env file with the required Service Account keys and Project ID. As Cloud Shell makes use of the logged-in user's credentials for permissions in the project, it is assumed you have the owner role on the project. If you were the one that created the project, you will be an owner.
+由于 GCP Cloud Shell 可以访问项目，可以运行脚本生成一个包含所需服务帐号密钥和项目 ID 的 .env 文件。由于 Cloud Shell 利用已登录用户的凭据在项目中进行权限控制，因此假定您在项目中拥有所有者角色。如果您是创建项目的人，您将是一个所有者。
 
-It is important to have strict control over the service account keys, as they are used to authenticate the Remotion project to GCP. The .env file should not be committed to source control, and not shared with anyone. Any time you no longer require a service account key, it should be deleted.
+严格控制服务帐号密钥非常重要，因为它们用于对 Remotion 项目进行身份验证。.env 文件不应提交到源代码控制，并且不应与任何人共享。每当您不再需要服务帐号密钥时，应将其删除。
 
-GCP allows a maximum of 10 keys per service account. If you have already created 10 keys, you will need to delete one before you can create another. The following script provides you with an opportunity to do this from within the terminal.
+GCP 允许每个服务帐号最多拥有 10 个密钥。如果您已经创建了 10 个密钥，则需要删除一个才能创建另一个。以下脚本为您提供了在终端内执行此操作的机会。
 
-1. Open the [Project Dashboard](https://console.cloud.google.com/home/dashboard) in the GCP console, and select your existing Remotion project.
+1. 在 GCP 控制台中的 [项目仪表板](https://console.cloud.google.com/home/dashboard) 中选择您现有的 Remotion 项目。
 
-2. In the top right hand corner of the screen, click the Activate Cloud Shell icon
+2. 在屏幕右上角，单击激活 Cloud Shell 图标
 
    <img src="/img/cloudrun/selectCloudShell.jpg" width="200" />
 
-3. Within the Cloud Shell, type the following command and follow the prompts.
+3. 在 Cloud Shell 中，输入以下命令并按照提示操作。
 
    ```bash
    curl -L https://github.com/remotion-dev/remotion/raw/main/packages/cloudrun/src/gcpInstaller/gcpInstaller.tar | tar -x -C . && node install.mjs
    ```
 
-   _The first command downloads a tar file from the Remotion repo, and extracts it to the current directory. The second command runs the installer script._
-   If you want to generate a new .env file, or manage keys already created, you will want to select option 3.
+   _第一个命令从 Remotion 存储库下载一个 tar 文件，并将其解压到当前目录。第二个命令运行安装程序脚本。_
+   如果您想生成新的 .env 文件，或者管理已创建的密钥，您将需要选择选项 3。
 
-   If this is the first time [initialising Remotion in the GCP project](/docs/cloudrun/setup), you will want to select option 1.  
-   If you are [updating the version of Remotion for this GCP project](/docs/cloudrun/setup), you will want to select option 1.
+如果这是在 [GCP 项目中初始化 Remotion](/docs/cloudrun/setup) 的第一次操作，您将需要选择选项 1。  
+如果您正在为此 GCP 项目 [更新 Remotion 版本](/docs/cloudrun/setup)，您将需要选择选项 1。
 
-   <!-- ToDo - host this in the official Remotion repo -->
+<!-- ToDo - host this in the official Remotion repo -->
 
-4. Run the following command to view the environment variables. Copy them into your local `.env` file (create it if it doesn't exist):
+4. 运行以下命令以查看环境变量。将它们复制到本地的 `.env` 文件中（如果不存在，请创建）：
 
    ```bash
    cat .env
    ```
 
-5. Remove the .env file from the virtual machine, using this command:
+5. 使用以下命令从虚拟机中删除 `.env` 文件：
 
    ```bash
    rm .env
    ```
 
-## 5. Optional: Validate the permission setup
+## 5. 可选：验证权限设置
 
-From within your code base, run the following command to validate the permissions are setup correctly in GCP. As long as your GCP project was setup with a matching Remotion version, this should pass.
+从您的代码库中运行以下命令，以验证权限在 GCP 中是否正确设置。只要您的 GCP 项目是使用匹配的 Remotion 版本设置的，这个步骤应该通过。
 
 ```
 npx remotion cloudrun policies validate

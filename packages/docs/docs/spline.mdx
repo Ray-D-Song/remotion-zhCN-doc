@@ -1,89 +1,90 @@
 ---
 image: /generated/articles-docs-spline.png
-title: "Import from Spline"
-crumb: "Integrations"
+title: "从 Spline 导入"
+crumb: "集成"
 ---
 
 import {SplineVideo} from '../components/SplineVideo'
 
-_Authors: [Dhroov Makwana](https://github.com/pabloescoder) and [Jonny Burger](https://twitter.com/JNYBGR)_
+_作者: [Dhroov Makwana](https://github.com/pabloescoder) 和 [Jonny Burger](https://twitter.com/JNYBGR)_
 
-[Spline](https://app.spline.design/) allows to design 3D models on the web. It allows exporting these models as React Three Fiber code, meaning that can be directly used and animated in Remotion.
+[Spline](https://app.spline.design/) 允许在网络上设计 3D 模型。它允许将这些模型导出为 React Three Fiber 代码，这意味着可以直接在 Remotion 中使用和动画化。
 
-This tutorial shows how to design, export and animate a scene with Spline and Remotion.
+本教程展示了如何使用 Spline 和 Remotion 设计、导出和动画化场景。
 
-## Create the 3D model in Spline
+## 在 Spline 中创建 3D 模型
 
-In this part I will go over all the steps for creating a 3D model in Spline, if you wish to, you can also skip this part and directly access the built model [here](https://app.spline.design/file/e954db42-8eb2-4130-a5df-d1a1f9fbdc2a).
+在这部分中，我将介绍在 Spline 中创建 3D 模型的所有步骤，如果您愿意，您也可以跳过此部分，直接访问构建好的模型 [这里](https://app.spline.design/file/e954db42-8eb2-4130-a5df-d1a1f9fbdc2a)。
 
-1. Go to https://app.spline.design/, create a new account if necessary.
-2. Click on the `New File` button on the top right to create a new project.
+1. 访问 https://app.spline.design/，如有必要，创建一个新账户。
+2. 点击右上角的 `New File` 按钮创建一个新项目。
 
-   ![Blank Workspace](../static/img/spline-guide/1_blank_workspace.png)
+   ![空白工作区](../static/img/spline-guide/1_blank_workspace.png)
 
-3. Click the box in the scene, and press <kbd>Backspace</kbd>, because we don't need it. We will also delete the directional light later, but keep it for now.
-4. New shapes can be added using the **+** icon on the toolbar at the top. Click on it, scroll down and select **Torus**.
+3. 点击场景中的方框，按 <kbd>Backspace</kbd> 键，因为我们不需要它。稍后我们也会删除定向光，但现在保留它。
+4. 可以使用顶部工具栏上的 **+** 图标添加新形状。点击它，向下滚动并选择 **Torus**。
 
-   ![Top Menu](../static/img/spline-guide/2_top_menu.png)
-   ![Left Menu](../static/img/spline-guide/3_left_menu_torus.png)
+   ![顶部菜单](../static/img/spline-guide/2_top_menu.png)
+   ![左侧菜单](../static/img/spline-guide/3_left_menu_torus.png)
 
-5. Once your cursor turns to a **+**, click anywhere on the screen to place the Torus.
+5. 当您的光标变成 **+** 时，在屏幕上的任意位置点击以放置圆环。
 
-   ![Blank Torus](../static/img/spline-guide/4_blank_torus.png)
+   ![空白圆环](../static/img/spline-guide/4_blank_torus.png)
 
 :::note
-The camera rotation can be changed by clicking and dragging while holding the <kbd>Alt</kbd> (Windows) or <kbd>Option</kbd> (Mac) key.
+可以通过点击并拖动同时按住 <kbd>Alt</kbd>（Windows）或 <kbd>Option</kbd>（Mac）键来更改相机旋转。
 :::
 
-7. Center the Torus by right clicking on it, scrolling down and selecting `Reset Position`. Alternatively, you can enter 0 in all three fields of the Position row on the right.
+7. 通过右键单击圆环，向下滚动并选择 `Reset Position` 来将圆环居中。或者，您可以在右侧的 Position 行的三个字段中输入 0。
 
-8. Scale the Torus by a factor of two by entering `2` in all three fields of the Scale row.
+8. 通过在 Scale 行的三个字段中输入 `2` 来将圆环放大两倍。
 
-   ![Position Options](../static/img/spline-guide/5_position_options.png)
+   ![位置选项](../static/img/spline-guide/5_position_options.png)
 
-9. You can play around with the different fields in the **Shape** section to modify the Torus, however we will continue with the default properties.
+9. 您可以在**形状**部分尝试不同的字段来修改环面，但我们将继续使用默认属性。
 
-   ![Shape Options](../static/img/spline-guide/6_shape_options.png)
+   ![形状选项](../static/img/spline-guide/6_shape_options.png)
 
-10. Scroll down to the **Material** section in the right column, click on the textbox beside the colour picker and enter `3489DC` or any color you like. Effects on the 3D object in Spline are applied as layers, let's add another effect.
+10. 滚动到右侧栏的**材质**部分，单击颜色选择器旁边的文本框，并输入`3489DC`或您喜欢的任何颜色。在 Spline 中，对 3D 对象的效果是作为图层应用的，让我们添加另一个效果。
 
-11. Click on the **+** icon in the **Material** section, and from the dropdown select **Noise**
+11. 单击**材质**部分的**+**图标，从下拉菜单中选择**噪音**
 
-    ![Noise Layer](../static/img/spline-guide/7_noise_layer.png)
+    ![噪音图层](../static/img/spline-guide/7_noise_layer.png)
 
-12. You'll notice that the colour you previously chose has been replaced by black and white noise, this is because the noise layer is covering all the layers below it. In order to fix this, click on the icon to the right of 100 in the noise row and select **overlay**.
+12. 您会注意到您之前选择的颜色已被黑白噪音取代，这是因为噪音图层覆盖了其下的所有图层。为了解决这个问题，请单击噪音行中 100 右侧的图标，并选择**叠加**。
 
-    ![Overlay](../static/img/spline-guide/8_overlay.png)
+    ![叠加](../static/img/spline-guide/8_overlay.png)
 
-13. Finally, let's change the noise type, just for better visuals. Click on the squiggly lines beside noise, select **Simplex Fractal** and set **Movement** to 2.
+13. 最后，让我们更改噪音类型，以获得更好的视觉效果。单击噪音旁边的波浪线，选择**Simplex Fractal**并将**Movement**设置为 2。
 
-    ![Change Noise Type](../static/img/spline-guide/9_change_noise_type.png)
+    ![更改噪音类型](../static/img/spline-guide/9_change_noise_type.png)
 
-Your 3D model should look like this:
+您的 3D 模型应该看起来像这样：
 
-![Completed Torus](../static/img/spline-guide/10_completed_torus.png)
+![完成的环面](../static/img/spline-guide/10_completed_torus.png)
 
-14. Click on **Directional Light** in the left column, and press <kbd>Backspace</kbd> key because we don't need it anymore.
-15. Click **Export** in the top menu. Click on the first dropdown and select **Code (Experimental)**. Select **react-three-fiber** in the second dropdown. Finally, click on the Copy icon in the code section to copy the generated code.
+14. 在左侧栏中单击**Directional Light**，然后按<kbd>Backspace</kbd>键，因为我们不再需要它。
+15. 在顶部菜单中单击**导出**。单击第一个下拉菜单并选择**代码（实验性）**。在第二个下拉菜单中选择**react-three-fiber**。最后，单击代码部分中的复制图标以复制生成的代码。
 
-![Export Model Code](../static/img/spline-guide/11_export_model_code.png)
+![导出模型代码](../static/img/spline-guide/11_export_model_code.png)
 
-## Animating 3D Model using Remotion
+## 使用 Remotion 对 3D 模型进行动画
 
-1. Create a new Remotion project from the React Three Fiber template by running `npx create-video@latest`.
+1. 运行`npx create-video@latest`从 React Three Fiber 模板创建一个新的 Remotion 项目。
 
-   ![Project Starter](../static/img/spline-guide/12_project_starter.png)
+   ![项目启动器](../static/img/spline-guide/12_project_starter.png)
 
-2. Install the [`@splinetools/r3f-spline`](https://github.com/splinetool/r3f-spline) package:
+2. 安装[`@splinetools/r3f-spline`](https://github.com/splinetool/r3f-spline)包：
 
    ```shell
    npm install @splinetool/r3f-spline
    ```
 
-3. Create a new file at `src/Torus.tsx` with the code that you have copied from Spline.
-4. Remove the `OrthographicCamera` import, and the `<OrthographicCamera>` component as we will be using the `useThree` hook for the camera.
+3. 在 `src/Torus.tsx` 中创建一个新文件，其中包含从 Spline 复制的代码。
 
-5. In `src/Scene.tsx`, replace the default scene with:
+4. 移除 `OrthographicCamera` 的导入，并移除 `<OrthographicCamera>` 组件，因为我们将使用 `useThree` 钩子来控制相机。
+
+5. 在 `src/Scene.tsx` 中，用以下内容替换默认场景：
 
 ```tsx twoslash title="src/Root.tsx"
 // @filename: src/Torus.tsx
@@ -108,7 +109,7 @@ export const Scene: React.FC = () => {
 };
 ```
 
-7. Add the following imports to `src/Torus.tsx`:
+7. 在 `src/Torus.tsx` 中添加以下导入：
 
 ```ts title="src/Torus.tsx"
 import React, { useEffect } from "react";
@@ -116,7 +117,7 @@ import { useThree } from "@react-three/fiber";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 ```
 
-8. Add the following code inside the Torus function below the `useSpline()` call:
+8. 在 `useSpline()` 调用下方的 Torus 函数内添加以下代码：
 
 ```tsx twoslash title="src/Torus.tsx"
 import { useCurrentFrame, useVideoConfig } from "remotion";
@@ -126,7 +127,7 @@ const frame = useCurrentFrame();
 const { fps, durationInFrames } = useVideoConfig();
 ```
 
-Position the camera to look at the center point from `200` z offset.
+将相机定位到距离中心点 `200` 的 z 偏移处。
 
 ```tsx title="src/Torus.tsx"
 const camera = useThree((state) => state.camera);
@@ -139,7 +140,7 @@ useEffect(() => {
 }, [camera]);
 ```
 
-9. Let's add some animation. Below the above code, insert the following:
+9. 添加一些动画。在上述代码下方插入以下内容：
 
 ```tsx twoslash title="src/Torus.tsx"
 import { interpolate, spring } from "remotion";
@@ -163,10 +164,10 @@ const entranceAnimation = spring({
 });
 ```
 
-- `constantRotation` will cause the Torus to rotate forever. Math.PI \* 2 equals a complete 360 degree rotation.
-- `entranceAnimation` animates from 0 to 1 over time using a spring animation.
+- `constantRotation` 会导致 Torus 永久旋转。Math.PI \* 2 等于完整的 360 度旋转。
+- `entranceAnimation` 使用弹簧动画在一定时间内从 0 到 1 进行动画。
 
-10. Find the `<mesh>` element and replace it's `scale` and `rotation` parameters with:
+10. 找到 `<mesh>` 元素，并将其 `scale` 和 `rotation` 参数替换为：
 
 ```tsx
 scale={entranceAnimation + 3}
@@ -174,32 +175,33 @@ rotation={[constantRotation / 2, constantRotation, 0]}
 ```
 
 :::note
-The X rotation is half of the Y rotation, so for every 2 turns in the Y axis, our Torus will turn once in the X axis.
+X 轴旋转是 Y 轴旋转的一半，因此在 Y 轴旋转两次时，我们的 Torus 将在 X 轴旋转一次。
 :::
 
-11. That's it! See a rotating Torus in the Remotion Studio.
+11. 完成！在 Remotion Studio 中查看旋转的 Torus。
 
-12. If you want to export your video to a MP4 video file, run:
+12. 如果要将视频导出为 MP4 视频文件，请运行：
 
 ```shell
 npm run build
 ```
 
-## Final Result / Generated Video
+## 最终结果 / 生成的视频
 
 <SplineVideo />
 
-## Credits
+## 鸣谢
 
 <Credits contributors={[
 {
 username: "pabloescoder",
-contribution: "Author"
+contribution: "作者"
 },
 ]} />
 
-## See also
+## 另请参阅
 
 - [`@remotion/three`](/docs/three)
-- [Remotion Three Template](https://github.com/remotion-dev/template-three)
+- [Remotion Three 模板](https://github.com/remotion-dev/template-three)
 - [Spline](https://docs.spline.design/)
+

@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-lambda-troubleshooting-bucket-disallows-acl.png
 id: bucket-disallows-acl
-title: The bucket does not allow ACLs
-crumb: "Lambda Troubleshooting"
+title: 存储桶不允许 ACL
+crumb: "Lambda 故障排除"
 ---
 
-If you encounter the following error while rendering a video on Remotion Lambda:
+如果在 Remotion Lambda 上渲染视频时遇到以下错误：
 
 ```
-AccessControlListNotSupported: The bucket does not allow ACLs
+AccessControlListNotSupported: 存储桶不允许 ACL
 ```
 
-You are trying to render into a bucket that has the ACL feature disabled and handles its permissions in a different way, for example through bucket policies.
+您正在尝试渲染到一个禁用了 ACL 功能并以不同方式处理其权限的存储桶，例如通过存储桶策略。
 
-## Solution
+## 解决方案
 
-Pass `no-acl` to the `privacy` option of [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#privacy), [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#privacy) or [`npx remotion lambda render`](/docs/lambda/cli/render#--privacy).
+将 `no-acl` 传递给 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#privacy)、[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#privacy) 或 [`npx remotion lambda render`](/docs/lambda/cli/render#--privacy) 的 `privacy` 选项。

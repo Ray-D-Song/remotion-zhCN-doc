@@ -1,21 +1,21 @@
 ---
 image: /generated/articles-docs-install-whisper-cpp-index.png
 title: "@remotion/install-whisper-cpp"
-crumb: "Transcribe audio locally"
+crumb: "本地转录音频"
 ---
 
-_Available from v4.0.115_
+_从v4.0.115版本开始可用_
 
-With [Whisper.cpp](https://github.com/ggerganov/whisper.cpp), you can transcribe audio locally on your machine.  
-This package provides easy to use cross-platform functions to install Whisper.cpp and a model.
+使用[Whisper.cpp](https://github.com/ggerganov/whisper.cpp)，您可以在本地计算机上转录音频。  
+该软件包提供了易于使用的跨平台功能，用于安装Whisper.cpp和一个模型。
 
 import { TableOfContents } from "../../components/TableOfContents/install-whisper-cpp";
 
 <Installation pkg="@remotion/install-whisper-cpp" />
 
-## Example usage
+## 示例用法
 
-Install Whisper `1.5.5` (the latest version at the time of writing that we find works well and supports token-level timestamps) and the `medium.en` model to the `whisper.cpp` folder.
+将Whisper安装为`1.5.5`（在撰写时我们发现的最新版本，支持令牌级时间戳）并将`medium.en`模型安装到`whisper.cpp`文件夹中。
 
 ```tsx twoslash title="install-whisper.cpp"
 // @module: esnext
@@ -62,10 +62,12 @@ for (const line of captions) {
 }
 ```
 
-## Functions
+## 函数
 
 <TableOfContents />
 
-## License
+## 许可证
 
 MIT
+
+

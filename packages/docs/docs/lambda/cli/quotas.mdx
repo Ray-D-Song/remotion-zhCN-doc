@@ -1,67 +1,68 @@
 ---
 image: /generated/articles-docs-lambda-cli-quotas.png
 id: quotas
-sidebar_label: quotas
+sidebar_label: 配额
 title: 'npx remotion lambda quotas'
 slug: /lambda/cli/quotas
-crumb: 'Lambda CLI Reference'
+crumb: 'Lambda CLI 参考'
 ---
 
-Displays the AWS Lambda concurrency and burst limits currently being applied to your account and region. You can use the `increase` command to send a request to AWS asking them to increase their quotas.
+显示当前应用于您的帐户和区域的 AWS Lambda 并发和突发限制。您可以使用 `increase` 命令向 AWS 发送请求，要求它们增加配额。
 
 - [`quotas`](#quotas)
 - [`quotas increase`](#quotas-increase)
 
 ## `quotas`
 
-Print the current limits being applied to your AWS account and region.
+打印当前应用于您的 AWS 帐户和区域的限制。
 
 ```
 npx remotion lambda quotas
 ```
 
 <details>
-<summary>Show example output</summary>
+<summary>显示示例输出</summary>
 <pre>
 Region = us-east-1
 
-Concurrency limit: 1000 - Increase recommended!
-A request to increase it to 5000 is pending:
+并发限制: 1000 - 建议增加！
+一个将其增加到 5000 的请求正在等待：
 https://us-east-1.console.aws.amazon.com/support/home#/case/?displayId=9742781451
-The maximum amount of Lambda functions which can concurrently execute.
-Run `npx remotion lambda quotas increase` to ask AWS to increase your limit.
+可以同时执行的 Lambda 函数的最大数量。
+运行 `npx remotion lambda quotas increase` 以请求 AWS 增加您的限制。
 
 </pre>
 </details>
 
 ### `--region`
 
-For which region the quotas should be printed.
+应打印配额的区域。
 
 ## `quotas increase`
 
-Creates an AWS support request to increase the concurrency limit on your account as well as potential quota increase requests that might exist on your account.
+创建一个 AWS 支持请求，以增加您的帐户上的并发限制，以及可能存在于您的帐户上的配额增加请求。
 
 ```
 npx remotion lambda quotas increase
 ```
 
 :::note
-This only works for AWS Root accounts, not the children of an organization. You can still request an increase via the console.
+这仅适用于 AWS 根帐户，而不适用于组织的子帐户。您仍然可以通过控制台请求增加。
 :::
 
 ### `--region`
 
-For which region the quotas should be increased.
+应增加配额的区域。
 
 ### `--yes`
 
-Skips asking for confirmation.
+跳过请求确认。
 
 ### `--force`
 
-Asks for an increase even if it is the second one. Without a message you specify, it is more unlikely you will get approved, prefer using console for further increases.
+即使是第二次请求，也会请求增加。如果您没有指定消息，那么您获得批准的可能性更小，建议使用控制台进行进一步增加。
 
-## See also
+## 另请参阅
 
-- [Setup guide](/docs/lambda/setup)
+- [设置指南](/docs/lambda/setup)
+

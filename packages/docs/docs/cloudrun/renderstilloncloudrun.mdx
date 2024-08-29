@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 
 <ExperimentalBadge>
   <p>
-    Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the{' '}<a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.
+    Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看{' '}<a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。
   </p>
 </ExperimentalBadge>
 
-Kicks off a still rendering process on Remotion Cloud Run.
+在 Remotion Cloud Run 上启动静态渲染过程。
 
-Requires a [service](/docs/cloudrun/deployservice) to already be deployed to execute the render.  
-A [site](/docs/cloudrun/deploysite) or a [Serve URL](/docs/terminology/serve-url) needs to be specified to determine what will be rendered.
+需要已部署 [服务](/docs/cloudrun/deployservice) 才能执行渲染。  
+需要指定一个 [站点](/docs/cloudrun/deploysite) 或 [Serve URL](/docs/terminology/serve-url) 来确定将要渲染的内容。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -40,115 +40,115 @@ if (result.type === "success") {
 ```
 
 :::note
-Import from [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) to not load the whole renderer, which cannot be bundled.
+从 [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) 导入，以避免加载整个渲染器，因为它无法捆绑。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `cloudRunUrl?`
 
-_optional. Required if serviceName not supplied_
+_可选。如果未提供 serviceName，则必填_
 
-The url of the Cloud Run service which should be used to perform the render. You must set either cloudRunUrl or serviceName, but not both
+应用于执行渲染的 Cloud Run 服务的 URL。您必须设置 cloudRunUrl 或 serviceName，但不能同时设置两者。
 
 ### `serviceName?`
 
-_optional. Required if cloudRunUrl not supplied_
+_可选。如果未提供 cloudRunUrl，则必填_
 
-The name of the Cloud Run service which should be used to perform the render. This is used in conjunction with the region to determine the service endpoint, as the same service name can exist across multiple regions.
+应用于执行渲染的 Cloud Run 服务的名称。这与区域一起使用，以确定服务端点，因为相同的服务名称可以存在于多个区域。
 
 ### `region`
 
-In which [GCP region](/docs/cloudrun/region-selection) your Cloud Run service is deployed. It's highly recommended that your Remotion site is also in the same region.
+您的 Cloud Run 服务部署在哪个 [GCP 区域](/docs/cloudrun/region-selection)。强烈建议您的 Remotion 站点也位于同一区域。
 
 ### `serveUrl`
 
-A URL pointing to a Remotion project. Use [`deploySite()`](/docs/cloudrun/deploysite) to deploy a Remotion project.
+指向 Remotion 项目的 URL。使用 [`deploySite()`](/docs/cloudrun/deploysite) 部署 Remotion 项目。
 
 ### `composition`
 
-The `id` of the [composition](/docs/composition) you want to render.
+您要渲染的 [composition](/docs/composition) 的 `id`。
 
 ### `inputProps?`
 
-_optional_
+_可选_
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a JSON object.  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选 composition 的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)。  
+必须是一个 JSON 对象。  
+从根组件可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
-### `privacy?`
+### `隐私?`
 
-_optional_
+_可选_
 
-One of:
+其中之一：
 
-- `"public"` (_default_): The rendered still is publicly accessible under the Cloud Storage URL.
-- `"private"`: The rendered still is not publicly available, but is available within the GCP project to those with the correct permissions.
+- `"public"`（_默认_）：渲染的静态图在 Cloud Storage URL 下是公开可访问的。
+- `"private"`：渲染的静态图不是公开可用的，但对具有正确权限的 GCP 项目内的用户可用。
 
 ### `downloadBehavior?`<AvailableFrom v="4.0.176"/>
 
-How the output file should behave when accessed through the Cloud Storage output link in the browser.
+在浏览器通过 Cloud Storage 输出链接访问输出文件时的行为。
 
-- `{"type": "play-in-browser"}` - the default. The video will play in the browser.
-- `{"type": "download", fileName: null}` or `{"type": "download", fileName: "download.mp4"}` - a `Content-Disposition` header will be added which makes the browser download the file. You can optionally override the filename.
+- `{"type": "play-in-browser"}` - 默认行为。视频将在浏览器中播放。
+- `{"type": "download", fileName: null}` 或 `{"type": "download", fileName: "download.mp4"}` - 将添加一个 `Content-Disposition` 头，使浏览器下载文件。您可以选择性地覆盖文件名。
 
 ### `forceBucketName?`
 
-_optional_
+_可选_
 
-Specify a specific bucket name to be used for the output. The resulting Google Cloud Storage URL will be in the format `gs://{bucket-name}/renders/{render-id}/{file-name}`. If not set, Remotion will choose the right bucket to use based on the region.
+指定用于输出的特定存储桶名称。生成的 Google Cloud Storage URL 将采用格式 `gs://{bucket-name}/renders/{render-id}/{file-name}`。如果未设置，Remotion 将根据区域选择正确的存储桶。
 
 ### `jpegQuality?`
 
-_optional_
+_可选_
 
-See [`renderStill() -> jpegQuality`](/docs/renderer/render-still#jpegquality).
+请参阅 [`renderStill() -> jpegQuality`](/docs/renderer/render-still#jpegquality)。
 
 ### `imageFormat?`
 
-_optional_
+_可选_
 
-See [`renderStill() -> imageFormat`](/docs/renderer/render-still#imageformat).
+请参阅 [`renderStill() -> imageFormat`](/docs/renderer/render-still#imageformat)。
 
 ### `scale?`
 
-_optional_
+_可选_
 
-Scales the output dimensions by a factor. See [Scaling](/docs/scaling) to learn more about this feature.
+通过因子缩放输出尺寸。请参阅[缩放](/docs/scaling)以了解更多关于此功能的信息。
 
 ### `envVariables?`
 
-_optional_
+_可选_
 
-See [`renderStill() -> envVariables`](/docs/renderer/render-still#envvariables).
+请参阅 [`renderStill() -> envVariables`](/docs/renderer/render-still#envvariables)。
 
 ### `frame?`
 
-_optional_
+_可选_
 
-Which frame of the composition should be rendered. Frames are zero-indexed, and negative values are allowed, with -1 being the last frame.
+应该渲染哪一帧合成。帧是从零开始索引的，允许负值，-1 表示最后一帧。
 
 ### `chromiumOptions?`
 
-_optional_
+_可选_
 
-Allows you to set certain Chromium / Google Chrome flags. See: [Chromium flags](/docs/chromium-flags).
+允许您设置某些 Chromium / Google Chrome 标志。请参阅：[Chromium 标志](/docs/chromium-flags)。
 
 #### `disableWebSecurity`
 
-_boolean - default `false`_
+_布尔值 - 默认 `false`_
 
-This will most notably disable CORS among other security features.
+这将主要禁用 CORS 等安全功能。
 
 #### `ignoreCertificateErrors`
 
-_boolean - default `false`_
+_布尔值 - 默认 `false`_
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored.
+导致无效的 SSL 证书（如自签名证书）被忽略。
 
 #### `gl`
 
@@ -156,15 +156,15 @@ Results in invalid SSL certificates, such as self-signed ones, being ignored.
 
 ### `forceWidth?`
 
-_optional_
+_可选_
 
-Overrides default composition width.
+覆盖默认合成宽度。
 
 ### `forceHeight?`
 
-_optional_
+_可选_
 
-Overrides default composition height.
+覆盖默认合成高度。
 
 ### `logLevel?`
 
@@ -172,56 +172,56 @@ Overrides default composition height.
 
 ### `outName?`
 
-_optional_
+_可选_
 
-The file name of the still output.
+静态输出文件的文件名。
 
-It can either be:
+可以是：
 
-- `undefined` - it will default to `out` plus the appropriate file extension, for example: `renders/${renderId}/out.mp4`.
-- A `string` - it will get saved to the same Cloud Storage bucket as your site under the key `renders/{renderId}/{outName}`. Make sure to include the file extension at the end of the string.
+- `undefined` - 默认为 `out` 加上适当的文件扩展名，例如：`renders/${renderId}/out.mp4`。
+- 一个 `string` - 将保存到与您的站点相同的云存储桶中，键为 `renders/{renderId}/{outName}`。请确保在字符串末尾包含文件扩展名。
 
 ### `delayRenderTimeoutInMilliseconds?`
 
-_optional_
+_可选_
 
-A number describing how long the render may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout). Default: `30000`
+描述渲染可能需要多长时间来解析所有 [`delayRender()`](/docs/delay-render) 调用[在超时之前](/docs/timeout)。默认值：`30000`
 
 ### `offthreadVideoCacheSizeInBytes?`<AvailableFrom v="4.0.23"/>
 
 <Options id="offthreadvideo-cache-size-in-bytes" />
 
-## Return value
+## 返回值
 
-Returns a promise resolving to an object containing the following:
+返回一个解析为包含以下内容的对象的 Promise：
 
 ### `renderId`
 
-A unique alphanumeric identifier for this render. Useful for obtaining status and finding the relevant files in the Cloud Storage bucket.
+此渲染的唯一字母数字标识符。用于获取状态并在云存储桶中找到相关文件。
 
 ### `bucketName`
 
-The Cloud Storage bucket name in which all files are being saved.
+正在保存所有文件的云存储桶名称。
 
 ### `privacy`
 
-Privacy of the output file, either:
+输出文件的隐私性，可以是：
 
-- "public-read" - Publicly accessible under the Cloud Storage URL.
-- "project-private" - Not publicly available, but is available within the GCP project to those with the correct permissions.
+- "public-read" - 在 Cloud 存储 URL 下公开访问。
+- "project-private" - 不公开，但对具有正确权限的 GCP 项目内的用户可用。
 
 ### `publicUrl`
 
-If the privacy is set to public, this will be the publicly accessible URL of the rendered file. If the privacy is not public, this will be null.
+如果隐私设置为公开，则这将是渲染文件的公开访问 URL。如果隐私性不是公开的，则为 null。
 
 ### `cloudStorageUri`
 
-Google Storage path, beginning with `gs://{bucket-name}`. Can be used with the [gsutil](https://cloud.google.com/storage/docs/gsutil) CLI tool.
+Google 存储路径，以 `gs://{bucket-name}` 开头。可与 [gsutil](https://cloud.google.com/storage/docs/gsutil) CLI 工具一起使用。
 
 ### `size`
 
-Size of the rendered still in KB.
+以 KB 为单位的渲染静态文件大小。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/render-still-on-cloudrun.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/render-still-on-cloudrun.ts)

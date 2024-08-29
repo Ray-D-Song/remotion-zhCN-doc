@@ -1,29 +1,29 @@
 ---
 image: /generated/articles-docs-player-buffer-state.png
-title: 'The Player buffer state'
-sidebar_label: Buffer state
+title: '播放器缓冲状态'
+sidebar_label: 缓冲状态
 id: buffer-state
-crumb: Best practices
+crumb: 最佳实践
 ---
 
-_available from 4.0.111_
+_从4.0.111版本开始可用_
 
-Just like regular video players, it is possible that the content being displayed in the Player is not yet fully loaded.  
-In this case, the best practice is to briefly pause the video, let the content load and then resume playback.
+就像常规视频播放器一样，播放器中显示的内容可能尚未完全加载。  
+在这种情况下，最佳实践是暂停视频，让内容加载完毕，然后恢复播放。
 
-Remotion has a native buffer state, which can be used to pause the video when the buffer is empty.
+Remotion具有本机缓冲状态，可以在缓冲区为空时暂停视频。
 
-## TL;DR
+## 简而言之
 
-You can add a `pauseWhenBuffering` prop to your [`<Video>`](/docs/video/#pausewhenbuffering), [`<OffthreadVideo>`](/docs/offthreadvideo/#pausewhenbuffering), [`<Audio>`](/docs/audio/#pausewhenbuffering) tags.  
-The prop is called `pauseWhenLoading` for [`<Img>`](/docs/img/#pausewhenloading) tags.  
-By doing so, the Player will briefly pause until your media is loaded.
+您可以为[`<Video>`](/docs/video/#pausewhenbuffering)、[`<OffthreadVideo>`](/docs/offthreadvideo/#pausewhenbuffering)、[`<Audio>`](/docs/audio/#pausewhenbuffering)标签添加`pauseWhenBuffering`属性。  
+对于[`<Img>`](/docs/img/#pausewhenloading)标签，该属性称为`pauseWhenLoading`。  
+通过这样做，播放器将在媒体加载完毕前暂停一小段时间。
 
-## Mechanism
+## 机制
 
-### Activating the buffer state
+### 激活缓冲状态
 
-A component can tell the player to switch into a buffer state by first using the [`useBufferState()`](/docs/use-buffer-state) hook and then calling `buffer.delayPlayback()`:
+组件可以通过首先使用[`useBufferState()`](/docs/use-buffer-state)钩子，然后调用`buffer.delayPlayback()`来告诉播放器切换到缓冲状态：
 
 ```tsx twoslash title="MyComp.tsx"
 import React from 'react';
@@ -48,17 +48,17 @@ const MyComp: React.FC = () => {
 };
 ```
 
-To clear the handle, call `.unblock()` on the return value of `delayPlayback()`.
+要清除句柄，请在`delayPlayback()`的返回值上调用`.unblock()`。
 
-When activating the buffer state, pay attention to the following:
+在激活缓冲状态时，请注意以下事项：
 
 <details>
-<summary>Clear the handle when the component unmounts</summary>
+<summary>组件卸载时清除句柄</summary>
 
-The user might seek to a different portion of the video which is immediately available.
-Use the cleanup function of <code>useEffect()</code> to clear the handle when your component is unmounted.
+用户可能会寻找视频的不同部分，这些部分可能会立即可用。  
+使用<code>useEffect()</code>的清理函数在组件卸载时清除句柄。
 
-```tsx twoslash title="❌ Causes problems with React strict mode"
+```tsx twoslash title="❌ 与React严格模式冲突"
 import React, {useState} from 'react';
 import {useBufferState} from 'remotion';
 
@@ -78,11 +78,11 @@ const MyComp: React.FC = () => {
 
 </details>
 <details>
-<summary>Don't use <code>delayPlayback()</code> inside a <code>useState()</code></summary>
+<summary>不要在<code>useState()</code>内部使用<code>delayPlayback()</code></summary>
 
-While the following implementation works in production, it fails in React Strict mode, because the `useState()` hook is called twice, which causes the first invocation of the buffer to never be cleared.
+虽然以下实现在生产环境中有效，但在React严格模式下会失败，因为`useState()`钩子被调用两次，导致第一次调用的缓冲永远不会被清除。
 
-```tsx twoslash title="❌ Doesn't clear the buffer handle when seeking to a different portion of a video"
+```tsx twoslash title="❌ 当寻找视频的不同部分时不清除缓冲句柄"
 import React, {useState} from 'react';
 import {useBufferState} from 'remotion';
 
@@ -106,12 +106,12 @@ const MyComp: React.FC = () => {
 
 </details>
 <details>
-<summary>It doesn't replace <code>delayRender()</code></summary>
-<a href="/docs/delay-render">delayRender()</a> is a different API which controls when a screenshot is taken during rendering.<br/><br/>
+<summary>它不会替换<code>delayRender()</code></summary>
+<a href="/docs/delay-render">delayRender()</a>是一个不同的API，它控制了在渲染过程中何时拍摄屏幕截图。<br/><br/>
 
-If you are loading data, you might want to delay the screenshotting of your component during rendering and delay the playback of the video in preview, in which case you need to use both APIs together.
+如果您正在加载数据，您可能希望在渲染过程中延迟组件的截图，并延迟预览视频的播放，在这种情况下，您需要同时使用这两个API。
 
-```tsx twoslash title="Using delayRender() and delayPlayback() together"
+```tsx twoslash title="同时使用delayRender()和delayPlayback()"
 import React from 'react';
 import {useBufferState, delayRender, continueRender} from 'remotion';
 
@@ -138,10 +138,10 @@ const MyComp: React.FC = () => {
 
 </details>
 
-### Possible states
+### 可能的状态
 
-Whether a player is buffering does not internally change the `playing` / `paused` state.  
-Therefore, a player can be in four playback states:
+播放器是否正在缓冲不会在内部更改`playing` / `paused`状态。  
+因此，播放器可以处于四种播放状态：
 
 <Step>1</Step> <code>playing && !buffering</code> <br />
 <Step>2</Step> <code>playing && buffering</code> <br />
@@ -149,32 +149,32 @@ Therefore, a player can be in four playback states:
 <Step>4</Step> <code>paused && buffering</code> <br />
 <br />
 
-Only in state <InlineStep>1</InlineStep> the time moves forward.
+只有在状态<InlineStep>1</InlineStep>时时间才会向前推进。
 
 ---
 
-By default, Remotion will display the following UI based on the state of the player:
+默认情况下，Remotion将根据播放器的状态显示以下UI：
 
 <p>
-  When in State <InlineStep>1</InlineStep> a Pause button is shown. <br />
+  当处于状态<InlineStep>1</InlineStep>时，会显示一个暂停按钮。 <br />
 </p>
 <p>
-  When in State <InlineStep>2</InlineStep> at first a Pause button, then after{' '}
-  <a href="#indicating-buffering-in-the-ui">a delay</a>, a{' '}
-  <a href="/docs/player/buffer-state#indicating-buffering-in-the-ui">customizable spinner</a>{' '}
-  is shown.
+  当处于状态<InlineStep>2</InlineStep>时，首先显示一个暂停按钮，然后经过{' '}
+  <a href="#indicating-buffering-in-the-ui">延迟</a>后，显示一个{' '}
+  <a href="/docs/player/buffer-state#indicating-buffering-in-the-ui">可自定义的旋转器</a>{' '}
+  。
 </p>
 
-<p>Otherwise, the Play button is shown.</p>
+<p>否则，将显示播放按钮。</p>
 
-You may add additional UI to this, for example by overlaying the Player with a spinner when the Player is buffering.
+您可以向此添加其他UI，例如在播放器缓冲时在播放器上叠加一个旋转器。
 
-### Listening to buffer events
+### 监听缓冲事件
 
-If the `<Player />` is entering a buffer state, it will emit the `waiting` event.  
-Once it resumes, it emits the `resume` event.
+如果`<Player />`进入缓冲状态，它将发出`waiting`事件。  
+一旦恢复，它会发出`resume`事件。
 
-```tsx twoslash title="Listening to waiting and resume events"
+```tsx twoslash title="监听waiting和resume事件"
 // @allowUmdGlobalAccess
 // @filename: ./remotion/MyVideo.tsx
 export const MyVideo = () => <></>;
@@ -223,23 +223,23 @@ export const App: React.FC = () => {
 };
 ```
 
-## Components with built-in buffering
+## 具有内置缓冲的组件
 
-You can enable buffering on the following components:
+您可以在以下组件上启用缓冲：
 
-- [`<Audio>`](/docs/audio#pausewhenbuffering) - add the `pauseWhenBuffering` prop
-- [`<Video>`](/docs/video#pausewhenbuffering) - add the `pauseWhenBuffering` prop
-- [`<OffthreadVideo>`](/docs/offthreadvideo#pausewhenbuffering) - add the `pauseWhenBuffering` prop
-- [`<Img>`](/docs/img#pausewhenloading) - add the `pauseWhenLoading` prop
+- [`<Audio>`](/docs/audio#pausewhenbuffering) - 添加`pauseWhenBuffering`属性
+- [`<Video>`](/docs/video#pausewhenbuffering) - 添加`pauseWhenBuffering`属性
+- [`<OffthreadVideo>`](/docs/offthreadvideo#pausewhenbuffering) - 添加`pauseWhenBuffering`属性
+- [`<Img>`](/docs/img#pausewhenloading) - 添加`pauseWhenLoading`属性
 
-## Indicating buffering in the UI
+## 在 UI 中指示缓冲
 
-When the Player is buffering, by default the Play button will be replaced with a spinner.  
-To prevent a janky UI, this spinner will only be shown after the Player has been in a buffering state for 300ms.
+当播放器正在缓冲时，默认情况下，播放按钮将被一个旋转器替换。  
+为了防止 UI 闪烁，此旋转器只会在播放器处于缓冲状态超过 300 毫秒后显示。
 
-You may customize the timeout of `300` milliseconds by passing the [`bufferStateDelayInMilliseconds`](/docs/player/player#bufferstatedelayinmilliseconds) prop to the `<Player />` component.
+您可以通过将 [`bufferStateDelayInMilliseconds`](/docs/player/player#bufferstatedelayinmilliseconds) 属性传递给 `<Player />` 组件来自定义 `300` 毫秒的超时时间。
 
-```tsx twoslash title="Setting the delay until the spinner is shown"
+```tsx twoslash title="设置显示旋转器的延迟时间"
 // @allowUmdGlobalAccess
 // @filename: ./remotion/MyVideo.tsx
 export const MyVideo = () => <></>;
@@ -264,7 +264,7 @@ export const App: React.FC = () => {
 };
 ```
 
-In the Studio, you can change the delay in the [config file](/docs/config#setbufferstatedelayinmilliseconds):
+在 Studio 中，您可以在 [配置文件](/docs/config#setbufferstatedelayinmilliseconds) 中更改延迟：
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -272,9 +272,9 @@ import {Config} from '@remotion/cli/config';
 Config.setBufferStateDelayInMilliseconds(0);
 ```
 
-To customize the spinner that is shown in place of the Play button, you can pass a [`renderPlayPauseButton()`](/docs/player/player#renderplaypausebutton) prop:
+要自定义显示在播放按钮位置的旋转器，您可以传递一个 [`renderPlayPauseButton()`](/docs/player/player#renderplaypausebutton) 属性：
 
-```tsx twoslash title="Rendering a custom spinner inside the Play button"
+```tsx twoslash title="在播放按钮内部渲染自定义旋转器"
 const MyPlayButton: React.FC = () => null;
 const MyPauseButton: React.FC = () => null;
 const MySpinner: React.FC = () => null;
@@ -308,9 +308,9 @@ export const App: React.FC = () => {
 };
 ```
 
-To display a loading UI layered on top of the Player (e.g. a spinner), you can set [`showPosterWhenBuffering`](/docs/player/player#showposterwhenbuffering) to `true` and pass a [`renderPoster()`](/docs/player/player#renderposter) prop:
+要在播放器上方显示一个叠加的加载 UI（例如旋转器），您可以将 [`showPosterWhenBuffering`](/docs/player/player#showposterwhenbuffering) 设置为 `true` 并传递一个 [`renderPoster()`](/docs/player/player#renderposter) 属性：
 
-```tsx twoslash title="Rendering a custom spinner on top of the Player"
+```tsx twoslash title="在播放器上方渲染自定义旋转器"
 import {useCallback} from 'react';
 import {AbsoluteFill} from 'remotion';
 
@@ -349,14 +349,15 @@ const MyApp: React.FC = () => {
 };
 ```
 
-## Upcoming changes in Remotion 5.0
+## Remotion 5.0 中即将发生的更改
 
-In Remotion 4.0, media tags such as `<Audio>`, `<OffthreadVideo>` tags will need to opt-in to use the buffer state.
+在 Remotion 4.0 中，媒体标签如 `<Audio>`、`<OffthreadVideo>` 标签需要选择使用缓冲状态。
 
-In Remotion 5.0, it is planned that `<Audio>`, `<Video>` and `<OffthreadVideo>` will automatically use the buffer state, but they can opt out of it.
+在 Remotion 5.0 中，计划让 `<Audio>`、`<Video>` 和 `<OffthreadVideo>` 自动使用缓冲状态，但它们可以选择退出。
 
-## See also
+## 另请参阅
 
 - [`useBufferState()`](/docs/use-buffer-state)
 - [`<Player>`](/docs/player/player)
-- [Avoiding flickering in `<Player>`](/docs/troubleshooting/player-flicker)
+- [避免 `<Player>` 中的闪烁](/docs/troubleshooting/player-flicker)
+

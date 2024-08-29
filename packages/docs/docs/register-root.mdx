@@ -5,13 +5,13 @@ title: registerRoot()
 crumb: "API"
 ---
 
-`registerRoot` is a function that registers the root component of the Remotion project. In the root component, one or multiple compositions should be returned (in the case of multiple compositions, they should be wrapped in a React Fragment).
+`registerRoot` 是一个函数，用于注册 Remotion 项目的根组件。在根组件中，应该返回一个或多个组合（在多个组合的情况下，它们应该被包裹在一个 React Fragment 中）。
 
 :::info
-`registerRoot()` should live in a file that is separate from the list of compositions. This is because when using React Fast Refresh, all the code in the file that gets refreshed gets executed again, however, this function should only be called once.
+`registerRoot()` 应该存在于一个与组合列表分开的文件中。这是因为在使用 React Fast Refresh 时，文件中的所有代码都会被再次执行，但是这个函数应该只被调用一次。
 :::
 
-## Example
+## 示例
 
 ```tsx twoslash title="src/index.ts"
 // @filename: ./Root.tsx
@@ -63,9 +63,9 @@ export const RemotionRoot = () => {
 };
 ```
 
-## Defer registerRoot()
+## 推迟 registerRoot()
 
-In some cases, such as dynamically importing roots or loading WebAssembly, you might want to defer the loading of registerRoot(). In newer versions of Remotion, you may do so, without having to invoke `delayRender()`.
+在某些情况下，比如动态导入根组件或加载 WebAssembly，您可能希望推迟加载 `registerRoot()`。在 Remotion 的更新版本中，您可以这样做，而无需调用 `delayRender()`。
 
 ```tsx twoslash
 // @filename: ./Root.tsx
@@ -83,8 +83,9 @@ loadWebAssembly().then(() => {
 });
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/register-root.ts)
-- [`<Composition />` component](/docs/composition)
-- [The fundamentals](/docs/the-fundamentals)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/register-root.ts)
+- [`<Composition />` 组件](/docs/composition)
+- [基础知识](/docs/the-fundamentals)
+

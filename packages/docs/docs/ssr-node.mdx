@@ -1,25 +1,25 @@
 ---
 image: /generated/articles-docs-ssr-node.png
 id: ssr-node
-title: Rendering using SSR APIs
-crumb: 'Server-side rendering'
-sidebar_label: Example
+title: 使用 SSR APIs 进行渲染
+crumb: '服务器端渲染'
+sidebar_label: 示例
 ---
 
-The NPM package [`@remotion/renderer`](/docs/renderer) provides you with "**S**erver-**S**ide **R**endering" APIs for rendering media programmatically.  
-These functions can be used in Node.js and Bun.
+NPM 包 [`@remotion/renderer`](/docs/renderer) 为您提供了用于以编程方式渲染媒体的 "**S**erver-**S**ide **R**endering" APIs。  
+这些函数可在 Node.js 和 Bun 中使用。
 
-Rendering a video takes three steps:
+渲染视频需要三个步骤：
 
 <div>
-  <Step>1</Step> Creating a{' '}<a href="/docs/terminology/bundle">Remotion Bundle</a><br />
-  <Step>2</Step> Select the composition to render and calculate its metadata<br />
-  <Step>3</Step> Render the video, audio, still or image sequence.{' '}
+  <Step>1</Step> 创建一个{' '}<a href="/docs/terminology/bundle">Remotion Bundle</a><br />
+  <Step>2</Step> 选择要渲染的合成并计算其元数据<br />
+  <Step>3</Step> 渲染视频、音频、静态图像序列。{' '}
 </div>
 
-## Example script
+## 示例脚本
 
-Follow this commented example to see how to render a video:
+按照下面的示例注释来查看如何渲染视频：
 
 ```tsx twoslash title="render.mjs"
 // @module: ESNext
@@ -65,25 +65,25 @@ await renderMedia({
 console.log('Render done!');
 ```
 
-This flow is customizable. Click on one of the SSR APIs to read about its options:
+此流程是可定制的。单击其中一个 SSR APIs 以了解其选项：
 
-- [`getCompositions()`](/docs/renderer/get-compositions) - Get a list of available compositions from a Remotion project.
-- [`selectComposition()`](/docs/renderer/select-composition) - Get a list of available compositions from a Remotion project.
-- [`renderMedia()`](/docs/renderer/render-media) - Render a video or audio.
-- [`renderFrames()`](/docs/renderer/render-frames) - Render an image sequence.
-- [`renderStill()`](/docs/renderer/render-still) - Render a still image.
-- [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) - Encode a video based on an image sequence
-- [`openBrowser()`](/docs/renderer/open-browser) - Share a browser instance across function calls for improved performance.
+- [`getCompositions()`](/docs/renderer/get-compositions) - 从 Remotion 项目获取可用合成列表。
+- [`selectComposition()`](/docs/renderer/select-composition) - 从 Remotion 项目获取可用合成列表。
+- [`renderMedia()`](/docs/renderer/render-media) - 渲染视频或音频。
+- [`renderFrames()`](/docs/renderer/render-frames) - 渲染图像序列。
+- [`renderStill()`](/docs/renderer/render-still) - 渲染静态图像。
+- [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) - 基于图像序列编码视频
+- [`openBrowser()`](/docs/renderer/open-browser) - 在函数调用之间共享浏览器实例以提高性能。
 
-## Linux Dependencies
+## Linux 依赖
 
-If you are on Linux, Chrome Headless Shell requires some shared libraries to be installed. See [Linux Dependencies](/docs/miscellaneous/linux-dependencies).
+如果您使用的是 Linux，Chrome Headless Shell 需要安装一些共享库。请参阅 [Linux 依赖](/docs/miscellaneous/linux-dependencies)。
 
-## SSR APIs in Next.js
+## Next.js 中的 SSR APIs
 
-If you are using Next.js, you will not be able to use `@remotion/bundler` because of the limitations explained in [Can I render videos in Next.js?](https://www.remotion.dev/docs/miscellaneous/vercel-functions#can-i-render-videos-in-nextjs) Refer to the page for possible alternatives.  
-We recommend [Lambda](/docs/lambda) for use in Next.js.
+如果您使用 Next.js，则无法使用 `@remotion/bundler`，因为在 [Can I render videos in Next.js?](https://www.remotion.dev/docs/miscellaneous/vercel-functions#can-i-render-videos-in-nextjs) 中解释了的限制。请参考该页面以获取可能的替代方案。  
+我们建议在 Next.js 中使用 [Lambda](/docs/lambda)。
 
-## See also
+## 参见
 
-- [Server-side rendering](/docs/ssr)
+- [服务器端渲染](/docs/ssr) 

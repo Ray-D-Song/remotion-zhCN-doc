@@ -1,55 +1,57 @@
 ---
 image: /generated/articles-docs-lambda-limits.png
-sidebar_label: Limits
-title: Lambda Limits
+sidebar_label: 限制
+title: Lambda 限制
 slug: /lambda/limits
 crumb: "Lambda"
 ---
 
-The standard AWS Lambda quotas apply ([see here](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)), most notably:
+标准的 AWS Lambda 配额适用（[请参见此处](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)），其中包括：
 
-- [**Concurrency**](/docs/lambda/concurrency): By default, the maximum concurrent executions per region per account is 1000 executions. This limit might be lower for new accounts and users within an enterprise.
-- [**Storage**](/docs/lambda/disk-size): Configurable, limited to 10GB at most
-- [**RAM**](/docs/lambda/runtime#memory-size): Configurable, limited to 10GB at most
-- [**Execution limit**](/docs/lambda/runtime#timeout): Configurable, at most 15 minutes
+- [**并发**](/docs/lambda/concurrency): 默认情况下，每个区域每个账户的最大并发执行次数为 1000 次。对于新账户和企业内用户，此限制可能较低。
+- [**存储**](/docs/lambda/disk-size): 可配置，最多限制为 10GB
+- [**内存**](/docs/lambda/runtime#memory-size): 可配置，最多限制为 10GB
+- [**执行限制**](/docs/lambda/runtime#timeout): 可配置，最多限制为 15 分钟
 
-## Upgrading your concurrency limit
+## 升级您的并发限制
 
-For scaling your renders, you should request a quota increase under [`https://console.aws.amazon.com/servicequotas/home`](https://console.aws.amazon.com/servicequotas/home) or using the [Remotion CLI](/docs/lambda/cli/quotas):
+为了扩展您的渲染，您应该在 [`https://console.aws.amazon.com/servicequotas/home`](https://console.aws.amazon.com/servicequotas/home) 下请求配额增加，或者使用 [Remotion CLI](/docs/lambda/cli/quotas)：
 
 ```
 npx remotion lambda quotas increase
 ```
 
-This only works for AWS Root accounts, not the children of an organization. You can still request an increase via the console.
+这仅适用于 AWS 根账户，而不适用于组织的子账户。您仍然可以通过控制台请求增加。
 
-## If AWS asks you for the reason
+## 如果 AWS 要求您提供原因
 
-AWS might ask you why you want to increase your concurrency limit. Commonly they send you this questionnaire.
+AWS 可能会问您为什么要增加您的并发限制。通常他们会发送给您这份问卷。
 
-> If you would still like a higher limit, please provide the following:
+> 如果您仍然希望获得更高的限制，请提供以下信息：
 >
-> 1.  The main lambda functions ARNs of this application
-> 2.  Expected transactions per second per function
-> 3.  Expected duration per function
-> 4.  How is each function invoked
-> 5.  What services or resources do primary functions interact with
-> 6.  Time periods of high demand that demonstrate approaching the provided concurrency limit.
+> 1.  此应用程序的主要 Lambda 函数 ARN
+> 2.  每个函数每秒的预期交易次数
+> 3.  每个函数的预期持续时间
+> 4.  每个函数是如何被调用的
+> 5.  主要函数与哪些服务或资源进行交互
+> 6.  展示接近提供的并发限制的高需求时间段。
 
-You can answer it as follows:
+您可以如下回答：
 
-> 1. The functions are \[function-names\]
+> 1. 函数是 \[函数名称\]
 
-You can get a list of Remotion Lambda functions using `npx remotion lambda functions ls -q`.
+您可以使用 `npx remotion lambda functions ls -q` 获取 Remotion Lambda 函数列表。
 
-> 2. The transactions per second are very low. [Provide a rough estimation]
-> 3. The duration is usually around 30 seconds to 1 minute.
-> 4. In development phase it will be invoked via the Remotion CLI, and in production via a NodeJS app.
-> 5. FFmpeg and Puppeteer. The npm package is called @remotion/lambda.
-> 6. The process has a rendering strategy of splitting the rendering in multiple threads, to speed up the result. That is the reason why the quota increase is needed, as explained here: https://www.remotion.dev/lambda
+> 2. 每秒交易次数非常低。[提供一个粗略估计]
+> 3. 持续时间通常在 30 秒到 1 分钟之间。
+> 4. 在开发阶段，它将通过 Remotion CLI 被调用，而在生产环境中将通过一个 NodeJS 应用程序被调用。
+> 5. FFmpeg 和 Puppeteer。npm 包名为 @remotion/lambda。
+> 6. 该过程具有将渲染分割成多个线程的渲染策略，以加快结果。这就是为什么需要增加配额的原因，如此处所述：https://www.remotion.dev/lambda
 
-This response has previously been successfully used to obtain an increase of the concurrency limit.
 
-## See also
 
-- [Lambda Rate Limit Troubleshooting](/docs/lambda/troubleshooting/rate-limit)
+这个响应先前已成功用于增加并发限制。
+
+## 参见
+
+- [Lambda 速率限制故障排除](/docs/lambda/troubleshooting/rate-limit)

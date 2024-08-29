@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-video-uploads.png
 id: video-uploads
-title: Handling user video uploads
-crumb: "Building video apps"
+title: 处理用户视频上传
+crumb: "构建视频应用"
 ---
 
-In an app where users can upload videos and edit them, we can create a better user experience by loading the video into a player even before the upload is finished. Good news: This can be done pretty easily!
+在一个用户可以上传视频并编辑它们的应用中，我们可以通过在上传完成之前将视频加载到播放器中来提供更好的用户体验。好消息是：这可以很容易地实现！
 
-## Allowing user uploads
+## 允许用户上传
 
-We have a component which returns a [`<Video>`](/docs/video) tag that includes an URL as source.
+我们有一个组件，返回一个包含 URL 作为源的 [`<Video>`](/docs/video) 标签。
 
 ```tsx twoslash title="MyComposition.tsx"
 const upload = async (file: File) => {
@@ -31,9 +31,9 @@ export const MyComponent: React.FC<VideoProps> = ({ videoURL }) => {
 };
 ```
 
-The video URL will be passed from the Remotion Player to our component.  
-Using a `<input type="file">` element, we allow a user upload.  
-As soon as a file is fully uploaded to the cloud, the URL will be set and can be used by the component to display the video.
+视频 URL 将从 Remotion Player 传递给我们的组件。  
+使用 `<input type="file">` 元素，我们允许用户上传。  
+一旦文件完全上传到云端，URL 将被设置，并且可以被组件用来显示视频。
 
 ```tsx twoslash title="App.tsx"
 import { useCallback } from "react";
@@ -85,11 +85,11 @@ export const RemotionPlayer: React.FC = () => {
 };
 ```
 
-The implementation of the `upload()` function is provider-specific and we do not show an implementation in this article. We assume it is a function that takes a file, uploads it and returns an URL.
+`upload()` 函数的实现是特定于提供程序的，我们在本文中不展示实现。我们假设它是一个接受文件、上传文件并返回 URL 的函数。
 
-## Optimistic updates
+## 乐观更新
 
-When we start the upload of the file, we can create a blob URL using `URL.createObjectURL()` which can be used to display the local file in a [`<Video>`](/docs/video) tag. When the file is done uploading and we get the remote URL, the component shall use remote URL as source.
+当我们开始上传文件时，我们可以使用 `URL.createObjectURL()` 创建一个 Blob URL，该 URL 可用于在 [`<Video>`](/docs/video) 标签中显示本地文件。当文件上传完成并且我们获取到远程 URL 时，组件应使用远程 URL 作为源。
 
 ```tsx twoslash title="App.tsx"
 const MyComposition: React.FC<{ videoUrl: string }> = ({ videoUrl }) => {
@@ -152,8 +152,9 @@ export const RemotionPlayer: React.FC = () => {
 };
 ```
 
-This will result in the user immediately seeing the video as they drag it into the input field. It is a good practice to call `URL.revokeObjectURL()` after the local video is not used anymore to free up the used memory.
+这将导致用户在将视频拖入输入字段时立即看到视频。在不再使用本地视频时，调用 `URL.revokeObjectURL()` 是一个良好的做法，以释放已使用的内存。
 
-## See also
+## 参见
 
-- [Uploading with presigned URLs](/docs/presigned-urls)
+- [使用预签名 URL 进行上传](/docs/presigned-urls)
+

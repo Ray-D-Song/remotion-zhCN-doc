@@ -1,22 +1,22 @@
 ---
 image: /generated/articles-docs-legacy-babel-loader.png
-title: Using legacy Babel transpilation
+title: 使用传统的 Babel 转译
 id: legacy-babel
-crumb: "How To"
+crumb: "如何"
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from '@theme/TabItem';
 
-In Remotion 2.0, the traditional transpilation of Javascript and Typescript using the `babel-loader` has been replaced by the faster `esbuild-loader` by default.
+在 Remotion 2.0 中，默认情况下，使用 `babel-loader` 进行 Javascript 和 Typescript 的传统转译已被更快的 `esbuild-loader` 替代。
 
-If you for some reason need to go back to the previous behavior, you may [override the Webpack configuration](/docs/webpack). Remember that overriding the Webpack configuration works reducer-style, where you get the default configuration in a function argument and you return the modified version of your config.
+如果出于某种原因需要返回到以前的行为，您可以[覆盖 Webpack 配置](/docs/webpack)。请记住，覆盖 Webpack 配置的工作方式类似于 reducer 风格，您会在函数参数中获得默认配置，并返回您配置的修改版本。
 
-We provide a compatibility package `@remotion/babel-loader` that you can install into your Remotion project and use the function `replaceLoadersWithBabel()` to swap out the ESBuild loader with the old Babel one that was in Remotion 1.0
+我们提供了一个兼容包 `@remotion/babel-loader`，您可以将其安装到您的 Remotion 项目中，并使用函数 `replaceLoadersWithBabel()` 将 ESBuild loader 替换为 Remotion 1.0 中的旧 Babel loader。
 
-This should not be necessary in general, it is encouraged to [report issues](https://github.com/remotion-dev/remotion/issues/new) regarding the new ESBuild loader.
+一般情况下不应该需要这样做，鼓励您[报告问题](https://github.com/remotion-dev/remotion/issues/new) 关于新的 ESBuild loader。
 
-## Example
+## 示例
 
 <Tabs
 defaultValue="npm"
@@ -60,9 +60,9 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 });
 ```
 
-## When using `bundle` or `deploySite`
+## 当使用 `bundle` 或 `deploySite` 时
 
-When using the Node.JS APIs - [`bundle()`](/docs/bundle) for SSR or [`deploySite()`](/docs/lambda/deploysite) for Lambda, you also need to provide the Webpack override, since the Node.JS APIs do not read from the config file.
+当使用 Node.JS API - [`bundle()`](/docs/bundle) 用于 SSR 或 [`deploySite()`](/docs/lambda/deploysite) 用于 Lambda 时，您还需要提供 Webpack 覆盖，因为 Node.JS API 不会从配置文件中读取。
 
 ```ts twoslash title="my-script.js"
 // @filename: ./src/webpack-override.ts
@@ -80,6 +80,7 @@ await bundle({
 });
 ```
 
-## See also
+## 参见
 
-- [Custom Webpack config](/docs/webpack)
+- [自定义 Webpack 配置](/docs/webpack)
+

@@ -6,12 +6,12 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Gets an array of all supported GCP regions of this release of Remotion Cloud Run.
+获取此版本 Remotion Cloud Run 支持的所有 GCP 区域的数组。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -25,14 +25,15 @@ const regions = getRegions();
 ```
 
 :::note
-Import from [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) to not import the whole renderer, which cannot be bundled.
+从 [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) 导入，以避免导入整个渲染器，因为无法捆绑整个渲染器。
 :::
 
-## Return value
+## 返回值
 
-An array of supported regions by this release of Remotion Cloud Run.
+此版本 Remotion Cloud Run 支持的区域数组。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-regions.ts)
-- [Region selection](/docs/cloudrun/region-selection)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-regions.ts)
+- [区域选择](/docs/cloudrun/region-selection)
+

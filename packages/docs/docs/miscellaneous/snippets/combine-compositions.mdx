@@ -1,11 +1,11 @@
 ---
 image: /generated/articles-docs-miscellaneous-snippets-combine-compositions.png
-title: How do I combine compositions?
-sidebar_label: Combining compositions
-crumb: "FAQ"
+title: 如何组合组件？
+sidebar_label: 组合组件
+crumb: "常见问题"
 ---
 
-Say you have two compositions, `One` and `Two`:
+假设您有两个组件，`One` 和 `Two`：
 
 ```tsx twoslash title="Root.tsx"
 // @filename: One.tsx
@@ -51,7 +51,7 @@ export const Root: React.FC = () => {
 };
 ```
 
-To combine them, create another component, let's call it `Main`:
+要将它们组合起来，创建另一个组件，我们称之为 `Main`：
 
 ```tsx twoslash title="Main.tsx"
 // @filename: One.tsx
@@ -87,7 +87,7 @@ export const Main: React.FC = () => {
 };
 ```
 
-Then, in your `Root` component, add a `Main` composition:
+然后，在您的 `Root` 组件中，添加一个 `Main` 组合：
 
 ```tsx twoslash title="Root.tsx"
 // @filename: One.tsx
@@ -148,9 +148,9 @@ export const Root: React.FC = () => {
 };
 ```
 
-## How do I avoid hardcoding the duration?
+## 如何避免硬编码持续时间？
 
-You can define variables alongside your components:
+您可以在组件旁边定义变量：
 
 ```tsx twoslash
 export const ONE_DURATION = 120;
@@ -158,22 +158,23 @@ export const TWO_DURATION = 120;
 export const MAIN_DURATION = ONE_DURATION + TWO_DURATION;
 ```
 
-And then pass the variables them to [`<Composition>`](/docs/composition) and [`<Series.Sequence>`](/docs/series).
+然后将这些变量传递给 [`<Composition>`](/docs/composition) 和 [`<Series.Sequence>`](/docs/series)。
 
-## How do I transition between compositions?
+## 如何在组件之间进行过渡？
 
-You can use [`<TransitionSeries>`](/docs/transitions/transitionseries). If you use it, your main composition will get shorter because for a period of time, both compositions are mounted.  
-Subtract the [duration of the transition](/docs/transitions/timings/custom#getting-the-duration-of-a-timing) to get a correct timing.
+您可以使用 [`<TransitionSeries>`](/docs/transitions/transitionseries)。如果使用它，您的主要组合将变短，因为在一段时间内，两个组合都被挂载。  
+减去[过渡的持续时间](/docs/transitions/timings/custom#getting-the-duration-of-a-timing)以获得正确的时间。
 
-## How does this scale?
+## 这种方法如何扩展？
 
-As more scenes are added, consider:
+随着添加更多场景，请考虑：
 
-- using [`calculateMetadata()`](/docs/calculate-metadata) to calculate the duration of a composition based on its props.
-- creating an array of scenes and using JavaScripts [`.map()`](https://www.freecodecamp.org/news/how-to-render-lists-in-react/) function to render them.
+- 使用 [`calculateMetadata()`](/docs/calculate-metadata) 来根据其属性计算组合的持续时间。
+- 创建一个场景数组，并使用 JavaScript 的 [`.map()`](https://www.freecodecamp.org/news/how-to-render-lists-in-react/) 函数来渲染它们。
 
-## See also
+## 参见
 
-- [`<Series>` component](/docs/series)
-- [`<TransitionSeries>` component](/docs/transitions/transitionseries)
-- [Making components reusable](/docs/reusability)
+- [`<Series>` 组件](/docs/series)
+- [`<TransitionSeries>` 组件](/docs/transitions/transitionseries)
+- [使组件可重用](/docs/reusability)
+

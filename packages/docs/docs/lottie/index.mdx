@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-lottie-index.png
 id: lottie-index
-sidebar_label: Overview
+sidebar_label: 概述
 title: "@remotion/lottie"
 ---
 
@@ -9,11 +9,11 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {TableOfContents} from "../../components/TableOfContents/lottie"
 
-This package provides a component for displaying [Lottie](http://airbnb.io/lottie/) animations in Remotion.
+该包提供了一个组件，用于在 Remotion 中显示 [Lottie](http://airbnb.io/lottie/) 动画。
 
-## Installation
+## 安装
 
-Install, `@remotion/lottie` as well as `lottie-web`.
+安装 `@remotion/lottie` 以及 `lottie-web`。
 
 <Tabs
 defaultValue="npm"
@@ -48,30 +48,31 @@ pnpm i @remotion/lottie lottie-web
   </TabItem>
 </Tabs>
 
-You can now start using the [`<Lottie>`](/docs/lottie/lottie) component in your Remotion project.
+现在您可以在您的 Remotion 项目中开始使用 [`<Lottie>`](/docs/lottie/lottie) 组件。
 
-## Supported features
+## 支持的功能
 
-- Playing Lottie animations using `lottie-web`
-- Change the speed of the animation
-- Playing animation forwards and backwards
-- Playing remote files
-- Determining dimensions and duration of a Lottie animation
+- 使用 `lottie-web` 播放 Lottie 动画
+- 更改动画的速度
+- 正向和反向播放动画
+- 播放远程文件
+- 确定 Lottie 动画的尺寸和持续时间
 
-## Unsupported features
+## 不支持的功能
 
-- Rendering on other renderers as `svg`
-- `setSubFrame()`, `setLocationHref()`
-- Limited expression support: Remotion uses the `.goToAndStop()` method from `lottie-web` to seek through the Lottie file. Depending on the expression, the frame might not render deterministally, leading to [flickering](/docs/flickering) in the Remotion output. Remotion cannot fix this without a change in `lottie-web` upstream. You need to evaluate on a case-by-case basis whether the expression you are using is supported by Remotion.
+- 在其他渲染器上呈现为 `svg`
+- `setSubFrame()`，`setLocationHref()`
+- 有限的表达式支持：Remotion 使用 `lottie-web` 的 `.goToAndStop()` 方法来浏览 Lottie 文件。根据表达式的不同，帧可能不会以确定性方式呈现，导致在 Remotion 输出中出现 [闪烁](/docs/flickering)。Remotion 无法在不改变 `lottie-web` 上游的情况下解决这个问题。您需要根据具体情况评估您正在使用的表达式是否受 Remotion 支持。
 
 :::note
-[Open an issue](https://remotion.dev/issue) if you want to request a currently unsupported feature.
+如果您想要请求当前不支持的功能，请[提交一个问题](https://remotion.dev/issue)。
 :::
 
-## Table of contents
+## 目录
 
 <TableOfContents />
 
-## License
+## 许可证
 
-[Remotion License](https://remotion.dev/license)
+[Remotion 许可证](https://remotion.dev/license)
+

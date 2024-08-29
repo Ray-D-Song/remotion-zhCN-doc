@@ -6,12 +6,12 @@ crumb: "@remotion/google-fonts"
 
 import {AvailableFonts} from '../../components/AvailableFonts'
 
-_Part of the [`@remotion/google-fonts`](/docs/google-fonts) package_
+_属于[`@remotion/google-fonts`](/docs/google-fonts)包的一部分_
 
-Array of all available fonts available in `@remotion/google-fonts`.  
-From v3.3.64 on, the font can be loaded individually by calling `.load()` if you are loading the function using ES Modules.
+`@remotion/google-fonts`中所有可用字体的数组。  
+从v3.3.64开始，如果您正在使用ES模块加载函数，则可以通过调用`.load()`来单独加载字体。
 
-## Usage
+## 用法
 
 ```ts twoslash
 import { getAvailableFonts } from "@remotion/google-fonts";
@@ -19,7 +19,7 @@ import { getAvailableFonts } from "@remotion/google-fonts";
 console.log(getAvailableFonts());
 ```
 
-```ts title="Structure (shortened)"
+```ts title="结构（缩短）"
 [
   {
     fontFamily: "ABeeZee",
@@ -39,18 +39,19 @@ console.log(getAvailableFonts());
 ];
 ```
 
-- `fontFamily` is how the name should be referenced in CSS.
-- `importName` is the identifier of how the font can be imported: `@remotion/google-fonts/[import-name]`.
+- `fontFamily`是在CSS中引用名称的方式。
+- `importName`是字体可以被导入的标识符：`@remotion/google-fonts/[import-name]`。
 
-## Note about CommonJS
+## 关于CommonJS的注意事项
 
-If you `require()` this module, it is not possible to dynamically load a font. This also applies to code that transpiles to using `require()` under the hood. Newer versions of Next.js, Vite and Astro are automatically configured to allow for lazy loading.
+如果您使用`require()`导入此模块，则无法动态加载字体。这也适用于转译为在幕后使用`require()`的代码。较新版本的Next.js、Vite和Astro已自动配置为允许延迟加载。
 
-## List of available fonts
+## 可用字体列表
 
 <AvailableFonts />
 
-## See also
+## 另请参阅
 
-- [Fonts](/docs/fonts)
+- [字体](/docs/fonts)
 - [`@remotion/google-fonts`](/docs/google-fonts)
+

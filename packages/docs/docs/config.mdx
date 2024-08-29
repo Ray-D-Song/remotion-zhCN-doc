@@ -1,19 +1,19 @@
 ---
 image: /generated/articles-docs-config.png
 id: config
-title: Configuration file
+title: 配置文件
 crumb: 'remotion.config.ts'
 ---
 
-To configure Remotion, create a `remotion.config.ts` file in the root of your Remotion project.
+要配置 Remotion，请在 Remotion 项目的根目录中创建一个 `remotion.config.ts` 文件。
 
-These options will apply to CLI commands such as `npx remotion studio` and `npx remotion render`.
+这些选项将应用于 CLI 命令，如 `npx remotion studio` 和 `npx remotion render`。
 
 :::warning
-The configuration file has no effect when using [SSR](/docs/renderer) APIs.
+在使用 [SSR](/docs/renderer) API 时，配置文件不起作用。
 :::
 
-You can control several behaviors of Remotion here.
+您可以在这里控制 Remotion 的几种行为。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -25,7 +25,7 @@ Config.setCodec('h265');
 
 ## overrideWebpackConfig()<AvailableFrom v="1.1.0" />
 
-Allows you to insert your custom Webpack config. [See the page about custom Webpack configs](/docs/webpack) for more information.
+允许您插入自定义的 Webpack 配置。[查看有关自定义 Webpack 配置的页面](/docs/webpack) 以获取更多信息。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -41,7 +41,7 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 
 ## setCachingEnabled()<AvailableFrom v="2.0.0" />
 
-Enable or disable Webpack caching. Default is `true` which will make the Webpack step in the first run a bit slower but will massively speed up subsequent runs.
+启用或禁用 Webpack 缓存。默认值为 `true`，这将使第一次运行的 Webpack 步骤稍慢，但会极大地加快后续运行的速度。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -49,11 +49,11 @@ import {Config} from '@remotion/cli/config';
 Config.setCachingEnabled(false);
 ```
 
-The [command line flag](/docs/cli/render#--bundle-cache) `--bundle-cache` will take precedence over this option.
+[命令行标志](/docs/cli/render#--bundle-cache) `--bundle-cache` 将覆盖此选项。
 
 ## setStudioPort()<AvailableFrom v="4.0.61" />
 
-Set the HTTP port for the Studio.
+设置 Studio 的 HTTP 端口。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -61,11 +61,11 @@ import {Config} from '@remotion/cli/config';
 Config.setStudioPort(3003);
 ```
 
-The [command line flag](/docs/cli/studio#--port) `--port` will take precedence over this option.
+[命令行标志](/docs/cli/studio#--port) `--port` 将覆盖此选项。
 
 ## setRendererPort()<AvailableFrom v="4.0.61" />
 
-Set the port to be used to host the Webpack bundle.
+设置用于托管 Webpack bundle 的端口。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -73,7 +73,7 @@ import {Config} from '@remotion/cli/config';
 Config.setStudioPort(3004);
 ```
 
-The [command line flag](/docs/cli/render#--port) `--port` will take precedence over this option.
+[命令行标志](/docs/cli/render#--port) `--port` 将覆盖此选项。
 
 ## setPublicDir()<AvailableFrom v="3.2.13" />
 
@@ -85,11 +85,11 @@ import {Config} from '@remotion/cli/config';
 Config.setPublicDir('./custom-public-dir');
 ```
 
-The [command line flag](/docs/cli/render#--public-dir) `--public-dir` will take precedence over this option.
+- [命令行标志](/docs/cli/render#--public-dir) `--public-dir` 将优先于此选项。
 
 ## setEntryPoint()<AvailableFrom v="3.2.40" />
 
-Sets the Remotion [entry point](/docs/terminology/entry-point), you don't have to specify it for CLI commands.
+设置 Remotion [入口点](/docs/terminology/entry-point)，您不必为 CLI 命令指定它。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -97,17 +97,17 @@ import {Config} from '@remotion/cli/config';
 Config.setEntryPoint('./src/index.ts');
 ```
 
-If you pass an entry point as a CLI argument, it will take precedence.
+如果您将入口点作为 CLI 参数传递，它将优先。
 
 ## setLevel()<AvailableFrom v="2.0.1" />
 
-Increase or decrease the amount of log messages in the CLI.
-Acceptable values:
+增加或减少 CLI 中的日志消息数量。
+可接受的值：
 
-- `error`: Silent except error messages.
-- `warn`: Only showing errors and warnings.
-- `info` (_default_): Default output - besides errors and warnings, prints progress and output location.
-- `verbose`: All of the above, plus browser logs and other debug info.
+- `error`: 除错误消息外静默。
+- `warn`: 仅显示错误和警告。
+- `info` (_默认_): 默认输出 - 除了错误和警告外，还会打印进度和输出位置。
+- `verbose`: 以上所有内容，加上浏览器日志和其他调试信息。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -115,11 +115,11 @@ import {Config} from '@remotion/cli/config';
 Config.setLevel('verbose');
 ```
 
-The [command line flag](/docs/cli/render#--log) `--log` will take precedence over this option.
+- [命令行标志](/docs/cli/render#--log) `--log` 将优先于此选项。
 
 ## setMaxTimelineTracks()<AvailableFrom v="2.1.10" />
 
-Set how many tracks are being displayed in the timeline in the Studio at most. This does not affect your video, just the amount of tracks shown when previewing. Default `15`.
+设置 Studio 中时间轴中最多显示的轨道数。这不会影响您的视频，只会影响预览时显示的轨道数量。默认 `15`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -129,7 +129,7 @@ Config.setMaxTimelineTracks(20);
 
 ## setKeyboardShortcutsEnabled()<AvailableFrom v="3.2.11" />
 
-Whether the Studio should react to keyboard shortcuts. Default `true`.
+Studio 是否应对键盘快捷键做出反应。默认 `true`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -137,12 +137,12 @@ import {Config} from '@remotion/cli/config';
 Config.setKeyboardShortcutsEnabled(false);
 ```
 
-The [command line flag](/docs/cli/studio#--disable-keyboard-shortcuts) `--disable-keyboard-shortcuts` will take precedence over this option.
+- [命令行标志](/docs/cli/studio#--disable-keyboard-shortcuts) `--disable-keyboard-shortcuts` 将优先于此选项。
 
 ## setWebpackPollingInMilliseconds()<AvailableFrom v="3.3.11" />
 
-Enables Webpack polling instead of the file system event listeners for hot reloading.
-This is useful if you are inside a virtual machine or have a remote file system.
+启用 Webpack 轮询，而不是文件系统事件监听器进行热重载。
+如果您在虚拟机内部或拥有远程文件系统，则这很有用。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -150,11 +150,11 @@ import {Config} from '@remotion/cli/config';
 Config.setWebpackPollingInMilliseconds(1000);
 ```
 
-The [command line flag](/docs/cli/studio#--webpack-poll) `--webpack-poll` will take precedence over this option.
+[命令行标志](/docs/cli/studio#--webpack-poll) `--webpack-poll` 将优先于此选项。
 
 ## setNumberOfSharedAudioTags()<AvailableFrom v="3.3.2" />
 
-How many shared audio tags should be mounted in the Studio. Shared audio tags can help prevent playback issues due to audio autoplay policies of the browser. See [this article](/docs/player/autoplay#use-the-numberofsharedaudiotags-property) which covers the same option but for the Player. Default `0`, meaning no autoplay policies are circumvented.
+Studio 中应该挂载多少个共享音频标签。共享音频标签可以帮助防止由于浏览器的音频自动播放策略而导致的播放问题。查看[此文章](/docs/player/autoplay#use-the-numberofsharedaudiotags-property)，该文章涵盖了相同的选项，但针对播放器。默认值为 `0`，表示不绕过任何自动播放策略。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -165,7 +165,7 @@ Config.setNumberOfSharedAudioTags(5);
 
 ## setShouldOpenBrowser()<AvailableFrom v="3.3.19" />
 
-Whether Remotion should open a browser when starting the Studio. Default `true`.
+Remotion 是否应在启动 Studio 时打开浏览器。默认值为 `true`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -176,7 +176,7 @@ Config.setShouldOpenBrowser(false);
 
 ## setBrowserExecutable()<AvailableFrom v="1.5.0" />
 
-Set a custom Chrome or Chromium executable path. By default Remotion will try to find an existing version of Chrome on your system and if not found, it will download one. This flag is useful if you don't have Chrome installed in a standard location and you want to prevent downloading an additional browser or need [support for the H264 codec](/docs/video#codec-support).
+设置自定义 Chrome 或 Chromium 可执行文件路径。默认情况下，Remotion 将尝试在系统上找到现有版本的 Chrome，如果找不到，它将下载一个。如果您没有在标准位置安装 Chrome，并且希望防止下载额外的浏览器或需要[支持 H264 编解码器](/docs/video#codec-support)，则此标志很有用。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -184,13 +184,13 @@ import {Config} from '@remotion/cli/config';
 Config.setBrowserExecutable('/usr/bin/google-chrome-stable');
 ```
 
-The [command line flag](/docs/cli/render#--browser-executable) `--browser-executable` will take precedence over this option.
+[命令行标志](/docs/cli/render#--browser-executable) `--browser-executable` 将优先于此选项。
 
 ## setDelayRenderTimeoutInMilliseconds()<AvailableFrom v="2.6.3" />
 
-_previously named "setTimeoutInMilliseconds"_
+_先前命名为 "setTimeoutInMilliseconds"_
 
-Define how long a single frame may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout). Default: `30000`
+定义单个帧在解决所有 [`delayRender()`](/docs/delay-render) 调用之前可能需要多长时间[超时](/docs/timeout)。默认值：`30000`
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -198,11 +198,11 @@ import {Config} from '@remotion/cli/config';
 Config.setDelayRenderTimeoutInMilliseconds(60000);
 ```
 
-The [command line flag](/docs/cli/render#--timeout) `--timeout` will take precedence over this option.
+[命令行标志](/docs/cli/render#--timeout) `--timeout` 将优先于此选项。
 
 ## setChromiumDisableWebSecurity()<AvailableFrom v="2.6.5" />
 
-This will most notably disable CORS among other security features during rendering.
+这将主要禁用渲染期间的 CORS 和其他安全功能。
 
 ```tsx twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -212,11 +212,11 @@ import {Config} from '@remotion/cli/config';
 Config.setChromiumDisableWebSecurity(true);
 ```
 
-The [command line flag](/docs/cli/render#--disable-web-security) `--disable-web-security` will take precedence over this option.
+[命令行标志](/docs/cli/render#--disable-web-security) `--disable-web-security` 将优先于此选项。
 
 ## setChromiumIgnoreCertificateErrors()<AvailableFrom v="2.6.5" />
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored during rendering.
+导致无效的 SSL 证书（如自签名证书）在渲染期间被忽略。
 
 ```tsx twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -226,7 +226,7 @@ import {Config} from '@remotion/cli/config';
 Config.setChromiumIgnoreCertificateErrors(true);
 ```
 
-The [command line flag](/docs/cli/render#--ignore-certificate-errors) `--ignore-certificate-errors` will take precedence over this option.
+[命令行标志](/docs/cli/render#--ignore-certificate-errors) `--ignore-certificate-errors` 将优先于此选项。
 
 ## setChromiumHeadlessMode()<AvailableFrom v="2.6.5" />
 
@@ -252,7 +252,7 @@ import {Config} from '@remotion/cli/config';
 Config.setChromiumMultiProcessOnLinux(true);
 ```
 
-The [command line flag](/docs/cli/render#--enable-multiprocess-on-linux) `--enable-multiprocess-on-linux` will take precedence over this option.
+[命令行标志](/docs/cli/render#--enable-multiprocess-on-linux) `--enable-multiprocess-on-linux` 将优先于此选项。
 
 ## setChromiumOpenGlRenderer
 
@@ -266,12 +266,12 @@ import {Config} from '@remotion/cli/config';
 Config.setChromiumOpenGlRenderer('angle');
 ```
 
-The [command line flag](/docs/cli/render#--gl) `--gl` will take precedence over this option.
+[命令行标志](/docs/cli/render#--gl) `--gl` 将优先于此选项。
 
 ## setConcurrency()
 
-Sets how many Puppeteer instances will work on rendering your video in parallel.
-Default: `null`, meaning **half of the threads** available on your CPU.
+设置有多少 Puppeteer 实例将并行工作以渲染您的视频。
+默认值：`null`，表示您 CPU 上可用的**一半线程**。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -279,19 +279,19 @@ import {Config} from '@remotion/cli/config';
 Config.setConcurrency(8);
 ```
 
-The [command line flag](/docs/cli/render#--concurrency) `--concurrency` will take precedence over this option.
+[命令行标志](/docs/cli/render#--concurrency) `--concurrency` 将优先于此选项。
 
 :::tip
-Try to set your concurrency to `os.cpus().length` to all the threads available on your CPU for faster rendering. The drawback is that other parts of your system might slow down.
+尝试将并发设置为 `os.cpus().length`，以利用 CPU 上所有可用的线程进行更快的渲染。缺点是您系统的其他部分可能会变慢。
 :::
 
 ## setVideoImageFormat()<AvailableFrom v="4.0.0" />
 
-Determines which in which image format to render the frames. Either:
+确定以哪种图像格式呈现帧。可以是：
 
-- `jpeg` - the fastest option (default)
-- `png` - slower, but supports transparency
-- `none` - don't render images, just calculate audio information
+- `jpeg` - 最快的选项（默认）
+- `png` - 较慢，但支持透明度
+- `none` - 不呈现图像，只计算音频信息
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -301,9 +301,9 @@ Config.setVideoImageFormat('png');
 
 ## setStillImageFormat()<AvailableFrom v="4.0.0" />
 
-Determines which in which image format to render the frames. Either:
+确定以哪种图像格式呈现帧。可以是：
 
-- `png` (default)
+- `png`（默认）
 - `jpeg`
 - `pdf`
 - `webp`
@@ -316,15 +316,15 @@ Config.setStillImageFormat('pdf');
 
 ## ~~setImageFormat()~~<AvailableFrom v="1.4.0" />
 
-_Removed in v4.0_
+_在 v4.0 中移除_
 
-Replaced in v4.0 with `setVideoImageFormat()` and `setStillImageFormat()`
+在 v4.0 中被 `setVideoImageFormat()` 和 `setStillImageFormat()` 替换
 
-Determines which in which image format to render the frames. Either:
+确定以哪种图像格式呈现帧。可以是：
 
-- `jpeg` - the fastest option (default from v1.1)
-- `png` - slower, but supports transparency
-- `none` - don't render images, just calculate audio information (available from v2.0)
+- `jpeg` - 最快的选项（从 v1.1 开始默认）
+- `png` - 较慢，但支持透明度
+- `none` - 不呈现图像，只计算音频信息（从 v2.0 开始可用）
 
 ```ts title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -332,11 +332,11 @@ import {Config} from '@remotion/cli/config';
 Config.setImageFormat('png');
 ```
 
-The [command line flag](/docs/cli/render#--image-format) `--image-format` will take precedence over this option.
+[命令行标志](/docs/cli/render#--image-format) `--image-format` 将覆盖此选项。
 
 ## setScale()<AvailableFrom v="2.6.7" />
 
-[Scales the output frames by the factor you pass in.](/docs/scaling) For example, a 1280x720px frame will become a 1920x1080px frame with a scale factor of `1.5`. Vector elements like fonts and HTML markups will be rendered with extra details. Default: `1`.
+[按您传入的因子缩放输出帧。](/docs/scaling) 例如，一个 1280x720px 的帧将以 `1.5` 的缩放因子变为 1920x1080px 的帧。像字体和 HTML 标记这样的矢量元素将以更多细节呈现。默认值：`1`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -344,11 +344,11 @@ import {Config} from '@remotion/cli/config';
 Config.setScale(2);
 ```
 
-The [command line flag](/docs/cli/render#--scale) `--scale` will take precedence over this option.
+[命令行标志](/docs/cli/render#--scale) `--scale` 将覆盖此选项。
 
 ## setMuted()<AvailableFrom v="3.2.1" />
 
-Disables audio output. Default `false`.
+禁用音频输出。默认为 `false`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -356,11 +356,11 @@ import {Config} from '@remotion/cli/config';
 Config.setMuted(true);
 ```
 
-The [command line flag](/docs/cli/render#--muted) `--muted` will take precedence over this option.
+## `--muted`命令行标志将优先于此选项。
 
 ## setEnforceAudioTrack()<AvailableFrom v="3.2.1" />
 
-Render a silent audio track if there would be none otherwise. Default `false`.
+如果没有其他音轨，则渲染一个静音音轨。默认为`false`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -368,7 +368,7 @@ import {Config} from '@remotion/cli/config';
 Config.setEnforceAudioTrack(true);
 ```
 
-The [command line flag](/docs/cli/render#--enforce-audio-track) `--enforce-audio-track` will take precedence over this option.
+## `--enforce-audio-track`命令行标志将优先于此选项。
 
 ### setForSeamlessAacConcatenation()<AvailableFrom v="4.0.123" />
 
@@ -380,31 +380,29 @@ import {Config} from '@remotion/cli/config';
 Config.setForSeamlessAacConcatenation(true);
 ```
 
-The [command line flag](/docs/cli/render#--for-seamless-aac-concatenation) `--for-seamless-aac-concatenation` will take precedence over this option.
+## `--for-seamless-aac-concatenation`命令行标志将优先于此选项。
 
 ## setFrameRange()<AvailableFrom v="2.0.0" />
 
-Pass a number to render a still frame or a tuple to render a subset of a video. The frame sequence is zero-indexed.
+传递一个数字以渲染静止帧，或传递一个元组以渲染视频的子集。帧序列从零开始。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
 // ---cut---
-Config.setFrameRange(90); // To render only the 91st frame
+Config.setFrameRange(90); // 仅渲染第91帧
 ```
 
-or
+或者
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
 // ---cut---
-Config.setFrameRange([0, 20]); // Render a video only containing the first 21 frames
+Config.setFrameRange([0, 20]); // 仅渲染包含前21帧的视频
 ```
-
-The [command line flag](/docs/cli/render#--frames) `--frames` will take precedence over this option.
 
 ## setJpegQuality()
 
-The JPEG quality of each frame. Must be a number between 0 and 100. Will not work if you render PNG frames. [Default: 80](https://github.com/chromium/chromium/blob/99314be8152e688bafbbf9a615536bdbb289ea87/headless/lib/browser/protocol/headless_handler.cc#L32).
+每帧的JPEG质量。必须是介于0和100之间的数字。如果渲染PNG帧，则不起作用。[默认值：80](https://github.com/chromium/chromium/blob/99314be8152e688bafbbf9a615536bdbb289ea87/headless/lib/browser/protocol/headless_handler.cc#L32)。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -412,15 +410,17 @@ import {Config} from '@remotion/cli/config';
 Config.setJpegQuality(90);
 ```
 
-The [command line flag](/docs/cli/render#--jpeg-quality) `--jpeg-quality` will take precedence over this option.
+## `--jpeg-quality`命令行标志将优先于此选项。
 
 ## ~~setQuality()~~
 
-Renamed to `setJpegQuality` in `v4.0.0`.
+在 `v4.0.0` 中更名为 `setJpegQuality`。
+
+
 
 ## setDotEnvLocation()
 
-Set a custom location for a [`.env`](https://www.npmjs.com/package/dotenv) file. You can specify an absolute path or a relative path in which case it gets resolved based on the current working directory.
+设置一个自定义位置用于 [`.env`](https://www.npmjs.com/package/dotenv) 文件。您可以指定一个绝对路径或一个相对路径，在这种情况下，它将根据当前工作目录进行解析。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -428,13 +428,15 @@ import {Config} from '@remotion/cli/config';
 Config.setDotEnvLocation('.my-env');
 ```
 
-The [command line flag](/docs/cli/render#--env-file) `--env-file` will take precedence over this option.
+[命令行标志](/docs/cli/render#--env-file) `--env-file` 将优先于此选项。
+
+
 
 ## setEveryNthFrame()
 
-This option may only be set when rendering GIFs. [It determines how many frames are rendered, while the other ones gets skipped in order to lower the FPS of the GIF.](/docs/render-as-gif)
+此选项仅在渲染 GIF 时才能设置。[它确定渲染多少帧，而其他帧则被跳过以降低 GIF 的帧速。](/docs/render-as-gif)
 
-For example, if the `fps` is 30, and `everyNthFrame` is 2, the FPS of the GIF is `15`.
+例如，如果 `fps` 为 30，而 `everyNthFrame` 为 2，则 GIF 的帧速为 `15`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -442,7 +444,9 @@ import {Config} from '@remotion/cli/config';
 Config.setEveryNthFrame(2);
 ```
 
-The [command line flag](/docs/cli/render#--every-nth-frame) `--every-nth-frame` will take precedence over this option.
+[命令行标志](/docs/cli/render#--every-nth-frame) `--every-nth-frame` 将优先于此选项。
+
+
 
 ## setNumberOfGifLoops()
 
@@ -454,11 +458,13 @@ import {Config} from '@remotion/cli/config';
 Config.setNumberOfGifLoops(2);
 ```
 
-The [command line flag](/docs/cli/render#--number-of-gif-loops) `--number-of-gif-loops` will take precedence over this option.
+[命令行标志](/docs/cli/render#--number-of-gif-loops) `--number-of-gif-loops` 将优先于此选项。
+
+
 
 ## setOutputLocation()<AvailableFrom v="3.1.6" />
 
-Set the output location of the video or still, relative to the current working directory. The default is `out/{composition}.{container}`. For example, `out/HelloWorld.mp4`.
+设置视频或静态文件的输出位置，相对于当前工作目录。默认为 `out/{composition}.{container}`。例如，`out/HelloWorld.mp4`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -466,11 +472,13 @@ import {Config} from '@remotion/cli/config';
 Config.setOutputLocation('out/video.mp4');
 ```
 
-If you pass another argument to the render command, it will take precedence: `npx remotion render src/index.ts HelloWorld out/video.mp4`.
+如果您向渲染命令传递另一个参数，它将优先：`npx remotion render src/index.ts HelloWorld out/video.mp4`。
+
+
 
 ## setOverwriteOutput()
 
-Set this to `false` to prevent overwriting Remotion outputs when they already exists.
+将此设置为 `false` 可防止在 Remotion 输出已存在时覆盖它们。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -478,14 +486,16 @@ import {Config} from '@remotion/cli/config';
 Config.setOverwriteOutput(false);
 ```
 
+```html
 :::info
-In version 1.x, the default behavior was inverse - Remotion would not override by default.
+在1.x版本中，默认行为是相反的 - Remotion 默认情况下不会覆盖。
 :::
+```
 
 ## setPixelFormat()
 
-Controls the pixel format in FFmpeg. [Read more about it here.](https://trac.ffmpeg.org/wiki/Chroma%20Subsampling) Acceptable values: `yuv420p`, `yuv422p`, `yuv444p`, `yuv420p10le`, `yuv422p10le`, `yuv444p10le`. Since v1.4, `yuva420p` is also supported for transparent WebM videos. Since v2.1.7, `yuva444p10le` is also supported for transparent ProRes videos
-Default value: `yuv420p`
+控制FFmpeg中的像素格式。[在此处阅读更多信息。](https://trac.ffmpeg.org/wiki/Chroma%20Subsampling) 可接受的值：`yuv420p`、`yuv422p`、`yuv444p`、`yuv420p10le`、`yuv422p10le`、`yuv444p10le`。自v1.4起，还支持`yuva420p`用于透明的WebM视频。自v2.1.7起，还支持`yuva444p10le`用于透明的ProRes视频。
+默认值：`yuv420p`
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -493,20 +503,20 @@ import {Config} from '@remotion/cli/config';
 Config.setPixelFormat('yuv420p');
 ```
 
-The [command line flag](/docs/cli/render#--pixel-format) `--pixel-format` will take precedence over this option.
+[命令行标志](/docs/cli/render#--pixel-format) `--pixel-format` 将优先于此选项。
 
 ## setCodec()<AvailableFrom v="1.4.0" />
 
-Choose one of the supported codecs: `h264` _(default)_, `h265`, `vp8`, `vp9`.
+选择支持的编解码器之一：`h264` _(默认)_, `h265`, `vp8`, `vp9`。
 
-- `h264` is the classic MP4 file as you know it.
-- `h265` is the successor of H264, with smaller file sizes. Also known as HEVC. Poor browser compatibility.
-- `vp8` is the codec for WebM.
-- `vp9` is the next-generation codec for WebM. Lower file size, longer compression time.
-- `prores` is a common codec if you want to import the output into another video editing program _(available from v2.1.6)_
-- `mp3` will export audio only as an MP3 file _(available from v2.0)_
-- `wav` will export audio only as an WAV file _(available from v2.0)_
-- `aac` will export audio only as an AAC file _(available from v2.0)_
+- `h264` 是您熟知的经典MP4文件。
+- `h265` 是H264的继任者，文件大小更小。也称为HEVC。浏览器兼容性较差。
+- `vp8` 是WebM的编解码器。
+- `vp9` 是WebM的下一代编解码器。文件大小更小，压缩时间更长。
+- `prores` 是一种常见的编解码器，如果您想将输出导入另一个视频编辑程序 _(从v2.1.6起可用)_
+- `mp3` 将仅导出音频为MP3文件 _(从v2.0起可用)_
+- `wav` 将仅导出音频为WAV文件 _(从v2.0起可用)_
+- `aac` 将仅导出音频为AAC文件 _(从v2.0起可用)_
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -514,9 +524,9 @@ import {Config} from '@remotion/cli/config';
 Config.setCodec('h265');
 ```
 
-The [command line flag](/docs/cli/render#--codec) `--codec` will take precedence over this option.
+[命令行标志](/docs/cli/render#--codec) `--codec` 将优先于此选项。
 
-**See also**: [Encoding guide](/docs/encoding)
+**另请参阅**：[编码指南](/docs/encoding)
 
 ## setAudioCodec()
 
@@ -526,23 +536,24 @@ import {Config} from '@remotion/cli/config';
 Config.setAudioCodec('pcm-16');
 ```
 
-Choose the encoding of your audio.
+选择音频的编码方式。
 
-- The default is dependent on the chosen `codec`.
-- Choose `pcm-16` if you need uncompressed audio.
-- Not all video containers support all audio codecs.
-- This option takes precedence if the `codec` option also specifies an audio codec.
+- 默认取决于所选的`codec`。
+- 如果需要未压缩的音频，请选择`pcm-16`。
+- 并非所有视频容器都支持所有音频编解码器。
+- 如果`codec`选项还指定了音频编解码器，则此选项优先。
+```
 
-The [command line flag](/docs/cli/render#--audio-codec) `--audio-codec` will take precedence over this option.
+[命令行标志](/docs/cli/render#--audio-codec) `--audio-codec` 将优先于此选项。
 
-Refer to the [Encoding guide](/docs/encoding) to see defaults and supported combinations.
+请参阅[编码指南](/docs/encoding)以查看默认值和支持的组合。
 
 ## setProResProfile()<AvailableFrom v="2.1.6" />
 
-Set the ProRes profile. This option is only valid if the codec has been set to `prores`.
-Possible values: `4444-xq`, `4444`, `hq`, `standard`, `light`, `proxy`.
-See [here](https://video.stackexchange.com/a/14715) for explanation of possible values.
-Default: `hq`
+设置 ProRes 档案。仅当编解码器设置为 `prores` 时，此选项才有效。
+可能的值：`4444-xq`、`4444`、`hq`、`standard`、`light`、`proxy`。
+请参阅[此处](https://video.stackexchange.com/a/14715)以了解可能的值。
+默认值：`hq`
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -550,13 +561,13 @@ import {Config} from '@remotion/cli/config';
 Config.setProResProfile('4444');
 ```
 
-The [command line flag](/docs/cli/render#--prores-profile) `--prores-profile` will take precedence over this option.
+[命令行标志](/docs/cli/render#--prores-profile) `--prores-profile` 将优先于此选项。
 
 ## setX264Preset()<AvailableFrom v="4.2.2" />
 
-Set the Preset profile. This option is only valid if the codec has been set to `h264`.
-Possible values: `superfast`, `veryfast`, `faster`, `fast`, `medium`, `slow`, `slower`, `veryslow`, `placebo`,
-Default: `medium`
+设置预设档案。仅当编解码器设置为 `h264` 时，此选项才有效。
+可能的值：`superfast`、`veryfast`、`faster`、`fast`、`medium`、`slow`、`slower`、`veryslow`、`placebo`。
+默认值：`medium`
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -564,13 +575,13 @@ import {Config} from '@remotion/cli/config';
 Config.setX264Preset('fast');
 ```
 
-The [command line flag](/docs/cli/render#--prores-profile) `--prores-profile` will take precedence over this option.
+[命令行标志](/docs/cli/render#--prores-profile) `--prores-profile` 将优先于此选项。
 
-**See also**: [Encoding guide](/docs/encoding), [Transparent videos](/docs/transparent-videos)
+**另请参阅**：[编码指南](/docs/encoding)，[透明视频](/docs/transparent-videos)
 
 ## setImageSequence()<AvailableFrom v="1.4.0" />
 
-Set to true if you want to output an image sequence instead of a video.
+如果要输出图像序列而不是视频，请将其设置为 true。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -578,11 +589,11 @@ import {Config} from '@remotion/cli/config';
 Config.setImageSequence(true);
 ```
 
-The [command line flag](/docs/cli/render#--sequence) `--sequence` will take precedence over this option.
+[命令行标志](/docs/cli/render#--sequence) `--sequence` 将优先于此选项。
 
 ## overrideHeight()<AvailableFrom v="3.2.40" />
 
-Overrides the height of the rendered video.
+覆盖渲染视频的高度。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -590,12 +601,14 @@ import {Config} from '@remotion/cli/config';
 Config.overrideHeight(600);
 ```
 
-The [command line flag](/docs/cli/render#--height) `--height` will take precedence over this option.
-(see h264 validation?)
+[命令行标志](/docs/cli/render#--height) `--height` 将优先于此选项。
+(查看 h264 验证？)
+
+
 
 ## overrideWidth()<AvailableFrom v="3.2.40" />
 
-Overrides the width of the rendered video.
+覆盖渲染视频的宽度。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -603,14 +616,16 @@ import {Config} from '@remotion/cli/config';
 Config.overrideWidth(900);
 ```
 
-The [command line flag](/docs/cli/render#--width) `--width` will take precedence over this option
+[命令行标志](/docs/cli/render#--width) `--width` 将优先于此选项
+
+
 
 ## ~~setOutputFormat()~~
 
-_Removed in v4.0.0_
-_Deprecated_. Use `setCodec()` and `setImageSequence()` instead.
+_在 v4.0.0 中移除_
+_已弃用_。请改用 `setCodec()` 和 `setImageSequence()`。
 
-Either `'mp4'` or `'png-sequence'`.
+要么 `'mp4'` 要么 `'png-sequence'`。
 
 ```ts title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -618,26 +633,28 @@ import {Config} from '@remotion/cli/config';
 Config.setOutputFormat('mp4');
 ```
 
-The [command line flags](/docs/cli) `--sequence` and `--codec` will take precedence over this option.
+[命令行标志](/docs/cli) `--sequence` 和 `--codec` 将优先于此选项。
 
-The [command line flag](/docs/cli) `--quality` will take precedence over this option.
+[命令行标志](/docs/cli) `--quality` 将优先于此选项。
+
+
 
 ## setCrf()<AvailableFrom v="1.4.0" />
 
-The "Constant Rate Factor" (CRF) of the output. [Use this setting to tell FFmpeg how to trade off size and quality.](/docs/encoding#controlling-quality-using-the-crf-setting)
+输出的“恒定速率因子”（CRF）。[使用此设置告诉 FFmpeg 如何在大小和质量之间进行权衡。](/docs/encoding#controlling-quality-using-the-crf-setting)
 
-Ranges for CRF scale, by codec:
+CRF 范围，按编解码器：
 
-- `h264` crf range is 1-51 where crf 18 is _default_.
-- `h265` crf range is 0-51 where crf 23 is _default_.
-- `vp8` crf range is 4-63 where crf 9 is _default_.
-- `vp9` crf range is 0-63 where crf 28 is _default_.
+- `h264` crf 范围为 1-51，其中 crf 18 为 _默认_。
+- `h265` crf 范围为 0-51，其中 crf 23 为 _默认_。
+- `vp8` crf 范围为 4-63，其中 crf 9 为 _默认_。
+- `vp9` crf 范围为 0-63，其中 crf 28 为 _默认_。
 
-The lowest value is lossless, and the highest value is the worst quality possible. Higher values decrease the filesize at the cost of quality.
+最低值是无损的，最高值是可能的最差质量。较高的值会降低文件大小，但会牺牲质量。
 
-The range is exponential, so increasing the CRF value +6 results in roughly half the bitrate / file size, while -6 leads to roughly twice the bitrate.
+范围是指数级的，因此将 CRF 值增加 +6 大约会使比特率 / 文件大小减少一半，而 -6 则会使比特率大约增加一倍。
 
-Choose the highest CRF value that still provides an acceptable quality. If the output looks good, then try a higher value. If it looks bad, choose a lower value.
+选择提供可接受质量的最高 CRF 值。如果输出看起来不错，则尝试更高的值。如果看起来不好，请选择较低的值。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -645,7 +662,9 @@ import {Config} from '@remotion/cli/config';
 Config.setCrf(16);
 ```
 
-The [command line flag](/docs/cli/render#--crf) `--crf` will take precedence over this option.
+[命令行标志](/docs/cli/render#--crf) `--crf` 将优先于此选项。
+
+
 
 ## `setVideoBitrate()`<AvailableFrom v="3.2.32" />
 
@@ -657,7 +676,8 @@ import {Config} from '@remotion/cli/config';
 Config.setVideoBitrate('1M');
 ```
 
-The [command line flag](/docs/cli/render#--video-bitrate) `--video-bitrate` will take precedence over this option.
+```markdown
+[命令行标志](/docs/cli/render#--video-bitrate) `--video-bitrate` 将优先于此选项。
 
 ## `setEncodingBufferSize()`<AvailableFrom v="4.0.78" />
 
@@ -669,7 +689,7 @@ import {Config} from '@remotion/cli/config';
 Config.setEncodingBufferSize('10000k');
 ```
 
-The [command line flag](/docs/cli/render#--buffer-size) `--buffer-size` will take precedence over this option.
+[命令行标志](/docs/cli/render#--buffer-size) `--buffer-size` 将优先于此选项。
 
 ## `setEncodingMaxRate()`<AvailableFrom v="4.0.78" />
 
@@ -681,7 +701,7 @@ import {Config} from '@remotion/cli/config';
 Config.setEncodingMaxRate('5000k');
 ```
 
-The [command line flag](/docs/cli/render#--max-rate) `--max-rate` will take precedence over this option.
+[命令行标志](/docs/cli/render#--max-rate) `--max-rate` 将优先于此选项。
 
 ## `setAudioBitrate()`<AvailableFrom v="3.2.32" />
 
@@ -693,7 +713,7 @@ import {Config} from '@remotion/cli/config';
 Config.setAudioBitrate('128K');
 ```
 
-The [command line flag](/docs/cli/render#--audio-bitrate) `--audio-bitrate` will take precedence over this option.
+[命令行标志](/docs/cli/render#--audio-bitrate) `--audio-bitrate` 将优先于此选项。
 
 ## `setEnableFolderExpiry()`<AvailableFrom v="4.0.32" />
 
@@ -742,12 +762,13 @@ import {Config} from '@remotion/cli/config';
 // ---cut---
 Config.setBeepOnFinish(true);
 ```
+```
 
-The [command line flag](/docs/cli/studio#--beep-on-finish) `--beep-on-finish` will take precedence over this option.
+[命令行标志](/docs/cli/studio#--beep-on-finish) `--beep-on-finish` 将优先于此选项。
 
 ## `setBufferStateDelayInMilliseconds()`<AvailableFrom v="4.0.111" />
 
-Set the amount of milliseconds after which the Player in the Studio will display a buffering UI after the Player has entered a buffer state. Default `300`.
+设置播放器进入缓冲状态后多少毫秒后，工作室中的播放器将显示缓冲UI。默认值 `300`。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -777,7 +798,7 @@ Config.setPreferLosslessAudio(true);
 
 ## overrideFfmpegCommand()<AvailableFrom v="3.2.22" />
 
-Modifies the FFmpeg command that Remotion uses under the hood. It works reducer-style, meaning that you pass a function that takes a command as an argument and returns a new command.
+修改 Remotion 在后台使用的 FFmpeg 命令。它以 reducer 风格工作，这意味着您传递一个函数，该函数以命令作为参数并返回一个新命令。
 
 ```tsx twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -803,29 +824,29 @@ Config.overrideFfmpegCommand(({args}) => {
 });
 ```
 
-The function you pass must accept an object as it's only parameter which contains the following properties:
+您传递的函数必须接受一个对象作为唯一参数，该对象包含以下属性：
 
-- `type`: Either `"stitcher"` or `"pre-stitcher"`. If enough memory and CPU is available, Remotion may use parallel rendering and encoding, which means that a pre-stitcher process gets spawned before all frames are rendered. You can tell whether parallel encoding is enabled by adding `--log=verbose` to your render command.
-- `args`: An array of strings that is passed as arguments to the FFmpeg command.
+- `type`：为 `"stitcher"` 或 `"pre-stitcher"`。如果有足够的内存和 CPU 可用，Remotion 可能会使用并行渲染和编码，这意味着在渲染所有帧之前会生成一个预缝合器进程。您可以通过在渲染命令中添加 `--log=verbose` 来确定是否启用了并行编码。
+- `args`：作为 FFmpeg 命令参数传递的字符串数组。
 
-Your function must return a modified array of strings.
+您的函数必须返回修改后的字符串数组。
 
 :::warning
-Using this feature is discouraged. Before using it, we want to make you aware of some caveats:
+不建议使用此功能。在使用之前，我们希望让您了解一些注意事项：
 
-- The render command can change with any new Remotion version, even when it is a patch upgrade. This might break your usage of this feature.
-- Depending on the selected codec, available CPU and RAM, Remotion may or may not use "parallel encoding" which will result in multiple FFmpeg commands being executed. Your function must be able to handle being called multiple times.
-- The FFmpeg binary provided by Remotion supports only a small subset of FFmpeg commands, therefore not every passed option will be applied.
-- This feature is not available when using Remotion Lambda.
+- 渲染命令可能会随着任何新的 Remotion 版本更改，即使是补丁升级也可能会破坏您对此功能的使用。
+- 根据所选的编解码器、可用的 CPU 和 RAM，Remotion 可能会或可能不会使用 "并行编码"，这将导致执行多个 FFmpeg 命令。您的函数必须能够处理多次调用。
+- Remotion 提供的 FFmpeg 二进制文件仅支持 FFmpeg 命令的一小部分子集，因此不会应用每个传递的选项。
+- 使用 Remotion Lambda 时不支持此功能。
+```
 
-Before you use this hack, reach out to the Remotion team on [Discord](https://remotion.dev/discord) and ask us if we are open to implement the feature you need in a clean way - we often do implement new features quickly based on users feedback.
-:::
+在使用此方法之前，请在 [Discord](https://remotion.dev/discord) 上联系 Remotion 团队，询问我们是否愿意以一种干净的方式实现您需要的功能 - 我们经常根据用户的反馈快速实现新功能。
 
 ## ~~setFfmpegExecutable()~~
 
-_removed in v4.0_
+_在 v4.0 中移除_
 
-Allows you to use a custom FFmpeg binary. Must be an absolute path. By default, this is null and the FFmpeg in `PATH` will be used.
+允许您使用自定义的 FFmpeg 二进制文件。必须是绝对路径。默认情况下，此值为 null，将使用 `PATH` 中的 FFmpeg。
 
 ```ts title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -833,13 +854,13 @@ import {Config} from '@remotion/cli/config';
 Config.setFfmpegExecutable('/path/to/custom/ffmpeg');
 ```
 
-The [command line flag](/docs/cli/render#--ffmpeg-executable) `--ffmpeg-executable` will take precedence over this option.
+[命令行标志](/docs/cli/render#--ffmpeg-executable) `--ffmpeg-executable` 将覆盖此选项。
 
 ## ~~setFfprobeExecutable()~~
 
-_removed in v4.0_
+_在 v4.0 中移除_
 
-Allows you to use a custom `ffprobe` binary. Must be an absolute path. By default, this is null and the `ffprobe` in `PATH` will be used.
+允许您使用自定义的 `ffprobe` 二进制文件。必须是绝对路径。默认情况下，此值为 null，将使用 `PATH` 中的 `ffprobe`。
 
 ```ts title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -847,24 +868,23 @@ import {Config} from '@remotion/cli/config';
 Config.setFfprobeExecutable('/path/to/custom/ffprobe');
 ```
 
-The [command line flag](/docs/cli/render#--ffprobe-executable-) `--ffprobe-executable` will take precedence over this option.
+[命令行标志](/docs/cli/render#--ffprobe-executable-) `--ffprobe-executable` 将覆盖此选项。
 
 ## ~~setPort()~~
 
-_deprecated in v4.0.61 - use [`setStudioPort()`](/docs/config#setstudioport)_
-and [`setRendererPort()`](/docs/config#setrendererport) instead.
+在 v4.0.61 中弃用 - 使用 [`setStudioPort()`](/docs/config#setstudioport) 和 [`setRendererPort()`](/docs/config#setrendererport) 代替。
 
-Define on which port Remotion should start it's HTTP servers.  
-By default, Remotion will try to find a free port.  
-If you specify a port, but it's not available, Remotion will throw an error.
+定义 Remotion 应该在哪个端口启动其 HTTP 服务器。  
+默认情况下，Remotion 将尝试找到一个空闲端口。  
+如果您指定了一个端口，但该端口不可用，Remotion 将抛出错误。
 
 :::warning
-Setting this option will break rendering in the Remotion Studio, because this option controls two settings at the same time:
+设置此选项将破坏 Remotion Studio 中的渲染，因为此选项同时控制两个设置：
 
-- When starting the [Remotion Studio](/docs/terminology/studio), a server will be started to host it ([`setStudioPort()`](/docs/config#setstudioport)).
-- During rendering, a HTTP server is also started in the background to serve the Webpack [bundle](/docs/terminology/bundle) ([`setRendererPort()`](/docs/config#setrendererport)).
+- 启动 [Remotion Studio](/docs/terminology/studio) 时，将启动一个服务器来托管它 ([`setStudioPort()`](/docs/config#setstudioport))。
+- 在渲染期间，还会在后台启动一个 HTTP 服务器来提供 Webpack [bundle](/docs/terminology/bundle) ([`setRendererPort()`](/docs/config#setrendererport))。
 
-Use the options individually.
+请分别使用这些选项。
 :::
 
 ```ts twoslash title="remotion.config.ts"
@@ -873,11 +893,13 @@ import {Config} from '@remotion/cli/config';
 Config.setPort(3003);
 ```
 
-The [command line flag](/docs/cli/render#--port) `--port` will take precedence over this option. If set on `npx remotion studio`, it will set the Studio port, otherwise the renderer port.
+[命令行标志](/docs/cli/render#--port) `--port` 将优先于此选项。如果在 `npx remotion studio` 上设置，它将设置 Studio 端口，否则将设置渲染器端口。
 
-## Importing ES Modules
 
-The [config file](/docs/config) gets executed in a CommonJS environment. If you want to import ES modules to override the Webpack config, you can pass an async function to `Config.overrideWebpackConfig()`:
+
+## 导入 ES 模块
+
+[配置文件](/docs/config) 在 CommonJS 环境中执行。如果要导入 ES 模块以覆盖 Webpack 配置，可以将异步函数传递给 `Config.overrideWebpackConfig()`：
 
 ```ts twoslash title="remotion.config.ts"
 // @filename: src/enable-sass.ts
@@ -894,17 +916,19 @@ Config.overrideWebpackConfig(async (currentConfiguration) => {
 });
 ```
 
-## Old config file format
 
-In v3.3.39, a new config file format was introduced which flattens the options so they can more easily be discovered using TypeScript autocompletion.
 
-Previously, each config option was two levels deep:
+## 旧配置文件格式
+
+在 v3.3.39 中，引入了一种新的配置文件格式，将选项展平，以便可以更轻松地使用 TypeScript 自动完成发现。
+
+以前，每个配置选项都是两级深度：
 
 ```ts title="remotion.config.ts"
 Config.Bundling.setCachingEnabled(false);
 ```
 
-From v3.3.39 on, all options can be accessed directly from the `Config` object.
+从 v3.3.39 开始，所有选项都可以直接从 `Config` 对象中访问。
 
 ```ts twoslash title="remotion.config.ts"
 import {Config} from '@remotion/cli/config';
@@ -912,8 +936,10 @@ import {Config} from '@remotion/cli/config';
 Config.setCachingEnabled(false);
 ```
 
-The old way is deprecated, but will work for the foreseeable future.
+旧方式已被弃用，但在可预见的未来仍将有效。
 
-## See also
 
-- [Encoding guide](/docs/encoding)
+
+## 参见
+
+- [编码指南](/docs/encoding)

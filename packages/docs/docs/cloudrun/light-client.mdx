@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-cloudrun-light-client.png
-sidebar_label: Light client
-title: Light client
+sidebar_label: 轻客户端
+title: 轻客户端
 crumb: "Cloud Run"
 ---
 
-_available from v4.0.84_
+_从 v4.0.84 开始可用_
 
-The following methods and types can be imported from `@remotion/cloudrun/client`:
+以下方法和类型可以从 `@remotion/cloudrun/client` 中导入：
 
 ```tsx twoslash
 // organize-imports-ignore
@@ -31,12 +31,13 @@ import type {
 } from "@remotion/cloudrun/client";
 ```
 
-These functions don't have any dependencies on our renderer and can be bundled for example with ESBuild or Webpack (like is the case for example in Next.js).
+这些函数不依赖于我们的渲染器，并且可以与 ESBuild 或 Webpack 一起打包（例如在 Next.js 中的情况）。
 
-Importing the light client on edge frameworks (Vercel Edge, Cloudflare Workers) is currently not supported.
+目前不支持在边缘框架（Vercel Edge、Cloudflare Workers）上导入轻客户端。
 
-**We don't recommend calling these functions from the browser directly, as you will leak your Google Cloud Platform credentials.**
+**我们不建议直接从浏览器调用这些函数，因为这样会泄露您的 Google Cloud Platform 凭据。**
 
-Instead, this light client is meant to reduce the bundle size and avoid problems if you are calling Remotion Cloud Run APIs from another serverless function and therefore need to bundle your function code.
+相反，这个轻客户端旨在减小捆绑包大小，并避免问题，如果您从另一个无服务器函数调用 Remotion Cloud Run API，并且因此需要捆绑您的函数代码。
 
-This import is useful for example for Next.js serverless endpoints or similar, which bundle the server-side code.
+这种导入对于例如 Next.js 无服务器端点或类似的情况非常有用，这些情况捆绑了服务器端代码。
+

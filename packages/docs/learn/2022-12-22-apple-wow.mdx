@@ -1,13 +1,13 @@
 ---
 slug: apple-wow
-title: Recreating the Apple fireworks animation
+title: 重新创建苹果烟花动画
 authors:
-  - name: Mehmet Ademi
-    title: Business Developer
+  - name: 梅赫梅特·阿德米
+    title: 商务开发者
     url: https://github.com/MehmetAdemi
     image_url: /img/team/mehmet.png
-  - name: Jonny Burger
-    title: Chief Hacker
+  - name: 乔尼·伯格
+    title: 首席黑客
     url: https://github.com/JonnyBurger
     image_url: /img/team/jonny.png
 ---
@@ -16,22 +16,22 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {AppleFireworksTutorial} from '../src/components/tutorials';
 
-Learn how to create an animation that Apple has on its website during the holiday season with this beginner-friendly Remotion tutorial!
+学习如何使用这个适合初学者的 Remotion 教程创建苹果在节假日网站上展示的动画！
 <img src="/img/apple-wow-tutorial/Final.gif"/>
 
-## Video version
+## 视频版本
 
-This tutorial is also available as a video version:
+此教程也有视频版本可供参考：
 
 <AppleFireworksTutorial />
 
-## Source code
+## 源代码
 
 [GitHub](https://github.com/remotion-dev/apple-wow-tutorial)
 
-## Getting started
+## 入门指南
 
-Start a new Remotion project and select the blank template:
+开始一个新的 Remotion 项目并选择空白模板：
 
 <Tabs
 defaultValue="npm"
@@ -65,9 +65,9 @@ yarn create video --blank
   </TabItem>
 </Tabs>
 
-## Composition setup
+## 组合设置
 
-A [`<Composition>`](https://www.remotion.dev/docs/terminology/composition) defines the dimensions and duration of the video. In the `src/Root.tsx` file, adjust the width and height to the following:
+[`<Composition>`](https://www.remotion.dev/docs/terminology/composition) 定义视频的尺寸和持续时间。在 `src/Root.tsx` 文件中，将宽度和高度调整为以下内容：
 
 ```tsx twoslash title="src/Root.tsx"
 import { Composition } from "remotion";
@@ -89,9 +89,9 @@ export const RemotionRoot: React.FC = () => {
 };
 ```
 
-## Create a background
+## 创建背景
 
-Create a new file `src/Background.tsx` and return a background with linear gradient:
+创建一个新文件 `src/Background.tsx` 并返回一个带有线性渐变的背景：
 
 ```tsx twoslash title="src/Background.tsx"
 import React from "react";
@@ -108,7 +108,7 @@ export const Background: React.FC = () => {
 };
 ```
 
-Add the created background to the `<MyComposition/>` component, which can be found in the file `src/Composition.tsx`. This file will contain all the components that you create in this tutorial.
+将创建的背景添加到 `<MyComposition/>` 组件中，该组件可以在文件 `src/Composition.tsx` 中找到。此文件将包含您在本教程中创建的所有组件。
 
 ```tsx twoslash title="src/Composition.tsx"
 // @filename: Background.tsx
@@ -129,13 +129,14 @@ export const MyComposition: React.FC = () => {
 };
 ```
 
-This results in the following:
+这将产生以下效果：
 
+```html
 <img src="/img/apple-wow-tutorial/Background.png"/>
 
-## Render a dot
+## 渲染一个点
 
-Render a white dot by creating a new file `src/Dot.tsx` and return a centered circle.
+通过创建一个新文件 `src/Dot.tsx` 并返回一个居中的圆来渲染一个白色的点。
 
 ```tsx twoslash title="src/Dot.tsx"
 import React from "react";
@@ -162,7 +163,7 @@ export const Dot: React.FC = () => {
 };
 ```
 
-Add the `<Dot>` in your main composition `src/Composition.tsx`:
+在你的主合成 `src/Composition.tsx` 中添加 `<Dot>`：
 
 ```tsx twoslash title="src/Composition.tsx"
 // @filename: Dot.tsx
@@ -187,12 +188,12 @@ export const MyComposition: React.FC = () => {
 };
 ```
 
-Now we got a white dot on top of our background:
+现在我们在背景上有一个白色的点：
 <img src="/img/apple-wow-tutorial/Dot.png"/>
 
-## Animate the dot
+## 为点添加动画
 
-Let's apply some animation to the white dot we created above. We create another component called `<Shrinking>` in a new file `src/Shrinking.tsx`, which then wraps the dot in the main composition `src/Composition.tsx`.
+让我们对上面创建的白色点应用一些动画。我们在一个新文件 `src/Shrinking.tsx` 中创建另一个组件 `<Shrinking>`，然后将该组件包裹在主合成 `src/Composition.tsx` 中。
 
 ```tsx title="src/Shrinking.tsx"
 import React from "react";
@@ -220,7 +221,7 @@ export const Shrinking: React.FC<{
 };
 ```
 
-Add the `<Shrinking>` component in your main composition `src/Composition.tsx`:
+在你的主合成 `src/Composition.tsx` 中添加 `<Shrinking>` 组件：
 
 ```tsx twoslash
 // @filename: Shrinking.tsx
@@ -253,12 +254,12 @@ export const MyComposition: React.FC = () => {
 };
 ```
 
-Now, you have some action to show. By using `<Shrinking>` in your main composition you have created a scale out effect:
+现在，你有一些动作可以展示了。通过在主合成中使用 `<Shrinking>`，你已经创建了一个缩放效果：
 <img src="/img/apple-wow-tutorial/Shrinking.gif"/>
 
-## Move the dot
+## 移动点
 
-Next, create a component called `<Move>`. This component has a spring animation, which by default goes from zero to one, and has a duration of four seconds (`durationInFrames: 120`) in the code snippet below:
+接下来，创建一个名为 `<Move>` 的组件。该组件具有一个弹簧动画，默认情况下从零到一，并且在下面的代码片段中持续四秒钟（`durationInFrames: 120`）：
 
 ```tsx twoslash title="src/Move.tsx"
 import React from "react";
@@ -299,7 +300,7 @@ export const Move: React.FC<{
 };
 ```
 
-Add the `<Move>` component to your composition `src/Composition.tsx`. You get a nice animation by combining the effect of moving and shrinking by surrounding the shrinking dot in the `<Move>` component:
+将 `<Move>` 组件添加到你的合成 `src/Composition.tsx` 中。通过将缩小的点包裹在 `<Move>` 组件中，你可以通过结合移动和缩小的效果获得一个不错的动画：
 
 ```tsx twoslash title="src/Composition.tsx"
 // @filename: Move.tsx
@@ -339,12 +340,12 @@ export const MyComposition = () => {
 };
 ```
 
-And up goes the dot:
+点就这样飞起来了：
 <img src="/img/apple-wow-tutorial/Move.gif"/>
 
-## Duplicate the moving dot
+## 复制移动的点
 
-Here it gets a little bit trickier, but the following steps are going to make your animation a lot more entertaining. First, you add a `delay` prop into the `<Move>` component and then change the `frame` parameter of your `spring()` function.
+这里变得有点棘手，但以下步骤将使你的动画更加有趣。首先，将一个 `delay` 属性添加到 `<Move>` 组件中，然后更改 `spring()` 函数的 `frame` 参数。
 
 ```tsx twoslash title="src/Move.tsx"
 import React from "react";
@@ -386,14 +387,14 @@ export const Move: React.FC<{
 };
 ```
 
-Now, let's create a `<Trail>` component. It takes some React children and duplicates them. The component adds a delay to each subsequent dot so they don't start all at once. Each dot will have a scale applied to it, so that each dot is smaller than the previous one.
+现在，让我们创建一个`<Trail>`组件。它接受一些React子元素并对它们进行复制。该组件会为每个后续的点添加延迟，以便它们不会同时开始。每个点都会应用一个比前一个点小的比例。
 
-Put the previously created `<Move>` component within the `<Trail>` component.
-The order is crucial here. Things are done from inside out:
+将之前创建的`<Move>`组件放在`<Trail>`组件中。
+这里的顺序至关重要。操作是从内到外进行的：
 
-1. Apply a scale so that the dots become smaller over time.
-2. Apply the move animation.
-3. Apply a delay between the animation start of each dot by using Remotion's `<Sequence>` component.
+1. 应用一个比例，使点随时间变小。
+2. 应用移动动画。
+3. 使用Remotion的`<Sequence>`组件在每个点的动画开始之间应用延迟。
 
 ```tsx twoslash title="src/Trail.tsx"
 // @filename: Move.tsx
@@ -436,7 +437,7 @@ export const Trail: React.FC<{
 };
 ```
 
-In your main component, you now replace the `<Move>` component with the `<Trail>` component:
+在您的主组件中，现在用`<Trail>`组件替换`<Move>`组件：
 
 ```tsx twoslash title="src/Composition.tsx"
 // @filename: Move.tsx
@@ -481,12 +482,12 @@ export const MyComposition = () => {
 };
 ```
 
-And this is how your animation with the duplicated dots should look like:
+这是带有复制点的动画应该看起来的样子：
 <img src="/img/apple-wow-tutorial/Trail.gif"/>
 
-## Duplicating markup and arranging it in a circle
+## 复制标记并将其排列成一个圆
 
-Now let's create a `<Explosion>` component. It takes children and renders them for example 10 times and applies a rotation to each instance. It's worth mentioning here that a full rotation amounts to 2π, while `(i/AMOUNT)` represents a factor between 0 and 1.
+现在让我们创建一个`<Explosion>`组件。它接受子元素并将它们渲染例如10次，并对每个实例应用旋转。值得一提的是，完整的旋转量为2π，而`(i/AMOUNT)`表示0到1之间的因子。
 
 ```tsx twoslash title="src/Explosion.tsx"
 import React from "react";
@@ -515,7 +516,7 @@ export const Explosion: React.FC<{
 };
 ```
 
-`<Trail>` gets put inside the `<Explosion>` component. Your main component (`src/Composition.tsx`) looks like this:
+将`<Trail>`放在`<Explosion>`组件中。您的主组件（`src/Composition.tsx`）如下所示：
 
 ```tsx twoslash title="src/Composition.tsx"
 // @filename: Move.tsx
@@ -568,12 +569,12 @@ export const MyComposition = () => {
 };
 ```
 
-The animated explosion should look like this:
+动画爆炸应该看起来像这样：
 <img src="/img/apple-wow-tutorial/Explosion.gif"/>
 
-## Cleanup
+## 清理
 
-You have created a bunch of files until now, let's put most of them together in one file called `src/Dots.tsx`. Extract `<Explosion>` and it's children into a new separate component called Dots.
+到目前为止，您已经创建了一堆文件，让我们将大部分文件放在一个名为`src/Dots.tsx`的文件中。将`<Explosion>`和其子元素提取到一个名为Dots的新独立组件中。
 
 ```tsx twoslash title="src/Dots.tsx"
 // @filename: Move.tsx
@@ -623,7 +624,7 @@ export const Dots: React.FC = () => {
 };
 ```
 
-Replace the `<Explosion>` with the new `<Dots>` component:
+用新的`<Dots>`组件替换`<Explosion>`：
 
 ```tsx twoslash
 // @filename: Background.tsx
@@ -648,14 +649,14 @@ export const MyComposition = () => {
 };
 ```
 
-Nothing has changed on the animation itself:
+动画本身没有任何变化：
 <img src="/img/apple-wow-tutorial/Dots.gif"/>
 
-## Adding hearts and stars
+## 添加心形和星星
 
-To make the animation more exciting, let's add some stars and hearts in different colors. To do this, we need to basically repeat the previous steps. Besides the `<Dots>`component, we'll add three more components in the next few steps.
+为了使动画更加精彩，让我们添加一些不同颜色的星星和心形。为此，我们基本上需要重复之前的步骤。除了 `<Dots>` 组件外，在接下来的几个步骤中，我们将添加另外三个组件。
 
-Let's start with red hearts. First you render a red heart by creating a new file `src/RedHeart.tsx` and return a centered red heart emoji.
+让我们从红色心形开始。首先，通过创建一个新文件 `src/RedHeart.tsx` 并返回一个居中的红色心形表情来渲染一个红色心形。
 
 ```tsx twoslash title="src/RedHeart.tsx"
 import React from "react";
@@ -675,11 +676,11 @@ export const RedHeart: React.FC = () => {
 };
 ```
 
-Effects like `<Shrinking>`, `<Move>` and `<Explosion>` need to be applied to that red heart. We do this in a new component called RedHearts.
+需要将 `<Shrinking>`、`<Move>` 和 `<Explosion>` 这些效果应用到这个红色心形上。我们在一个名为 RedHearts 的新组件中实现这一点。
 
-Consider s that we need to add an offset to `<RedHearts>`, otherwise they would be positioned the same as the `<Dots>`.
+考虑到我们需要给 `<RedHearts>` 添加一个偏移量，否则它们会与 `<Dots>` 的位置相同。
 
-We change the position by giving the red hearts a bigger radius than the dots, and apply a `100px` translation. Also, we add a short delay of 5 frames to the `<Move>` component:
+我们通过给红色心形一个比点更大的半径，并应用 `100px` 的平移来改变位置。此外，我们给 `<Move>` 组件添加了一个短暂的 5 帧延迟：
 
 ```tsx twoslash title="src/RedHearts.tsx"
 // @filename: Move.tsx
@@ -732,7 +733,7 @@ export const RedHearts: React.FC = () => {
 };
 ```
 
-We do the same to get some yellow hearts in our animation:
+我们做同样的事情来获得一些黄色心形在我们的动画中：
 
 ```tsx twoslash title="src/YellowHeart.tsx"
 import React from "react";
@@ -752,7 +753,7 @@ export const YellowHeart: React.FC = () => {
 };
 ```
 
-For the yellow hearts we are going to change the position by applying a translation of `50px` and adding a delay of 20 frames to the `<Move>` component:
+对于黄色心形，我们将通过应用 `50px` 的平移并给 `<Move>` 组件添加一个 20 帧的延迟来改变位置：
 
 ```tsx twoslash title="src/YellowHearts.tsx"
 // @filename: Move.tsx
@@ -817,15 +818,15 @@ export const YellowHearts: React.FC = () => {
 };
 ```
 
-Your main composition should look like this:
+您的主要组合应该如下所示：
 <img src="/img/apple-wow-tutorial/DotsAndHearts.gif"/>
 
 <br/>
 <br/>
 
-In addition to the dots and hearts let's also add stars.
+除了点和心形，让我们也添加星星。
 
-Create a new file `src/Star.tsx` and return a centered star emoji.
+创建一个新文件 `src/Star.tsx` 并返回一个居中的星星表情。
 
 ```tsx twoslash title="src/Star.tsx"
 import React from "react";
@@ -846,11 +847,11 @@ export const Star: React.FC = () => {
 };
 ```
 
-Consider that we need to change the positioning of the stars, otherwise they would be on top of the `<Dots>`.
+请注意，我们需要更改星星的定位，否则它们会在 `<Dots>` 的上方。
 
-Let's give `<Trail>` an `extraOffset` prop, so the stars can start more outwards than the dots.
+让我们给 `<Trail>` 一个 `extraOffset` 属性，这样星星就可以比点更向外开始。
 
-An `extraOffset` of 100 for the stars leads to the same circumference at the beginning and end as the red hearts have. Here is the adjusted `<Trail>`:
+星星的 `extraOffset` 为 100 导致了与红色心形相同的开始和结束的圆周。这是调整后的 `<Trail>`： 
 
 ```tsx twoslash title="src/Trail.tsx"
 // @filename: Move.tsx
@@ -955,12 +956,12 @@ export const Stars: React.FC = () => {
 };
 ```
 
-Here is how the almost complete firework should look like:
+这是几乎完成的烟花效果:
 <img src="/img/apple-wow-tutorial/DotsAndHeartsAndStars.gif"/>
 
 ## Slow motion effect
 
-Lastly let's apply a slow motion effect to the firework. For this, create a new file `src/SlowedTrail.tsx`. It should contain a component called Slowed and a helper function `remapSpeed()` which will apply different speed levels to the firework. In the code snippet below a speed of 1.5 is applied until frame 20, afterwards the speed slows down to 0.5.
+最后让我们给烟花应用一个慢动作效果。为此，创建一个名为 `src/SlowedTrail.tsx` 的新文件。它应该包含一个名为 Slowed 的组件和一个名为 `remapSpeed()` 的辅助函数，该函数将为烟花应用不同的速度级别。在下面的代码片段中，速度为 1.5 被应用到第 20 帧，之后速度减慢到 0.5。
 
 ```tsx twoslash title="src/SlowedTrail.tsx"
 import React from "react";
@@ -998,7 +999,7 @@ export const Slowed: React.FC<{
 };
 ```
 
-In the main component, wrap all moving dots, hearts and stars in the component `<Slowed>`. As you sure can tell by now, everything is very composable:
+在主组件中，将所有移动的点、心形和星星包装在组件 `<Slowed>` 中。正如你现在肯定已经注意到的那样，一切都是非常可组合的:
 
 ```tsx twoslash title="src/Composition.tsx"
 // @filename: Move.tsx
@@ -1051,122 +1052,23 @@ export const MyComposition = () => {
 };
 ```
 
-Your final firework should look like this:
+你的最终烟花应该是这样的:
 <img src="/img/apple-wow-tutorial/Slowed.gif"/>
 
-## Adding your animoji
+## 添加你的 Animoji
 
-As the final step of this tutorial, we add your animoji on top of the firework. For the animoji you need to have an iPhone and a Mac. This is how you get it: On your iPhone in iMessage, record an animoji of yourself and send it to a friend. After you've done that, it will also appear in the Messages app on your Mac. Download your animoji there by right-clicking. Once you have done that, create a transparent version of your animoji. Just follow these points:
+作为本教程的最后一步，我们将在烟花上添加你的 Animoji。对于 Animoji，你需要拥有一部 iPhone 和一台 Mac。这是如何做到的: 在 iMessage 中的 iPhone 上，录制一个 Animoji 并将其发送给朋友。完成后，它也会出现在 Mac 上的 Messages 应用中。通过右键单击在那里下载你的 Animoji。完成后，创建你的 Animoji 的透明版本。只需按照以下步骤操作:
 
-1. Right-click your downloaded animoji
-2. Select "Services"
-3. Select "Encode Selected Video Files"
-4. Choose "Apple ProRes" in the settings dropdown
-5. Tick the box that says "Preserve Transparency".
+1. 右键单击下载的 Animoji
+2. 选择 "Services"
+3. 选择 "Encode Selected Video Files"
+4. 在设置下拉菜单中选择 "Apple ProRes"
+5. 选中 "Preserve Transparency" 复选框。
 
-A new encoded file of your animoji will be created. Give it a simple name like animoji.mov.
+将创建一个新的编码文件，给它一个简单的名称，比如 animoji.mov。
 
-In addition to the `src` folder in your Remotion project, create a new one called `public`. Put your encoded video in this folder. You can then use FFmpeg to turn the encoded video into a series of frames:
+除了 Remotion 项目中的 `src` 文件夹外，创建一个名为 `public` 的新文件夹。将编码后的视频放入此文件夹。然后，你可以使用 FFmpeg 将编码后的视频转换为一系列帧:
 
-1. Change the current working directory to `public`: `cd public`
-2. Use this command: `ffmpeg -i animoji.mov -pix_fmt rgba -start_number 0 frame%03d.png`
+1. 将当前工作目录更改为 `public`: `cd public`
 
-Only assets that are being used by Remotion need to be in the `public` folder. You don't need the encoded video, so you can delete it after the frames have been extracted.
-
-Here is a screenshot right before creating the series of frames:
-<img src="/img/apple-wow-tutorial/FFmpegCommand.png"/>
-
-<br/>
-<br/>
-
-Alright, so far you've prepared the animoji to be used in a new component called Animoji. You can import this series of frames by using the [staticFile()](https://www.remotion.dev/docs/staticfile) API. The file name of each frame will help you to determine the current frame number.
-
-```tsx twoslash title="src/Animoji.tsx"
-import React from "react";
-import { AbsoluteFill, Img, staticFile, useCurrentFrame } from "remotion";
-
-export const Animoji: React.FC = () => {
-  const frame = useCurrentFrame();
-
-  const src = `frame${(frame * 2).toString().padStart(3, "0")}.png`;
-
-  return (
-    <AbsoluteFill
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 80,
-      }}
-    >
-      <Img
-        style={{
-          height: 800,
-        }}
-        src={staticFile(src)}
-      />
-    </AbsoluteFill>
-  );
-};
-```
-
-Render the `<Animoji>` component in your main composition:
-
-```tsx twoslash title="src/Composition.tsx"
-// @filename: Move.tsx
-export const Move: React.FC<{
-  children: React.ReactNode;
-  delay: number;
-}> = () => null;
-// @filename: Shrinking.tsx
-export const Shrinking: React.FC<{
-  children: React.ReactNode;
-}> = () => null;
-// @filename: Stars.tsx
-export const Stars: React.FC<{}> = () => null;
-// @filename: Background.tsx
-export const Background: React.FC<{}> = () => null;
-// @filename: Dots.tsx
-export const Dots: React.FC<{}> = () => null;
-// @filename: RedHearts.tsx
-export const RedHearts: React.FC<{}> = () => null;
-// @filename: YellowHearts.tsx
-export const YellowHearts: React.FC<{}> = () => null;
-// @filename: Animoji.tsx
-export const Animoji: React.FC<{}> = () => null;
-// @filename: SlowedTrail.tsx
-export const Slowed: React.FC<{
-  children: React.ReactNode;
-}> = () => null;
-
-// @filename: MyComposition.tsx
-// ---cut---
-import React from "react";
-import { AbsoluteFill } from "remotion";
-import { Animoji } from "./Animoji";
-import { Background } from "./Background";
-import { Dots } from "./Dots";
-import { RedHearts } from "./RedHearts";
-import { Slowed } from "./SlowedTrail";
-import { Stars } from "./Stars";
-import { YellowHearts } from "./YellowHearts";
-
-export const MyComposition = () => {
-  return (
-    <AbsoluteFill>
-      <Background />
-      <Slowed>
-        <Dots />
-        <RedHearts />
-        <YellowHearts />
-        <Stars />
-      </Slowed>
-      <Animoji />
-    </AbsoluteFill>
-  );
-};
-```
-
-By doing all of this you have imported a transparent version of your animoji into your composition. You can run `npm run build` to export your video as MP4. Which should look like this:
-<img src="/img/apple-wow-tutorial/Final.gif"/>
-
-Congrats on your programmatically generated video! 🎉
+2. 使用此命令: `ffmpeg -i animoji.mov -pix_fmt rgba -start_number 0 frame%03d.png`

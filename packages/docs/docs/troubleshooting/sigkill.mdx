@@ -1,46 +1,46 @@
 ---
 image: /generated/articles-docs-troubleshooting-sigkill.png
 sidebar_label: SIGKILL
-title: Process quit with signal SIGKILL
-crumb: "Troubleshooting"
+title: 进程因信号 SIGKILL 而退出
+crumb: "故障排除"
 ---
 
-This error comes in multiple variants:
+此错误有多种变体：
 
-```txt title="Remotion Rust process killed"
-Compositor quit with signal SIGKILL: [...]
+```txt title="Remotion Rust 进程被终止"
+合成器退出，信号为 SIGKILL：[...]
 ```
 
-```txt title="FFmpeg process killed"
-FFmpeg quit with code null (SIGKILL)
+```txt title="FFmpeg 进程被终止"
+FFmpeg 退出，代码为 null（SIGKILL）
 ```
 
-## What is happening?
+## 发生了什么？
 
-The operating system is either killing the Remotion process or the FFmpeg process.  
-Most likely this is due to it taking too much memory.
+操作系统要么终止了 Remotion 进程，要么终止了 FFmpeg 进程。  
+很可能是因为它占用了太多内存。
 
-## Memory management in Remotion
+## Remotion 中的内存管理
 
-Remotion opens a cache for extracting video frames, which by default allows itself to fill up to 50% of the available memory used at the begin of the render.  
-If Remotion realizes that the system is short on memory, it will halfen the cache size and free up memory.
+Remotion 打开一个用于提取视频帧的缓存，默认情况下允许自己填满开始渲染时可用内存的 50%。  
+如果 Remotion 发现系统内存不足，它将减半缓存大小并释放内存。
 
-However, if other processes are filling up memory, the Remotion process can be killed as soon as it allocates any memory.  
-The same goes for the FFmpeg process.
+然而，如果其他进程正在占用内存，一旦 Remotion 分配任何内存，该进程就可能被终止。  
+FFmpeg 进程也是如此。
 
-## Lower the memory usage of Remotion
+## 降低 Remotion 的内存使用量
 
-You can decrease the cache size of Remotion using the [`offthreadVideoCacheSizeInBytes`](/docs/renderer/select-composition#offthreadvideocachesizeinbytes).
+您可以使用 [`offthreadVideoCacheSizeInBytes`](/docs/renderer/select-composition#offthreadvideocachesizeinbytes) 减少 Remotion 的缓存大小。
 
-## Ensure your Remotion version is up to date
+## 确保您的 Remotion 版本是最新的
 
-We continuously improve the memory management of Remotion.  
-The last version with improvements is [`v4.0.171`](https://remotion.dev/changelog).
+我们不断改进 Remotion 的内存管理。  
+具有改进的最新版本是 [`v4.0.171`](https://remotion.dev/changelog)。
 
-## Lower the concurrency of Remotion
+## 降低 Remotion 的并发性
 
-Set a lower [`concurrency`](/docs/terminology/concurrency) to open less browser tabs at once and thus less memory.
+设置较低的 [`concurrency`](/docs/terminology/concurrency) 以一次打开较少的浏览器选项卡，从而减少内存使用。
 
-## Allocate more memory to your system
+## 为系统分配更多内存
 
-As a last resort, you can allocate more memory to your system to alleviate the problem.
+作为最后的手段，您可以为系统分配更多内存以缓解问题。

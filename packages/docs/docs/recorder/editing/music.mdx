@@ -1,35 +1,35 @@
 ---
 image: /generated/articles-docs-recorder-editing-music.png
-title: Adding music
+title: 添加音乐
 crumb: Recorder
 ---
 
-# Music
+# 音乐
 
-To underlay your video with music, use one of the three soundtracks provided by the Remotion Recorder or add your own.
+要为您的视频添加音乐，请使用 Remotion Recorder 提供的三个配乐之一，或者添加您自己的音乐。
 
-## Add music
+## 添加音乐
 
-In the default props editor in the right sidebar, you may choose a value for `music` for each scene:
+在右侧边栏的默认属性编辑器中，您可以为每个场景选择 `music` 的值：
 
-- `"none"` - No music
-- `"previous"` - Same setting as in the previous scene
-- `"soft"`, `"euphoric"`, `"epic"` - One of the three provided soundtracks
+- `"none"` - 无音乐
+- `"previous"` - 与上一个场景相同的设置
+- `"soft"`, `"euphoric"`, `"epic"` - 三个提供的配乐之一
 
-## Provided Soundtracks
+## 提供的配乐
 
-Included in the Remotion Recorder are three music tracks that you can use in your videos:
+Remotion Recorder 包含三首音乐曲目，您可以在视频中使用：
 
 - "Nature" (2:34, ID `"soft"`)
 - "I Woke Up In A Dream" (2:23, ID `"euphoric"`)
 - "Rhythmic Reverie" (3:29, ID `"epic"`)
 
-All tracks were produced by [Utope Music](https://www.instagram.com/utopemusic) exclusively for the Recorder and are cleared for your videos produced by the Recorder.
+所有曲目均由[Utope Music](https://www.instagram.com/utopemusic)专门为 Recorder 制作，并已获得 Recorder 制作的视频的授权。
 
-## Add your background music
+## 添加您的背景音乐
 
-To add background music, you first have to add songs to the `public/sounds` folder.  
-Then register the track in `config/sounds.ts`.
+要添加背景音乐，首先必须将歌曲添加到 `public/sounds` 文件夹中。  
+然后在 `config/sounds.ts` 中注册该曲目。
 
 ```tsx filename="config/sounds.ts"
 export const music = z.enum([
@@ -52,13 +52,15 @@ export const getAudioSource = (track: Music) => {
 };
 ```
 
-You can now apply the newly added music to a scene by selecting the track in the right sidebar.
+现在，您可以通过在右侧边栏中选择曲目来将新添加的音乐应用于场景。
 
-## Changing music
+## 更改音乐
 
-Music will automatically carry over to the next scene.  
-If you want to change the music, select a different track for a scene and it will crossfade.
+音乐将自动延续到下一个场景。  
+如果要更改音乐，请为场景选择不同的曲目，音乐将进行交叉淡入淡出。
 
-## Stopping music
+## 停止音乐
 
-If you want to stop the music, select `none` as track.
+如果要停止音乐，请选择 `none` 作为曲目。 
+
+

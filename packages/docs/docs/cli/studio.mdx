@@ -2,49 +2,49 @@
 image: /generated/articles-docs-cli-studio.png
 title: npx remotion studio
 sidebar_label: studio
-crumb: CLI Reference
+crumb: CLI 参考
 ---
 
 _Alias: npx remotion preview_
 
-Start the [Remotion Studio](/docs/studio).
+启动[Remotion Studio](/docs/studio)。
 
 ```bash
 npx remotion studio <entry-point>?
 ```
 
-You may pass an [entry point](/docs/terminology/entry-point) as an argument, otherwise it will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将[入口点](/docs/terminology/entry-point)作为参数传递，否则将会被[确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-## Flags
+## 标志
 
 ### `--props`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-We don't recommend passing this flag when using the Studio - use [`defaultProps`](/docs/composition#defaultprops) instead.
+[传递给视频所选组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)。  
+我们不建议在使用 Studio 时传递此标志 - 而是使用 [`defaultProps`](/docs/composition#defaultprops)。
 
-Must be a serialized JSON string (`--props='{"hello": "world"}'`) or a path to a JSON file (`./path/to/props.json`).  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+必须是一个序列化的 JSON 字符串 (`--props='{"hello": "world"}'`) 或指向 JSON 文件的路径 (`./path/to/props.json`)。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 :::note
-Inline JSON string isn't supported on Windows shells because it removes the `"` character, use a file name instead.
+在 Windows shells 上不支持内联 JSON 字符串，因为它会移除 `"` 字符，请改用文件名。
 :::
 
 ### `--config`<AvailableFrom v="1.2.0" />
 
-Specify a location for the Remotion config file.
+指定 Remotion 配置文件的位置。
 
 ### `--env-file`<AvailableFrom v="2.2.0" />
 
-Specify a location for a dotenv file - Default `.env`. [Read about how environment variables work in Remotion.](/docs/env-variables)
+指定 dotenv 文件的位置 - 默认为 `.env`。[了解 Remotion 中环境变量的工作原理。](/docs/env-variables)
 
 ### `--log`
 
-[Set the log level](/docs/config#setlevel). Increase or decrease the amount of output. Acceptable values: `error`, `warn`, `info` (_default_), `verbose`
+[设置日志级别](/docs/config#setlevel)。增加或减少输出量。可接受的值：`error`、`warn`、`info`（_默认_）、`verbose`。
 
 ### `--port`
 
-[Set a custom HTTP server port to start the server on](/docs/config#setstudioport). If not defined, Remotion will try to find a free port.
+[设置要在其上启动服务器的自定义 HTTP 服务器端口](/docs/config#setstudioport)。如果未定义，Remotion 将尝试找到一个空闲端口。
 
 ### `--public-dir`<AvailableFrom v="3.2.13" />
 
@@ -52,28 +52,28 @@ Specify a location for a dotenv file - Default `.env`. [Read about how environme
 
 ### `--disable-keyboard-shortcuts`<AvailableFrom v="3.2.11" />
 
-[Disables all keyboard shortcuts in the Studio](/docs/config#setkeyboardshortcutsenabled).
+[禁用 Studio 中的所有键盘快捷键](/docs/config#setkeyboardshortcutsenabled)。
 
 ### `--webpack-poll`<AvailableFrom v="3.3.11" />
 
-[Enables Webpack polling](/docs/config#setwebpackpollinginmilliseconds) instead of the file system event listeners for hot reloading. This is useful if you are inside a virtual machine or have a remote file system.
-Pass a value in milliseconds, for example `--webpack-poll=1000`.
+[启用 Webpack 轮询](/docs/config#setwebpackpollinginmilliseconds) 以替代文件系统事件监听器进行热重载。如果您在虚拟机内部或者拥有远程文件系统，则这很有用。
+传递一个以毫秒为单位的值，例如 `--webpack-poll=1000`。
 
 ### `--no-open`<AvailableFrom v="3.3.19" />
 
-[Prevents Remotion from trying to open a browser](/docs/config#setshouldopenbrowser). This is useful if you use a different browser for Remotion than the operating system default.
+[阻止 Remotion 尝试打开浏览器](/docs/config#setshouldopenbrowser)。如果您在 Remotion 中使用的浏览器与操作系统默认浏览器不同，这将非常有用。
 
 ### `--browser`<AvailableFrom v="3.3.79" />
 
-Specify the browser which should be used for opening tab - using the default browser by default.  
-Pass an absolute string or `"chrome"` to use Chrome.
-If Chrome is selected as the browser and you are on macOS, Remotion will try to reuse an existing tab
+指定应用于打开选项卡的浏览器 - 默认情况下使用默认浏览器。  
+传递一个绝对字符串或 `"chrome"` 以使用 Chrome。
+如果选择 Chrome 作为浏览器，并且您在 macOS 上，Remotion 将尝试重用现有选项卡。
 
-For backwards compatibility, the `BROWSER` environment variable is also supported.
+为了向后兼容，还支持 `BROWSER` 环境变量。
 
 ### `--browser-args`<AvailableFrom v="3.3.79" />
 
-A set of command line flags that should be passed to the browser. Pass them like this:
+应传递给浏览器的一组命令行标志。像这样传递它们：
 
 ```sh
 npx remotion studio --browser-args="--disable-web-security"
@@ -81,7 +81,7 @@ npx remotion studio --browser-args="--disable-web-security"
 
 ### `--beep-on-finish`<AvailableFrom v="4.0.84" />
 
-[Plays a beep sound when the video is finished rendering](/docs/config#setbeeponfinish). This is useful if you are rendering a video in the background and want to be notified when it is finished.
+[在视频渲染完成时播放蜂鸣声](/docs/config#setbeeponfinish)。如果您正在后台渲染视频并希望在完成时收到通知，这将非常有用。
 
 ```sh
 npx remotion studio --beep-on-finish
@@ -89,7 +89,7 @@ npx remotion studio --beep-on-finish
 
 ### `--ipv4`<AvailableFrom v="4.0.125" />
 
-Forces the Studio to be bound to an IPv4 interface, even if a IPv6 interface is available.
+强制 Studio 绑定到 IPv4 接口，即使存在 IPv6 接口。
 
 ```sh
 npx remotion studio --ipv4

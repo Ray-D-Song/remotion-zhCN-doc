@@ -7,88 +7,88 @@ crumb: "FAQ"
 
 # Chrome Headless Shell<AvailableFrom v="4.0.137"/>
 
-Remotion will download [Chrome Headless Shell](https://developer.chrome.com/blog/chrome-headless-shell) if no local browser can be found and an API for rendering videos is used.
+如果找不到本地浏览器并且使用 API 渲染视频，则 Remotion 将下载 [Chrome Headless Shell](https://developer.chrome.com/blog/chrome-headless-shell)。
 
-## Supported platforms
+## 支持的平台
 
-The following platforms are supported:
+支持以下平台：
 
-- Linux (x64)
-- Windows (x64)
-- macOS (x64 and arm64)
-
-:::note
-[Remotion Lambda](/docs/lambda) is also support despite being arm64 on Linux.
-:::
-
-## Ensure a local browser is found
-
-Use [`ensureBrowser()`](/docs/renderer/ensure-browser) or [`npx remotion browser ensure`](/docs/cli/browser/ensure) to ensure a local browser is found.  
-This function will download Chrome Headless Shell if no local browser is found.
-
-## Bring your own binary
-
-If you don't want Chrome Headless Shell to get installed or your platform is not supported, you need to specify your own Chromium-based browser:
-
-- Using the [`setBrowserExecutable()`](/docs/config#setbrowserexecutable) option in the config file (for the CLI)
-- Using the [`browserExecutable`](/docs/renderer/render-media) option in [`renderMedia()`](/docs/renderer/render-media) and other SSR APIs
-
-In [Lambda](/docs/lambda) and [Cloud Run](/docs/cloudrun), a version of Chrome is already installed, so you don't need to do anything.
+- Linux（x64）
+- Windows（x64）
+- macOS（x64 和 arm64）
 
 :::note
-In a future version of Chrome, headless mode in the desktop browser will stop being supported and you will need to use the Chrome Headless Shell.
+尽管在 Linux 上是 arm64，但 [Remotion Lambda](/docs/lambda) 也提供支持。
 :::
 
-## Download location
+## 确保找到本地浏览器
 
-Chrome Headless Shell will download to
+使用 [`ensureBrowser()`](/docs/renderer/ensure-browser) 或 [`npx remotion browser ensure`](/docs/cli/browser/ensure) 来确保找到本地浏览器。  
+如果找不到本地浏览器，此函数将下载 Chrome Headless Shell。
+
+## 自定义二进制文件
+
+如果您不希望安装 Chrome Headless Shell 或您的平台不受支持，则需要指定自己的基于 Chromium 的浏览器：
+
+- 在配置文件中使用 [`setBrowserExecutable()`](/docs/config#setbrowserexecutable) 选项（用于 CLI）
+- 在 [`renderMedia()`](/docs/renderer/render-media) 和其他 SSR API 中使用 [`browserExecutable`](/docs/renderer/render-media) 选项
+
+在 [Lambda](/docs/lambda) 和 [Cloud Run](/docs/cloudrun) 中，Chrome 的某个版本已经安装，因此您无需执行任何操作。
+
+:::note
+在未来的 Chrome 版本中，桌面浏览器中的无头模式将停止支持，您将需要使用 Chrome Headless Shell。
+:::
+
+## 下载位置
+
+Chrome Headless Shell 将下载到
 
 ```
 node_modules/.remotion/chrome-headless-shell/[platform]/chrome-headless-shell-[platform]
 ```
 
-`platform` can be one of `mac-arm64`, `mac-x64`, `linux64` or `win64`.
+`platform` 可以是 `mac-arm64`、`mac-x64`、`linux64` 或 `win64` 中的一个。
 
-At this path, a folder with the necessary files will be created.  
-An executable `./chrome-headless-shell` (`.\chrome-headless-shell.exe` on Windows) will be created.
+在此路径下，将创建一个包含必要文件的文件夹。  
+将创建一个可执行文件 `./chrome-headless-shell`（在 Windows 上为 `.\chrome-headless-shell.exe`）。
 
 ## Chrome vs. Chrome Headless Shell
 
-Chrome used to ship with a `--headless` flag, which Remotion would use.
+Chrome 曾经附带一个 `--headless` 标志，Remotion 将使用它。
 
-As of Chrome 123, the headless mode is split up into:
+截至 Chrome 123，无头模式分为：
 
-- `--headless=old`, which is ideal for screenshotting (and therefore Remotion)
-- `--headless=new`, which is ideal for browser testing
+- `--headless=old`，适用于截图（因此适用于 Remotion）
+- `--headless=new`，适用于浏览器测试
 
-`--headless=old` will stop working in a future version of Chrome.  
-The old headless mode is being extracted into "Chrome Headless Shell".
+`--headless=old` 将在未来的 Chrome 版本中停止工作。  
+旧的无头模式正在被提取到 "Chrome 无头 Shell" 中。
 
-Hence we encourage you to use Chrome Headless Shell to future-proof your Remotion application.
+因此，我们鼓励您使用 Chrome 无头 Shell 来未来保护您的 Remotion 应用程序。
 
-## Chrome vs. Chromium
+## Chrome 与 Chromium
 
-Chromium is the open-source project that Chrome is based on. Some versions of Chromium don't the necessary codecs for the [`<Video >`](/docs/video) tag as well as for functions in [`@remotion/media-utils`](/docs/media-utils).
+Chromium 是 Chrome 基于的开源项目。某些版本的 Chromium 不具备 [`<Video>`](/docs/video) 标签以及 [`@remotion/media-utils`](/docs/media-utils) 中的功能所需的编解码器。
 
-This is why we recommend Chrome over Chromium.
+这就是为什么我们推荐使用 Chrome 而不是 Chromium。
 
-## Changes in Remotion v5.0
+## Remotion v5.0 中的更改
 
-Remotion 5.0 will not recognize your regular Chrome browser anymore.  
-You will need to use Chrome Headless Shell, because Chrome is [discontinuing the `--headless=old`](#chrome-vs-chrome-headless-shell) mode.
+Remotion 5.0 将不再识别您的常规 Chrome 浏览器。  
+您将需要使用 Chrome 无头 Shell，因为 Chrome 正在[停止 `--headless=old`](#chrome-vs-chrome-headless-shell) 模式。
 
-## Thorium (v4.0.18 - v4.0.135)
+## Thorium（v4.0.18 - v4.0.135）
 
-In these versions, if no local browser can be found, an instance of [Thorium](https://thorium.rocks/) is downloaded.
+在这些版本中，如果找不到本地浏览器，将下载 [Thorium](https://thorium.rocks/) 的一个实例。
 
-Thorium is a free and open-source browser forked off Chromium, which includes the codecs needed to render videos.
+Thorium 是一个基于 Chromium 分支的免费开源浏览器，包含渲染视频所需的编解码器。
 
-## Chromium (before v4.0.18)
+## Chromium（v4.0.18 之前）
 
-In previous versions, Remotion would download the free version of Chromium, which would not include codecs for the proprietary H.264 and H.265 codecs.
-This would often lead to problems when using the [`<Video>`](/docs/video) tag.
+在之前的版本中，Remotion 会下载 Chromium 的免费版本，该版本不包含专有的 H.264 和 H.265 编解码器。
+这通常会导致在使用 [`<Video>`](/docs/video) 标签时出现问题。
 
-## See also
+## 另请参阅
 
 - [`ensureBrowser()`](/docs/renderer/ensure-browser)
-- [Media playback error](/docs/media-playback-error)
+- [媒体播放错误](/docs/media-playback-error)

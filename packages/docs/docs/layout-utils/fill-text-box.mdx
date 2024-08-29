@@ -6,11 +6,11 @@ crumb: "@remotion/layout-utils"
 
 # fillTextBox()<AvailableFrom v="4.0.57"/>
 
-_Part of the [`@remotion/layout-utils`](/docs/layout-utils) package._
+_属于 [`@remotion/layout-utils`](/docs/layout-utils) 包。_
 
-Calculate whether the text exceeds the box and wraps within the container. Only works in the browser, not in Node.js or Bun.
+计算文本是否超出框并在容器内换行。仅在浏览器中有效，不适用于 Node.js 或 Bun。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { fillTextBox } from "@remotion/layout-utils";
@@ -30,88 +30,90 @@ box.add({ text: "the end", fontFamily, fontSize }); // {exceedsBox: true, newLin
 
 ## API
 
-The function takes the following options:
+该函数接受以下选项：
 
 ### `maxBoxWidth`
 
-_Required_ _number_
+_必需_ _数字_
 
-The max box width, unit `px`.
+最大框宽度，单位 `px`。
 
 ### `maxLines`
 
-_Required_ _number_
+_必需_ _数字_
 
-The max lines of the box.
+框的最大行数。
 
-## Return value
+## 返回值
 
-An object with an `add()` method, which can be used to add words to the text box.
+一个带有 `add()` 方法的对象，可用于向文本框添加单词。
 
-### Arguments
+### 参数
 
 #### `text`
 
-_Required_ _string_
+_必需_ _字符串_
 
-Any string.
+任何字符串。
 
 #### `fontFamily`
 
-_Required_ _string_
+_必需_ _字符串_
 
-Same as CSS style `font-family`.
+与 CSS 样式 `font-family` 相同。
 
 #### `fontSize`
 
-_Required_ _number_
+_必需_ _数字_
 
-Same as CSS style `font-size`. Only _numbers_ allowed, unit `px`.
+与 CSS 样式 `font-size` 相同。仅允许 _数字_，单位 `px`。
 
 #### `fontWeight`
 
-_string_
+_字符串_
 
-Same as CSS style `font-weight`.
+与 CSS 样式 `font-weight` 相同。
 
 #### `fontVariantNumeric`
 
-_string_
+_字符串_
 
-Same as CSS style `font-variant-numeric`.
+与 CSS 样式 `font-variant-numeric` 相同。
 
 #### `textTransform`<AvailableFrom v="4.0.140"/>
 
-_string_
+_字符串_
 
-Same as CSS style `text-transform`.
+与 CSS 样式 `text-transform` 相同。
 
 #### `validateFontIsLoaded?`<AvailableFrom v="4.0.136"/>
 
-_boolean_
+_布尔值_
 
-If set to `true`, will take a second measurement with the fallback font and if it produces the same measurements, it assumes the fallback font was used and will throw an error.
+如果设置为 `true`，将使用备用字体进行第二次测量，如果产生相同的测量结果，则假定使用了备用字体，并将抛出错误。
 
 #### `additionalStyles`<AvailableFrom v="4.0.140"/>
 
-_object, optional_
+_对象，可选_
 
-Additional CSS properties that affect the layout of the text.
+影响文本布局的其他 CSS 属性。
 
-### Return value
+### 返回值
 
-The add method returns an object with two properties:
+add 方法返回一个带有两个属性的对象：
 
 - `exceedsBox`:
-  _Boolean_, whether adding the word would cause the text to exceed the width of the box.
+  _布尔值_，添加单词是否会导致文本超出框的宽度。
 - `newLine`:
-  _Boolean_, whether adding the word would require starting a new line in the text box.
+  _布尔值_，添加单词是否需要在文本框中开始新行。
 
-## Important considerations
+## 重要考虑事项
 
-See [Best practices](/docs/layout-utils/best-practices) to ensure you get correct measurements.
+请参阅 [最佳实践](/docs/layout-utils/best-practices) 以确保获得正确的测量结果。
 
-## See also
+## 参见
 
 - [measureText()](/docs/layout-utils/measure-text)
 - [`@remotion/layout-utils`](/docs/layout-utils)
+
+Please paste the Markdown content you'd like me to translate into Chinese.

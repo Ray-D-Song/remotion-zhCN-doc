@@ -5,88 +5,87 @@ id: get-audio-data
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions._
+_`@remotion/media-utils` 包中的辅助函数之一。_
 
-Takes an audio `src`, loads it and returns data and metadata for the specified source.
+接受一个音频 `src`，加载它并返回指定源的数据和元数据。
 
 :::info
-Remote audio files need to support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
-
+远程音频文件需要支持 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
 <details>
-<summary>More info</summary>
+<summary>更多信息</summary>
 <ul>
 <li>
-Remotion's origin is usually <code>http://localhost:3000</code>, but it may be different if rendering on Lambda or the port is busy.
+Remotion 的源通常是 <code>http://localhost:3000</code>，但如果在 Lambda 上渲染或端口已被占用，则可能会有所不同。
 </li>
 <li>
-You can use <a href="/docs/get-audio-duration-in-seconds"><code>getAudioDurationInSeconds()</code></a> without the audio needing CORS.
+您可以在不需要音频支持 CORS 的情况下使用 <a href="/docs/get-audio-duration-in-seconds"><code>getAudioDurationInSeconds()</code></a>。
 </li>
 <li>
-You can <a href="/docs/chromium-flags#--disable-web-security">disable CORS</a> during renders.
+您可以在渲染过程中 <a href="/docs/chromium-flags#--disable-web-security">禁用 CORS</a>。
 </li>
 </ul>
 </details>
 :::
 
-## Arguments
+## 参数
 
 ### `src`
 
-A string pointing to an audio asset.
+指向音频资产的字符串。
 
 ### `options?`<AvailableFrom v="4.0.121"/>
 
 #### `sampleRate?`<AvailableFrom v="4.0.121"/>
 
-The `sampleRate` that should be passed into the [`AudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext) constructor. If not provided, the default value is `48000`.
+应传递到 [`AudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext) 构造函数的 `sampleRate`。如果未提供，默认值为 `48000`。
 
-In versions before 4.0.121, the default value was `undefined`, leading to undeterministic behavior across devices rendering.
+在版本 4.0.121 之前，默认值为 `undefined`，导致在设备渲染时出现不确定的行为。
 
-## Return value
+## 返回值
 
 _`Promise<AudioData>`_
 
-An object with information about the audio data:
+包含有关音频数据的信息的对象：
 
 ### `channelWaveforms`
 
 _Float32Array[]_
 
-An array with waveform information for each channel.
+每个通道的波形信息数组。
 
 ### `sampleRate`
 
 _number_
 
-The sample rate of the generated `AudioContext`. This will be the same as the `sampleRate` input option if passed, `48000` otherwise, and in version previous to 4.0.121, the sample rate of the device's preferred output device.
+生成的 `AudioContext` 的采样率。如果传递了 `sampleRate` 输入选项，则将与其相同，否则为 `48000`，在版本 4.0.121 之前，为设备首选输出设备的采样率。
 
 :::note
-Previously, this documentation stated that this is the sample rate of the audio file. This is incorrect. [The sample rate of the audio file is not exposed to the browser's JavaScript environment.](https://github.com/WebAudio/web-audio-api/issues/30)
+先前，此文档说明这是音频文件的采样率。这是不正确的。[音频文件的采样率不会暴露给浏览器的 JavaScript 环境。](https://github.com/WebAudio/web-audio-api/issues/30)
 :::
 
 ### `durationInSeconds`
 
 _number_
 
-The duration of the audio in seconds.
+音频的持续时间（秒）。
 
 ### `numberOfChannels`
 
 _number_
 
-The number of channels contained in the audio file. This corresponds to the length of the `channelWaveforms` array.
+音频文件中包含的通道数。这对应于`channelWaveforms`数组的长度。
 
 ### `resultId`
 
-_string_ Unique identifier of this audio data fetching call. Other functions can cache expensive operations if they get called with the same resultId multiple times.
+_string_ 此音频数据获取调用的唯一标识符。如果使用相同的`resultId`多次调用其他函数，可以缓存昂贵的操作。
 
 ### `isRemote`
 
 _boolean_
 
-Whether the audio was imported locally or from a different origin.
+音频是在本地导入还是从不同的来源导入。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: ESNext
@@ -122,30 +121,31 @@ await getAudioData(staticFile("my-file.wav")); /* {
 } */
 ```
 
-## Errors
+## 错误
 
-If you pass in a file that has no audio track, this function will throw an error you need to handle.
+如果传入没有音频轨道的文件，此函数将抛出一个错误，您需要处理。
 
-To determine if a file has an audio track, you may use the [`getVideoMetadata()`](/docs/renderer/get-video-metadata#audiocodec) function on the server to reject a file if it has no audio track. To do so, check if the `audioCodec` field is `null`.
+要确定文件是否有音频轨道，您可以在服务器上使用[`getVideoMetadata()`](/docs/renderer/get-video-metadata#audiocodec)函数来拒绝没有音频轨道的文件。为此，请检查`audioCodec`字段是否为`null`。
 
-## Caching behavior
+## 缓存行为
 
-This function is memoizing the results it returns.
+此函数会对其返回的结果进行记忆。
 
-If you pass in the same argument to `src` multiple times, it will return a cached version from the second time on, regardless of if the file has changed.  
-To clear the cache, you have to reload the page.
+如果多次将相同的参数传递给`src`，它将从第二次开始返回缓存的版本，而不管文件是否已更改。  
+要清除缓存，您必须重新加载页面。
 
-## Alternatives
+## 替代方案
 
-If you need only the duration, prefer [`getAudioDurationInSeconds()`](/docs/get-audio-duration-in-seconds) which is faster because it doesn't need to read waveform data.
+如果只需要持续时间，请优先使用[`getAudioDurationInSeconds()`](/docs/get-audio-duration-in-seconds)，因为它不需要读取波形数据，速度更快。
 
-Use the [`useAudioData()`](/docs/use-audio-data) helper hook to not have to do state management yourself and to wrap the call in [`delayRender()`](/docs/delay-render).
+使用[`useAudioData()`](/docs/use-audio-data)辅助钩子，无需自行进行状态管理，并将调用包装在[`delayRender()`](/docs/delay-render)中。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-audio-data.ts)
-- [Using audio](/docs/using-audio)
-- [Audio visualization](/docs/audio-visualization)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-audio-data.ts)
+- [使用音频](/docs/using-audio)
+- [音频可视化](/docs/audio-visualization)
 - [`<Audio/>`](/docs/audio)
 - [`visualizeAudio()`](/docs/visualize-audio)
 - [`useAudioData()`](/docs/use-audio-data)
+

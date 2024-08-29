@@ -6,13 +6,13 @@ slug: /lambda/renderstillonlambda
 crumb: "Lambda API"
 ---
 
-Renders a still image inside a lambda function and writes it to the specified output location.
+在 lambda 函数内呈现静态图像，并将其写入指定的输出位置。
 
-If you want to render a video or audio instead, use [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) instead.
+如果要呈现视频或音频，请改用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)。
 
-If you want to render a still locally instead, use [`renderStill()`](/docs/renderer/render-still) instead.
+如果要在本地呈现静态图像，请改用 [`renderStill()`](/docs/renderer/render-still)。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -35,70 +35,70 @@ const { estimatedPrice, url, sizeInBytes } = await renderStillOnLambda({
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从 `@remotion/lambda/client` 导入此函数，以避免 [在无服务器函数内](/docs/lambda/light-client) 出现问题。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+具有以下属性的对象：
 
 ### `region`
 
-In which region your Lambda function is deployed. It's highly recommended that your Remotion site is also in the same region.
+Lambda 函数部署的区域。强烈建议您的 Remotion 站点也位于同一区域。
 
 ### `functionName`
 
-The name of the deployed Lambda function.
-Use [`deployFunction()`](/docs/lambda/deployfunction) to create a new function and [`getFunctions()`](/docs/lambda/getfunctions) to obtain currently deployed Lambdas.
+部署的 Lambda 函数的名称。
+使用 [`deployFunction()`](/docs/lambda/deployfunction) 创建新函数，并使用 [`getFunctions()`](/docs/lambda/getfunctions) 获取当前部署的 Lambdas。
 
 ### `serveUrl`
 
-A URL pointing to a Remotion project. Use [`deploySite()`](/docs/lambda/deploysite) to deploy a Remotion project.
+指向 Remotion 项目的 URL。使用 [`deploySite()`](/docs/lambda/deploysite) 部署 Remotion 项目。
 
 ### `composition`
 
-The `id` of the [composition](/docs/composition) you want to render..
+要呈现的 [composition](/docs/composition) 的 `id`。
 
 ### `inputProps`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a JSON object.  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选 composition 的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)。  
+必须是 JSON 对象。  
+从根组件可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 ### `privacy`
 
-One of:
+其中之一：
 
-- `"public"` (_default_): The rendered still is publicly accessible under the S3 URL.
-- `"private"`: The rendered still is not publicly available, but signed links can be created using [presignUrl()](/docs/lambda/presignurl).
-- `"no-acl"` (_available from v.3.1.7_): The ACL option is not being set at all, this option is useful if you are writing to another bucket that does not support ACL using [`outName`](#outname).
+- `"public"`（_默认_）：呈现的静态图像在 S3 URL 下是公开可访问的。
+- `"private"`：呈现的静态图像不是公开可用的，但可以使用 [presignUrl()](/docs/lambda/presignurl) 创建签名链接。
+- `"no-acl"`（_从 v.3.1.7 开始提供_）：ACL 选项根本不设置，如果您要写入不支持 ACL 的另一个存储桶，则此选项很有用，使用 [`outName`](#outname)。
 
 ### `frame?`
 
-_optional - default `0`_
+_可选 - 默认 `0`_
 
-Which frame of the composition should be rendered. Frames are zero-indexed.
+应该呈现哪个合成的帧。帧是从零开始索引的。
 
-From v3.2.27, negative values are allowed, with `-1` being the last frame.
+从 v3.2.27 开始，允许负值，-1 表示最后一帧。
 
 ### `imageFormat?`
 
-_optional - default `"png"`_
+_可选 - 默认 `"png"`_
 
-See [`renderStill() -> imageFormat`](/docs/renderer/render-still#imageformat).
+请参阅 [`renderStill() -> imageFormat`](/docs/renderer/render-still#imageformat)。
 
 ### `onInit?`<AvailableFrom v="4.0.6" />
 
-A callback function that gets called when the render starts, useful to obtain the link to the logs even if the render fails.
+在渲染开始时调用的回调函数，有助于在渲染失败时获取日志链接。
 
-It receives an object with the following properties:
+它接收一个具有以下属性的对象：
 
-- `renderId`: The ID of the render.
-- `cloudWatchLogs`: A link to the CloudWatch logs of the Lambda function, if you did not disable it.
-- `lambdaInsightsUrl`<AvailableFrom v="4.0.61" />: A link to the [Lambda insights](/docs/lambda/insights), if you enabled it.
+- `renderId`：渲染的 ID。
+- `cloudWatchLogs`：Lambda 函数的 CloudWatch 日志链接，如果您没有禁用它。
+- `lambdaInsightsUrl`<AvailableFrom v="4.0.61" />：[Lambda 洞察](/docs/lambda/insights)的链接，如果您启用了它。
 
-Example usage:
+示例用法：
 
 ```tsx twoslash
 // @module: esnext
@@ -134,175 +134,198 @@ await renderStillOnLambda({
 
 ### `jpegQuality?`
 
-_optional_
+_可选_
 
-Sets the quality of the generated JPEG images. Must be an integer between 0 and 100. Default is to leave it up to the browser, [current default is 80](https://github.com/chromium/chromium/blob/99314be8152e688bafbbf9a615536bdbb289ea87/headless/lib/browser/protocol/headless_handler.cc#L32).
+设置生成的 JPEG 图像的质量。必须是介于 0 和 100 之间的整数。默认情况下由浏览器决定，[当前默认值为 80](https://github.com/chromium/chromium/blob/99314be8152e688bafbbf9a615536bdbb289ea87/headless/lib/browser/protocol/headless_handler.cc#L32)。
 
-Only applies if `imageFormat` is `"jpeg"`, otherwise this option is invalid.
+仅当 `imageFormat` 为 `"jpeg"` 时才适用，否则此选项无效。
 
 ### ~~`quality?`~~
 
-Renamed to `jpegQuality` in `v4.0.0`.
+在 `v4.0.0` 中更名为 `jpegQuality`。
 
 ### `maxRetries?`
 
-_optional - default `1`_
+_可选 - 默认 `1`_
 
-How often a frame render may be retried until it fails.
+帧渲染可以重试多少次，直到失败。
 
 :::note
-A retry only gets executed if a the error is in the [list of flaky errors](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/shared/is-flaky-error.ts).
+仅当错误在 [不稳定错误列表](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/shared/is-flaky-error.ts) 中时才执行重试。
 :::
 
 ### `envVariables?`
 
-_optional - default `{}`_
+_可选 - 默认 `{}`_
 
-See [`renderStill() -> envVariables`](/docs/renderer/render-still#envvariables).
+请参阅 [`renderStill() -> envVariables`](/docs/renderer/render-still#envvariables)。
 
 ### `forceHeight?`
 
-_optional, available from v3.2.40_
+_可选，从 v3.2.40 开始可用_
 
-Overrides the default composition height.
+覆盖默认合成高度。
 
 ### `forceWidth?`
 
-_optional, available from v3.2.40_
+_可选，从 v3.2.40 开始可用_
 
-Overrides the default composition width.
+覆盖默认合成宽度。
 
 ### `scale?`
 
-_optional_
+_可选_
 
-Scales the output dimensions by a factor. See [Scaling](/docs/scaling) to learn more about this feature.
+通过因子缩放输出尺寸。请参阅 [Scaling](/docs/scaling) 了解更多关于此功能的信息。
 
 ### `outName?`
 
-_optional_
+_可选_
 
-It can either be:
+可以是以下之一：
 
-- `undefined` - it will default to `out` plus the appropriate file extension, for example: `renders/${renderId}/out.mp4`.
-- A `string` - it will get saved to the same S3 bucket as your site under the key `renders/{renderId}/{outName}`. Make sure to include the file extension at the end of the string.
-- An object if you want to render to a different bucket or cloud provider - [see here for detailed instructions](/docs/lambda/custom-destination).
+- `undefined` - 默认为 `out` 加上适当的文件扩展名，例如：`renders/${renderId}/out.mp4`。
+- 一个 `string` - 将保存到与您的站点相同的 S3 存储桶中，键为 `renders/{renderId}/{outName}`。请确保在字符串末尾包含文件扩展名。
+- 如果要渲染到不同的存储桶或云提供商，则为一个对象 - [请参见此处以获取详细说明](/docs/lambda/custom-destination)。
+
+{/*/examples*/}
 
 ### `timeoutInMilliseconds?`
 
-_optional_
+_可选_
 
-A number describing how long the render may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout). Default: `30000`
+描述渲染可能需要多长时间来解析所有 [`delayRender()`](/docs/delay-render) 调用 [在超时之前](/docs/timeout)。默认值：`30000`
+
+{/*/examples*/}
 
 ### `downloadBehavior?`
 
-_optional, available since v3.1.5_
+_可选，自 v3.1.5 起可用_
 
-How the output file should behave when accessed through the S3 output link in the browser.  
-Either:
+在通过浏览器中的 S3 输出链接访问输出文件时应如何行为。
 
-- `{"type": "play-in-browser"}` - the default. The video will play in the browser.
-- `{"type": "download", fileName: null}` or `{"type": "download", fileName: "download.mp4"}` - a `Content-Disposition` header will be added which makes the browser download the file. You can optionally override the filename.
+要么：
+
+- `{"type": "play-in-browser"}` - 默认值。视频将在浏览器中播放。
+- `{"type": "download", fileName: null}` 或 `{"type": "download", fileName: "download.mp4"}` - 将添加一个 `Content-Disposition` 头，使浏览器下载文件。您可以选择性地覆盖文件名。
+
+{/*/examples*/}
 
 ### `offthreadVideoCacheSizeInBytes?`<AvailableFrom v="4.0.23"/>
 
 <Options id="offthreadvideo-cache-size-in-bytes" />
 
+{/*/examples*/}
+
 ### `deleteAfter?`<AvailableFrom v="4.0.32"/>
 
 <Options id="delete-after" />
 
+{/*/examples*/}
+
 ### `chromiumOptions?`
 
-_optional_
+_可选_
 
-Allows you to set certain Chromium / Google Chrome flags. See: [Chromium flags](/docs/chromium-flags).
+允许您设置某些 Chromium / Google Chrome 标志。参见：[Chromium flags](/docs/chromium-flags)。
+
+{/*/examples*/}
 
 #### `disableWebSecurity`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-This will most notably disable CORS among other security features.
+这将主要禁用 CORS 和其他安全功能。
+
+{/*/examples*/}
 
 #### `ignoreCertificateErrors`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored.
+导致无效的 SSL 证书（例如自签名证书）被忽略。
+
+{/*/examples*/}
 
 #### `gl`
 
 <Options id="gl" />
 
+{/*/examples*/}
+
 #### `userAgent`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置 headless Chrome 浏览器所假定的自定义用户代理。
+
+{/*/examples*/}
 
 ### `forceBucketName?`
 
-_optional_
+_可选_
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让 Remotion 自动发现正确的存储桶。 
+
+{/*/examples*/}
 
 ### `logLevel?`
 
-_optional_
+_可选_
 
 <Options id="log" />
 
-Logs can be read through the CloudWatch URL that this function returns.
+可以通过此函数返回的 CloudWatch URL 读取日志。
 
 ### `forcePathStyle?`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果您不知道这是什么，您可能不需要它。
 
 ### ~~`dumpBrowserLogs?`~~
 
-_optional - default `false`, deprecated in v4.0_
+_可选 - 默认为 `false`，在 v4.0 中已弃用_
 
-Deprecated in favor of [`logLevel`](#loglevel).
+已弃用，建议使用 [`logLevel`](#loglevel)。
 
 
-## Return value
+## 返回值
 
-Returns a promise resolving to an object with the following properties:
+返回一个解析为具有以下属性的对象的 Promise：
 
 ### `bucketName`
 
-The S3 bucket in which the video was saved.
+视频保存在其中的 S3 存储桶。
 
 ### `url`
 
-An AWS S3 URL where the output is available.
+可用的 AWS S3 URL，输出可在其中找到。
 
 ### `outKey`<AvailableFrom v="4.0.141" />
 
-The S3 key where the output is saved.
+输出保存的 S3 键。
 
 ### `estimatedPrice`
 
-Object containing roughly estimated information about how expensive this operation was.
+包含关于此操作费用的粗略估算信息的对象。
 
 ### `sizeInBytes`
 
-The size of the output image in bytes.
+输出图像的大小（以字节为单位）。
 
 ### `renderId`
 
-A unique alphanumeric identifier for this render. Useful for obtaining status and finding the relevant files in the S3 bucket.
+此渲染的唯一字母数字标识符。用于获取状态并在 S3 存储桶中找到相关文件。
 
 ### `cloudWatchLogs`
 
-_Available from v3.2.10_
+_从 v3.2.10 开始可用_
 
-A link to CloudWatch (if you haven't disabled it) that you can visit to see the logs for the render.
+CloudWatch 的链接（如果您未禁用它），您可以访问以查看渲染的日志。
 
 ### `artifacts`<AvailableFrom v="4.0.176"/>
 
-Artifacts that were created so far during the render. [See here for an example of dealing with field.](/docs/artifacts#using-renderstillonlambda)
+在渲染过程中迄今创建的工件。[请参阅此处以查看处理字段的示例。](/docs/artifacts#using-renderstillonlambda)
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/render-still-on-lambda.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/render-still-on-lambda.ts)
 - [renderMediaOnLambda()](/docs/lambda/rendermediaonlambda)
 - [renderStill()](/docs/renderer/render-still)

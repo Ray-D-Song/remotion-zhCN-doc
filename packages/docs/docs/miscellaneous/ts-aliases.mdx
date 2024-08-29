@@ -6,10 +6,10 @@ slug: /typescript-aliases
 crumb: "How to"
 ---
 
-Typescript aliases are not supported by default, since the ESBuild Webpack loader we have does not support them.
-You can however patch the Webpack config to make them resolve.
+TypeScript 别名默认不受支持，因为我们使用的 ESBuild Webpack 加载器不支持它们。
+但是，您可以通过修改 Webpack 配置来使其生效。
 
-Assuming you have a file:
+假设您有一个文件：
 
 ```
  └── src/
@@ -20,7 +20,7 @@ Assuming you have a file:
    └── index.ts
 ```
 
-and your tsconfig.json has the following `paths`:
+并且您的 tsconfig.json 包含以下 `paths`：
 
 ```json
 {
@@ -32,7 +32,7 @@ and your tsconfig.json has the following `paths`:
 }
 ```
 
-you can add the aliases to Webpack, however you need to add each of them manually:
+您可以将别名添加到 Webpack，但是您需要手动添加每个别名：
 
 ```ts twoslash
 import path from "path";
@@ -52,11 +52,11 @@ Config.overrideWebpackConfig((config) => {
 });
 ```
 
-Remember that in Node.JS APIs, the config file does not apply, so you need to add the Webpack override also to the [`bundle()`](/docs/bundle) and [`deploySite()`](/docs/lambda/deploysite) functions.
+请记住，在 Node.JS API 中，配置文件不适用，因此您需要将 Webpack 覆盖项也添加到 [`bundle()`](/docs/bundle) 和 [`deploySite()`](/docs/lambda/deploysite) 函数中。
 
-## Automatically syncing Webpack and TypeScript aliases
+## 自动同步 Webpack 和 TypeScript 别名
 
-To not duplicate the aliases in your Webpack override and in your `tsconfig.json`, you can install `tsconfig-paths-webpack-plugin` and use it:
+为了避免在 Webpack 覆盖项和 `tsconfig.json` 中重复别名，您可以安装 `tsconfig-paths-webpack-plugin` 并使用它：
 
 ```ts
 import { Config } from "@remotion/cli/config";
@@ -76,6 +76,6 @@ Config.overrideWebpackConfig((config) => {
 });
 ```
 
-## See also
+## 参见
 
-- [Overriding webpack config](/docs/webpack)
+- [覆盖 webpack 配置](/docs/webpack)

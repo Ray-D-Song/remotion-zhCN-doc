@@ -1,6 +1,6 @@
 ---
 image: /generated/articles-docs-lambda-autodelete.png
-title: Auto-delete renders
+title: 自动删除渲染
 id: autodelete
 slug: /lambda/autodelete
 crumb: "Lambda API"
@@ -9,33 +9,33 @@ crumb: "Lambda API"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-_available from v4.0.32_
+_从 v4.0.32 开始可用_
 
-To automatically delete renders and associated files after some time, you need to:
+要在一段时间后自动删除渲染和相关文件，您需要：
 
-<Step>1</Step> Enable the lifecycle rules on the AWS bucket. <br/>
-<Step>2</Step> Render a video with the <code>deleteAfter</code> option.
+<Step>1</Step> 启用 AWS 存储桶上的生命周期规则。<br/>
+<Step>2</Step> 使用 <code>deleteAfter</code> 选项渲染视频。
 
-## Apply the lifecycle rules
+## 应用生命周期规则
 
-<Step>1</Step> <strong>Ensure the right permission</strong>
+<Step>1</Step> <strong>确保具有正确的权限</strong>
 
-To put a lifecycle rule on the bucket, you need to have the `s3:PutLifecycleConfiguration` permission for your user.
+要在存储桶上设置生命周期规则，您需要为您的用户具有 `s3:PutLifecycleConfiguration` 权限。
 
-- If you set up Remotion Lambda after 4.0.32, you have it automatically.
-- If you set up Remotion Lambda previously, execute the following:
-  1. Upgrade to at least Remotion 4.0.32.
-  2. [Click here](https://us-east-1.console.aws.amazon.com/iamv2/home) to go to the users section in the AWS console.
-  3. Select your user.
-  4. Under "Permissions policies", click your policy (underlined in blue)
-  5. Choose the "JSON" mode for editing.
-  6. Under the `"Sid": "Storage"` section, add `"s3:PutLifecycleConfiguration"` to the `"Action"` array.
-  7. Save.
+- 如果您在 4.0.32 之后设置了 Remotion Lambda，则会自动具有此权限。
+- 如果您之前设置了 Remotion Lambda，请执行以下操作：
+  1. 升级至至少 Remotion 4.0.32。
+  2. [点击这里](https://us-east-1.console.aws.amazon.com/iamv2/home) 转到 AWS 控制台中的用户部分。
+  3. 选择您的用户。
+  4. 在“权限策略”下，单击您的策略（蓝色下划线）
+  5. 选择“JSON”模式进行编辑。
+  6. 在 `"Sid": "Storage"` 部分下，将 `"s3:PutLifecycleConfiguration"` 添加到 `"Action"` 数组中。
+  7. 保存。
 
 <br/>
-<Step>2</Step> <strong>Enable the lifecycle rules</strong>
+<Step>2</Step> <strong>启用生命周期规则</strong>
 
-Redeploy the site with the `--enable-folder-expiry` option. This operation will modify the S3 bucket to apply [AWS Lifecycle Rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html).
+使用 `--enable-folder-expiry` 选项重新部署站点。此操作将修改 S3 存储桶以应用 [AWS 生命周期规则](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html)。
 
 <Tabs
 defaultValue="cli"
@@ -46,7 +46,7 @@ values={[
 }>
 <TabItem value="cli">
 
-```bash title="In the command line"
+```bash title="在命令行中"
 npx remotion lambda sites create --site-name=my-site-name --enable-folder-expiry
 ```
 
@@ -79,17 +79,18 @@ console.log(serveUrl);
 
 <details>
 <summary>
-Verify that it worked
+验证是否成功
 </summary>
-<p>In your S3 bucket, under "Management", you should see 4 lifecycle rules.</p>
+<p>在您的 S3 存储桶中，在“管理”下，您应该看到 4 个生命周期规则。</p>
 <img src="/img/lambda/applied-lc-rules.png" />
 </details>
 
+
 <br/>
 
-## Trigger a render with expiration
+## 触发带有过期时间的渲染
 
-Valid values are `"1-day"`, `"3-days"`, `"7-days"` and `"30-days"`.
+有效值为 `"1-day"`, `"3-days"`, `"7-days"` 和 `"30-days"`。
 
 <Tabs
 defaultValue="cli"
@@ -153,12 +154,12 @@ const { bucketName, renderId } = await renderStillOnLambda({
 
 <details>
 <summary>
-Verify that it worked
+验证是否成功
 
 </summary>
 
 <p>
-All files should have an expiration rule and expiration date set when viewing the object properties.
+查看对象属性时，所有文件应具有过期规则和过期日期设置。
 </p>
 
 <img src="/img/lambda/rendered-file-path.png" />
@@ -167,22 +168,22 @@ All files should have an expiration rule and expiration date set when viewing th
 <br/>
 <br/>
 
-AWS does not delete the file at the exact time, but the deletion will happen.
+AWS 不会在确切的时间删除文件，但删除将会发生。
 
 </details>
 
-## How it works
+## 工作原理
 
-By applying the AWS Lifecycle rules, we are instructing AWS S3 to delete files based on their prefixes. When `deleteAfter` is defined with a value of `"1-day"`, the `renderId` will be prefixed with `1-day`, and the S3 key will start with `renders/1-day-*`, to which the deletion rule will be applied.  
-The basis of the deletion is based on the `Last modified date` of the file/folder.
+通过应用 AWS 生命周期规则，我们指示 AWS S3 根据其前缀删除文件。当 `deleteAfter` 定义为 `"1-day"` 时，`renderId` 将以 `1-day` 为前缀，并且 S3 键将以 `renders/1-day-*` 开头，将应用删除规则。  
+删除的基础是文件/文件夹的 `最后修改日期`。
 
 <table>
   <tr>
     <th>
-      <code>deleteAfter</code> value
+      <code>deleteAfter</code> 值
     </th>
     <th>
-      Render Prefix
+      渲染前缀
     </th>
   </tr>
   <tr>
@@ -225,8 +226,10 @@ The basis of the deletion is based on the `Last modified date` of the file/folde
 
 </table>
 
-## See also
+## 参见
 
-- [AWS Expiring objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-expire-general-considerations.html)
+
+
+- [AWS对象到期](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-expire-general-considerations.html)
 - [`deploySite()`](/docs/lambda/deploysite)
 - [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)

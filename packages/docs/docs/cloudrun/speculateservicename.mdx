@@ -1,31 +1,31 @@
 ---
 image: /generated/articles-docs-cloudrun-speculateservicename.png
 id: speculateservicename
-title: speculateServiceName()
+title: 推测服务名称()
 slug: /cloudrun/speculateservicename
 crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Speculate the name of the Cloud Run service that will be created by [deployService()](/docs/cloudrun/deployservice) or its CLI equivalent, [`npx remotion cloudrun services deploy`](/docs/cloudrun/cli/services). This could be useful in cases when the configuration of the Cloud Run service is known in advance, and the name of the service is needed.
+推测由 [deployService()](/docs/cloudrun/deployservice) 或其 CLI 等效命令 [`npx remotion cloudrun services deploy`](/docs/cloudrun/cli/services) 创建的 Cloud Run 服务的名称。在已知 Cloud Run 服务配置且需要服务名称的情况下，这可能会很有用。
 
-If you are not sure whether a service exists, use [`getServiceInfo()`](/docs/cloudrun/getserviceinfo) and catch the error that gets thrown if it does not exist.
+如果不确定服务是否存在，请使用 [`getServiceInfo()`](/docs/cloudrun/getserviceinfo) 并捕获如果服务不存在则抛出的错误。
 
-If you want to get a list of deployed services, use [`getServices()`](/docs/cloudrun/getservices) instead.
+如果要获取已部署服务的列表，请改用 [`getServices()`](/docs/cloudrun/getservices)。
 
-## Service name pattern
+## 服务名称模式
 
-The service name depends on the following parameters:
+服务名称取决于以下参数：
 
-- Remotion version
-- Memory Limit
-- CPU Limit
-- Timeout in seconds
+- Remotion 版本
+- 内存限制
+- CPU 限制
+- 超时时间（秒）
 
-The name of the service resembles the following pattern:
+服务名称类似于以下模式：
 
 ```
 remotion--3-3-96--mem2gi--cpu1-0--t-1900
@@ -36,7 +36,7 @@ remotion--3-3-96--mem2gi--cpu1-0--t-1900
             |--------------------------- Remotion version with dots replaced by dashes
 ```
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -53,28 +53,30 @@ const speculatedServiceName = speculateServiceName({
 console.log(speculatedServiceName); // remotion--3-3-96--mem2gi--cpu2-0--t-300
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `memoryLimit`
 
-The upper bound on the amount of RAM that the Cloud Run service can consume.
+Cloud Run 服务可以消耗的 RAM 上限。
 
 ### `cpuLimit`
 
-The maximum number of CPU cores that the Cloud Run service can use to process requests.
+Cloud Run 服务用于处理请求的 CPU 核心的最大数量。
 
 ### `timeoutSeconds`
 
-The timeout that has been assigned to the Cloud Run service.
+已分配给 Cloud Run 服务的超时时间。
 
-## Return value
+## 返回值
 
-A string with the speculated name of the service.
+一个包含服务推测名称的字符串。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/speculate-service-name.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/speculate-service-name.ts)
 - [deployService()](/docs/cloudrun/deployservice)
-- CLI version of `deployService()`: [`npx remotion cloudrun services deploy`](/docs/cloudrun/cli/services#deploy)
+- `deployService()` 的 CLI 版本：[`npx remotion cloudrun services deploy`](/docs/cloudrun/cli/services#deploy)
+
+I'm ready to translate the Markdown content into Chinese. Please go ahead and paste the content for translation.

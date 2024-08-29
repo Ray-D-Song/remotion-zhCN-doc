@@ -1,24 +1,24 @@
 ---
 image: /generated/articles-docs-getting-started.png
 id: getting-started
-title: Creating a new project
-sidebar_label: Installation
+title: 创建一个新项目
+sidebar_label: 安装
 slug: /
-crumb: "Let's begin!"
+crumb: "让我们开始吧！"
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-## Prerequisites
+## 先决条件
 
-To use Remotion, you need at least [Node](https://nodejs.org/en/download/) <MinNodeVersion /> or [Bun](https://bun.sh) <MinBunVersion />.
+要使用 Remotion，您至少需要 [Node](https://nodejs.org/en/download/) <MinNodeVersion /> 或 [Bun](https://bun.sh) <MinBunVersion />。
 
-## Scaffolding a new project
+## 创建一个新项目
 
 :::note
-🐧 [Linux distros need at least version 2.35 of Libc.](https://github.com/remotion-dev/remotion/issues/2439)  
-They also need to [install some additional packages](/docs/miscellaneous/linux-dependencies).
+🐧 [Linux 发行版至少需要 2.35 版本的 Libc。](https://github.com/remotion-dev/remotion/issues/2439)  
+它们还需要[安装一些额外的软件包](/docs/miscellaneous/linux-dependencies)。
 :::
 
 <Tabs
@@ -32,14 +32,14 @@ values={[
 }>
 <TabItem value="npm">
 
-```bash title="Use npm as the package manager"
+```bash title="使用 npm 作为包管理器"
 npx create-video@latest
 ```
 
   </TabItem>
   <TabItem value="pnpm">
 
-```bash title="Use pnpm as the package manager"
+```bash title="使用 pnpm 作为包管理器"
 pnpm create video
 ```
 
@@ -47,7 +47,7 @@ pnpm create video
 
   <TabItem value="yarn">
 
-```bash title="Use Yarn as the package manager"
+```bash title="使用 Yarn 作为包管理器"
 yarn create video
 ```
 
@@ -55,30 +55,30 @@ yarn create video
 
   <TabItem value="bun">
 
-```bash title="Use Bun as the package manager and runtime"
+```bash title="使用 Bun 作为包管理器和运行时"
 bun create video
 ```
 
 :::note
-Bun as a runtime is mostly supported. [Read more here](/docs/bun).
+Bun 作为运行时大部分受支持。[在此处阅读更多](/docs/bun)。
 :::
 
   </TabItem>
 </Tabs>
 
-Choose the template that is most suitable for you.  
-For your first project, we recommend the [Hello World](/templates/hello-world) template.
+选择最适合您的模板。  
+对于您的第一个项目，我们推荐使用 [Hello World](/templates/hello-world) 模板。
 
 <Tabs
 defaultValue="npm"
 values={[
-{ label: 'Regular templates', value: 'npm', },
-{ label: 'Next.js + Remix templates', value: 'pnpm', },
+{ label: '常规模板', value: 'npm', },
+{ label: 'Next.js + Remix 模板', value: 'pnpm', },
 ]
 }>
 <TabItem value="npm">
 
-After the project has been scaffolded, we recommend to open the project in your text editor and starting the [Remotion Studio](/docs/studio):
+项目脚手架完成后，我们建议在文本编辑器中打开项目并启动 [Remotion Studio](/docs/studio)：
 
 ```bash
 npm start
@@ -87,13 +87,13 @@ npm start
   </TabItem>
   <TabItem value="pnpm">
 
-After the project has been scaffolded, we recommend to open the project in your text editor and starting the app:
+项目脚手架完成后，我们建议在文本编辑器中打开项目并启动应用程序：
 
 ```bash
 npm run dev
 ```
 
-To start the [Remotion Studio](/docs/studio):
+要启动 [Remotion Studio](/docs/studio)：
 
 ```bash
 npm run remotion
@@ -102,6 +102,7 @@ npm run remotion
   </TabItem>
 </Tabs>
 
-## Installation in existing projects
+## 在现有项目中安装
 
-Want to install Remotion in an existing project? Go here instead: [Installation in existing projects](/docs/brownfield)
+想要在现有项目中安装 Remotion 吗？请转到这里：[在现有项目中安装](/docs/brownfield)
+```

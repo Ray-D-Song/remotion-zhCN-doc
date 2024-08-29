@@ -1,80 +1,80 @@
 ---
 image: /generated/articles-docs-timeout.png
 id: timeout
-title: Debugging timeouts
-sidebar_label: Timeouts
-crumb: "Troubleshooting"
+title: 调试超时
+sidebar_label: 超时
+crumb: "故障排除"
 ---
 
-The following error:
+以下错误：
 
 ```bash
 A delayRender() was called but not cleared after 28000ms. See https://remotion.dev/docs/timeout for help. The delayRender was called
 ```
 
-generally happens if a [`delayRender()`](/docs/delay-render) handle has been created and not been cleared afterwards. Remotion will wait to make a screenshot, but aborts it by default after 30 seconds to not hang forever.
+通常发生在创建了 [`delayRender()`](/docs/delay-render) 句柄后未清除的情况下。Remotion 将等待进行截图，但默认情况下在 30 秒后会中止以避免永远挂起。
 
-## Possible causes
+## 可能的原因
 
-### `continueRender()` was not called
+### 未调用 `continueRender()`
 
-Your code might have a problem where you call [`delayRender()`](/docs/delay-render) but never clear it. This will cause Remotion to wait forever before it starts rendering and leads to a timeout message.
+您的代码可能存在问题，即调用了 [`delayRender()`](/docs/delay-render) 但从未清除它。这将导致 Remotion 在开始渲染之前永远等待，并导致超时消息。
 
-**Resolution**: Check your code and make sure you are calling [`continueRender()`](/docs/continue-render).
+**解决方法**：检查您的代码，并确保调用了 [`continueRender()`](/docs/continue-render)。
 
-### No internet connection or firewall issue
+### 没有网络连接或防火墙问题
 
-If you rely on network assets such as fonts, images, videos or audio and you don't have internet connection or requests get blocked by a firewall. Special attention has to be given to when you are rendering in the cloud, Amazon VPC could for example block outgoing network requests and lead to a timeout.
+如果您依赖网络资产（如字体、图像、视频或音频），但没有网络连接或请求被防火墙阻止。特别要注意在云中进行渲染时，例如 Amazon VPC 可能会阻止出站网络请求并导致超时。
 
-**Resolution**: Make sure all network resources you require can be accessed.
+**解决方法**：确保您需要的所有网络资源都可以访问。
 
-### Memory pressure
+### 内存压力
 
-When setting the concurrency too high, Chrome might decide to not load some `<Video />`s which can lead to a timeout error.
+当并发设置过高时，Chrome 可能决定不加载某些 `<Video />`，这可能导致超时错误。
 
-We consider this a bug in Remotion and plan to fix it in the future.
+我们认为这是 Remotion 中的一个 bug，并计划在未来修复它。
 
-**Workaround**: Reduce the `concurrency` to a level where Chrome can load all videos.
+**解决方法**：将 `concurrency` 降低到一个 Chrome 可以加载所有视频的水平。
 
-### Old version of Remotion
+### 旧版本的 Remotion
 
-Older versions of Remotion had bugs which could lead to timeout.
-Especially 1.x releases could timeout when importing large assets
+旧版本的 Remotion 存在可能导致超时的 bug。
+特别是 1.x 版本可能在导入大型资产时超时
 
-**Resolution**: Upgrade to the latest Remotion version using `npm run upgrade`.
+**解决方法**：使用 `npm run upgrade` 升级到最新的 Remotion 版本。
 
-### Video needs to be downloaded
+### 需要下载视频
 
-If you render a video using [`<OffthreadVideo>`](/docs/offthreadvideo), then the video needs to be downloaded before it can be read. [If the video is large and takes longer than the timeout to be downloaded, then the timeout will be triggered](/docs/troubleshooting/delay-render-proxy). In that you should increase the [timeout](#increase-timeout).
+如果使用 [`<OffthreadVideo>`](/docs/offthreadvideo) 渲染视频，则需要在视频可以被读取之前下载视频。[如果视频很大且下载时间超过超时时间，则会触发超时](/docs/troubleshooting/delay-render-proxy)。在这种情况下，您应该增加[超时时间](#increase-timeout)。
 
-### Not helpful?
+### 不够有帮助？
 
-[Open an issue](https://github.com/remotion-dev/remotion/issues/new) and try to describe your issue in a way that is reproducible for us. We will try to help you out.
+[提交问题](https://github.com/remotion-dev/remotion/issues/new) 并尝试以一种我们可以重现的方式描述您的问题。我们会尽力帮助您。
 
-## "Loading &lt;Img&gt; with src http://localhost:3000/proxy"
+## "使用 src http://localhost:3000/proxy 加载 &lt;Img&gt;"
 
-See here for this specific [timeout](/docs/troubleshooting/delay-render-proxy) message.
+请查看这里以获取有关此特定 [超时](/docs/troubleshooting/delay-render-proxy) 消息的信息。
 
-## Increase timeout<AvailableFrom v="2.6.3"/>
+## 增加超时时间<AvailableFrom v="2.6.3"/>
 
-Sometimes, you cannot avoid a frame taking longer than 30 seconds to render. For example:
+有时，您无法避免一个帧渲染时间超过 30 秒。例如：
 
-- Expensive WebGL scenes
-- Expensive preprocessing of data
-- Need to wait for videos to be downloaded
+- 昂贵的 WebGL 场景
+- 数据的昂贵预处理
+- 需要等待视频下载完成
 
-You can increase the default timeout:
+您可以增加默认超时时间：
 
-- In the Remotion Studio render dialog under "Advanced"
-- Using the [`--timeout`](/docs/cli/render#--timeout) CLI flag
-- Using the `timeoutInMilliseconds` option in [`renderStill()`](/docs/renderer/render-still#timeoutinmilliseconds), [`renderFrames()`](/docs/renderer/render-frames#timeoutinmilliseconds), [`getCompositions()`](/docs/renderer/get-compositions#timeoutinmilliseconds), [`renderMedia()`](/docs/renderer/render-media#timeoutinmilliseconds), [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#timeoutinmilliseconds), [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#timeoutinmilliseconds), [`renderStillOnCloudRun()`](/docs/cloudrun/renderstilloncloudrun#delayrendertimeoutinmilliseconds) and [`renderMediaOnCloudRun()`](/docs/cloudrun/rendermediaoncloudrun#delayrendertimeoutinmilliseconds)
-- Using the [`Config.setDelayRenderTimeoutInMilliseconds()`](/docs/config#setdelayrendertimeoutinmilliseconds) option in the config file, if you render on the CLI
-- Individually for a [`delayRender()`](/docs/delay-render) call using the [`timeoutInMilliseconds`](/docs/delay-render#modifying-the-timeout) option<AvailableFrom v="4.0.140"/>
-- The [`<Img>`](/docs/img#delayrendertimeoutinmilliseconds), [`<Audio>`](/docs/audio#delayrendertimeoutinmilliseconds), [`<Video>`](/docs/video#delayrendertimeoutinmilliseconds) and [`<IFrame>`](/docs/iframe#delayrendertimeoutinmilliseconds) tags support a `delayRenderTimeoutInMilliseconds` prop to control the value of `timeoutInMilliseconds` for the `delayRender()` call that those components make<AvailableFrom v="4.0.140"/>
+- 在 Remotion Studio 渲染对话框中的 "高级" 选项下
+- 使用 [`--timeout`](/docs/cli/render#--timeout) CLI 标志
+- 在 [`renderStill()`](/docs/renderer/render-still#timeoutinmilliseconds)、[`renderFrames()`](/docs/renderer/render-frames#timeoutinmilliseconds)、[`getCompositions()`](/docs/renderer/get-compositions#timeoutinmilliseconds)、[`renderMedia()`](/docs/renderer/render-media#timeoutinmilliseconds)、[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#timeoutinmilliseconds)、[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#timeoutinmilliseconds)、[`renderStillOnCloudRun()`](/docs/cloudrun/renderstilloncloudrun#delayrendertimeoutinmilliseconds) 和 [`renderMediaOnCloudRun()`](/docs/cloudrun/rendermediaoncloudrun#delayrendertimeoutinmilliseconds) 中使用 `timeoutInMilliseconds` 选项
+- 在配置文件中使用 [`Config.setDelayRenderTimeoutInMilliseconds()`](/docs/config#setdelayrendertimeoutinmilliseconds) 选项，如果您在 CLI 上渲染
+- 对于使用 [`timeoutInMilliseconds`](/docs/delay-render#modifying-the-timeout) 选项的单独的 [`delayRender()`](/docs/delay-render) 调用<AvailableFrom v="4.0.140"/>
+- [`<Img>`](/docs/img#delayrendertimeoutinmilliseconds)、[`<Audio>`](/docs/audio#delayrendertimeoutinmilliseconds)、[`<Video>`](/docs/video#delayrendertimeoutinmilliseconds) 和 [`<IFrame>`](/docs/iframe#delayrendertimeoutinmilliseconds) 标签支持 `delayRenderTimeoutInMilliseconds` 属性，以控制这些组件进行的 `delayRender()` 调用的 `timeoutInMilliseconds` 值<AvailableFrom v="4.0.140"/>
 
-## Adding a label to help debugging<AvailableFrom v="2.6.13"/>
+## 添加标签以帮助调试<AvailableFrom v="2.6.13"/>
 
-If you encounter a timeout and don't know where it came from, you can add a label as a parameter:
+如果遇到超时问题而不知道其来源，您可以将标签作为参数添加：
 
 ```tsx twoslash
 import { delayRender } from "remotion";
@@ -84,16 +84,16 @@ import { delayRender } from "remotion";
 delayRender("Fetching data from API...");
 ```
 
-If the call times out, the label will be referenced in the error message:
+如果调用超时，错误消息中将引用该标签：
 
 ```
 Uncaught Error: A delayRender() "Fetching data from API..." was called but not cleared after 28000ms. See https://remotion.dev/docs/timeout for help. The delayRender was called
 ```
 
-## See also
+## 另请参阅
 
 - [delayRender()](/docs/delay-render)
-- [Data fetching](/docs/data-fetching)
-- [Loading Root Component Timeout](/docs/troubleshooting/loading-root-component)
+- [数据获取](/docs/data-fetching)
+- [加载根组件超时](/docs/troubleshooting/loading-root-component)
 - ["Timed out evaluating page function"](/docs/troubleshooting/timed-out-page-function)
 - ["Loading &lt;Img&gt; with src http://localhost:3000/proxy ..."](/docs/troubleshooting/delay-render-proxy)

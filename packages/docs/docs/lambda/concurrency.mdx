@@ -1,31 +1,31 @@
 ---
 image: /generated/articles-docs-lambda-concurrency.png
 id: concurrency
-title: Concurrency
+title: 并发性
 crumb: "Lambda"
 ---
 
-Remotion Lambda is a highly concurrent distributed video rendering system. That means that the video rendering work is split up across many Lambda functions. How many Lambda functions exactly can be defined by you, or you let Remotions defaults decide.
+Remotion Lambda 是一个高度并发的分布式视频渲染系统。这意味着视频渲染工作被分配到许多 Lambda 函数中。您可以自行定义 Lambda 函数的数量，或者让 Remotion 的默认设置决定。
 
-## Setting the concurrency
+## 设置并发性
 
-You can set the concurrency via the [`framesPerLambda`](/docs/lambda/rendermediaonlambda#framesperlambda) option (or [`--frames-per-lambda`](/docs/lambda/cli/render#--frames-per-lambda) via CLI).
+您可以通过 [`framesPerLambda`](/docs/lambda/rendermediaonlambda#framesperlambda) 选项（或通过 CLI 的 [`--frames-per-lambda`](/docs/lambda/cli/render#--frames-per-lambda)）来设置并发性。
 
-The concurrency is defined as `frameCount / framesPerLambda`. That means that the higher you set `framesPerLambda`, the lower the concurrency gets.
+并发性定义为 `frameCount / framesPerLambda`。这意味着您设置的 `framesPerLambda` 越高，并发性就越低。
 
 :::note
-Example: You render a video that has a `durationInFrames` of `300` with a `framePerLambda` setting of `15`. The concurrency is `300 / 15 = 20`.
+示例：您渲染一个具有 `durationInFrames` 为 `300` 的视频，设置 `framePerLambda` 为 `15`。并发性为 `300 / 15 = 20`。
 :::
 
-## Default values
+## 默认值
 
-By default, Remotion chooses a value between 20 and ∞ for `framesPerLambda`. The longer the video, the higher the concurrency. As a baseline, no matter how short the video, always at least 20 frames are rendered per Lambda.
+默认情况下，Remotion 会选择一个介于 20 和 ∞ 之间的值作为 `framesPerLambda`。视频越长，并发性越高。作为基准，无论视频有多短，始终至少会有 20 帧被渲染到每个 Lambda 中。
 
-The following chart shows how the `framesPerLambda` and the implied concurrency is chosen based on the frame count:
+下图显示了如何基于帧数选择 `framesPerLambda` 和隐含的并发性：
 
 <img src="/img/concurrency-chart.svg" />
 
-The code for determining the `framesPerLambda` parameter is:
+确定 `framesPerLambda` 参数的代码为：
 
 ```tsx twoslash
 import { interpolate } from "remotion";
@@ -50,22 +50,26 @@ import {ConcurrencyCalculator} from '../../components/Concurrency'
 
 <ConcurrencyCalculator/>
 
-## Concurrency limits
+## 并发性限制
 
-Ensure that you only set parameter within these limits to ensure the renders don't throw any errors:
+请确保您仅在以下限制范围内设置参数，以确保渲染不会引发任何错误：
 
-- Minimum `framesPerLambda`: 4
-- Maximum concurrency: 200
+- 最小 `framesPerLambda`：4
+- 最大并发性：200
 
-The Remotion Lambda defaults will never go outside these bounds.
+Remotion Lambda 的默认设置永远不会超出这些限制。
 
-## "Too many functions"
+## "函数过多"
 
-If you get an error:
+如果您收到以下错误：
 
-> Too many functions: This render would cause [X] functions to spawn. We limit this amount to 200 functions as more would result in diminishing returns.
+> 函数过多：此渲染将导致 [X] 个函数被生成。我们将此数量限制为 200 个函数，因为更多的函数会导致收益递减。
 
-You have set a value for `framesPerLambda` that is very low and would cause many functions to be spawned. In our experience, renders will not become faster if the concurrency is increased beyond this point.
+这意味着您设置的 `framesPerLambda` 值非常低，会导致生成许多函数。根据我们的经验，如果并发性超过此点，渲染速度不会变快。 
 
-- We recommend setting the `framesPerLambda` value to `null`. Remotion will choose a reasonable value that stays within the bounds.
-- If you don't want to use the default, ensure that you don't set values that go outside of the bounds defined above.
+
+
+- 我们建议将 `framesPerLambda` 的值设置为 `null`。Remotion 将选择一个合理的值，保持在范围内。
+- 如果您不想使用默认值，请确保不设置超出上述定义范围的值。
+
+

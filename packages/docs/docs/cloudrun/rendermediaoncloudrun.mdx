@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 
 <ExperimentalBadge>
   <p>
-    Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the{' '}<a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.
+    Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看{' '}<a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。
   </p>
 </ExperimentalBadge>
 
-Kicks off a media rendering process on Remotion Cloud Run.
+在 Remotion Cloud Run 上启动媒体渲染过程。
 
-Requires a [service](/docs/cloudrun/deployservice) to already be deployed to execute the render.  
-A [site](/docs/cloudrun/deploysite) or a [Serve URL](/docs/terminology/serve-url) needs to be specified to determine what will be rendered.
+需要已部署 [服务](/docs/cloudrun/deployservice) 才能执行渲染。  
+需要指定一个 [站点](/docs/cloudrun/deploysite) 或 [Serve URL](/docs/terminology/serve-url) 来确定将要渲染的内容。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -40,104 +40,104 @@ if (result.type === "success") {
 ```
 
 :::note
-Import from [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) to not load the whole renderer, which cannot be bundled.
+从 [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) 导入，以避免加载整个渲染器，因为它无法捆绑。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `cloudRunUrl?`
 
-_optional. Required if serviceName not supplied_
+_可选。如果未提供 serviceName，则必填_
 
-The url of the Cloud Run service which should be used to perform the render. You must set either cloudRunUrl or serviceName, but not both
+应用于执行渲染的 Cloud Run 服务的 URL。您必须设置 cloudRunUrl 或 serviceName，但不能同时设置两者
 
 ### `serviceName?`
 
-_optional. Required if cloudRunUrl not supplied_
+_可选。如果未提供 cloudRunUrl，则必填_
 
-The name of the Cloud Run service which should be used to perform the render. This is used in conjunction with the region to determine the service endpoint, as the same service name can exist across multiple regions.
+应用于执行渲染的 Cloud Run 服务的名称。这与区域一起用于确定服务端点，因为相同的服务名称可以存在于多个区域。
 
 ### `region`
 
-In which [GCP region](/docs/cloudrun/region-selection) your Cloud Run service is deployed. It's highly recommended that your Remotion site is also in the same region.
+您的 Cloud Run 服务部署在哪个 [GCP 区域](/docs/cloudrun/region-selection)。强烈建议您的 Remotion 站点也位于同一区域。
 
 ### `serveUrl`
 
-A URL pointing to a Remotion project. Use [`deploySite()`](/docs/cloudrun/deploysite) to deploy a Remotion project.
+指向 Remotion 项目的 URL。使用 [`deploySite()`](/docs/cloudrun/deploysite) 部署 Remotion 项目。
 
 ### `composition`
 
-The `id` of the [composition](/docs/composition) you want to render.
+要渲染的 [composition](/docs/composition) 的 `id`。
 
 ### `codec`
 
-Which codec should be used to encode the video.
+应使用哪种编解码器来编码视频。
 
-Video codecs `h264`, `vp8` and `prores` are supported.
+支持视频编解码器 `h264`、`vp8` 和 `prores`。
 
-Audio codecs `mp3`, `aac` and `wav` are also supported.
+音频编解码器 `mp3`、`aac` 和 `wav` 也受支持。
 
-See also [`renderMedia() -> codec`](/docs/renderer/render-media#codec).
+请参阅[`renderMedia() -> codec`](/docs/renderer/render-media#codec)。
 
 ### `inputProps?`
 
-_optional_
+_可选_
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a JSON object.  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[要传递给视频选定组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)。  
+必须是一个 JSON 对象。  
+从根组件可以使用[`getInputProps()`](/docs/get-input-props)读取属性。  
+您可以使用[`calculateMetadata()`](/docs/calculate-metadata)来转换输入属性。
 
 ### `privacy?`
 
-_optional_
+_可选_
 
-One of:
+其中之一：
 
-- `"public"` (_default_): The rendered media is publicly accessible under the Cloud Storage URL.
-- `"private"`: The rendered media is not publicly available, but is available within the GCP project to those with the correct permissions.
+- `"public"`（_默认_）：渲染的媒体可以在 Cloud 存储 URL 下公开访问。
+- `"private"`：渲染的媒体不是公开可用的，但对具有正确权限的 GCP 项目内的人员可用。
 
 ### `forceBucketName?`
 
-_optional_
+_可选_
 
-Specify a specific bucket name to be used for the output. The resulting Google Cloud Storage URL will be in the format `gs://{bucket-name}/renders/{render-id}/{file-name}`. If not set, Remotion will choose the right bucket to use based on the region.
+指定要用于输出的特定存储桶名称。生成的 Google Cloud 存储 URL 将采用格式 `gs://{bucket-name}/renders/{render-id}/{file-name}`。如果未设置，Remotion 将根据区域选择要使用的正确存储桶。
 
 ### `updateRenderProgress?`
 
-_optional_
+_可选_
 
-A callback that is called with the progress of the render.
+一个回调，用于呈现进度。
 
 ### `audioCodec?`
 
-_optional_
+_可选_
 
-Choose the encoding of your audio.
+选择音频的编码方式。
 
-- Choose `pcm-16` if you need uncompressed audio.
-- Not all video containers support all audio codecs.
-- This option takes precedence if the `codec` option also specifies an audio codec.
+- 如果需要未压缩音频，请选择 `pcm-16`。
+- 并非所有视频容器都支持所有音频编解码器。
+- 如果 `codec` 选项还指定了音频编解码器，则此选项优先。
 
-Refer to the [Encoding guide](/docs/encoding/#audio-codec) to see defaults and supported combinations.
+请参阅[编码指南](/docs/encoding/#audio-codec)以查看默认值和支持的组合。
 
 ### `jpegQuality?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> jpegQuality`](/docs/renderer/render-media#jpegquality).
+请参阅[`renderMedia() -> jpegQuality`](/docs/renderer/render-media#jpegquality)。
 
 ### `audioBitrate?`
 
-_optional_
+_可选_
 
 <Options id="audio-bitrate" />
 
 ### `videoBitrate?`
 
-_optional_
+_可选_
 
 <Options id="video-bitrate" />
 
@@ -151,11 +151,11 @@ _optional_
 
 ### `proResProfile?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> proResProfile`](/docs/renderer/render-media#proresprofile).
+请参阅[`renderMedia() -> proResProfile`](/docs/renderer/render-media#proresprofile)。
 
-_optional_
+_可选_
 
 ### `x264Preset?`
 
@@ -163,81 +163,81 @@ _optional_
 
 ### `crf?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> crf`](/docs/renderer/render-media#crf).
+查看[`renderMedia() -> crf`](/docs/renderer/render-media#crf)。
 
 ### `pixelFormat?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> pixelFormat`](/docs/renderer/render-media#pixelformat).
+查看[`renderMedia() -> pixelFormat`](/docs/renderer/render-media#pixelformat)。
 
 ### `imageFormat?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> imageFormat`](/docs/renderer/render-media#imageformat).
+查看[`renderMedia() -> imageFormat`](/docs/renderer/render-media#imageformat)。
 
 ### `scale?`
 
-_optional_
+_可选_
 
-Scales the output dimensions by a factor. See [Scaling](/docs/scaling) to learn more about this feature.
+通过因子缩放输出尺寸。查看[缩放](/docs/scaling)以了解更多关于此功能的信息。
 
 ### `everyNthFrame?`
 
-_optional_
+_可选_
 
-Renders only every nth frame. For example only every second frame, every third frame and so on. Only works for rendering GIFs. [See here for more details.](/docs/render-as-gif)
+仅渲染每第n帧。例如，仅每第二帧，每第三帧等。仅适用于渲染GIF。[点击此处了解更多详情。](/docs/render-as-gif)
 
 ### `numberOfGifLoops?`
 
-_optional_
+_可选_
 
 <Options id="number-of-gif-loops" />
 
-_optional, available since v3.1.5_
+_可选，自v3.1.5起可用_
 
-How the output file should behave when accessed through the S3 output link in the browser.  
-Either:
+在浏览器中通过S3输出链接访问输出文件时的行为。  
+要么：
 
 ### `downloadBehavior?`<AvailableFrom v="4.0.176"/>
 
-How the output file should behave when accessed through the Cloud Storage output link in the browser.
+在浏览器中通过云存储输出链接访问输出文件时的行为。
 
-- `{"type": "play-in-browser"}` - the default. The video will play in the browser.
-- `{"type": "download", fileName: null}` or `{"type": "download", fileName: "download.mp4"}` - a `Content-Disposition` header will be added which makes the browser download the file. You can optionally override the filename.
+- `{"type": "play-in-browser"}` - 默认行为。视频将在浏览器中播放。
+- `{"type": "download", fileName: null}` 或 `{"type": "download", fileName: "download.mp4"}` - 将添加`Content-Disposition`头，使浏览器下载文件。您可以选择性地覆盖文件名。
 
 ### `frameRange?`
 
-_optional_
+_可选_
 
-Specify a single frame (a number) or a range of frames (a tuple [number, number]) to be rendered.
+指定要渲染的单个帧（数字）或帧范围（元组 [数字, 数字]）。
 
 ### `envVariables?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> envVariables`](/docs/renderer/render-media#envvariables).
+查看[`renderMedia() -> envVariables`](/docs/renderer/render-media#envvariables)。
 
 ### `chromiumOptions?`
 
-_optional_
+_可选_
 
-Allows you to set certain Chromium / Google Chrome flags. See: [Chromium flags](/docs/chromium-flags).
+允许您设置某些Chromium / Google Chrome标志。查看：[Chromium标志](/docs/chromium-flags)。
 
 #### `disableWebSecurity`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-This will most notably disable CORS among other security features.
+这将主要禁用CORS等安全功能。
 
 #### `ignoreCertificateErrors`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored.
+导致无效的SSL证书（如自签名证书）被忽略。
 
 #### `gl`
 
@@ -245,147 +245,191 @@ Results in invalid SSL certificates, such as self-signed ones, being ignored.
 
 ### `muted?`
 
-_optional_
+_可选_
 
-Disables audio output. See also [`renderMedia() -> muted`](/docs/renderer/render-media#muted).
+禁用音频输出。另请参阅[`renderMedia() -> muted`](/docs/renderer/render-media#muted)。
 
 ### `forceWidth?`
 
-_optional_
+_可选_
 
-Overrides default composition width.
+覆盖默认合成宽度。
+
+
 
 ### `forceHeight?`
 
-_optional_
+_可选_
 
-Overrides default composition height.
+覆盖默认合成高度。
+
+
 
 ### `logLevel?`
 
 <Options id="log" />
 
+
+
 ### `outName?`
 
-_optional_
+_可选_
 
-The file name of the media output.
+媒体输出文件名。
 
-It can either be:
+可以是：
 
-- `undefined` - it will default to `out` plus the appropriate file extension, for example: `renders/${renderId}/out.mp4`.
-- A `string` - it will get saved to the same Cloud Storage bucket as your site under the key `renders/{renderId}/{outName}`. Make sure to include the file extension at the end of the string.
+- `undefined` - 默认为 `out` 加上适当的文件扩展名，例如：`renders/${renderId}/out.mp4`。
+- 一个 `string` - 将保存到与您的站点相同的云存储桶中，键为 `renders/{renderId}/{outName}`。请确保在字符串末尾包含文件扩展名。
+
+
 
 ### `delayRenderTimeoutInMilliseconds?`
 
-_optional_
+_可选_
 
-A number describing how long the render may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout). Default: `30000`
+描述渲染可能需要多长时间来解析所有 [`delayRender()`](/docs/delay-render) 调用[在超时之前](/docs/timeout)。默认值：`30000`
+
+
 
 ### `concurrency?`
 
-A number or a string describing how many browser tabs should be opened. Default "50%".
+描述应打开多少个浏览器选项卡的数字或字符串。默认值为 "50%"。
 
 :::note
-Before v4.0.76, this was "100%" by default. It is now aligned to the other server-side rendering APIs.
+在 v4.0.76 之前，默认值为 "100%"。现在已与其他服务器端渲染 API 对齐。
 :::
+
+
 
 ### `enforceAudioTrack?`
 
-Render a silent audio track if there wouldn't be any otherwise.
+如果没有其他情况，则渲染静音音轨。
+
+
 
 ### `preferLossless?`<AvailableFrom v="4.0.123"/>
 
 <Options id="prefer-lossless" />
 
+
+
 ### `offthreadVideoCacheSizeInBytes?`<AvailableFrom v="4.0.23"/>
 
 <Options id="offthreadvideo-cache-size-in-bytes" />
+
+
 
 ### `colorSpace?`<AvailableFrom v="4.0.28"/>
 
 <Options id="color-space" />
 
-## Return value
 
-Returns a promise resolving to an object.
 
-### `type`
+## 返回值
 
-Use this to determine the structure of the response. It can either be:
-
-- 'success' - render has been performed successfully.
-- 'crash - Cloud Run service has crashed.
-
-## Return when type === 'success'
-
-The resulting object contains the following:
+返回一个解析为对象的 Promise。
 
 ### `type`
 
-'success' - render has been performed successfully.
+使用此项确定响应的结构。可以是：
+
+- 'success' - 渲染已成功执行。
+- 'crash - Cloud Run 服务已崩溃。
+
+
+
+## 当 type === 'success' 时返回
+
+结果对象包含以下内容：
+
+### `type`
+
+'success' - 渲染已成功执行。
 
 ### `publicUrl?`
 
-_optional_
+_可选_
 
-The publicly accessible URL of the rendered file. Only available when the request had the [`privacy`](/docs/cloudrun/rendermediaoncloudrun#privacy) property set to 'public'.
+渲染文件的公共可访问 URL。仅当请求设置了 [`privacy`](/docs/cloudrun/rendermediaoncloudrun#privacy) 属性为 'public' 时可用。
 
 ### `renderId`
 
-A unique alphanumeric identifier for this render. Useful for obtaining status and finding the relevant files in the Cloud Storage bucket.
+此渲染的唯一字母数字标识符。用于获取状态并在云存储桶中找到相关文件。
 
 ### `bucketName`
 
-The Cloud Storage bucket name in which all files are being saved.
+所有文件保存在其中的 Cloud Storage 存储桶名称。
+
+
 
 ### `privacy`
 
-Privacy of the output file, either:
+输出文件的隐私设置，可以是：
 
-- "public-read" - Publicly accessible under the Cloud Storage URL.
-- "project-private" - Not publicly available, but is available within the GCP project to those with the correct permissions.
+- "public-read" - 在 Cloud Storage URL 下公开访问。
+- "project-private" - 不公开，但在 GCP 项目中对具有正确权限的用户可用。
+
+
 
 ### `publicUrl`
 
-If the privacy is set to public, this will be the publicly accessible URL of the rendered file. If the privacy is not public, this will be null.
+如果隐私设置为公开，则这将是渲染文件的公开访问 URL。如果隐私不是公开，则为 null。
+
+
 
 ### `cloudStorageUri`
 
-Google Storage path, beginning with `gs://{bucket-name}`. Can be used with the [gsutil](https://cloud.google.com/storage/docs/gsutil) CLI tool.
+Google Storage 路径，以 `gs://{bucket-name}` 开头。可与 [gsutil](https://cloud.google.com/storage/docs/gsutil) CLI 工具一起使用。
+
+
 
 ### `size`
 
-Size of the rendered media in KB.
+以 KB 为单位的渲染媒体的大小。
 
-## Return when type === 'crash'
 
-The resulting object contains the following:
+
+## 当 type === 'crash' 时返回
+
+生成的对象包含以下内容：
 
 ### `type`
 
-'crash' - Cloud Run service has crashed without a response.
+'crash' - Cloud Run 服务在没有响应的情况下崩溃。
+
+
 
 ### `cloudRunEndpoint`
 
-Endpoint that was called when executing the render. Used by the CLI to parse the service name to determine timeout and memory limit of the service. This can then be used when analysing the logs, to provide a hint as to the reason of the crash.
+执行渲染时调用的端点。CLI 用于解析服务名称以确定服务的超时和内存限制。这在分析日志时可以用来提供有关崩溃原因的提示。
+
+
 
 ### `message`
 
-'Service crashed without sending a response. Check the logs in GCP console.' This is used by the CLI for displaying an error message.
+'服务在没有发送响应的情况下崩溃。请检查 GCP 控制台中的日志。' 这用于 CLI 显示错误消息。
+
+
 
 ### `requestStartTime`
 
-datetime of when the request was made, in UTC format - "2020-01-01T00:00:00+02:00". Can be useful for filtering the logs of the service.
+请求发起的日期时间，采用 UTC 格式 - "2020-01-01T00:00:00+02:00"。可用于过滤服务的日志。
+
+
 
 ### `requestCrashTime`
 
-datetime of when the crash was detected, in UTC format - "2020-01-01T00:00:00+02:00". Can be useful for filtering the logs of the service.
+检测到崩溃的日期时间，采用 UTC 格式 - "2020-01-01T00:00:00+02:00"。可用于过滤服务的日志。
+
+
 
 ### `requestElapsedTimeInSeconds`
 
-Seconds elapsed between the request start and crash time. Can be checked against the timeout limit to understand if this was the likely cause of the crash.
+请求开始和崩溃时间之间经过的秒数。可与超时限制进行比较，以了解这可能是崩溃的原因。
 
-## See also
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/render-media-on-cloudrun.ts)
+
+## 参见
+
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/render-media-on-cloudrun.ts)

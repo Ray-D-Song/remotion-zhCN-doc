@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-cli-install.png
-title: npx remotion install
-sidebar_label: install
-crumb: CLI Reference
+title: npx remotion 安装
+sidebar_label: 安装
+crumb: CLI 参考
 ---
 
-_removed in v4.0.0, available from v3.3_
+_在 v4.0.0 中已移除，从 v3.3 开始可用_
 
-_See ["No more FFmpeg installation"](/docs/4-0-migration#no-more-ffmpeg-install-ffmpegexecutable-option-removed)._  
-This page is for archival purpose.
+_查看["不再需要安装 FFmpeg"](https://translate.google.com/docs/4-0-migration#no-more-ffmpeg-install-ffmpegexecutable-option-removed)._  
+此页面仅供存档目的。
 
-Ensures that `ffmpeg` or `ffprobe` are installed by downloading them from the internet if they cannot be found.
+通过从互联网下载它们来确保已安装 `ffmpeg` 或 `ffprobe`，如果找不到它们。
 
 ```bash
 npx remotion install ffmpeg
@@ -20,12 +20,13 @@ npx remotion install ffmpeg
 npx remotion install ffprobe
 ```
 
-You might not need to call this function. Remotion will automatically download `ffmpeg` and `ffprobe` if a render is attempted, and no binary was found.
+您可能不需要调用此函数。如果尝试渲染并且找不到二进制文件，则 Remotion 将自动下载 `ffmpeg` 和 `ffprobe`。
 
-These commands are useful if you need `ffmpeg` and `ffprobe` to be ready before the first render is started.
+如果需要在第一次渲染开始之前准备好 `ffmpeg` 和 `ffprobe`，则这些命令很有用。
 
-## See also
+## 另请参阅
 
-- [Node.JS equivalent: `ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg)
-- [Node.JS equivalent: `ensureFfprobe()`](/docs/renderer/ensure-ffprobe)
-- [Installing FFmpeg](/docs/ffmpeg)
+- [Node.JS 等效：`ensureFfmpeg()`](https://translate.google.com/docs/renderer/ensure-ffmpeg)
+- [Node.JS 等效：`ensureFfprobe()`](https://translate.google.com/docs/renderer/ensure-ffprobe)
+- [安装 FFmpeg](https://translate.google.com/docs/ffmpeg)
+

@@ -1,49 +1,49 @@
 ---
 image: /generated/articles-docs-easing.png
 id: easing
-title: Easing
+title: 缓动
 crumb: "API"
 ---
 
-The `Easing` module implements common easing functions. You can use it with the [`interpolate()`](/docs/interpolate) API.
+`Easing` 模块实现了常见的缓动函数。您可以将其与 [`interpolate()`](/docs/interpolate) API 一起使用。
 
-You can find a visualization of some common easing functions at http://easings.net/
+您可以在 http://easings.net/ 找到一些常见缓动函数的可视化。
 
-### Predefined animations
+### 预定义动画
 
-The `Easing` module provides several predefined animations through the following methods:
+`Easing` 模块通过以下方法提供了几种预定义动画：
 
-- [`back`](/docs/easing#back) provides a basic animation where the object goes slightly back before moving forward
-- [`bounce`](/docs/easing#bounce) provides a bouncing animation
-- [`ease`](/docs/easing#ease) provides a basic inertial animation
-- [`elastic`](/docs/easing#elastic) provides a basic spring interaction
+- [`back`](/docs/easing#back) 提供了一个基本动画，对象在向前移动之前会稍微后退
+- [`bounce`](/docs/easing#bounce) 提供了一个弹跳动画
+- [`ease`](/docs/easing#ease) 提供了一个基本的惯性动画
+- [`elastic`](/docs/easing#elastic) 提供了一个基本的弹簧交互
 
-### Standard functions
+### 标准函数
 
-Three standard easing functions are provided:
+提供了三个标准缓动函数：
 
 - [`linear`](/docs/easing#linear)
 - [`quad`](/docs/easing#quad)
 - [`cubic`](/docs/easing#cubic)
 
-The [`poly`](/docs/easing#poly) function can be used to implement quartic, quintic, and other higher power functions.
+[`poly`](/docs/easing#poly) 函数可用于实现四次方、五次方和其他更高次方函数。
 
-### Additional functions
+### 附加函数
 
-Additional mathematical functions are provided by the following methods:
+通过以下方法提供了额外的数学函数：
 
-- [`bezier`](/docs/easing#bezier) provides a cubic bezier curve
-- [`circle`](/docs/easing#circle) provides a circular function
-- [`sin`](/docs/easing#sin) provides a sinusoidal function
-- [`exp`](/docs/easing#exp) provides an exponential function
+- [`bezier`](/docs/easing#bezier) 提供了一个三次贝塞尔曲线
+- [`circle`](/docs/easing#circle) 提供了一个圆形函数
+- [`sin`](/docs/easing#sin) 提供了一个正弦函数
+- [`exp`](/docs/easing#exp) 提供了一个指数函数
 
-The following helpers are used to modify other easing functions.
+以下辅助函数用于修改其他缓动函数。
 
-- [`in`](/docs/easing#ineasing) runs an easing function forwards
-- [`inOut`](/docs/easing#inout) makes any easing function symmetrical
-- [`out`](/docs/easing#out) runs an easing function backwards
+- [`in`](/docs/easing#ineasing) 正向运行缓动函数
+- [`inOut`](/docs/easing#inout) 使任何缓动函数对称
+- [`out`](/docs/easing#out) 反向运行缓动函数
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { AbsoluteFill, useCurrentFrame } from "remotion";
@@ -70,9 +70,9 @@ const MyVideo: React.FC = () => {
 
 ---
 
-# Reference
+# 参考
 
-## Methods
+## 方法
 
 ### `step0`
 
@@ -80,7 +80,7 @@ const MyVideo: React.FC = () => {
 static step0(n): number
 ```
 
-A stepping function, returns 1 for any positive value of `n`.
+一个阶跃函数，对于任何正值的 `n` 返回 1。
 
 ---
 
@@ -90,7 +90,7 @@ A stepping function, returns 1 for any positive value of `n`.
 static step1(n): number
 ```
 
-A stepping function, returns 1 if `n` is greater than or equal to 1.
+一个阶跃函数，如果 `n` 大于或等于 1，则返回 1。
 
 ---
 
@@ -100,7 +100,7 @@ A stepping function, returns 1 if `n` is greater than or equal to 1.
 static linear(t): number
 ```
 
-A linear function, `f(t) = t`. Position correlates to elapsed time one to one.
+一个线性函数，`f(t) = t`。位置与经过的时间一一对应。
 
 http://cubic-bezier.com/#0,0,1,1
 
@@ -112,7 +112,7 @@ http://cubic-bezier.com/#0,0,1,1
 static ease(t): number
 ```
 
-A basic inertial interaction, similar to an object slowly accelerating to speed.
+一种基本的惯性交互，类似于物体缓慢加速到速度。
 
 http://cubic-bezier.com/#.42,0,1,1
 
@@ -124,7 +124,7 @@ http://cubic-bezier.com/#.42,0,1,1
 static quad(t): number
 ```
 
-A quadratic function, `f(t) = t * t`. Position equals the square of elapsed time.
+一个二次函数，`f(t) = t * t`。位置等于经过的时间的平方。
 
 http://easings.net/#easeInQuad
 
@@ -136,7 +136,7 @@ http://easings.net/#easeInQuad
 static cubic(t): number
 ```
 
-A cubic function, `f(t) = t * t * t`. Position equals the cube of elapsed time.
+一个三次函数，`f(t) = t * t * t`。位置等于经过的时间的立方。
 
 http://easings.net/#easeInCubic
 
@@ -148,7 +148,7 @@ http://easings.net/#easeInCubic
 static poly(n): (t) => number
 ```
 
-A power function. Position is equal to the Nth power of elapsed time.
+一个幂函数。位置等于经过的时间的N次幂。
 
 n = 4: http://easings.net/#easeInQuart n = 5: http://easings.net/#easeInQuint
 
@@ -160,7 +160,7 @@ n = 4: http://easings.net/#easeInQuart n = 5: http://easings.net/#easeInQuint
 static sin(t): number
 ```
 
-A sinusoidal function.
+一个正弦函数。
 
 http://easings.net/#easeInSine
 
@@ -172,7 +172,7 @@ http://easings.net/#easeInSine
 static circle(t): number
 ```
 
-A circular function.
+一个圆形函数。
 
 http://easings.net/#easeInCirc
 
@@ -184,7 +184,7 @@ http://easings.net/#easeInCirc
 static exp(t): number
 ```
 
-An exponential function.
+一个指数函数。
 
 http://easings.net/#easeInExpo
 
@@ -196,9 +196,9 @@ http://easings.net/#easeInExpo
 static elastic(bounciness): (t) =>  number
 ```
 
-A basic elastic interaction, similar to a spring oscillating back and forth.
+一种基本的弹性交互，类似于弹簧来回振荡。
 
-Default bounciness is 1, which overshoots a little bit once. 0 bounciness doesn't overshoot at all, and bounciness of N > 1 will overshoot about N times.
+默认的弹性为1，会稍微超过一点。弹性为0时完全不会超过，弹性为N > 1时会超过大约N次。
 
 http://easings.net/#easeInElastic
 
@@ -210,7 +210,7 @@ http://easings.net/#easeInElastic
 static back(s): (t) => number
 ```
 
-Use with `Animated.parallel()` to create a basic effect where the object animates back slightly as the animation starts.
+与 `Animated.parallel()` 结合使用，创建一个基本效果，对象在动画开始时稍微向后动画。
 
 ---
 
@@ -220,11 +220,11 @@ Use with `Animated.parallel()` to create a basic effect where the object animate
 static bounce(t): number
 ```
 
-Provides a basic bouncing effect.
+提供一个基本的弹跳效果。
 
 http://easings.net/#easeInBounce
 
-See an example of how you might use it below
+查看下面如何使用的示例
 
 ```jsx
 interpolate(0.5, [0, 1], [0, 1], {
@@ -240,9 +240,9 @@ interpolate(0.5, [0, 1], [0, 1], {
 static bezier(x1, y1, x2, y2) => (t): number
 ```
 
-Provides a cubic bezier curve, equivalent to CSS Transitions' `transition-timing-function`.
+提供一个三次贝塞尔曲线，相当于 CSS 过渡的 `transition-timing-function`。
 
-A useful tool to visualize cubic bezier curves can be found at http://cubic-bezier.com/
+一个有用的工具，用于可视化三次贝塞尔曲线，可以在 http://cubic-bezier.com/ 找到。
 
 ```jsx
 interpolate(0.5, [0, 1], [0, 1], {
@@ -260,7 +260,7 @@ static in(easing: (t: number) => number): (t: number) => number;
 ```
 <!-- prettier-ignore-end -->
 
-Runs an easing function forwards.
+运行一个缓动函数，向前运行。
 
 ```jsx
 {
@@ -276,7 +276,7 @@ Runs an easing function forwards.
 static out(easing: (t: number) => number): (t: number) => number;
 ```
 
-Runs an easing function backwards.
+运行一个缓动函数，向后运行。
 
 ```jsx
 {
@@ -298,19 +298,20 @@ static inOut(easing: (t: number) => number): (t: number) => number;
 }
 ```
 
-Makes any easing function symmetrical. The easing function will run forwards for half of the duration, then backwards for the rest of the duration.
+使任何缓动函数对称。缓动函数将在持续时间的前半部分向前运行，然后在剩余的持续时间内向后运行。
 
 ## Credits
 
-The Easing API is the exact same as the one from [React Native](https://reactnative.dev/docs/easing) and the documentation has been copied over. Credit goes to them for this excellent API.
+Easing API与[React Native](https://reactnative.dev/docs/easing)中的API完全相同，文档已复制过来。感谢他们提供了这个出色的API。
 
 ## See also
 
-- [Source code for this helper](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/easing.ts)
+- [此辅助程序的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/easing.ts)
 
 <Credits contributors={[
 {
 username: "kaf-lamed-beyt",
-contribution: "Improved function signatures"
+contribution: "改进了函数签名"
 },
 ]} />
+```

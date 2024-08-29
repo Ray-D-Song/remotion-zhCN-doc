@@ -1,16 +1,16 @@
 ---
 image: /generated/articles-docs-recorder-editing-normalizing-audio.png
-title: Normalizing audio levels
-crumb: Recorder
+title: 音频级别标准化
+crumb: 录音机
 ---
 
-Ideally, you use the audio loudness meter in the Recording interface to ensure that the audio levels are consistent across recordings.
+理想情况下，您可以使用录音界面中的音频响度计来确保录音的音频级别保持一致。
 
-If you need to do equalize the audio levels after the fact, you can use the following script:
+如果您需要在事后均衡音频级别，您可以使用以下脚本：
 
 :::note
-This is a destructive action - your recordings will be overwritten.  
-Commit your changes before you run this.
+这是一项破坏性操作 - 您的录音将被覆盖。  
+在运行此操作之前，请提交您的更改。
 :::
 
 ```tsx title="normalize.ts"
@@ -72,9 +72,9 @@ for (const file of webcamFiles) {
 }
 ```
 
-This will calculate the average loudness of all recordings and edit each file so it has the same loudness as the average.
+这将计算所有录音的平均响度，并编辑每个文件，使其具有与平均响度相同的响度。
 
-Execute it using:
+使用以下命令执行：
 
 ```shell
 bun normalize.ts

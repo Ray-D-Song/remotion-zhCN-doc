@@ -2,51 +2,54 @@
 image: /generated/articles-docs-video-vs-offthreadvideo.png
 id: video-vs-offthreadvideo
 title: "<Video> vs. <OffthreadVideo>"
-crumb: "Comparison"
+crumb: "比较"
 ---
 
-We offer two components for including other videos in your video: [`<Video />`](/docs/video) and [`<OffthreadVideo />`](/docs/offthreadvideo).  
-This page offers a comparison to help you decide which tag to use.
+我们提供两个组件来包含其他视频在您的视频中：[`<Video />`](/docs/video) 和 [`<OffthreadVideo />`](/docs/offthreadvideo)。  
+本页面提供了一个比较，以帮助您决定使用哪个标签。
 
 ## [`<OffthreadVideo />`](/docs/offthreadvideo)
 
 :::info
-Prefer [`<OffthreadVideo />`](/docs/offthreadvideo) whenever possible.
+尽可能使用 [`<OffthreadVideo />`](/docs/offthreadvideo)。
 :::
 
-A more sophisticated way of embedding a video, which:
+一种更复杂的嵌入视频的方式，具有以下特点：
 
-- **During preview:** renders a HTML5 `<video>` tag.
-- **While rendering:** Extracts the exact frame outside the browser and displays it in an [`<Img>`](/docs/img) tag.
+- **预览期间：** 渲染一个 HTML5 `<video>` 标签。
+- **渲染时：** 在浏览器外提取确切的帧并在 [`<Img>`](/docs/img) 标签中显示。
 
-**Pros**
+**优点**
 
-✅ &nbsp; More videos can be displayed simulatenously as Chrome will not apply throttling.  
-✅ &nbsp; No flickers or duplicate frames in the output video can occur.  
-✅ &nbsp; Supports more codecs such as ProRes (only during render-time).  
-✅ &nbsp; Is usually faster to render.
+✅ &nbsp; 可以同时显示更多视频，因为 Chrome 不会应用节流。  
+✅ &nbsp; 输出视频中不会出现闪烁或重复帧。  
+✅ &nbsp; 支持更多编解码器，如 ProRes（仅在渲染时）。  
+✅ &nbsp; 通常渲染速度更快。
 
-**Cons**
+**缺点**
 
-⛔ &nbsp; The video needs to be downloaded fully before a frame can be rendered.  
-⛔ &nbsp; No ref can be attached to this element.  
-⛔ &nbsp; More work is required to loop a video. Check out: [Looping an `<Offthread>` video](/docs/offthreadvideo#looping-a-video).  
-⛔ &nbsp; Supports transparent videos only if the [`transparent`](/docs/offthreadvideo#transparent) is set which is a bit slower.
+⛔ &nbsp; 需要完全下载视频才能渲染帧。  
+⛔ &nbsp; 无法附加引用到此元素。  
+⛔ &nbsp; 需要更多工作来循环视频。查看：[循环一个 `<Offthread>` 视频](/docs/offthreadvideo#looping-a-video)。  
+⛔ &nbsp; 仅在设置了 [`transparent`](/docs/offthreadvideo#transparent) 时才支持透明视频，这会稍微慢一些。
 
 ## [`<Video />`](/docs/video)
 
-Is based on the native HTML5 `<video>` element and therefore behaves similar to it.
+基于原生 HTML5 `<video>` 元素，因此行为类似于它。
 
-**Pros**
+**优点**
 
-✅ &nbsp; Can render a video without having it to be downloaded fully (if you don't pass the [`muted`](/docs/video/#muted) prop, the video will still be downloaded fully to extract its audio).  
-✅ &nbsp; You can attach a ref to the `<video>` element.  
+✅ &nbsp; 可以渲染视频而无需完全下载（如果不传递 [`muted`](/docs/video/#muted) 属性，则视频仍将完全下载以提取其音频）。  
+✅ &nbsp; 您可以附加引用到 `<video>` 元素。
 
-**Cons**
+**缺点**
 
-⛔ &nbsp; Fewer codecs are supported.  
-⛔ &nbsp; Chrome may throttle video tags if the page is heavy.  
-⛔ &nbsp; If too many video tags get rendered simultaneously, a timeout may occur.  
-⛔ &nbsp; If the input video framerate does not match with the output framerate, some duplicate frames may occur in the output.  
-⛔ &nbsp; A Google Chrome build with proprietary codecs is required.  
+⛔ &nbsp; 支持的编解码器较少。  
+⛔ &nbsp; 如果页面过重，Chrome 可能会对视频标签进行节流。  
+⛔ &nbsp; 如果同时渲染太多视频标签，可能会发生超时。  
+⛔ &nbsp; 如果输入视频帧速率与输出帧速率不匹配，则输出中可能会出现一些重复帧。  
+⛔ &nbsp; 需要使用具有专有编解码器的 Google Chrome 构建。  
 
+
+
+I'm ready to translate. Please paste the Markdown content for the Developer documentation.

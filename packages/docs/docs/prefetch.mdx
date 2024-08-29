@@ -1,27 +1,27 @@
 ---
 image: /generated/articles-docs-prefetch.png
 id: prefetch
-title: prefetch()
+title: 预取（prefetch()）
 crumb: "API"
 ---
 
-_Available in v3.2.23_
+_在 v3.2.23 中可用_
 
-By calling `prefetch()`, an asset will be fetched and kept in memory so it is ready when you want to play it in a [`<Player>`](/docs/player).
+通过调用 `prefetch()`，将会获取并保存一个资源在内存中，以便在您想要在 [`<Player>`](/docs/player) 中播放时准备就绪。
 
-If you pass the original URL into either an [`<Audio>`](/docs/audio), [`<Video>`](/docs/video), [`<OffthreadVideo>`](/docs/offthreadvideo) or [`<Img>`](/docs/img) tag and the asset is fully fetched, those components will use Blob URL instead.
+如果您将原始 URL 传递给 [`<Audio>`](/docs/audio)、[`<Video>`](/docs/video)、[`<OffthreadVideo>`](/docs/offthreadvideo) 或 [`<Img>`](/docs/img) 标签，并且资源已完全获取，这些组件将使用 Blob URL。
 
 :::note
-Remote assets need to support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+远程资源需要支持 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
 
 <details>
-<summary>More info</summary>
+<summary>更多信息</summary>
 <ul>
 <li>
-Remotion's origin is usually <code>http://localhost:3000</code>, but it may be different if rendering on Lambda or the port is busy.
+Remotion 的原始地址通常是 <code>http://localhost:3000</code>，但如果在 Lambda 上渲染或端口繁忙，则可能会有所不同。
 </li>
 <li>
-You can <a href="/docs/chromium-flags#--disable-web-security">disable CORS</a> during renders.
+您可以在渲染期间 <a href="/docs/chromium-flags#--disable-web-security">禁用 CORS</a>。
 </li>
 </ul>
 </details>
@@ -42,38 +42,38 @@ waitUntilDone().then(() => {
 free();
 ```
 
-This API is only useful if you are using the [`<Player />`](/docs/player) component and you want to display a media asset and want to be sure it is fully loaded before it appears.
+如果您正在使用 [`<Player />`](/docs/player) 组件，并且希望显示媒体资源并确保在显示之前完全加载，那么此 API 只有在这种情况下才有用。
 
-An alternative to `prefetch()` are the [`@remotion/preload`](/docs/preload) APIs. See [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch) to decide which one is better for your usecase.
+`prefetch()` 的替代方案是 [`@remotion/preload`](/docs/preload) API。请查看 [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch) 来决定哪种更适合您的用例。
 
 ## API
 
-## Arguments
+## 参数
 
 ### `src`
 
-The function takes a `src`, which can be a remote URL, an imported asset or an asset loaded using [`staticFile()`](/docs/staticfile) (see: [Importing assets](/docs/assets)). Once called, prefetching starts and an object with two properties are returned:
+该函数接受一个 `src`，可以是远程 URL、导入的资源或使用 [`staticFile()`](/docs/staticfile) 加载的资源（参见：[导入资源](/docs/assets)）。一旦调用，预取将开始，并返回一个具有两个属性的对象：
 
 ### `options`
 
 #### `method?`<AvailableFrom v="3.2.35" />
 
-_previously defaulted to `blob-url`_
+_先前默认为 `blob-url`_
 
-Either `blob-url` or `base64`.
+可以是 `blob-url` 或 `base64`。
 
-- With `blob-url`, the asset is turned into a Blob URL using [`URL.createObjectURL()`](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL)
-- With `base64`, the asset is turned into a Base 64 URL.
+- 使用 `blob-url`，资源将使用 [`URL.createObjectURL()`](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL) 转换为 Blob URL
+- 使用 `base64`，资源将转换为 Base 64 URL。
 
-Read below for which option is suitable for you.
+请阅读下文以确定哪个选项适合您。
 
 #### `contentType?`<AvailableFrom v="4.0.40" />
 
-Set a content type for the blob. By default, the content type from the HTTP response is taken. We recommend setting an appropriate content type for the media, e.g `video/mp4` only if the HTTP resource does not contain the right one by default.
+为 blob 设置内容类型。默认情况下，会使用 HTTP 响应中的内容类型。我们建议为媒体设置适当的内容类型，例如 `video/mp4`，仅当 HTTP 资源默认情况下不包含正确的内容类型时。
 
 #### `onProgress?`<AvailableFrom v="4.0.85" />
 
-Callback for progress events.
+用于处理进度事件的回调函数。
 
 ```tsx twoslash
 import { prefetch } from "remotion";
@@ -98,40 +98,41 @@ prefetch("https://example.com/video.mp4", {
 });
 ```
 
-## Return value
+## 返回值
 
-An object with:
+一个对象，包含：
 
 ### `free()`
 
-Calling this function will abort the prefetching is still in progress and free up the memory. Components using the asset might re-request the asset.
+调用此函数将中止仍在进行中的预取并释放内存。使用该资源的组件可能会重新请求该资源。
 
 ### `waitUntilDone()`
-Calling this will return a `Promise<string>` that resolves once asset has finished downloading and is ready to be used. 
 
-The `string` that is being returned is either:
-- A `blob:` URL or `data:` Base 64 data respectively
-- The same `src` you passed as input, if in a rendering environment.
+调用此函数将返回一个 `Promise<string>`，在资源下载完成并准备就绪时解析。
 
-You don't need to use this URL in [`<Audio>`](/docs/audio), [`<Video>`](/docs/video), [`<OffthreadVideo>`](/docs/offthreadvideo) or [`<Img>`](/docs/img), which will automatically use it.
+返回的 `string` 可能是：
+- 一个 `blob:` URL 或 `data:` Base 64 数据
+- 如果在渲染环境中，则是您传入的相同 `src`
 
-If you neeed the URL somewhere (like for [`mask-image`](/docs/troubleshooting/background-image)), you can grab it from `waitUntilDone()`.
+您不需要在 [`<Audio>`](/docs/audio)、[`<Video>`](/docs/video)、[`<OffthreadVideo>`](/docs/offthreadvideo) 或 [`<Img>`](/docs/img) 中使用此 URL，这些元素会自动使用它。
 
-## `blob-url` or `base64`?
+如果您需要在某处使用此 URL（例如用于 [`mask-image`](/docs/troubleshooting/background-image)），可以从 `waitUntilDone()` 中获取它。
 
-Turning the asset into a blob URL is much faster and efficient in general.  
-In Safari, even though it is a local URL, Safari may not be instantly playing the audio and have slight delays buffering audio.
+## `blob-url` 还是 `base64`？
 
-Use `base64` in Safari if you notice that your audio file plays with hickups even though the `<Player>` requests a `blob:` URL.
+通常将资源转换为 blob URL 更快速和高效。  
+在 Safari 中，即使是本地 URL，Safari 也可能不会立即播放音频，并且会有轻微的音频缓冲延迟。
 
-## Setting the right content type
+如果注意到您的音频文件在 `<Player>` 请求 `blob:` URL 时仍有卡顿，请在 Safari 中使用 `base64`。
 
-Files loaded from the internet should be served with a proper content type, e.g. `video/mp4` for an MP4 file. When the file gets loaded into a blob URL, the file extension gets removed and the browser loses the information about the content type.
+## 设置正确的内容类型
 
-This can lead to the video file not playing correctly in the browser. If you cannot influence the server, you can also set the content type manually using the [`contentType`](#contenttype) option.
+从互联网加载的文件应该使用适当的内容类型提供，例如 MP4 文件应该使用 `video/mp4`。当文件加载到 blob URL 中时，文件扩展名会被移除，浏览器会丢失关于内容类型的信息。
 
-## See also
+这可能导致视频文件在浏览器中无法正确播放。如果无法影响服务器，您也可以使用 [`contentType`](#contenttype) 选项手动设置内容类型。
+
+## 参见
 
 - [`@remotion/preload`](/docs/preload)
 - [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/prefetch.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/prefetch.ts)

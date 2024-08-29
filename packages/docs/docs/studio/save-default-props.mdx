@@ -6,12 +6,12 @@ crumb: "@remotion/studio"
 
 # saveDefaultProps()<AvailableFrom v="4.0.147"/>
 
-Saves the [`defaultProps`](/docs/composition) for a [composition](/docs/terminology/composition) back to the [root file](/docs/terminology/root-file).  
-If you just want to update the default props in the Props Editor (right sidebar in the Studio) without saving them to the root file, use [`updateDefaultProps()`](/docs/studio/update-default-props).
+保存[`defaultProps`](/docs/composition)以便将[composition](/docs/terminology/composition)的默认属性保存回[根文件](/docs/terminology/root-file)。  
+如果您只想在Props Editor（Studio中的右侧边栏）中更新默认属性而不将其保存到根文件中，请使用[`updateDefaultProps()`](/docs/studio/update-default-props)。
 
 ## Examples
 
-```tsx twoslash title="Saving {color: 'green'} to Root.tsx"
+```tsx twoslash title="将{color: 'green'}保存到Root.tsx"
 // @target: esnext
 import { saveDefaultProps } from "@remotion/studio";
 
@@ -25,9 +25,9 @@ await saveDefaultProps({
 });
 ```
 
-You can access the saved default props to only override part of it (reducer-style):
+您可以访问保存的默认属性以仅覆盖其中的一部分（类似于reducer风格）：
 
-```tsx twoslash title="Accessing the saved default props"
+```tsx twoslash title="访问保存的默认属性"
 // @target: esnext
 import { saveDefaultProps } from "@remotion/studio";
 
@@ -42,9 +42,9 @@ await saveDefaultProps({
 });
 ```
 
-If you modified props in the Props Editor (right sidebar in the Studio), you can also access the unsaved props from there, and for example save them:
+如果您在Props Editor（Studio中的右侧边栏）中修改了props，则还可以从那里访问未保存的props，例如保存它们：
 
-```tsx twoslash title="Save props from the Props Editor"
+```tsx twoslash title="从Props Editor保存props"
 // @target: esnext
 import { saveDefaultProps } from "@remotion/studio";
 
@@ -56,9 +56,9 @@ await saveDefaultProps({
 });
 ```
 
-If you have a Zod schema, you can also access its runtime value:
+如果您有一个Zod模式，还可以访问其运行时值：
 
-```tsx twoslash title="Save props from the Props Editor"
+```tsx twoslash title="从Props Editor保存props"
 // @target: esnext
 import { saveDefaultProps } from "@remotion/studio";
 
@@ -75,20 +75,21 @@ await saveDefaultProps({
 });
 ```
 
-## Requirements
+## 要求
 
-In order to use this function:
+为了使用此功能：
 
-<Step>1</Step> You need to be inside the Remotion Studio.
+<Step>1</Step> 您需要在Remotion Studio中。
 <br />
-<Step>2</Step> The Studio must be running (no static deployment)
+<Step>2</Step> Studio必须正在运行（不是静态部署）
 <br />
-<Step>3</Step> <code>zod</code> needs to be installed.
+<Step>3</Step> 必须安装<code>zod</code>。
 <br />
 <br />
 
-Otherwise, the function will throw.
+否则，该函数将抛出异常。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/save-default-props.ts)
+- [此功能的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/save-default-props.ts)
+

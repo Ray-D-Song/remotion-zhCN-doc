@@ -5,9 +5,9 @@ title: presignUrl()
 crumb: "Lambda API"
 ---
 
-Takes a private S3 object and turns it into a public URL by signing with your AWS credentials.
+将私有 S3 对象转换为公共 URL，通过使用您的 AWS 凭据进行签名。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: ESNext
@@ -36,40 +36,41 @@ console.log(url); // always a string, or exception if object doesn't exist
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` (available from v3.3.42) to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从 `@remotion/lambda/client` 中导入此函数（从 v3.3.42 版本开始提供），以避免在 [无服务器函数](/docs/lambda/light-client) 中出现问题。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The AWS region in which the bucket resides.
+存储桶所在的 AWS 区域。
 
 ### `bucketName`
 
-The bucket where the asset exists. The bucket must have been created by Remotion Lambda.
+存储资产的存储桶。存储桶必须由 Remotion Lambda 创建。
 
 ### `objectKey`
 
-They key that uniquely identifies the object stored in the bucket.
+唯一标识存储桶中存储的对象的键。
 
 ### `expiresInSeconds`
 
-The number of seconds before the presigned URL expires.
-Must be an integer and `>=1` and `<=604800` (maximum of 7 days as enforced by AWS)
+预签名 URL 过期之前的秒数。
+必须是整数且 `>=1` 且 `<=604800`（AWS 强制的最长 7 天）。
 
 ### `checkIfObjectExists`
 
-Whether the function should check if the object exists in the bucket before generating the presigned url. Default `false`.
+函数是否应在生成预签名 URL 之前检查对象是否存在于存储桶中。默认为 `false`。
 
-If the object does not exist and `checkIfObjectExists` is:
+如果对象不存在且 `checkIfObjectExists` 为：
 
-- `true`, then `null` is returned
-- `false`, then an exception is thrown
+- `true`，则返回 `null`
+- `false`，则抛出异常
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/presign-url.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/presign-url.ts)
 - [`downloadMedia()`](/docs/lambda/downloadmedia)
+

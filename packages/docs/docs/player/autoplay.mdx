@@ -1,21 +1,21 @@
 ---
 image: /generated/articles-docs-player-autoplay.png
 id: autoplay
-sidebar_label: "Autoplay"
-title: "Combatting autoplay issues"
+sidebar_label: "自动播放"
+title: "解决自动播放问题"
 slug: /player/autoplay
 crumb: "@remotion/player"
 ---
 
-Browsers place restrictions on websites that play audio without user interaction. Read on how to properly use the Remotion Player so you don't run into a browser policy.
+浏览器对在没有用户交互的情况下播放音频的网站施加了限制。继续阅读，了解如何正确使用 Remotion Player，以避免遇到浏览器策略问题。
 
-## Trigger the play from a user event
+## 从用户事件触发播放
 
-Don't autoplay audio on site load, or else browsers will block the audio. Instead, display a play button or use the [`controls`](/docs/player/player#controls) prop.
+不要在网站加载时自动播放音频，否则浏览器将阻止音频播放。相反，显示一个播放按钮或使用 [`controls`](/docs/player/player#controls) 属性。
 
-## Pass the event to the `play()` or `toggle()` method
+## 将事件传递给 `play()` 或 `toggle()` 方法
 
-The play must be initialized from a user gesture, for example a mouse click. You should get a Javascript event like a `MouseEvent` from it. Pass this event to the [`play()`](/docs/player/player#play) or [`toggle()`](/docs/player/player#toggle) function so audio may play automatically.
+播放必须从用户手势开始，例如鼠标点击。您应该从中获取一个类似 `MouseEvent` 的 Javascript 事件。将此事件传递给 [`play()`](/docs/player/player#play) 或 [`toggle()`](/docs/player/player#toggle) 函数，以便音频可以自动播放。
 
 ```tsx twoslash
 // @allowUmdGlobalAccess
@@ -45,20 +45,20 @@ export const App: React.FC = () => {
 ```
 
 :::info
-Prefer the `onClickCapture` event instead of the `onClick` event to make the event propagation work properly in Safari.
+建议使用 `onClickCapture` 事件而不是 `onClick` 事件，以使事件传播在 Safari 中正常工作。
 :::
 
-## Use the `numberOfSharedAudioTags` property
+## 使用 `numberOfSharedAudioTags` 属性
 
-If your audio does not enter the video immediately (say the few seconds of the video are silent, but then the audio fades in), it technically doesn't start based on an user integration. To combat this issue, you can use the [`numberOfSharedAudioTags`](/docs/player/player#numberofsharedaudiotags) property. This will play some silent audio on the first play with user interaction, and then reuse that tag to play your deferred audio playback.
+如果您的音频不会立即进入视频（例如视频的前几秒是静音的，然后音频淡入），那么它从技术上讲不是基于用户交互开始的。为了解决这个问题，您可以使用 [`numberOfSharedAudioTags`](/docs/player/player#numberofsharedaudiotags) 属性。这将在第一次与用户交互时播放一些静音音频，然后重用该标签来播放延迟的音频回放。
 
-You can have as many silent audio tags as you want. Set `numberOfSharedAudioTags={2}` to prepare two shared audio tags. Be mindful: If you set this props and you render more [`<Audio/>`](/docs/audio) than there are shared audio tags, an exception will be thrown.
+您可以拥有任意数量的静音音频标签。设置 `numberOfSharedAudioTags={2}` 来准备两个共享音频标签。请注意：如果您设置了这个属性，并且您渲染的 [`<Audio/>`](/docs/audio) 多于共享音频标签的数量，将会抛出异常。
 
 :::warning
-Due to a bug on our side, this prop does not work well [before Remotion v3.1.5](https://github.com/remotion-dev/remotion/issues/723). Upgrade to receive the bugfix.
+由于我们这边的一个 bug，在 Remotion v3.1.5 之前，这个属性不起作用。升级以获得 bug 修复。
 :::
 
-## Controlling the behavior of autoplay failures<AvailableFrom v="4.0.187" />
+## 控制自动播放失败的行为<AvailableFrom v="4.0.187" />
 
-If the browser blocks a video from being autoplayed due to it having sound, the video will be muted and will be retried once.  
-If you want to handle the error yourself, you can pass a callback to the [`onAutoPlayError`](/docs/offthreadvideo#onautoplayerror) prop of `<OffthreadVideo>` and `<Video>`.
+如果浏览器因为视频有声音而阻止自动播放，视频将会被静音并将重试一次。  
+如果您想自己处理错误，您可以将回调传递给 `<OffthreadVideo>` 和 `<Video>` 的 [`onAutoPlayError`](/docs/offthreadvideo#onautoplayerror) 属性。  

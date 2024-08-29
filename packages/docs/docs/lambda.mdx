@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-lambda.png
 id: lambda
-sidebar_label: Overview
+sidebar_label: 概览
 title: "@remotion/lambda"
 ---
 
@@ -9,85 +9,103 @@ title: "@remotion/lambda"
   minutes={11}
   href="https://youtu.be/dQyPUasZY7I"
   thumb="https://i.ytimg.com/vi/dQyPUasZY7I/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCn-snZSKGnDuNkm0fIQYnQ9gJz4w"
-  title="Integrate Remotion Lambda into your app"
+  title="将 Remotion Lambda 集成到您的应用程序中"
 />
 
-Render Remotion videos on [AWS Lambda](https://aws.amazon.com/lambda/). This is the fastest and most scalable way to render Remotion videos.  
-You only pay while you are rendering, making it very cost-effective.
+在 [AWS Lambda](https://aws.amazon.com/lambda/) 上渲染 Remotion 视频。这是渲染 Remotion 视频的最快、最可扩展的方式。  
+您只在渲染时支付费用，使其非常具有成本效益。
 
 import { LambdaRegionList } from "../components/lambda/regions.tsx";
 
-## When should I use it?
+## 何时使用它？
 
-- Your videos are less than 80 minutes long at Full HD. <sub>approximately until the 15min AWS Timeout limit is hit</sub>
-- You stay within the ([AWS Lambda Concurrency Limit](/docs/lambda/troubleshooting/rate-limit)) or you are requesting an [increase from AWS](/docs/lambda/troubleshooting/rate-limit).
-- You are fine with using Amazon Web Services in one of the [supported regions](/docs/lambda/region-selection).
+- 您的视频长度不超过 80 分钟，分辨率为全高清。 <sub>大约在达到 15 分钟的 AWS 超时限制之前</sub>
+- 您遵守 ([AWS Lambda 并发限制](/docs/lambda/troubleshooting/rate-limit)) 或者您正在请求从 AWS 进行 [增加](/docs/lambda/troubleshooting/rate-limit)。
+- 您愿意在 [支持的区域](/docs/lambda/region-selection) 中使用亚马逊网络服务。
 
-If one of those constraints is a dealbreaker for you, resort to normal [server-side rendering](/docs/ssr) or consider using [Cloud Run](/docs/cloudrun).
+如果其中任何限制对您来说是无法接受的，可以使用普通的 [服务器端渲染](/docs/ssr) 或考虑使用 [Cloud Run](/docs/cloudrun)。
 
-## How it works
+## 工作原理
 
-- A Lambda function and a S3 bucket is created on AWS.
-- A Remotion project gets deployed to a S3 bucket as a website.
-- The Lambda function gets invoked and opens the Remotion project.
-- A lot of Lambda functions are created in parallel which each render a small part of the video
-- The initial Lambda function downloads the videos and stitches them together.
-- The final video gets uploaded to S3 and is available for download.
+- 在 AWS 上创建一个 Lambda 函数和一个 S3 存储桶。
+- 将 Remotion 项目部署到 S3 存储桶作为网站。
+- 调用 Lambda 函数并打开 Remotion 项目。
+- 并行创建许多 Lambda 函数，每个函数渲染视频的一小部分。
+- 初始 Lambda 函数下载视频并将它们拼接在一起。
+- 最终视频上传到 S3 并可供下载。
 
-See in more detail: [How Remotion Lambda works](/docs/lambda/how-lambda-works)
+详细了解：[Remotion Lambda 的工作原理](/docs/lambda/how-lambda-works)
 
-## Architecture
+## 架构
 
-- **Lambda function**: Requires a layer with Chromium, currently hosted by Remotion. Only one Lambda function is required, but it can execute different actions.
-- **S3 bucket**: Stores the projects, the renders, and render metadata.
-- **CLI**: Allows to control the overall architecture from the command line. Is installed by adding `@remotion/lambda` to a project.
-- **Node.JS API**: Has the same features as the CLI but is easier to use programmatically
+- **Lambda 函数**：需要一个包含 Chromium 的层，目前由 Remotion 托管。只需要一个 Lambda 函数，但它可以执行不同的操作。
+- **S3 存储桶**：存储项目、渲染和渲染元数据。
+- **CLI**：允许从命令行控制整体架构。通过将 `@remotion/lambda` 添加到项目中进行安装。
+- **Node.JS API**：具有与 CLI 相同的功能，但更容易以编程方式使用。
 
-## Setup / Installation
+## 设置 / 安装
 
-[**See here**](/docs/lambda/setup)
+[**请看这里**](/docs/lambda/setup)
 
-## Region selection
 
-The following regions are available for Remotion Lambda:
+
+## 区域选择
+
+以下区域适用于 Remotion Lambda：
 
 <LambdaRegionList />
 
-[**See here for configurations and considerations.**](/docs/lambda/region-selection)
+[**有关配置和注意事项，请参见此处。**](/docs/lambda/region-selection)
 
-## Limitations
 
-- You only have up to 10GB of storage available in a Lambda function. This must be sufficient for both the separated chunks and the concatenated output, therefore the output file can only be about 5GB maximum, limiting the maximum video length to around 2 hours of Full HD video.
-- [Lambda has a global limit of 1000 concurrent lambdas per region by default, although it can be increased](/docs/lambda/troubleshooting/rate-limit).
 
-## Cost
+## 限制
 
-Most of our users render multiple minutes of video for just a few pennies. The exact cost is dependent on the region, assigned memory, type of video, parallelization and other parameters. For each render, we estimate a cost and display it to you. You might also need a Remotion license (see below).
+- Lambda 函数中仅有最多 10GB 的存储空间可用。这必须足够用于分隔的块和连接的输出，因此输出文件最大只能约为 5GB，从而限制最大视频长度约为 2小时的全高清视频。
+- [默认情况下，Lambda 在每个区域的并发 Lambda 限制为 1000 个，尽管可以增加](/docs/lambda/troubleshooting/rate-limit).
 
-## AWS permissions
 
-Remotion Lambda requires you to create an AWS account and create a user with some permissions attached to it. We require only the minimal amount of permissions required for operating Remotion Lambda.
 
-[**Read more about permissions**](/docs/lambda/permissions)
+## 成本
+
+我们的大多数用户仅需花费几分钱即可渲染多分钟的视频。确切的成本取决于区域、分配的内存、视频类型、并行化和其他参数。对于每次渲染，我们会估算成本并向您显示。您可能还需要 Remotion 许可证（请参见下文）。
+
+
+
+## AWS 权限
+
+Remotion Lambda 需要您创建一个 AWS 帐户并创建一个附加了一些权限的用户。我们仅需要操作 Remotion Lambda 所需的最少权限。
+
+[**了解更多有关权限的信息**](/docs/lambda/permissions)
+
+
 
 ## CLI
 
-You can control Remotion Lambda using the `npx remotion lambda` command.
+您可以使用 `npx remotion lambda` 命令控制 Remotion Lambda。
 
-[**Read more about the CLI**](/docs/lambda/cli)
+[**了解更多有关 CLI 的信息**](/docs/lambda/cli)
+
+
 
 ## Node.JS API
 
-Everything you can do using the CLI, you can also control using Node.JS APIs. See the reference [here](/docs/lambda/api).
+您可以使用 Node.JS API 控制 Remotion Lambda，实现与 CLI 相同的功能。请参见[此处的参考资料](/docs/lambda/api).
 
-## License
 
-The standard Remotion license applies. https://github.com/remotion-dev/remotion/blob/main/LICENSE.md
 
-Companies need to buy 1 cloud rendering seat per 2000 renders per month - see https://remotion.pro
+## 许可证
 
-## Uninstalling
+适用标准 Remotion 许可证。https://github.com/remotion-dev/remotion/blob/main/LICENSE.md
 
-We make it easy to remove all Remotion resources from your AWS account without leaving any traces or causing further costs.
+公司需要每月购买 1 个云渲染席位，每月 2000 次渲染 - 请参见 https://remotion.pro
 
-[**How to uninstall Remotion Lambda**](/docs/lambda/uninstall)
+
+
+## 卸载
+
+我们提供了简单的方法，可从您的 AWS 帐户中删除所有 Remotion 资源，而不会留下任何痕迹或造成进一步的成本。
+
+[**如何卸载 Remotion Lambda**](/docs/lambda/uninstall)
+
+

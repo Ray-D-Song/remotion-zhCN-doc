@@ -1,33 +1,33 @@
 ---
 image: /generated/articles-docs-lambda-bucket-naming.png
-title: Bucket names in Remotion Lambda
+title: Remotion Lambda中的Bucket名称
 slug: /lambda/bucket-naming
-sidebar_label: Bucket naming
+sidebar_label: Bucket命名
 crumb: "@remotion/lambda"
 ---
 
-A Remotion Lambda bucket name (for example `remotionlambda-apsouth1-3ysk0nyazp`) has two special attributes:
+Remotion Lambda的Bucket名称（例如`remotionlambda-apsouth1-3ysk0nyazp`）具有两个特殊属性：
 
-<Step>1</Step> It is prefixed with <code>remotionlambda-</code>
+<Step>1</Step> 它以`remotionlambda-`为前缀
 <br />
-<Step>2</Step> It contains the region in their name <br />
+<Step>2</Step> 它在名称中包含了地区信息 <br />
 <br />
 
-It is not recommended to use a custom bucket name because it requires changing your policies and passing the bucket name explicitly to all APIs.
+不建议使用自定义Bucket名称，因为这将需要更改您的策略并显式传递Bucket名称给所有API。
 
-## Using a different bucket name
+## 使用不同的Bucket名称
 
 :::note
-By using a custom bucket name, you are opting out of Remotion's defaults and validation.  
-Ensure you are passing the bucket name explicitly to all APIs, especially to those for which the bucket name is optional.  
-Also ensure Lambda and S3 buckets are accessible with the role permission that you use.
+通过使用自定义Bucket名称，您选择退出Remotion的默认设置和验证。  
+确保您将Bucket名称显式传递给所有API，特别是对于那些Bucket名称是可选的API。  
+还要确保Lambda和S3 Bucket可以使用您使用的角色权限访问。
 :::
 
-To use a custom bucket name, you need to:
+要使用自定义Bucket名称，您需要：
 
-- Manually create a bucket in AWS yourself
-- Change the [policies](/docs/lambda/permissions) created by Remotion Lambda to change the `remotionlambda-` prefix. This prefix is used to exlude non-Remotion buckets from being able to be accessed by credentials supposed for Remotion.
-- Pass the bucket name explicitly to:
+- 在AWS中手动创建一个Bucket
+- 更改Remotion Lambda创建的[policies](/docs/lambda/permissions)以更改`remotionlambda-`前缀。此前缀用于排除非Remotion Bucket，以防止可以通过为Remotion准备的凭据访问这些Bucket。
+- 显式传递Bucket名称给：
   - [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)
   - [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda)
   - [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)
@@ -37,23 +37,25 @@ To use a custom bucket name, you need to:
   - [`npx remotion lambda sites create`](/docs/lambda/cli/sites#create)
   - [`npx remotion lambda sites rm`](/docs/lambda/cli/sites#rm)
   - [`npx remotion lambda sites rmall`](/docs/lambda/cli/sites#rmall)
-    using the `--force-bucket-name` or `forceBucketName` option respectively.
-- Be aware that the following APIs are unavailable when using custom bucket names:
+    分别使用`--force-bucket-name`或`forceBucketName`选项。
+- 请注意，在使用自定义Bucket名称时，以下API不可用：
   - [`npx remotion lambda sites ls`](/docs/lambda/cli/sites#ls)
   - [`getSites()`](/docs/lambda/getsites)
   - [`getOrCreateBucket()`](/docs/lambda/getorcreatebucket)
-- Be aware that you are opting out of automatic bucket discovery and validation. Be careful to:
-  - Ensure that you are passing valid bucket names to all APIs, especially to those for which the bucket name is optional.
-  - Ensure that the buckets and Lambda functions that are interacting with each other are in the same region.
+- 请注意，您选择退出自动Bucket发现和验证。请注意：
+  - 确保您将有效的Bucket名称传递给所有API，特别是对于那些Bucket名称是可选的API。
+  - 确保相互交互的Bucket和Lambda函数位于相同的地区。
 
-## AWS Region in the name
+## 存储桶名称中包含 AWS 区域
 
-The buckets contain the region in their name (for example `remotionlambda-apsouth1-3ysk0nyazp`). This is because when the list of AWS buckets is obtained through the AWS API, the region is not included in the response.
+这些存储桶的名称中包含了区域信息（例如 `remotionlambda-apsouth1-3ysk0nyazp`）。这是因为通过 AWS API 获取 AWS 存储桶列表时，响应中不包含区域信息。
 
-If the region is not in the bucket name, it needs to be queried for each bucket, which requires extra API calls and slows down the render.
+如果存储桶名称中不包含区域信息，则需要为每个存储桶查询，这将需要额外的 API 调用并减慢渲染速度。
 
-If you set up your buckets with a Remotion version before December 2022, you have bucket names that do not include the region in their name (for example `remotionlambda-0if1fa0wy0`). By renaming the buckets, you can speed up render and reduce API calls, especially if you have a lot of Remotion buckets across regions.
+如果您在 2022 年 12 月之前的 Remotion 版本中设置了存储桶，则存储桶名称中不包含区域信息（例如 `remotionlambda-0if1fa0wy0`）。通过重命名存储桶，您可以加快渲染速度并减少 API 调用，特别是如果您在不同区域拥有大量 Remotion 存储桶。
 
-## See also
+## 参见
 
-- [Multiple buckets](/docs/lambda/multiple-buckets)
+- [多个存储桶](/docs/lambda/multiple-buckets) 
+
+

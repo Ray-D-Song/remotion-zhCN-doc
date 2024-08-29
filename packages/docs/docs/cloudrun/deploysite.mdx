@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Takes a Remotion project, bundles it and uploads it to an Cloud Storage bucket. Once uploaded, a Cloud Run service can render any composition in the Remotion project by specifying the URL.
+将 Remotion 项目打包并上传到 Cloud Storage 存储桶。一旦上传完成，Cloud Run 服务可以通过指定 URL 渲染 Remotion 项目中的任何合成。
 
-- If you make changes locally, you need to redeploy the site. You can use [`siteName`](#sitename) to overwrite the previous site.
-- Note that the Remotion project will be deployed to a subdirectory, not the root of the domain. Therefore you must ensure that if you have specified paths in your Remotion project, they are able to handle this scenario.
-- Before calling this function, you should create a bucket, see [`getOrCreateBucket()`](/docs/cloudrun/getorcreatebucket).
+- 如果在本地进行更改，您需要重新部署站点。您可以使用 [`siteName`](#sitename) 覆盖以前的站点。
+- 请注意，Remotion 项目将部署到子目录，而不是域的根目录。因此，您必须确保如果在 Remotion 项目中指定了路径，则这些路径能够处理此情况。
+- 在调用此函数之前，您应该创建一个存储桶，请参阅 [`getOrCreateBucket()`](/docs/cloudrun/getorcreatebucket)。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -47,105 +47,109 @@ const { serveUrl } = await deploySite({
 console.log(serveUrl);
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `entryPoint`
 
-An absolute path pointing to the entry point of your Remotion project. [Usually the entry point in your Remotion project is stored at `src/entry.tsx`](/docs/terminology/entry-point).
+指向 Remotion 项目入口点的绝对路径。[通常情况下，您的 Remotion 项目的入口点存储在 `src/entry.tsx`](/docs/terminology/entry-point) 中。
 
 ### `bucketName`
 
-The bucket to where the website will be deployed. The bucket must have been created by Remotion Cloud Run.
+要部署网站的存储桶。该存储桶必须由 Remotion Cloud Run 创建。
 
 ### `siteName?`
 
-_optional_
+_可选_
 
-Specify the subfolder in your Cloud Storage bucket that you want the site to deploy to. If you omit this property, a new subfolder with a random name will be created. If a site already exists with the name you passed, it will be overwritten. Can only contain the following characters: `0-9`, `a-z`, `A-Z`, `-`, `!`, `_`, `.`, `*`, `'`, `(`, `)`
+指定您希望站点部署到的 Cloud Storage 存储桶的子文件夹。如果省略此属性，将创建一个具有随机名称的新子文件夹。如果已存在与您传递的名称相同的站点，则将覆盖它。只能包含以下字符：`0-9`、`a-z`、`A-Z`、`-`、`!`、`_`、`.`、`*`、`'`、`(`、`)`
 
 ### `options?`
 
-_optional_
+_可选_
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 #### `onBundleProgress`
 
-Callback from Webpack when the bundling has progressed. Passes a number between 0 and 100 to the callback, see example at the top of the page.
+Webpack 在打包进度进行时的回调。将一个介于 0 和 100 之间的数字传递给回调函数，参见页面顶部的示例。
+
+
 
 #### `onUploadProgress`
 
-Callback function that gets called when uploading of the assets has progressed. Passes an object with the following properties to the callback:
+在资产上传进度发生变化时调用的回调函数。将以下属性的对象传递给回调函数：
 
-- `totalFiles` (_number_): Total number of files in the bundle.
-- `filesUploaded` (_number_): Number of files that have been fully uploaded so far.
-- `totalSize` (_number_): Total size in bytes of all the files in the bundle.
-- `sizeUploaded` (_number_): Amount of bytes uploaded so far.
+- `totalFiles`（_number_）：捆绑包中的文件总数。
+- `filesUploaded`（_number_）：到目前为止已完全上传的文件数量。
+- `totalSize`（_number_）：捆绑包中所有文件的总字节数。
+- `sizeUploaded`（_number_）：到目前为止已上传的字节数。
 
 #### `webpackOverride`
 
-Allows to pass a custom webpack override. See [`bundle()` -> webpackOverride](/docs/bundle#webpackoverride) for more information.
+允许传递自定义的 webpack 覆盖。有关更多信息，请参阅[`bundle()` -> webpackOverride](/docs/bundle#webpackoverride)。
 
 #### `enableCaching`
 
-Whether webpack caching should be enabled. See [`bundle()` -> enableCaching](/docs/bundle#enablecaching) for more information.
+指定是否应启用 webpack 缓存。有关更多信息，请参阅[`bundle()` -> enableCaching](/docs/bundle#enablecaching)。
 
 #### `publicDir`
 
-Set the directory in which the files that can be loaded using [`staticFile()`](/docs/staticfile) are located. By default it is the folder `public/` located in the [Remotion Root](/docs/terminology/remotion-root) folder. If you pass a relative path, it will be resolved against the [Remotion Root](/docs/terminology/remotion-root).
+设置可以使用[`staticFile()`](/docs/staticfile)加载的文件所在的目录。默认情况下，它是位于[Remotion Root](/docs/terminology/remotion-root)文件夹中的 `public/` 文件夹。如果传递相对路径，它将相对于[Remotion Root](/docs/terminology/remotion-root)解析。
 
 #### `rootDir`
 
-The directory in which the Remotion project is rooted in. This should be set to the directory that contains the `package.json` which installs Remotion. By default, it is the current working directory.
+Remotion 项目的根目录。应设置为包含安装 Remotion 的 `package.json` 的目录。默认情况下，它是当前工作目录。
 
 :::note
-The current working directory is the directory from which your program gets executed from. It is not the same as the file where bundle() gets called.
+当前工作目录是程序执行的目录。它与调用 bundle() 的文件不同。
 :::
 
 #### `ignoreRegisterRootWarning`
 
-Ignore an error that gets thrown if you pass an entry point file which does not contain `registerRoot`.
+忽略传递不包含 `registerRoot` 的入口文件时抛出的错误。
 
-## Return value
+## 返回值
 
-An object with the following values:
+具有以下值的对象：
 
 ### `serveUrl`
 
 string\_
 
-An URL such as `https://storage.googleapis.com/remotioncloudrun-123asd321/sites/abcdefgh/index.html`.
+一个 URL，例如 `https://storage.googleapis.com/remotioncloudrun-123asd321/sites/abcdefgh/index.html`。
 
-You can use this "Serve URL" to render a video on Remotion Cloud Run using:
+您可以使用此“Serve URL”在 Remotion Cloud Run 上渲染视频：
 
-- The [`npx remotion cloudrun render`](/docs/cloudrun/cli/render) command
-- The [`renderMediaOnCloudrun()`](/docs/cloudrun/rendermediaoncloudrun) and [`renderStillOnCloudrun()`](/docs/cloudrun/renderstilloncloudrun) functions.
-- Locally using the [`renderMedia()`](/docs/renderer/render-media) and [`renderStill()`](/docs/renderer/render-still) functions.
-- Locally using the [`npx remotion render`](/docs/cli) and [`npx remotion still`](/docs/cli) commands
+- 使用 [`npx remotion cloudrun render`](/docs/cloudrun/cli/render) 命令
+- 使用 [`renderMediaOnCloudrun()`](/docs/cloudrun/rendermediaoncloudrun) 和 [`renderStillOnCloudrun()`](/docs/cloudrun/renderstilloncloudrun) 函数。
+- 在本地使用 [`renderMedia()`](/docs/renderer/render-media) 和 [`renderStill()`](/docs/renderer/render-still) 函数。
+- 在本地使用 [`npx remotion render`](/docs/cli) 和 [`npx remotion still`](/docs/cli) 命令
 
-If you are rendering on Cloud Run, you can also pass the site name (in this case `abcdefgh`) as an abbreviation.
+
+
+如果您在 Cloud Run 上渲染，还可以将站点名称（在本例中为 `abcdefgh`）作为缩写传递。
 
 ### `siteName`
 
 _string_
 
-The identifier of the site that was given. Is either the site name that you have passed into this function, or a random string that was generated if you didn't pass a site name.
+给定的站点标识符。如果您没有传递站点名称，则是您传递给此函数的站点名称，否则是生成的随机字符串。
 
 ### `stats`
 
-An object with 3 entries:
+具有 3 个条目的对象：
 
 - `uploadedFiles`
 - `deletedFiles`
 - `untouchedFiles`
 
-Each one is a `number`.
+每个都是一个 `number`。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/deploy-site.ts)
-- [CLI equivalent: `npx remotion cloudrun sites create`](/docs/cloudrun/cli/sites#create)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/deploy-site.ts)
+- [CLI 等效命令：`npx remotion cloudrun sites create`](/docs/cloudrun/cli/sites#create)
 - [getSites()](/docs/cloudrun/getsites)
 - [deleteSite()](/docs/cloudrun/deletesite)

@@ -1,29 +1,29 @@
 ---
 image: /generated/articles-docs-miscellaneous-snippets-hls.png
-title: "HLS support (HTTP Live Streaming)"
+title: "HLS 支持（HTTP Live Streaming）"
 id: hls
-crumb: "Video"
+crumb: "视频"
 ---
 
-## No native support
+## 没有原生支持
 
-Remotion does not currently support HLS / HTTP Live streaming / `.m3u8` files natively.  
-It is a technically difficult feature to add because:
+Remotion 目前不原生支持 HLS / HTTP Live streaming / `.m3u8` 文件。  
+这是一个技术上困难的功能，因为：
 
-- There is no native support for it in the browser.
-- FFmpeg does not treat it like other video formats when extracting frames using the low-level API.
+- 浏览器中没有原生支持。
+- 当使用低级 API 提取帧时，FFmpeg 不会像处理其他视频格式那样处理它。
 
-For Remotion to support HLS and take full advantage of only taking the relevant portion of the video while rendering, we'd need to implement our custom parser which takes a lot of time given the long specification.
+为了让 Remotion 支持 HLS 并充分利用在渲染时仅获取视频的相关部分，我们需要实现自定义解析器，这需要很长时间，因为规范很长。
 
-## Using hls.js to play HLS videos during Preview
+## 使用 hls.js 在预览期间播放 HLS 视频
 
-You can play HLS videos during preview in the [`<Player>`](/docs/player) and in the Remotion Studio.
+您可以在 [`<Player>`](/docs/player) 和 Remotion Studio 中在预览期间播放 HLS 视频。
 
-Note the following caveats:
+请注意以下注意事项：
 
-<Step>1</Step> This code only shows how to connect the video tag to the HLS stream, it has not been tested on a real project. <br/>
-<Step>2</Step> Audio will not work when rendering a video to an MP4 using this code. Use an alternative source during rendering. See <a href="/docs/miscellaneous/snippets/offthread-video-while-rendering">&lt;OffthreadVideo&gt; while rendering
-</a> and <a href="/docs/get-remotion-environment"><code>getRemotionEnvironment()</code></a> for how to use different components based on whether you are rendering or previewing.<br/><br/>
+<Step>1</Step> 此代码仅显示如何将视频标签连接到 HLS 流，尚未在真实项目上进行测试。<br/>
+<Step>2</Step> 使用此代码将视频渲染为 MP4 时，音频将无法工作。在渲染期间，请使用替代来源。请参阅 <a href="/docs/miscellaneous/snippets/offthread-video-while-rendering">&lt;OffthreadVideo&gt; 在渲染时
+</a> 和 <a href="/docs/get-remotion-environment"><code>getRemotionEnvironment()</code></a> 了解如何根据您是在渲染还是预览时使用不同的组件。<br/><br/>
 
 ```tsx twoslash title="HlsDemo.tsx"
 import Hls from "hls.js";
@@ -70,6 +70,7 @@ export const HlsDemo: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [GitHub issue for this feature request](https://github.com/remotion-dev/remotion/issues/2930)
+- [此功能请求的 GitHub 问题](https://github.com/remotion-dev/remotion/issues/2930)
+

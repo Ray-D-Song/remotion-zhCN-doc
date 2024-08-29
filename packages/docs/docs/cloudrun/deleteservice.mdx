@@ -7,14 +7,14 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Deletes a deployed Cloud Run service based on its name.
+根据其名称删除已部署的 Cloud Run 服务。
 
-To retrieve a list of services, call [`getServices()`](/docs/cloudrun/getservices) first.
+要检索服务列表，请先调用 [`getServices()`](/docs/cloudrun/getservices)。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -34,24 +34,25 @@ for (const service of services) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+具有以下属性的对象：
 
 ### `region`
 
-The [GCP region](/docs/cloudrun/region-selection) to which the service was deployed to.
+部署服务的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `serviceName`
 
-The name of the service to be deleted.
+要删除的服务的名称。
 
-## Return value
+## 返回值
 
-Nothing. If the deletion failed, the service rejects with an error.
+无。如果删除失败，服务将拒绝并返回错误。
 
-## See also
+## 另请参阅
 
-- [Source code for this service](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/delete-service.ts)
+- [此服务的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/delete-service.ts)
 - [deployService()](/docs/cloudrun/deployservice)
 - [getServices()](/docs/cloudrun/getservices)
+

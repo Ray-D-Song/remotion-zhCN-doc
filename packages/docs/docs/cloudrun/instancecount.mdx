@@ -1,36 +1,38 @@
 ---
 image: /generated/articles-docs-cloudrun-instancecount.png
 id: instancecount
-sidebar_label: Instance Count
-title: Instance Count
+sidebar_label: 实例计数
+title: 实例计数
 slug: /cloudrun/instancecount
 crumb: "Cloud Run"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Remotion Cloud Run will scale up and down as required to account for the number of requests being made to the service. By default, there is no concurrency in the Remotion services. This means that only one render will occur on an instance. When another request is made, GCP will spin up another Cloud Run instance to perform that render.
+Remotion Cloud Run 将根据对服务发出的请求数量而自动扩展或缩减。默认情况下，Remotion 服务中没有并发性。这意味着一个实例上只会发生一个渲染。当发出另一个请求时，GCP 将会启动另一个 Cloud Run 实例来执行该渲染。
 
-### Minimum instance count
+### 最小实例计数
 
-By default, the Cloud Run service will have a minimum number of instances set to 0. The advantage of this is that it can scale to zero, so if no users are requesting your service, you will not be billed. You may wish to increase the minimum instances so that renders are started faster, though this would only remove cold start time for simultaneous renders up to that minimum limit.
+默认情况下，Cloud Run 服务的最小实例数量设置为 0。这样做的好处是可以缩减到零，因此如果没有用户请求您的服务，您将不会被收费。您可能希望增加最小实例数，以便渲染更快地启动，尽管这只会消除同时渲染直到达到最小限制的冷启动时间。
 
 :::warning
-Any running instances, even if they are not performing a render, will be billable in GCP. The default minimum number of instances is zero, which means that when no requests are made to your service, you are not billed.
+任何正在运行的实例，即使它们没有执行渲染，也将在 GCP 中产生费用。默认的最小实例数量为零，这意味着当没有请求发送到您的服务时，您不会被收费。
 :::
 
-### Maximum instance count
+### 最大实例计数
 
-This is the maximum number of instances that can be created at one time, with the default set to 100. The maximum that can be set in GCP is also 100 - [more information around limits can be found here](https://cloud.google.com/run/docs/configuring/max-instances#limits). If the maximum number of instances is exceeded, further requests will fail with a `503 service unavailable` response. GCP provides Cloud Tasks for queueing requests, [which can be used in conjunction with Cloud Run](https://cloud.google.com/run/docs/triggering/using-tasks).
+这是一次可以创建的最大实例数量，其默认值为 100。在 GCP 中可以设置的最大值也是 100 - [可以在此处找到有关限制的更多信息](https://cloud.google.com/run/docs/configuring/max-instances#limits)。如果超过最大实例数量，进一步的请求将以 `503 服务不可用` 响应失败。GCP 提供了 Cloud Tasks 用于排队请求，[可以与 Cloud Run 一起使用](https://cloud.google.com/run/docs/triggering/using-tasks)。
 
 :::note
-You may wish to provide a low maximum instance limit for certain tiers of your product, and have a higher instance limit for higher tier plans. This can be achieved by deploying multiple Cloud Run services and calling them within your product as required.
+您可能希望为产品的某些层级提供较低的最大实例限制，并为更高层级的计划提供较高的实例限制。这可以通过部署多个 Cloud Run 服务并根据需要在产品中调用它们来实现。
 :::
 
-## See also
+## 参见
 
-- Cloud Run CLI - Deploy service with [maximum](/docs/cloudrun/deployservice#maxinstances) and [minimum](/docs/cloudrun/deployservice#mininstances) limits.
-- Cloud Run Node API - Deploy service with [maximum](/docs/cloudrun/deployservice#maxinstances) and [minimum](/docs/cloudrun/deployservice#mininstances) limits.
-- GCP documentation around [max instance limits](https://cloud.google.com/run/docs/configuring/max-instances#limits).
+- Cloud Run CLI - 使用[最大](/docs/cloudrun/deployservice#maxinstances)和[最小](/docs/cloudrun/deployservice#mininstances)限制部署服务。
+- Cloud Run Node API - 使用[最大](/docs/cloudrun/deployservice#maxinstances)和[最小](/docs/cloudrun/deployservice#mininstances)限制部署服务。
+- 有关[最大实例限制](https://cloud.google.com/run/docs/configuring/max-instances#limits)的GCP文档。 
+
+

@@ -1,46 +1,38 @@
----
-slug: 1-5
-title: Remotion 1.5
-author: Jonny Burger
-author_title: Indie Hacker
-author_url: https://github.com/JonnyBurger
-author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
----
+这个版本没有引入大的新功能，但解决了一些常见问题。
 
-This release contains no big new features, but addresses some common problems.
+## 无需下载 Chromium
 
-## No Chromium download necessary
+直到现在，每次运行 `yarn create video` 时都会安装一个 Chromium 二进制文件，这很慢，占用了大量空间（根据操作系统在 170-280MB 之间）。更糟糕的是，这些二进制文件不包含播放 MP4 视频所需的编解码器，这意味着如果您想嵌入一个 MP4 视频，您必须先将其转换为 WebM。
 
-Until now, every time you ran `yarn create video`, a binary of Chromium was installed, which was slow and took a lot of space (between 170-280MB depending on the OS). Making matters even worse, these binaries would not include the codec required to play MP4 videos, meaning if you wanted to embed one, you had to convert it to WebM first.
+现在 Remotion 将尝试在您的计算机上查找现有的 Chrome 安装，如果找到，将使用它并跳过下载。如果找不到，您可以使用 [`setBrowserExecutable()`](/docs/config#setbrowserexecutable) 选项或 [`--browser-executable`](/docs/cli) 命令行标志指定路径。
 
-Now Remotion will try to find an existing installation of Chrome on your machine and if it finds one, it will use it and skip the download. If it doesn't find one, you can specify the path using the [`setBrowserExecutable()`](/docs/config#setbrowserexecutable) option or the [`--browser-executable`](/docs/cli) command line flag.
+如果您在一个既没有安装 Chrome 也没有安装 Chromium 的计算机上运行 Remotion，Remotion 仍将从互联网下载一个版本。但是，下载仅在您第一次调用 `npm run build` 时发生，因此您不必等太久就可以开始尝试。
 
-If you are running Remotion on a machine where neither Chrome nor Chromium is installed, Remotion will still download a version from the internet. However, the download only happens when you invoke `npm run build` for the first time, so you don't have to wait so long before you can start experimenting.
+## 改进的 Apple Silicon 和 WSL 支持
 
-## Improved Apple Silicon and WSL support
+Apple Silicon 支持是 Puppeteer 重构的另一个好处，因为以前的安装会失败，因为没有为 Apple Silicon 架构提供 Chromium 二进制文件。现在 Remotion 将尝试使用本地 Chrome 安装，这种情况发生的可能性要小得多。
 
-Apple Silicon support is another nice side-effect of the Puppeteer refactor, since previously the installation would fail because no Chromium binaries were available for the Apple Silicon architecture. Now that Remotion will try to use the local Chrome installation this is way less likely to happen.
+在 Windows Subsystem for Linux 上，缺少一个标志会导致 Remotion 在渲染过程中卡住。这个问题现在已经修复。Linux 用户还需要安装一些额外的库，[现在已经有文档记录](/docs/miscellaneous/linux-dependencies)。
 
-On Windows Subsystem for Linux, a missing flag would lead to Remotion getting stuck during rendering. This is now fixed. Linux users also need to install some additional libraries, [which is now documented](/docs/miscellaneous/linux-dependencies).
+## 更流畅的时间轴
 
-## Smoother timeline
+为什么您的 30 FPS 时间轴只以 28.7FPS 播放？原来这是一个由 [yuta0801](https://github.com/remotion-dev/remotion/pull/148) 调查并修复的 bug！现在预览期间的播放更加流畅，FPS 计数器更有可能显示与您期望的 FPS 匹配的数字。 
 
-Why would the timeline of your 30 FPS only play at 28.7FPS? Turns out it's a bug that was investigated and fixed by [yuta0801](https://github.com/remotion-dev/remotion/pull/148)! Now the playback during preview is smoother and the FPS counter is way more likely to display a number matching your desired FPS.
 
-## Failing to render a frame fails hard
+## 渲染框架失败会导致严重错误
 
-If a frame fails to render for some reason (such as calling `delayRender()` and never resolving the lock), this will now stop the rendering process. Previously you would get an error message but Remotion would keep trying and keep failing.
+如果由于某种原因无法渲染框架（例如调用 `delayRender()` 并且永远无法解锁），现在将会停止渲染过程。之前会收到错误消息，但 Remotion 会继续尝试并继续失败。
 
-## Rendering will happen on a localhost server
+## 渲染将在本地服务器上进行
 
-Previously during rendering, frames would be opened via `file://` protocol and get screenshotted. Now the frames are being served on `http://localhost:3000` (if port is not available, it will try 3001, 3002, etc.), which is the same behavior as in the preview.
+以前在渲染过程中，框架会通过 `file://` 协议打开并进行截图。现在框架将在 `http://localhost:3000` 上提供服务（如果端口不可用，将尝试 3001、3002 等），这与预览中的行为相同。
 
-Now APIs can now simply whitelist localhost domains in their CORS configurations, and you can more easily use those APIs to feed data into your video.
+现在 API 可以简单地在其 CORS 配置中将本地主机域名列入白名单，您可以更轻松地使用这些 API 将数据输入到您的视频中。
 
-## New tutorial: Programmatic Instagram Stories
+## 新教程：编程式 Instagram 故事
 
-In case you missed it, I released a new tutorial showing the workflow of how to programmatically create Instagram Stories with dynamic content. [You can watch it here.](https://www.youtube.com/channel/UCsBAIv086U4dViuxXJLMJpg)
+如果您错过了，我发布了一个新教程，展示了如何使用动态内容编程式地创建 Instagram 故事的工作流程。[您可以在此观看。](https://www.youtube.com/channel/UCsBAIv086U4dViuxXJLMJpg)
 
-## Upgrade
+## 升级
 
-As always, you can upgrade to the newest version by running `npm run upgrade` in your Remotion project.
+如往常一样，您可以通过在您的 Remotion 项目中运行 `npm run upgrade` 来升级到最新版本。

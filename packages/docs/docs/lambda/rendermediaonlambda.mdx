@@ -7,12 +7,12 @@ crumb: "Lambda API"
 
 import { MinimumFramesPerLambda } from "../../components/lambda/default-frames-per-lambda";
 
-Kicks off a render process on Remotion Lambda. The progress can be tracked using [getRenderProgress()](/docs/lambda/getrenderprogress).
+在 Remotion Lambda 上启动渲染过程。可以使用 [getRenderProgress()](/docs/lambda/getrenderprogress) 来跟踪进度。
 
-Requires a [function](/docs/lambda/deployfunction) to already be deployed to execute the render.  
-A [site](/docs/lambda/deploysite) or a [Serve URL](/docs/terminology/serve-url) needs to be specified to determine what will be rendered.
+需要已部署 [function](/docs/lambda/deployfunction) 来执行渲染。  
+需要指定一个 [site](/docs/lambda/deploysite) 或 [Serve URL](/docs/terminology/serve-url) 来确定将要渲染的内容。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -31,166 +31,169 @@ const { bucketName, renderId } = await renderMediaOnLambda({
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从 `@remotion/lambda/client` 中导入此函数，以避免在 [无服务器函数](/docs/lambda/light-client) 中出现问题。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-In which region your Lambda function is deployed. It's highly recommended that your Remotion site is also in the same region.
+Lambda 函数部署的区域。强烈建议您的 Remotion 站点也位于同一区域。
 
 ### `privacy`
 
-_optional since v3.2.27_
+_自 v3.2.27 起可选_
 
-One of:
+其中之一：
 
-- `"public"` (_default_): The rendered media is publicly accessible under the S3 URL.
-- `"private"`: The rendered media is not publicly available, but signed links can be created using [presignUrl()](/docs/lambda/presignurl).
-- `"no-acl"` (_available from v.3.1.7_): The ACL option is not being set at all, this option is useful if you are writing to another bucket that does not support ACL using [`outName`](#outname).
+- `"public"`（_默认_）：渲染的媒体可以通过 S3 URL 公开访问。
+- `"private"`：渲染的媒体不是公开的，但可以使用 [presignUrl()](/docs/lambda/presignurl) 创建签名链接。
+- `"no-acl"`（_从 v.3.1.7 起可用_）：不设置 ACL 选项，如果您要写入不支持 ACL 的另一个存储桶，可以使用 [`outName`](#outname)。
 
 ### `functionName`
 
-The name of the deployed Lambda function.
-Use [`deployFunction()`](/docs/lambda/deployfunction) to create a new function and [`getFunctions()`](/docs/lambda/getfunctions) to obtain currently deployed Lambdas.
+部署的 Lambda 函数的名称。
+使用 [`deployFunction()`](/docs/lambda/deployfunction) 创建新函数，使用 [`getFunctions()`](/docs/lambda/getfunctions) 获取当前部署的 Lambdas。
 
 ### `framesPerLambda?`
 
-_optional_
+_可选_
 
-The video rendering process gets distributed across multiple Lambda functions. This setting controls how many frames are rendered per Lambda invocation. The lower the number you pass, the more Lambdas get spawned.
+视频渲染过程分布在多个 Lambda 函数中。此设置控制每个 Lambda 调用渲染多少帧。传递的数字越低，生成的 Lambda 就越多。
 
-Default value: [Dependant on video length](/docs/lambda/concurrency)  
-Minimum value: <MinimumFramesPerLambda />
+默认值：[取决于视频长度](/docs/lambda/concurrency)  
+最小值：<MinimumFramesPerLambda />
 
+```markdown
 :::note
-The `framesPerLambda` parameter cannot result in more than 200 functions being spawned. See: [Concurrency](/docs/lambda/concurrency)
+`framesPerLambda` 参数不能导致生成超过 200 个函数。参见：[并发性](/docs/lambda/concurrency)
 :::
 
 ### `frameRange?`
 
-_number | [number, number] - optional_
+_number | [number, number] - 可选_
 
-Specify a single frame (passing a `number`) or a range of frames (passing a tuple `[number, number]`) to render a subset of a video. Example: `[0, 9]` to select the first 10 frames. By passing `null` (default) all frames of a composition get rendered. To render a still, use [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda).
+指定单个帧（传递一个 `number`）或一系列帧（传递一个元组 `[number, number]`）以渲染视频的子集。例如：`[0, 9]` 选择前 10 帧。通过传递 `null`（默认）来渲染合成的所有帧。要渲染静态图，请使用 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)。
 
 ### `serveUrl`
 
-A URL pointing to a Remotion project. Use [`deploySite()`](/docs/lambda/deploysite) to deploy a Remotion project.
+指向 Remotion 项目的 URL。使用 [`deploySite()`](/docs/lambda/deploysite) 部署 Remotion 项目。
 
 ### `composition`
 
-The `id` of the [composition](/docs/composition) you want to render.
+您要渲染的[合成](/docs/composition)的 `id`。
 
 ### `inputProps`
 
-_optional since v3.2.27_
+_自 v3.2.27 起可选_
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a JSON object.  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[要传递给视频所选合成的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)  
+必须是 JSON 对象。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 ### `codec`
 
-Which codec should be used to encode the video.
+应使用哪种编解码器来编码视频。
 
-Video codecs `h264`, and `vp8` are supported, `prores` is supported since `v3.2.0`. `h265` support has been added in `v4.0.32`.
+支持视频编解码器 `h264` 和 `vp8`，自 `v3.2.0` 起支持 `prores`。`h265` 支持已在 `v4.0.32` 中添加。
 
-Audio codecs `mp3`, `aac` and `wav` are also supported.
+音频编解码器 `mp3`、`aac` 和 `wav` 也受支持。
 
-The option `h264-mkv` has been renamed to just `h264` since `v3.3.34`. Use `h264` to get the same behavior.
+自 `v3.3.34` 起，选项 `h264-mkv` 已更名为 `h264`。使用 `h264` 可获得相同的行为。
 
-See also [`renderMedia() -> codec`](/docs/renderer/render-media#codec).
+另请参见 [`renderMedia() -> codec`](/docs/renderer/render-media#codec)。
 
 ### `audioCodec?`
 
-_optional_
-_"pcm-16" | "aac" | "mp3" | "opus", available from v3.3.41_
+_可选_
+_"pcm-16" | "aac" | "mp3" | "opus"，自 v3.3.41 起可用_
 
-Choose the encoding of your audio.
+选择音频的编码方式。
 
-- Each Lambda chunk might actually choose an uncompressed codec and convert it in the final encoding stage to prevent audio artifacts.
-- The default is dependent on the chosen `codec`.
-- Choose `pcm-16` if you need uncompressed audio.
-- Not all video containers support all audio codecs.
-- This option takes precedence if the `codec` option also specifies an audio codec.
+- 每个 Lambda 块实际上可能会选择一种无损编解码器，并在最终编码阶段将其转换为避免音频伪影。
+- 默认取决于所选的 `codec`。
+- 如果需要无损音频，请选择 `pcm-16`。
+- 并非所有视频容器都支持所有音频编解码器。
+- 如果 `codec` 选项还指定了音频编解码器，则此选项优先。
 
-Refer to the [Encoding guide](/docs/encoding/#audio-codec) to see defaults and supported combinations.
+```
+
+请参考[编码指南](/docs/encoding/#audio-codec)查看默认值和支持的组合。
 
 ### `forceHeight?`
 
-_optional, available from v3.2.40_
+_可选，自 v3.2.40 起可用_
 
-Overrides default composition height.
+覆盖默认合成高度。
 
 ### `forceWidth?`
 
-_optional, available from v3.2.40_
+_可选，自 v3.2.40 起可用_
 
-Overrides default composition width.
+覆盖默认合成宽度。
 
 ### `muted?`
 
-_optional_
+_可选_
 
-Disables audio output. See also [`renderMedia() -> muted`](/docs/renderer/render-media#muted).
+禁用音频输出。另请参阅[`renderMedia() -> muted`](/docs/renderer/render-media#muted)。
 
 ### `imageFormat`
 
-_optional since v3.2.27_
+_自 v3.2.27 起可选_
 
-See [`renderMedia() -> imageFormat`](/docs/renderer/render-media#imageformat).
+参见[`renderMedia() -> imageFormat`](/docs/renderer/render-media#imageformat)。
 
 ### `crf?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> crf`](/docs/renderer/render-media#crf).
+参见[`renderMedia() -> crf`](/docs/renderer/render-media#crf)。
 
 ### `envVariables?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> envVariables`](/docs/renderer/render-media#envvariables).
+参见[`renderMedia() -> envVariables`](/docs/renderer/render-media#envvariables)。
 
 ### `pixelFormat?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> pixelFormat`](/docs/renderer/render-media#pixelformat).
+参见[`renderMedia() -> pixelFormat`](/docs/renderer/render-media#pixelformat)。
 
 ### `proResProfile?`
 
-_optional_
+_可选_
 
-See [`renderMedia() -> proResProfile`](/docs/renderer/render-media#proresprofile).
+参见[`renderMedia() -> proResProfile`](/docs/renderer/render-media#proresprofile)。
 
 ### `x264Preset?`
 
-_optional_
+_可选_
 
 <Options id="x264-preset" />
 
 ### `jpegQuality`
 
-See [`renderMedia() -> jpegQuality`](/docs/renderer/render-media#jpegquality).
+参见[`renderMedia() -> jpegQuality`](/docs/renderer/render-media#jpegquality)。
 
 ### ~~`quality`~~
 
-Renamed to `jpegQuality` in v4.0.0.
+在 v4.0.0 中更名为 `jpegQuality`。
 
 ### `audioBitrate?`
 
-_optional_
+_可选_
 
 <Options id="audio-bitrate" />
 
 ### `videoBitrate?`
 
-_optional_
+_可选_
 
 <Options id="video-bitrate" />
 
@@ -204,82 +207,84 @@ _optional_
 
 ### `maxRetries`
 
-_optional since v3.2.27, default `1`_
+_自 v3.2.27 起可选，默认为 `1`_
 
-How often a chunk may be retried to render in case the render fails.
-If a rendering of a chunk is failed, the error will be reported in the [`getRenderProgress()`](/docs/lambda/getrenderprogress) object and retried up to as many times as you specify using this option.
+在渲染失败的情况下，一个块可以重试渲染的次数。
+如果一个块的渲染失败，错误将在[`getRenderProgress()`](/docs/lambda/getrenderprogress)对象中报告，并根据您使用此选项指定的次数重试。
 
 :::note
-A retry only gets executed if a the error is in the [list of flaky errors](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/shared/is-flaky-error.ts).
+只有当错误在[易出错错误列表](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/shared/is-flaky-error.ts)中时，才会执行重试。
 :::
 
 ### `scale?`
 
-_optional_
+_可选_
 
-Scales the output dimensions by a factor. See [Scaling](/docs/scaling) to learn more about this feature.
+通过因子缩放输出尺寸。请参阅[缩放](/docs/scaling)以了解更多关于此功能的信息。
 
 ### `outName?`
 
-_optional_
+_可选_
 
-The file name of the media output.
+媒体输出的文件名。
 
-It can either be:
+可以是：
 
-- `undefined` - it will default to `out` plus the appropriate file extension, for example: `renders/${renderId}/out.mp4`.
-- A `string` - it will get saved to the same S3 bucket as your site under the key `renders/{renderId}/{outName}`. Make sure to include the file extension at the end of the string.
-- An object if you want to render to a different bucket or cloud provider - [see here for detailed instructions](/docs/lambda/custom-destination).
+- `undefined` - 默认为 `out` 加上适当的文件扩展名，例如：`renders/${renderId}/out.mp4`。
+- 一个 `string` - 将保存到与您的站点相同的 S3 存储桶下的键 `renders/{renderId}/{outName}`。请确保在字符串末尾包含文件扩展名。
+- 如果要渲染到不同的存储桶或云提供商，则为对象 - [请参阅此处获取详细说明](/docs/lambda/custom-destination)。
 
 ### `timeoutInMilliseconds?`
 
-_optional_
+_可选_
 
-A number describing how long the render may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout). Default: `30000`
+描述渲染可能需要多长时间来解析所有 [`delayRender()`](/docs/delay-render) 调用 [在超时之前](/docs/timeout)。默认值：`30000`
 
 ### `concurrencyPerLambda?`
 
-_optional, available from v3.0.30_
+_可选，自 v3.0.30 起可用_
 
-By default, each Lambda function renders with concurrency 1 (one open browser tab). You may use the option to customize this value.
+默认情况下，每个 Lambda 函数以并发 1（一个打开的浏览器选项卡）进行渲染。您可以使用此选项来自定义此值。
 
 ### `everyNthFrame?`
 
-_optional, available from v3.1_
+_可选，自 v3.1 起可用_
 
-Renders only every nth frame. For example only every second frame, every third frame and so on. Only works for rendering GIFs. [See here for more details.](/docs/render-as-gif)
+仅渲染每第 n 帧。例如，仅每第二帧，每第三帧等。仅适用于渲染 GIF。[请参阅此处获取更多详细信息。](/docs/render-as-gif)
 
 ### `numberOfGifLoops?`
 
-_optional, available since v3.1_
+_可选，自 v3.1 起可用_
 
 <Options id="number-of-gif-loops" />
 
 ### `downloadBehavior?`
 
-_optional, available since v3.1.5_
+_可选，自 v3.1.5 起可用_
 
-How the output file should behave when accessed through the S3 output link in the browser.  
-Either:
+在通过浏览器中的 S3 输出链接访问输出文件时的行为。  
+要么：
 
-- `{"type": "play-in-browser"}` - the default. The video will play in the browser.
-- `{"type": "download", fileName: null}` or `{"type": "download", fileName: "download.mp4"}` - a `Content-Disposition` header will be added which makes the browser download the file. You can optionally override the filename.
+- `{"type": "play-in-browser"}` - 默认选项。视频将在浏览器中播放。
+- `{"type": "download", fileName: null}` 或 `{"type": "download", fileName: "download.mp4"}` - 将添加一个 `Content-Disposition` 头，使浏览器下载文件。您可以选择性地覆盖文件名。
 
 ### `chromiumOptions?`
 
-Allows you to set certain Chromium / Google Chrome flags. See: [Chromium flags](/docs/chromium-flags).
+允许您设置某些 Chromium / Google Chrome 标志。参见：[Chromium 标志](/docs/chromium-flags)。
 
 #### `disableWebSecurity`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_
 
-This will most notably disable CORS among other security features.
+这将主要禁用 CORS 和其他安全功能。
 
 #### `ignoreCertificateErrors`
 
-_boolean - default `false`_
+_boolean - 默认 `false`_ 
 
-Results in invalid SSL certificates, such as self-signed ones, being ignored.
+
+
+结果会忽略无效的 SSL 证书，比如自签名证书。
 
 #### `gl`
 
@@ -287,24 +292,24 @@ Results in invalid SSL certificates, such as self-signed ones, being ignored.
 
 ### `overwrite?`
 
-_available from v3.2.25_
+_从 v3.2.25 版本开始可用_
 
-If a custom out name is specified and a file already exists at this key in the S3 bucket, decide whether the file should be overwritten. Default `false`.  
-If the file exists and `overwrite` is `false`, an error will be thrown.
+如果指定了自定义输出名称，并且 S3 存储桶中已经存在该键对应的文件，则决定是否覆盖该文件。默认为 `false`。  
+如果文件已存在且 `overwrite` 为 `false`，则会抛出错误。
 
 ### `rendererFunctionName?`
 
-_optional, available from v3.3.38_
+_可选，从 v3.3.38 版本开始可用_
 
-If specified, this function will be used for rendering the individual chunks. This is useful if you want to use a function with higher or lower power for rendering the chunks than the main orchestration function.
+如果指定了此函数，将用于渲染单个块。如果要使用比主协调函数具有更高或更低权限的函数来渲染块，这将非常有用。
 
-If you want to use this option, the function must be in the same region, the same account and have the same version as the main function.
+如果要使用此选项，函数必须与主函数在同一区域、同一帐户并且具有相同的版本。
 
 ### `webhook?`
 
-_optional, available from v3.2.30_
+_可选，从 v3.2.30 版本开始可用_
 
-If specified, Remotion will send a POST request to the provided endpoint to notify your application when the Lambda rendering process finishes, errors out or times out.
+如果指定了，Remotion 将向提供的端点发送 POST 请求，以通知您的应用程序 Lambda 渲染过程何时完成、出错或超时。
 
 ```tsx twoslash
 import { RenderMediaOnLambdaInput } from "@remotion/lambda";
@@ -319,7 +324,7 @@ const webhook: RenderMediaOnLambdaInput["webhook"] = {
 };
 ```
 
-If you don't want to set up validation, you can set `secret` to null:
+如果不想设置验证，可以将 `secret` 设置为 null：
 
 ```tsx twoslash
 import { RenderMediaOnLambdaInput } from "@remotion/lambda";
@@ -330,19 +335,19 @@ const webhook: RenderMediaOnLambdaInput["webhook"] = {
 };
 ```
 
-[See here for detailed instructions on how to set up your webhook](/docs/lambda/webhooks).
+[点击此处查看如何设置您的 webhook 的详细说明](/docs/lambda/webhooks)。
 
 ### `forceBucketName?`
 
-_optional, available from v3.3.42_
+_可选，从 v3.3.42 版本开始可用_
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让 Remotion 自动发现正确的存储桶。
 
 ### `logLevel?`
 
 <Options id="log" />
 
-If the `logLevel` is set to `verbose`, the Lambda function will not clean up artifacts, to aid debugging. Do not use it unless you are debugging a problem.
+如果 `logLevel` 设置为 `verbose`，Lambda 函数将不会清理工件，以帮助调试。除非您正在调试问题，否则不要使用它。
 
 ### `offthreadVideoCacheSizeInBytes?`<AvailableFrom v="4.0.23"/>
 
@@ -362,39 +367,39 @@ If the `logLevel` is set to `verbose`, the Lambda function will not clean up art
 
 ### `forcePathStyle?`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果您不知道这是什么，您可能不需要它。
 
 ### ~~`dumpBrowserLogs?`~~
 
-_optional - default `false`, deprecated in v4.0_
+_可选 - 默认为 `false`，在 v4.0 中已弃用_
 
-Deprecated in favor of [`logLevel`](#loglevel).
+已弃用，建议使用 [`logLevel`](#loglevel)。
 
-## Return value
+## 返回值
 
-Returns a promise resolving to an object containing four properties. Of these, `renderId`, `bucketName` are useful for passing to `getRenderProgress()`.
+返回一个解析为包含四个属性的对象的 Promise。其中，`renderId`、`bucketName` 对于传递给 `getRenderProgress()` 是有用的。
 
 ### `renderId`
 
-A unique alphanumeric identifier for this render. Useful for obtaining status and finding the relevant files in the S3 bucket.
+此渲染的唯一字母数字标识符。用于获取状态并在 S3 存储桶中找到相关文件。
 
 ### `bucketName`
 
-The S3 bucket name in which all files are being saved.
+正在保存所有文件的 S3 存储桶名称。
 
 ### `cloudWatchLogs`<AvailableFrom v="3.2.10"/>
 
-A link to CloudWatch (if you haven't disabled it) that you can visit to see the logs for the render.
+一个指向 CloudWatch 的链接（如果您未禁用它），您可以访问以查看渲染的日志。
 
 ### `lambdaInsightsUrl`<AvailableFrom v="4.0.61"/>
 
-A link to the [Lambda Insights](/docs/lambda/insights), if you enabled it.
+一个指向 [Lambda Insights](/docs/lambda/insights) 的链接，如果您已启用。
 
 ### `folderInS3Console`<AvailableFrom v="3.2.43"/>
 
-A link to the folder in the AWS console where each chunk and render is located.
+一个指向 AWS 控制台中每个块和渲染所在文件夹的链接。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/render-media-on-lambda.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/render-media-on-lambda.ts)
 - [getRenderProgress()](/docs/lambda/getrenderprogress)

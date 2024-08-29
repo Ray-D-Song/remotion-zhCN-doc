@@ -1,7 +1,7 @@
 ---
 image: /generated/articles-docs-tailwind-overview.png
 id: tailwind
-sidebar_label: Overview
+sidebar_label: 概述
 title: "@remotion/tailwind"
 ---
 
@@ -9,17 +9,17 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {ExperimentalBadge} from '../../components/Experimental';
 
-This package provides utilities useful for integrating [TailwindCSS](https://tailwindcss.com/) with Remotion, as documented on our [TailwindCSS](/docs/tailwind) page.
+该软件包提供了与 Remotion 集成 [TailwindCSS](https://tailwindcss.com/) 有用的实用工具，如我们的 [TailwindCSS](/docs/tailwind) 页面中所记录。
 
-## Installation
+## 安装
 
-Install `@remotion/tailwind` as well as TailwindCSS dependencies.
+安装 `@remotion/tailwind` 以及 TailwindCSS 依赖项。
 
 <Installation pkg="@remotion/tailwind"/>
 
 <br/>
 
-[Override the Webpack config](/docs/webpack) by using [`enableTailwind()`](/docs/tailwind/enable-tailwind).
+通过使用 [`enableTailwind()`](/docs/tailwind/enable-tailwind) 来[覆盖 Webpack 配置](/docs/webpack)。
 
 ```ts twoslash title="remotion.config.ts"
 import { Config } from "@remotion/cli/config";
@@ -30,11 +30,11 @@ Config.overrideWebpackConfig((currentConfiguration) => {
 });
 ```
 
-Then follow the remaining set up steps from the [TailwindCSS](/docs/tailwind) page.
+然后按照 [TailwindCSS](/docs/tailwind) 页面上的其余设置步骤进行操作。
 
-## Templates
+## 模板
 
-You can find the [starter template](https://github.com/remotion-dev/template-tailwind) here or install it using:
+您可以在这里找到 [入门模板](https://github.com/remotion-dev/template-tailwind) 或使用以下方式安装：
 
 <Tabs
 defaultValue="npm"
@@ -80,3 +80,4 @@ pnpm create video --tailwind
 ## APIs
 
 - [`enableTailwind()`](/docs/tailwind/enable-tailwind)
+

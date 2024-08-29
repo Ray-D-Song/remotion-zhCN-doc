@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-motion-blur-common-mistake.png
-title: Common mistake with <MotionBlur> and <Trail>
-sidebar_label: Common mistake
+title: <MotionBlur> 和 <Trail> 的常见错误
+sidebar_label: 常见错误
 ---
 
-The [`<Trail>`](/docs/motion-blur/trail) and [`<CameraMotionBlur>`](/docs/motion-blur/camera-motion-blur) components manipulate the React context that holds the current time.  
-This means that the motion blur effect doesn't work if you use the [`useCurrentFrame()`](/docs/use-current-frame) hook outside of a motion blur component.
+[`<Trail>`](/docs/motion-blur/trail) 和 [`<CameraMotionBlur>`](/docs/motion-blur/camera-motion-blur) 组件会操作包含当前时间的 React 上下文。  
+这意味着如果您在运动模糊组件之外使用 [`useCurrentFrame()`](/docs/use-current-frame) 钩子，运动模糊效果将无法正常工作。
 
-```tsx twoslash title="❌ Wrong - useCurrentFrame() outside of CameraMotionBlur"
+```tsx twoslash title="❌ 错误 - 在 CameraMotionBlur 之外使用 useCurrentFrame()"
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {CameraMotionBlur} from '@remotion/motion-blur';
 
@@ -34,9 +34,9 @@ export const MyComp = () => {
 };
 ```
 
-You can fix this by extracting the animation into a separate component:
+您可以通过将动画提取到单独的组件中来解决此问题：
 
-```tsx twoslash title="✅ Correct - useCurrentFrame() inside the child component"
+```tsx twoslash title="✅ 正确 - 在子组件中使用 useCurrentFrame()"
 import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {CameraMotionBlur} from '@remotion/motion-blur';
 
@@ -69,7 +69,8 @@ export const MyComp = () => {
 };
 ```
 
-## See also
+## 参见
 
 - [`<Trail>`](/docs/motion-blur/trail)
 - [`<CameraMotionBlur>`](/docs/motion-blur/camera-motion-blur)
+

@@ -7,7 +7,7 @@ crumb: "@remotion/renderer"
 
 # ensureBrowser()<AvailableFrom v="4.0.137" />
 
-Ensures a browser is locally installed so a Remotion render can be executed.
+确保本地安装了浏览器，以便执行 Remotion 渲染。
 
 ```tsx twoslash title="Simple usage"
 // @module: ESNext
@@ -38,13 +38,13 @@ await ensureBrowser({
 
 ## API
 
-An object with the following properties, all of which are optional:
+一个具有以下属性的对象，所有属性都是可选的：
 
 ### `browserExecutable`
 
-Pass a path to a browser executable that you want to use instead of downloading.  
-If the path does not exist, this function will throw.  
-Pass the same path to any other API that supports the `browserExecutable` option.
+传递一个浏览器可执行文件的路径，您希望使用该文件而不是下载。  
+如果路径不存在，此函数将抛出异常。  
+将相同的路径传递给支持 `browserExecutable` 选项的任何其他 API。
 
 ### `logLevel`
 
@@ -52,8 +52,8 @@ Pass the same path to any other API that supports the `browserExecutable` option
 
 ### `onBrowserDownload`
 
-Specify a specific version of Chrome that should be used and hook into the download progress.  
-See the example below for the function signature.
+指定应使用的特定 Chrome 版本，并钩入下载进度。  
+请参见下面的示例以了解函数签名。
 
 ```tsx twoslash title="init.ts"
 // @module: ESNext
@@ -87,12 +87,13 @@ await ensureBrowser({
 });
 ```
 
-## Return value
+## 返回值
 
-A promise with no value.
+一个没有值的 Promise。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/ensure-browser.ts)
-- [Chrome Headless Shell](/docs/miscellaneous/chrome-headless-shell)
-- [Server-Side rendering](/docs/ssr)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/ensure-browser.ts)
+- [Chrome 无头浏览器](/docs/miscellaneous/chrome-headless-shell)
+- [服务器端渲染](/docs/ssr)
+

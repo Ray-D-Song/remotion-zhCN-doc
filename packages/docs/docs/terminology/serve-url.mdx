@@ -1,14 +1,17 @@
 ---
-image: /generated/articles-docs-terminology-serve-url.png
-title: Serve URL
-crumb: "Terminology"
+image: /generated/articles-docs-termininology-serve-url.png
+title: 服务 URL
+crumb: "术语"
 ---
 
-A Serve URL is a URL under which [a Remotion Bundle](/docs/terminology/bundle) is hosted.  
-When rendering your video, Remotion will open a headless browser and visit that URL in order to make screenshots of it.
+服务 URL 是 [Remotion Bundle](/docs/terminology/bundle) 托管的 URL。  
+在渲染视频时，Remotion 将打开一个无头浏览器并访问该 URL 以便对其进行截图。
 
-The most common use case for a Serve URL is when rendering a video on Lambda, you need to deploy your [bundle](/docs/terminology/bundle) to Amazon S3, which will [make it a Serve URL](/docs/lambda/cli/sites#create).
+服务 URL 最常见的用例是在 Lambda 上渲染视频时，您需要将您的 [bundle](/docs/terminology/bundle) 部署到 Amazon S3，这将 [使其成为服务 URL](/docs/lambda/cli/sites#create)。
 
-If you have a Serve URL, you can also render a video locally by passing a serve URL instead of an [entry point](/docs/terminology/entry-point).
+如果您有一个服务 URL，您还可以通过传递服务 URL 而不是 [入口点](/docs/terminology/entry-point) 来在本地渲染视频。
 
-A serve URL doesn't have to be on S3, it can be on any provider that supports static deployments (e.g. Netlify, Vercel or GitHub pages) or even be a URL that runs on localhost.
+服务 URL 不一定要在 S3 上，它可以在任何支持静态部署的提供商上（例如 Netlify、Vercel 或 GitHub 页面），甚至可以是在本地主机上运行的 URL。
+
+
+

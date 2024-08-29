@@ -5,9 +5,9 @@ title: useVideoTexture()
 crumb: "@remotion/three"
 ---
 
-Allows you to use a video in React Three Fiber that is synchronized with Remotion's `useCurrentFrame()`.
+允许您在 React Three Fiber 中使用与 Remotion 的 `useCurrentFrame()` 同步的视频。
 
-To use a video in a Three.JS context, you first have to render it and assign it a ref. If you only want to use it in a React Three Fiber Scene, you can make it invisible by adding a `{position: "absolute", opacity: 0}` style.
+要在 Three.JS 上下文中使用视频，您首先必须渲染它并分配一个引用。如果您只想在 React Three Fiber 场景中使用它，可以通过添加`{position: "absolute", opacity: 0}`样式使其不可见。
 
 ```tsx twoslash
 import { useRef } from "react";
@@ -27,7 +27,7 @@ const MyVideo = () => {
 };
 ```
 
-To convert the video to a video texture, place the `useVideoTexture()` hook in the same component.
+要将视频转换为视频纹理，请将`useVideoTexture()`钩子放在同一组件中。
 
 ```tsx twoslash
 const videoRef: React.MutableRefObject<HTMLVideoElement | null> =
@@ -40,7 +40,7 @@ import { useVideoTexture } from "@remotion/three";
 const texture = useVideoTexture(videoRef);
 ```
 
-The return type of it is a `THREE.VideoTexture | null` which you can assign as a `map` to for example `meshBasicMaterial`. We recommend to only render the material when the texture is not `null` to prevent bugs.
+它的返回类型是`THREE.VideoTexture | null`，您可以将其分配为例如`meshBasicMaterial`的`map`。我们建议仅在纹理不为`null`时才渲染材质，以防止错误。
 
 ```tsx twoslash
 import { useVideoTexture } from "@remotion/three";
@@ -53,8 +53,8 @@ const videoTexture = useVideoTexture(videoRef);
 }
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/three/src/use-video-texture.ts)
-- [Example usage: React Three Fiber template](/templates/three)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/three/src/use-video-texture.ts)
+- [示例用法：React Three Fiber 模板](/templates/three)
 - [`<ThreeCanvas />`](/docs/three-canvas)

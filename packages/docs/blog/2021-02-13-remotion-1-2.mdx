@@ -2,41 +2,44 @@
 slug: 1-2
 title: Remotion 1.2
 author: Jonny Burger
-author_title: Indie Hacker
+author_title: 独立开发者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
-You have tested Remotion and provided an enormous amount of feedback! Thanks to it, this version of Remotion is vastly improved 🎉
+您已经测试了 Remotion 并提供了大量反馈！多亏了这些反馈，这个版本的 Remotion 得到了极大的改进 🎉
 
-## Rendering time cut in half!
+## 渲染时间减半！
 
-It turns out rendering each frame as JPEG is much faster than rendering them in PNG and results in no visible quality difference. Using this trick, the time of the 'Rendering Frames...' of an example video went down from 14 seconds to 6.5 seconds! That's more than twice as fast.
+事实证明，将每一帧渲染为 JPEG 比将其渲染为 PNG 要快得多，并且在质量上没有明显差异。通过这个技巧，一个示例视频的“渲染帧...”时间从 14 秒减少到 6.5 秒！这是原来的两倍速。
 
-Now that the rendering process is JPEG-based, [a new flag `--quality`](/docs/cli/render#--jpeg-quality) was added to command line. [For server-side rendering, you may pass in a new `imageFormat`](/docs/ssr) option.
-If you [render a PNG sequence](/docs/cli/render#--jpeg-quality), Remotion will of course still deliver PNGs.
+现在渲染过程基于 JPEG，[新增了一个 `--quality` 标志](/docs/cli/render#--jpeg-quality)到命令行。[对于服务器端渲染，您可以传入一个新的 `imageFormat`](/docs/ssr) 选项。
+如果您[渲染为 PNG 序列](/docs/cli/render#--jpeg-quality)，Remotion 当然仍会提供 PNG。
 
-The goal is to make rendering even faster, finding further optimizations is going to be a very interesting task!
+目标是使渲染速度更快，寻找进一步的优化将是一个非常有趣的任务！
 
-## Windows support
+## Windows 支持
 
-Windows support is very important ([_just like PHP_](https://www.youtube.com/watch?t=74&v=jo_B4LTHi3I&feature=youtu.be)). All the bugs that prevented proper Windows installation have now been fixed. Plus I now have a proper Windows setup so from now on Remotion will be tested on Windows as well!
+Windows 支持非常重要（[_就像 PHP 一样_](https://www.youtube.com/watch?t=74&v=jo_B4LTHi3I&feature=youtu.be)）。所有阻止正确安装 Windows 的 bug 现在都已修复。此外，我现在有了一个合适的 Windows 设置，所以从现在开始 Remotion 也将在 Windows 上进行测试！
 
-## Discord community
+## Discord 社区
 
-We now have a Discord! [Join now and chat about Remotion!](https://remotion.dev/discord)
+我们现在有了一个 Discord！[立即加入并聊一聊 Remotion！](https://remotion.dev/discord)
 
-## Licensing now available
+## 现在提供许可证
 
-The terms of [the company license](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md#company-license) have now been worked out and a billing system with Stripe has been set up. Contact me for pricing!
+[公司许可证的条款](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md#company-license)现在已经制定出来，并且已经设置了一个带有 Stripe 的计费系统。联系我了解价格！
 
-## Roadmap
+## 路线图
 
-A GitHub Project board has been setup with the goal [of indicating the next priorities](https://github.com/remotion-dev/remotion/projects/3). Check it out!
+已经设置了一个 GitHub 项目板，旨在[指示下一个优先事项](https://github.com/remotion-dev/remotion/projects/3)。快去看看吧！
 
-## Miscellaneous
+## 其他
 
-- [Add .dockerignore](https://github.com/remotion-dev/remotion/pull/54)
-- [Use `npm init video` instead of `npx create-video`](https://github.com/remotion-dev/remotion/pull/49)
-- [Fix refs of `<Image/>` component](https://github.com/remotion-dev/remotion/pull/66)
-- [Improve page management pool](https://github.com/remotion-dev/remotion/pull/48)
+- [添加 .dockerignore](https://github.com/remotion-dev/remotion/pull/54)
+- [使用 `npm init video` 替代 `npx create-video`](https://github.com/remotion-dev/remotion/pull/49)
+- [修复 `<Image/>` 组件的引用](https://github.com/remotion-dev/remotion/pull/66)
+- [改进页面管理池](https://github.com/remotion-dev/remotion/pull/48) 
+
+
+Please paste the Markdown content you need to be translated into Chinese.

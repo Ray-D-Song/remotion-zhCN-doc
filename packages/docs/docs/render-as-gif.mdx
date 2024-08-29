@@ -1,57 +1,57 @@
 ---
 image: /generated/articles-docs-render-as-gif.png
 id: render-as-gif
-title: Rendering GIFs
-crumb: "Techniques"
+title: 渲染 GIF
+crumb: "技术"
 ---
 
-_Available since v3.1_
+_自 v3.1 版本起可用_
 
-You can render a video as a GIF by:
+您可以通过以下方式将视频渲染为 GIF：
 
-- passing `--codec=gif` in the command line
-- setting `codec: "gif"` in [`renderMedia()`](/docs/renderer/render-media), [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) or [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+- 在命令行中传递 `--codec=gif`
+- 在 [`renderMedia()`](/docs/renderer/render-media)、[`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) 或 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 中设置 `codec: "gif"`。
 
-## Reducing frame rate
+## 降低帧率
 
-Commonly a GIF has a lower frame rate than a video. For this, we support a parameter `everyNthFrame` that works as follows:
+通常 GIF 的帧率低于视频。为此，我们支持一个名为 `everyNthFrame` 的参数，其工作方式如下：
 
-- By default, `everyNthFrame` is set to `1`: Frames `0`, `1`, `2`, `3`, `4` and so on are rendered.
-- Assuming `everyNthFrame` is `2`, only every 2nd frame is rendered: `1`, `3`, `5`, `7` and so on. A 30FPS video would now become a 15FPS GIF.
-- If `everyNthFrame` is `3`, only every 3rd frame is rendered: `2`, `5`, `8`, `11` and the pattern continues.
+- 默认情况下，`everyNthFrame` 设置为 `1`：渲染帧 `0`、`1`、`2`、`3`、`4` 等。
+- 假设 `everyNthFrame` 为 `2`，则仅渲染每第二帧：`1`、`3`、`5`、`7` 等。 一个 30FPS 的视频现在将成为一个 15FPS 的 GIF。
+- 如果 `everyNthFrame` 为 `3`，则仅渲染每第三帧：`2`、`5`、`8`、`11` 等，模式继续。
 
-`everyNthFrame` is supported:
+`everyNthFrame` 支持：
 
-- in [`renderFrames()`](/docs/renderer/render-frames#everynthframe), [`renderMedia()`](/docs/renderer/render-media#everynthframe) and [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#everynthframe)
-- in the CLI using `--every-nth-frame=2` [locally](/docs/cli/render#--every-nth-frame) or [on Lambda](/docs/lambda/cli/render#--every-nth-frame).
-- in the config file using [`setEveryNthFrame()`](/docs/config#seteverynthframe).
+- 在 [`renderFrames()`](/docs/renderer/render-frames#everynthframe)、[`renderMedia()`](/docs/renderer/render-media#everynthframe) 和 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#everynthframe) 中
+- 在本地使用 `--every-nth-frame=2` 的 CLI [本地](/docs/cli/render#--every-nth-frame) 或 [Lambda](/docs/lambda/cli/render#--every-nth-frame) 中
+- 在配置文件中使用 [`setEveryNthFrame()`](/docs/config#seteverynthframe)。
 
-## Changing the number of loops
+## 更改循环次数
 
-<!-- Changing the title will change other links -->
+<!-- 更改标题将更改其他链接 -->
 
-The `numberOfGifLoops` option allows you to set the number of loops as follows:
+`numberOfGifLoops` 选项允许您设置循环次数如下：
 
-- `null` (or omitting in the CLI) means to play the GIF indefinitely.
-- `0` disables looping.
-- `1` loops the GIF once (plays twice in total)
-- `2` loops the GIF twice (plays three times in total)
-- and so on.
+- `null`（或在 CLI 中省略）表示无限循环 GIF。
+- `0` 禁用循环。
+- `1` 循环播放 GIF 一次（总共播放两次）
+- `2` 循环播放 GIF 两次（总共播放三次）
+- 依此类推。
 
-The `numberOfGifLoops` option can be set:
+`numberOfGifLoops` 选项可设置为：
 
-- In the CLI using the `--number-of-gif-loops=0` flag when rendering [locally](/docs/cli/render#--number-of-gif-loops) or on [Lambda](/docs/lambda/cli/render#--number-of-gif-loops).
-- in [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video#numberofgifloops), [`renderMedia()`](/docs/renderer/render-media#numberofgifloops) and [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#numberofgifloops)
-- in the config file using [`setNumberOfGifLoops()`](/docs/config#setnumberofgifloops).
+- 在 CLI 中使用 `--number-of-gif-loops=0` 标志进行设置，[本地](/docs/cli/render#--number-of-gif-loops) 或 [Lambda](/docs/lambda/cli/render#--number-of-gif-loops) 中
+- 在 [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video#numberofgifloops)、[`renderMedia()`](/docs/renderer/render-media#numberofgifloops) 和 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#numberofgifloops) 中
+- 在配置文件中使用 [`setNumberOfGifLoops()`](/docs/config#setnumberofgifloops)。
 
-## Importing GIFs
+## 导入 GIF
 
-Wondering how to import other GIFs into a Remotion project? [See here.](/docs/gif)
+想知道如何将其他 GIF 导入到 Remotion 项目中？[请看这里。](/docs/gif)
 
-## Transparent GIFs
+## 透明 GIF
 
-To render a transparent GIF, the [`imageFormat`](/docs/renderer/render-media) option must be set to `"png"`. In the Remotion Studio, this can be set in the "Picture" tab.
+要渲染透明 GIF，必须将 [`imageFormat`](/docs/renderer/render-media) 选项设置为 `"png"`。在 Remotion Studio 中，可以在 "Picture" 选项卡中设置。
 
-## See also
+## 另请参阅
 
-- [Encoding guide](/docs/encoding)
+- [编码指南](/docs/encoding)

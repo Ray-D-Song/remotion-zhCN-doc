@@ -7,16 +7,16 @@ crumb: "API"
 
 # getRemotionEnvironment()<AvailableFrom v="4.0.25" />
 
-With the `getRemotionEnvironment()` function, you can retrieve information about the current Remotion Environment.
-It returns an object with the following properties:
+使用 `getRemotionEnvironment()` 函数，您可以获取有关当前 Remotion 环境的信息。
+它返回一个具有以下属性的对象：
 
-- `isStudio`: Whether the function got called in the [Remotion Studio](/docs/cli/studio).
-- `isRendering`: Whether the function got called in a render.
-- `isPlayer`: Whether a [`<Player>`](/docs/player) is mounted on the current page.
+- `isStudio`：该函数是否在 [Remotion Studio](/docs/cli/studio) 中调用。
+- `isRendering`：该函数是否在渲染中调用。
+- `isPlayer`：当前页面上是否挂载了 [`<Player>`](/docs/player)。
 
-This can be useful if you want components or functions to behave differently depending on the environment.
+如果您希望组件或函数根据环境的不同而表现不同，这可能会很有用。
 
-### Example
+### 示例
 
 ```tsx twoslash
 import React from "react";
@@ -41,10 +41,10 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-A more realistic use case: You might want to debounce a request during editing in the Remotion Studio, but not during rendering. See: [debouncing requests](/docs/data-fetching#debouncing-requests)
+一个更现实的用例：您可能希望在 Remotion Studio 中进行编辑时防抖请求，但在渲染时不进行。请参见：[防抖请求](/docs/data-fetching#debouncing-requests)
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/get-remotion-environment.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/get-remotion-environment.ts)
 - [useVideoConfig()](/docs/use-video-config)
-- [`<OffthreadVideo/> while rendering`](/docs/miscellaneous/snippets/offthread-video-while-rendering)
+- [`<OffthreadVideo/> 在渲染时`](/docs/miscellaneous/snippets/offthread-video-while-rendering)

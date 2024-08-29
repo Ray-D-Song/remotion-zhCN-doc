@@ -15,12 +15,12 @@ crumb: "@remotion/renderer"
 # getSilentParts()<AvailableFrom v="4.0.18" />
 
 :::note
-This function is meant to be used **in Node.js applications**. It cannot run in the browser.
+此函数**仅适用于 Node.js 应用程序**。无法在浏览器中运行。
 :::
 
-Gets the silent parts of a video or audio in Node.js. Useful for cutting out silence from a video.
+获取视频或音频在 Node.js 中的静音部分。用于从视频中剪切静音部分。
 
-## Example
+## 示例
 
 ```ts twoslash title="silent-parts.mjs"
 // @module: ESNext
@@ -37,30 +37,30 @@ console.log(silentParts); // [{startInSeconds: 0, endInSeconds: 1.5}]
 ```
 
 :::info
-Pass an absolute path to `getSilentParts()`. URLs are not supported.
+将绝对路径传递给 `getSilentParts()`。不支持 URL。
 :::
 
-## Arguments
+## 参数
 
-An object which takes the following properties:
+一个对象，包含以下属性：
 
 ### `source`
 
 _string_
 
-A local video or audio file path.
+本地视频或音频文件路径。
 
 ### `noiseThresholdInDecibels`
 
 _number, optional_
 
-The threshold in decibels. If the audio is below this threshold, it is considered silent. The default is `-20`. Must be less than `30`.
+分贝阈值。如果音频低于此阈值，则被视为静音。默认值为 `-20`。必须小于 `30`。
 
 ### `minDurationInSeconds`
 
 _number, optional_
 
-The minimum duration of a silent part in seconds. The default is `1`.
+静音部分的最小持续时间（以秒为单位）。默认值为 `1`。
 
 ### `logLevel?`
 
@@ -70,30 +70,32 @@ The minimum duration of a silent part in seconds. The default is `1`.
 
 <Options id="binaries-directory" />
 
-## Return Value
+## 返回值
 
-The return value is an object with the following properties:
+返回值是一个对象，包含以下属性：
 
 ### `silentParts`
 
-An array of objects with the following properties:
+一个对象数组，包含以下属性：
 
-- `startInSeconds`: The start time of the silent part in seconds.
-- `endInSeconds`: The end time of the silent part in seconds.
+- `startInSeconds`：静音部分的开始时间（以秒为单位）。
+- `endInSeconds`：静音部分的结束时间（以秒为单位）。
 
 ### `audibleParts`
 
-The inverse of the `silentParts` array.  
-An array of objects with the following properties:
+`silentParts` 数组的相反。  
+一个对象数组，包含以下属性：
 
-- `startInSeconds`: The start time of the audible part in seconds.
-- `endInSeconds`: The end time of the audible part in seconds.
+- `startInSeconds`：可听部分的开始时间（以秒为单位）。
+- `endInSeconds`：可听部分的结束时间（以秒为单位）。
 
 ### `durationInSeconds`
 
-The time length of the media in seconds.
+媒体的时长（以秒为单位）。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/get-silent-parts.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/get-silent-parts.ts)
 - [getVideoMetadata()](/docs/renderer/get-video-metadata)
+
+Please paste the Markdown content you would like me to translate into Chinese.

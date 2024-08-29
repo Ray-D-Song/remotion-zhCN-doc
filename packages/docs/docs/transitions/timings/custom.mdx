@@ -1,21 +1,21 @@
 ---
 image: /generated/articles-docs-transitions-timings-custom.png
 crumb: "@remotion/transitions"
-title: "Custom timings"
+title: "自定义时序"
 ---
 
-This page describes how to create your own custom timings for [`<TransitionSeries>`](/docs/transitions/transitionseries).
+本页面描述如何为 [`<TransitionSeries>`](/docs/transitions/transitionseries) 创建自定义时序。
 
-## Concept
+## 概念
 
-A timing is a configuration which includes:
+时序是一个包含以下内容的配置：
 
-<Step>1</Step> The duration of the transition <br />
-<Step>2</Step> A progress function.
+<Step>1</Step> 过渡的持续时间 <br />
+<Step>2</Step> 进度函数。
 
-## Implementation
+## 实现
 
-To implement a custom timing function, create a function which returns an object `TransitionTiming`.
+要实现自定义时序函数，请创建一个返回 `TransitionTiming` 对象的函数。
 
 ```tsx twoslash title="custom-timing.ts"
 import type { TransitionTiming } from "@remotion/transitions";
@@ -28,17 +28,17 @@ const customTiming = (): TransitionTiming => {
 };
 ```
 
-In this example, the timing function will last for 1 second and will be linear.
+在这个例子中，时序函数将持续 1 秒，并且是线性的。
 
-## Advanced example
+## 高级示例
 
 <Demo type="custom-timing" />
 
-In the following example:
+在以下示例中：
 
-<Step>1</Step> a spring animation will push the progress to 50% <br />
-<Step>2</Step> a pause with customizable duration follows <br />
-<Step>3</Step> a second spring animation will push the progress to 100%
+<Step>1</Step> 弹簧动画将将进度推至 50% <br />
+<Step>2</Step> 可自定义持续时间的暂停跟随 <br />
+<Step>3</Step> 第二个弹簧动画将进度推至 100%
 <br />
 <br />
 
@@ -79,13 +79,13 @@ const springTimingWithPause = ({
 };
 ```
 
-The duration needs to be calculated deterministically by adding the duration of the two springs and the pause duration, so that the previous and next scenes are timed correctly.
+持续时间需要通过计算两个弹簧和暂停的持续时间来确定，以便正确计时前后场景。
 
-A `spring()` animation by default goes from 0 to 1, which is why they [can be added together](/docs/animation-math).
+`spring()` 动画默认从 0 到 1，这就是为什么它们可以[相加](/docs/animation-math)。
 
-## Using a custom timing
+## 使用自定义时序
 
-You may use a custom timing like any other timing by calling it and passing it to the `timing` prop of `<TransitionSeries.Transition>`.
+您可以像使用其他时序一样使用自定义时序，通过调用它并将其传递给 `<TransitionSeries.Transition>` 的 `timing` 属性。
 
 ```tsx twoslash title="using-custom-timing.tsx" {16}
 import { TransitionPresentation } from "@remotion/transitions";
@@ -138,14 +138,15 @@ export const CustomTransition: React.FC = () => {
 };
 ```
 
-## Getting the duration of a timing
+## 获取时序的持续时间
 
-Call `.getDurationInFrames({fps})` on any timing function and pass [`fps`](/docs/use-video-config) to get the duration in frames.
+在任何时序函数上调用 `.getDurationInFrames({fps})`，并传递 [`fps`](/docs/use-video-config) 以获取帧数持续时间。
 
-## References
+## 参考
 
-See the source code for already implemented timings [here](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/timings).
+查看已实现时序的源代码[这里](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/timings)。
 
-## See also
+## 另请参阅
 
-- [Custom presentations](/docs/transitions/presentations/custom)
+- [自定义演示](/docs/transitions/presentations/custom)
+

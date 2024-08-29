@@ -1,29 +1,29 @@
 ---
 image: /generated/articles-docs-troubleshooting-nextjs-image.png
-sidebar_label: Flickering with Next.js Image
-title: Flickering when using Next.js <Image> tag
-crumb: "Common mistakes"
+sidebar_label: 使用 Next.js 图像时闪烁
+title: 使用 Next.js <Image> 标签时出现闪烁
+crumb: "常见错误"
 ---
 
-The following code is discouraged in Remotion:
+以下代码在 Remotion 中不推荐使用：
 
-```tsx title="❌ Don't do this"
+```tsx title="❌ 不要这样做"
 import Image from "next/image";
 
 const myMarkup = <Image src="https://picsum.photos/200/300"></Image>;
 ```
 
-## Problem
+## 问题
 
-Remotion has no way of knowing when the image is finished loading because it is impossible to determine so when loading an image through `<Image>`.
+Remotion 无法知道图像何时加载完成，因为通过 `<Image>` 加载图像时无法确定。
 
-This will lead to Remotion not waiting for the image to be loaded during rendering and cause visible flickers.
+这将导致 Remotion 在渲染过程中不等待图像加载完成，从而导致可见的闪烁。
 
-## Solution
+## 解决方案
 
-Use the [`<Img>`](/docs/img) tag instead:
+改用 [`<Img>`](/docs/img) 标签：
 
-```tsx twoslash title="✅ Do this"
+```tsx twoslash title="✅ 这样做"
 const src = "abc";
 // ---cut---
 import { AbsoluteFill, Img } from "remotion";
@@ -31,8 +31,9 @@ import { AbsoluteFill, Img } from "remotion";
 const myMarkup = <Img src="https://picsum.photos/200/300" />;
 ```
 
-## See also
+## 参见
 
 - [`<Img>`](/docs/img)
-- [Flickering](/docs/flickering)
-- [Flickering with background-image](/docs/troubleshooting/background-image)
+- [闪烁](/docs/flickering)
+- [使用背景图像时闪烁](/docs/troubleshooting/background-image)
+

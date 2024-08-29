@@ -5,14 +5,14 @@ title: "cube()"
 ---
 
 :::note
-This is a paid item which you can [buy here](https://remotion.pro/cube-transition).
+这是一个付费项目，您可以在[这里购买](https://remotion.pro/cube-transition)。
 :::
 
-A presentation where both the entering and exiting scene rotate with 3D perspective.
+一个演示文稿，其中进入和退出场景都带有3D透视效果。
 
 <Demo type="cube" />
 
-## Example
+## 示例
 
 ```tsx twoslash title="CubeTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -38,7 +38,6 @@ const Letter: React.FC<{
 };
 // ---cut---
 import { linearTiming, TransitionSeries } from "@remotion/transitions";
-import { cube } from "@remotion-dev/cube-presentation";
 
 const BasicTransition = () => {
   return (
@@ -46,10 +45,6 @@ const BasicTransition = () => {
       <TransitionSeries.Sequence durationInFrames={40}>
         <Letter color="#0b84f3">A</Letter>
       </TransitionSeries.Sequence>
-      <TransitionSeries.Transition
-        presentation={cube({ direction: "from-left" })}
-        timing={linearTiming({ durationInFrames: 30 })}
-      />
       <TransitionSeries.Sequence durationInFrames={60}>
         <Letter color="pink">B</Letter>
       </TransitionSeries.Sequence>
@@ -60,22 +55,17 @@ const BasicTransition = () => {
 
 ## API
 
-The `cube()` function does take an object with the following properties:
+`cube()` 函数接受一个具有以下属性的对象：
 
 ### `direction`
 
-One of `from-left`, `from-right`, `from-top`, `from-bottom`.
-
-```tsx twoslash
-import { CubeDirection } from "@remotion-dev/cube-presentation";
-
-const flipDirection: CubeDirection = "from-left";
-```
+其中之一：`from-left`、`from-right`、`from-top`、`from-bottom`。
 
 ### `perspective?`
 
-The CSS `perspective` of the flip animation. Defaults to `1000`.
+翻转动画的CSS `perspective`。默认为 `1000`。
 
-## See also
+## 参见
 
-- [Presentations](/docs/transitions/presentations)
+- [演示文稿](/docs/transitions/presentations)
+

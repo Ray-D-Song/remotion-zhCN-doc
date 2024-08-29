@@ -1,19 +1,19 @@
 ---
 image: /generated/articles-docs-series.png
 id: series
-title: <Series>
+title: <系列>
 crumb: "API"
 ---
 
-_Available from v.2.3.1_
+_从 v.2.3.1 开始提供_
 
 import { SeriesExample } from "../components/SeriesExamples/SeriesExample";
 
-Using this component, you can easily stitch together scenes that should play sequentially after another.
+使用这个组件，您可以轻松地将应该在另一个之后按顺序播放的场景拼接在一起。
 
-## Example
+## 示例
 
-### Code
+### 代码
 
 ```twoslash include example
 const Square: React.FC<{color: string}> = () => <div></div>
@@ -42,62 +42,66 @@ export const Example: React.FC = () => {
 };
 ```
 
-### Result
+### 结果
 
 <SeriesExample type="base" />
 
 ## API
 
-The `<Series />` component takes no props may only contain a list of `<Series.Sequence />` instances. A `<Series.Sequence />` component takes the following props:
+`<Series />` 组件不接受任何 props，只能包含一系列 `<Series.Sequence />` 实例。`<Series.Sequence />` 组件接受以下 props：
 
-This component is a high order component, and accepts, besides it's children, the following props:
+这个组件是一个高阶组件，除了它的子元素之外，还接受以下 props：
 
 ### `durationInFrames`
 
-For how many frames the sequence should be displayed. Children are unmounted if they are not within the time range of display.
+序列应该显示多少帧。如果子元素不在显示时间范围内，则会被卸载。
 
-Only the last `<Series.Sequence />` instance is allowed to have `Infinity` as a duration, all previous one must have a positive integer.
+只有最后一个 `<Series.Sequence />` 实例允许持续时间为 `Infinity`，所有之前的实例必须是正整数。
 
 ### `offset`
 
-_optional_
+_可选_
 
-Pass a positive number to delay the beginning of the sequence. Pass a negative number to start the sequence earlier, and to overlay the sequence with the one that comes before.
+传递一个正数以延迟序列的开始。传递一个负数以提前开始序列，并将序列与前一个重叠。
 
-The offset does not apply to sequences that come before, but the sequences that come after it will also be shifted.
+偏移量不适用于之前的序列，但是之后的序列也将被移动。
 
-**Example 1**: Pass `10` to delay the sequence by 10 frames and create a blank space of 10 frames before it.  
-**Example 2**: Pass `-10` to start the sequence earlier and overlay the sequence on top of the previous one for 10 frames.
+**示例 1**：传递 `10` 以延迟序列 10 帧，并在其前创建一个空白空间 10 帧。  
+**示例 2**：传递 `-10` 以提前开始序列，并在前一个序列上叠加 10 帧。
 
 ### `layout`
 
-_optional_
+_可选_
 
-Either `"absolute-fill"` _(default)_ or `"none"` By default, your sequences will be absolutely positioned, so they will overlay each other. If you would like to opt out of it and handle layouting yourself, pass `layout="none"`.
+要么 `"absolute-fill"`（_默认_），要么 `"none"`。默认情况下，您的序列将被绝对定位，因此它们将互相叠加。如果您想退出并自行处理布局，请传递 `layout="none"`。
 
 ### `style`<AvailableFrom v="3.3.4"/>
 
-_optional_
+_可选_
 
-CSS styles to be applied to the container. If `layout` is set to `none`, there is no container and setting this style is not allowed.
+要应用于容器的 CSS 样式。如果 `layout` 设置为 `none`，则没有容器，不允许设置此样式。
 
 ### `className`<AvailableFrom v="3.3.45"/>
 
-_optional_
+_可选_
 
-A class name to be applied to the container. If `layout` is set to `none`, there is no container and setting this style is not allowed.
+要应用于容器的类名。如果`layout`设置为`none`，则没有容器，不允许设置此样式。
+
+
 
 ### `premountFor`<AvailableFrom v="4.0.140"/>
 
-_optional_
+_可选_
 
-[Premount](/docs/player/premounting) the sequence for a set number of frames.
+[预挂载](/docs/player/premounting)序列的一组帧。
+
+
 
 ### `ref`<AvailableFrom v="3.3.4" />
 
-_optional_
+_可选_
 
-You can add a [React ref](https://react.dev/learn/manipulating-the-dom-with-refs) to a `<Series.Sequence>`. If you use TypeScript, you need to type it with `HTMLDivElement`:
+您可以为`<Series.Sequence>`添加[React ref](https://react.dev/learn/manipulating-the-dom-with-refs)。如果您使用TypeScript，需要用`HTMLDivElement`进行类型标注：
 
 ```tsx twoslash title="src/Example.tsx"
 const Square: React.FC<{
@@ -127,7 +131,11 @@ export const Example: React.FC = () => {
 };
 ```
 
-## See also
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/series/index.tsx)
+
+## 另请参阅
+
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/series/index.tsx)
 - [`<Sequence />`](/docs/sequence)
+
+

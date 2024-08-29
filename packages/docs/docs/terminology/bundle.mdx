@@ -1,19 +1,20 @@
 ---
-image: /generated/articles-docs-terminology-bundle.png
+image: /generated/articles-docs-termininology-bundle.png
 title: Remotion Bundle
-crumb: "Terminology"
+crumb: "术语"
 ---
 
-Once you have written your video in React, you need to bundle it using [Webpack](https://webpack.js.org/) in order to render it.  
-The output of the bundling process is called the "bundle".  
-It is a folder containing HTML, CSS, JavaScript and your assets.
+一旦您用 React 编写了您的视频，您需要使用 [Webpack](https://webpack.js.org/) 进行打包以便渲染它。  
+打包过程的输出被称为 "bundle"。  
+它是一个包含 HTML、CSS、JavaScript 和您的资源的文件夹。
 
-When you render using the command line, a bundle is automatically generated (this is the `Bundling video` step).
+当您使用命令行进行渲染时，会自动生成一个 bundle（这是 `Bundling video` 步骤）。
 
-You can use the [`bundle()`](/docs/bundle) API to create a bundle programmatically.
+您可以使用 [`bundle()`](/docs/bundle) API 来以编程方式创建一个 bundle。
 
-You can create a bundle on the CLI using the [`npx remotion bundle`](/docs/cli/bundle) command.
+您可以使用 [`npx remotion bundle`](/docs/cli/bundle) 命令在 CLI 中创建一个 bundle。
 
-To bundle and deploy to S3, you can use the [`npx remotion lambda sites create`](/docs/lambda/cli/sites#create) command.
+要打包并部署到 S3，您可以使用 [`npx remotion lambda sites create`](/docs/lambda/cli/sites#create) 命令。
 
-If you host a bundle under a URL, it becomes a [Serve URL](/docs/terminology/serve-url), which you can specify to render videos.
+如果您将一个 bundle 托管在一个 URL 下，它就变成了一个 [Serve URL](/docs/terminology/serve-url)，您可以指定它来渲染视频。  
+

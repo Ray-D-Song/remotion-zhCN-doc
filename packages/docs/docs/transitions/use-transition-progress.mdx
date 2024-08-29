@@ -7,11 +7,11 @@ title: useTransitionProgress()
 
 # useTransitionProgress()<AvailableFrom v="4.0.177"/>
 
-A hook that can be used inside a child of a [`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries) to get the progress of the transition to directly manipulate the objects inside the scene.
+一个可以在[`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries)的子组件中使用的钩子，用于获取过渡的进度，以直接操作场景中的对象。
 
-It is meant to be used together with the [`none()`](/docs/transitions/presentations/none) presentation, but can be used with any other presentation.
+它旨在与[`none()`](/docs/transitions/presentations/none)演示一起使用，但也可以与任何其他演示一起使用。
 
-## Example
+## 示例
 
 ```tsx twoslash title="useTransitionProgress()"
 import { useTransitionProgress } from "@remotion/transitions";
@@ -68,21 +68,22 @@ const Transition: React.FC = () => {
 
 ## API
 
-A React hook that returns an object with the following properties:
+一个返回具有以下属性的 React 钩子对象：
 
 ### `entering`
 
-The progress of the entering scene. If not inside a [`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries), it will always be `1`.
+进入场景的进度。如果不在[`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries)内部，则始终为`1`。
 
 ### `exiting`
 
-The progress of the exiting scene. If not inside a [`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries), it will always be `0`.
+退出场景的进度。如果不在[`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries)内部，则始终为`0`。
 
 ### `isInTransitionSeries`
 
-Whether the current scene is inside a [`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries).
+当前场景是否在[`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries)内部。
 
-## See also
+## 另请参阅
 
-- [Source code for this hook](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/use-transition-progress.ts)
+- [此钩子的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/use-transition-progress.ts)
 - [`<TransitionSeries>`](/docs/transitions/transitionseries)
+

@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-lambda-cli-policies.png
 id: policies
-sidebar_label: policies
+sidebar_label: 策略
 title: 'npx remotion lambda policies'
 slug: /lambda/cli/policies
-crumb: 'Lambda CLI Reference'
+crumb: 'Lambda CLI 参考'
 ---
 
 import {RolePolicy} from '../../../components/lambda/role-permissions.tsx';
 import {UserPolicy} from '../../../components/lambda/user-permissions.tsx';
 
-Prints the necessary permissions to be inserted into the AWS console during [setup](/docs/lambda/setup).
+打印在[设置](/docs/lambda/setup)期间插入AWS控制台的必要权限。
 
 - [`role`](#role)
 - [`user`](#user)
 - [`validate`](#validate)
 
 :::tip
-On macOS, add `| pbcopy` to the end of the command to copy the output.
+在 macOS 上，将 `| pbcopy` 添加到命令的末尾以复制输出。
 :::
 
 ## role
@@ -27,7 +27,7 @@ npx remotion lambda policies role
 ```
 
 <details>
-  <summary>Show output</summary>
+  <summary>显示输出</summary>
   <RolePolicy />
 </details>
 
@@ -38,14 +38,15 @@ npx remotion lambda policies user
 ```
 
 <details>
-  <summary>Show output</summary>
+  <summary>显示输出</summary>
   <UserPolicy />
 </details>
 
 ## validate
 
-Goes through all user permissions and validates them against the AWS Policy simulator. (Role permissions cannot be validated)
+遍历所有用户权限并针对AWS策略模拟器对其进行验证。（无法验证角色权限）
 
-## See also
+## 另请参阅
 
-- [Setup guide](/docs/lambda/setup)
+- [设置指南](/docs/lambda/setup)
+

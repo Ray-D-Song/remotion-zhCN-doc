@@ -5,13 +5,13 @@ title: "<OffthreadVideo>"
 crumb: "API"
 ---
 
-_Available from Remotion 3.0.11_
+_从 Remotion 3.0.11 开始可用_
 
-This component imports and displays a video, similar to [`<Video/>`](/docs/video), but during rendering, extracts the exact frame from the video and displays it in a [`<Img>`](/docs/img) tag. This extraction process happens outside the browser using FFmpeg.
+此组件导入并显示视频，类似于 [`<Video/>`](/docs/video)，但在渲染期间，从视频中提取精确的帧并在 [`<Img>`](/docs/img) 标签中显示。此提取过程在浏览器外部使用 FFmpeg 进行。
 
-This component was designed to combat limitations of the default `<Video>` element. See: [`<Video>` vs `<OffthreadVideo>`](/docs/video-vs-offthreadvideo).
+此组件旨在解决默认 `<Video>` 元素的限制。请参见：[`<Video>` vs `<OffthreadVideo>`](/docs/video-vs-offthreadvideo).
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { AbsoluteFill, OffthreadVideo, staticFile } from "remotion";
@@ -25,7 +25,7 @@ export const MyVideo = () => {
 };
 ```
 
-You can load a video from an URL as well:
+您也可以从 URL 加载视频：
 
 ```tsx twoslash
 import { AbsoluteFill, OffthreadVideo } from "remotion";
@@ -39,22 +39,22 @@ export const MyComposition = () => {
 };
 ```
 
-## Props
+## 属性
 
 ### `src`
 
-The URL of the video to be rendered. Can be a remote URL or a local file referenced with [`staticFile()`](/docs/staticfile).
+要渲染的视频的 URL。可以是远程 URL 或使用 [`staticFile()`](/docs/staticfile) 引用的本地文件。
 
 ### `startFrom?`
 
-Will remove a portion of the video at the beginning.
+将在视频开头删除一部分。
 
-In the following example, we assume that the [`fps`](/docs/composition#fps) of the composition is `30`.
+在以下示例中，我们假设合成的 [`fps`](/docs/composition#fps) 为 `30`。
 
-By passing `startFrom={60}`, the playback starts immediately, but with the first 2 seconds of the video trimmed away.  
-By passing `endAt={120}`, any video after the 4 second mark in the file will be trimmed away.
+通过传递 `startFrom={60}`，播放立即开始，但视频的前 2 秒将被裁剪掉。  
+通过传递 `endAt={120}`，文件中 4 秒标记后的任何视频将被裁剪掉。
 
-The video will play the range from `00:02:00` to `00:04:00`, meaning the video will play for 2 seconds.
+视频将播放从 `00:02:00` 到 `00:04:00` 的范围，意味着视频将播放 2 秒。
 
 ```tsx twoslash
 import { AbsoluteFill, OffthreadVideo, staticFile } from "remotion";
@@ -75,19 +75,19 @@ export const MyComposition = () => {
 
 ### `endAt?`
 
-Removes a portion of the video at the end. See [`startAt`](/docs/video#startfrom) for an explanation.
+在视频结尾删除一部分。请参见 [`startAt`](/docs/video#startfrom) 以获取解释。
 
 ### `transparent?`<AvailableFrom v="4.0.0" />
 
-If set to `true`, frames will be extracted as PNG, enabling transparency but also slowing down your render.
+如果设置为 `true`，帧将被提取为 PNG，从而实现透明度，但也会减慢渲染速度。
 
-If set to `false` (_default_), frames will be extracted as bitmap (BMP), which is faster.
+如果设置为 `false`（_默认_），帧将被提取为位图（BMP），这更快。
 
 ### `volume?`
 
-Allows you to control the volume for the whole track or change it on a per-frame basis. Refer to the [using audio](/docs/using-audio#controlling-volume) guide to learn how to use it.
+允许您控制整个轨道的音量或根据每帧更改音量。请参阅 [使用音频](/docs/using-audio#controlling-volume) 指南以了解如何使用。
 
-```tsx twoslash title="Example using static volume"
+```tsx twoslash title="使用静态音量的示例"
 import { AbsoluteFill, OffthreadVideo, staticFile } from "remotion";
 
 // ---cut---
@@ -100,7 +100,7 @@ export const MyComposition = () => {
 };
 ```
 
-```tsx twoslash title="Example of a ramp up over 100 frames"
+```tsx twoslash title="在 100 帧内逐渐增加音量的示例"
 import {
   AbsoluteFill,
   interpolate,
@@ -124,19 +124,19 @@ export const MyComposition = () => {
 ```
 
 :::note
-On iOS Safari, it's not possible to granularly change the volume of a media tag.  
-Only values `0` and `1` will be respected by the browser.
+在 iOS Safari 上，无法精确地更改媒体标签的音量。  
+浏览器只会尊重值 `0` 和 `1`。
 :::
 
 ### `loopVolumeCurveBehavior?`<AvailableFrom v="4.0.142" />
 
-Controls the `frame` which is returned when using the [`volume`](#volume) callback function and wrapping `OffthreadVideo` in a [`<Loop>`](/docs/loop).
+控制在使用 [`volume`](#volume) 回调函数并将 `OffthreadVideo` 包装在 [`<Loop>`](/docs/loop) 中时返回的 `frame`。
 
-Can be either `"repeat"` (default, start from 0 on each iteration) or `"extend"` (keep increasing frames).
+可以是 `"repeat"`（默认值，在每次迭代时从 0 开始）或 `"extend"`（保持增加帧）。
 
 ### `style?`
 
-You can pass any style you can pass to a native HTML element. Keep in mind that during rendering, `<OffthreadVideo>` renders an [`<Img>`](/docs/img) tag, but a `<video>` tag is used during preview.
+您可以传递任何您可以传递给本机 HTML 元素的样式。请记住，在渲染期间，`<OffthreadVideo>` 渲染一个 [`<Img>`](/docs/img) 标签，但在预览期间使用 `<video>` 标签。
 
 ```tsx twoslash
 import { AbsoluteFill, Img, staticFile } from "remotion";
@@ -156,32 +156,32 @@ export const MyComposition = () => {
 
 ### `allowAmplificationDuringRender?`<AvailableFrom v="3.3.17" />
 
-Make values for [`volume`](/docs/video#volume) greater than `1` result in amplification during renders.  
-During Preview, the volume will be limited to `1`, since the browser cannot amplify audio.
+使 [`volume`](/docs/video#volume) 大于 `1` 的值在渲染期间产生放大效果。  
+在预览期间，音量将被限制为 `1`，因为浏览器无法放大音频。
 
 ### `name?`<AvailableFrom v="4.0.71"/>
 
-A name and that will be shown as the label of the sequence in the timeline of the Remotion Studio. This property is purely for helping you keep track of items in the timeline.
+在 Remotion Studio 时间轴中显示为序列标签的名称。此属性仅用于帮助您在时间轴中跟踪项目。
 
 ### `toneFrequency?`<AvailableFrom v="4.0.47"/>
 
-Adjust the pitch of the audio - will only be applied during rendering.
+调整音频的音调 - 仅在渲染期间应用。
 
-Accepts a number between `0.01` and `2`, where `1` represents the original pitch. Values less than `1` will decrease the pitch, while values greater than `1` will increase it.
+接受介于 `0.01` 和 `2` 之间的数字，其中 `1` 代表原始音调。小于 `1` 的值会降低音调，而大于 `1` 的值会增加音调。
 
-A `toneFrequency` of 0.5 would lower the pitch by half, and a `toneFrequency` of `1.5` would increase the pitch by 50%.
+`toneFrequency` 为 0.5 会将音调降低一半，而 `1.5` 会将音调增加 50%。
 
 ### `onError?`
 
-Handle an error playing the video. From v3.3.89, if you pass an `onError` callback, then no exception will be thrown. Previously, the error could not be caught.
+处理播放视频时出现的错误。从 v3.3.89 开始，如果传递了一个 `onError` 回调，则不会抛出异常。以前，无法捕获错误。
 
 ### `playbackRate?`<AvailableFrom v="2.2.0" />
 
-Controls the speed of the video. `1` is the default and means regular speed, `0.5` slows down the video so it's twice as long and `2` speeds up the video so it's twice as fast.
+控制视频的播放速度。`1` 是默认值，表示正常速度，`0.5` 会减慢视频速度，使其变为原来的两倍长，`2` 会加快视频速度，使其变为原来的两倍快。```
 
-While Remotion doesn't limit the range of possible playback speeds, in development mode the [`HTMLMediaElement.playbackRate`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate) API is used which throws errors on extreme values. At the time of writing, Google Chrome throws an exception if the playback rate is below `0.0625` or above `16`.
+虽然 Remotion 不限制可能的播放速度范围，在开发模式下使用 [`HTMLMediaElement.playbackRate`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate) API，对极端值会抛出错误。在撰写本文时，Google Chrome 如果播放速度低于 `0.0625` 或高于 `16` 会抛出异常。
 
-```tsx twoslash title="Example of a video playing twice as fast"
+```tsx twoslash title="视频以两倍速播放的示例"
 import { AbsoluteFill, OffthreadVideo, staticFile } from "remotion";
 
 // ---cut---
@@ -196,9 +196,9 @@ export const MyComposition = () => {
 
 ### `muted?`
 
-You can drop the audio of the video by adding a `muted` prop:
+您可以通过添加 `muted` 属性来消除视频的音频：
 
-```tsx twoslash title="Example of a muted video"
+```tsx twoslash title="静音视频的示例"
 import { AbsoluteFill, OffthreadVideo } from "remotion";
 // ---cut---
 export const MyComposition = () => {
@@ -215,89 +215,89 @@ export const MyComposition = () => {
 
 ### `acceptableTimeShiftInSeconds?`<AvailableFrom v="3.2.42" />
 
-In the [Studio](/docs/terminology/studio) or in the [Remotion Player](/docs/player), Remotion will seek the video if it gets too much out of sync with Remotion's internal time - be it due to the video loading or the page being too slow to keep up in real-time. By default, a seek is triggered if `0.45` seconds of time shift is encountered. Using this prop, you can customize the threshold.
+在 [Studio](/docs/terminology/studio) 或 [Remotion Player](/docs/player) 中，如果视频与 Remotion 的内部时间差异过大 - 无论是由于视频加载还是页面无法实时跟上，Remotion 将会寻找视频。默认情况下，如果遇到 `0.45` 秒的时间差，将触发一次搜索。使用此属性，您可以自定义阈值。
 
 ### `allowAmplificationDuringRender?`<AvailableFrom v="3.3.17" />
 
-Make values for [`volume`](#volume) greater than `1` result in amplification during renders.  
-During Preview, the volume will be limited to `1`, since the browser cannot amplify audio.
+使 [`volume`](#volume) 大于 `1` 的值在渲染过程中产生放大效果。  
+在预览期间，音量将被限制为 `1`，因为浏览器无法放大音频。
 
 ### `toneFrequency?`<AvailableFrom v="4.0.47"/>
 
-Adjust the pitch of the audio - will only be applied during rendering.
+调整音频的音调 - 仅在渲染过程中应用。
 
-Accepts a number between `0.01` and `2`, where `1` represents the original pitch. Values less than `1` will decrease the pitch, while values greater than `1` will increase it.
+接受介于 `0.01` 和 `2` 之间的数字，其中 `1` 代表原始音调。小于 `1` 的值会降低音调，而大于 `1` 的值会增加音调。
 
-A `toneFrequency` of 0.5 would lower the pitch by half, and a `toneFrequency` of `1.5` would increase the pitch by 50%.
+`toneFrequency` 为 0.5 会将音调降低一半，而 `1.5` 会将音调提高 50%。
 
 ### `pauseWhenBuffering?`<AvailableFrom v="4.0.111"/>
 
-If set to `true` and the video is loading, the Player will enter into the [native buffering state](/docs/player/buffer-state). The default is `false`, but will become `true` in Remotion 5.0.
+如果设置为 `true` 并且视频正在加载，播放器将进入 [本机缓冲状态](/docs/player/buffer-state)。默认值为 `false`，但在 Remotion 5.0 中将变为 `true`。
 
 ### `toneMapped?`<AvailableFrom v="4.0.117" />
 
-Since Remotion 4.0.117, Remotion will adjust the colors of videos in different color spaces (such as HDR) when converting to RGB, to counteract color shifts.  
-Since the browser is painting in sRGB, this is necessary to ensure that the colors are displayed correctly.  
-This behavior is by default `true` and can be disabled by setting `toneMapped` to `false`.  
-Disabling tone mapping will speed up rendering, but may result in less vibrant colors.
+自 Remotion 4.0.117 起，当转换为 RGB 时，Remotion 将调整不同色彩空间（如 HDR）的视频颜色，以抵消色彩偏移。  
+由于浏览器以 sRGB 进行绘制，这是必要的，以确保颜色显示正确。  
+此行为默认为 `true`，可以通过将 `toneMapped` 设置为 `false` 来禁用。  
+禁用色调映射将加快渲染速度，但可能导致颜色不那么鲜艳。
 
-Prior to Remotion 4.0.117, tone mapping was always disabled, and the `toneMapped` prop was not available.
+在 Remotion 4.0.117 之前，色调映射始终被禁用，并且 `toneMapped` 属性不可用。
 
 ### `showInTimeline?`<AvailableFrom v="4.0.122"/>
 
-If set to `false`, no layer will be shown in the timeline of the Remotion Studio. The default is `true`.
+如果设置为 `false`，则不会在 Remotion Studio 时间轴中显示任何图层。默认值为 `true`。
 
 ### `delayRenderTimeoutInMilliseconds?`<AvailableFrom v="4.0.150" />
 
-Customize the [timeout](/docs/delay-render#modifying-the-timeout) of the [`delayRender()`](/docs/delay-render) call that this component makes.
+自定义此组件调用的 [`delayRender()`](/docs/delay-render) 的[超时](/docs/delay-render#modifying-the-timeout)。
 
 ### `delayRenderRetries?`<AvailableFrom v="4.0.178" />
 
-Customize the [number of retries](/docs/delay-render#retrying) of the [`delayRender()`](/docs/delay-render) call that this component makes.
+自定义此组件调用的 [`delayRender()`](/docs/delay-render) 的[重试次数](/docs/delay-render#retrying)。
 
 ### `onAutoPlayError?`<AvailableFrom v="4.0.187" />
 
-A callback function that gets called when the video fails to play due to autoplay restrictions.  
-If you don't pass a callback, the video will be muted and be retried once.  
-This prop is useful if you want to handle the error yourself, e.g. for pausing the Player.  
-Read more here about [autoplay restrictions](/docs/player/autoplay).
+当视频由于自动播放限制而无法播放时调用的回调函数。  
+如果不传递回调函数，则视频将被静音并重试一次。  
+如果要自行处理错误，例如暂停播放器，则此属性很有用。  
+在此处阅读有关[自动播放限制](/docs/player/autoplay)的更多信息。
 
 ### `onVideoFrame?`<AvailableFrom v="4.0.190" />
 
-A callback function that gets called when a frame is extracted from the video.  
-Useful for [video manipulation](/docs/video-manipulation).  
-The callback is called with a [`CanvasImageSource`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasImageSource) object.  
-During preview, this is a `HTMLVideoElement` object, during rendering, it is an `HTMLImageElement`.
+从视频中提取帧时调用的回调函数。  
+用于[视频处理](/docs/video-manipulation)。  
+回调使用 [`CanvasImageSource`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasImageSource) 对象调用。  
+在预览期间，这是一个 `HTMLVideoElement` 对象，在渲染期间，它是一个 `HTMLImageElement`。
 
 ### `crossOrigin?`<AvailableFrom v="4.0.190" />
 
-Corresponds to the [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attr-crossorigin) attribute of the `<video>` element.  
-One of `"anonymous"`, `"use-credentials"` or `undefined`.  
-Default: `"anonymous"` if `onVideoFrame` is specified, `undefined`, otherwise.
+对应于 `<video>` 元素的 [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attr-crossorigin) 属性。  
+其中之一为 `"anonymous"`、`"use-credentials"` 或 `undefined`。  
+默认值：如果指定了 `onVideoFrame`，则为 `"anonymous"`，否则为 `undefined`。
 
 ### ~~`imageFormat` <AvailableFrom v="3.0.22" />~~
 
-_removed in v4.0.0_
+_在 v4.0.0 中移除_
 
-Either `jpeg` or `png`. Default `jpeg`.  
-With `png`, transparent videos (VP8, VP9, ProRes) can be displayed, however it is around 40% slower, with VP8 videos being [much slower](/docs/slow-method-to-extract-frame).
+可以是 `jpeg` 或 `png`。默认为 `jpeg`。  
+使用 `png`，可以显示透明视频（VP8、VP9、ProRes），但速度会慢大约 40%，VP8 视频速度更慢。
 
-### Other props
+### 其他属性
 
-The props [`onError`](/docs/img#onerror), `className` and `style` are supported and get passed to the underlying HTML element. Remember that during render, this is a `<img>` element, and during Preview, this is a `<video>` element.
+支持属性 [`onError`](/docs/img#onerror)、`className` 和 `style`，并传递给底层 HTML 元素。请记住，在渲染期间，这是一个 `<img>` 元素，在预览期间，这是一个 `<video>` 元素。
 
-## Performance tips
+## 性能提示
 
-Only set `transparent` to `true` if you need transparency. It is slower than non-transparent frame extraction.  
-If you don't care about color accuracy, you can set `toneMapped` to `false` as well to save time on color conversion.
+只有在需要透明度时才将 `transparent` 设置为 `true`。它比非透明帧提取慢。  
+如果您不关心颜色准确性，也可以将 `toneMapped` 设置为 `false`，以节省颜色转换的时间。
 
-## Looping a video
+## 循环播放视频
 
-Unlike [`<Video>`](/docs/video), `OffthreadVideo` does not currently implement the `loop` property.
+与 [`<Video>`](/docs/video) 不同，`OffthreadVideo` 目前不实现 `loop` 属性。
 
-You can use the following snippet that uses [`@remotion/media-utils`](/docs/media-utils/) to loop a video.
+您可以使用以下代码片段，使用 [`@remotion/media-utils`](/docs/media-utils/) 来循环播放视频。
 
-Note that this will mount a `<video>` tag in the browser, meaning only codecs supported by the browser can be used.
+请注意，这将在浏览器中挂载一个 `<video>` 标签，这意味着只能使用浏览器支持的编解码器。
 
 ```tsx twoslash title="LoopedOffthreadVideo.tsx"
 import {
@@ -367,18 +367,18 @@ export const RemotionRoot: React.FC = () => {
 }
 ```
 
-## Supported codecs by `<OffthreadVideo>`
+## `<OffthreadVideo>` 支持的编解码器
 
-The following codecs can be read by `<OffthreadVideo>`:
+`<OffthreadVideo>` 可以读取以下编解码器：
 
-- H.264 ("MP4")
-- H.265 ("HEVC")
-- VP8 and VP9 ("WebM")
-- AV1 (from _v4.0.6_)
+- H.264（"MP4"）
+- H.265（"HEVC"）
+- VP8 和 VP9（"WebM"）
+- AV1（从 _v4.0.6_ 开始）
 - ProRes
 
-## See also
+## 参见
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/video/OffthreadVideo.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/video/OffthreadVideo.tsx)
 - [`<Video />`](/docs/video)
 - [`<Video>` vs `<OffthreadVideo>`](/docs/video-vs-offthreadvideo)

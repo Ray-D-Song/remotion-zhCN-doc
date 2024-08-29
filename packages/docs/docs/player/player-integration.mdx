@@ -1,43 +1,43 @@
 ---
 image: /generated/articles-docs-player-player-integration.png
 id: integration
-title: 'Code sharing'
+title: '代码共享'
 crumb: '@remotion/player'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-If you are using the player, a common desire is to share the code with your Remotion Studio and/or server-side rendering. With the correct setup, you can write the component once and use it for previewing, displaying and rendering.
+如果您正在使用播放器，一个常见的愿望是与您的 Remotion Studio 和/或服务器端渲染共享代码。通过正确的设置，您可以编写一次组件并将其用于预览、显示和渲染。
 
 :::note
-Remotion and your React app use a different Webpack config. Therefore, if you want to override your [Webpack configuration](/docs/webpack), you need to override both the Remotion one and the React app one.
+Remotion 和您的 React 应用程序使用不同的 Webpack 配置。因此，如果您想要覆盖您的 [Webpack 配置](/docs/webpack)，您需要同时覆盖 Remotion 和 React 应用程序的配置。
 :::
 
-## Template
+## 模板
 
-Use one of our starter templates:
+使用我们的一个起始模板：
 
-- [Next.js (App dir)](/templates/next)
-- [Next.js (App dir + TailwindCSS)](/templates/next-tailwind)
-- [Next.js (Pages dir)](/templates/next-pages-dir)
+- [Next.js（应用目录）](/templates/next)
+- [Next.js（应用目录 + TailwindCSS）](/templates/next-tailwind)
+- [Next.js（页面目录）](/templates/next-pages-dir)
 - [Remix](/templates/remix)
 
-which have the Player and Lambda already set up.
+这些模板已经设置好了 Player 和 Lambda。
 
-## Manual setup
+## 手动设置
 
-Set up a React project with your preferred setup from the [Official React docs](https://react.dev/learn/start-a-new-react-project). Popular choices are:
+使用您喜欢的设置在 [官方 React 文档](https://react.dev/learn/start-a-new-react-project) 中设置一个 React 项目。常见的选择包括：
 
 - [Next.js](https://nextjs.org/learn/basics/create-nextjs-app/setup)
 - [Remix](https://remix.run/docs/en/main/tutorials/blog)
 - [Vite](https://vitejs.dev/guide/)
 
 :::note
-While you can still use [Create React App](https://create-react-app.dev), it is not being actively recommended by the React team anymore.
+虽然您仍然可以使用 [Create React App](https://create-react-app.dev)，但它不再被 React 团队积极推荐。
 :::
 
-When your project is setup, add the necessary Remotion dependencies:
+当您的项目设置完成后，添加必要的 Remotion 依赖项：
 
 <Tabs
 defaultValue="npm"
@@ -71,7 +71,7 @@ yarn add remotion @remotion/cli @remotion/player
   </TabItem>
 </Tabs>
 
-Afterwards, create a subfolder for Remotion within your project and add three files: An index file, a `Root.tsx` file for your list of compositions, and a file with your composition. It could look like this:
+之后，在您的项目中创建一个 Remotion 子文件夹，并添加三个文件：一个索引文件，一个 `Root.tsx` 文件用于您的合成列表，以及一个包含您的合成的文件。它可能看起来像这样：
 
 ```diff
  └── src/
@@ -83,7 +83,7 @@ Afterwards, create a subfolder for Remotion within your project and add three fi
        └── App.tsx
 ```
 
-Your composition (`remotion/MyComp.tsx` in the example) could look for example like this:
+您的组件（例如`remotion/MyComp.tsx`）可能如下所示：
 
 ```tsx twoslash
 export const MyComp: React.FC<{text: string}> = ({text}) => {
@@ -91,7 +91,7 @@ export const MyComp: React.FC<{text: string}> = ({text}) => {
 };
 ```
 
-Your list of videos (`remotion/Root.tsx` in the example) could look like this:
+您的视频列表（例如`remotion/Root.tsx`）可能如下所示：
 
 ```tsx twoslash
 // @allowUmdGlobalAccess
@@ -120,7 +120,7 @@ export const MyVideo = () => {
 };
 ```
 
-Your index file (`remotion/index.ts` in the example) could look like this:
+您的索引文件（例如`remotion/index.ts`）可能如下所示：
 
 ```tsx twoslash
 // @filename: ./Root.tsx
@@ -134,22 +134,22 @@ registerRoot(MyVideo);
 ```
 
 :::tip
-Don't move these statements together into one file, as you might break hot reloading.
+请不要将这些语句合并到一个文件中，因为这样可能会破坏热重载功能。
 :::
 
-## Using the Remotion Studio
+## 使用 Remotion Studio
 
-You can open the Remotion Studio using the `npx remotion studio` command:
+您可以使用 `npx remotion studio` 命令打开 Remotion Studio：
 
 ```bash
 npx remotion studio src/remotion/index.ts
 ```
 
 :::note
-Before v4.0, the command was `npx remotion preview`.
+在 v4.0 之前，该命令是 `npx remotion preview`。
 :::
 
-We recommend adding a new script into your package.json for easy access:
+我们建议在您的 package.json 中添加一个新的脚本以便轻松访问：
 
 ```diff
   "scripts": {
@@ -157,9 +157,9 @@ We recommend adding a new script into your package.json for easy access:
   }
 ```
 
-## Adding `<Player />` to your app
+## 将 `<Player />` 添加到您的应用程序
 
-Anywhere in your app, import the [`<Player />`](/docs/player) component and your Composition component.
+在应用程序的任何位置，导入 [`<Player />`](/docs/player) 组件和您的 Composition 组件。
 
 ```tsx twoslash
 // @allowUmdGlobalAccess
@@ -191,14 +191,14 @@ export const App: React.FC = () => {
 ```
 
 :::note
-Pass your React component directly to the `component` prop. Don't pass the list of compositions.
+直接将您的 React 组件传递给 `component` 属性。不要传递组合列表。
 :::
 
-If everything worked, you can now run your webapp and preview your video.
+如果一切正常，您现在可以运行您的 web 应用程序并预览您的视频。
 
-## Creating a bundle for server-side rendering
+## 为服务器端渲染创建捆绑包
 
-In any Node.JS context, you can call [`bundle()`](/docs/bundle) to bundle your video using Webpack and to server-side render the video. You need to add `@remotion/bundler` to your package.json for this.
+在任何 Node.JS 上下文中，您可以调用 [`bundle()`](/docs/bundle) 来使用 Webpack 捆绑您的视频并在服务器端渲染视频。为此，您需要将 `@remotion/bundler` 添加到您的 package.json 中。
 
 ```ts twoslash title="server.tsx"
 // @module: ESNext
@@ -212,12 +212,13 @@ const bundled = await bundle(
 );
 ```
 
-See [Server-side rendering](/docs/ssr) for a full example.
+查看[服务器端渲染](/docs/ssr)以获取完整示例。
 
 :::tip
-When using Lambda, you don't need this, you can use the CLI or [`deploySite()`](/docs/lambda/deploysite) which will bundle the video for you.
+在使用 Lambda 时，您不需要这样做，您可以使用 CLI 或 [`deploySite()`](/docs/lambda/deploysite) 来为您捆绑视频。
 :::
 
-## See also
+## 另请参阅
 
 - [`<Player />`](/docs/player)
+```

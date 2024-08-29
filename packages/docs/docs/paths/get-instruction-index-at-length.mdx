@@ -4,17 +4,17 @@ title: getInstructionIndexAtLength()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-_available from v4.0.84_
+_从v4.0.84版本开始可用。_
 
-Gets the index of the instruction that is at the length of the path.  
-The first argument is an SVG path, the second one is the length at which the point should be sampled.  
-It must be between `0` and the return value of [`getLength()`](/docs/paths/get-length).
+获取路径长度处指令的索引。  
+第一个参数是SVG路径，第二个参数是应该采样点的长度。  
+它必须介于`0`和[`getLength()`](/docs/paths/get-length)的返回值之间。
 
-An object containing `index` and `lengthIntoInstruction` is returned if the path is valid:
+如果路径有效，则返回一个包含`index`和`lengthIntoInstruction`的对象：
 
-```tsx twoslash title="Example"
+```tsx twoslash title="示例"
 import { getInstructionIndexAtLength } from "@remotion/paths";
 
 const { index, lengthIntoInstruction } = getInstructionIndexAtLength(
@@ -25,9 +25,9 @@ console.log(index); // 1
 console.log(lengthIntoInstruction); // 5
 ```
 
-To get the instruction at a specific index, you can use [`parsePath()`](/docs/paths/parse-path):
+要获取特定索引处的指令，可以使用[`parsePath()`](/docs/paths/parse-path)：
 
-```tsx twoslash title="Get instruction"
+```tsx twoslash title="获取指令"
 import { getInstructionIndexAtLength, parsePath } from "@remotion/paths";
 
 const path = "M 0 0 L 100 0 L 200 0";
@@ -37,7 +37,7 @@ const parsed = parsePath(path);
 const instruction = parsed[index]; // {type: 'L', x: 100, y: 0}
 ```
 
-The function **will throw** if the path is invalid:
+如果路径无效，该函数**将抛出异常**：
 
 ```tsx twoslash
 import { getInstructionIndexAtLength } from "@remotion/paths";
@@ -45,7 +45,7 @@ import { getInstructionIndexAtLength } from "@remotion/paths";
 getInstructionIndexAtLength("remotion", 50); // Error: Malformed path data: ...
 ```
 
-The function **will throw** if the sample length is bigger than the [length](/docs/paths/get-length) of the path:
+如果采样长度大于路径的[长度](/docs/paths/get-length)，该函数**将抛出异常**：
 
 ```tsx twoslash
 import { getInstructionIndexAtLength } from "@remotion/paths";
@@ -55,11 +55,12 @@ getInstructionIndexAtLength("M 0 0 L 100 0", 105); // Error: A length of 105 was
 
 ## Credits
 
-This function was adapted from [svg-path-properties](https://www.npmjs.com/package/svg-path-properties).
+此函数改编自[svg-path-properties](https://www.npmjs.com/package/svg-path-properties)。
 
-## See also
+## 另请参阅
 
 - [`getLength()`](/docs/paths/get-length)
 - [`parsePath()`](/docs/paths/parse-path)
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-instruction-index-at-length.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-instruction-index-at-length.ts)
+

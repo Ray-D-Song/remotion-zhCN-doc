@@ -7,17 +7,17 @@ crumb: "@remotion/media-parser"
 ---
 
 :::warning
-**Unstable API**: This package is experimental. We might change the API at any time, until we remove this notice.
+**不稳定的 API**：此包是实验性的。我们可能随时更改 API，直到我们删除此通知。
 :::
 
 
-A reader for `@remotion/media-parser` that reads from a URL using `fetch()`.  
-It works in the browser, Node.js and Bun.  
-This is the default reader for `@remotion/media-parser`, so you don't need to explicitly specify it.
+一个用于 `@remotion/media-parser` 的读取器，使用 `fetch()` 从 URL 读取。  
+它在浏览器、Node.js 和 Bun 中工作。  
+这是 `@remotion/media-parser` 的默认读取器，因此您不需要显式指定它。
 
-## Example
+## 示例
 
-```tsx twoslash title="Reading a local file"
+```tsx twoslash title="读取本地文件"
 // @module: es2022
 // @target: es2017
 import {parseMedia} from '@remotion/media-parser';

@@ -1,24 +1,25 @@
 ---
 image: /generated/articles-docs-miscellaneous-changing-temp-dir.png
-sidebar_label: Temporary directory
-title: Changing the temporary directory
-crumb: "Advanced configuration"
+sidebar_label: 临时目录
+title: 更改临时目录
+crumb: "高级配置"
 ---
 
-During rendering, Remotion will write items into the temporary directory of the system. This includes rendered frames, uncompressed audio and other artifacts.
+在渲染过程中，Remotion 将项目写入系统的临时目录。这包括渲染帧、未压缩音频和其他工件。
 
-Changing the temporary directory may be useful if the default temporary directory is on a disk that has limited space available.
+如果默认的临时目录位于可用空间有限的磁盘上，更改临时目录可能会很有用。
 
-If you want to customize the directory that Remotion uses, you can set the `TMPDIR` (Linux, macOS) or `TEMP` (Windows) environment variable to specify a directory to your liking.
+如果您想自定义 Remotion 使用的目录，您可以设置 `TMPDIR`（Linux、macOS）或 `TEMP`（Windows）环境变量以指定您喜欢的目录。
 
 ```bash
 TMPDIR=/var/tmp npx remotion render
 ```
 
-Remotion will make a new temporary directory in the path that you have specified.
-This is because Remotion uses the the Node.JS [`os.tmpdir()`][tmpdir] API, which checks for environment variables in the following order:
+Remotion 将在您指定的路径中创建一个新的临时目录。
+这是因为 Remotion 使用 Node.JS [`os.tmpdir()`][tmpdir] API，该 API 按以下顺序检查环境变量：
 
-* `TMPDIR`, `TMP`, `TEMP` on non-Windows platforms
-* `TEMP` and `TMP` on Windows platforms
+* 在非 Windows 平台上为 `TMPDIR`、`TMP`、`TEMP`
+* 在 Windows 平台上为 `TEMP` 和 `TMP`
 
 [tmpdir]: https://github.com/nodejs/node/blob/58431c0e6bb1829b6ccafc5cf6340226c15da790/lib/os.js#L181
+```

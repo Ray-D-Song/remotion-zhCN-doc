@@ -1,60 +1,62 @@
 ---
 image: /generated/articles-docs-contributing-rust.png
-title: Contributing Rust code
-sidebar_label: Rust code
-crumb: Contributing
+title: 贡献 Rust 代码
+sidebar_label: Rust 代码
+crumb: 贡献
 ---
 
-# Rust development
+# Rust 开发
 
-To participate in the development of the Rust parts of Remotion, you need to do additional steps.  
-These are entirely optional if you only touch the TypeScript parts.
+要参与 Remotion 的 Rust 部分的开发，您需要执行额外的步骤。  
+如果您只涉及 TypeScript 部分，则这些步骤是完全可选的。
 
-## Setup
+## 设置
 
-First, install Cargo, if you don't have it, or upgrade to a version that supports `edition-2021`:
+首先，安装 Cargo，如果您没有安装，或者升级到支持 `edition-2021` 的版本：
 
 ```sh
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-## Building
+## 构建
 
-To build the Rust parts for your operating system, run:
+要为您的操作系统构建 Rust 部分，请运行：
 
 ```sh
 node build.mjs
 ```
 
-while you are in the `packages/renderer` directory.
+当您在 `packages/renderer` 目录中时。
 
-## Building for all platforms
+## 为所有平台构建
 
-These instructions currently are for macOS. Contributions for other platforms are appreciated.
+这些说明目前适用于 macOS。欢迎为其他平台做出贡献。
 
-To build the Rust binaries for all supported platforms, you need to install their toolchains:
+要为所有支持的平台构建 Rust 二进制文件，您需要安装它们的工具链：
 
 ```sh
 node install-toolchains.mjs
 ```
 
-You can then build all binaries with:
+然后，您可以使用以下命令构建所有二进制文件：
 
 ```
 pnpm build-all
 ```
 
-in the `packages/renderer` package. The resulting artifacts should be checked into Git.
+在 `packages/renderer` 包中。生成的构件应该提交到 Git。
 
-## Architecture
+## 架构
 
-### Development workflow
+### 开发工作流程
 
-- Remotion has platform specific packages like `compositor-darwin-arm64` and a user will only install packages that are specific to their operating system.
-- The Rust code will be compiled into your native `compositor` package by default, unless you compile for all platforms.
-- Resulting binaries are committed to Git so that people who don't setup Rust can develop too.
+- Remotion 有特定于平台的包，如 `compositor-darwin-arm64`，用户只会安装特定于其操作系统的包。
+- Rust 代码默认会编译到您的本机 `compositor` 包中，除非您为所有平台编译。
+- 生成的二进制文件会提交到 Git，以便那些没有设置 Rust 的人也可以进行开发。
 
-### FFmpeg bindings
+### FFmpeg 绑定
 
-- Both the Rust binary as well as the FFmpeg binaries use the shared libraries located in the folder of each compositor package.
-- Those shared libraries and FFmpeg binaries come from the [`rust-ffmpeg-splitter`](https://github.com/remotion-dev/rust-ffmpeg-splitter) repository. They are built in CircleCI as well as on a M1 Macbook and pasted into the [`rust-ffmpeg-sys`](https://github.com/remotion-dev/rust-ffmpeg-sys) project. The `rust-ffmpeg-sys` project is a dependency of [`rust-ffmpeg`](https://github.com/remotion-dev/rust-ffmpeg) which is a dependency of the main Remotion project. Refer to those repositories to learn how to build them.
+- Rust 二进制文件和 FFmpeg 二进制文件都使用位于每个合成器包文件夹中的共享库。
+- 这些共享库和 FFmpeg 二进制文件来自 [`rust-ffmpeg-splitter`](https://github.com/remotion-dev/rust-ffmpeg-splitter) 仓库。它们在 CircleCI 上构建，也在 M1 Macbook 上构建，并粘贴到 [`rust-ffmpeg-sys`](https://github.com/remotion-dev/rust-ffmpeg-sys) 项目中。`rust-ffmpeg-sys` 项目是 [`rust-ffmpeg`](https://github.com/remotion-dev/rust-ffmpeg) 的依赖项，后者是主 Remotion 项目的依赖项。请参考这些仓库以了解如何构建它们。
+
+Please paste the Markdown content you would like me to translate into Chinese.

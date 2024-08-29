@@ -1,19 +1,19 @@
 ---
 image: /generated/articles-docs-lambda-cli-regions.png
 id: regions
-sidebar_label: regions
+sidebar_label: 区域
 title: 'npx remotion lambda regions'
-crumb: 'Lambda CLI Reference'
+crumb: 'Lambda CLI 参考'
 ---
 
-Prints the AWS regions supported by the current version of Remotion Lambda. Useful for bash scripts.
+打印当前版本的 Remotion Lambda 支持的 AWS 区域。对于 bash 脚本非常有用。
 
 ```
 npx remotion lambda regions
 ```
 
 <details>
-  <summary>Show output</summary>
+  <summary>显示输出</summary>
   <pre>
     eu-central-1 eu-west-1 eu-west-2 eu-west-3 eu-south-1 eu-north-1 us-east-1
     us-east-2 us-west-1 us-west-2 af-south-1 ap-south-1 ap-east-1 ap-southeast-1
@@ -22,12 +22,13 @@ npx remotion lambda regions
   </pre>
 </details>
 
-## Flags
+## 标志
 
 ### `--default-only`<AvailableFrom v="3.3.11" />
 
-Only [return the regions which are enabled by default](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in a new AWS account.
+仅[返回默认启用的区域](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)在新的 AWS 账户中。
 
-## See also
+## 另请参阅
 
-- [Region selection](/docs/lambda/region-selection)
+- [区域选择](/docs/lambda/region-selection)
+

@@ -5,7 +5,7 @@ title: <AbsoluteFill>
 crumb: "API"
 ---
 
-A helper component - it is an absolutely positioned `<div>` with the following styles:
+一个辅助组件 - 它是一个绝对定位的 `<div>`，具有以下样式：
 
 ```ts twoslash title="Styles of AbsoluteFill"
 import React from "react";
@@ -23,7 +23,7 @@ const style: React.CSSProperties = {
 };
 ```
 
-This component is useful for layering content on top of each other. For example, you can use it to create a full-screen video background:
+这个组件对于将内容层叠在一起非常有用。例如，您可以使用它来创建全屏视频背景：
 
 ```tsx twoslash title="Layer example"
 import { AbsoluteFill, OffthreadVideo } from "remotion";
@@ -42,11 +42,11 @@ const MyComp = () => {
 };
 ```
 
-The layers that get rendered last appear on top - this is because of how HTML works.
+最后渲染的图层会显示在最上面 - 这是因为 HTML 的工作原理。
 
-## Adding a ref
+## 添加引用
 
-You can add a [React ref](https://react.dev/learn/manipulating-the-dom-with-refs) to an `<AbsoluteFill>` from version `v3.2.13` on. If you use TypeScript, you need to type it with `HTMLDivElement`:
+您可以从版本 `v3.2.13` 开始为 `<AbsoluteFill>` 添加 [React 引用](https://react.dev/learn/manipulating-the-dom-with-refs)。如果您使用 TypeScript，您需要将其类型化为 `HTMLDivElement`：
 
 ```tsx twoslash
 import { useRef } from "react";
@@ -60,6 +60,7 @@ const MyComp = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/AbsoluteFill.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/AbsoluteFill.tsx)
+

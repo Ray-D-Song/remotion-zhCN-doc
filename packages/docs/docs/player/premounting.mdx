@@ -1,6 +1,6 @@
 ---
 image: /generated/articles-docs-player-premounting.png
-title: Premounting
+title: 预挂载
 slug: /player/premounting
 crumb: "@remotion/player"
 ---
@@ -8,50 +8,49 @@ crumb: "@remotion/player"
 import { NoPremounting } from "../../components/Premounting/NoPremounting";
 import { Premounting } from "../../components/Premounting/Premounting";
 
-# Premounting<AvailableFrom v="4.0.140"/>
+# 预挂载<AvailableFrom v="4.0.140"/>
 
-Remotion only ever renders the current frame.  
-This means when a video or another asset is about to come up, it is not loaded by default.
+Remotion 只会渲染当前帧。  
+这意味着当视频或其他资产即将出现时，默认情况下不会加载它们。
 
 <NoPremounting />
 <br />
 <p style={{ lineHeight: 1.2 }}>
   <sub>
     <em>
-      Even though the video is soon about to appear, it is not yet loaded
-      because Remotion only ever renders the current time.
+      尽管视频即将出现，但由于 Remotion 只会渲染当前时间，所以尚未加载。
     </em>
   </sub>
 </p>
 
-## What is premounting?
+## 什么是预挂载？
 
-Premounting is the practice of mounting a component containing assets earlier to allow assets some time to load before they appear.
+预挂载是提前挂载包含资产的组件的做法，以便在它们出现之前给予资产一些加载时间。
 
 <Premounting />
 <br />
 <p style={{ lineHeight: 1.2 }}>
   <sub>
     <em>
-      The video is mounted earlier to give it some time to load.
+      视频被提前挂载，以便给予加载一些时间。
       <br />
-      It carries the style <code>opacity: 0</code> to make it invisible.
+      它带有样式 <code>opacity: 0</code> 使其不可见。
       <br />
-      It's time defined by{" "}
+      由{" "}
       <a href="/docs/use-current-frame">
         <code>useCurrentFrame()</code>
       </a>{" "}
-      is frozen at <code>0</code>.
+      定义的时间被冻结在 <code>0</code>。
     </em>
   </sub>
 </p>
 
-## Preloading a `<Sequence>`
+## 预加载 `<Sequence>`
 
-Use premounting sparingly since having more elements mounted will slow down the page.  
-Add the [`premountFor`](/docs/sequence#premountfor) prop to the [`<Sequence>`](/docs/sequence) component to enable premounting.
+使用预挂载时要谨慎，因为挂载更多元素会减慢页面速度。  
+在 [`<Sequence>`](/docs/sequence) 组件中添加 [`premountFor`](/docs/sequence#premountfor) 属性以启用预挂载。
 
-The number you pass is the number in frames you premount the component for.
+传递的数字是您为组件预挂载的帧数。
 
 ```tsx twoslash title="Premounted.tsx"
 import { Sequence, staticFile, Video } from "remotion";
@@ -66,25 +65,25 @@ const MyComp: React.FC = () => {
 };
 ```
 
-In the [Remotion Studio](/docs/studio), a premounted component is indicated with diagonal stripes:
+在 [Remotion Studio](/docs/studio) 中，预挂载的组件以斜线条表示：
 
 <img src="/img/premount.png" />
 <br />
 <br />
 
-A premounted [`<Sequence>`](/docs/sequence) does carry the styles `opacity: 0` and `pointer-events: none`.
+预挂载的 [`<Sequence>`](/docs/sequence) 具有样式 `opacity: 0` 和 `pointer-events: none`。
 
-It is not possible to premount a [`<Sequence>`](/docs/sequence) with `layout="none"` because such a sequence does not have a container to apply the styles to.
+不可能对具有 `layout="none"` 的 [`<Sequence>`](/docs/sequence) 进行预挂载，因为这样的序列没有容器来应用样式。
 
-## With `<Series>` and `<TransitionSeries>`
+## 使用 `<Series>` 和 `<TransitionSeries>`
 
-`premountFor` is also available on [`<Series.Sequence>`](/docs/series) and [`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries).  
-It is not yet possible to premount a whole [`<Series>`](/docs/series) or [`<TransitionSeries>`](/docs/transitions/transitionseries).
+`premountFor` 也适用于 [`<Series.Sequence>`](/docs/series) 和 [`<TransitionSeries.Sequence>`](/docs/transitions/transitionseries)。  
+目前还无法对整个 [`<Series>`](/docs/series) 或 [`<TransitionSeries>`](/docs/transitions/transitionseries) 进行预挂载。
 
-## Custom premount component
+## 自定义预挂载组件
 
-Premounting can also be implemented yourself with the public Remotion APIs.  
-Use the following component like you would `<Sequence>`:
+您也可以使用公共 Remotion API 自行实现预挂载。  
+像使用 `<Sequence>` 一样使用以下组件：
 
 ```tsx twoslash title="PremountedSequence.tsx"
 import React, { forwardRef, useMemo } from "react";
@@ -146,19 +145,21 @@ export const PremountedSequence = forwardRef(
 ```
 
 :::note
-One caveat of this custom component: In a premounted sequence, the native buffer state can still be triggered.  
-It is your task to disable triggering the native buffer state (e.g set [`pauseWhenBuffering`](/docs/offthreadvideo#pausewhenbuffering) to false) when in a premounted sequence.  
-You can achieve this for example by using a React context.
+这个自定义组件的一个注意事项：在预挂载序列中，仍然可能触发本机缓冲状态。  
+您的任务是在预挂载序列中禁用触发本机缓冲状态（例如将 [`pauseWhenBuffering`](/docs/offthreadvideo#pausewhenbuffering) 设置为 false）。  
+例如，您可以通过使用 React 上下文来实现这一点。
 :::
 
-## Usage together with the buffer state
+## 与缓冲状态一起使用
 
-If you also use the [buffer state](/docs/player/buffer-state), the [`<Audio>`](/docs/audio#pausewhenbuffering), [`<Video>`](/docs/video#pausewhenbuffering), [`<OffthreadVideo>`](/docs/offthreadvideo#pausewhenbuffering) and [`<Img>`](/docs/img#pausewhenloading) tags are aware of premounting and don't trigger the buffer state while in a premounted [`<Sequence>`](/docs/sequence).
+如果您还使用了[缓冲状态](/docs/player/buffer-state)，[`<Audio>`](/docs/audio#pausewhenbuffering)、[`<Video>`](/docs/video#pausewhenbuffering)、[`<OffthreadVideo>`](/docs/offthreadvideo#pausewhenbuffering) 和 [`<Img>`](/docs/img#pausewhenloading) 标签会意识到预挂载，并且在预挂载的 [`<Sequence>`](/docs/sequence) 中不会触发缓冲状态。
 
-Otherwise it would lead to pausing playback while a scene is not even visible yet.
+否则，这可能会导致在场景尚未可见时暂停播放。
 
-## See also
+## 另请参阅
 
-- [Buffer state](/docs/player/buffer-state)
-- [Preloading](/docs/player/preloading)
-- [Avoiding flickering](/docs/troubleshooting/player-flicker)
+- [缓冲状态](/docs/player/buffer-state)
+- [预加载](/docs/player/preloading)
+- [避免闪烁](/docs/troubleshooting/player-flicker) 
+
+

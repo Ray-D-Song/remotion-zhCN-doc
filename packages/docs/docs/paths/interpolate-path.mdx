@@ -4,16 +4,16 @@ title: interpolatePath()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-Interpolates between two SVG paths. The function takes three arguments:
+在两个SVG路径之间进行插值。该函数接受三个参数：
 
-- `value`, which is a number.
-  - If it is `0`, the first path is returned.
-  - If it is `1`, the second path is returned.
-  - If it is inbetween or outside the range, the path is interpolated.
-- `firstPath`, which must be a valid SVG path.
-- `secondPath`, which must be a valid SVG path.
+- `value`，一个数字。
+  - 如果是`0`，则返回第一个路径。
+  - 如果是`1`，则返回第二个路径。
+  - 如果在范围之间或范围之外，则进行路径插值。
+- `firstPath`，必须是有效的SVG路径。
+- `secondPath`，必须是有效的SVG路径。
 
 ```tsx twoslash
 import { interpolatePath } from "@remotion/paths";
@@ -24,9 +24,10 @@ console.log(interpolated); // "M 50 0 L 50 0"
 
 ## Credits
 
-Source code stems mostly from [d3-interpolate-path](https://github.com/pbeshai/d3-interpolate-path).
+源代码主要来自[d3-interpolate-path](https://github.com/pbeshai/d3-interpolate-path)。
 
 ## See also
 
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/interpolate-path.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/interpolate-path.ts)
+

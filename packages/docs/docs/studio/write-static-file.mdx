@@ -6,12 +6,12 @@ crumb: "@remotion/studio"
 
 # writeStaticFile()<AvailableFrom v="4.0.147"/>
 
-Saves some content into a file in the [`public` directory](/docs/).  
-This API is useful for building interactive experiences in the [Remotion Studio](/docs/terminology/studio).
+将一些内容保存到[`public`目录](/docs/)中的文件中。  
+此 API 对于在[Remotion Studio](/docs/terminology/studio)中构建交互式体验非常有用。
 
-## Examples
+## 示例
 
-```tsx twoslash title="Write 'Hello world' to public/file.txt"
+```tsx twoslash title="将 'Hello world' 写入 public/file.txt"
 import React, { useCallback } from "react";
 import { writeStaticFile } from "@remotion/studio";
 
@@ -29,7 +29,7 @@ export const WriteStaticFileComp: React.FC = () => {
 };
 ```
 
-```tsx twoslash title="Allow a file upload"
+```tsx twoslash title="允许文件上传"
 import React, { useCallback } from "react";
 import { writeStaticFile } from "@remotion/studio";
 
@@ -52,24 +52,23 @@ export const WriteStaticFileComp: React.FC = () => {
 };
 ```
 
-## Rules
+## 规则
 
-<Step>1</Step> This API can only be used while in the Remotion Studio.
+<Step>1</Step> 只能在 Remotion Studio 中使用此 API。
 <br />
-<Step>2</Step> The file path must be relative to the <a href="/docs/terminology/public-dir">
-  <code>public</code> directory
-</a>.
+<Step>2</Step> 文件路径必须相对于<a href="/docs/terminology/public-dir">
+  <code>public</code>目录
+</a>。
 <br />
-<Step>3</Step> It's not allowed to write outside the <a href="/docs/terminology/public-dir">
-  <code>public</code> directory
-</a>.<br />
-<Step>4</Step> To write into subfolders, use forward slashes <code>/</code> even
-on Windows.
-<Step>5</Step> You can pass a <code>string</code> or <code>ArrayBuffer</code>.
+<Step>3</Step> 不允许在<a href="/docs/terminology/public-dir">
+  <code>public</code>目录之外写入文件
+</a>。<br />
+<Step>4</Step> 要写入子文件夹，请使用正斜杠<code>/</code>，即使在 Windows 上也是如此。
+<Step>5</Step> 可以传递<code>string</code>或<code>ArrayBuffer</code>。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/write-static-file.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/write-static-file.ts)
 - [`staticFile()`](/docs/staticfile)
 - [`getStaticFiles()`](/docs/studio/get-static-files)
 - [`watchStaticFile()`](/docs/studio/watch-static-file)

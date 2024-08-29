@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-lottie-lottie-remote.png
 id: lottie-remote
-sidebar_label: "Loading from a URL"
-title: "Loading Lottie animations from a URL"
+sidebar_label: "从 URL 加载"
+title: "从 URL 加载 Lottie 动画"
 slug: remote
 crumb: "@remotion/lottie"
 ---
 
-In order to load a Lottie animation from a URL that has been put into the `public/` folder, use [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and Remotion's [`delayRender()`](/docs/delay-render) function.
+要从已放入 `public/` 文件夹的 URL 加载 Lottie 动画，请使用 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 和 Remotion 的 [`delayRender()`](/docs/delay-render) 函数。
 
-The resource must support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+资源必须支持 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
 
-Use the `LottieAnimationData` type to keep a state using React's `useState()` and only render the [`<Lottie>`](/docs/lottie/lottie) component once the data has been fetched.
+使用 `LottieAnimationData` 类型来使用 React 的 `useState()` 保持状态，并且仅在数据被获取后渲染 [`<Lottie>`](/docs/lottie/lottie) 组件。
 
 ```tsx twoslash title="Animation.tsx"
 import { Lottie, LottieAnimationData } from "@remotion/lottie";
@@ -44,7 +44,8 @@ const Balloons = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
 - [`<Lottie>`](/docs/lottie/lottie)
-- [Loading from `staticFile()`](/docs/staticfile)
+- [从 `staticFile()` 加载](/docs/staticfile)
+

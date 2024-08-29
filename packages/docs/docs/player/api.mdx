@@ -5,7 +5,7 @@ slug: /player/player
 crumb: '@remotion/player'
 ---
 
-A component which can be rendered in a regular React App (for example: [Next.JS](https://nextjs.org), [Vite.js](https://vitejs.dev), [Create React App](https://create-react-app.dev/)) to display a Remotion video.
+一个组件，可以在常规的 React 应用程序中呈现（例如：[Next.JS](https://nextjs.org), [Vite.js](https://vitejs.dev), [Create React App](https://create-react-app.dev/)），用于显示 Remotion 视频。
 
 ```tsx twoslash title="MyApp.tsx"
 // @allowUmdGlobalAccess
@@ -30,159 +30,179 @@ export const App: React.FC = () => {
 };
 ```
 
-[See more usage examples](/docs/player/examples)
+[查看更多用法示例](/docs/player/examples)
 
 ## API
 
-### `component` or `lazyComponent`
+### `component` 或 `lazyComponent`
 
-Pass a React component in directly **or** pass a function that returns a dynamic import. Passing neither or both of the props is an error.
+直接传递一个 React 组件 **或** 传递一个返回动态导入的函数。传递这两个属性中的任何一个或两个都会导致错误。
 
-If you use `lazyComponent`, wrap it in a `useCallback()` to avoid constant rendering. [See here for an example.](/docs/player/examples#loading-a-component-lazily)
+如果使用 `lazyComponent`，请将其包装在 `useCallback()` 中，以避免不断重新渲染。[查看这里的示例。](/docs/player/examples#loading-a-component-lazily)
 
 :::note
-The Player does not use [`<Composition>`](/docs/composition)'s. Pass your component directly and do not wrap it in a `<Composition>` component.
+Player 不使用 [`<Composition>`](/docs/composition)。直接传递您的组件，不要将其包装在 `<Composition>` 组件中。
 :::
 
 ### `durationInFrames`
 
-The duration of the video in frames. Must be an integer and greater than 0.
+视频的帧数。必须是整数且大于 0。
 
 ### `fps`
 
-The frame rate of the video. Must be a number.
+视频的帧率。必须是数字。
 
 ### `compositionWidth`
 
-The width you would like the video to have when rendered as an MP4. Use `style={{width: <width>}}` to define a width to be assumed in the browser.
+在渲染为 MP4 时希望视频具有的宽度。使用 `style={{width: <width>}}` 来定义浏览器中假定的宽度。
 
 :::note
-**Example**:
-If you want to render a Full HD video, set `compositionWidth` to `1920` and `compositionHeight` to `1080`. By default, the Player will also assume these dimensions.
-To make it smaller, pass a `style` prop to give the player a different width: `{"style={{width: 400}}"}`. See [Player Scaling](/docs/player/scaling) to learn more.
+**示例**：
+如果要渲染全高清视频，请将 `compositionWidth` 设置为 `1920`，将 `compositionHeight` 设置为 `1080`。默认情况下，Player 还会假定这些尺寸。
+要使其变小，请传递一个 `style` 属性，为播放器指定不同的宽度：`{"style={{width: 400}}"}`。查看 [Player 缩放](/docs/player/scaling) 以了解更多信息。
 :::
 
 ### `compositionHeight`
 
-The height you would like the video to have when rendered as an MP4. Use `style={{height: <height>}}` to define a height to be assumed in the browser.
+在渲染为 MP4 时希望视频具有的高度。使用 `style={{height: <height>}}` 来定义浏览器中假定的高度。
 
 ### `loop`
 
-_optional_
+_可选_
 
-Whether the video should restart when it ends. Default `false`.
+视频结束时是否应重新开始。默认为 `false`。
 
 ### `autoPlay`
 
-_optional_
+_可选_
 
-Whether the video should start immediately after loaded. Default `false`.
+视频加载后是否应立即开始播放。默认为 `false`。
 
 ### `controls`
 
-_optional_
+_可选_
 
-Whether the video should display a seek bar and a play/pause button. Default `false.`
+视频是否应显示一个进度条和播放/暂停按钮。默认为 `false`。
 
 ### `showVolumeControls`
 
-_optional_
+_可选_
 
-Whether the video should display a volume slider and a mute button. Only has an effect if `controls` is also set to true. Default `true`.
+视频是否应显示音量滑块和静音按钮。仅在`controls`也设置为`true`时有效。默认为`true`。
+
+
 
 ### `allowFullscreen`
 
-_optional_
+_可选_
 
-Whether the video can go fullscreen. By default `true`.
+视频是否可以全屏播放。默认为`true`。
+
+
 
 ### `clickToPlay`
 
-_optional_
+_可选_
 
-A boolean property defining whether you can play, pause or resume the video with a single click into the player. Default `true` if `controls` are true, otherwise `false`.
+一个布尔属性，定义您是否可以通过单击播放器来播放、暂停或恢复视频。如果`controls`为`true`，默认为`true`，否则为`false`。
+
+
 
 ### `doubleClickToFullscreen`
 
-_optional_
+_可选_
 
-A boolean property defining whether you can go fullscreen and exit fullscreen in the video with double click into the player. If enabled, clicking on the video once will delay pausing the video for 200ms to wait for a possible second click. Default `false`.
+一个布尔属性，定义您是否可以通过双击播放器全屏和退出全屏。如果启用，单击视频一次将延迟暂停视频200毫秒，以等待可能的第二次单击。默认为`false`。
+
+
 
 :::note
-This option is not supported on mobile. You do not double-tap on mobile to go to fullscreen.
+此选项不支持移动设备。您不需要在移动设备上双击以进入全屏模式。
 :::
 
 ### `spaceKeyToPlayOrPause`
 
-_optional_
+_可选_
 
-A boolean property defining whether you can play or pause a video using space key. If enabled, playing the video and subsequently pressing the space key pauses and resumes the video. Only works if `controls` is true. Default `true`.
+一个布尔属性，定义您是否可以使用空格键播放或暂停视频。如果启用，播放视频然后按空格键暂停和恢复视频。仅在`controls`为`true`时有效。默认为`true`。
+
+
 
 ### `moveToBeginningWhenEnded`<AvailableFrom v="3.1.3" />
 
-_optional_
+_可选_
 
-A boolean property defining whether the video position should go back to zero once the video has ended. Only works if `loop` is disabled. Default `true`.
+一个布尔属性，定义视频在结束后是否应将位置返回到零。仅在`loop`被禁用时有效。默认为`true`。
+
+
 
 ### `inputProps`
 
-_optional_
+_可选_
 
-Pass props to the component that you have specified using the `component` prop. The Typescript definition takes the shape of the props that you have given to your `component`. Default `undefined`.
+将props传递给您使用`component` prop指定的组件。Typescript定义采用您为`component`指定的props的形状。默认为`undefined`。
+
+
 
 ### `style`
 
-_optional_
+_可选_
 
-A regular `style` prop for a HTMLDivElement. You can pass a different height and width if you would like different dimensions for the player than the original composition dimensions.
+用于HTMLDivElement的常规`style` prop。如果您希望播放器具有不同的尺寸，则可以传递不同的高度和宽度。
+
+
 
 ### `className`<AvailableFrom v="3.1.3" />
 
-_optional_
+_可选_
 
-A HTML class name to be applied to the container.
+要应用于容器的HTML类名。
+
+
 
 ### `initialFrame`<AvailableFrom v="3.1.14" />
 
-_optional_
+_可选_
 
-Start the playback from a specific frame. Default `0`. Once the player is mounted, this property cannot be changed.
+从特定帧开始播放。默认为`0`。一旦播放器被挂载，此属性将无法更改。
+
+
 
 ### `numberOfSharedAudioTags`<AvailableFrom v="2.3.1" />
 
-_optional_
+_可选_
 
-If you use an [`<Audio />`](/docs/audio) tag, it might not play in some browsers (specifically iOS Safari) due to browser autoplay policies. This is why the Remotion Player pre-mounts a set of audio tags with silent audio that get played upon user interaction. These audio tags can then be used to play real audio later and will not be subject to the autoplay policy of the browser.
+如果您使用 [`<Audio />`](/docs/audio) 标签，在某些浏览器（特别是 iOS Safari）中可能无法播放，这是由于浏览器的自动播放策略。这就是为什么 Remotion Player 预先挂载了一组带有静音音频的音频标签，这些音频标签在用户交互时会被播放。然后可以使用这些音频标签来稍后播放真实音频，并且不会受到浏览器的自动播放策略的影响。
 
-This option controls how many audio tags are being rendered, the default is `5`. If you mount more audio tags than shared audio tags are available, then an error will be thrown.
+此选项控制正在呈现的音频标签数量，默认为 `5`。如果挂载的音频标签多于可用的共享音频标签，则会引发错误。
 
-If you'd like to opt out of this behavior, you can pass `0` to mount native audio tags simultaneously as you mount Remotion's [`<Audio />`](/docs/audio) tags.
+如果您想退出此行为，可以传递 `0`，以便同时挂载原生音频标签和 Remotion 的 [`<Audio />`](/docs/audio) 标签。
 
-Once you have set this prop, you cannot change it anymore or an error will be thrown.
+设置了此属性后，将无法再更改它，否则将引发错误。
 
 ### `playbackRate`
 
-_optional_
+_可选_
 
-A number between -4 and 4 (excluding 0) for the speed that the Player will run the media.
+介于 -4 和 4 之间（不包括 0）的数字，用于指定播放器运行媒体的速度。
 
-A `playbackRate` of `2` means the video plays twice as fast. A playbackRate of `0.5` means the video plays twice as slow. A playbackRate of `-1` means the video plays in reverse. Note that [`<Audio/>`](/docs/audio) and [`<Video/>`](/docs/video) tags cannot be played in reverse, this is a browser limitation.
+`playbackRate` 为 `2` 表示视频播放速度加快两倍。`playbackRate` 为 `0.5` 表示视频播放速度减慢两倍。`playbackRate` 为 `-1` 表示视频倒放。请注意，[`<Audio/>`](/docs/audio) 和 [`<Video/>`](/docs/video) 标签无法倒放，这是浏览器的限制。
 
-Default `1`.
+默认为 `1`。
 
 ### `errorFallback`
 
-_optional_
+_可选_
 
-A callback for rendering a custom error message. See [Handling errors](#handling-errors) section for an example.
+用于渲染自定义错误消息的回调函数。请参阅 [处理错误](#handling-errors) 部分以查看示例。
 
 ### `renderLoading`
 
-_optional_
+_可选_
 
-A callback function that allows you to return a custom UI that gets displayed while the player is loading.
+一个回调函数，允许您返回一个自定义 UI，在播放器加载时显示。
 
-The first parameter of the callback function contains the `height` and `width` of the player as it gets rendered.
+回调函数的第一个参数包含播放器呈现时的 `height` 和 `width`。
 
 ```tsx twoslash
 import {Player, RenderLoading} from '@remotion/player';
@@ -217,18 +237,18 @@ const MyApp: React.FC = () => {
 ```
 
 :::info
-A player needs to be loaded if it contains elements that use React Suspense, or if the `lazyComponent` prop is being used.
+如果播放器包含使用 React Suspense 的元素，或者正在使用 `lazyComponent` 属性，则需要加载播放器。
 :::
 
 ### `renderPoster`<AvailableFrom v="3.2.14" />
 
-_optional_
+_可选_
 
-A callback function that allows you to return a custom UI that gets overlayed over the Player.
+一个回调函数，允许您返回一个自定义 UI，覆盖在播放器上方。
 
-You can control when the poster gets rendered using the props [`showPosterWhenUnplayed`](#showposterwhenunplayed), [`showPosterWhenPaused`](#showposterwhenpaused), [`showPosterWhenEnded`](#showposterwhenended) and [`showPosterWhenBuffering`](#showposterwhenbuffering). By default, they are all disabled.
+您可以使用[`showPosterWhenUnplayed`](#showposterwhenunplayed)、[`showPosterWhenPaused`](#showposterwhenpaused)、[`showPosterWhenEnded`](#showposterwhenended)和[`showPosterWhenBuffering`](#showposterwhenbuffering)属性来控制何时渲染海报。默认情况下，它们都被禁用。
 
-The first parameter contains the `height` and `width` of the Player as it gets rendered.
+第一个参数包含播放器渲染时的`高度`和`宽度`。
 
 ```tsx twoslash
 import {useCallback} from 'react';
@@ -280,58 +300,58 @@ const MyApp: React.FC = () => {
 
 ### `showPosterWhenUnplayed`<AvailableFrom v="3.2.14" />
 
-_optional_
+_可选_
 
-Render the poster when the video is in its initial state and has not been played yet. Requires [`renderPoster()`](#renderposter) to be set. Default: `false`.
+当视频处于初始状态且尚未播放时渲染海报。需要设置[`renderPoster()`](#renderposter)。默认值：`false`。
 
 ### `showPosterWhenPaused`<AvailableFrom v="3.2.14" />
 
-_optional_
+_可选_
 
-Render the poster when the video is paused. Although considered a paused state, the poster will not render while the user is scrubbing through the video. Requires [`renderPoster()`](#renderposter) to be set. Default: `false`.
+当视频暂停时渲染海报。尽管被视为暂停状态，但在用户浏览视频时不会渲染海报。需要设置[`renderPoster()`](#renderposter)。默认值：`false`。
 
 ### `showPosterWhenEnded`<AvailableFrom v="3.2.14" />
 
-_optional_
+_可选_
 
-Render the poster when the video has ended. Requires [`moveToBeginning`](#movetobeginningwhenended) to be set to `false`. [`renderPoster()`](#renderposter) to be set. Default: `false`.
+当视频结束时渲染海报。需要将[`moveToBeginning`](#movetobeginningwhenended)设置为`false`。需要设置[`renderPoster()`](#renderposter)。默认值：`false`。
 
 ### `showPosterWhenBuffering`<AvailableFrom v="4.0.111" />
 
-_optional_
+_可选_
 
-Render a poster when the `<Player>` is in the [buffering state](/docs/player/buffer-state). You may for example show a spinner in the center of the video.
+在`<Player>`处于[缓冲状态](/docs/player/buffer-state)时渲染海报。例如，您可以在视频中心显示一个旋转的加载图标。
 
 ### `inFrame`<AvailableFrom v="3.2.15" />
 
-_optional_
+_可选_
 
-Limit playback to only play after a certain frame. The video will start from this frame and move to this position once it has ended. Must be an integer, not smaller than `0`, not bigger than [`outFrame`](#outframe) and not bigger than `durationInFrames - 1`. Default `null`, which means the beginning of the video.
+限制仅在特定帧之后播放。视频将从此帧开始，并在结束时移动到此位置。必须是一个整数，不小于`0`，不大于[`outFrame`](#outframe)，也不大于`durationInFrames - 1`。默认值为`null`，表示视频的开头。
 
 ### `outFrame`<AvailableFrom v="3.2.15" />
 
-_optional_
+_可选_
 
-Limit playback to only play before a certain frame. The video will end at this frame and move to the beginning once it has ended. Must be an integer, not smaller than `1`, not smaller than [`inFrame`](#inframe) and not bigger than `durationInFrames - 1`. Default `null`, which means the end of the video.
+限制仅在特定帧之前播放。视频将在此帧结束，并在结束时移动到开头。必须是一个整数，不小于`1`，不小于[`inFrame`](#inframe)，也不大于`durationInFrames - 1`。默认值为`null`，表示视频的结尾。
 
 ### `initiallyShowControls`<AvailableFrom v="3.2.24" />
 
-_optional_
+_可选_
 
-If true, the controls flash when the player enters the scene. After 2 seconds without hover, the controls fade out. This is similar to how YouTube does it, and signals to the user that the player is in fact controllable. You can also pass a `number`, with which you can customize the duration in milliseconds. Default `true` since `v3.2.24`, before that unsupported.
+如果为true，则当播放器进入场景时，控件会闪烁。 2秒后没有悬停，控件会淡出。 这类似于YouTube的做法，并向用户发出信号，表明播放器实际上是可控的。 您还可以传递一个`number`，用于自定义以毫秒为单位的持续时间。 默认为`true`，自`v3.2.24`起支持，之前不支持。
 
 ### `initiallyMuted`<AvailableFrom v="3.3.81" />
 
-_optional_
+_可选_
 
-If true, the player is muted in its initial state. This is useful if the video must autoplay regardless of the [autoplay](/docs/player/autoplay) policy of the browser.
+如果为true，则播放器在初始状态下会被静音。 如果视频必须自动播放，而不管浏览器的[autoplay](/docs/player/autoplay)策略如何，这将很有用。
 
 ### `renderPlayPauseButton`<AvailableFrom v="3.2.32" />
 
-_optional_
+_可选_
 
-Allows you to customize the Play/Pause button of the controls.  
-Must be a callback function that returns a valid React element.
+允许您自定义控件的播放/暂停按钮。  
+必须是一个返回有效的React元素的回调函数。
 
 ```tsx twoslash title="App.tsx"
 const MyPlayButton: React.FC = () => null;
@@ -372,15 +392,15 @@ export const App: React.FC = () => {
 };
 ```
 
-Since v4.0.111, a `isBuffering` parameter is being passed in the callback which is `true` if the Player is in a [buffer state](/docs/player/buffer-state). [Learn more](/docs/player/buffer-state#possible-states) about the playback states a Player can be in.
+自v4.0.111起，在回调中传递了一个`isBuffering`参数，如果播放器处于[缓冲状态](/docs/player/buffer-state)，则为`true`。 [了解更多](/docs/player/buffer-state#possible-states)有关播放器可能处于的播放状态。
 
-Since v4.0.111, You can return `null` in the callback to fall back to the default UI.
+自v4.0.111起，您可以在回调中返回`null`以回退到默认UI。
 
 ### `renderFullscreenButton`<AvailableFrom v="3.2.32" />
 
-_optional_
+_可选_
 
-Allows you to customise the fullscreen button of the player controls, must return a valid React element. If fullscreen is disabled or not available in a browser, it will not be rendered.
+允许您自定义播放器控件的全屏按钮，必须返回有效的React元素。 如果浏览器禁用全屏或不支持全屏，则不会呈现。
 
 ```tsx twoslash
 const FullScreenButton: React.FC = () => null;
@@ -417,11 +437,11 @@ export const App: React.FC = () => {
 
 ### `renderMuteButton`<AvailableFrom v="4.0.188" />
 
-_optional_
+_可选_
 
-Allows you to customize the Mute button of the controls, must return a valid React element.  
-Action is disabled, you must attach click handlers yourself using the [`PlayerRef`](#playerref).  
-If unmuting a video, we recommend setting both [`.setVolume(1)`](#setvolume) and [`.setMuted(false)`](/docs/config#setmuted).
+允许您自定义控件的静音按钮，必须返回有效的React元素。  
+操作已禁用，您必须自行使用[`PlayerRef`](#playerref)附加点击处理程序。  
+如果取消静音视频，我们建议同时设置[`.setVolume(1)`](#setvolume)和[`.setMuted(false)`](/docs/config#setmuted)。
 
 ```tsx twoslash
 const VolumeOnIcon: React.FC = () => null;
@@ -456,9 +476,9 @@ export const App: React.FC = () => {
 
 ### `renderVolumeSlider`<AvailableFrom v="4.0.188" />
 
-Allows for a custom implementation of the volume slider, must return a valid React element.  
-See the default implementation [here](https://github.com/remotion-dev/remotion/blob/main/packages/player/src/render-volume-slider.tsx).  
-The default implementation makes the volume slider vertical (`isVertical`) and is keyboard navigateable using the Tab key (`onBlur`, `inputRef`).
+允许自定义音量滑块的实现，必须返回有效的 React 元素。  
+查看默认实现[此处](https://github.com/remotion-dev/remotion/blob/main/packages/player/src/render-volume-slider.tsx)。  
+默认实现使音量滑块垂直 (`isVertical`)，并且可以使用 Tab 键进行键盘导航 (`onBlur`，`inputRef`)。
 
 ```tsx twoslash title="App.tsx"
 const VolumeOnIcon: React.FC = () => null;
@@ -491,54 +511,54 @@ export const App: React.FC = () => {
 
 ### `alwaysShowControls`<AvailableFrom v="3.3.55" />
 
-_optional_
+_可选_
 
-If true, displays the player controls at all times even if the mouse is outside the player area. This settings override the default behavior, which automatically hides the controls after a period of mouse inactivity over the player area. Default `false`.
+如果为 true，则始终显示播放器控件，即使鼠标在播放器区域之外。此设置会覆盖默认行为，即在鼠标在播放器区域内不活动一段时间后自动隐藏控件。默认为 `false`。
 
 ### `hideControlsWhenPointerDoesntMove`<AvailableFrom v="4.0.124" />
 
-_optional_
+_可选_
 
-Hides the player controls after 3 seconds of mouse inactivity while the mouse is over the player. By default, this behavior is enabled (`true`). The [`alwaysShowControls`](#alwaysshowcontrols) prop is respected, meaning, if it is set to `true`, then the controls will never hide.
+当鼠标在播放器上不活动 3 秒后隐藏播放器控件。默认情况下，此行为已启用 (`true`)。将尊重 [`alwaysShowControls`](#alwaysshowcontrols) 属性，即如果设置为 `true`，则控件将永远不会隐藏。
 
-You may also pass in a number to customize the hide delay in milliseconds, by default `3000`.
+您还可以传入一个数字来自定义以毫秒为单位的隐藏延迟，默认为 `3000`。
 
 ### `showPlaybackRateControl`<AvailableFrom v="3.3.98" />
 
-_optional_
+_可选_
 
-If `true`, displays a gear icon allowing the user to change the playback rate.
+如果为 `true`，则显示一个齿轮图标，允许用户更改播放速率。
 
-You may pass an array with the available playback rates for selection, however, updating the list dynamically is not supported. `true` is an alias for `[0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 2.5, 3]`.
+您可以传入一个包含可供选择的播放速率的数组，但不支持动态更新列表。`true` 是 `[0.5, 0.8, 1, 1.2, 1.5, 1.8, 2, 2.5, 3]` 的别名。
 
-Default `false`.
+默认为 `false`。
 
 ### `posterFillMode`<AvailableFrom v="4.0.78" />
 
-Either `player-size` (default) or `composition-size`:
+可以是 `player-size`（默认）或 `composition-size`：
 
-- `player-size`: The poster will be rendered in the size of the player. This is useful if you want to render for example a Play button with constant size.
-- `composition-size`: The poster will be rendered in the size of the composition and scaled to the size of the Player. This is useful if you want to render a freeze frame of the video as a poster.
+- `player-size`：海报将以播放器的大小呈现。如果您想要以恒定大小呈现例如播放按钮，则这很有用。
+- `composition-size`：海报将以合成的大小呈现，并缩放到播放器的大小。如果您想要以视频的冻结帧作为海报呈现，则这很有用。
 
 ### `bufferStateDelayInMilliseconds`<AvailableFrom v="4.0.111"/>
 
-After the Player has entered a [buffer state](/docs/player/buffer-state), it will wait for this amount of time before showing the buffering UI.  
-This prevents jank when the Player is only in a buffering state for a short time. Default `300`.
+在玩家进入[缓冲状态](/docs/player/buffer-state)后，它将等待一段时间，然后显示缓冲UI。  
+这可以防止在玩家仅处于缓冲状态的短时间内出现卡顿。默认值为 `300`。
 
 Note:
 
-- [`renderPoster()`](#renderposter) and [`renderPlayPauseButton()`](#renderplaypausebutton) will only report `isBuffering` as `true` **after** this delay has passed.
-- The [`waiting`](/docs/player/player#waiting) and [`resume`](/docs/player/player#resume) events will **fire immediately** when the Player enters and exits the buffer state.
+- [`renderPoster()`](#renderposter) 和 [`renderPlayPauseButton()`](#renderplaypausebutton) 仅在此延迟时间过去**后**将 `isBuffering` 报告为 `true`。
+- 当玩家进入和退出缓冲状态时，[`waiting`](/docs/player/player#waiting) 和 [`resume`](/docs/player/player#resume) 事件将**立即触发**。
 
-This allows you to flexibly implement custom UI for the buffer state.
+这使您可以灵活地为缓冲状态实现自定义UI。
 
 ### `overflowVisible`<AvailableFrom v="4.0.173"/>
 
-Makes the Player render things outside of the canvas. Useful if you have interactive elements in the video such as draggable elements.
+使玩家在画布之外呈现内容。如果视频中有可拖动元素等交互元素，则此功能非常有用。
 
 ## `PlayerRef`
 
-You may attach a ref to the player and control it in an imperative manner.
+您可以将引用附加到播放器并以命令方式控制它。
 
 ```tsx twoslash {15}
 // @allowUmdGlobalAccess
@@ -575,41 +595,41 @@ const MyComp: React.FC = () => {
 };
 ```
 
-The following methods are available on the player ref:
+以下方法可在播放器引用上使用：
 
 ### `pause()`
 
-Pause the video. Nothing happens if the video is already paused.
+暂停视频。如果视频已经暂停，则不会发生任何事情。
 
 ### `pauseAndReturnToPlayStart()`<AvailableFrom v="4.0.67" />
 
-If the video is playing, pause it and return to the playback position where the video has last been played.
+如果视频正在播放，则暂停并返回到视频上次播放的位置。
 
 ### `play()`
 
-Play the video. Nothing happens if the video is already playing.
+播放视频。如果视频已经在播放，则不会发生任何事情。
 
-If you play the video from a user gesture, pass the `SyntheticEvent` in as an argument so [browser autoplay restrictions do not apply](/docs/player/autoplay).
+如果您从用户手势中播放视频，请将 `SyntheticEvent` 作为参数传递，以便[浏览器自动播放限制不适用](/docs/player/autoplay)。
 
 ### `toggle()`
 
-Pauses the video if it's playing. Plays the video if it's paused.
+如果视频正在播放，则暂停视频。如果视频已暂停，则播放视频。
 
-If you play the video from a user gesture, pass the `SyntheticEvent` in as an argument so [browser autoplay restrictions do not apply](/docs/player/autoplay).
+如果您从用户手势中播放视频，请将 `SyntheticEvent` 作为参数传递，以便[浏览器自动播放限制不适用](/docs/player/autoplay)。
 
 ### `getCurrentFrame()`
 
-Gets the current position expressed as the current frame. Divide by the `fps` you passed to get the time in seconds.
+获取当前位置表示为当前帧。除以您传递的 `fps` 以获取以秒为单位的时间。
 
-[Special considerations must be made](https://www.remotion.dev/docs/player/current-time) if you want to display a component that synchronizes with the time of the player.
+[如果要显示与播放器时间同步的组件，则必须考虑特殊情况](https://www.remotion.dev/docs/player/current-time)。
 
 ### `isPlaying()`<AvailableFrom v="2.5.7" />
 
-Returns a boolean indicating whether the video is playing.
+返回一个布尔值，指示视频是否正在播放。
 
 ### `getContainerNode()`<AvailableFrom v="2.4.2" />
 
-Gets the container `HTMLDivElement` of the player. Useful if you'd like to manually attach listeners to the player element.
+获取播放器的容器 `HTMLDivElement`。如果您想要手动附加监听器到播放器元素，这将非常有用。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -639,67 +659,67 @@ useEffect(() => {
 
 ### `mute()`
 
-Mutes the video.
+静音视频。
 
 ### `unmute()`
 
-Unmutes the video.
+取消静音视频。
 
 ### `getVolume()`
 
-Gets the volume of the video. The volume is a value between 0 and 1 and is initially 1.
+获取视频的音量。音量的值介于 0 和 1 之间，初始值为 1。
 
 ### `setVolume()`
 
-#### Arguments
+#### 参数
 
 - `volume`: `number`
 
-Set the volume of the video. Must be a value between 0 and 1, otherwise an exception will be thrown.
+设置视频的音量。必须是介于 0 和 1 之间的值，否则将抛出异常。
 
 ### `isMuted()`
 
-Returns a boolean specifying whether the video is muted.
+返回一个布尔值，指定视频是否已静音。
 
 ### `seekTo()`
 
-#### Arguments
+#### 参数
 
 - `frame`: `number`
 
-Move the position in the video to a specific frame. If the video is playing, it will pause for a brief moment, then start playing again after the seek is completed.
+将视频中的位置移动到特定帧。如果视频正在播放，它将暂停一小段时间，然后在完成搜索后重新开始播放。
 
 ### `isFullscreen()`
 
-Returns a boolean whether the video is currently playing in fullscreen.
+返回一个布尔值，指示视频当前是否在全屏播放。
 
-_To observe the fullscreen state and react to changes, listen to the [`fullscreenchange`](https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenchange_event) event on the global document._
+_要观察全屏状态并对更改做出反应，请监听全局文档上的 [`fullscreenchange`](https://developer.mozilla.org/en-US/docs/Web/API/Document/fullscreenchange_event) 事件。_
 
 ### `requestFullscreen()`
 
-Requests the video to go to fullscreen. This method throws if the `allowFullscreen` prop is false or the browser doesn't support allow the player to go into fullscreen.
+请求视频进入全屏模式。如果 `allowFullscreen` 属性为 false 或浏览器不支持使播放器进入全屏模式，则此方法将抛出异常。
 
-In Mobile Safari, Fullscreen is supported from iOS 17.
+在 Mobile Safari 中，全屏模式从 iOS 17 开始支持。
 
 ### `exitFullscreen()`
 
-Exit fullscreen mode.
+退出全屏模式。
 
 ### `getScale()`<AvailableFrom v="3.2.24" />
 
-Returns a number which says how much the content is scaled down compared to the natural composition size. For example, if the composition is `1920x1080`, but the player is 960px in width, this method would return `0.5`.
+返回一个数字，表示内容相对于自然组合大小缩小了多少。例如，如果组合是 `1920x1080`，但播放器宽度为 960px，则此方法将返回 `0.5`。
 
 ### `addEventListener()`
 
-Start listening to an event. See the [Events](#events) section to see the function signature and the available events.
+开始监听事件。请查看 [Events](#events) 部分以查看函数签名和可用事件。
 
 ### `removeEventListener()`
 
-Stop listening to an event. See the [Events](#events) section to see the function signature and the available events.
+停止监听事件。请查看 [Events](#events) 部分以查看函数签名和可用事件。
 
-## Events
+## 事件
 
-Using a [player ref](#playerref), you can bind event listeners to get notified of certain events of the player.
+使用 [player ref](#playerref)，您可以绑定事件侦听器以获取有关播放器的特定事件的通知。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -792,7 +812,7 @@ useEffect(() => {
 
 ### `seeked`
 
-Fired when the time position is changed by the user using the playback bar or using [`seek()`](#seeked). You may get the current frame by reading it from `e.detail.frame`.
+当用户使用播放进度条更改时间位置或使用 [`seek()`](#seeked) 时触发。您可以通过从 `e.detail.frame` 中读取来获取当前帧。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -807,37 +827,37 @@ playerRef.current.addEventListener('seeked', (e) => {
 });
 ```
 
-This event fires on every single frame update. Prefer the [`timeupdate`](#timeupdate) event instead if the excessive rerenders cause slowdown.
+此事件在每个单独的帧更新时触发。如果过多的重新渲染导致减速，请改用 [`timeupdate`](#timeupdate) 事件。
 
-This event is only fired during seeking. Use [`frameupdate`](#frameupdate) instead if you also want to get time updates during playback.
+此事件仅在搜索期间触发。如果您还想在播放期间获取时间更新，请改用 [`frameupdate`](#frameupdate)。
 
 ### `ended`
 
-Fires when the video has ended and looping is disabled.
+当视频结束并且循环已禁用时触发。
 
 ### `play`
 
-Fires when the video has started playing or has resumed from a pause.
+当视频开始播放或从暂停中恢复时触发。
 
 ### `ratechange`
 
-Fires when the [`playbackRate`](#playbackrate) has changed.
+当 [`playbackRate`](#playbackrate) 发生更改时触发。
 
 ### `scalechange`<AvailableFrom v="3.3.86" />
 
-Fires when the `scale` has changed. Also returned by [`getScale()`](#getscale).
+当 `scale` 发生更改时触发。也可以通过 [`getScale()`](#getscale) 返回。
 
 ### `volumechange`<AvailableFrom v="3.3.86" />
 
-Fires when the volume has changed. Also returned by [`getVolume()`](#getvolume).
+当音量发生更改时触发。也可以通过 [`getVolume()`](#getvolume) 返回。
 
 ### `pause`
 
-Fires when the video has paused or ended.
+当视频暂停或结束时触发。
 
 ### `timeupdate`
 
-Fires periodic time updates when the video is playing. Unlike the [`seeked`](#seeked) event, frames are skipped, and the event is throttled to only fire a few times a second at most every 250ms.
+当视频播放时定期更新时间。与 [`seeked`](#seeked) 事件不同，帧会被跳过，并且事件被节流，最多每 250 毫秒触发几次。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -852,13 +872,13 @@ playerRef.current.addEventListener('timeupdate', (e) => {
 });
 ```
 
-Prefer the [`seeked`](#seeked) event if you only want to get time updates during seeking.
+如果您只想在搜索期间获取时间更新，请改用 [`seeked`](#seeked) 事件。
 
-Prefer the [`frameupdate`](#frameupdate) event if you need an update for every single frame.
+如果您需要每个单独帧的更新，请改用 [`frameupdate`](#frameupdate) 事件。
 
 ### `frameupdate`<AvailableFrom v="3.2.27" />
 
-Fires whenever the current time has changed, during both playback and seeking.
+在当前时间更改时触发，无论是播放还是搜索。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -873,13 +893,13 @@ playerRef.current.addEventListener('frameupdate', (e) => {
 });
 ```
 
-Prefer the [`seeked`](#seeked) event if you only want to get time updates during seeking.
+如果您只想在搜索期间获取时间更新，请改用 [`seeked`](#seeked) 事件。
 
-Prefer the [`timeupdate`](#timeupdate) event if you only need periodical updates (at most every 250ms).
+如果您只需要定期更新（最多每 250 毫秒），请改用 [`timeupdate`](#timeupdate) 事件。
 
 ### `fullscreenchange`<AvailableFrom v="3.2.0" />
 
-Fires when the player enters or exits fullscreen. By reading `e.detail.isFullscreen` or calling `playerRef.isFullscreen()` you can determine if the player is currently in fullscreen or not.
+当播放器进入或退出全屏模式时触发。通过读取 `e.detail.isFullscreen` 或调用 `playerRef.isFullscreen()`，您可以确定播放器当前是否处于全屏模式。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -896,7 +916,7 @@ playerRef.current.addEventListener('fullscreenchange', (e) => {
 
 ### `mutechange`<AvailableFrom v="3.3.98" />
 
-Fires when the player's audio is muted or not. Also returned by [`isMuted()`](#ismuted).
+当播放器的音频静音或取消静音时触发。也可以通过 [`isMuted()`](#ismuted) 返回。
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -913,9 +933,9 @@ playerRef.current.addEventListener('mutechange', (e) => {
 
 ### `error`
 
-Fires when an error or uncaught exception has happened in the video.
+当视频发生错误或未捕获的异常时触发。
 
-You may get the error by reading the `e.detail.error` value:
+您可以通过读取 `e.detail.error` 值获取错误：
 
 ```tsx twoslash
 import {PlayerRef} from '@remotion/player';
@@ -929,26 +949,26 @@ ref.current?.addEventListener('error', (e) => {
 
 ### `waiting`<AvailableFrom v="4.0.111" />
 
-Fires when the Player has entered into the [native buffering state](/docs/player/buffer-state).
+当播放器进入[本机缓冲状态](/docs/player/buffer-state)时触发。
 
-Read here [how to best implement state management](/docs/player/buffer-state#possible-states).
+在这里阅读[如何最佳实现状态管理](/docs/player/buffer-state#possible-states)。
 
 ### `resume`<AvailableFrom v="4.0.111" />
 
-Fires when the Player has exited the [native buffering state](/docs/player/buffer-state).
+当播放器退出[本机缓冲状态](/docs/player/buffer-state)时触发。
 
-Read here [how to best implement state management](/docs/player/buffer-state#possible-states).
+在这里阅读[如何最佳实现状态管理](/docs/player/buffer-state#possible-states)。
 
-## Handling errors
+## 处理错误
 
-Since videos are written in React, they are prone to crashing.
-When a video throws an exception, you may handle the error using the [`error` event](#error).
-The video will unmount and show an error UI, but the host application (The React app which is embedding the player) will not crash.
-It is up to you to handle the error and to re-mount the video (for example by changing the `key` prop in React).
+由于视频是用 React 编写的，它们容易崩溃。
+当视频抛出异常时，您可以使用 [`error` 事件](#error) 处理错误。
+视频将卸载并显示错误 UI，但宿主应用程序（嵌入播放器的 React 应用程序）不会崩溃。
+您需要处理错误并重新挂载视频（例如通过在 React 中更改 `key` 属性）。
 
-This feature is implemented using an [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary), so only errors in the render function will be caught. Errors in event handlers and asynchronous code will not be reported and will not cause the video to unmount.
+此功能使用[错误边界](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)实现，因此只会捕获渲染函数中的错误。事件处理程序和异步代码中的错误不会被报告，也不会导致视频卸载。
 
-You can customize the error message that is shown if a video crashes:
+您可以自定义视频崩溃时显示的错误消息：
 
 ```tsx twoslash
 import {ErrorFallback, Player} from '@remotion/player';
@@ -988,8 +1008,10 @@ const MyApp: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/player/src/Player.tsx)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/player/src/Player.tsx)
 - [`<Composition>`](/docs/composition)
 - [`<Thumbnail>`](/docs/player/thumbnail)
+
+I'm ready to translate the Markdown content into Chinese. Please go ahead and paste the content for translation.

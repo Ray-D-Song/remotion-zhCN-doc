@@ -4,18 +4,18 @@ title: evolvePath()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-Animates an SVG path from being invisible to it's full length. The function takes two arguments:
+将SVG路径从不可见状态动画到完全长度。该函数接受两个参数：
 
-- `progress` is the progress towards full evolution, where `0` means the path being invisible, and `1` meaning the path being fully drawn out.
+- `progress` 是朝向完全演变的进度，其中 `0` 表示路径不可见，`1` 表示路径完全绘制出来。
   :::note
-  Passing in a value above 1 will result in the start of the path getting devolved. Passing in a value below 0 will result in the path getting evolved from the end.
+  传入大于 1 的值将导致路径的起点逐渐消失。传入小于 0 的值将导致路径从末尾开始绘制。
   :::
 
-- `path` must be a valid SVG path.
+- `path` 必须是有效的SVG路径。
 
-The return value will be an object containing [`strokeDasharray`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) and [`strokeDashoffset`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset) values, which should be passed to the `<path>` element.
+返回值将是一个包含[`strokeDasharray`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray)和[`strokeDashoffset`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset)值的对象，这些值应该传递给`<path>`元素。
 
 ```tsx twoslash
 import { evolvePath } from "@remotion/paths";
@@ -33,8 +33,9 @@ const element = (
 );
 ```
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
 - [reversePath()](/docs/paths/reverse-path)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/evolve-path.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/evolve-path.ts)
+

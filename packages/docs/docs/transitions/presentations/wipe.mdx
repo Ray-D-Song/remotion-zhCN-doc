@@ -1,14 +1,14 @@
 ---
 image: /generated/articles-docs-transitions-presentations-wipe.png
-crumb: "@remotion/transitions - Presentations"
+crumb: "@remotion/transitions - 展示"
 title: "wipe()"
 ---
 
-A presentation where the entering slide slides over the exiting slide.
+一个演示，进入幻灯片从上一个幻灯片上滑过来。
 
 <Demo type="wipe" />
 
-## Example
+## 示例
 
 ```tsx twoslash title="WipeTransition.tsx"
 import { AbsoluteFill } from "remotion";
@@ -56,11 +56,11 @@ const BasicTransition = () => {
 
 ## API
 
-Takes an object with the following properties:
+接受一个具有以下属性的对象：
 
 ### `direction`
 
-One of `from-left`, `from-top-left`, `from-top`, `from-top-right`, `from-right`, `from-bottom-right`, `from-bottom`, `from-bottom-left`.
+其中之一：`from-left`、`from-top-left`、`from-top`、`from-top-right`、`from-right`、`from-bottom-right`、`from-bottom`、`from-bottom-left`。
 
 ```tsx twoslash title="TypeScript type"
 import { WipeDirection } from "@remotion/transitions/wipe";
@@ -70,21 +70,21 @@ const wipeDirection: WipeDirection = "from-left";
 
 ### `outerEnterStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the outer element when the scene is is entering.
+当场景进入时，外部元素的样式。
 
 ### `outerExitStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the outer element when the scene is exiting.
+当场景退出时，外部元素的样式。
 
 ### `innerEnterStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the inner element when the scene is entering.
+当场景进入时，内部元素的样式。
 
 ### `innerExitStyle?`<AvailableFrom v="4.0.84"/>
 
-The style of the inner element when the scene is exiting.
+当场景退出时，内部元素的样式。
 
-## See also
+## 另请参阅
 
-- [Source code for this presentation](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/wipe.tsx)
-- [Presentations](/docs/transitions/presentations)
+- [此演示的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/transitions/src/presentations/wipe.tsx)
+- [演示](/docs/transitions/presentations)

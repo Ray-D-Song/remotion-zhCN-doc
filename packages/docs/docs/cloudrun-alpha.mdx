@@ -2,91 +2,91 @@
 image: /generated/articles-docs-cloudrun-alpha.png
 id: cloudrun-alpha
 title: Cloud Run Alpha
-crumb: "Version Upgrade"
+crumb: "版本升级"
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Help us shape Remotion Cloud Run!
+帮助我们塑造 Remotion Cloud Run！
 
-[Cloud Run](/docs/cloudrun) is an alternative option to [Remotion Lambda](/docs/lambda). Where Lambda offers a cloud-based rendering solution on AWS (Amazon Web Services), Cloud Run makes use of GCP (Google Cloud Platform).
+[Cloud Run](/docs/cloudrun) 是 [Remotion Lambda](/docs/lambda) 的另一选择。Lambda 在 AWS（亚马逊云服务）上提供基于云的渲染解决方案，而 Cloud Run 则利用 GCP（谷歌云平台）。
 
-## What to test
+## 测试内容
 
-We are looking for feedback on the experience of setting up a GCP Project for Remotion Cloud Run, as well as the required components for rendering on the cloud:
+我们希望收到有关为 Remotion Cloud Run 设置 GCP 项目的体验反馈，以及在云端渲染所需的组件：
 
-- Deploy a rendering service (in Lambda, a service is known as a function).
-- Deploy a Remotion project to GCP Cloud Storage (in Lambda, the storage solution is S3).
-- Render a composition stored in Cloud Storage on a Cloud Run service.
+- 部署一个渲染服务（在 Lambda 中，服务称为函数）。
+- 将 Remotion 项目部署到 GCP 云存储（在 Lambda 中，存储解决方案是 S3）。
+- 在 Cloud Run 服务上渲染存储在云存储中的合成。
 
-We are welcoming any [bug reports](https://remotion.dev/issue).
+我们欢迎任何 [错误报告](https://remotion.dev/issue)。
 
-## 1. Install `@remotion/cloudrun`
+## 1. 安装 `@remotion/cloudrun`
 
 <Installation pkg="@remotion/cloudrun"/>
 
-From `v4.0.18`, Cloud run is distributed together with the main release of Remotion. Before that, you had to install the alpha release (see below).
+从 `v4.0.18` 开始，Cloud Run 与 Remotion 的主要版本一起发布。在此之前，您需要安装 alpha 版本（请参见下文）。
 
-## Changelog (moved)
+## 更新日志（已移动）
 
-From `4.0.18` on, see changes [here](https://remotion.dev/changelog).
+从 `4.0.18` 开始，查看[此处](https://remotion.dev/changelog)的更改。
 
 ### `4.0.18`
 
-Remotion Cloud Run is now distributed together with the main release of Remotion. You no longer need to switch to the alpha release, although Remotion Cloud Run is still alpha software. **The changelog is [now part of the main changelog](https://remotion.dev/changelog)**.
+Remotion Cloud Run 现在与 Remotion 的主要版本一起发布。您不再需要切换到 alpha 版本，尽管 Remotion Cloud Run 仍然是 alpha 软件。**更新日志[现在是主要更新日志的一部分](https://remotion.dev/changelog)**。
 
 ### `4.1.0-alpha12`
 
-Includes features and bugfixes from `v4.0.17`.
-Includes a fix for streaming progress sometimes throwing an exception.
+包含来自 `v4.0.17` 的功能和错误修复。
+包含修复有时会引发异常的流式进度的修复。
 
 ### `4.1.0-alpha11`
 
-Includes bugfixes from `v4.0.12`.
+包含来自 `v4.0.12` 的错误修复。
 
 ### `4.1.0-alpha9`
 
-#### Known issues
+#### 已知问题
 
-- any internal errors created by Remotion from within the service are not currently sent back in the error response to the renderMediaOnCloudrun and renderStillOnCloudrun APIs (these APIs are also used within the CLI). For these errors, users will need to check the logs for now.
+- 由 Remotion 在服务内部创建的任何内部错误目前不会在错误响应中返回给 renderMediaOnCloudrun 和 renderStillOnCloudrun API（这些 API 也在 CLI 中使用）。对于这些错误，用户现在需要检查日志。
 
-#### Improvements
+#### 改进
 
-- Artifact registry, used to store versioned images for deploying services, now has two folders - production and development.
-- Provide helpful response when Cloud Run crashes during render.
-  - CLI alerts user there was a crash, fetches logs, determines if cause was likely memory or timeout issue.
-  - API can receive a success or crash response
-  - New response documented
-- Default concurrency for rendering media is now 100%. This will set the concurrency equal to the number of cores the deployed service has.
+- 工件注册表，用于存储部署服务的版本化图像，现在有两个文件夹 - 生产和开发。
+- 当 Cloud Run 在渲染过程中崩溃时提供有用的响应。
+  - CLI 会提醒用户发生了崩溃，获取日志，确定可能是内存或超时问题。
+  - API 可以接收成功或崩溃响应。
+  - 新的响应已记录。
+- 渲染媒体的默认并发现在为 100%。这将使并发度等于部署服务的核心数。
 
 ### `4.1.0-alpha5`
 
-- Fix input props not working for dynamic metadata
-- Apply changes from `4.0.0-alpha20`.
+- 修复动态元数据的输入属性不起作用的问题。
+- 应用来自 `4.0.0-alpha20` 的更改。
 
 ### `4.1.0-alpha4`
 
-Fixed schema error when invoking a render.
+修复调用渲染时的模式错误。
 
-Bug fixes leading to public testing.
+修复导致公共测试的错误。
 
-| Issue                                                                                                                         | Resolution                                                                                                                          |
+| 问题                                                                                                                         | 解决方案                                                                                                                          |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Rendering a still via CLI with defaults results in error - You can only pass the `quality` option if `imageFormat` is 'jpeg'. | Migrated to V4 method, using internalRenderStill() instead of renderStill(). Noticed missing options, added them in and documented. |
+| 通过默认值使用 CLI 渲染静态图像会导致错误 - 只有在 `imageFormat` 为 'jpeg' 时才能传递 `quality` 选项。 | 迁移到 V4 方法，使用 `internalRenderStill()` 而不是 `renderStill()`。注意到缺少的选项，添加并记录它们。 |
 
 ### `4.1.0-alpha3`
 
-Bug fixes leading to public testing.
+修复导致公共测试的错误。
 
-| Issue                                                                                                                                                         | Resolution                                                                                                                                                                                               |
+| 问题                                                                                                                                                         | 解决方案                                                                                                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| When deploying a service, the image didn't exist in Google Artifact Registry.                                                                                 | Added publish script that runs submit.mjs, automatically deploying the image, tagged with the version number.                                                                                            |
-| Functions folder wasn't included in dist folder, so no CLI commandswould work.                                                                                | Removed this from .npmignore, so that it is included.                                                                                                                                                    |
-| When using the CLI to request a render without passing a composition name, it fails to list out compositions to choose from                                   | Issue raised, present in V4 for Lambda also.                                                                                                                                                             |
-| Service name structuring clips off alpha version denominator. During alpha, this will make it impossible to deploy multiple services spanning alpha versions. | Create new name formatting that meets requirements. Added tests for this.                                                                                                                                |
-| CLI commands for rendering not aligned with Remotion Lambda.                                                                                                  | `npx remotion cloudrun render media` is now `npx remotion cloudrun render`.<br /><br />`npx remotion cloudrun render still` is now `npx cloudrun remotion still`.<br /><br />Documentation also updated. |
+| 部署服务时，图像不存在于 Google 工件注册表中。                                                                                                                 | 添加运行 submit.mjs 的发布脚本，自动部署带有版本号标记的图像。                                                                                                                                        |
+| 函数文件夹未包含在 dist 文件夹中，因此不会起作用 CLI 命令。                                                                                                    | 从 .npmignore 中移除此内容，以便包含在其中。                                                                                                                                                           |
+| 使用 CLI 请求渲染而不传递组合名称时，无法列出可供选择的组合。                                                                                                   | 提出问题，Lambda 的 V4 中也存在。                                                                                                                                                                      |
+| 服务名称结构截断了 alpha 版本分母。在 alpha 阶段，这将使跨 alpha 版本跨度的多个服务的部署变得不可能。                                                    | 创建符合要求的新名称格式。为此添加了测试。                                                                                                                                                             |
+| 用于渲染的 CLI 命令与 Remotion Lambda 不对齐。                                                                                                                | `npx remotion cloudrun render media` 现在是 `npx remotion cloudrun render`。<br /><br />`npx remotion cloudrun render still` 现在是 `npx cloudrun remotion still`。<br /><br />同时更新了文档。 |
 
 ### `4.1.0-alpha2`
 
-Initial cloud run alpha release 🎉.
+初始云运行 alpha 版本发布 🎉.

@@ -6,12 +6,12 @@ crumb: "@remotion/fonts"
 
 # loadFont()<AvailableFrom v="4.0.165" />
 
-_Part of the [`@remotion/fonts`](/docs/fonts) package_
+_属于[`@remotion/fonts`](/docs/fonts)包_
 
-Load a local font for use in Remotion.  
-Automatically blocks the render until the font is ready.
+加载本地字体以供在 Remotion 中使用。  
+自动阻止渲染，直到字体准备就绪。
 
-## Usage
+## 用法
 
 ```tsx twoslash title="MyComp.tsx"
 import { loadFont } from "@remotion/fonts";
@@ -35,64 +35,64 @@ export const GoogleFontsExample: React.FC = () => {
 };
 ```
 
-## Options
+## 选项
 
 ### family
 
-Give the family a name.  
-You can then reference that name in your CSS using `fontFamily`.
+给字体一个名称。  
+然后可以在 CSS 中使用 `fontFamily` 引用该名称。
 
 ### url
 
-Where to load the font from. Can be a local file using [`staticFile()`](/docs/staticfile) or a URL.
+从哪里加载字体。可以是使用 [`staticFile()`](/docs/staticfile) 的本地文件或 URL。
 
 ### format?
 
-Defines the format of the font file. By default gets derived from the file extension of the URL.  
-Override with one of the following values explicitly: `woff2`, `woff`, `opentype`, `truetype`.
+定义字体文件的格式。默认情况下从 URL 的文件扩展名派生。  
+可以显式覆盖为以下值之一：`woff2`、`woff`、`opentype`、`truetype`。
 
 ### ascentOverride?
 
-Defines the ascent metric for the font.
+定义字体的上升度量。
 
 ### descentOverride?
 
-Defines the descent metric for the font.
+定义字体的下降度量。
 
 ### display?
 
-Equivalent to the CSS [`font-display`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display) property.  
-Determines how a font face is displayed based on whether and when it is downloaded and ready to use.
+等效于 CSS 的 [`font-display`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display) 属性。  
+根据字体何时下载和准备好使用来确定字体如何显示。
 
 ### featureSettings?
 
-Equivalent to the CSS [`font-feature-settings`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-feature-settings) property.
-Allows control over advanced typographic features in OpenType fonts.
+等效于 CSS 的 [`font-feature-settings`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-feature-settings) 属性。
+允许控制 OpenType 字体中的高级排版功能。
 
 ### lineGapOverride?
 
-Defines the line gap metric for the font.
+定义字体的行间距度量。
 
 ### stretch?
 
-Equivalent to the CSS [`font-stretch`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-stretch) property.
-Specify what kind of stretch the loaded font has.
+等效于 CSS 的 [`font-stretch`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-stretch) 属性。
+指定加载的字体具有何种拉伸。
 
 ### style?
 
-Equivalent to the CSS [`font-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-style) property.
-Specify what kind of style the loaded font has.
+等效于 CSS 的 [`font-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-style) 属性。
+指定加载的字体具有何种样式。
 
 ### weight?
 
-Equivalent to the CSS [`font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-weight) property.
-Specify what kind of weight the loaded font has.
+等效于 CSS 的 [`font-weight`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-weight) 属性。
+指定加载的字体具有何种权重。
 
 ### unicodeRange?
 
-The range of Unicode code points to be used from the font.
+Unicode代码点范围要从字体中使用。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/fonts/src/load-font.ts)
-- [Fonts](/docs/fonts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/fonts/src/load-font.ts)
+- [字体](/docs/fonts) 

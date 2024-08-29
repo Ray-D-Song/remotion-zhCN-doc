@@ -2,30 +2,30 @@
 image: /generated/articles-docs-lambda-feb-2022-outage.png
 id: feb-2022-outage
 sidebar_label: 02/2022 Outage
-title: February 2022 Outage
+title: 2022年2月故障
 ---
 
 :::tip
-**Update 2022/02/06:**
+**更新 2022/02/06:**
 
-The problem is now solved. Your Lambda functions should work as normal. We recommend everyone to go back to use ARM64 Lambdas. We will consult with AWS support on how to prevent issues like this in the future.
+问题现已解决。您的 Lambda 函数应该正常工作。我们建议所有人回到使用 ARM64 Lambdas。我们将与 AWS 支持协商如何防止类似问题在未来发生。
 :::
 
-On February 3rd 2022, AWS made a change to their Lambda micro-VMs that breaks Remotion Lambda. This document contains information for affected users.
+2022年2月3日，AWS 对其 Lambda 微型虚拟机进行了更改，导致 Remotion Lambda 出现故障。本文档包含了受影响用户的信息。
 
-## Hotfix solution
+## 紧急解决方案
 
-[Upgrade](/docs/lambda/upgrading) your Lambda functions to the latest version and deploy them with a `x86_64` architecture.
+[升级](/docs/lambda/upgrading) 您的 Lambda 函数到最新版本，并使用 `x86_64` 架构部署它们。
 
-Via CLI:
+通过 CLI：
 
 ```
 npx remotion lambda functions deploy --architecture=x86_64
 ```
 
-Via Node.JS:
+通过 Node.JS：
 
-## Example
+## 示例
 
 ```ts
 // @module: esnext
@@ -43,20 +43,22 @@ const { functionName } = await deployFunction({
 console.log(functionName);
 ```
 
-## Caveat
+## 注意事项
 
-The x86_64 version **does not contain fonts for Japanese/Chinese/Korean**! Since the binaries are bigger on the **x86_64** version, we exceeded the file limit and had to delete the biggest font in order to stay within the AWS bounds.
+x86_64 版本**不包含日语/中文/韩文字体**！由于**x86_64**版本的二进制文件更大，我们超出了文件限制，不得不删除最大的字体以保持在 AWS 的限制范围内。
 
-x86_64 is also slower and has about a 30% higher cost/performance ratio.
+x86_64 也更慢，成本/性能比约高出30%。
 
-## AWS mitigation
+## AWS 缓解措施
 
-We contacted AWS and hope to receive an answer soon.
+我们已联系 AWS，并希望尽快收到答复。
 
-## Long-term solution
+## 长期解决方案
 
-ARM64 is the preferred and default solution. Once the problem is solved, we recommend everyone to switch back.
+ARM64 是首选和默认解决方案。问题解决后，我们建议所有人切换回去。
 
-## Contact
+## 联系
 
-Join the discussion in our Discord channel if you have questions.
+如果您有问题，请加入我们的 Discord 频道讨论。 
+
+

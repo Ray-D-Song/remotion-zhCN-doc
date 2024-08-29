@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以保持最新的破坏性更改。</p>
 </ExperimentalBadge>
 
-Gets an array of Remotion projects in Cloud Storage, in your GCP project.
+获取您的 GCP 项目中 Cloud Storage 中的 Remotion 项目数组。
 
-The projects are located in the `sites/` subdirectory of your Cloud Storage bucket. Remember - you should only have one bucket for Remotion Cloud Run per region, therefore you do not need to specify the name of the bucket for this function.
+这些项目位于您的 Cloud Storage 存储桶的 `sites/` 子目录中。请记住 - 您应该每个区域只有一个 Remotion Cloud Run 存储桶，因此您不需要为此函数指定存储桶的名称。
 
-## Example
+## 示例
 
-Gets all sites and logs information about them.
+获取所有站点并记录有关它们的信息。
 
 ```ts twoslash
 // @module: ESNext
@@ -39,13 +39,13 @@ for (const bucket of buckets) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [GCP region](/docs/cloudrun/region-selection) which you want to query. Alternatively, you can pass 'all regions' to return sites across all regions.
+您要查询的 [GCP 区域](/docs/cloudrun/region-selection)。或者，您可以传递 'all regions' 来返回所有区域中的站点。
 
 ```ts twoslash
 // @module: ESNext
@@ -55,55 +55,55 @@ import { getSites } from "@remotion/cloudrun";
 const { sites, buckets } = await getSites("all regions");
 ```
 
-## Return value
+## 返回值
 
-A promise resolving to an object with the following properties:
+解析为具有以下属性的对象的 Promise：
 
 ### `sites`
 
-An array of deployed Remotion projects that you can use for rendering.
+您可以用于渲染的已部署 Remotion 项目数组。
 
-Each item contains the following properties:
+每个项目包含以下属性：
 
 #### `id`
 
-A unique identifier for that project.
+该项目的唯一标识符。
 
 #### `bucketName`
 
-The bucket in which the project resides in.
+项目所在的存储桶。
 
 #### `bucketRegion`
 
-The region in which the bucket resides in.
+存储桶所在的区域。
 
 #### `serveUrl`
 
-URL of the deployed site. You can pass it into [`renderMediaOnCloudRun()`](/docs/cloudrun/rendermediaoncloudrun) to render a video or audio.
+部署站点的 URL。您可以将其传递给 [`renderMediaOnCloudRun()`](/docs/cloudrun/rendermediaoncloudrun) 以渲染视频或音频。
 
 ### `buckets`
 
-An array of all buckets in the selected region in your account that start with `remotioncloudrun-`.
+您帐户中所选区域中所有以 `remotioncloudrun-` 开头的存储桶数组。
 
 :::info
-You should only have [1 bucket](/docs/cloudrun/multiple-buckets) per region for all your Remotion projects.
+您应该每个区域只有 [1 个存储桶](/docs/cloudrun/multiple-buckets) 用于所有 Remotion 项目。
 :::
 
-Each item contains the following properties:
+每个项目包含以下属性：
 
 #### `region`
 
-The region the bucket resides in.
+存储桶所在的区域。
 
 #### `name`
 
-The name of the bucket. Cloud Storage buckets have globally unique names.
+存储桶的名称。Cloud Storage 存储桶具有全局唯一的名称。
 
 #### `creationDate`
 
-A UNIX timestamp of the point when the bucket was first created.
+存储桶首次创建时的 UNIX 时间戳。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-sites.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-sites.ts)
 - [deleteSite()](/docs/cloudrun/deletesite)

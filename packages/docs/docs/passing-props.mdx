@@ -1,9 +1,9 @@
 ---
 image: /generated/articles-docs-passing-props.png
 id: passing-props
-title: Passing props to a composition
-sidebar_label: Passing props
-crumb: "How To"
+title: 将属性传递给组合
+sidebar_label: 传递属性
+crumb: "如何"
 ---
 
 ```twoslash include example
@@ -20,19 +20,19 @@ export const MyComponent: React.FC<Props> = ({propOne, propTwo}) => {
 // - MyComponent
 ```
 
-You can parametrize the content of the videos using [React properties ("props")](https://react.dev/learn/passing-props-to-a-component).
+您可以使用[React 属性（"props"）](https://react.dev/learn/passing-props-to-a-component)来参数化视频内容。
 
-## Defining accepted props
+## 定义接受的 props
 
-To define which props your video accepts, give your component the `React.FC` type and pass in a generic argument describing the shape of the props you want to accept:
+要定义您的视频接受哪些 props，请为您的组件提供 `React.FC` 类型，并传入描述您想要接受的 props 形状的泛型参数：
 
 ```tsx twoslash title="src/MyComponent.tsx"
 // @include: example-MyComponent
 ```
 
-## Define default props
+## 定义默认 props
 
-When registering a component that takes props as a composition, you must define default props:
+注册一个以组合形式接受 props 的组件时，必须定义默认 props：
 
 ```tsx twoslash {14-17} title="src/Root.tsx"
 // organize-imports-ignore
@@ -71,70 +71,43 @@ export const Root: React.FC = () => {
 };
 ```
 
-Default props are useful so you don't preview your video with no data. [Default props will be overriden by input props](/docs/props-resolution).
+默认 props 很有用，这样您就不会预览到没有数据的视频。[默认 props 将被输入 props 覆盖](/docs/props-resolution)。
 
-## Define a schema<AvailableFrom v="4.0.0"/>
+## 定义一个 schema<AvailableFrom v="4.0.0"/>
 
-You can use [Zod](https://github.com/colinhacks/zod) to [define a typesafe schema for your composition](/docs/schemas).
+您可以使用[Zod](https://github.com/colinhacks/zod)来[为您的组合定义一个类型安全的 schema](/docs/schemas)。
 
-## Input props
+## 输入 props
 
-Input props are props that are passed in while invoking a render that can replace or override the default props.
+输入 props 是在调用渲染时传入的 props，可以替换或覆盖默认 props。
 
 :::note
-Input props must be an object and serializable to JSON.
+输入 props 必须是一个对象，并且可序列化为 JSON。
 :::
 
-### Passing input props in the CLI
+### 在 CLI 中传递输入 props
 
-When rendering, you can override default props by passing a [CLI](/docs/cli/render) flag. It must be either valid JSON or a path to a file that contains valid JSON.
+在渲染时，您可以通过传递 [CLI](/docs/cli/render) 标志来覆盖默认 props。它必须是有效的 JSON 或包含有效 JSON 的文件路径。
 
-```bash title="Using inline JSON"
+```bash title="使用内联 JSON"
 npx remotion render HelloWorld out/helloworld.mp4 --props='{"propOne": "Hi", "propTwo": 10}'
 ```
 
-```bash title="Using a file path"
+```bash title="使用文件路径"
 npx remotion render HelloWorld out/helloworld.mp4 --props=./path/to/props.json
 ```
 
-### Passing input props when using server-side rendering
+### 在使用服务器端渲染时传递输入 props
 
-When server-rendering using [`renderMedia()`](/docs/renderer/render-media) or [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda), you can pass props using the [`inputProps`](/docs/renderer/render-media#inputprops) option:
+在使用 [`renderMedia()`](/docs/renderer/render-media) 或 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 进行服务器端渲染时，您可以使用 [`inputProps`](/docs/renderer/render-media#inputprops) 选项传递 props：
 
-```tsx twoslash {3-5, 10, 18}
-// @module: esnext
-// @target: es2017
-const serveUrl = "/path/to/bundle";
-const outputLocation = "/path/to/frames";
-// ---cut---
-import { renderMedia, selectComposition } from "@remotion/renderer";
+你应该将你的 `inputProps` 传递给 [`selectComposition()`](/docs/renderer/select-composition) 和 [`renderMedia()`](/docs/renderer/render-media)。
 
-const inputProps = {
-  titleText: "Hello World",
-};
+### 在 GitHub Actions 中传递输入属性
 
-const composition = await selectComposition({
-  serveUrl,
-  id: "my-video",
-  inputProps,
-});
+[查看：使用 GitHub Actions 渲染](/docs/ssr#render-using-github-actions)
 
-await renderMedia({
-  composition,
-  serveUrl,
-  codec: "h264",
-  outputLocation,
-  inputProps,
-});
-```
-
-You should pass your `inputProps` to both [`selectComposition()`](/docs/renderer/select-composition) and [`renderMedia()`](/docs/renderer/render-media).
-
-### Passing input props in GitHub Actions
-
-[See: Render using GitHub Actions](/docs/ssr#render-using-github-actions)
-
-When using GitHub Actions, you need to adjust the file at `.github/workflows/render-video.yml` to make the inputs in the `workflow_dispatch` section manually match the shape of the props your root component accepts.
+在使用 GitHub Actions 时，您需要调整 `.github/workflows/render-video.yml` 文件，以使 `workflow_dispatch` 部分中的输入手动匹配您的根组件接受的属性的形状。
 
 ```yaml {3, 7}
 workflow_dispatch:
@@ -149,15 +122,15 @@ workflow_dispatch:
       default: "black"
 ```
 
-### Retrieve input props
+### 检索输入属性
 
-Input props are passed to the [`component`](/docs/composition) of your [`<Composition>`](/docs/composition) directly and you can access them like regular React component props.
+输入属性直接传递给您的 [`<Composition>`](/docs/composition) 的 [`component`](/docs/composition)，您可以像常规 React 组件属性一样访问它们。
 
-If you need the input props in your root component, use the [`getInputProps()`](/docs/get-input-props) function to retrieve input props.
+如果您需要在根组件中使用输入属性，请使用 [`getInputProps()`](/docs/get-input-props) 函数检索输入属性。
 
-## You can still use components normally
+## 仍然可以正常使用组件
 
-Even if a component is registered as a composition, you can still use it like a regular React component and pass the props directly:
+即使一个组件被注册为一个组合，您仍然可以像普通的 React 组件一样使用它，并直接传递属性：
 
 ```tsx twoslash
 // @include: example-MyComponent
@@ -165,7 +138,7 @@ Even if a component is registered as a composition, you can still use it like a 
 <MyComponent propOne="hi" propTwo={10} />
 ```
 
-This is useful if you want to concatenate multiple scenes together. You can use a [`<Series>`](/docs/series) to play two components after each other:
+如果您想要将多个场景连接在一起，这是有用的。您可以使用 [`<Series>`](/docs/series) 来播放两个组件：
 
 ```tsx twoslash title="ChainedScenes.tsx"
 // @include: example-MyComponent
@@ -189,8 +162,9 @@ const ChainedScenes = () => {
 };
 ```
 
-You may then register this "Master" component as an additional [`<Composition>`](/docs/the-fundamentals#compositions).
+然后，您可以将这个 "Master" 组件注册为额外的 [`<Composition>`](/docs/the-fundamentals#compositions)。
 
-## See also
+## 另请参阅
 
-- [Avoid huge payloads for `defaultProps`](/docs/troubleshooting/defaultprops-too-big)
+- [避免 `defaultProps` 过大的负载](/docs/troubleshooting/defaultprops-too-big) 
+

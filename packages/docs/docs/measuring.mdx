@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-measuring.png
 id: measuring
-title: Measuring DOM nodes
-sidebar_label: Measuring items
-crumb: "How To"
+title: 测量 DOM 节点
+sidebar_label: 测量项目
+crumb: "如何"
 ---
 
-If you want to measure a DOM node, you can assign a [React Ref](https://react.dev/learn/manipulating-the-dom-with-refs) to it and then use the [`getBoundingClientRect()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect?retiredLocale=de) browser API to get the position and size of the node.
+如果您想要测量一个 DOM 节点，您可以为其分配一个 [React Ref](https://react.dev/learn/manipulating-the-dom-with-refs)，然后使用 [`getBoundingClientRect()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect?retiredLocale=de) 浏览器 API 来获取节点的位置和大小。
 
-In Remotion, it is not that easy because the `<div>` element in which the video is rendered into has a `scale()` transform applied to it, which affects the value that you get from `getBoundingClientRect()`.
+在 Remotion 中，这并不那么容易，因为视频渲染到的 `<div>` 元素上应用了一个 `scale()` 变换，这会影响您从 `getBoundingClientRect()` 获取的值。
 
-## Measure using the `useCurrentScale()` hook
+## 使用 `useCurrentScale()` 钩子进行测量
 
-From v4.0.111 on, you can use the [`useCurrentScale()`](/docs/use-current-scale) hook to correct the dimensions of the element.
+从 v4.0.111 开始，您可以使用 [`useCurrentScale()`](/docs/use-current-scale) 钩子来校正元素的尺寸。
 
 ```tsx twoslash title="MyComponent.tsx"
 import { useCallback, useEffect, useState, useRef } from "react";
@@ -49,9 +49,9 @@ export const MyComponent = () => {
 };
 ```
 
-## Versions prior to v4.0.110
+## v4.0.110 之前的版本
 
-To get an accurate measurement, you can render an additional element with a fixed width (say `10px`) and measure it too. Then, you can divide the width of the element by `10` to get the scale factor.
+为了获得准确的测量，您可以渲染一个具有固定宽度（比如 `10px`）的额外元素，并对其进行测量。然后，您可以将元素的宽度除以 `10` 来获得比例因子。
 
 ```tsx twoslash title="MyComponent.tsx"
 import { useCallback, useEffect, useState, useRef } from "react";
@@ -98,17 +98,17 @@ export const MyComponent = () => {
 };
 ```
 
-### Example project
+### 示例项目
 
-- [Source code](https://github.com/remotion-dev/measure-item)
-- [Preview](https://measure-item.vercel.app)
+- [源代码](https://github.com/remotion-dev/measure-item)
+- [预览](https://measure-item.vercel.app)
 
-## Versions prior to v4.0.103
+## v4.0.103 之前的版本
 
-In previous versions of Remotion, `getBoundingClientRect()` could return dimensions with all values being `0` in the first `useEffect()` due to mounting your component but not showing it.
+在 Remotion 的早期版本中，由于组件挂载但尚未显示，`getBoundingClientRect()` 可能会在第一个 `useEffect()` 中返回所有值为 `0` 的尺寸。
 
-Going forward, you can rely on the dimensions being non-zero.
+从现在开始，您可以依赖于尺寸不为零。
 
-## See also
+## 另请参阅
 
-- [react-use-measure](https://github.com/pmndrs/react-use-measure) - Measure elements correctly inside a scroll container
+- [react-use-measure](https://github.com/pmndrs/react-use-measure) - 在滚动容器内正确测量元素

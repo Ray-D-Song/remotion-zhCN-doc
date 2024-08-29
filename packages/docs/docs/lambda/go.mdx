@@ -1,20 +1,20 @@
 ---
 image: /generated/articles-docs-lambda-go.png
-title: Triggering renders from Go
+title: 通过 Go 触发渲染
 slug: /lambda/go
-sidebar_label: Rendering from Go
+sidebar_label: 从 Go 渲染
 crumb: "@remotion/lambda"
 ---
 
 <ExperimentalBadge>
-This feature is new. Please report any issues you encounter.
+该功能是新功能。请报告您遇到的任何问题。
 </ExperimentalBadge>
 
-To trigger a Lambda render using Go, you can use the Remotion Lambda Go client. Note the following:
+要使用 Go 触发 Lambda 渲染，您可以使用 Remotion Lambda Go 客户端。请注意以下内容：
 
-- You first need to [complete the Lambda setup](/docs/lambda/setup).
-- Sending large input props (>200KB) is not supported with Go at the moment.
-- Always match the version of the Go client with the version of the Lambda function you deployed. Otherwise, calls will fail due to version mismatch!
+- 您首先需要[完成 Lambda 设置](/docs/lambda/setup)。
+- 目前不支持使用 Go 发送大型输入属性（>200KB）。
+- 请始终将 Go 客户端的版本与您部署的 Lambda 函数的版本匹配。否则，由于版本不匹配，调用将失败！
 
 ```go title="main.go"
 package main
@@ -116,11 +116,12 @@ func main() {
 }
 ```
 
-## Changelog
+## 更新日志
 
-`v4.0.6`: The response payload structure has changed. See the history of this page to see the previous structure.
+`v4.0.6`：响应有效载荷结构已更改。请查看此页面的历史记录以查看以前的结构。
 
-## See also
+## 参见
 
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Permissions](/docs/lambda/permissions)
+- [无需 IAM 用户使用 Lambda](/docs/lambda/without-iam)
+- [权限](/docs/lambda/permissions)
+```

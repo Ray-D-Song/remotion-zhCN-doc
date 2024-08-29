@@ -1,47 +1,45 @@
 ---
 image: /generated/articles-docs-figma.png
 id: figma
-title: Import from Figma
-crumb: "The best of both"
+title: 从 Figma 导入
+crumb: "最佳实践"
 ---
 
-You can export a design from Figma as an SVG file and import it as a React component in Remotion and then animate it.
+## 打开 Figma 设计
 
-## Open the Figma design
+我们将使用 [Streamline 的矢量插图](https://www.figma.com/community/file/1118919399684035468) 的一个副本。
 
-We are going to use a copy of [Streamline's Vector illustrations](https://www.figma.com/community/file/1118919399684035468).
+![缩略图](/img/export-figma/banner.png)
 
-![Thumbnail](/img/export-figma/banner.png)
+## 在 Figma 中对矢量元素进行分组
 
-## Grouping vector elements in Figma
-
-If not already done, group the items you want to export together or frame them in Figma.
+如果尚未完成，请将要导出的项目分组或在 Figma 中对其进行框架化。
 
 ![figma-grouping](/img/export-figma/figma-grouping.gif)
 
-Groups will be represented as `<g>` elements in SVG and if you want to animate multiple items together, it can be useful to group them.
+组将在 SVG 中表示为 `<g>` 元素，如果您想要一起动画多个项目，则将它们分组可能会很有用。
 
-## Export as SVG
+## 导出为 SVG
 
-You can export any design by copying it as SVG markup &mdash; you can do that by right-clicking on the design itself and selecting the **Copy/Paste as** option.
+您可以通过将其复制为 SVG 标记来导出任何设计 — 您可以通过右键单击设计本身并选择 **复制/粘贴为** 选项来执行此操作。
 
-![exporting as SVG](/img/export-figma/copy-as-svg.png)
+![导出为 SVG](/img/export-figma/copy-as-svg.png)
 
-Next, you need to convert the SVG into a React component. Often, you can just paste the SVG into React markup and it will work.
+接下来，您需要将 SVG 转换为 React 组件。通常，您只需将 SVG 粘贴到 React 标记中，它就会起作用。
 
-Alternatively, use the [SVGR playground](https://react-svgr.com/playground/) to reliably convert SVG into React components.
+或者，使用 [SVGR playground](https://react-svgr.com/playground/) 可以可靠地将 SVG 转换为 React 组件。
 
-## Importing SVG in Remotion
+## 在 Remotion 中导入 SVG
 
-Paste the component into a Remotion project and [register a `<Composition>`](/docs/composition).  
-An example can be found in this [repository](https://github.com/kaf-lamed-beyt/remo-sample).
+将组件粘贴到 Remotion 项目中并[注册一个 `<Composition>`](/docs/composition)。  
+可以在此[存储库](https://github.com/kaf-lamed-beyt/remo-sample)中找到示例。
 
 ![](/img/export-figma/editor-pink.png)
 
-## Animate SVG markup
+## 动画 SVG 标记
 
-Locate the element that you want to animate and add a style property to it.
-In this case, let's animate the `<g>` element that contains the rocket.
+找到要动画的元素并向其添加样式属性。
+在这种情况下，让我们动画包含火箭的 `<g>` 元素。
 
 ```tsx twoslash
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
@@ -80,9 +78,9 @@ export const Rocket: React.FC = () => {
 };
 ```
 
-Adding `{transformOrigin: "center center", transformBox: "fill-box"}` will ensure that the transformations center is it's own center.
+添加 `{transformOrigin: "center center", transformBox: "fill-box"}` 将确保变换的中心是它自己的中心。
 
-Let's create two spring animations, one for scale and one for transformation:
+让我们创建两个弹簧动画，一个用于缩放，一个用于变换：
 
 ```tsx twoslash
 import { interpolate, spring } from "remotion";
@@ -109,7 +107,7 @@ const scale = spring({
 const launch = `translateY(${interpolate(up, [0, 1], [0, -3000])}px)`;
 ```
 
-The `scale` will go from 0 to 1 and `launch` animates from `0` to `-3000px`. Apply the styles to the element:
+`scale` 将从 0 到 1，`launch` 从 `0` 动画到 `-3000px`。将这些样式应用于元素：
 
 ```tsx {3}
 <g
@@ -124,12 +122,13 @@ The `scale` will go from 0 to 1 and `launch` animates from `0` to `-3000px`. App
 </g>
 ```
 
-![rocket svg](https://res.cloudinary.com/meje/image/upload/v1665432945/article%20assets/rocket_clhn8w.gif)
+![火箭 svg](https://res.cloudinary.com/meje/image/upload/v1665432945/article%20assets/rocket_clhn8w.gif)
 
-You have animated a rocket! 🚀
+您已经制作了一个动画火箭！ 🚀
 
-## See also
+## 另请参阅
 
-- [Blog - SVG Animation with Remotion](https://meje.dev/blog/svg-animtion-with-remotion)
-- [Video - Animating Figma Mockups with Remotion](https://twitter.com/jnybgr/status/1496748768821133312)
-- [Locofy - Export Figma mockups as React components](https://www.locofy.ai)
+- [博客 - 使用 Remotion 制作 SVG 动画](https://meje.dev/blog/svg-animtion-with-remotion)
+- [视频 - 使用 Remotion 对 Figma 模型进行动画处理](https://twitter.com/jnybgr/status/1496748768821133312)
+- [Locofy - 将 Figma 模型导出为 React 组件](https://www.locofy.ai)
+```

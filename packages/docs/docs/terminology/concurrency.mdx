@@ -1,16 +1,18 @@
 ---
 image: /generated/articles-docs-terminology-concurrency.png
-title: Concurrency
-crumb: "Terminology"
+title: 并发性
+crumb: "术语"
 ---
 
-Concurrency can mean different things depending on the context.
+并发性在不同的上下文中可能有不同的含义。
 
-**In local rendering,** concurrency refers to how many browser tabs are opened in parallel during a render.  
-Each Chrome tab renders web content and then screenshots it.
+**在本地渲染中，** 并发性指的是在渲染过程中同时打开的浏览器选项卡数量。  
+每个 Chrome 选项卡都会渲染网页内容，然后对其进行截图。
 
-**For rendering on Lambda,** concurrency refers to the amount of Lambda functions that are spawned for a render. You can control the Lambda concurrency using the [`framesPerLambda`](/docs/lambda/rendermediaonlambda#framesperlambda) option.
+**对于在 Lambda 上进行渲染，** 并发性指的是为渲染生成的 Lambda 函数数量。您可以使用 [`framesPerLambda`](/docs/lambda/rendermediaonlambda#framesperlambda) 选项来控制 Lambda 的并发性。
 
-Each Lambda function usually opens just a single tab, unless you use the [`concurrencyPerLambda`](/docs/lambda/rendermediaonlambda#concurrencyperlambda) option to increase the amount of tabs per Lambda function.
+通常每个 Lambda 函数只会打开一个选项卡，除非您使用 [`concurrencyPerLambda`](/docs/lambda/rendermediaonlambda#concurrencyperlambda) 选项来增加每个 Lambda 函数的选项卡数量。
 
-Higher concurrency can lead to faster render times, but too high concurrency will lead to diminishing returns and to overload of the machines, which might crash a render.
+更高的并发性可以加快渲染时间，但是过高的并发性会导致收益递减，并且会导致机器过载，可能会导致渲染崩溃。 
+
+

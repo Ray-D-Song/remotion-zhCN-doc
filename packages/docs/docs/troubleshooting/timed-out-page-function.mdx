@@ -1,11 +1,11 @@
 ---
 image: /generated/articles-docs-troubleshooting-timed-out-page-function.png
-title: "Timed out evaluating page function"
-sidebar_label: Timed out evaluating page function
-crumb: "Troubleshooting"
+title: "评估页面函数超时"
+sidebar_label: 评估页面函数超时
+crumb: "故障排除"
 ---
 
-The error message "Timed out evaluating page function"
+错误消息 "评估页面函数超时"
 
 ```
 Error: Timed out evaluating page function (f, c) => {
@@ -13,18 +13,19 @@ Error: Timed out evaluating page function (f, c) => {
 }
 ```
 
-generally happens if the Remotion renderer is trying to send a JavaScript command to the browser, but the browser does not respond to it within the timeout (before `v4.0.73`: 5 second, from `v4.0.73`: the [`--timeout`](/docs/cli/render#--timeout) flag, by default 30 seconds).
+通常发生在 Remotion 渲染器试图向浏览器发送 JavaScript 命令，但浏览器在超时内未响应（在 `v4.0.73` 之前：5 秒，从 `v4.0.73` 开始：[`--timeout`](/docs/cli/render#--timeout) 标志，默认为 30 秒）。
 
-This means that the browser is hanging due to CPU and memory overload. It does not imply that a [`delayRender()`](/docs/delay-render) was not cleared.
+这意味着浏览器由于 CPU 和内存超载而挂起。这并不意味着 [`delayRender()`](/docs/delay-render) 没有被清除。
 
-To resolve this, consider:
+要解决此问题，请考虑：
 
-- Decreasing the [`--concurrency`](/docs/cli/render#--concurrency) of the render
-- Measuring memory and CPU usage of your render and adding more resources to it
-- Increasing the [`--timeout`](/docs/cli/render#--timeout) flag
-- Looking for ways to speed up your JavaScript code
-  - Watch out for infinite loops in your code and [debug your render](/docs/troubleshooting/debug-failed-render)
+- 减少渲染的 [`--concurrency`](/docs/cli/render#--concurrency)
+- 测量渲染的内存和 CPU 使用情况，并为其添加更多资源
+- 增加 [`--timeout`](/docs/cli/render#--timeout) 标志
+- 寻找加快 JavaScript 代码速度的方法
+  - 注意代码中的无限循环，并[调试您的渲染](/docs/troubleshooting/debug-failed-render)
 
-## See also
+## 另请参阅
 
-- [Debugging timeouts](/docs/timeout)
+- [调试超时](/docs/timeout)
+```

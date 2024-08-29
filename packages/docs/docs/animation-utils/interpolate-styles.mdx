@@ -5,11 +5,11 @@ id: interpolate-styles
 crumb: "@remotion/animation-utils"
 ---
 
-_Part of the [`@remotion/animation-utils`](/docs/animation-utils) package._
+_属于[`@remotion/animation-utils`](/docs/animation-utils)包。_
 
-This function provides a convenient way to interpolate styles based on a specified range of values, allowing for smooth animations between different styles.
+此函数提供了一种方便的方式来根据指定的值范围插值样式，从而实现在不同样式之间平滑动画的效果。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // ---cut---
@@ -36,24 +36,24 @@ const MyComponent: React.FC = () => {
 
 ## API
 
-A function that takes 3-4 arguments:
+接受 3-4 个参数的函数：
 
-1. The input value.
-2. The range of values that you expect the input to assume.
-3. The range of output styles that you want the input to map to.
-4. Options object, same as the options of [`interpolate()`](/docs/interpolate#options) (_optional_)
+1. 输入值。
+2. 你期望输入值所取的值范围。
+3. 你希望输入值映射到的输出样式范围。
+4. 选项对象，与[`interpolate()`](/docs/interpolate#options)的选项相同（_可选_）
 
-## Return value
+## 返回值
 
-- A style object representing the interpolated styles based on the current frame.
+- 代表基于当前帧的插值样式的样式对象。
 
-## Usage Notes
+## 使用说明
 
-- Ensure that the `inputRange` and `outputStylesRange` arrays contain at least two values to facilitate interpolation between styles.
+- 确保`inputRange`和`outputStylesRange`数组至少包含两个值，以便在样式之间进行插值。
 
-- The `outputStylesRange` array must have the same number of elements as `inputRange`. Each style in `outputStylesRange` corresponds to a specific value in the input range.
+- `outputStylesRange`数组必须与`inputRange`具有相同数量的元素。`outputStylesRange`中的每个样式对应于输入范围中的特定值。
 
-## See also
+## 参见
 
-- [Source code for this hook](https://github.com/remotion-dev/remotion/blob/main/packages/animation-utils/src/transformation-helpers/interpolate-styles/index.tsx)
+- [此 hook 的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/animation-utils/src/transformation-helpers/interpolate-styles/index.tsx)
 - [`@remotion/animation-utils`](/docs/animation-utils)

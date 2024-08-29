@@ -1,37 +1,37 @@
 ---
 image: /generated/articles-docs-lambda-troubleshooting-permissions.png
 id: permissions
-sidebar_label: Permissions
-title: AWS Permissions Troubleshooting
-crumb: "Lambda Troubleshooting"
+sidebar_label: 权限
+title: AWS 权限故障排除
+crumb: "Lambda 故障排除"
 ---
 
-If you get an error message saying that something is wrong with your AWS permissions, read this page for troubleshooting ideas.
+如果您收到错误消息，指出您的 AWS 权限存在问题，请阅读本页面以获取故障排除的想法。
 
-## Node.JS APIs don't read the `.env` file
+## Node.JS APIs 不读取 `.env` 文件
 
-If you use the Node.JS APIs, be aware that they don't read the .env file automatically. This means you need to either load the .env file or set the environment variables manually.
+如果您使用 Node.JS APIs，请注意它们不会自动读取 .env 文件。这意味着您需要加载 .env 文件或手动设置环境变量。
 
-## User and role permissions have been mixed up
+## 用户和角色权限混淆
 
-There are two policy files, one for an AWS user, one for an AWS role. The policies are different, make sure you have correctly assigned both.
+有两个策略文件，一个用于 AWS 用户，一个用于 AWS 角色。这些策略不同，确保您已正确分配了两者。
 
-## Not enough time has passed for settings to apply
+## 设置应用的时间不够
 
-It can take several minutes until the policies you entered into AWS propagate. Sometimes waiting 2-3 minutes can solve the problem.
+可能需要几分钟才能使您输入到 AWS 的策略生效。有时等待 2-3 分钟可以解决问题。
 
-## Required permissions have changed
+## 所需权限已更改
 
-A newer Remotion Lambda version might have required additional permissions. We will note this in the [changelog](https://github.com/remotion-dev/remotion/releases). Make sure you update the policies in AWS.
+较新的 Remotion Lambda 版本可能需要额外的权限。我们将在 [更新日志](https://github.com/remotion-dev/remotion/releases) 中注明此事。确保您在 AWS 中更新策略。
 
-## Other AWS credentials might have been applied
+## 可能已应用其他 AWS 凭据
 
-If AWS environment variables failed to load, other credentials might have been loaded from other places such as the AWS CLI. Log the environment variables to ensure you loaded the correct ones.
+如果 AWS 环境变量加载失败，则可能已从其他位置（如 AWS CLI）加载了其他凭据。记录环境变量以确保您加载了正确的凭据。
 
-## Use the validate command
+## 使用验证命令
 
-Use the [`npx remotion lambda policies validate`](/docs/lambda/cli/policies) command to validate the user policy. Note that this can still mean the role policy is set wrongly or the environment variables don't get loaded when using the Node.JS APIs.
+使用 [`npx remotion lambda policies validate`](/docs/lambda/cli/policies) 命令验证用户策略。请注意，这仍可能意味着角色策略设置错误或在使用 Node.JS APIs 时环境变量未加载。
 
-## See also
+## 另请参阅
 
-- [Lambda - Permissions](/docs/lambda/permissions)
+- [Lambda - 权限](/docs/lambda/permissions)

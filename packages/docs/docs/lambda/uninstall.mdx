@@ -1,36 +1,36 @@
 ---
 image: /generated/articles-docs-lambda-uninstall.png
 id: uninstall
-title: Uninstall Lambda
+title: 卸载 Lambda
 slug: /lambda/uninstall
 ---
 
-Of course we are bummed if you decided not to use Remotion Lambda anymore. We are very receptive to feedback if you'd like to share it with us.
+当然，如果您决定不再使用 Remotion Lambda，我们会感到失望。如果您愿意与我们分享反馈意见，我们将非常乐意倾听。
 
-If you would like to remove **all Remotion Lambda related objects** from your infrastructure, you can follow these steps.
+如果您想要从基础架构中删除**所有与 Remotion Lambda 相关的对象**，您可以按照以下步骤操作。
 
 :::warning
-This will remove all videos already rendered, and break your programs that are using Remotion Lambda to render videos.
+这将删除所有已经渲染的视频，并且会破坏正在使用 Remotion Lambda 渲染视频的程序。
 :::
 
-## Delete Lambda Functions
+## 删除 Lambda 函数
 
-You can delete all functions using the following command. The `yes` flag is already included, if you run this, it will delete all functions without confirmation.
+您可以使用以下命令删除所有函数。`yes` 标志已经包含在内，如果您运行此命令，它将在不需要确认的情况下删除所有函数。
 
 ```
 npx remotion lambda functions rmall -y
 ```
 
-## Delete projects
+## 删除项目
 
 ```
 npx remotion lambda sites rmall -y
 ```
 
-## Delete renders and artifacts
+## 删除渲染和工件
 
-Delete all S3 buckets starting with `remotionlambda-` from your AWS account.
+从您的 AWS 帐户中删除所有以 `remotionlambda-` 开头的 S3 存储桶。
 
 ---
 
-Make sure you have [applied the instructions to all regions](/docs/lambda/region-selection). You have now cleared up your AWS infrastructure from all Remotion Lambda-related resources.
+确保您已经[将说明应用到所有区域](/docs/lambda/region-selection)。您现在已经清理了您的 AWS 基础架构中的所有与 Remotion Lambda 相关的资源。

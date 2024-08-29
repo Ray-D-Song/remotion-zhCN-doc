@@ -1,23 +1,18 @@
 ---
 image: /generated/articles-docs-data-fetching.png
 id: data-fetching
-title: Data fetching
-crumb: "How to"
+title: 数据获取
+crumb: "如何"
 ---
 
-In Remotion, you may fetch data from an API to use it in your video. On this page, we document recipes and best practices.
+## 在渲染之前获取数据<AvailableFrom v="4.0.0"/>
+您可以使用[`<Composition />`](/docs/composition)组件的[`calculateMetadata`](/docs/composition#calculatemetadata)属性来修改传递给您的React组件的props。
 
-## Fetching data before the render<AvailableFrom v="4.0.0"/>
+### 何时使用
+使用`calculateMetadata()`获取的数据必须是JSON可序列化的。这意味着它适用于API响应，但不适用于二进制格式的资产。
 
-You may use the [`calculateMetadata`](/docs/composition#calculatemetadata) prop of the [`<Composition />`](/docs/composition) component to alter the props that get passed to your React component.
-
-### When to use
-
-The data being fetched using `calculateMetadata()` must be JSON-serializable. That means it is useful for API responses, but not for assets in binary format.
-
-### Usage
-
-Pass a callback function which takes the untransformed `props`, and return an object with the new props.
+### 用法
+传递一个回调函数，该函数接受未转换的`props`，并返回一个具有新props的对象。
 
 ```tsx twoslash title="src/Root.tsx"
 import { Composition } from "remotion";
@@ -62,11 +57,11 @@ export const Root: React.FC = () => {
 };
 ```
 
-The `props` being passed to `calculateMetadata()` are the [input props merged together with the default props](/docs/props-resolution).  
-In addition to `props`, `defaultProps` can also be read from the same object.
+传递给`calculateMetadata()`的`props`是[输入props与默认props合并在一起](/docs/props-resolution)的结果。  
+除了`props`之外，`defaultProps`也可以从同一对象中读取。
 
-When transforming, the input and the output must be the same TypeScript type.
-Consider using a nullable type for your data and throw an error inside your component to deal with the `null` type:
+在转换时，输入和输出必须是相同的TypeScript类型。
+考虑为您的数据使用可空类型，并在组件内部抛出错误以处理`null`类型：
 
 ```tsx twoslash title="MyComp.tsx"
 type ApiResponse = {
@@ -88,9 +83,8 @@ const MyComp: React.FC<MyCompProps> = ({ data }) => {
 };
 ```
 
-### TypeScript typing
-
-You may use the `CalculateMetadataFunction` type from `remotion` to type your callback function. Pass as the generic value (`<>`) the type of your props.
+### TypeScript类型
+您可以使用`remotion`中的`CalculateMetadataFunction`类型来为您的回调函数指定类型。将您的props的类型作为泛型值（`<>`）传递。
 
 ```tsx twoslash title="src/Root.tsx"
 type ApiResponse = {
@@ -122,9 +116,8 @@ export const calculateMyCompMetadata: CalculateMetadataFunction<
 export const MyComp: React.FC<MyCompProps> = () => null;
 ```
 
-### Colocation
-
-Here is an example of how you could define a schema, a component and a fetcher function in the same file:
+### 协同定位
+以下是如何在同一文件中定义模式、组件和获取器函数的示例：
 
 ```tsx twoslash title="MyComp.tsx"
 import { CalculateMetadataFunction } from "remotion";
@@ -226,11 +219,10 @@ export const Root = () => {
 };
 ```
 
-By implementing this pattern, The `id` in the [props editor](/docs/visual-editing) can now be tweaked and Remotion will refetch the data whenever it changes.
+通过实现这种模式，[props编辑器](/docs/visual-editing)中的`id`现在可以进行调整，并且当数据更改时，Remotion将重新获取数据。
 
-### Setting the duration based on data
-
-You may set the `durationInFrames`, `fps`, `width` and `height` by returning those keys in the callback function:
+### 根据数据设置持续时间
+您可以通过在回调函数中返回这些键来设置`durationInFrames`、`fps`、`width`和`height`：
 
 ```tsx twoslash
 import { CalculateMetadataFunction } from "remotion";
@@ -252,12 +244,12 @@ export const calculateMyCompMetadata: CalculateMetadataFunction<
 };
 ```
 
-Learn more about this feature in the [Variable metadata](/docs/dynamic-metadata) page.
+在[变量元数据](/docs/dynamic-metadata)页面了解更多关于此功能的信息。
 
-### Aborting stale requests
+### 中止过时请求
 
-The props in the props editor may rapidly change for example by typing fast.  
-It is a good practice to cancel requests which are stale using the `abortSignal` that gets passed to the [`calculateMetadata()`](/docs/composition#calculatemetadata) function:
+在属性编辑器中，属性可能会快速变化，例如快速输入。  
+最佳实践是使用传递给[`calculateMetadata()`](/docs/composition#calculatemetadata)函数的`abortSignal`来取消过时的请求：
 
 ```tsx twoslash title="src/MyComp.tsx" {3-6}
 // ---cut---
@@ -292,11 +284,11 @@ export const calculateMyCompMetadata: CalculateMetadataFunction<
 export const MyComp: React.FC<MyCompProps> = () => null;
 ```
 
-This `abortSignal` is created by Remotion using the [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) API.
+这个`abortSignal`是由 Remotion 使用[`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) API 创建的。
 
-### Debouncing requests
+### 防抖请求
 
-If you are making requests to an expensive API, you might want to only fire a request after the user has stopped typing for a while. You may use the following function for doing so:
+如果您正在向一个昂贵的 API 发送请求，您可能希望只在用户停止输入一段时间后才发出请求。您可以使用以下函数来实现：
 
 ```tsx twoslash title="src/wait-for-no-input.ts"
 import { getRemotionEnvironment } from "remotion";
@@ -382,21 +374,21 @@ export const calculateMyCompMetadata: CalculateMetadataFunction<
 export const MyComp: React.FC<MyCompProps> = () => null;
 ```
 
-### Time limit
+### 时间限制
 
-When Remotion calls the `calculateMetadata()` function, it wraps it in a [`delayRender()`](/docs/delay-render), which by default times out after 30 seconds.
+当 Remotion 调用`calculateMetadata()`函数时，它会将其包装在一个默认超时时间为 30 秒的[`delayRender()`](/docs/delay-render)中。
 
-## Fetching data during the render
+## 在渲染过程中获取数据
 
-Using [`delayRender()`](/docs/delay-render) and [`continueRender()`](/docs/continue-render) you can tell Remotion to wait for asynchronous operations to finish before rendering a frame.
+使用[`delayRender()`](/docs/delay-render)和[`continueRender()`](/docs/continue-render)，您可以告诉 Remotion 在渲染帧之前等待异步操作完成。
 
-### When to use
+### 何时使用
 
-Use this approach to load assets which are not JSON serializable or if you are using a Remotion version lower than 4.0.
+使用这种方法来加载不是 JSON 可序列化的资源，或者如果您使用的 Remotion 版本低于 4.0。
 
-### Usage
+### 用法
 
-Call [`delayRender()`](/docs/delay-render) as soon as possible, for example when initializing the state inside your component.
+尽早调用[`delayRender()`](/docs/delay-render)，例如在组件内部初始化状态时。
 
 ```tsx twoslash
 import { useCallback, useEffect, useState } from "react";
@@ -432,25 +424,26 @@ export const MyComp = () => {
 };
 ```
 
-Once the data is fetched, you can call [`continueRender()`](/docs/continue-render) to tell Remotion to continue rendering the video.  
-In case the data fetching fails, you can call [`cancelRender()`](/docs/cancel-render) to cancel the render without waiting for the timeout.
+一旦数据被获取，您可以调用[`continueRender()`](/docs/continue-render)告诉 Remotion 继续渲染视频。  
+如果数据获取失败，您可以调用[`cancelRender()`](/docs/cancel-render)取消渲染而不必等待超时。
 
-### Time limit
+### 时间限制
 
-You need to clear all handles created by [`delayRender()`](/docs/delay-render) within 30 seconds after the page is opened. You may [increase the timeout](/docs/timeout#increase-timeout).
+您需要在页面打开后的 30 秒内清除由[`delayRender()`](/docs/delay-render)创建的所有句柄。您可以[增加超时时间](/docs/timeout#increase-timeout)。```
 
-### Prevent overfetching
+### 防止过度获取
 
-During rendering, multiple headless browser tabs are opened to speed up rendering.  
-In Remotion Lambda, the [rendering concurrency](/docs/lambda/concurrency) may be up to 200x.  
-This means that if you are fetching data inside your component, the data fetching will be performed many times.
+在渲染过程中，会打开多个无头浏览器选项卡以加快渲染速度。  
+在 Remotion Lambda 中，[渲染并发性](/docs/lambda/concurrency) 可以高达 200 倍。  
+这意味着如果您在组件内部获取数据，数据获取将会执行多次。
 
-<Step>1</Step> Prefer fetching the data before rendering if possible. <br/>
-<Step>2</Step> Ensure you are entitled to a high request rate without running into a rate limit.<br/>
-<Step>3</Step> The data returned by the API must be the same on all threads, otherwise <a href="/docs/flickering">flickering</a> may occur. <br/>
-<Step>4</Step> Make sure to not have <code>frame</code> as a dependency of the <code>useEffect()</code>, directly or indirectly, otherwise data will be fetched every frame leading to slowdown and potentially running into rate limits. <br/>
+<Step>1</Step> 如果可能的话，最好在渲染之前获取数据。 <br/>
+<Step>2</Step> 确保您有高请求速率的权限，而不会遇到速率限制。 <br/>
+<Step>3</Step> API 返回的数据在所有线程上必须相同，否则可能会发生<a href="/docs/flickering">闪烁</a>。 <br/>
+<Step>4</Step> 确保 <code>frame</code> 不是 <code>useEffect()</code> 的依赖项，直接或间接地，否则数据将在每帧中获取，导致减速并有可能遇到速率限制。 <br/>
 
-## See also
+## 另请参阅
 
 - [`delayRender()`](/docs/delay-render)
-- [How props get resolved](/docs/props-resolution)
+- [如何解析 props](/docs/props-resolution) 
+

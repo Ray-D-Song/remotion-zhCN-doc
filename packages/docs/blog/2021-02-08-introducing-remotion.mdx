@@ -1,26 +1,26 @@
 ---
 slug: introducing-remotion
-title: Introducing Remotion
+title: 介绍 Remotion
 author: Jonny Burger
-author_title: Indie Hacker
+author_title: 独立开发者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
-I've been using After Effects for many years, but it's always been a dream of mine to code my videos instead. In the React ecosystem, I am used to being able to take advantage of powerful composition, reusability, to be able to customize the experience for every user. To use scripts, linters and external dependencies to make my life easier as a coder.
+我已经使用 After Effects 多年了，但一直以来，我的梦想是用代码制作视频。在 React 生态系统中，我习惯于利用强大的组合性、可重用性，为每个用户定制体验。使用脚本、代码检查工具和外部依赖项让我的编码生活更轻松。
 
-So as a proof of concept I tried to make a trailer for my AnySticker app[^1] in React, and to render each frame using Puppeteer and stitch them together using FFMPEG.
+因此，作为一个概念验证，我尝试用 React 为我的 AnySticker 应用[^1] 制作预告片，并使用 Puppeteer 渲染每一帧，再使用 FFMPEG 拼接它们。
 
-The final result was a video that I thought was the best one I created yet. And I realized there was something to the idea.
+最终的结果是我认为是我迄今为止制作的最好的视频。我意识到这个想法是有潜力的。
 
-This is my attempt to create a tool for the community that allows you to write videos in React. Obviously this is a huge undertaking, so this is not a product with hundreds of different features built in. Rather, following the React philosophy, this is an attempt to create a minimal fundament for rendering videos in React. Basically, you get a blank canvas, and you create your motion graphics using existing web technologies built into the browser and your favorite external libraries. Remotion is so minimal in fact, it consists of only 5-6 APIs that you need to learn to get started.
+这是我尝试为社区创建一个工具，允许您在 React 中编写视频。显然，这是一项艰巨的任务，因此这不是一个内置了数百种不同功能的产品。相反，遵循 React 的理念，这是一个尝试创建一个在 React 中渲染视频的最小基础。基本上，您会得到一个空白画布，您可以使用内置在浏览器中的现有 Web 技术和您喜爱的外部库创建您的动态图形。实际上，Remotion 是如此简洁，它仅由您需要学习的 5-6 个 API 组成，就可以开始使用。
 
-To get started is super easy. Assuming you already have [Yarn](https://yarnpkg.com), run:
+开始非常容易。假设您已经安装了 [Yarn](https://yarnpkg.com)，运行：
 
 ```bash
 yarn create video
 ```
 
-and then read the [documentation](/docs). [Let me know on Twitter](https://twitter.com/JNYBGR) what you think!
+然后阅读 [文档](/docs)。[在 Twitter 上告诉我](https://twitter.com/JNYBGR) 您的想法！
 
-[^1]: [AnySticker beta trailer ](https://twitter.com/JNYBGR/status/1319292595420291074)
+[^1]: [AnySticker beta 预告片](https://twitter.com/JNYBGR/status/1319292595420291074)

@@ -1,30 +1,28 @@
 ---
 image: /generated/articles-docs-security.png
-sidebar_label: Security
-title: Security Best Practices
-crumb: "FAQ"
+sidebar_label: 安全
+title: 安全最佳实践
+crumb: "常见问题"
 ---
 
-Remotion is a software that can generate videos programmatically. It does so by running a headless browser, capturing images, and encoding them into a video. This in itself does not pose a security risk. However, Remotion interacts with the Web, can be used in the cloud and uses the NPM ecosystem.
+## 环境变量
 
-## Environment variables
+启动 Remotion Studio 或通过命令行运行渲染时，以 `REMOTION_` 和 `.env` 为前缀的环境变量将传递给无头浏览器。您有责任确保这些环境变量不会暴露给其他服务，因为您正在与 Web 进行交互。
 
-When starting the Remotion Studio or running a render via the command line, environment variables that are prefixed with `REMOTION_` and `.env` are passed to the headless browser. You are responsible to ensure those environment variables do not exposed to other services as you are interfacing with the Web.
+## Web 上的凭据
 
-## Credentials on the web
+您不应尝试从应用程序前端调用 `@remotion/lambda` 中的 `renderMediaOnLambda()` 或其他 API。这些 API 只能使用 AWS 凭据调用，这意味着您必须将您的 AWS 凭据暴露给 Web。这是一个安全风险，应该避免。
 
-You should not try to call `renderMediaOnLambda()` or other APIs from `@remotion/lambda` from your app frontend. Those APIs can only be called with AWS credentials, meaning that you would have to expose your AWS credentials to the web. This is a security risk and should be avoided.
+## `disableWebSecurity` 标志
 
-## `disableWebSecurity` flag
+我们提供了一个解决 CORS 问题的方法，即 `disableWebSecurity` 标志。此标志会禁用无头浏览器中的同源策略。如果您使用它，您需要了解其可能带来的影响，并评估这是否会对您构成安全风险。
 
-We provide as a workaround for CORS issues the `disableWebSecurity` flag. This flag disables the same-origin policy in the headless browser. If you are using it, you need to be aware of the implications of it and assess whether this can pose a security risk to you.
+## DDoS 攻击
 
-## DDoS attacks
+诸如 `renderMedia()` 和 `renderMediaOnLambda()` 的 API 可能会很昂贵（在计算或财务上）。您应确保不在未经身份验证或速率限制的情况下将这些 API 暴露给 Web。否则，您可能会容易受到 DDoS 攻击。
 
-APIs such as `renderMedia()` and `renderMediaOnLambda()` may be expensive (computationally or financially) to run. You should ensure that you are not exposing those APIs to the web without authentication or rate limiting. Otherwise, you may be vulnerable to DDoS attacks.
+## 一般 Node.JS 安全最佳实践
 
-## General Node.JS security best practices
-
-Often you will use Remotion alongside other Node.js dependencies.  
-You should only install dependencies you trust, since they can run arbitrary code in their `postinstall` scripts.
-Dependencies, including Remotion, may have known vulnerabilities which you can list with the `npm audit` command.
+通常您会将 Remotion 与其他 Node.js 依赖项一起使用。  
+您应仅安装信任的依赖项，因为它们可以在其 `postinstall` 脚本中运行任意代码。
+依赖项，包括 Remotion，可能存在已知漏洞，您可以使用 `npm audit` 命令列出这些漏洞。

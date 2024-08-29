@@ -5,12 +5,11 @@ title: makeCancelSignal()
 crumb: "@remotion/renderer"
 ---
 
-_Available from v3.0.15_
+_从 v3.0.15 版本开始可用_
 
-This function returns a signal and a cancel function that allows to you cancel a render triggered using [`renderMedia()`](/docs/renderer/render-media), [`renderStill()`](/docs/renderer/render-still), [`renderFrames()`](/docs/renderer/render-frames) or [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video)
-.
+此函数返回一个信号和一个取消函数，允许您取消使用 [`renderMedia()`](/docs/renderer/render-media)、[`renderStill()`](/docs/renderer/render-still)、[`renderFrames()`](/docs/renderer/render-frames) 或 [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video) 触发的渲染。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: ESNext
@@ -54,15 +53,16 @@ await render;
 
 ## API
 
-Calling `makeCancelSignal` returns an object with two properties:
+调用 `makeCancelSignal` 返回一个具有两个属性的对象：
 
-- `cancelSignal`: An object to be passed to one of the above mentioned render functions
-- `cancel`: A function you should call when you want to cancel the render.
+- `cancelSignal`：一个要传递给上述渲染函数之一的对象
+- `cancel`：当您想要取消渲染时应调用的函数。
 
-## See also
+## 另请参阅
 
-- [Source code for this component](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/make-cancel-signal.ts)
+- [此组件的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/renderer/src/make-cancel-signal.ts)
 - [`renderMedia()`](/docs/renderer/render-media)
 - [`renderStill()`](/docs/renderer/render-still)
 - [`renderFrames()`](/docs/renderer/render-frames)
 - [`stitchFramesToVideo()`](/docs/renderer/stitch-frames-to-video)
+

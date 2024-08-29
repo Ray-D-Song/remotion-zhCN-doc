@@ -2,55 +2,55 @@
 image: /generated/articles-docs-cli-compositions.png
 title: npx remotion compositions
 sidebar_label: compositions
-crumb: CLI Reference
+crumb: CLI 参考
 ---
 
-_Available from v2.6.12._
+_从 v2.6.12 版本开始可用。_
 
-Print list of composition IDs based on a path of an entry point.
+基于入口点路径打印组合 ID 列表。
 
 ```bash
 npx remotion compositions <serve-url|entry-file>?
 ```
 
-You may pass a [Serve URL](/docs/terminology/serve-url) or an [entry point](/docs/terminology/entry-point) as the first argument, otherwise the entry point will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将 [Serve URL](/docs/terminology/serve-url) 或 [入口点](/docs/terminology/entry-point) 作为第一个参数传递，否则入口点将会被 [确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-## Flags
+## 标志
 
 ### `--props`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a serialized JSON string (`--props='{"hello": "world"}'`) or a path to a JSON file (`./path/to/props.json`).  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)。  
+必须是一个序列化的 JSON 字符串 (`--props='{"hello": "world"}'`) 或一个指向 JSON 文件的路径 (`./path/to/props.json`)。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 :::note
-Inline JSON string isn't supported on Windows shells because it removes the `"` character, use a file name instead.
+由于 Windows shells 不支持内联 JSON 字符串，因为它会移除 `"` 字符，所以请使用文件名。
 :::
 
 ### `--config`
 
-Specify a location for the Remotion config file.
+指定 Remotion 配置文件的位置。
 
 ### `--env-file`<AvailableFrom v="2.2.0" />
 
-Specify a location for a dotenv file - Default `.env`. [Read about how environment variables work in Remotion.](/docs/env-variables)
+指定 dotenv 文件的位置 - 默认为 `.env`。[了解有关 Remotion 中环境变量的工作原理。](/docs/env-variables)
 
 ### `--bundle-cache`
 
-[Enable or disable Webpack caching](/docs/config#setcachingenabled). This flag is enabled by default, use `--bundle-cache=false` to disable caching.
+[启用或禁用 Webpack 缓存](/docs/config#setcachingenabled)。此标志默认启用，使用 `--bundle-cache=false` 来禁用缓存。
 
 ### `--log`
 
-[Set the log level](/docs/config#setlevel). Increase or decrease the amount of output. Acceptable values: `error`, `warn`, `info` (_default_), `verbose`
+[设置日志级别](/docs/config#setlevel)。增加或减少输出量。可接受的值：`error`、`warn`、`info`（_默认_）、`verbose`。
 
 :::info
-If you don't feel like passing command line flags every time, consider creating a `remotion.config.ts` [config file](/docs/config).
+如果您不想每次都传递命令行标志，考虑创建一个 `remotion.config.ts` [配置文件](/docs/config)。
 :::
 
 ### `--port`
 
-[Set a custom HTTP server port to host the Webpack bundle](/docs/config#setport). If not defined, Remotion will try to find a free port.
+[设置自定义 HTTP 服务器端口以托管 Webpack bundle](/docs/config#setport)。如果未定义，Remotion 将尝试找到一个空闲端口。
 
 ### `--public-dir`<AvailableFrom v="3.2.13" />
 
@@ -58,21 +58,21 @@ If you don't feel like passing command line flags every time, consider creating 
 
 ### `--timeout`
 
-Define how long it may take to resolve all [`delayRender()`](/docs/delay-render) calls before the composition fetching times out in milliseconds. Default: `30000`.
+定义在毫秒中解析所有 [`delayRender()`](/docs/delay-render) 调用之前，组合获取超时的时间。默认值：`30000`。
 
 :::info
-Not to be confused with the [`--timeout` flag when deploying a Lambda function](/docs/lambda/cli/functions#--timeout).
+不要与部署 Lambda 函数时的 [`--timeout` 标志](/docs/lambda/cli/functions#--timeout) 混淆。
 :::
 
 ### `--ignore-certificate-errors`
 
-Results in invalid SSL certificates in Chrome, such as self-signed ones, being ignored.
+导致 Chrome 忽略无效的 SSL 证书，如自签名证书。
 
 ### `--disable-web-security`
 
-_available since v2.6.5_
+_自 v2.6.5 起可用_
 
-This will most notably disable CORS in Chrome among other security features.
+这将主要在 Chrome 中禁用 CORS，以及其他安全功能。
 
 ### `--disable-headless?`
 
@@ -84,7 +84,7 @@ This will most notably disable CORS in Chrome among other security features.
 
 ### `--user-agent`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置 headless Chrome 浏览器假定的自定义用户代理。
 
 ### `--offthreadvideo-cache-size-in-bytes`<AvailableFrom v="4.0.23"/>
 
@@ -96,21 +96,21 @@ Lets you set a custom user agent that the headless Chrome browser assumes.
 
 ### `--quiet`, `--q`
 
-Only prints the composition IDs, separated by a space.
+仅打印由空格分隔的组合 ID。
 
 ### ~~`--ffmpeg-executable`~~
 
-_removed in v4.0_
+_在 v4.0 中移除_
 
-[Set a custom `ffmpeg` executable](/docs/config#setffmpegexecutable). If not defined, a `ffmpeg` executable will be searched in `PATH`.
+[设置自定义 `ffmpeg` 可执行文件](/docs/config#setffmpegexecutable)。如果未定义，将在 `PATH` 中搜索 `ffmpeg` 可执行文件。
 
 ### ~~`--ffprobe-executable`~~
 
-_removed in v4.0_
+_在 v4.0 中移除_
 
-[Set a custom `ffprobe` executable](/docs/config#setffprobeexecutable). If not defined, a `ffprobe` executable will be searched in `PATH`.
+[设置自定义 `ffprobe` 可执行文件](/docs/config#setffprobeexecutable)。如果未定义，将在 `PATH` 中搜索 `ffprobe` 可执行文件。
 
-## See also
+## 另请参阅
 
 - [`getCompositions()`](/docs/renderer/get-compositions)
 - [`getCompositionsOnLambda()`](/docs/lambda/getcompositionsonlambda)

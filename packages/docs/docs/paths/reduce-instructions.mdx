@@ -4,19 +4,19 @@ title: reduceInstructions()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.40_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.40版本开始可用_
 
-Takes an array of [`Instruction`](/docs/paths/parse-path)'s and reduces the amount of instruction types them so the path only consists of `M`, `L`, `C` and `Z` instructions.
+接受一个[`Instruction`](/docs/paths/parse-path)数组，并将指令类型减少到仅包含`M`、`L`、`C`和`Z`指令的路径。
 
 :::note
-In versions before v4.0.168, `Q` instructions were reduced away.
+在v4.0.168之前的版本中，`Q`指令被减少了。
 :::
 
-In reverse logic, this function will eliminate all `H`, `V`, `S`, `T`, `A`, `Q` `m`, `l`, `h`, `v`, `c`, `s`, `q`, `t`, `a`, `q` and `z` instructions.
+按照相反的逻辑，此函数将消除所有`H`、`V`、`S`、`T`、`A`、`Q`、`m`、`l`、`h`、`v`、`c`、`s`、`q`、`t`、`a`、`q`和`z`指令。
 
-This is useful if you want to manually edit a path and want to make sure it's as simple as possible.
+如果您想手动编辑路径并确保其尽可能简单，这将非常有用。
 
-Note that this may result in a longer path.
+请注意，这可能会导致路径变得更长。
 
 ```ts twoslash
 import { reduceInstructions, ReducedInstruction } from "@remotion/paths";
@@ -34,17 +34,18 @@ const simplified: ReducedInstruction[] = reduceInstructions([
 */
 ```
 
-## `ReducedInstruction` type
+## `ReducedInstruction` 类型
 
-If you want a type which includes only reduced instructions, you can import the `ReducedInstruction` type.
+如果您想要一个仅包含减少指令的类型，可以导入`ReducedInstruction`类型。
 
 ```ts twoslash
 import { ReducedInstruction } from "@remotion/paths";
 ```
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
 - [`parsePath()`](/docs/paths/parse-path)
 - [`normalizePath()`](/docs/paths/normalize-path)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/reduce-instructions.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/reduce-instructions.ts)
+

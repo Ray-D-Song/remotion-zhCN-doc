@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-player-best-practices.png
 id: best-practices
-sidebar_label: "Best practices"
-title: "Player - Best practices"
+sidebar_label: "最佳实践"
+title: "Player - 最佳实践"
 slug: /player/best-practices
 crumb: "@remotion/player"
 ---
 
-## Avoid re-renders of the `<Player>`
+## 避免 `<Player>` 的重新渲染
 
-The following pattern is not ideal because every time the time updates, the `<Player>` is being re-rendered:
+以下模式并不理想，因为每次时间更新时，`<Player>` 都会被重新渲染：
 
-```tsx twoslash title="❌ Problematic"
+```tsx twoslash title="❌ 有问题"
 // @allowUmdGlobalAccess
 // @filename: ./remotion/MyVideo.tsx
 export const MyVideo = () => <></>;
@@ -47,9 +47,9 @@ export const App: React.FC = () => {
 };
 ```
 
-We advise to render your controls and UI as a sibling to the component that renders the `<Player>` and pass a ref to the player as a prop:
+我们建议将您的控件和用户界面作为 `<Player>` 渲染的兄弟元素，并将一个 ref 作为 prop 传递给播放器：
 
-```tsx twoslash title="✅ Better"
+```tsx twoslash title="✅ 更好"
 // @allowUmdGlobalAccess
 // @filename: ./remotion/MyVideo.tsx
 export const MyVideo = () => <></>;
@@ -98,22 +98,22 @@ export const App: React.FC = () => {
 };
 ```
 
-This is much more performant because the `<Player>` gets rerendered less often.
+这样做更高效，因为 `<Player>` 的重新渲染次数更少。
 
-This advice is mainly for frequently updated state like the current time. Keeping state like a `loop` toggle in the parent component is fine, because it is not expected to change frequently.
+这个建议主要针对像当前时间这样频繁更新的状态。在父组件中保留像 `loop` 切换这样的状态是可以的，因为不会经常更改。
 
-[A more complex example can be found here.](https://github.com/remotion-dev/remotion/blob/main/packages/player-example/src/App.tsx)
+[这里可以找到一个更复杂的示例。](https://github.com/remotion-dev/remotion/blob/main/packages/player-example/src/App.tsx)
 
-## Pass the user interaction event to `play()`
+## 将用户交互事件传递给 `play()`
 
-When you listen to an `onClick()` event, the browser will give you an `event` argument.  
-Pass it on to [`.play()`](/docs/player/player#play) and [`.toggle()`](/docs/player/player#toggle) to have the lowest chance of hitting autoplay restrictions that the browser may impose.
+当您监听 `onClick()` 事件时，浏览器会给您一个 `event` 参数。  
+将其传递给 [`.play()`](/docs/player/player#play) 和 [`.toggle()`](/docs/player/player#toggle) 可以最大程度地减少浏览器可能施加的自动播放限制。
 
-[Read here for more details.](/docs/player/autoplay#pass-the-event-to-the-play-or-toggle-method)
+[点击这里了解更多详情。](/docs/player/autoplay#pass-the-event-to-the-play-or-toggle-method)
 
-## Memoize the `inputProps`
+## 对 `inputProps` 进行记忆化处理
 
-Not memoizing the `inputProps` can cause the whole tree to re-render too many times and create a bottleneck.
+不对 `inputProps` 进行记忆化处理会导致整个树重新渲染太多次，从而创建瓶颈。
 
 ```tsx twoslash title="Player.tsx"
 // @allowUmdGlobalAccess
@@ -147,6 +147,6 @@ export const App: React.FC = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Handling autoplay in the Player](/docs/player/autoplay)
+- [在播放器中处理自动播放](/docs/player/autoplay)

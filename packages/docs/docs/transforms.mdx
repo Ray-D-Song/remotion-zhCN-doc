@@ -1,8 +1,8 @@
 ---
 image: /generated/articles-docs-transforms.png
 id: transforms
-title: Transforms
-crumb: "The fundamentals"
+title: 转换
+crumb: "基础知识"
 ---
 
 import {Transforms} from '../components/DocsDark'
@@ -10,12 +10,12 @@ import {MuxVideo} from '../src/components/MuxVideo';
 import {TransformsTutorial} from '../src/components/tutorials';
 
 <TransformsTutorial />
-Animation occurs when the visual properties of an element transform over time.  
-Let's look at five common ways to transform an element.
+动画发生在元素的视觉属性随时间变换时。  
+让我们看看五种常见的元素转换方式。
 
-Already familiar with how to apply CSS transforms in React? [Skip this page](/docs/animating-properties).
+已经熟悉如何在 React 中应用 CSS 转换了吗？[跳过此页面](/docs/animating-properties)。
 
-## The 5 basic transformations
+## 5种基本转换
 
 <Transforms />
 
@@ -23,13 +23,13 @@ Already familiar with how to apply CSS transforms in React? [Skip this page](/do
   fontStyle: "italic",
   fontSize: "0.9em",
   marginTop: 10
-}}>From left to right: Opacity, Scale, Skew, Translate, Rotate</p>
+}}>从左到右：不透明度、缩放、倾斜、平移、旋转</p>
 
-### Opacity
+### 不透明度
 
-The opacity determines how visible the element is. `0` means fully invisible, `1` means fully visible. Values inbetween will make the element semi-transparent, and elements underneath will be visible.
+不透明度确定元素的可见性。`0` 表示完全不可见，`1` 表示完全可见。介于两者之间的值将使元素半透明，底部元素将可见。
 
-You can set the opacity of an element using the `opacity` property.
+您可以使用 `opacity` 属性设置元素的不透明度。
 
 ```tsx twoslash {6} title="MyComponent.tsx"
 <div
@@ -44,14 +44,14 @@ You can set the opacity of an element using the `opacity` property.
 
 <Demo type="opacity" />
 
-Values below `0` and above `1` are accepted, but have no further effect.
+接受小于 `0` 和大于 `1` 的值，但不会产生进一步效果。
 
-### Scale
+### 缩放
 
-The scale determines how big an element is. `1` is the natural size, `2` will make the element twice as tall and wide.  
-Values below `1` will make the element smaller. `0` makes the element invisible. Values below `0` are accepted and will make the element bigger again, but mirrored.
+缩放确定元素的大小。`1` 是自然大小，`2` 将使元素高度和宽度加倍。  
+小于 `1` 的值将使元素变小。`0` 使元素不可见。小于 `0` 的值被接受，将使元素再次变大，但是镜像。
 
-You can set the scale of an element using the `transform` property.
+您可以使用 `transform` 属性设置元素的缩放。
 
 ```tsx twoslash {6} title="MyComponent.tsx"
 <div
@@ -66,15 +66,17 @@ You can set the scale of an element using the `transform` property.
 
 <Demo type="scale" />
 
-The difference to changing the size of the element using `height` and `width` is that using `scale()` will not change the layout of the other elements.
+与使用 `height` 和 `width` 改变元素大小的区别在于，使用 `scale()` 不会改变其他元素的布局。
 
-### Skew
+### 倾斜
 
-Skewing an element will lead to a distorted appearance as if the the element has been stretched on two corners of the element. Skew takes an angle that can be specified using `rad` (radians) and `deg` (degrees).
+倾斜元素会导致元素外观扭曲，就好像元素的两个角已被拉伸。倾斜采用可以使用 `rad`（弧度）和 `deg`（度）指定的角度。 
 
-You can set the skew of an element using the `transform` property.
 
-See the explorer below to see how skewing affects an element.
+
+您可以使用`transform`属性设置元素的倾斜度。
+
+查看下面的示例，了解倾斜如何影响元素。
 
 ```tsx twoslash {6} title="MyComponent.tsx"
 <div
@@ -89,11 +91,11 @@ See the explorer below to see how skewing affects an element.
 
 <Demo type="skew" />
 
-### Translate
+### 翻译
 
-Translating an element means moving it. A translation can be done on the X, Y or even Z axis. The transformation can be specified in `px`.
+翻译元素意味着移动它。翻译可以在X、Y甚至Z轴上进行。变换可以用`px`来指定。
 
-You can set the translation of an element using the `transform` property.
+您可以使用`transform`属性设置元素的平移。
 
 ```tsx twoslash {6} title="MyComponent.tsx"
 <div
@@ -108,13 +110,13 @@ You can set the translation of an element using the `transform` property.
 
 <Demo type="translate" />
 
-As opposed to changing the position of an element using `margin-top` and `margin-left`, using `translate()` will not change the position of the other elements.
+与使用`margin-top`和`margin-left`改变元素位置不同，使用`translate()`不会改变其他元素的位置。
 
-### Rotate
+### 旋转
 
-By rotating an element, you can make it appear as if it has been turned around its center. The rotation can be specified in `rad` (radians) or `deg` (degrees) and you can rotate an element around the Z axis (the default) but also around the X and Y axis.
+通过旋转元素，您可以使其看起来像是围绕其中心旋转。旋转可以用`rad`（弧度）或`deg`（度）来指定，您可以围绕Z轴（默认）旋转元素，也可以围绕X和Y轴旋转。
 
-You can set the translation of an element using the `transform` property.
+您可以使用`transform`属性设置元素的旋转。
 
 ```tsx twoslash {6} title="MyComponent.tsx"
 <div
@@ -129,34 +131,23 @@ You can set the translation of an element using the `transform` property.
 
 <Demo type="rotate" />
 
-If you want to rotate an element around the X or Y axis, you should apply the [`perspective`](https://developer.mozilla.org/en-US/docs/Web/CSS/perspective) property to the parent element.
+如果要围绕X或Y轴旋转元素，应该将[`perspective`](https://developer.mozilla.org/en-US/docs/Web/CSS/perspective)属性应用于父元素。
 
-If you don't want to rotate around the center, you can use the [`transform-origin`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin) property to change the origin of the rotation.
+如果不想围绕中心旋转，可以使用[`transform-origin`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin)属性来更改旋转的原点。
 
-Note that when rotating SVG elements, the transform origin is the top left corner by default. You can get the same behavior as for the other elements by adding `style={{transformBox: 'fill-box', transformOrigin: 'center center'}}`.
+请注意，当旋转SVG元素时，变换原点默认为左上角。您可以通过添加`style={{transformBox: 'fill-box', transformOrigin: 'center center'}}`来获得与其他元素相同的行为。
 
-## Multiple transformations
+## 多重变换
 
-Oftentimes, you want to combine multiple transformations. If they use different CSS properties like `transform` and `opacity`, simply specify both properties in the `style` object.
+通常，您希望组合多个变换。如果它们使用不同的CSS属性，如`transform`和`opacity`，只需在`style`对象中指定两个属性。
 
-If both transformations use the `transform` property, specify multiple transformations separated by a space.
+如果两个变换都使用`transform`属性，请使用空格分隔多个变换。
 
-```tsx twoslash {6} title="MyComponent.tsx"
-<div
-  style={{
-    height: 100,
-    width: 100,
-    backgroundColor: "red",
-    transform: `translateX(100px) scale(2)`,
-  }}
-/>
-```
+请注意顺序很重要。转换按照指定的顺序应用。
 
-Note that the order matters. The transformations are applied in the order they are specified.
+## 使用 `makeTransform()` 辅助函数
 
-## Using the `makeTransform()` helper
-
-Install [@remotion/animation-utils](/docs/animation-utils/) to [get a type-safe helper function](/docs/animation-utils/make-transform) to generate `transform` strings.
+安装 [@remotion/animation-utils](/docs/animation-utils/) 来[获取一个类型安全的辅助函数](/docs/animation-utils/make-transform)来生成 `transform` 字符串。
 
 ```tsx twoslash
 import { makeTransform, rotate, translate } from "@remotion/animation-utils";
@@ -168,15 +159,15 @@ const multiTransform = makeTransform([rotate(45), translate(50, 50)]);
 // => "rotate(45deg) translate(50px, 50px)"
 ```
 
-## More ways to transform objects
+## 更多对象转换方式
 
-These are just some of the basic transformations. Here are some more transformations that are possible:
+这只是一些基本转换。以下是一些可能的更多转换方式：
 
-- The height and width of a `<div>`
-- The rounded edges of an element using `border-radius`
-- The shadow of an element using `box-shadow`
-- The color of something using `color` and [`interpolateColors()`](/docs/interpolate-colors)
-- The evolution of a SVG path using [`evolvePath()`](/docs/paths/evolve-path)
-- The weight and slant of a [dynamic font](https://twitter.com/JNYBGR/status/1598983409367683072)
-- The stops of a `linear-gradient`
-- The values of a CSS `filter()`
+- `<div>` 的高度和宽度
+- 使用 `border-radius` 设置元素的圆角
+- 使用 `box-shadow` 设置元素的阴影
+- 使用 `color` 和 [`interpolateColors()`](/docs/interpolate-colors) 改变某物的颜色
+- 使用 [`evolvePath()`](/docs/paths/evolve-path) 改变 SVG 路径的演变
+- 动态字体的粗细和倾斜
+- `linear-gradient` 的停止点
+- CSS `filter()` 的值

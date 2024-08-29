@@ -1,40 +1,37 @@
 ---
 image: /generated/articles-docs-lambda-python.png
-title: Triggering renders from Python
+title: 通过 Python 触发渲染
 slug: /lambda/python
-sidebar_label: Rendering from Python
+sidebar_label: 从 Python 进行渲染
 crumb: "@remotion/lambda"
 ---
 
-_available from v4.0.15_
+_从 v4.0.15 版本开始可用_
 
 <ExperimentalBadge>
-This feature is new. Please report any issues you encounter.
+此功能是新功能。请报告您遇到的任何问题。
 </ExperimentalBadge>
 
-To trigger a Lambda render using Python, install the `remotion-lambda` package using `pip`, by executing `pip install remotion-lambda` from your python project. Use the same version as the `remotion` version you are using from NPM, e.g. `pip install remotion-lambda==4.0.15` (see [newest version](https://remotion.dev/changelog)).
+要使用 Python 触发 Lambda 渲染，请使用 `pip` 安装 `remotion-lambda` 包，通过在您的 Python 项目中执行 `pip install remotion-lambda` 来安装。请使用与您从 NPM 使用的 `remotion` 版本相同的版本，例如 `pip install remotion-lambda==4.0.15`（请参阅[最新版本](https://remotion.dev/changelog)）。
 
-### Breaking changes
+### 破坏性更改
 
 ## 4.0.82
 
-- The `data` field is now `input_props`.
-- `RenderParams` has been renamed to `RenderMediaParams`.
-- `RenderProgress` has been renamed to `RenderMediaProgress`.
-- `RenderResponse` is now `RenderMediaResponse`, and its fields have been updated: `renderId` is now `render_id`, and `bucketName` has been changed to `bucket_name`.
-- The following types have been added: `CostsInfo`,
-  `Privacy`, `ValidStillImageFormats`, `LogLevel`, `OpenGlRenderer`,
-  `ChromiumOptions`, `CustomCredentialsWithoutSensitiveData`, `CustomCredentials`,
-  `OutNameInputObject`, `PlayInBrowser`, `Download`, `DeleteAfter`. These can be used for the fields on `RenderMediaParams` and `RenderStillParams`.
+- `data` 字段现在是 `input_props`。
+- `RenderParams` 已重命名为 `RenderMediaParams`。
+- `RenderProgress` 已重命名为 `RenderMediaProgress`。
+- `RenderResponse` 现在是 `RenderMediaResponse`，并且其字段已更新：`renderId` 现在是 `render_id`，`bucketName` 已更改为 `bucket_name`。
+- 已添加以下类型：`CostsInfo`、`Privacy`、`ValidStillImageFormats`、`LogLevel`、`OpenGlRenderer`、`ChromiumOptions`、`CustomCredentialsWithoutSensitiveData`、`CustomCredentials`、`OutNameInputObject`、`PlayInBrowser`、`Download`、`DeleteAfter`。这些可以用于 `RenderMediaParams` 和 `RenderStillParams` 上的字段。
 
-Note the following before continuing:
+在继续之前请注意以下事项：
 
-- You first need to [complete the Lambda setup](/docs/lambda/setup).
-- Sending large input props (>200KB) is not supported with Python at the moment.
+- 您首先需要[完成 Lambda 设置](/docs/lambda/setup)。
+- 目前不支持使用 Python 发送大型输入属性（>200KB）。
 
-## Rendering a video
+## 渲染视频
 
-Below is a snippet showing how to initiate a render request and get its status.
+以下是一个显示如何发起渲染请求并获取其状态的代码片段。
 
 ```python title="render_media.py"
 from remotion_lambda import RenderMediaParams, Privacy, ValidStillImageFormats
@@ -92,9 +89,9 @@ if render_response:
     print("Render done!", progress_response.outputFile)
 ```
 
-## Rendering an image
+## 渲染图像
 
-Below is a snippet showing how to initiate a still image render. Note that it does not require monitoring the render progress.
+以下是一个显示如何发起静态图像渲染的代码片段。请注意，它不需要监视渲染进度。
 
 ```python title="render_still.py"
 from remotion_lambda import RenderStillParams, Privacy, ValidStillImageFormats
@@ -141,7 +138,7 @@ if render_response:
     print("Render done! File at ", render_response.url)
 ```
 
-## See also
+## 参见
 
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Permissions](/docs/lambda/permissions)
+- [在没有 IAM 用户的情况下使用 Lambda](/docs/lambda/without-iam)
+- [权限](/docs/lambda/permissions)

@@ -6,9 +6,9 @@ slug: /lambda/getrenderprogress
 crumb: 'Lambda API'
 ---
 
-Gets the current status of a non-[still](https://www.remotion.dev/docs/lambda/renderstillonlambda) render originally triggered via [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+获取通过[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)触发的非[静态](https://www.remotion.dev/docs/lambda/renderstillonlambda)渲染的当前状态。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: esnext
@@ -25,153 +25,180 @@ const progress = await getRenderProgress({
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从`@remotion/lambda/client`导入此函数，以避免在[无服务器函数](/docs/lambda/light-client)中出现问题。
 :::
 
 :::note
-You don't need to call this function while rendering a [still](/docs/still). Once you have obtained the [`renderId`](/docs/lambda/renderstillonlambda#renderid) from [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda), the render should already be done!
+在渲染[静态](/docs/still)时不需要调用此函数。一旦您从[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)获取了[`renderId`](/docs/lambda/renderstillonlambda#renderid)，渲染应该已经完成了！
 :::
 
 ## API
 
-Call the function by passing an object with the following properties:
+通过传递具有以下属性的对象来调用该函数：
 
 ### `renderId`
 
-The unique identifier for the render that you want to get the progress for. You can get the renderId from the return value of [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+要获取其进度的渲染的唯一标识符。您可以从[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)的返回值中获取`renderId`。
 
 ### `bucketName`
 
-The bucket in which information about the render is saved. You can get the bucket name from the return value of [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+保存有关渲染信息的存储桶。您可以从[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)的返回值中获取存储桶名称。
 
 ### `region`
 
-The region in which the Lambda function is located in.
+Lambda函数所在的区域。
 
 ### `functionName`
 
-The name of the function that triggered the render.
+触发渲染的函数的名称。
 
 ### `customCredentials?`<AvailableFrom v="3.2.23" />
 
-If the render is going to be saved to a [different cloud](/docs/lambda/custom-destination#saving-to-another-cloud), pass an object with the same `endpoint`, `accessKeyId` and `secretAccessKey` as you passed to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname).
+如果要将渲染保存到[另一个云](/docs/lambda/custom-destination#saving-to-another-cloud)，请传递一个具有与您传递给[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname)或[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname)相同的`endpoint`、`accessKeyId`和`secretAccessKey`的对象。
 
 ### `forcePathStyle?`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将`forcePathStyle`传递给AWS S3客户端。如果您不知道这是什么，您可能不需要它。
 
 
-## Response
+## 响应
 
-Returns a promise resolving to an object with the following properties:
+返回一个解析为具有以下属性的对象的Promise：
 
 ### `overallProgress`
 
-A number between 0 and 1 indicating the approximate progress of the render.
+表示渲染的大致进度的介于0和1之间的数字。
+
+
 
 ### `chunks`
 
-How many chunks have been fully rendered so far.
+到目前为止已完全渲染的块数。
+
+
 
 ### `done`
 
-`true` if video has been successfully rendered and all processes are done. `false` otherwise.
+如果视频已成功渲染并且所有过程已完成，则为`true`。否则为`false`。
+
+
 
 ### `encodingStatus`
 
-Either `null` if not all chunks have been rendered yet or an object with the signature `{framesEncoded: number}` that tells how many frames have been stitched together so far in the concatenation process.
+如果尚未渲染所有块，则为`null`，否则为具有签名`{framesEncoded: number}`的对象，指示迄今为止在连接过程中已拼接多少帧。
+
+
 
 ### `renderId`
 
-Mirrors the `renderId` that has been passed as an input
+反映已传递为输入的`renderId`。
+
+
 
 ### `renderMetadata`
 
-Contains the following information about the render:
+包含有关渲染的以下信息：
 
-- `frameRange`: The first and last frame that is being rendered (Use `frameRange[1] - frameRange[0] + 1` to get number of total frames rendered).
-- `startedDate`: Timestamp of when the rendering process started.
-- `totalChunks`: Into how many pieces the rendering is divided.
-- `estimatedTotalLambdaInvokations`: The estimated amount of total Lambda function calls in total, excluding calls to `getRenderProgress()`.
-- `estimatedRenderLambdaInvokations`: The estimated amount of Lambdas that will render chunks of the video.
-- `compositionId`: The ID of the composition that is being rendered.
-- `codec`: The selected codec into which the video gets encoded.
+- `frameRange`：正在渲染的第一帧和最后一帧（使用`frameRange[1] - frameRange[0] + 1`获取已渲染的总帧数）。
+- `startedDate`：渲染过程开始的时间戳。
+- `totalChunks`：渲染分为多少部分。
+- `estimatedTotalLambdaInvokations`：总共估计的Lambda函数调用次数，不包括对`getRenderProgress()`的调用。
+- `estimatedRenderLambdaInvokations`：将渲染视频块的Lambda的估计数量。
+- `compositionId`：正在渲染的合成的ID。
+- `codec`：视频编码为的选定编解码器。
+
+
 
 ### `bucket`
 
-In which bucket the render and other artifacts get saved.
+渲染和其他工件保存在哪个存储桶中。
+
+
 
 ### `outputFile`
 
-`null` if the video is not yet rendered, a `string` containing a URL pointing to the final artifact if the video finished rendering.
+如果视频尚未渲染，则为`null`，如果视频完成渲染，则为包含指向最终工件的URL的`string`。
+
+
 
 ### `outKey`
 
-`null` if the video is not yet rendered, a `string` containing the S3 key where the final artifact is stored.
+如果视频尚未渲染，则为`null`，如果视频完成渲染，则为包含最终工件存储位置的S3密钥的`string`。
+
+
 
 ### `timeToFinish`
 
-`null` is the video is not yet rendered, a `number` describing how long the render took to finish in milliseconds.
+如果视频尚未渲染，则为`null`，描述渲染完成所需时间的`number`（以毫秒为单位）。
+
+
 
 ### `errors`
 
-An array which contains errors that occurred.
+包含发生的错误的数组。
+
+
 
 ### `fatalErrorEncountered`
 
-`true` if an error occurred and the video cannot be rendered. You should stop polling for progress and check the `errors` array.
+如果发生错误且视频无法渲染，则为`true`。您应停止轮询进度并检查`errors`数组。
+
+
 
 ### `currentTime`
 
-The current time at which the Lambda function responded to the progress request.
+Lambda函数响应进度请求的当前时间。
 
 ### `renderSize`
 
-How many bytes have been saved to the S3 bucket as a result of this render.  
-From v4.0.165, this might be slightly underreported as the `progress.json` file is not factored in.
+这个渲染结果已经节省了多少字节到 S3 存储桶中。
+
+从 v4.0.165 开始，这可能会被轻微低估，因为 `progress.json` 文件没有被计算在内。
 
 ### `outputSizeInBytes`
 
-_available from v.3.3.9_
+从 v.3.3.9 开始可用。
 
-The size of the output artifact in bytes.
+输出产物的大小，以字节为单位。
 
 ### `lambdasInvoked`
 
-How many lambdas that render a chunk have been invoked yet and have started rendering.
+已经被调用并开始渲染的 Lambdas 数量。
 
 ### `framesRendered`
 
-_available from v3.3.8_
+从 v3.3.8 开始可用。
 
-How many frames have been rendered so far, approximated to a number divisible by `5`.
+到目前为止已经渲染了多少帧，近似为可被 5 整除的数字。
 
 ### `costs`
 
-An object describing the costs of the render so far. The cost may increase if the render has not finished yet. Only costs for AWS Lambda are estimated, not for S3 storage. It is a best-effort estimation, but without any guarantees. The object has the following properties:
+描述到目前为止渲染成本的对象。如果渲染尚未完成，成本可能会增加。仅估算 AWS Lambda 的成本，不包括 S3 存储。这是一个尽力估算，但没有任何保证。该对象具有以下属性：
 
-- `accruedSoFar`: The cost as a floating number.
-- `currency`: The currency of the cost.
-- `displayCost`: The cost formatted as a string.
-- `disclaimer`: Textual disclaimer removing any doubt that there is no guarantee.
+- `accruedSoFar`：成本，浮点数。
+- `currency`：成本的货币。
+- `displayCost`：格式化为字符串的成本。
+- `disclaimer`：消除任何疑虑的文本免责声明。
 
 ### `estimatedBillingDurationInMilliseconds`<AvailableFrom v="4.0.74"/>
 
-The estimated total runtime of all invoked Lambda functions combined, in milliseconds. As the render goes on, this number increases.
+所有调用的 Lambda 函数的估计总运行时间，以毫秒为单位。随着渲染的进行，这个数字会增加。
 
 ### `mostExpensiveFrameRanges`
 
-If the render is in progress, this is `null`. If the render is done, it is an array of the 5 most expensive chunks in the following shape:
+如果渲染正在进行中，则为 `null`。如果渲染已完成，则为一个包含以下结构的 5 个最昂贵块的数组：
 
-- `chunk`: The index of the chunk (starting from 0)
-- `timeInMilliseconds`: The time it took the render that chunk
-- `frameRange`: A tuple containing the first and last frame that was rendered in that chunk.
+- `chunk`：块的索引（从 0 开始）
+- `timeInMilliseconds`：渲染该块所花费的时间
+- `frameRange`：包含渲染该块的第一帧和最后一帧的元组。
 
 ### `artifacts`<AvailableFrom v="4.0.176"/>
 
-Artifacts that were created so far during the render. [See here for an example of dealing with field.](/docs/artifacts#using-rendermedia-renderstill-or-renderframes)
+在渲染过程中到目前为止创建的工件。[点击这里查看处理字段的示例。](/docs/artifacts#using-rendermedia-renderstill-or-renderframes)
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-render-progress.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-render-progress.ts)
 - [renderMediaOnLambda()](/docs/lambda/rendermediaonlambda)
+
+Please paste the Markdown content you'd like me to translate into Chinese.

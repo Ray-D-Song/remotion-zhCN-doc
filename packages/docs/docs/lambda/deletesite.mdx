@@ -6,13 +6,13 @@ slug: /lambda/deletesite
 crumb: "Lambda API"
 ---
 
-Removes a Remotion project from your S3 bucket.
+从您的S3存储桶中删除一个 Remotion 项目。
 
-Each project is located in the `sites/` subdirectory of your S3 bucket. Calling this function is equivalent of deleting all files inside a subfolder of your `sites/` subdirectory.
+每个项目位于您的 S3 存储桶的 `sites/` 子目录中。调用此函数相当于删除 `sites/` 子目录中所有文件。
 
-## Example
+## 示例
 
-Gets all sites and deletes them.
+获取所有站点并删除它们。
 
 ```ts twoslash
 // @module: ESNext
@@ -35,44 +35,44 @@ for (const site of sites) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
 _string_
 
-The [AWS region](/docs/lambda/region-selection) where the project resides in.
+项目所在的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `bucketName`
 
 _string_
 
-The name of the S3 bucket in which your site resides in.
+您的站点所在的 S3 存储桶的名称。
 
 ### `siteName`
 
 _string_
 
-The unique ID of the project you want to delete.
+要删除的项目的唯一 ID。
 
 ### `forcePathStyle?`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果您不知道这是什么，您可能不需要它。
 
-## Return value
+## 返回值
 
-A promise resolving to an object with the following property:
+一个解析为具有以下属性的对象的 Promise：
 
 ### `totalSizeInBytes`
 
 _number_
 
-The amount of space that was freed by deleting the project.
+通过删除项目释放的空间量。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/delete-site.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/delete-site.ts)
 - [getSites()](/docs/lambda/getsites)
 - [deploySite()](/docs/lambda/deploysite)

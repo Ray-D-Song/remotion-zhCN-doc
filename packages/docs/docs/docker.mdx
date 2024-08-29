@@ -2,11 +2,11 @@
 image: /generated/articles-docs-docker.png
 id: docker
 sidebar_label: Docker
-title: Dockerizing a Remotion app
-crumb: "Building video apps"
+title: 将 Remotion 应用程序 Docker 化
+crumb: "构建视频应用程序"
 ---
 
-We recommend the following structure for your Dockerfile. Read below about the individual steps and whether you need to adjust them.
+我们建议以下 Dockerfile 结构。请阅读下面关于各个步骤以及是否需要调整它们的内容。
 
 ```docker title="Dockerfile"
 FROM node:20-bookworm
@@ -46,18 +46,17 @@ CMD ["node", "render.mjs"]
 ```
 
 :::note
-[Click here](#example-render-script) to see an example for a `render.mjs` script you can use.
+[点击这里](#example-render-script) 查看一个您可以使用的 `render.mjs` 脚本示例。
 :::
 
 :::note
-This Dockerfile is unable to render WebGL content. Suggestions on how to improve the Dockerfile to support it are welcomed.
+此 Dockerfile 无法渲染 WebGL 内容。欢迎提出如何改进 Dockerfile 以支持 WebGL 的建议。
 :::
 
-## Line-by-line
+## 逐行解读
 
 <p>
-  <Step>1</Step> Specify the base image for the Dockerfile. In this case, we use
-  Debian.
+  <Step>1</Step> 指定 Dockerfile 的基础镜像。在本例中，我们使用 Debian。
 </p>
 
 ```docker
@@ -65,7 +64,7 @@ FROM node:20-bookworm
 ```
 
 <p>
-  <Step>2</Step> Update the package lists on the Debian system and install the needed [shared libraries](/docs/miscellaneous/linux-dependencies) for Chrome Headless Shell.
+  <Step>2</Step> 更新 Debian 系统上的软件包列表，并安装 Chrome 无头浏览器所需的 [共享库](/docs/miscellaneous/linux-dependencies)。
 </p>
 
 ```docker
@@ -87,12 +86,7 @@ RUN apt install -y \
 
 
 <p>
-  <Step>3</Step> Copy the files from your project. If you have additional source
-  files, add them here. If some files do not exist, remove them. The{" "}
-  <code>COPY</code> syntax allows multiple files, but at least one file must
-  exist. It is assumed <code>package.json</code>, <code>src</code> and{" "}
-  <code>public</code> exist in your project, but you can adjust this to your
-  needs.
+  <Step>3</Step> 复制项目中的文件。如果有额外的源文件，请在此处添加。如果某些文件不存在，请将其删除。<code>COPY</code> 语法允许多个文件，但至少一个文件必须存在。假定您的项目中存在 <code>package.json</code>、<code>src</code> 和 <code>public</code>，但您可以根据需要进行调整。
 </p>
 
 ```docker
@@ -102,29 +96,30 @@ COPY public ./public
 ```
 
 <p>
-  <Step>4</Step> Install the right package manager and dependencies.
+  <Step>4</Step> 安装正确的软件包管理器和依赖项。
 </p>
 
-- If you use NPM, put the following in your Dockerfile:
+- 如果您使用 NPM，请在 Dockerfile 中添加以下内容：
 
   ```docker
   RUN npm i
   ```
 
-- If you use Yarn or PNPM, add the `packageManager` field to your `package.json` (example: `"packageManager": "pnpm@7.7.1"`) and remove the `npm` line from step 3. Then put following in your Dockerfile:
+- 如果您使用 Yarn 或 PNPM，请将 `packageManager` 字段添加到您的 `package.json` 中（示例：`"packageManager": "pnpm@7.7.1"`），并从步骤 3 中删除 `npm` 行。然后在 Dockerfile 中添加以下内容：
 
-  ```docker title="If you use PNPM"
+  ```docker title="如果您使用 PNPM"
   RUN corepack enable
   RUN pnpm i
   ```
 
-  ```docker title="If you use Yarn"
+  ```docker title="如果您使用 Yarn"
   RUN corepack enable
   RUN yarn
   ```
 
+```markdown
 <p>
-  <Step>5</Step> Install [Chrome Headless Shell](/docs/miscellaneous/chrome-headless-shell).
+  <Step>5</Step> 安装[Chrome Headless Shell](/docs/miscellaneous/chrome-headless-shell)。
 </p>
 
 ```docker
@@ -132,7 +127,7 @@ RUN npx remotion browser ensure
 ```
 
 <p>
-  <Step>6</Step> Run your code. It can be a CLI command or a Node.JS app.
+  <Step>6</Step> 运行您的代码。可以是CLI命令或Node.JS应用程序。
 </p>
 
 ```docker
@@ -140,9 +135,9 @@ COPY render.mjs render.mjs
 CMD ["node", "render.mjs"]
 ```
 
-## Example render script
+## 渲染脚本示例
 
-Assuming you want to render the composition `MyComp`:
+假设您想要渲染组合`MyComp`：
 
 ```tsx twoslash title="render.mjs"
 // @module: ESNext
@@ -184,84 +179,85 @@ console.log(`Rendered composition ${composition.id}.`);
 ```
 
 :::note
-We recommend setting the `enableMultiProcessOnLinux` option for this Docker image, available from v4.0.42. [Read more](/docs/miscellaneous/linux-single-process)
+我们建议为此Docker镜像设置`enableMultiProcessOnLinux`选项，从v4.0.42版本开始提供。[阅读更多](/docs/miscellaneous/linux-single-process)
 :::
 
-## Building the Docker image
+## 构建Docker镜像
 
-Run
+运行
 
 ```sh
 docker build -t remotion-app .
 ```
 
-to build a Docker image called `remotion-app`.  
-Use the following command to run the image:
+以构建名为`remotion-app`的Docker镜像。  
+使用以下命令运行该镜像：
 
 ```sh
 docker run remotion-app
 ```
 
-## Giving access to the CPUs
+## 给CPU授权
 
-By default, Docker containers are not allowed to use all memory CPUs . Consider:
+默认情况下，Docker容器不被允许使用所有内存CPU。考虑：
 
-- Changing the resource settings in Docker Desktop settings
-- Using the `--cpus` and `--cpuset-cpus` flags with the `docker run` command. Example: `--cpus=16 --cpuset-cpus=0-15`
+- 在Docker Desktop设置中更改资源设置
+- 使用`docker run`命令的`--cpus`和`--cpuset-cpus`标志。示例：`--cpus=16 --cpuset-cpus=0-15`
 
-## Emojis
+## 表情符号
 
-No emojis are installed by default. If you want to use emojis, install an emoji font:
+默认情况下不安装表情符号。如果您想使用表情符号，请安装一个表情符号字体：
 
 ```docker
 RUN apt-get install fonts-noto-color-emoji
 ```
 
-## Japanese, Chinese, Korean, etc.
+## 日语、中文、韩文等
 
-Those fonts may have limited Character support enabled by default. If you need full support, install the following fonts:
+这些字体可能默认启用了有限的字符支持。如果您需要完整支持，请安装以下字体：
 
 ```docker
 RUN apt-get install fonts-noto-cjk
 ```
 
-## Why are the packages not pinned?
+## 为什么软件包没有固定版本？
 
-In Debian (and also Alpine), old packages are removed from the repositories once new versions are released. This means that pinning the versions will actually cause the Dockerfiles to break in the future. We choose Debian as the distribution because the packages get well tested before they get released into the repository.
+在Debian（以及Alpine）中，一旦发布新版本，旧软件包就会从存储库中删除。这意味着固定版本实际上会导致将来Dockerfile出现问题。我们选择Debian作为发行版，因为软件包在发布到存储库之前会经过充分测试。
 
-## Notes for older versions
+## 旧版本的注意事项
 
-- If you are on a lower version than `v4.0.0`, add `ffmpeg` to the list of packages to install:
+- 如果您的版本低于`v4.0.0`，请将`ffmpeg`添加到要安装的软件包列表中：
 
   ```docker
   RUN apt-get install -y nodejs ffmpeg npm chromium
   ```
 
-- If you are on Remotion `v3.3.80` or lower, tell Remotion where Chrome is installed:
+- 如果您使用的是Remotion `v3.3.80`或更低版本，请告诉Remotion Chrome的安装位置：
+```
 
-  ```docker
-  ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
-  ```
+```docker
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+```
 
-## Recommendation: Don't use Alpine Linux
+## 建议：不要使用 Alpine Linux
 
-Alpine Linux is a lightweight distribution often used in Docker. There are two known issues with it when used in conjunction with Remotion:
+Alpine Linux 是一个轻量级的发行版，通常用于 Docker。在与 Remotion 结合使用时，有两个已知问题：
 
-- The launch of the Rust parts of Remotion may be very slow (>10sec slowdown per render)
-- If a new version of Chrome gets released in the registry, you might be unable to downgrade because old versions are not kept and breaking changes can not be ruled out.
+- Remotion 的 Rust 部分的启动可能会非常缓慢（每次渲染超过 10 秒的减速）
+- 如果在注册表中发布了 Chrome 的新版本，您可能无法降级，因为旧版本不会保留，并且无法排除破坏性更改。
 
-## Changelog
+## 更新日志
 
-**October 11th, 2023**: Used the node:20-bookworm, which is faster to deploy and also Debian.
+**2023 年 10 月 11 日**：使用了 node:20-bookworm，部署速度更快，也是 Debian。
 
-**September 25th, 2023**: Recommend setting `enableMultiProcessOnLinux`.
+**2023 年 9 月 25 日**：建议设置 `enableMultiProcessOnLinux`。
 
-**May 30th, 2023**: Update document for Remotion 4.0.
+**2023 年 5 月 30 日**：为 Remotion 4.0 更新文档。
 
-**April 15th, 2023**: Unpinning the versions in Debian since it would cause breakage.
+**2023 年 4 月 15 日**：取消在 Debian 中固定版本，因为会导致破坏。
 
-**April 3rd, 2023**: Changed the Alpine Docker image to a Debian one, since the versions of Alpine packages cannot be pinned. This makes the Debian one less likely to break.
+**2023 年 4 月 3 日**：将 Alpine Docker 镜像更改为 Debian 镜像，因为 Alpine 软件包的版本无法固定。这使得 Debian 更不容易出现问题。
 
-## See also
+## 参见
 
-- [Deploying the Remotion Studio](/docs/studio/deploy-server)
+- [部署 Remotion Studio](/docs/studio/deploy-server)

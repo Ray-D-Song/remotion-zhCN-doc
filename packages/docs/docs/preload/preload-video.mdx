@@ -2,20 +2,20 @@
 image: /generated/articles-docs-preload-preload-video.png
 id: preload-video
 slug: preload-video
-sidebar_label: preloadVideo()
+sidebar_label: 预加载视频()
 title: "preloadVideo()"
 crumb: "@remotion/player"
 ---
 
-_This function is part of the [`@remotion/preload`](/docs/preload) package._
+_此函数是 [`@remotion/preload`](/docs/preload) 包的一部分。_
 
-This function preloads a video in the DOM so that when a video tag is mounted, it can play immediately.
+此函数在 DOM 中预加载视频，以便在挂载视频标签时可以立即播放。
 
-While preload is not necessary for rendering, it can help with seamless playback in the [`<Player />`](/docs/player) and in the Studio.
+虽然预加载对于渲染并非必需，但它可以帮助在 [`<Player />`](/docs/player) 和 Studio 中实现无缝播放。
 
-An alternative to `preloadVideo()` is the [`prefetch()`](/docs/prefetch) API. See [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch) to decide which one is better for your usecase.
+`preloadVideo()` 的替代方案是 [`prefetch()`](/docs/prefetch) API。请参阅 [`@remotion/preload` vs `prefetch()`](/docs/player/preloading#remotionpreload-vs-prefetch) 来决定哪个更适合您的用例。
 
-## Usage
+## 用法
 
 ```tsx twoslash
 import { preloadVideo } from "@remotion/preload";
@@ -28,20 +28,20 @@ const unpreload = preloadVideo(
 unpreload();
 ```
 
-## How it works
+## 工作原理
 
-- On Firefox, it appends a `<link rel="preload" as="video">` tag in the head element of the document.
-- In other browsers, it appends a `<video preload="auto">` tag in the body element of the document.
+- 在 Firefox 上，它会在文档的 head 元素中附加一个 `<link rel="preload" as="video">` 标签。
+- 在其他浏览器上，它会在文档的 body 元素中附加一个 `<video preload="auto">` 标签。
 
-## Handle redirects
+## 处理重定向
 
-If the video URL redirects to another URL, preloading the original URL does not work.
+如果视频 URL 重定向到另一个 URL，则无法预加载原始 URL。
 
-If the URL you include is unknown, use [`resolveRedirect()`](/docs/preload/resolve-redirect) to programmatically obtain the final URL following potential redirects.
+如果您包含的 URL 是未知的，请使用 [`resolveRedirect()`](/docs/preload/resolve-redirect) 来以编程方式获取遵循潜在重定向的最终 URL。
 
-If the resource does not support CORS, `resolveRedirect()` will fail. If the resource redirects, and does not support CORS, you cannot preload the asset.
+如果资源不支持 CORS，`resolveRedirect()` 将失败。如果资源重定向，并且不支持 CORS，则无法预加载该资产。
 
-This snippet tries to preload a video on a best-effort basis. If the redirect cannot be resolved, it tries to preload the original URL.
+此代码片段尝试尽最大努力预加载视频。如果无法解析重定向，则尝试预加载原始 URL。
 
 ```tsx twoslash
 import { preloadVideo, resolveRedirect } from "@remotion/preload";
@@ -75,7 +75,7 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/preload/src/preload-video.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/preload/src/preload-video.ts)
 - [`resolveRedirect()`](/docs/preload/resolve-redirect)

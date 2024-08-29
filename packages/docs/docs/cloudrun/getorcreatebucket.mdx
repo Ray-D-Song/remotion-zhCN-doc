@@ -7,12 +7,12 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Creates a Cloud Storage bucket for Remotion Cloud Run in your GCP project. If one already exists, it will get returned instead.
+在您的 GCP 项目中为 Remotion Cloud Run 创建一个 Cloud Storage 存储桶。如果已经存在一个存储桶，则会返回该存储桶。
 
-**Only 1 bucket per region** is necessary for Remotion Cloud Run to function.
+**每个区域只需要 1 个存储桶** 以使 Remotion Cloud Run 正常运行。
 
 ```ts twoslash
 // @module: ESNext
@@ -26,38 +26,39 @@ const { bucketName, alreadyExisted } = await getOrCreateBucket({
 console.log(bucketName); // "remotioncloudrun-32df3p"
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [GCP region](/docs/cloudrun/region-selection) which you want to create a bucket in.
+您希望在其中创建存储桶的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `updateBucketState?`
 
-_optional_
+_可选_
 
-Callback function that returns a state (_string_) of operation. Used by the CLI to provide a progress update. State will be one of the following;
+返回操作状态（_字符串_）的回调函数。CLI 使用此函数提供进度更新。状态将是以下之一；
 
-- Checking for existing bucket
-- Creating new bucket
-- Created bucket
-- Using existing bucket
+- 检查现有存储桶
+- 创建新存储桶
+- 已创建存储桶
+- 使用现有存储桶
 
-## Return value
+## 返回值
 
-A promise resolving to an object with the following properties:
+解析为具有以下属性的对象的 Promise：
 
 ### `bucketName`
 
-The name of your bucket that was found or created.
+找到或创建的存储桶的名称。
 
 ### `alreadyExisted`
 
-A boolean indicating whether the bucket already existed or was newly created.
+一个布尔值，指示存储桶是否已经存在或是新创建的。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-or-create-bucket.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-or-create-bucket.ts)
 - [getServices()](/docs/cloudrun/getservices)
+

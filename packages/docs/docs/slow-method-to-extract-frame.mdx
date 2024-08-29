@@ -1,33 +1,34 @@
 ---
 image: /generated/articles-docs-slow-method-to-extract-frame.png
 id: slow-method-to-extract-frame
-title: "Slow method to extract frame"
-crumb: "Troubleshooting"
+title: "提取帧的慢速方法"
+crumb: "故障排除"
 ---
 
 :::warning
-From v4.0 on, this warning does not appear anymore and video frame extraction should always be fast. The information in this document only applies to older versions of Remotion and is preserved for people who are still using them.
+从 v4.0 版本开始，不再出现此警告，视频帧提取应始终快速进行。本文档中的信息仅适用于 Remotion 的旧版本，并保留给仍在使用旧版本的用户。
 :::
 
-When using the [`<OffthreadVideo>`](/docs/offthreadvideo) component, the following warning message may appear:
+在使用 [`<OffthreadVideo>`](/docs/offthreadvideo) 组件时，可能会出现以下警告消息：
 
 ```
 Using a slow method to extract the frame at 1000ms of [video].
 ```
 
-While it is not an error itself, it warns that the render must do an expensive operation in order to render the video, in which the whole video must be read in order to extract a single frame in it. This warning currently appears in two occasions:
+虽然这本身不是一个错误，但它警告说渲染必须执行一个昂贵的操作才能渲染视频，其中必须读取整个视频以提取其中的单个帧。目前此警告出现在两种情况下：
 
-- If a H.264 video in a MP4 container has it's timestamps corrupted so that it cannot be seeked to the exact frame that Remotion wants to extract.
+- 如果 MP4 容器中的 H.264 视频的时间戳已损坏，无法定位到 Remotion 想要提取的确切帧。
 
-  - **Recommendation**: It might be faster to first re-encode the video using FFMPEG to fix the seeking: `npx remotion ffmpeg -i inputvideo.mp4 outputvideo.mp4`
+  - **建议**：可能更快的方法是首先使用 FFMPEG 重新编码视频以修复定位问题：`npx remotion ffmpeg -i inputvideo.mp4 outputvideo.mp4`
 
-- If it's a VP8 video in a WebM container and the selected image format is PNG, we cannot accurately extract the frame using FFMPEG and need to resort to the slow method.
-  - **Recommendation**: Prefer the VP9 codec instead, or switch the image format to JPEG (in which you will lose transparency however)
+- 如果是 WebM 容器中的 VP8 视频，且所选的图像格式为 PNG，则无法使用 FFMPEG 准确提取帧，需要采用慢速方法。
+  - **建议**：最好使用 VP9 编解码器，或将图像格式切换为 JPEG（但会丢失透明度）
 
-## Checking whether a video has this issue
+## 检查视频是否存在此问题
 
-You can use the [getCanExtractFramesFast()](/docs/renderer/get-can-extract-frames-fast)
+您可以使用 [getCanExtractFramesFast()](/docs/renderer/get-can-extract-frames-fast)
 
-## See also
+## 参见
 
 - [`<OffthreadVideo>`](/docs/offthreadvideo)
+

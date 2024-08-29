@@ -1,553 +1,555 @@
----
-image: /generated/articles-docs-lambda-changelog.png
-id: changelog
-title: Prerelease Changelog
-slug: /lambda/changelog
----
+## 稳定版本
 
-## Stable versions
+从 3.0.0 版本开始，更改日志位于主要的 [Remotion GitHub 更改日志](https://github.com/remotion-dev/remotion/releases) 中。本文档包含预发布版本的更改日志，将不再更新！
 
-From 3.0.0 onwards, the changelog is located in the main [Remotion changelog on GitHub](https://github.com/remotion-dev/remotion/releases). This document contains the changelog for prereleases and will not be updated anymore!
+## 预发布版本
 
-## Prerelease versions
+### 2022年4月20日
 
-### April 20th, 2022
+版本哈希：`3.0.0-rc.15`  
+Lambda 版本：'2022-04-20'
 
-Version hash: `3.0.0-rc.15`  
-Lambda version: '2022-04-20'
+- 修复了一个问题，即 `getInputProps()` 和环境变量在组件外部不可用（在 '2022-02-14' 引入的回归）
 
-- Fixes an issue where `getInputProps()` and environment variables were not available outside of a component (regression introduced in '2022-02-14')
+### 2022年4月19日
 
-### April 19th, 2022
+版本��希：`3.0.0-rc.7`  
+Lambda 版本：'2022-04-19'
 
-Version hash: `3.0.0-rc.7`  
-Lambda version: '2022-04-19'
+- 修复了一个问题，即 `REMOTION_AWS_ACCESS_KEY` 和 `REMOTION_AWS_SECRET_ACCESS_KEY` 环境变量在 Vercel 无服务器函数内部不会被识别。
 
-- Fixes an issue where `REMOTION_AWS_ACCESS_KEY` and `REMOTION_AWS_SECRET_ACCESS_KEY` environment variables would not be recognized inside Vercel serverless functions.
+### 2022年4月18日
 
-### April 18th, 2022
+版本哈希：`3.0.0-rc.1`  
+Lambda 版本：'2022-04-18'
 
-Version hash: `3.0.0-rc.1`  
-Lambda version: '2022-04-18'
+- React 18 支持 - 您可以更新 `react`、`react-dom` 和 `@types/react` 以选择使用 React 18！
+- ESLint 8 支持 - 您可以更新以使用新版本！
+- 最低版本现在是 Node 14。
+- 在 CLI 中，即使是 Lambda 渲染，渲染错误也会被符号化！
 
-- React 18 Support - you can update `react`, `react-dom` and `@types/react` to opt into React 18!
-- ESLint 8 support - you can update to use the new version!
-- Minimum version is now Node 14.
-- In the CLI, render errors are symbolicated, even for Lambda renders!
+感谢您尝试，并在我们即将推出之前告诉我们是否有任何问题！
 
-Thanks for giving it a try and let us know if there are any problems, before we launch soon!
+### 2022年4月5日
 
-### April 5th, 2022
+_实验性版本，请使用 '2022-03-17' 版本进行测试！_
 
-_Experimental version, stay with '2022-03-17' for well-tested version!_
+版本哈希：`3.0.0-lambda.439+8583491c7`  
+Lambda 版本：'2022-04-05'
 
-Version hash: `3.0.0-lambda.439+8583491c7`  
-Lambda version: '2022-04-05'
+- 当上传文件到 S3 时，为每个文件添加适当的 MIME 类型。例如，.mp3 文件具有 `audio/mpeg` 内容类型。
+- 从 2.6.13 的更改
 
-- When uploading files to S3, add the appropriate MIME type to every file. For example an .mp3 file has an `audio/mpeg` Content-Type.
-- Changes from 2.6.13
+### 2022年4月2日
 
-### April 2nd, 2022
+_实验性版本，请使用 '2022-03-17' 版本进行测试！_
 
-_Experimental version, stay with '2022-03-17' for well-tested version!_
+版本哈希：`3.0.0-lambda.424+994a31b6b`  
+Lambda 版本：'2022-04-02'
 
-Version hash: `3.0.0-lambda.424+994a31b6b`  
-Lambda version: '2022-04-02'
+添加了增加 Lambda 磁盘空间的选项，从而使更长视频的渲染成为可能：[/docs/lambda/disk-size]
 
-Added the option to increase the Lambda disk space and therefore enable rendering of longer videos: [/docs/lambda/disk-size]
+- 您可以设置最多 10GB 的磁盘空间
+- 增加更多存储对价格影响微乎其微。根据我们的计算，将存储从默认的 512MB 增加到 10GB 仅会使 Lambda 的成本增加约 ~0.2%。
+- 破坏性更改：`estimatePrice()` 方法现在考虑 CPU 架构、磁盘大小和调用的 Lambda 数量。这些参数已添加到函数中并被设为强制性。
+- 修复了一个 bug，即如果通过 CLI 渲染，则 `--frames-per-lambda` 会被设置为 20，而不是文档建议的动态值。
 
-- You can set a disk space of up to 10GB
-- Adding more storage has a miniscule effect on price. According to our calculation, having 10GB of storage instead of the default 512MB adds only ~0.2% to the cost of Lambda.
-- Breaking change: The `estimatePrice()` method now takes CPU architecture, disk size and number of lambdas invoked into account. These parameters have been added to the function and been made mandatory.
-- Fixes a bug where `--frames-per-lambda` would be set to 20 instead of the dynamic value suggested by the docs, if rendered via CLI.
+### 2022年3月29日
 
-### March 29th, 2022
+_破损版本，请使用'2022-03-17'进行充分测试，或升级到'2022-04-02'以获取修复版本_
 
-_Broken version, stay with '2022-03-17' for well-tested version or upgrade to '2022-04-02' for fixed version_
+版本哈希：`3.0.0-lambda.419+1ae289d8c`  
+Lambda版本：'2022-03-29'
 
-Version hash: `3.0.0-lambda.419+1ae289d8c`  
-Lambda version: '2022-03-29'
+### 2022年3月17日
 
-### March 17th, 2022
+版本哈希：`3.0.0-lambda.414+163634f42`  
+Lambda版本：'2022-03-17'
 
-Version hash: `3.0.0-lambda.414+163634f42`  
-Lambda version: '2022-03-17'
-
-- Added a new [`npx remotion lambda quotas`](/docs/lambda/cli/quotas) command which allows you to see your current AWS Lambda concurrency limit
-- Added a new [`npx remotion lambdas quotas increase`](/docs/lambda/cli/quotas) command which allows you to bump your AWS Lambda concurrency limit
+- 添加了一个新的[`npx remotion lambda quotas`](/docs/lambda/cli/quotas)命令，允许您查看当前的AWS Lambda并发限制
+- 添加了一个新的[`npx remotion lambdas quotas increase`](/docs/lambda/cli/quotas)命令，允许您提高AWS Lambda的并发限制
 
 :::info
-For these commands to work, you have to re-setup the AWS policies as described in the [setup](/docs/lambda/setup)
+要使这些命令起作用，您必须按照[设置](/docs/lambda/setup)中描述的方式重新设置AWS策略
 :::
 
-- Fixed a bug where combining mono and stereo audio would cause the mono audio to speed up
+- 修复了一个错误，即合并单声道和立体声音频会导致单声道音频加速
 
-### March 3rd, 2022
+### 2022年3月3日
 
-Version hash: `3.0.0-lambda.404+70a7d3fec`  
-Lambda version: '2022-03-02'
+版本哈希：`3.0.0-lambda.404+70a7d3fec`  
+Lambda版本：'2022-03-02'
 
-_✅ Tested again and now recommended to upgrade_
+_✅ 再次测试，现在建议升级_
 
-- Fixed a regression where input props would not be passed into the component while rendering.
+- 修复了一个回归问题，即在渲染时不会传递输入属性到组件中。
 
-### March 1st, 2022
+### 2022年3月1日
 
 :::note
-Experimental: Prefer '2022-02-14' version for stability.
-You need to rebundle and redeploy your projects for this version.
+实验性内容：稳定性请优先选择'2022-02-14'版本。
+您需要重新打包和部署项目以使用此版本。
 :::
 
-Version hash: `3.0.0-lambda.400+3b736b911`  
-Lambda version: '2022-03-01'
+版本哈希：`3.0.0-lambda.400+3b736b911`  
+Lambda版本：'2022-03-01'
 
-- Fixes an issue where the `<Player />` would display the video smaller if the parent element of the player had a `scale()` transform applied to it
-- Bug fixed: Would not recognize a deployed Remotion function if there are a lot of functions in one AWS account.
+- 修复了一个问题，即如果播放器的父元素应用了`scale()`变换，则`<Player />`会显示较小的视频
+- 修复的错误：如果一个AWS账户中有很多函数，则不会识别部署的Remotion函数。
 
-### February 27th, 2022
+### 2022年2月27日
 
 :::note
-Experimental: Prefer '2022-02-14' version for stability.
-You need to rebundle and redeploy your projects for this version.
+实验性内容：稳定性请优先选择'2022-02-14'版本。
+您需要重新打包和部署项目以使用此版本。
 :::
 
-Version hash: `3.0.0-lambda.295+67a488af4`  
-Lambda version: '2022-02-27'
+版本哈希：`3.0.0-lambda.295+67a488af4`  
+Lambda版本：'2022-02-27'
 
-- Allows to store an output in a different bucket - see documentation for [`outName`](/docs/lambda/rendermediaonlambda#outname)
-- Rearchitecture to lift the 5MB input props/environment variable limit.
+- 允许将输出存储在不同的存储桶中 - 请参阅[`outName`](/docs/lambda/rendermediaonlambda#outname)的文档
+- 重新设计以提高5MB输入属性/环境变量限制。
 
-### February 14th, 2022
+### 2022年2月14日
 
-Version hash: `3.0.0-lambda.388+6e1372eca`  
-Lambda version: '2022-02-14'
-
-This update addresses an issue where Lambda functions would crash with the following error message:
+这次更新解决了 Lambda 函数崩溃并显示以下错误消息的问题：
 
 ```
 Error: Failed to launch the browser process!\n/opt/bin/chromium: relocation error: /lib64/librt.so.1: symbol \_\_pthread_attr_copy, version GLIBC_PRIVATE not defined in file libpthread.so.0 with link time reference
 ```
 
-We recommend all Remotion Lambda users to upgrade, as AWS Lambda is slowly rolling out a new environment for the Node.JS 14 stack and you will see elevated error rates with the old versions. Their new stack upgrades the glibc library in Amazon Linux 2, which requires new symbols in the libpthread shared object. We also shipped this shared object in our Lambda layer and it was taking precedence over the preinstalled one, leading to this error. We recommend the default arm64 deployment.
+我们建议所有 Remotion Lambda 用户升级，因为 AWS Lambda 正在逐步推出 Node.JS 14 栈的新环境，旧版本可能会出现错误率升高的情况。他们的新栈升级了 Amazon Linux 2 中的 glibc 库，需要 libpthread 共享对象中的新符号。我们还在我们的 Lambda 层中提供了这个共享对象，并且它优先于预安装的共享对象，导致了这个错误。我们建议默认的 arm64 部署。
 
-We have removed this file and also reviewed our layer for other files that could potentially lead to similar issues in the future. So we hope this issue will never come back!
+我们已经移除了这个文件，并且还检查了我们的层中可能导致类似问题的其他文件。因此，我们希望这个问题不会再出现！
 
-### February 12th, 2022
+### 2022年2月12日
 
-Version hash: `3.0.0-lambda.381+2a6cb78f1`
-Lambda version: '2022-02-12'
+版本哈希��`3.0.0-lambda.381+2a6cb78f1`
+Lambda 版本：'2022-02-12'
 
-Update focused on stability:
+更新重点是稳定性：
 
-- Chunk optimization has been removed, since it sometimes breaks renders. We hope to add it back after launch.
-- All npm dependencies have been pinned to their exact version.
+- 已删除块优化，因为有时会导致渲染失败。我们希望在发布后再添加回来。
+- 所有 npm 依赖项已固定为确切的版本。
 
-### February 8th, 2022
+### 2022年2月8日
 
-Version hash: `3.0.0-lambda.359+59cc0e49b`
-Lambda version: '2022-02-09'
+版本哈希：`3.0.0-lambda.359+59cc0e49b`
+Lambda 版本：'2022-02-09'
 
-- Fixes an error not being able to bundle using Webpack if not using Typescript.
+- 修复了如果不使用 TypeScript 则无法使用 Webpack 打包的错误。
 
-### February 7th, 2022
+### 2022年2月7日
 
-Version hash: `3.0.0-lambda.355+6b0269d52`
-Lambda version: '2022-02-08'
+版本哈希：`3.0.0-lambda.355+6b0269d52`
+Lambda 版本：'2022-02-08'
 
-Fixes the following regressions and adds tests for it:
+修复了以下回归问题并为其添加了测试：
 
-- Fixes error where Output media has no audio
-- Importing `@remotion/lambda/client` no longer triggers a puppeteer error inside a Lambda function.
-- Fixes an error coming up during deploy saying ESBuild binaries are missing
-- Upgrade ESBuild to 0.14.9
+- 修复了输出媒体没有音频的错误
+- 在 Lambda 函数中导入 `@remotion/lambda/client` 不再触发 puppeteer 错误。
+- 修复了部署时出现的 ESBuild 二进制文件丢失的错误
+- 升级 ESBuild 到 0.14.9
 
-### February 4th, 2022 (4)
+### 2022年2月4日（4）
 
-Version hash: `3.0.0-lambda.337+bde12456c`
-Lambda version: '2022-02-07'
+版本哈希：`3.0.0-lambda.337+bde12456c`
+Lambda 版本：'2022-02-07'
 
-Fixes regressions:
+修复了回归问题：
 
-- Fixes `@remotion/lambda/client` not being available
+- 修复了 `@remotion/lambda/client` 不可用的问题
 
-### February 4th, 2022 (3)
+### 2022年2月4日（3）
 
-Version hash: `3.0.0-lambda.332+da8c03491`
-Lambda version: '2022-02-06'
+版本哈希：`3.0.0-lambda.332+da8c03491`  
+Lambda版本：'2022-02-06'
 
-Fixes regressions:
+修复回归问题：
 
-- Fixes not being able to render transparent WebM on Lamba.
+- 修复在Lambda上无法渲染透明的WebM。
 
-### February 4th, 2022 (2)
+### 2022年2月4日（2）
 
-Version hash: `3.0.0-lambda.329+f23080b59`
-Lambda version: '2022-02-05'
+版本哈希：`3.0.0-lambda.329+f23080b59`  
+Lambda版本：'2022-02-05'
 
-Fixes regressions:
+修复回归问题：
 
-- Fixes Lambda returning an `EISDIR` error when rendering stills.
-- Better error message when not passing `serveUrl` to `renderMediaOnLambda()`.
+- 修复Lambda在渲染静态图像时返回`EISDIR`错误。
+- 当未将`serveUrl`传递给`renderMediaOnLambda()`时，提供更好的错误消息。
 
-### February 4th, 2022
+### 2022年2月4日
 
-Version hash: `3.0.0-lambda.338+118ffe2e9`
-Lambda version: '2022-02-04'
+版本哈希：`3.0.0-lambda.338+118ffe2e9`  
+Lambda版本：'2022-02-04'
 
-Attention: Some Lambda functions are breaking from an AWS change, especially on `us-east-1` and `us-east-2`. We are worried that AWS is slowly rolling out a broken update to their Lambda functions. If you are affected or want to be on the safe side, [read these instructions](/docs/lambda/feb-2022-outage) to avoid the AWS issues.
+注意：一些Lambda函数由于AWS的更改而出现故障，特别是在`us-east-1`和`us-east-2`。我们担心AWS正在逐步推出对其Lambda函数的破坏性更新。如果受到影响或想要保险起见，请阅读这些说明以避免AWS问题。
 
-- [Allows you to deploy as a `x86_64` Lambda function](/docs/lambda/feb-2022-outage)
+- [允许您部署为`x86_64` Lambda函数](/docs/lambda/feb-2022-outage)
 
-### February 3rd, 2022
+### 2022年2月3日
 
-Version hash: `3.0.0-lambda.327+85d431c9c`
-Lambda version: '2022-02-03'
+版本哈希：`3.0.0-lambda.327+85d431c9c`  
+Lambda版本：'2022-02-03'
 
-- fix transparent webm rendering
-- all changes from 2.6.5 through 2.6.7: including new scale option also for lambda! https://www.remotion.dev/docs/scaling
-- chromium flags can now be set on lambda as well: https://www.remotion.dev/docs/chromium-flags
+- 修复透明WebM渲染问题
+- 所有2.6.5至2.6.7的更改：包括新的缩放选项也适用于Lambda！https://www.remotion.dev/docs/scaling
+- 现在还可以在Lambda上设置Chromium标志：https://www.remotion.dev/docs/chromium-flags
 
-### January 23rd, 2022
+### 2022年1月23日
 
-Version hash: `3.0.0-lambda.310+7b7d16823`  
-Lambda version: '2022-01-23'
+版本哈希：`3.0.0-lambda.310+7b7d16823`  
+Lambda版本：'2022-01-23'
 
-- Update with improvements from v2.6.5
+- 从v2.6.5中更新的改进
 
-### January 19th, 2022
+### 2022年1月19日
 
-Version hash: `3.0.0-lambda.297+0a5487655`  
-Lambda version: '2022-01-19'
+版本哈希：`3.0.0-lambda.297+0a5487655`  
+Lambda版本：'2022-01-19'
 
-- Added `timeoutInMilliseconds` to `renderMediaOnLambda`, `renderStillOnLambda` and `renderMedia`
-- New APIs: [`presignUrl()`](/docs/lambda/presignurl) and [`getAwsClient()`](/docs/lambda/getawsclient)
-- Added `outKey` which returns the S3 Key for the output artifact of a render
+- 将`timeoutInMilliseconds`添加到`renderMediaOnLambda`、`renderStillOnLambda`和`renderMedia`
+- 新API：[`presignUrl()`](/docs/lambda/presignurl) 和 [`getAwsClient()`](/docs/lambda/getawsclient)
+- 添加`outKey`，返回渲染输出的S3 Key
 
-### January 10th, 2022 (2)
+### 2022年1月10日（2）
 
-Version hash: `3.0.0-lambda.279+ee1497f24`  
-Lambda version: '2022-01-11'
+版本哈希：`3.0.0-lambda.279+ee1497f24`  
+Lambda版本：'2022-01-11'
 
-- Fixes the render erroring if `framesPerLambda` is not specified. To be clear, this parameter stays optional.
+- 修复如果未指定`framesPerLambda`则渲染错误。明确指出，此参数仍然是可选的。
 
-### January 10th, 2022
+### 2022年1月10日
 
-Version hash: `3.0.0-lambda.274+a3183304a`  
-Lambda version: '2022-01-10'
+版本哈希: `3.0.0-lambda.274+a3183304a`  
+Lambda版本: '2022-01-10'
 
-- New option to allow the filename of the output: `outName` in `renderMedia` / `renderStill` and `--out-name` in CLI flags
-- Reenable WebGL support
-- Update to Chromium 97
-- New algorithm for determining default concurrency: https://remotion.dev/docs/lambda/concurrency
-- Better error message if concurrency is too high
-- Remove `colors` module
-- Fixes an error where payload limit would be reached because `defaultProps` had a big size
-- Add @aws-sdk/abort-controller peer dependency explicitly to fix npm7 error
+- 新选项允许输出文件名: `outName` 在 `renderMedia` / `renderStill` 和 `--out-name` 在CLI标志中
+- 重新启用WebGL支持
+- 更新到Chromium 97
+- 用于确定默认并发的新算法: https://remotion.dev/docs/lambda/concurrency
+- 如果并发度过高，改进的错误消息
+- 移除 `colors` 模块
+- 修复了一个错误，因为 `defaultProps` 太大而达到了负载限制
+- 明确添加 @aws-sdk/abort-controller 作为对等依赖以修复npm7错误
 
-### January 6th, 2022
+### 2022年1月6日
 
-Version hash: `3.0.0-lambda.244+d055311e8`  
-Lambda version: '2022-01-06'
+版本哈希: `3.0.0-lambda.244+d055311e8`  
+Lambda版本: '2022-01-06'
 
-- Added changes from Remotion 2.6.0 and 2.6.1
-- Improved error message when spawning more than 200 functions
+- 添加了来自Remotion 2.6.0和2.6.1的更改
+- 当生成超过200个函数时改进了错误消息
 
-Beware of not spawning over 200 functions. `functionCount = frameCount / framesPerLambda` (by default `framesPerLambda` is 20). We will make it smarter or document it better before the official launch.
+注意不要生成超过200个函数。`functionCount = frameCount / framesPerLambda`（默认情况下 `framesPerLambda` 为20）。我们将在正式发布之前使其更智能或更好地记录。
 
-### January 5th, 2022
+### 2022年1月5日
 
-**Release possibly breaks render, don't upgrade yet!**
+**发布可能会破坏渲染，请勿立即升级！**
 
-~~Version hash: `3.0.0-lambda.237+8e8a607c9`~~
-~~Lambda version: '2022-01-05'~~
+~~版本哈希: `3.0.0-lambda.237+8e8a607c9`~~
+~~Lambda版本: '2022-01-05'~~
 
-- Added changes from Remotion 2.6
-- Improved error message when spawning more than 200 functions
+- 添加了来自Remotion 2.6的更改
+- 当生成超过200个函数时改进了错误消息
 
-Beware of not spawning over 200 functions. `functionCount = frameCount / framesPerLambda` (by default `framesPerLambda` is 20). We will make it smarter or document it better before the official launch.
+注意不要生成超过200个函数。`functionCount = frameCount / framesPerLambda`（默认情况下 `framesPerLambda` 为20）。我们将在正式发布之前使其更智能或更好地记录。
 
-### December 22nd, 2021
+### 2021年12月22日
 
-Version hash: `3.0.0-lambda.288+6ab6c681d`
-Lambda version: '2021-12-22'
+版本哈希: `3.0.0-lambda.288+6ab6c681d`
+Lambda版本: '2021-12-22'
 
-- Visiting a Serve URL in the browser shows a FAQ
-- Vast improvements to documentation, CLI documentation is now complete!
-- `downloadVideo()` was renamed to `downloadMedia()`. The previous API continues to be available, but is marked as deprecated.
-- `renderVideoOnLambda()` was renamed to `renderMediaOnLambda()`. The previous API continues to be available, but is marked as deprecated.
-- Limited the maximum amount of functions that you can invoke for one render to 200 functions. That means, if your render is 1000 frames, your `framesPerLambda` parameter must be at least `5`. Rendering with a higher concurrency will reduce the amount of videos you can render in parallel and diminish the benefits of concurrency.
-- Added [`getRegions()`](/docs/lambda/getregions) API
-- Added [`npx remotion lambda regions`](/docs/lambda/cli/regions) command
+- 在浏览器中访问Serve URL会显示常见问题解答
+- 大幅改进文档，CLI文档现已完整！
+- `downloadVideo()` 更名为 `downloadMedia()`。之前的API仍可用，但标记为弃用。
+- `renderVideoOnLambda()` 更名为 `renderMediaOnLambda()`。之前的API仍可用，但标记为弃用。
+- 限制了一次渲染中可以调用的函数的最大数量为200个。这意味着，如果您的渲染有1000帧，则您的 `framesPerLambda` 参数必须至少为 `5`。使用更高的并发度将减少您可以并行渲染的视频数量，并减少并发度的好处。
+- 添加了 [`getRegions()`](/docs/lambda/getregions) API
+- 添加了 [`npx remotion lambda regions`](/docs/lambda/cli/regions) 命令
 
-### December 15th, 2021 (2)
 
-Version hash: `3.0.0-lambda.236+b35e791d5`
-Lambda version: '2021-12-17'
 
-Fixes an error being thrown in the Lambda function: `The AWS access Key ID you provided does not exist in your records`.
+### 2021年12月15日 (2)
 
-### December 15th, 2021
+版本哈希：`3.0.0-lambda.236+b35e791d5`  
+Lambda版本：'2021-12-17'
 
-Version hash: `3.0.0-lambda.233+869dd7218`  
-Lambda version: '2021-12-16'
+修复了Lambda函数中出现的错误：`您提供的AWS访问密钥ID在您的记录中不存在`。
 
-Stability and ease of use improvements that we implemented from our learnings from https://githubwrapped.com!
+### 2021年12月15日
 
-- Fixed an error `Parameter 'durationInMilliseconds' must be over 0 but is [negative number]`
-- The function name of a deployed function is not random anymore. Instead it has the format of `remotion-render-2021-12-16-2048mb-120sec`
-- More CLI commands support the `-q` (quiet) flag.
-- Calling `npx remotion lambda functions deploy` if a suitable function already exists will not throw an error anymore but log the existing function.
-- Calling `deployFunction()` if a suitable function already exists will not throw an error anymore but return the existing function.
-- You can now deploy another function with the same region and version, but with a different memory size or timeout. This allows you to increase memory size or timeout without causing downtime. [Read more about it here.](/docs/lambda/faq#do-i-need-to-deploy-a-function-for-each-render)
-- Improved compatibility with Vercel: Since `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are reserved environment variables on Vercel and are already occupied, you can now set `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` instead for calling any Remotion Lambda Node.JS API.
-- Multi-account load balancing: The environment variables `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` can now be switched before making a call to Lambda. (Previously there was a bug that would cache the clients.)
-- If the render is not completed 20 seconds after the timeout of the initial invocation, the render will automatically be marked as failed. No more stuck renders!
-- catch errors occuring while assets are being downloaded and trigger a retry (previously would fail the chunk render and make the whole render time out)
+版本哈希：`3.0.0-lambda.233+869dd7218`  
+Lambda版本：'2021-12-16'
 
-### December 10th, 2021 (2)
+我们从 https://githubwrapped.com 的经验中实施了稳定性和易用性改进！
 
-Version hash: `3.0.0-lambda.206+161f56853`
-Lambda version: '2021-12-11'
+- 修复了一个错误 `参数'durationInMilliseconds'必须大于0，但是为[负数]`
+- 部署函数的函数名不再是随机的。而是采用`remotion-render-2021-12-16-2048mb-120sec`的格式。
+- 更多CLI命令支持`-q`（安静）标志。
+- 如果已经存在适当的函数，则调用`npx remotion lambda functions deploy`不再会抛出错误，而是记录现有函数。
+- 如果已经存在适当的函数，则调用`deployFunction()`不再会抛出错误，而是返回现有函数。
+- 现在可以使用相同的区域和版本部署另一个函数，但内存大小或超时时间不同。这允许您增加内存大小或超时时间而不会导致停机时间。[在此处阅读更多信息。](/docs/lambda/faq#do-i-need-to-deploy-a-function-for-each-render)
+- 与Vercel的兼容性得到改善：由于`AWS_ACCESS_KEY_ID`和`AWS_SECRET_ACCESS_KEY`是Vercel上保留的环境变量并且已被占用，您现在可以设置`REMOTION_AWS_ACCESS_KEY_ID`和`REMOTION_AWS_SECRET_ACCESS_KEY`来调用任何Remotion Lambda Node.JS API。
+- 多账户负载平衡：环境变量`AWS_ACCESS_KEY_ID`、`AWS_SECRET_ACCESS_KEY`、`REMOTION_AWS_ACCESS_KEY_ID`和`REMOTION_AWS_SECRET_ACCESS_KEY`现在可以在调用Lambda之前切换。（之前存在一个缓存客户端的错误。）
+- 如果在初始调用的超时时间之后20秒内渲染未完成，则渲染将自动标记为失败。不再出现卡住的渲染！
+- 捕获在下载资产时发生的错误并触发重试（以前会导致块渲染失败并使整个渲染超时）。
 
-- Fixes the policy generated by `npx remotion lambda policies user` so AWS accepts it. Update the user policy of your AWS user if you'd like the slimmest set of permissions needed.
-- Fixes an issue where an error occuring during `npx remotion lambda policies validate` would not be caught.
+### 2021年12月10日 (2)
 
-### December 10th, 2021
+版本哈希: `3.0.0-lambda.206+161f56853`
+Lambda版本: '2021-12-11'
 
-Version hash: `3.0.0-lambda.203+6e2dfd14e`
-Lambda version: '2021-12-10'
+- 修复了由 `npx remotion lambda policies user` 生成的策略，以便AWS接受。如果您希望使用最少的所需权限集更新AWS用户的用户策略。
+- 修复了在 `npx remotion lambda policies validate` 过程中发生错误时无法捕获的问题。
 
-The Lambda function now prints inputProps that you can read in your CloudWatch logs for easier debugging.
+### 2021年12月10日
 
-### December 7th, 2021
+版本哈希: `3.0.0-lambda.203+6e2dfd14e`
+Lambda版本: '2021-12-10'
 
-Version hash: `3.0.0-lambda.196+d4d99a5b8`
-Lambda version: '2021-12-04'
+Lambda函数现在会打印输入属性，您可以在CloudWatch日志中查看，以便更轻松地进行调试。
 
-_We mistakenly didn't increase the version number in this release. Sorry about this and we will fix this issue._
+### 2021年12月7日
 
-Fix Korean/Chinese/Japanese fonts from last release where it did not work as expected. Due to space constraints, only Regular weight is supported.
+版本哈希: `3.0.0-lambda.196+d4d99a5b8`
+Lambda版本: '2021-12-04'
 
-### December 4th, 2021
+_我们在此版本中错误地没有增加版本号。对此我们感到抱歉，我们将解决这个问题。_
 
-Version hash: `3.0.0-alpha.192+8e7345b69`
-Lambda version: '2021-12-04'
+修复了上一个版本中韩文/中文/日文字体无法按预期工作的问题。由于空间限制，仅支持常规字重。
 
-- Support rendering a video partially using `frameRange` / `--frame-range` option
-- Improve Setup guide
-- Improve CLI documentation
-- Deleted `save-browser-logs` function in favour of the new CloudWatch solution. Pass `--log=verbose` instead and see CloudWatch for more detailed logs.
-- Retry if the AWS rate limit is exceeded for `npx remotion lambda permissions validate` command and for `validatePermissions()` function.
-- New Fonts: `Noto Sans JP`, `Noto Sans Simplified Chinese`, `Noto Sans Traditional Chinese`, `Noto Sans Korean` both in Regular and Bold.
+### 2021年12月4日
 
-### November 28th, 2021
+版本哈希: `3.0.0-alpha.192+8e7345b69`
+Lambda版本: '2021-12-04'
 
-Version hash: `3.0.0-lambda.158+f214b5355`
-Lambda version: '2021-11-29'
+- 支持使用 `frameRange` / `--frame-range` 选项部分渲染视频
+- 改进设置指南
+- 改进CLI文档
+- 删除了`save-browser-logs`函数，改用新的CloudWatch解决方案。改为传递 `--log=verbose`，并查看CloudWatch以获取更详细的日志。
+- 如果 `npx remotion lambda permissions validate` 命令和 `validatePermissions()` 函数超过AWS速率限制，则进行重试。
+- 新字体: `Noto Sans JP`、`Noto Sans Simplified Chinese`、`Noto Sans Traditional Chinese`、`Noto Sans Korean`，均有常规和粗体。
 
-- Fixes a bug with `renderVideoOnLambda()`
+### 2021年11月28日
 
-### November 27th, 2021
+版本哈希: `3.0.0-lambda.158+f214b5355`
+Lambda版本: '2021-11-29'
 
-Version hash: `3.0.0-lambda.151+ba8c212b9`
-Lambda version: '2021-11-27'
+- 修复了 `renderVideoOnLambda()` 的一个错误。
 
-Remotion 3.0 Rendering pipeline refactor merged into this branch!
+### 2021年11月27日
 
-- **Parallel encoding**: Now rendering and encoding happens at the same time! You should see a speed improvement. Also, if you embedded videos with audio, these are now downloaded earlier in the rendering process, which will give the rendering times another boost.
-- **Breaking**: Server-side rendering APIs have been refactored. See the separate [3.0 Migration](/docs/3-0-migration) page for it. New `openBrowser()` and `renderMedia()` APIs are now available.
-- Downloading a video using the CLI now shows a progress bar.
+版本哈希: `3.0.0-lambda.151+ba8c212b9`
+Lambda版本: '2021-11-27'
 
-### November 24th, 2021
+Remotion 3.0渲染管道重构合并到此分支中！
 
-Version hash: `3.0.0-lambda.143+08ebdfa17`
-Lambda version: '2021-11-24'
+- **并行编码**：现在渲染和编码同时进行！您应该看到速度有所提升。此外，如果您嵌入了带音频的视频，这些现在会在渲染过程中较早下载，这将进一步提高渲染时间。
+- **重大变更**：服务器端渲染API已经重构。请查看单独的[3.0迁移](/docs/3-0-migration)页面。现在可用新的`openBrowser()`和`renderMedia()` API。
+- 使用CLI下载视频现在会显示进度条。
 
-- **Breaking**: Migrated to **ARM architecture**! This means 34% better cost/performance ratio. However, only the following 10 regions support ARM architectures: `eu-central-1`, `eu-west-1`, `eu-west-2`, `us-east-1`, `us-east-2`, `us-west-2`, `ap-south-1`, `ap-southeast-1`, `ap-southeast-2`, `ap-northeast-1`.
+### 2021年11月24日
 
-That means that the previously supported regions `us-west-1`, `af-south-1`, `ap-east-1`, `ap-northeast-2`, `ap-northeast-3`, `ca-central-1`, `eu-west-1`, `eu-west-2`, `eu-south-1`, `eu-west-3`, `eu-north-1`, `me-south-1`, `sa-east-1` are not supported anymore.
+版本哈希：`3.0.0-lambda.143+08ebdfa17`
+Lambda版本：'2021-11-24'
 
-We will add those regions back again once AWS adds support for Lambda.
+- **重大变更**：迁移到**ARM架构**！这意味着成本/性能比提高了34%。然而，只有以下10个地区支持ARM架构：`eu-central-1`、`eu-west-1`、`eu-west-2`、`us-east-1`、`us-east-2`、`us-west-2`、`ap-south-1`、`ap-southeast-1`、`ap-southeast-2`、`ap-northeast-1`。
 
-- Fixes an issue where multiple versions of Remotion could appear in a project even though they were pinned down in your `package.json`.
-- Fixes an issue where audio could become out of sync if audio with different sample rates was appearing in the video
+这意味着以前支持的地区 `us-west-1`、`af-south-1`、`ap-east-1`、`ap-northeast-2`、`ap-northeast-3`、`ca-central-1`、`eu-west-1`、`eu-west-2`、`eu-south-1`、`eu-west-3`、`eu-north-1`、`me-south-1`、`sa-east-1` 不再受支持。
 
-### November 18th, 2021
+一旦AWS为Lambda添加支持，我们将再次添加这些地区。
 
-Version hash: `3.0.0-lambda.122+a588a81b9`
-Lambda version: '2021-11-18'
+- 修复了一个问题，即即使在您的 `package.json` 中固定了 Remotion 的多个版本，仍可能出现多个版本的 Remotion。
+- 修复了一个问题，即如果视频中出现具有不同采样率的音频，则音频可能会失去同步。
 
-- The default number of max retries is now 1 (previously 3). A new CLI flag `--max-retries` was introduced which can be used for `npx remotion lambda render` and `npx remotion lambda still`
-- You can now pass `--privacy=public` or `--privacy=private` in the CLi to determine if the output video should be publicly accessible. The default is and was `public`.
-- Fixes an issue where a Remotion version mismatch could happen.
+### 2021年11月18日
 
-### November 12th, 2021
+版本哈希：`3.0.0-lambda.122+a588a81b9`
+Lambda版本：'2021-11-18'
 
-Version hash: `3.0.0-lambda.99+bd5d55651`
-Lambda version: '2021-11-12'
+- 默认的最大重试次数现在为1（之前为3）。引入了一个新的CLI标志 `--max-retries`，可用于 `npx remotion lambda render` 和 `npx remotion lambda still`。
+- 您现在可以在CLI中传递 `--privacy=public` 或 `--privacy=private` 来确定输出视频是否应该是公开可访问的。默认值是且一直是 `public`。
+- 修复了一个问题，即可能发生 Remotion 版本不匹配的情况。
 
-- **Breaking change**: Update your AWS user and role policies
+### 2021年11月12日
 
-1. Update to the newest version of Remotion Lambda.
-1. Read [Step 2](/docs/lambda/setup#2-create-role-policy) of the setup guide and update the role with the newest policy (`npx remotion lambda policies role`).
-1. Read [Step 5](/docs/lambda/setup#5-create-an-access-key-for-the-user) of the setup guide and update the user with the newest policy (`npx remotion lambda policies user`).
+版本哈希：`3.0.0-lambda.99+bd5d55651`
+Lambda版本：'2021-11-12'
 
-- **Breaking change**: If your application throws an error or exception, the render will now fail. This will be the default behavior of Remotion 3.0. See: [3.0 Migration](/docs/3-0-migration)
-- Added CloudWatch support, now you can read the logs inside the Lambda function. When you execute `npx remotion lambda render`, add the `--log=verbose` flag to print out an URL to CloudWatch.
-- Switched to new rendering mechanism which renders + encodes the video in parallel, saving a significant amount of render time!
-- Improved CLI output of `npx remotion lambda render`
-- Added changes from 2.5.1 - 2.5.4
-- Disabled automatic AWS Lambda retrying in favor of our own retry mechanism
+- **重大变更**：更新您的AWS用户和角色策略
 
-### November 1st, 2021
+1. 更新到最新版本的 Remotion Lambda。
+1. 阅读[第2步](/docs/lambda/setup#2-create-role-policy)的设置指南，并使用最新策略更新角色（`npx remotion lambda policies role`）。
+1. 阅读[第5步](/docs/lambda/setup#5-create-an-access-key-for-the-user)的设置指南，并使用最新策略更新用户（`npx remotion lambda policies user`）。 
 
-Version hash: `3.0.0-lambda.57+d1dd7ce77`
-Lambda version: '2021-11-01'
 
-- `deploySite()` now returns `serveUrl` instead of `url`
-- `renderStillOnLambda()` returns a new field: `renderId`
-- Documented `downloadVideo()` method
-- `downloadVideo()` return value property renamed from `size` to `sizeInBytes`
-- Command `npx remotion lambda sites ls` now supports `-q` flag
-- `getSites()` command now returns a `serveUrl` for each site
-- Deleted the `cleanup` command - it's obsolete
-- Added [Production checklist page](/docs/lambda/checklist)
-- Added [Uninstall guide](/docs/lambda/uninstall)
 
-### October 29th, 2021
+- **重大变更**：如果您的应用程序抛出错误或异常，渲染将会失败。这将是 Remotion 3.0 的默认行为。查看：[3.0 迁移](/docs/3-0-migration)
+- 添加了 CloudWatch 支持，现在您可以在 Lambda 函数内部读取日志。当执行 `npx remotion lambda render` 时，添加 `--log=verbose` 标志以打印出 CloudWatch 的 URL。
+- 切换到新的渲染机制，可以并行渲染和编码视频，节省了大量的渲染时间！
+- 改进了 `npx remotion lambda render` 的 CLI 输出
+- 添加了从 2.5.1 - 2.5.4 的更改
+- 禁用了自动 AWS Lambda 重试，改用我们自己的重试机制
 
-Version hash: `3.0.0-lambda.42+838a7a013`  
-Lambda version: '2021-10-29'
+### 2021年11月1日
 
-- Merged changes from Remotion 2.5.1
+版本哈希：`3.0.0-lambda.57+d1dd7ce77`  
+Lambda 版本：'2021-11-01'
 
-### October 27th, 2021
+- `deploySite()` 现在返回 `serveUrl` 而不是 `url`
+- `renderStillOnLambda()` 返回一个新字段：`renderId`
+- 记录了 `downloadVideo()` 方法
+- `downloadVideo()` 返回值属性从 `size` 重命名为 `sizeInBytes`
+- 命令 `npx remotion lambda sites ls` 现在支持 `-q` 标志
+- `getSites()` 命令现在为每个站点返回一个 `serveUrl`
+- 删除了 `cleanup` 命令 - 它已过时
+- 添加了[生产清单页面](/docs/lambda/checklist)
+- 添加了[卸载指南](/docs/lambda/uninstall)
 
-Version hash: `3.0.0-lambda.37+874f731d5`  
-Lambda version: '2021-10-27'
+### 2021年10月29日
 
-- Added a new `saveBrowserLogs` / `--save-browser-logs` option for dumping browser logs to an S3 bucket (you are responsible for cleaning up the logs if you enable this option!)
-- Fixed a bug where `NoSuchKey` exception could be thrown when calling `getRenderProgress()`
-- Merged changes from Remotion 2.5
+版本哈希：`3.0.0-lambda.42+838a7a013`  
+Lambda 版本：'2021-10-29'
 
-### October 21st, 2021
+- 合并了 Remotion 2.5.1 的更改
 
-Version hash: `3.0.0-lambda.25+9573ee628`
+### 2021年10月27日
 
-- You can now import the functions `getRenderProgress()`, `renderVideoOnLambda()`, and `renderStillOnLambda()` via `@remotion/lambda/client` free of Node.JS dependencies. That means they should be importable in the browser and React Native and should be lightweight to bundle. This is not yet tested well, let us know your experiences!
-- When rendering a video via the Lambda CLI, FFMPEG is no longer required.
-- From `main` branch: Calling `getInputProps()` from `remotion` package on the server will no longer fail, but warn and return an empty object.
-- Added a way to disable chunk optimization and added some explainer graphics for what chunk optimization is - full doc coming later.
-- Pinned exact Remotion versions to avoid a version mismatch with Yarn
+版本哈希：`3.0.0-lambda.37+874f731d5`  
+Lambda 版本：'2021-10-27'
 
-### October 20th, 2021
+- 添加了一个新的 `saveBrowserLogs` / `--save-browser-logs` 选项，用于将浏览器日志转储到 S3 存储桶（如果启用此选项，则您负责清理日志！）
+- 修复了调用 `getRenderProgress()` 时可能抛出 `NoSuchKey` 异常的 bug
+- 合并了 Remotion 2.5 的更改
 
-Version hash: `3.0.0-lambda.2+a97302554`
+### 2021年10月21日
 
-- Updated with all the changes from main branch.
+版本哈希：`3.0.0-lambda.25+9573ee628`
 
-### October 7th, 2021
+- 现在可以通过 `@remotion/lambda/client` 导入函数 `getRenderProgress()`、`renderVideoOnLambda()` 和 `renderStillOnLambda()`，无需 Node.JS 依赖。这意味着它们应该可以在浏览器和 React Native 中导入，并且应该很轻量级。这还没有经过充分测试，请告诉我们您的体验！
+- 通过 Lambda CLI 渲染视频时，不再需要 FFMPEG。
+- 从 `main` 分支：从 `remotion` 包中的服务器调用 `getInputProps()` 将不再失败，而是警告并返回一个空对象。
+- 添加了一种禁用块优化的方法，并添加了一些解释性图形，说明什么是块优化 - 完整文档稍后提供。
+- 固定了确切的 Remotion 版本，以避免与 Yarn 版本不匹配。
 
-Version hash: `2.5.0-alpha.da8c43b8`
+### 2021年10月20日
 
-_Note: This version in broken. Don't use it._
+版本哈希：`3.0.0-lambda.2+a97302554`
 
-- A new `privacy` field determines if the video will be public of private once it's rendered. No default - this field is mandatory
-- New `overallProgress` field in `getRenderProgress()` which can be used to display a progress bar to end users
-- The `getSites()` method returns a property `sizeInBytes` which was previously `size`.
-- The `deleteSite()` method returns a property `totalSizeInBytes` which was previously `totalSize`.
-- Lambda layers are now hosted in a dedicated AWS account
-- Documented `getSites()` and `deleteSite()` methods
-- Improved progress display for `npx remotion lambda` command
-- Now showing estimated cost for `npx remotion lambda` command
-- Using the `ANGLE` OpenGL renderer for Chrome instead of SwiftShader
+- 已更新为主分支的所有更改。
 
-### October 3rd, 2021
 
-Version hash: `2.5.0-alpha.5da9a754`
 
-Refactor of the Lambda layer architecture to bring the following benefits:
+### 2021年10月7日
 
-- Free up more than 200 MB in the `/tmp` directory to allow for longer videos to be rendered
-- Avoid having to unzip Chromium and FFMPEG on every function launch, saving 300-400ms on every function launch
-- Removed the need for `lambda:ListLayers`, `lambda:DeleteLayerVersion`, `lambda:GetLayerVersion` and `lambda:PublishLayerVersion` permission.
-- Removed the need to call `ensureLambdaBinaries()`. The function and docs for it have been deleted, remove it from your implementation as well. You also don't need to pass `layerArn` to `deployFunction` anymore either.
+版本哈希：`2.5.0-alpha.da8c43b8`
 
-Also:
+_注意：此版本存在问题。请勿使用。_
 
-- Fixed a bug where a `ENOENT` exception could be thrown during render
-- Improved time to deploy a function by removing need to bundle the function first.
-- Removed `esbuild`, `zip-lib` and `p-retry` dependencies to make library more lightweight.
+- 新的 `privacy` 字段确定视频在渲染后是公开还是私有。没有默认值 - 此字段是强制的。
+- `getRenderProgress()` 中新增 `overallProgress` 字段，可用于向最终用户显示进度条。
+- `getSites()` 方法返回一个名为 `sizeInBytes` 的属性，之前为 `size`。
+- `deleteSite()` 方法返回一个名为 `totalSizeInBytes` 的属性，之前为 `totalSize`。
+- Lambda 层现在托管在专用的 AWS 账户中。
+- 文档化了 `getSites()` 和 `deleteSite()` 方法。
+- 改进了 `npx remotion lambda` 命令的进度显示。
+- 现在显示 `npx remotion lambda` 命令的预估成本。
+- 在 Chrome 中使用 `ANGLE` OpenGL 渲染器，而不是 SwiftShader。
 
-### October 1th, 2021
 
-Version hash: `2.5.0-alpha.b52a746f`
 
-- Renamed `deployProject()` to `deploySite()`.
-- Exported `getSites()` and `deleteSite()` methods (not documented yet)
-- Added `siteName` to the options of `deploySite()` - now you can define the name of your site yourself, and redeploy to keep the same site.
-- Replace `estimatedLambdaInvokations` with `estimatedRenderLambdaInvokations`.
-- Rename `bucketSize` to `renderSize`. This property is reporting the size of the render, not the size of the bucket.
-- Added `downloadVideo()` API (not documented yet)
-- If you add a filename to the end of the render command `npx remotion lambda render [url] [comp-name] out.mp4`, the video will be downloaded to your computer!
-- `npx remotion lambda render` has a progress bar now. To continue to see all details, use the `--log=verbose` flag!
+### 2021年10月3日
 
-### September 15th, 2021
+版本哈希：`2.5.0-alpha.5da9a754`
 
-Version hash: `2.4.0-alpha.d3efed28`
+重构 Lambda 层架构以带来以下好处：
 
-- Added `framesPerLambda` setting to `renderVideoOnLambda()`.
-- Added `--frames-per-lambda` option to `npx remotion lambda render` command.
-- Added `enableCaching` and `webpackOverride` options to `deployProject()` function.
-- Webpack override and webpack caching is now respected when deploying from the CLI
+- 释放 `/tmp` 目录中超过 200 MB 的空间，以允许渲染更长的视频。
+- 避免在每次函数启动时解压 Chromium 和 FFMPEG，可节省每次函数启动 300-400 毫秒。
+- 删除了对 `lambda:ListLayers`、`lambda:DeleteLayerVersion`、`lambda:GetLayerVersion` 和 `lambda:PublishLayerVersion` 权限的需求。
+- 不再需要调用 `ensureLambdaBinaries()`。已删除该函数及其文档，请从您的实现中删除。您也不再需要将 `layerArn` 传递给 `deployFunction`。
 
-### September 14th, 2021
+另外：
 
-Version hash: `2.4.0-alpha.91579e8b`
+- 修复了在渲染过程中可能引发 `ENOENT` 异常的 bug。
+- 通过无需先打包函数来改进部署函数的时间。
+- 删除了 `esbuild`、`zip-lib` 和 `p-retry` 依赖项，使库更轻量级。
 
-- Fixes a bug where `npx remotion lambda policies user` could not be executed without AWS credentials which is a paradox.
-- Fixes a bug where a render could fail with an error `Frame X was not rendered`
 
-### September 7th, 2021
 
-Version hash: `2.4.0-alpha.ec355aba`
+### 2021年10月1日
 
-- Pins the version of AWS SDKs, since a new version broke some things.
+版本哈希：`2.5.0-alpha.b52a746f`
 
-### September 6th, 2021
+- 将 `deployProject()` 重命名为 `deploySite()`。
+- 导出了 `getSites()` 和 `deleteSite()` 方法（尚未文档化）。
+- 在 `deploySite()` 的选项中添加了 `siteName` - 现在您可以自定义站点的名称，并重新部署以保持相同的站点。
+- 将 `estimatedLambdaInvokations` 替换为 `estimatedRenderLambdaInvokations`。
+- 将 `bucketSize` 重命名为 `renderSize`。此属性报告的是渲染的大小，而不是存储桶的大小。
+- 添加了 `downloadVideo()` API（尚未文档化）。
+- 如果在渲染命令的末尾添加文件名 `npx remotion lambda render [url] [comp-name] out.mp4`，视频将下载到您的计算机！
+- `npx remotion lambda render` 现在有一个进度条。要继续查看所有详细信息，请使用 `--log=verbose` 标志！ 
 
-Version hash: `2.4.0-alpha.41bfd52d`
 
-- Added more font families to support Arabic, Devanagari, Hebrew, Tamil, Thai scripts.
-- Added input props to the render metadata that gets persisted for each render to help debugging.
 
-### August 6th, 2021
+### 2021年9月15日
 
-Version hash: `2.3.0-alpha.0d814aad`
+版本哈希：`2.4.0-alpha.d3efed28`
 
-- Node.JS API is now fully documented
-- Lambda function `name` was renamed to `functionName`
-- Fix `remotion lambda policies validate` wrongly indicating that the `iam:GetUser` permission was not given
-- `getDeployedLambdas()` was renamed to `getFunctions()`
-- `getFunctionVersion()` was removed, use `getFunctionInfo()`
-- New function `estimatePrice` is now available.
-- Parameter `memorySize` was renamed to `memorySizeInMb` globally.
-- New function [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) available for rendering a still image.
-- New command [`npx remotion lambda still`](/docs/lambda/cli) for rendering a still image
-- React component lifecycle change: When the component is mounting, initially `useCurrentFrame()` returns the frame that is initially being rendered, rather than just `0` and then updating to the frame that will be initially rendered.
-- Includes all the changes from Remotion 2.2
+- 添加了 `framesPerLambda` 设置到 `renderVideoOnLambda()`。
+- 添加了 `--frames-per-lambda` 选项到 `npx remotion lambda render` 命令。
+- 添加了 `enableCaching` 和 `webpackOverride` 选项到 `deployProject()` 函数。
+- 当从 CLI 部署时，现在会尊重 Webpack 覆盖和 Webpack 缓存。
 
-### July 14th, 2021
+### 2021年9月14日
 
-- Emojis are now rendered using the Noto Color Emoji font
-- Better price calculation
-- Cleanup of S3 buckets after rendering
+版本哈希：`2.4.0-alpha.91579e8b`
 
-### July 6th, 2021
+- 修复了一个 bug，即 `npx remotion lambda policies user` 在没有 AWS 凭证的情况下无法执行，这是一个悖论。
+- 修复了一个 bug，即渲染可能会失败，并显示错误 `Frame X was not rendered`。
 
-- You can now use `npx remotion lambda` instead of `npx remotion-lambda`.
-- CLI supports the `-y` ('yes') flag for skipping confirmation of destructive commands.
-- Stability, memory management and reliability improved
-- Lambda runtime and Region selection now documented
-- `renderVideoOnLambda()` and `getRenderProgress` now documented.
-- `deployLambda()` has been renamed to `deployFunction()`
+### 2021年9月7日
+
+版本哈希：`2.4.0-alpha.ec355aba`
+
+- 固定了 AWS SDK 版本，因为新版本破坏了一些功能。
+
+### 2021年9月6日
+
+版本哈希：`2.4.0-alpha.41bfd52d`
+
+- 添加了更多字体系列以支持阿拉伯文、天城文、希伯来文、泰米尔文、泰文脚本。
+- 添加了输入属性到每次渲染持久化的渲染元数据，以帮助调试。
+
+### 2021年8月6日
+
+版本哈希：`2.3.0-alpha.0d814aad`
+
+- Node.JS API 现已完全文档化。
+- Lambda 函数 `name` 已重命名为 `functionName`。
+- 修复了 `remotion lambda policies validate` 错误地指示未授予 `iam:GetUser` 权限的问题。
+- `getDeployedLambdas()` 已重命名为 `getFunctions()`。
+- `getFunctionVersion()` 已移除，使用 `getFunctionInfo()`。
+- 新函数 `estimatePrice` 现已可用。
+- 全局将参数 `memorySize` 重命名为 `memorySizeInMb`。
+- 新函数 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 可用于渲染静态图像。
+- 新命令 [`npx remotion lambda still`](/docs/lambda/cli) 用于渲染静态图像。
+- React 组件生命周期更改：当组件挂载时，初始情况下 `useCurrentFrame()` 返回的是初始渲染的帧，而不仅仅是 `0`，然后更新为将要初始渲染的帧。
+- 包含了 Remotion 2.2 的所有更改。
+
+### 2021年7月14日
+
+- 现在使用 Noto Color Emoji 字体呈现表情符号。
+- 更好的价格计算。
+- 渲染后清理 S3 存储桶。
+
+### 2021年7月6日 
+
+- 现在您可以使用 `npx remotion lambda` 代替 `npx remotion-lambda`。
+- CLI 支持 `-y`（'yes'）标志，用于跳过破坏性命令的确认。
+- 稳定性、内存管理和可靠性得到改善。
+- Lambda 运行时和区域选择现已记录在案。
+- `renderVideoOnLambda()` 和 `getRenderProgress` 现已记录在案。
+- `deployLambda()` 已更名为 `deployFunction()` 

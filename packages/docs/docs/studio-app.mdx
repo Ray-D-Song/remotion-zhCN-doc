@@ -1,62 +1,55 @@
 ---
 image: /generated/articles-docs-studio-app.png
 id: studio-into-app
-title: Converting a Remotion project to an app
-sidebar_label: Convert Studio to an app
-crumb: 'Converting Remotion Projects'
+title: 将 Remotion 项目转换为应用程序
+sidebar_label: 将 Studio 转换为应用程序
+crumb: '转换 Remotion 项目'
 ---
 
-If you have started from any [Remotion template](/templates) except the Next.js and Remix templates, you currently have an app where you can start the [Remotion Studio](/docs/terminology/studio).
+如果您从任何 [Remotion 模板](/templates) 开始，除了 Next.js 和 Remix 模板之外，您目前拥有一个应用程序，您可以在其中启动 [Remotion Studio](/docs/terminology/studio)。
 
-If you would like to now turn your project into an app, follow these steps.
+如果您现在想将您的项目转换为应用程序，请按照以下步骤操作。
 
-<Step>1</Step> Scaffold a new project using one of those templates:
+<Step>1</Step> 使用以下模板之一搭建一个新项目：
 
-- [Next.js (App dir)](/templates/next)
-- [Next.js (App dir + TailwindCSS)](/templates/next-tailwind)
-- [Next.js (Pages dir)](/templates/next-pages-dir)
+- [Next.js（应用程序目录）](/templates/next)
+- [Next.js（应用程序目录 + TailwindCSS）](/templates/next-tailwind)
+- [Next.js（页面目录）](/templates/next-pages-dir)
 - [Remix](/templates/remix)
 
-<Step>2</Step> In the <code>remotion/Root.tsx</code> file of the new project, replace
-the sample code with the code from <code>src/Root.tsx</code> from your existing project.
-Include all other components recursively, until <code>npx tsc -w</code> does give
-no errors anymore.
+<Step>2</Step> 在新项目的 <code>remotion/Root.tsx</code> 文件中，用现有项目的 <code>src/Root.tsx</code> 中的代码替换示例代码。递归包含所有其他组件，直到 <code>npx tsc -w</code> 不再报错。
 
-<Step>3</Step> Copy the contents of the <code>public</code> folder into the new project.
+<Step>3</Step> 将 <code>public</code> 文件夹的内容复制到新项目中。
 
-<Step>4</Step> Find where the <code>{'<Player>'}</code> is rendered:
+<Step>4</Step> 找到 <code>{'<Player>'}</code> 渲染的位置：
 <ul>
 	<li>
-		<strong>In the Next.js Pages Dir template:</strong> Under{' '}
-		<code>pages/index.tsx</code>.
+		<strong>在 Next.js 页面目录模板中：</strong> 在 <code>pages/index.tsx</code> 下。
 	</li>
 	<li>
-		<strong>In the Next.js App Dir template:</strong> Under{' '}
-		<code>app/page.tsx</code>.
+		<strong>在 Next.js 应用程序目录模板中：</strong> 在 <code>app/page.tsx</code> 下。
 	</li>
 	<li>
-		<strong>In the Remix template:</strong> Under{' '}
-		<code>app/routes/_index.tsx</code>.
+		<strong>在 Remix 模板中：</strong> 在 <code>app/routes/_index.tsx</code> 下。
 	</li>
 </ul>
 
-Choose the main [composition](/docs/terminology/composition) that you want to render in the Player and include it's <code>component</code> and other metadata in the <code>&lt;Player&gt;</code>. You may import the component from the <code>remotion</code> folder so it is imported in both the Studio and the app.
+选择您要在 Player 中呈现的主要 [组合](/docs/terminology/composition)，并在 <code>&lt;Player&gt;</code> 中包含其 <code>component</code> 和其他元数据。您可以从 <code>remotion</code> 文件夹导入组件，以便在 Studio 和应用程序中都导入。
 
-If you want to remove the duplication of metadata, you can define constants such as `DURATION_IN_FRAMES` and `FPS` in a separate file and import the constants in both the Studio and the app.
+如果要消除元数据的重复，您可以在单独的文件中定义常量，如 `DURATION_IN_FRAMES` 和 `FPS`，并在 Studio 和应用程序中导入这些常量。
 
-If you use [`calculateMetadata()`](/docs/dynamic-metadata#with-the-player), see [here](/docs/dynamic-metadata#with-the-player) how you can use it with the Player.
+如果您使用 [`calculateMetadata()`](/docs/dynamic-metadata#with-the-player)，请参阅[此处](/docs/dynamic-metadata#with-the-player)了解如何在 Player 中使用它。
 
-<Step>5</Step> If you have any Webpack override defined in <code>remotion.config.ts</code>
-, look up how to apply it to your framework as well.
+<Step>5</Step> 如果您在 <code>remotion.config.ts</code> 中定义了任何 Webpack 覆盖，请查看如何将其应用到您的框架中。
 
-## Next steps
+## 下一步
 
-Good luck with your new app!
+祝您的新应用好运！
 
-- [ ] Chat with other builders on [Discord](https://remotion.dev/discord).
-- [ ] Post your app on [`#showcase`](https://remotion.dev/discord) and tag [`@remotion`](https://x.com/remotion) on x.com if you build something!
-- [ ] If you build together with others, ensure you have the proper [Remotion license](/docs/license).
+- [ ] 在 [Discord](https://remotion.dev/discord) 上与其他构建者交流。
+- [ ] 在 [`#showcase`](https://remotion.dev/discord) 上展示您的应用，并在 x.com 上标记 [`@remotion`](https://x.com/remotion) 如果您构建了什么！
+- [ ] 如果与他人一起构建，请确保您拥有适当的 [Remotion 许可证](/docs/license)。
 
-## See also
+## 另请参阅
 
-- [Installation in an existing project](/docs/brownfield)
+- [在现有项目中安装](/docs/brownfield) 

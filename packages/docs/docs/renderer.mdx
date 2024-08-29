@@ -1,33 +1,35 @@
 ---
 image: /generated/articles-docs-renderer.png
 slug: renderer
-sidebar_label: Overview
+sidebar_label: 概述
 title: "@remotion/renderer"
 ---
 
 import { TableOfContents } from "../components/TableOfContents/renderer";
 
-The `@remotion/renderer` package provides APIs for rendering video server-side.
-The package is also internally used by the Remotion CLI and [Remotion Lambda](/docs/lambda).
+`@remotion/renderer` 包提供了用于在服务器端渲染视频的 API。
+该包也被 Remotion CLI 和 [Remotion Lambda](/docs/lambda) 内部使用。
 
 :::warning
-The configuration file has no effect when using these APIs.
+在使用这些 API 时，配置文件不起作用。
 :::
 
-## Installation
+## 安装
 
 <Installation pkg="@remotion/renderer" />
 
-## Server-side rendering examples
+## 服务器端渲染示例
 
-See the [Server-side rendering](/docs/ssr) for some examples of how to use server-side rendering.
+查看 [服务器端渲染](/docs/ssr) 以获取一些如何使用服务器端渲染的示例。
 
-## Available functions
+## 可用函数
 
-The following APIs are available in the `@remotion/renderer` package:
+以下 API 可在 `@remotion/renderer` 包中使用：
 
 <TableOfContents />
 
-## What's the difference between `renderMedia()` and `renderFrames()`?
+## `renderMedia()` 和 `renderFrames()` 有什么区别？
 
-In Remotion 3.0, we added the [`renderMedia()`](/docs/renderer/render-media) API which combines `renderFrames()` and `stitchFramesToVideo()` into one simplified step and performs the render faster. Prefer `renderMedia()` if you can.
+在 Remotion 3.0 中，我们添加了 [`renderMedia()`](/docs/renderer/render-media) API，它将 `renderFrames()` 和 `stitchFramesToVideo()` 结合为一个简化的步骤，并且执行渲染速度更快。如果可以的话，请优先使用 `renderMedia()`。 
+
+

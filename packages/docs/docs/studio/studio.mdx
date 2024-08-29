@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-studio-studio.png
-title: Starting the Studio
-crumb: "Timeline basics"
+title: 启动工作室
+crumb: "时间轴基础"
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Using the Remotion Studio, you can preview your video, and if a server is connected, even render the video.
+使用 Remotion Studio，您可以预览您的视频，并且如果连接了服务器，甚至可以渲染视频。
 
-## Prerequisites
+## 先决条件
 
-The Remotion CLI is required for this guide.  
-Most templates have it out of the box, but you can install it by running the following command in your terminal:
+本指南需要使用 Remotion CLI。  
+大多数模板都已经内置了它，但您可以通过在终端中运行以下命令来安装它：
 
 <Tabs
 defaultValue="npm"
@@ -56,18 +56,18 @@ bun i @remotion/cli
   </TabItem>
 </Tabs>
 
-## Launching the Studio
+## 启动工作室
 
-You can start the Remotion Studio by running the following command in your terminal:
+您可以通过在终端中运行以下命令来启动 Remotion Studio：
 
 <Tabs
-defaultValue="Regular templates"
+defaultValue="常规模板"
 values={[
-{ label: 'Regular templates', value: 'Regular templates', },
-{ label: 'Next.js and Remix templates', value: 'Next.js and Remix templates', },
+{ label: '常规模板', value: '常规模板', },
+{ label: 'Next.js 和 Remix 模板', value: 'Next.js 和 Remix 模板', },
 ]
 }>
-<TabItem value="Regular templates">
+<TabItem value="常规模板">
 
 ```bash
 npm start
@@ -75,7 +75,7 @@ npm start
 
   </TabItem>
 
-  <TabItem value="Next.js and Remix templates">
+  <TabItem value="Next.js 和 Remix 模板">
 
 ```bash
 npm run remotion
@@ -84,14 +84,14 @@ npm run remotion
   </TabItem>
 </Tabs>
 
-This is a shorthand for the [`studio`](/docs/cli/studio) command of the [Remotion CLI](/docs/cli):
+这是 [Remotion CLI](/docs/cli) 的 [`studio`](/docs/cli/studio) 命令的简写：
 
 ```bash
 npx remotion studio
 ```
 
-See the available [options here](/docs/cli/studio).
+查看这里的可用 [选项](/docs/cli/studio)。
 
-A server will be started on port `3000` (or a higher port if it isn't available) and the Remotion Studio should open in the browser.
+服务器将在端口 `3000` 上启动（如果不可用，则会使用更高的端口），并且 Remotion Studio 应该会在浏览器中打开。
 
 <img src="/img/timeline.png"></img>

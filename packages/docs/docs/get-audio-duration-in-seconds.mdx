@@ -5,23 +5,23 @@ id: get-audio-duration-in-seconds
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions._
+_`@remotion/media-utils` 包中的辅助函数之一。_
 
-_Previously called `getAudioDuration()`._
+_之前称为 `getAudioDuration()`。_
 
-Gets the duration in seconds of an audio source. Remotion will create an invisible `<audio>` tag, load the audio and return the duration.
+获取音频源的持续时间（以秒为单位）。Remotion 将创建一个不可见的 `<audio>` 标签，加载音频并返回持续时间。
 
-## Arguments
+## 参数
 
 ### `src`
 
-A string pointing to an audio asset
+指向音频资产的字符串
 
-## Return value
+## 返回值
 
-`Promise<number>` - the duration of the audio file.
+`Promise<number>` - 音频文件的持续时间。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // @module: ESNext
@@ -51,6 +51,7 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-audio-duration-in-seconds.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-audio-duration-in-seconds.ts)
+

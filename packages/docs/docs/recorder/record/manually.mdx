@@ -1,15 +1,15 @@
 ---
 image: /generated/articles-docs-recorder-record-manually.png
-title: Manually add recordings
-sidebar_label: Manually add recordings
+title: 手动添加录音
+sidebar_label: 手动添加录音
 crumb: Recorder
 ---
 
-You can also add recordings from other sources, like your phone.  
-Simply name the file `webcam` followed by any number, like `10`, followed by one of the supported file extensions: `.mp4`, `.webm`, `.mkv` or `.mov`.
+您还可以从其他来源添加录音，比如您的手机。  
+只需将文件命名为 `webcam`，后面跟上任何数字，比如 `10`，再跟上支持的文件扩展名之一：`.mp4`、`.webm`、`.mkv` 或 `.mov`。
 
-The order your recordings appear in your video is based on the number suffix.  
-Here is a way you could structure your recordings:
+您的录音在视频中出现的顺序是基于数字后缀的。  
+以下是您可以组织录音的一种方式：
 
 ```txt
 public
@@ -20,9 +20,9 @@ public
     └── webcam30.mp4
 ```
 
-If there is only a `webcam` recording with said number, the webcam will be fullscreen.
+如果只有一个带有该数字的 `webcam` 录音，则摄像头将全屏显示。
 
-A `display` recording will only get picked up if there is also a `webcam` recording.  
-The webcam will be miniaturized in this case.
+只有在还有一个 `webcam` 录音时，才会捕捉到 `display` 录音。  
+在这种情况下，摄像头将被缩小显示。
 
-If you only have recorded a display, give it a `webcam` prefix nonetheless for it to get picked up.
+如果您只录制了显示内容，请仍然为其添加 `webcam` 前缀，以便捕捉到它。

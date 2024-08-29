@@ -6,12 +6,12 @@ crumb: "@remotion/renderer"
 ---
 
 :::warning
-From v4.0 on, frames can always be extracted fast and therefore the function has been removed. The information in this document only applies to older versions of Remotion and is preserved for people who are still using them.
+从 v4.0 版本开始，帧始终可以快速提取，因此该函数已被移除。本文档中的信息仅适用于 Remotion 的旧版本，并保留供仍在使用这些版本的人使用。
 :::
 
-_Available since v3.3.2, removed in v4.0 - Part of the `@remotion/renderer` package._
+_自 v3.3.2 版本起可用，v4.0 版本中移除 - `@remotion/renderer` 包的一部分。_
 
-Probes whether frames of a video can be efficiently extracted when using [`<OffthreadVideo>`](/docs/offthreadvideo).
+探测在使用 [`<OffthreadVideo>`](/docs/offthreadvideo) 时是否可以高效提取视频帧。
 
 ```ts
 // @module: ESNext
@@ -27,54 +27,54 @@ console.log(result.shouldReencode); // true
 ```
 
 :::info
-Pass an absolute path to `getCanExtractFramesFast()`. URLs are not supported.
+向 `getCanExtractFramesFast()` 传递绝对路径。不支持 URL。
 :::
 
-## When to use this API
+## 使用此 API 的时机
 
-If you are using [`<OffthreadVideo>`](/docs/offthreadvideo), you might get a warning ["Using a slow method to extract the frame"](/docs/slow-method-to-extract-frame) if a video is included which does not include enough metadata to efficiently extract a certain frame of a video. This might result in the render becoming slow.
+如果您正在使用 [`<OffthreadVideo>`](/docs/offthreadvideo)，当包含的视频不包含足够的元数据以高效提取视频的某一帧时，您可能会收到警告 ["使用缓慢的方法提取帧"](/docs/slow-method-to-extract-frame)。这可能导致渲染变慢。
 
-Using this API, you can probe whether this issue affects your video file. It will try to extract the last frame of a video and if it succeeds, your video is not affected. Otherwise, `canExtractFramesFast` will be `false`.
+使用此 API，您可以探测此问题是否影响您的视频文件。它将尝试提取视频的最后一帧，如果成功，则您的视频不受影响。否则，`canExtractFramesFast` 将为 `false`。
 
-## How to act on the results
+## 根据结果采取行动
 
-When `canExtractFramesFast` is `false`, you should check the `shouldReencode` flag. If it is true, you can re-encode the video to make the render faster. Note that it is not always faster to re-encode the video than it is to deal with a slow render.
+当 `canExtractFramesFast` 为 `false` 时，您应检查 `shouldReencode` 标志。如果为 true，则可以重新编码视频以加快渲染速度。请注意，并非总是重新编码视频比处理缓慢的渲染更快。
 
-Videos with a VP8 codec don't support fast frame extraction at all, and therefore `shouldReencode` can be false even if `canExtractFramesFast` is false.
+VP8 编解码器的视频根本不支持快速帧提取，因此即使 `canExtractFramesFast` 为 false，`shouldReencode` 也可能为 false。
 
-## Reencoding a video
+## 重新编码视频
 
-You can re-encode a video using FFmpeg:
+您可以使用 FFmpeg 重新编码视频：
 
 ```sh
 ffmpeg -i inputvideo.mp4 outputvideo.mp4
 ```
 
-## Arguments
+## 参数
 
-An object containing one or more of the following options:
+包含以下一个或多个选项的对象：
 
 ### `src`
 
-Pointing to a video file. Must be an absolute file path.
+指向视频文件。必须是绝对文件路径。
 
 ### ~~`ffmpegExecutable?`~~
 
-_removed in v4.0_
+_v4.0 版本中已移除_
 
-_string - optional_
+_string - 可选_
 
-An absolute path overriding the `ffmpeg` executable to use.
+一个绝对路径，用于覆盖要使用的 `ffmpeg` 可执行文件。
 
 ### ~~`ffprobeExecutable?`~~
 
-_removed in v4.0, \_string, optional_
+_在 v4.0 中已移除，\_string，可选_
 
-An absolute path overriding the `ffprobe` executable to use.
+一个绝对路径，用于覆盖要使用的 `ffprobe` 可执行文件。
 
-## Return value
+## 返回值
 
-Returns a promise which resolves to an object with the following parameters:
+返回一个解析为具有以下参数的对象的 Promise：
 
-- `canExtractFramesFast`: _boolean_ Whether it will be fast to extract a frame from a video.
-- `shouldReencode`: _boolean_ Whether the video can be re-encoded to make the render faster.
+- `canExtractFramesFast`: _boolean_ 是否从视频中提取帧速度快。
+- `shouldReencode`: _boolean_ 视频是否可以重新编码以加快渲染速度。

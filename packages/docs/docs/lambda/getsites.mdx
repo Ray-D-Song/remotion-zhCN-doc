@@ -6,13 +6,13 @@ slug: /lambda/getsites
 crumb: "Lambda API"
 ---
 
-Gets an array of Remotion projects in your S3 account.
+获取您的S3帐户中的Remotion项目数组。
 
-The projects are located in the `sites/` subdirectory of your S3 bucket. Remember - you should only have one bucket for Remotion Lambda per region, therefore you do not need to specify the name of the bucket for this function.
+这些项目位于您的S3存储桶的`sites/`子目录中。请记住 - 每个区域的Remotion Lambda应该只有一个存储桶，因此您不需要为此函数指定存储桶的名称。
 
-## Example
+## 示例
 
-Gets all sites and logs information about them.
+获取所有站点并记录有关它们的信息。
 
 ```ts twoslash
 // @module: ESNext
@@ -39,76 +39,76 @@ for (const bucket of buckets) {
 ```
 
 :::note
-Preferrably import this function from `@remotion/lambda/client` (available from v3.3.42) to avoid problems [inside serverless functions](/docs/lambda/light-client).
+最好从`@remotion/lambda/client`（从v3.3.42可用）导入此函数，以避免[在无服务器函数内部](/docs/lambda/light-client)出现问题。
 :::
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) which you want to query.
+您要查询的[AWS区域](/docs/lambda/region-selection)。
 
 ### `forceBucketName?`<AvailableFrom v="3.3.102"/>
 
-_optional_
+_可选_
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让Remotion自动发现正确的存储桶。
 
-## Return value
+## 返回值
 
-A promise resolving to an object with the following properties:
+解析为具有以下属性的对象的Promise：
 
 ### `sites`
 
-An array of deployed Remotion projects that you can use for rendering.
+您可以用于渲染的已部署Remotion项目的数组。
 
-Each item contains the following properties:
+每个项目包含以下属性：
 
 #### `id`
 
-A unique identifier for that project.
+该项目的唯一标识符。
 
 #### `bucketName`
 
-The bucket in which the project resides in.
+项目所在的存储桶。
 
 #### `lastModified`
 
-When the files in that project were last changed.
+该项目中的文件上次更改的时间。
 
 #### `sizeInBytes`
 
-The combined size of all files in that project.
+该项目中所有文件的组合大小。
 
 #### `serveUrl`
 
-URL of the deployed site. You can pass it into [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) to render a video or audio.
+部署站点的URL。您可以将其传递给[`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)以渲染视频或音频。
 
 ### `buckets`
 
-An array of all buckets in the selected region in your account that start with `remotionlambda-`.
+您帐户中所选区域中以`remotionlambda-`开头的所有存储桶的数组。
 
 :::info
-You should only have [1 bucket](/docs/lambda/multiple-buckets) per region for all your Remotion projects. Nonetheless `buckets` is an array, since we cannot prevent you from manually creating additional buckets with the `remotionlambda-` prefix.
+您应该每个区域只有[1个存储桶](/docs/lambda/multiple-buckets)用于所有Remotion项目。尽管`buckets`是一个数组，但我们无法阻止您手动创建具有`remotionlambda-`前缀的附加存储桶。
 :::
 
-Each item contains the following properties:
+每个项目包含以下属性：
 
 #### `region`
 
-The region the bucket resides in.
+存储桶所在的地区。
 
 #### `name`
 
-The name of the bucket. S3 buckets have globally unique names.
+存储桶的名称。S3 存储桶具有全局唯一的名称。
 
 #### `creationDate`
 
-A UNIX timestamp of the point when the bucket was first created.
+存储桶首次创建时的 UNIX 时间戳。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-sites.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/get-sites.ts)
 - [deleteSite()](/docs/lambda/deletesite)

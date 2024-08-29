@@ -4,11 +4,11 @@ title: getBoundingBox()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.40_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.40版本开始可用_
 
-Returns the bounding box of the given path, suitable for calculating the `viewBox` value that you need to pass to an SVG.
+返回给定路径的边界框，适用于计算您需要传递给SVG的`viewBox`值。
 
-The bounding box is the smallest rectangle which can contain the shape in full.
+边界框是能够完全包含形状的最小矩形。
 
 ```tsx twoslash title="get-bounding-box.ts"
 import { getBoundingBox } from "@remotion/paths";
@@ -19,29 +19,30 @@ const boundingBox = getBoundingBox(
 // { x1: 35, x2: 85, y1: 24.999999999999993, y2: 75 };
 ```
 
-This function will throw if the SVG path is invalid.
+如果SVG路径无效，此函数将抛出异常。
 
-## Return type
+## 返回类型
 
-Includes the following properties:
+包括以下属性：
 
-- `x1`: The leftmost x coordinate of the bounding box
-- `x2`: The rightmost x coordinate of the bounding box
-- `y1`: The topmost y coordinate of the bounding box
-- `y2`: The bottommost y coordinate of the bounding box
-- `width`: The width of the bounding box, _returned from v3.3.97_
-- `height`: The height of the bounding box, _returned from v3.3.97_
-- `viewBox`: The `viewBox` value that you can pass to an SVG, _returned from v3.3.97_
+- `x1`：边界框的最左侧x坐标
+- `x2`：边界框的最右侧x坐标
+- `y1`：边界框的最顶部y坐标
+- `y2`：边界框的最底部y坐标
+- `width`：边界框的宽度，_从v3.3.97版本开始返回_
+- `height`：边界框的高度，_从v3.3.97版本开始返回_
+- `viewBox`：您可以传递给SVG的`viewBox`值，_从v3.3.97版本开始返回_
 
-## `BoundingBox` type
+## `BoundingBox`类型
 
-In TypeScript, you can get the shape of the return value by importing the `BoundingBox` type:
+在TypeScript中，您可以通过导入`BoundingBox`类型来获取返回值的形状：
 
 ```ts twoslash
 import type { BoundingBox } from "@remotion/paths";
 ```
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-bounding-box.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-bounding-box.ts)
+

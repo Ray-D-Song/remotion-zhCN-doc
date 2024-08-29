@@ -4,9 +4,9 @@ title: serializeInstructions()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package. Available from v3.3.40_
+_属于[`@remotion/paths`](/docs/paths)包。从v3.3.40版本开始可用_
 
-Takes an array of [`Instruction`](/docs/paths/parse-path)'s and serializes it into an SVG path string.
+接受一个[`Instruction`](/docs/paths/parse-path)数组，并将其序列化为SVG路径字符串。
 
 ```tsx twoslash title="serialize-instructions.ts"
 import { serializeInstructions } from "@remotion/paths";
@@ -25,10 +25,11 @@ const newPath = serializeInstructions([
 ]); // M 10 10 L 20 20
 ```
 
-This function may throw if the instructions don't match the [`Instruction`](/docs/paths/parse-path) type, but it does not explicitly check for invalid input.
+如果指令与[`Instruction`](/docs/paths/parse-path)类型不匹配，此函数可能会抛出异常，但它不会明确检查无效输入。
 
-## See also
+## 另请参阅
 
 - [`@remotion/paths`](/docs/paths)
 - [`parsePath()`](/docs/paths/parse-path)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/serialize-instructions.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/serialize-instructions.ts)
+

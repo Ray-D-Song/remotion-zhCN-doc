@@ -1,46 +1,48 @@
 ---
 image: /generated/articles-docs-lambda-disk-size.png
 id: disk-size
-title: Disk size
+title: 磁盘大小
 crumb: "Lambda"
 ---
 
-By default, each Lambda function comes with an ephemereal disk size of:
+默认情况下，每个 Lambda 函数都带有一个临时磁盘大小：
 
-| Remotion Version | Default       |
+| Remotion 版本 | 默认值       |
 |------------------|---------------|
 | &lt;5.0.0        | 2048MB        |
 | &gt;=5.0.0       | 10240MB       |
 
-Increasing disk space will allow for longer videos, and speeds up renders because Chrome has access to more disk cache.  
-Disk.  
+增加磁盘空间将允许更长的视频，并加快渲染速度，因为 Chrome 可以访问更多的磁盘缓存。  
+磁盘。  
 
-Adding more disk space will almost not affect the cost of your renders at all (less than 1% more cost).  
-Therefore we recommend setting the disk size to the maximum possible value: 10240MB.
+增加更多的磁盘空间几乎不会对渲染成本产生影响（成本增加不到1%）。  
+因此，我们建议将磁盘大小设置为最大可能值：10240MB。
 
-## Approximate maximum video length
+## 大致最大视频长度
 
-Note that we recommend setting the disk size to the maximum possible value: 10240MB.
+请注意，我们建议将磁盘大小设置为最大可能值：10240MB。
 
-| Disk size         | Approximate Maximum video length |
+| 磁盘大小         | 大致最大视频长度 |
 | ----------------- | -------------------------------- |
-| 512 MB            | 8 min - 1080p                    |
-| 1024 MB           | 16 min - 1080p                   |
-| 2048 MB           | 32 min - 1080p                   |
-| 4096 MB           | 1h 4min - 1080p                  |
-| 8192 MB           | 2h 8min - 1080p                  |
-| 10240 MB          | 2h 40min - 1080p                 |
+| 512 MB            | 8 分钟 - 1080p                    |
+| 1024 MB           | 16 分钟 - 1080p                   |
+| 2048 MB           | 32 分钟 - 1080p                   |
+| 4096 MB           | 1 小时 4 分钟 - 1080p                  |
+| 8192 MB           | 2 小时 8 分钟 - 1080p                  |
+| 10240 MB          | 2 小时 40 分钟 - 1080p                 |
 
-> These are approximate values and will not exactly match your scenario. Video output size is dependant on the video content and audio. Measure and find the values that work best for you.
+> 这些是大致值，可能与您的情况不完全匹配。视频输出大小取决于视频内容和音频。测量并找到最适合您的值。
 
-## Setting the disk size
+## 设置磁盘大小
 
-- Use the [`diskSizeInMb` option of `deployFunction()`](/docs/lambda/deployfunction#disksizeinmb) to set the disk size when you deploy.
-- Use the [`--disk`](/docs/lambda/cli/functions) flag if you use the `remotion lambda functions deploy` command.
+- 使用 [`deployFunction()` 的 `diskSizeInMb` 选项](/docs/lambda/deployfunction#disksizeinmb) 在部署时设置磁盘大小。
+- 如果使用 `remotion lambda functions deploy` 命令，可以使用 [`--disk`](/docs/lambda/cli/functions) 标志。
 
-## Pricing
+## 定价
 
-Using more disk space costs marginally more.  
-Setting the disk size to the maximum possible value: 10240MB will cost less than 1% more.  
-See the [Lambda pricing page](https://aws.amazon.com/lambda/pricing/) "Lambda Ephemereal Storage Pricing" section for pricing.  
-The [`estimatePrice()`](/docs/lambda/estimateprice) API does also factor disk size into account.
+使用更多的磁盘空间会略微增加成本。  
+将磁盘大小设置为最大可能值：10240MB 的成本增加不到1%。  
+请查看 [Lambda 定价页面](https://aws.amazon.com/lambda/pricing/) 的 "Lambda 临时存储定价" 部分了解定价。  
+[`estimatePrice()`](/docs/lambda/estimateprice) API 也会考虑磁盘大小。
+
+I'm ready to start the translation whenever you paste the Markdown content.

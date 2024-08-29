@@ -1,24 +1,24 @@
 ---
 image: /generated/articles-docs-recorder-create.png
-title: Create a new video
-crumb: Recorder
+title: 创建新视频
+crumb: 录制器
 ---
 
-If you haven't done so yet, start the Recorder:
+如果尚未这样做，请启动录制器：
 
 ```bash
 bun start
 ```
 
-Remotion calls each output video a "Composition". There are two ways to generate a new composition:
+Remotion将每个输出视频称为“Composition”。有两种方法可以生成新的合成：
 
-## 1. Visual way
+## 1. 可视化方式
 
-Open [`http://localhost:3000`](https://localhost:3000) and in the left sidebar, right-click on the "empty" composition. Select "Duplicate" and give your composition an ID. Confirm.
+打开[`http://localhost:3000`](https://localhost:3000)，在左侧边栏中，右键单击“empty”合成。选择“Duplicate”并为您的合成指定一个ID。确认。
 
-## 2. Manual way
+## 2. 手动方式
 
-Open the project in a code editor. You will see an empty [`<Composition>`](/docs/terminology/composition) under `remotion/Root.tsx`:
+在代码编辑器中打开项目。您将在`remotion/Root.tsx`下看到一个空的[`<Composition>`](/docs/terminology/composition)：
 
 ```tsx
 <Composition
@@ -36,7 +36,7 @@ Open the project in a code editor. You will see an empty [`<Composition>`](/docs
 />
 ```
 
-Copy and paste the [`<Composition />`](/docs/composition) component to duplicate it and give it an [`id`](/docs/terminology/composition#composition-id) that is different than `"empty"`. For example:
+复制并粘贴[`<Composition />`](/docs/composition)组件以进行复制，并为其指定一个与`"empty"`不同的[`id`](/docs/terminology/composition#composition-id)。例如：
 
 ```tsx title="remotion/Root.tsx"
 <Composition
@@ -65,4 +65,4 @@ Copy and paste the [`<Composition />`](/docs/composition) component to duplicate
 />
 ```
 
-Save, and you should see the new composition when you look at the Remotion Studio on [`http://localhost:3000`](https://localhost:3000).
+保存，然后当您查看[`http://localhost:3000`](https://localhost:3000)上的Remotion Studio时，您应该看到新的合成。

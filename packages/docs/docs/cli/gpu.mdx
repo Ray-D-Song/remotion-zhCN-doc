@@ -1,22 +1,22 @@
 ---
 image: /generated/articles-docs-cli-gpu.png
-crumb: CLI Reference
+crumb: CLI 参考
 sidebar_label: gpu
 title: npx remotion gpu
 ---
 
-_Available from Remotion v4.0.52_
+_从 Remotion v4.0.52 开始可用_
 
-Prints out how the Chrome browser uses the GPUs.
+显示 Chrome 浏览器如何使用 GPU。
 
 ```bash
 npx remotion gpu --gl=angle
 ```
 
-The command takes the same arguments for `--gl` as `npx remotion render` and also picks up the [`Config.setChromiumOpenGlRenderer()`](/docs/config#setchromiumopenglrenderer) option.  
-Try out different values to find which one is the best for your system.
+该命令接受与 `npx remotion render` 相同的 `--gl` 参数，并且还会使用 [`Config.setChromiumOpenGlRenderer()`](/docs/config#setchromiumopenglrenderer) 选项。  
+尝试不同的值，找出哪个对您的系统最佳。
 
-```bash title="Example output"
+```bash title="示例输出"
 Canvas: Hardware accelerated
 Canvas out-of-process rasterization: Enabled
 Direct Rendering Display Compositor: Disabled
@@ -33,9 +33,10 @@ WebGL2: Hardware accelerated
 WebGPU: Hardware accelerated
 ```
 
-The output should not be used for automated parsing, as it may change inbetween any Remotion and Chrome versions.
+输出不应用于自动化解析，因为它可能在任何 Remotion 和 Chrome 版本之间更改。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cli/src/gpu.ts)
-- [Using the GPU](/docs/gpu)
+- [此功能的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cli/src/gpu.ts)
+- [使用 GPU](/docs/gpu)
+

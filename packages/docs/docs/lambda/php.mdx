@@ -1,29 +1,29 @@
 ---
 image: /generated/articles-docs-lambda-php.png
-title: Triggering renders from PHP
+title: 通过 PHP 触发渲染
 slug: /lambda/php
-sidebar_label: Rendering from PHP
+sidebar_label: 从 PHP 渲染
 crumb: "@remotion/lambda"
 ---
 
-_available from v3.3.96_
+_从 v3.3.96 版本开始可用_
 
 <ExperimentalBadge>
-This feature is new. Please report any issues you encounter. API may change inbetween patch versions.
+此功能是新功能。请报告您遇到的任何问题。API 可能会在补丁版本之间更改。
 </ExperimentalBadge>
 
-To trigger a Lambda render using PHP, install the `remotion/lambda` package using `composer`. Use the same version as the `remotion` version you are using from NPM and pin the version by removing the `^` character in your `composer.json`.
+要使用 PHP 触发 Lambda 渲染，请使用 `composer` 安装 `remotion/lambda` 包。使用与您从 NPM 使用的 `remotion` 版本相同的版本，并通过在您的 `composer.json` 中删除 `^` 字符来固定版本。
 
-Below is a snippet showing how to initiate a render request and get its status. Note the following before continuing:
+以下是一个显示如何发起渲染请求并获取其状态的代码片段。在继续之前请注意以下事项：
 
-- You first need to [complete the Lambda setup](/docs/lambda/setup).
-- Set the following environment variables - the example below supports `.env` files:
+- 您首先需要[完成 Lambda 设置](/docs/lambda/setup)。
+- 设置以下环境变量 - 下面的示例支持 `.env` 文件：
   - `AWS_ACCESS_KEY_ID`
   - `AWS_SECRET_ACCESS_KEY`
   - `REMOTION_APP_REGION`
   - `REMOTION_APP_FUNCTION_NAME`
   - `REMOTION_APP_SERVE_URL`
-- Sending large input props (>200KB) is not supported with PHP at the moment.
+- 目前不支持使用 PHP 发送大型输入属性（>200KB）。
 
 ```php title="render.php"
 <?php
@@ -92,12 +92,13 @@ while (!$renderProgressResponse->done) {
 print_r("Render is done!\n");
 ```
 
-## Changelog
+## 更新日志
 
-- `v4.0.15`: The fields are now typed. `->setInputProps()` now works as intended, serializing the input props to JSON for you.
-- `v4.0.6`: The response payload structure has changed. See the history of this page to see the previous structure.
+- `v4.0.15`：字段现在是有类型的。`->setInputProps()` 现在按预期工作，为您将输入属性序列化为 JSON。
+- `v4.0.6`：响应有效载荷结构已更改。请查看此页面的历史记录以查看以前的结构。
 
-## See also
+## 另请参阅
 
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Permissions](/docs/lambda/permissions)
+- [无需 IAM 用户使用 Lambda](/docs/lambda/without-iam)
+- [权限](/docs/lambda/permissions)
+

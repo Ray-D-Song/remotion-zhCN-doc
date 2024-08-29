@@ -1,28 +1,28 @@
 ---
 image: /generated/articles-docs-font-picker.png
 id: font-picker
-title: Build a Google Font picker
-crumb: "Building video apps"
+title: 构建 Google 字体选择器
+crumb: "构建视频应用"
 ---
 
-To show various Google fonts in a font picker and load them once the user selects them, first install `@remotion/google-fonts` (at least v3.3.64).
+要在字体选择器中显示各种 Google 字体并在用户选择后加载它们，首先安装 `@remotion/google-fonts`（至少 v3.3.64）。
 
-This feature is only available if `@remotion/google-fonts` is imported as an ES Module.  
-If it is imported as a CommonJS module instead, loading a font will throw an error.
+此功能仅在将 `@remotion/google-fonts` 导入为 ES 模块时才可用。  
+如果将其导入为 CommonJS 模块，加载字体将会抛出错误。
 
-Call [`getAvailableFonts()`](/docs/google-fonts/get-available-fonts) to get a list of Google Fonts and call `.load()` to load the metadata of a font.  
-Afterwards, on the object you retrieve:
+调用 [`getAvailableFonts()`](/docs/google-fonts/get-available-fonts) 来获取 Google 字体列表，并调用 `.load()` 来加载字体的元数据。  
+之后，在检索到的对象上：
 
-- You can call `getInfo()` to retrieve available styles and weights.
-- You can call `loadFont()` to load the font itself.
+- 您可以调用 `getInfo()` 来检索可用的样式和权重。
+- 您可以调用 `loadFont()` 来加载字体本身。
 
-Use the `fontFamily` CSS property to apply a font.
+使用 `fontFamily` CSS 属性来应用字体。
 
-Remember that if you want to render a video with said font, you also need to load the font inside the Remotion video. You can do it in the same way, by looping through the available fonts, finding the font you want to load and then load it.
+请记住，如果您想使用该字体渲染视频，还需要在 Remotion 视频中加载该字体。您可以通过相同的方式来完成，遍历可用字体，找到要加载的字体，然后加载它。
 
-## Show all fonts in a font picker
+## 在字体选择器中显示所有字体
 
-The following snippet renders a dropdown with all Google Fonts, and loads one it it has been selected. The list is approximately 1400 fonts.
+以下代码片段呈现一个下拉菜单，其中包含所有 Google 字体，并在选择后加载其中一个。列表中大约有 1400 种字体。
 
 ```tsx twoslash
 import { getAvailableFonts } from "@remotion/google-fonts";
@@ -74,9 +74,9 @@ export const FontPicker: React.FC = () => {
 };
 ```
 
-## Show only the 250 most popular Google Fonts
+## 仅显示前 250 种最受欢迎的 Google 字体
 
-To reduce bundle size, you can limit the selection. Instead of calling `getAvailableFonts()`, create a file with the following contents and use it as the fonts array:
+为了减小捆绑包大小，您可以限制选择。不要调用 `getAvailableFonts()`，而是创建一个包含以下内容的文件，并将其用作字体数组：
 
 ```ts twoslash
 import type { GoogleFont } from "@remotion/google-fonts";
@@ -1262,9 +1262,9 @@ export const top250 = [
 ];
 ```
 
-## Show only the 100 most popular Google Fonts
+## 仅显示前 100 种最受欢迎的 Google 字体
 
-To reduce bundle size, you can limit the selection. Instead of calling `getAvailableFonts()`, create a file with the following contents and use it as the fonts array:
+为了减小捆绑包大小，您可以限制选择。不要调用 `getAvailableFonts()`，而是创建一个包含以下内容的文件，并将其用作字体数组：
 
 ```ts twoslash
 import type { GoogleFont } from "@remotion/google-fonts";
@@ -1733,9 +1733,9 @@ export const top100 = [
 ];
 ```
 
-## Show only the 25 most popular Google Fonts
+## 仅显示前 25 种最受欢迎的 Google 字体
 
-To reduce bundle size, you can limit the selection. Instead of calling `getAvailableFonts()`, create a file with the following contents and use it as the fonts array:
+为了减小捆绑包大小，您可以限制选择。不要调用 `getAvailableFonts()`，而是创建一个包含以下内容的文件，并将其用作字体数组：
 
 ```ts twoslash
 import type { GoogleFont } from "@remotion/google-fonts";
@@ -1856,3 +1856,5 @@ export const top25 = [
   },
 ];
 ```
+
+I'm ready to translate the Markdown content into Chinese. Please go ahead and paste the content for translation.

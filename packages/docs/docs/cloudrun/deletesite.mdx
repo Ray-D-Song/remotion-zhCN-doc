@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Removes a Remotion project from your Cloud Storage bucket.
+从您的 Cloud Storage 存储桶中删除 Remotion 项目。
 
-Each project is located in the `sites/` subdirectory of your Cloud Storage bucket. Calling this function is equivalent of deleting all files inside a subfolder of your `sites/` subdirectory.
+每个项目位于您的 Cloud Storage 存储桶的 `sites/` 子目录中。调用此函数相当于删除 `sites/` 子目录中一个子文件夹内的所有文件。
 
-## Example
+## 示例
 
-Gets all sites and deletes them.
+获取所有站点并删除它们。
 
 ```ts twoslash
 // @module: ESNext
@@ -36,28 +36,28 @@ for (const site of sites) {
 }
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+具有以下属性的对象：
 
 ### `bucketName`
 
 _string_
 
-The name of the Cloud Storage bucket in which your site resides in.
+您的站点所在的 Cloud Storage 存储桶的名称。
 
 ### `siteName`
 
 _string_
 
-The unique ID of the project you want to delete.
+您要删除的项目的唯一 ID。
 
-## Return value
+## 返回值
 
-A promise resolving nothing.
+一个解析为 `undefined` 的 Promise。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/delete-site.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/delete-site.ts)
 - [getSites()](/docs/cloudrun/getsites)
 - [deploySite()](/docs/cloudrun/deploysite)

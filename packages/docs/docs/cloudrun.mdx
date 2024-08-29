@@ -1,94 +1,92 @@
 ---
 image: /generated/articles-docs-cloudrun.png
 id: cloudrun
-sidebar_label: Overview
+sidebar_label: 概览
 title: '@remotion/cloudrun'
 ---
 
 <ExperimentalBadge>
   <p>
-    Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the{' '}<a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.
+    Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看{' '}<a href="https://remotion.dev/changelog">更改日志以了解最新的重大更改</a>。
   </p>
 </ExperimentalBadge>
 
-Render Remotion videos on [GCP Cloud Run](https://cloud.google.com/run).
+在 [GCP Cloud Run](https://cloud.google.com/run) 上渲染 Remotion 视频。
 
 import {GcpRegionList} from '../components/cloudrun/regions.tsx';
 
-## When should I use it?
+## 我应该在什么时候使用它？
 
-- You are fine with using Google Cloud Platform in one of the [supported regions](/docs/cloudrun/region-selection).
+- 您可以在 [支持的区域](/docs/cloudrun/region-selection) 中使用 Google Cloud Platform。
 
-If one of those constraints is a dealbreaker for you, resort to normal [server-side rendering](/docs/ssr).
+如果其中任何约束条件对您来说是不可接受的，请使用普通的 [服务器端渲染](/docs/ssr)。
 
-## How it works
+## 工作原理
 
-### Deployment
+### 部署
 
-- Any time a new version of Remotion is published by the Remotion team, a new image will be uploaded to a publicly readable artifact registry in GCP.
-- When you deploy a new Cloud Run service to your GCP Project, it will by default download the latest image from the repository. If you require a specific version, you can specify that in the command.
+- 每当 Remotion 团队发布新版本时，将会在 GCP 的公共可读取存储库中上传新的映像。
+- 当您将新的 Cloud Run 服务部署到您的 GCP 项目时，默认情况下会从存储库下载最新的映像。如果您需要特定版本，可以在命令中指定。
 
-### Rendering
+### 渲染
 
-- A Cloud Run service and a Cloud Storage bucket are created in GCP.
-- A Remotion project gets deployed to a Cloud Storage bucket as a website.
-- The Cloud Run service gets invoked and opens the Remotion project.
-- The Cloud Run service renders the video or still, and the final file gets uploaded to Cloud Storage and is available for download.
+- 在 GCP 中创建一个 Cloud Run 服务和一个 Cloud 存储桶。
+- 将 Remotion 项目部署到 Cloud 存储桶作为网站。
+- 调用 Cloud Run 服务并打开 Remotion 项目。
+- Cloud Run 服务渲染视频或静态图像，最终文件上传到 Cloud 存储并可供下载。
 
-## Architecture
+## 架构
 
-- **Cloud Run service**: Contains the required libraries and binaries for rendering Remotion projects, and is available for invoking behind a URL.
-- **Cloud Storage bucket**: Stores the projects, the renders, and render metadata.
-- **CLI**: Allows control of the overall architecture from the command line. Is installed by adding `@remotion/cloudrun` to a project.
-- **Node.JS API**: Has the same features as the CLI but is easier to use programmatically.
+- **Cloud Run 服务**：包含渲染 Remotion 项目所需的库和二进制文件，并可通过 URL 调用。
+- **Cloud 存储桶**：存储项目、渲染和渲染元数据。
+- **CLI**：通过将 `@remotion/cloudrun` 添加到项目中进行安装，允许从命令行控制整体架构。
+- **Node.JS API**：具有与 CLI 相同的功能，但更易于以编程方式使用。
 
-## Setup / Installation
+## 设置 / 安装
 
-[**See here**](/docs/cloudrun/setup)
+## 区域选择 
 
-## Region selection
-
-The following regions are available for Remotion Cloud Run:
+以下区域适用于 Remotion Cloud Run：
 
 <GcpRegionList />
 
-[**See here for configurations and considerations.**](/docs/cloudrun/region-selection)
+[**点击此处查看配置和注意事项。**](/docs/cloudrun/region-selection)
 
-## Quotas and Limits
+## 配额和限制 
 
-For all up-to-date values, check the [official Cloud Run docs](https://cloud.google.com/run/quotas).
+有关最新值，请查看[官方 Cloud Run 文档](https://cloud.google.com/run/quotas)。
 
-- The maximum memory size is 32gb.
-- The maximum number of vCPUs is 8.
-- The maximum writeable, in-memory filesystem, limited by instance memory, is 32gb.
-- The maximum timeout is 60 minutes.
+- 最大内存大小为 32gb。
+- 最大 vCPU 数为 8。
+- 可写入的最大内存文件系统，受实例内存限制，为 32gb。
+- 最大超时时间为 60 分钟。
 
-## Cost
+## 成本 
 
-Most of our users render multiple minutes of video for just a few pennies. The exact cost is dependent on the region, assigned memory, type of video and other parameters. You might also need a Remotion license (see below).
+我们的大多数用户仅需花费几分钱即可渲染多分钟的视频。确切的成本取决于区域、分配的内存、视频类型和其他参数。您可能还需要一个 Remotion 许可证（请参见下文）。
 
-## GCP permissions
+## GCP 权限 
 
-Remotion Cloud Run requires you to create a GCP project and create a Service Account with some permissions attached to it. We require only the minimal amount of permissions required for operating Remotion Cloud Run. [Service Account permission list and reasons](/docs/cloudrun/permissions).
+Remotion Cloud Run 需要您创建一个 GCP 项目，并创建一个带有一些权限的服务帐号。我们仅需要操作 Remotion Cloud Run 所需的最少权限。[服务帐号权限列表和原因](/docs/cloudrun/permissions)。
 
-## CLI
+## CLI 
 
-You can control Remotion Cloud Run using the `npx remotion cloudrun` command.
+您可以使用 `npx remotion cloudrun` 命令控制 Remotion Cloud Run。
 
-[**Read more about the CLI**](/docs/cloudrun/cli)
+[**了解更多关于 CLI 的信息**](/docs/cloudrun/cli)
 
-## Node.JS API
+## Node.JS API 
 
-Everything you can do using the CLI, you can also control using Node.JS APIs. See the reference [here](/docs/cloudrun/api).
+您可以使用 Node.JS API 控制 Remotion Cloud Run，实现与 CLI 相同的功能。请参阅[此处的参考文档](/docs/cloudrun/api)。
 
-## License
+## 许可证 
 
-The standard Remotion license applies. https://github.com/remotion-dev/remotion/blob/main/LICENSE.md
+适用标准 Remotion 许可证。https://github.com/remotion-dev/remotion/blob/main/LICENSE.md
 
-Companies need to buy 1 cloud rendering seat per 2000 renders per month - see https://remotion.pro
+公司需要每月购买 1 个云渲染席位，每 2000 次渲染一次 - 请参见 https://remotion.pro
 
-## Uninstalling
+## 卸载 
 
-We make it easy to remove all Remotion resources from your GCP project without leaving any traces or causing further costs.
+我们提供了一种简单的方法，可以从您的 GCP 项目中删除所有 Remotion 资源，而不会留下任何痕迹或造成进一步的成本。
 
-[How to uninstall Remotion Cloud Run](/docs/cloudrun/uninstall).
+[如何卸载 Remotion Cloud Run](/docs/cloudrun/uninstall)。

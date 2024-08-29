@@ -2,34 +2,34 @@
 image: /generated/articles-docs-three.png
 id: three
 title: "@remotion/three"
-sidebar_label: Overview
+sidebar_label: 概览
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import { ThreeDPlayer } from "../components/3DPhonePlayer.tsx";
 
-is a package for integrating [React Three Fiber](https://github.com/pmndrs/react-three-fiber) with Remotion.
+是一个用于将 [React Three Fiber](https://github.com/pmndrs/react-three-fiber) 与 Remotion 集成的包。
 
-- [`<ThreeCanvas />`](/docs/three-canvas) will allow you to use `useCurrentFrame()` and other Remotion hooks within a R3F Canvas. Animations are now not inside a `useFrame()` hook, but directly rendered into the markup.
+- [`<ThreeCanvas />`](/docs/three-canvas) 允许您在 R3F 画布中使用 `useCurrentFrame()` 和其他 Remotion 钩子。动画现在不再在 `useFrame()` 钩子中，而是直接渲染到标记中。
 
-- [`useVideoTexture()`](/docs/use-video-texture) allows you to use a Remotion [`<Video />`](/docs/video) as a texture map.
+- [`useVideoTexture()`](/docs/use-video-texture) 允许您将 Remotion [`<Video />`](/docs/video) 用作纹理映射。
 
-- [`useOffthreadVideoTexture()`](/docs/use-offthread-video-texture) is an equivalent to [`useVideoTexture()`](/docs/use-video-texture), but displays the exact frame as an `Three.ImageTexture` during rendering, simillarly to [`<OffthreadVideo />`](/docs/offthreadvideo).
+- [`useOffthreadVideoTexture()`](/docs/use-offthread-video-texture) 相当于 [`useVideoTexture()`](/docs/use-video-texture)，但在渲染期间将确切帧显示为 `Three.ImageTexture`，类似于 [`<OffthreadVideo />`](/docs/offthreadvideo)。
 
-These are the only two APIs provided - for everything else you can use the standard [React Three Fiber](https://github.com/pmndrs/react-three-fiber) APIs.
+这是提供的唯一两个 API - 对于其他所有内容，您可以使用标准的 [React Three Fiber](https://github.com/pmndrs/react-three-fiber) API。
 
-## Starter template
+## 起始模板
 
-Check out [remotion-template-three](https://github.com/remotion-dev/template-three), a minimal boilerplate for Remotion and React Three Fiber. It is a template repository, you can click "Use this template" on the GitHub repo to get started.
+查看 [remotion-template-three](https://github.com/remotion-dev/template-three)，这是一个用于 Remotion 和 React Three Fiber 的最小样板。这是一个模板存储库，您可以在 GitHub 存储库上点击 "使用此模板" 来开始使用。
 
 <ThreeDPlayer />
 
-The template features a 3D phone with a video inside which you can effortlessly swap out. Just as easily, you can change properties like the color, size, thickness, corner radius of the phone.
+该模板展示了一个带有视频的 3D 手机，您可以轻松更换其中的视频。同样简单，您可以更改手机的颜色、大小、厚度、圆角半径等属性。
 
-The template serves as a soft introduction on how to use `<ThreeCanvas />` and `useVideoTexture()`. You can easily delete everything inside the canvas to start working on a different idea.
+该模板作为如何使用 `<ThreeCanvas />` 和 `useVideoTexture()` 的简单介绍。您可以轻松删除画布内的所有内容，以开始处理不同的想法。
 
-## Installation
+## 安装
 
 <Tabs
 defaultValue="npm"
@@ -38,40 +38,34 @@ values={[
 { label: 'yarn', value: 'yarn', },
 { label: 'pnpm', value: 'pnpm', },
 ]
-}>
-<TabItem value="npm">
+} />
+<TabItem value="npm" />
 
 ```bash
 npm i three @react-three/fiber @remotion/three @types/three
 ```
 
-  </TabItem>
-
-  <TabItem value="yarn">
+<TabItem value="yarn" />
 
 ```bash
 yarn add three @react-three/fiber @remotion/three @types/three
 ```
 
-  </TabItem>
-  <TabItem value="pnpm">
+<TabItem value="pnpm" />
 
 ```bash
 pnpm i three @react-three/fiber @remotion/three @types/three
 ```
 
-  </TabItem>
-</Tabs>
+您现在已经设置好，可以在您的项目中渲染[`<ThreeCanvas />`](/docs/three-canvas)。
 
-You are now set up and can render a [`<ThreeCanvas />`](/docs/three-canvas) in your project.
+## 关于 `<Sequence>` 的说明
 
-## Note on `<Sequence>`
+[`<Sequence>`](/docs/sequence) 默认会返回一个 `<div>` 组件，这在 `<ThreeCanvas>` 内是不允许的。为了避免错误，请在 `<Sequence>` 中传递 `layout="none"`。
 
-A [`<Sequence>`](/docs/sequence) by default will return a `<div>` component, which is not allowed inside a `<ThreeCanvas>`. To avoid an error, pass `layout="none"` to `<Sequence>`.
+## 关于服务器端渲染的说明
 
-## Note on server-side rendering
-
-Three.JS does not render with the default OpenGL renderer - we recommend to set it to `angle`. The config file of new projects includes by default:
+Three.JS 不会使用默认的 OpenGL 渲染器进行渲染 - 我们建议将其设置为 `angle`。新项目的配置文件默认包含：
 
 ```ts twoslash
 import { Config } from "@remotion/cli/config";
@@ -79,7 +73,7 @@ import { Config } from "@remotion/cli/config";
 Config.setChromiumOpenGlRenderer("angle");
 ```
 
-Since the config file does not apply to server-side rendering, you need to explicitly add
+由于配置文件不适用于服务器端渲染，您需要显式地将以下内容添加到服务器端渲染的 API 中，如 [`renderMedia()`](/docs/renderer/render-media)、[`renderFrames()`](/docs/renderer/render-frames)、[`getCompositions()`](/docs/renderer/get-compositions) 和 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda)。
 
 ```json
 "chromiumOptions": {
@@ -87,8 +81,6 @@ Since the config file does not apply to server-side rendering, you need to expli
 }
 ```
 
-to server-side rendering APIs like [`renderMedia()`](/docs/renderer/render-media), [`renderFrames()`](/docs/renderer/render-frames), [`getCompositions()`](/docs/renderer/get-compositions) and [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda).
+## 感谢
 
-## Thanks
-
-A big thanks to [Björn Zeutzheim](https://github.com/olee) for researching and discovering the techniques needed for React Three Fiber integration and for doing the initial implementation of the @remotion/three APIs.
+特别感谢 [Björn Zeutzheim](https://github.com/olee) 对 React Three Fiber 集成所需技术的研究和发现，以及对 @remotion/three API 的初始实现。 

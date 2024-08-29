@@ -5,9 +5,9 @@ id: measure-spring
 crumb: "API"
 ---
 
-_Available from v2.0.8_
+_从 v2.0.8 版本开始可用_
 
-Based on a [spring()](/docs/spring) configuration and the frame rate, return how long it takes for a spring animation to settle.
+基于 [spring()](/docs/spring) 配置和帧率，返回弹簧动画稳定所需的时间。
 
 ```tsx twoslash
 import { measureSpring, SpringConfig } from "remotion";
@@ -25,44 +25,44 @@ measureSpring({
 ```
 
 :::info
-Theoretically, a spring animation never ends. There is always a miniscule amount or energy left in the spring that causes tiny movements. Instead, we set a threshold to define when the spring animation is considered done.
+理论上，弹簧动画永远不会结束。弹簧中总是会留有微小的能量，导致微小的运动。因此，我们设置一个阈值来定义何时认为弹簧动画已完成。
 :::
 
-## Arguments
+## 参数
 
-An object with these keys:
+一个具有以下键的对象：
 
 ### `fps`
 
-The frame rate on which the spring animation is based on.
+弹簧动画基于的帧率。
 
 ### `threshold`
 
-_optional - default: `0.005`_
+_可选 - 默认值: `0.005`_
 
-Defines when the animation should be considered finished. `0.01` means that the animation is finished when it always stays within 1% of the `to` value. For example an animation that goes from 0 to 1 is considered finished when the value never leaves the range [0.99, 1.01] after the end point.
+定义动画应何时被视为已完成。`0.01` 意味着动画在始终保持在 `to` 值的 1% 范围内时被视为已完成。例如，从 0 到 1 的动画在结束点后，当值永远不离开范围 [0.99, 1.01] 时被视为已完成。
 
-Lower values mean the spring duration is longer, higher values result in the spring duration being shorter.
+较低的值意味着弹簧持续时间更长，较高的值导致弹簧持续时间更短。
 
 ### `config?`
 
-_optional_
+_可选_
 
-The spring configuration that you pass to [spring()](/docs/spring#config).
+您传递给 [spring()](/docs/spring#config) 的弹簧配置。
 
 ### `from?`
 
-_optional - default: `0`_
+_可选 - 默认值: `0`_
 
-The initial value of the animation.
+动画的初始值。
 
 ### `to?`
 
-_optional - default: `1`_
+_可选 - 默认值: `1`_
 
-The end value of the animation. Note that depending on the parameters, spring animations may overshoot the target a bit, before they bounce back to their final target.
+动画的结束值。请注意，根据参数设置，弹簧动画可能会在最终目标之前稍微超过目标，然后反弹回最终目标。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/spring/measure-spring.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/core/src/spring/measure-spring.ts)
 - [spring()](/docs/spring)

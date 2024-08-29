@@ -6,11 +6,11 @@ crumb: "@remotion/studio"
 
 # focusDefaultPropsPath()<AvailableFrom v="4.0.165"/>
 
-Scrolls to a specific field in the default props editor.
+滚动到默认属性编辑器中的特定字段。
 
-## Example
+## 示例
 
-For the following Zod schema:
+对于以下 Zod 模式：
 
 ```tsx twoslash title="schema.ts"
 import { z } from "zod";
@@ -24,7 +24,7 @@ const MySchema = z.object({
 });
 ```
 
-Call `focusDefaultPropsPath()` with the path to the field you want to focus on:
+调用 `focusDefaultPropsPath()` 并提供要关注的字段的路径：
 
 ```tsx twoslash title="MyComp.tsx"
 import { focusDefaultPropsPath } from "@remotion/studio";
@@ -38,15 +38,16 @@ focusDefaultPropsPath({
 
 ### `path`
 
-The path to the field you want to focus on. An array containing numbers and strings.
+要关注的字段的路径。包含数字和字符串的数组。
 
 ### `scrollBehavior`
 
-The behavior of the scrolling.  
-One of `"auto" | "instant" | "smooth"`.  
-Defaults to the [default scroll behavior](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView).
+滚动行为。  
+其中之一为 `"auto" | "instant" | "smooth"`。  
+默认为[默认滚动行为](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/focus-default-props-path.ts)
-- [Visual editing](/docs/visual-editing)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/focus-default-props-path.ts)
+- [可视化编辑](/docs/visual-editing)
+

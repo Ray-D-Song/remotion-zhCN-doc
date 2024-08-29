@@ -6,9 +6,9 @@ slug: /lambda/downloadmedia
 crumb: "Lambda API"
 ---
 
-Downloads a rendered video, audio or still to the disk of the machine this API is called from.
+从调用此 API 的机器上的磁盘下载渲染的视频、音频或静态图像。
 
-If you want to let the user download a result to their machine, use [`renderMediaOnLambda()` -> `downloadBehavior`](/docs/lambda/rendermediaonlambda#downloadbehavior) instead.
+如果您想让用户将结果下载到他们的机器上，请改用[`renderMediaOnLambda()` -> `downloadBehavior`](/docs/lambda/rendermediaonlambda#downloadbehavior)。
 
 ```ts twoslash
 // @module: ESNext
@@ -33,56 +33,60 @@ console.log(outputPath); // "/Users/yourname/remotion-project/out.mp4"
 console.log(sizeInBytes); // 21249541
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) in which the render has performed.
+执行渲染的 [AWS 区域](/docs/lambda/region-selection)。
 
 ### `bucketName`
 
-The bucket name in which the render was stored. This should be the same variable you used for [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda).
+存储渲染的存储桶名称。这应该与您用于 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 的相同变量。
 
 ### `renderId`
 
-The ID of the render. You can retrieve this ID by calling [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda).
+渲染的 ID。您可以通过调用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda) 来检索此 ID。
 
 ### `outPath`
 
-Where the video should be saved. Pass an absolute path, or it will be resolved relative to your current working directory.
+视频应保存的位置。传递绝对路径，否则将相对于当前工作目录解析。
 
 ### `onProgress`
 
-_optional_
+_可选_
 
-Callback function that gets called with the following properties:
+回调函数，带有以下属性：
 
-- `totalSize` in bytes
-- `downloaded` number of bytes downloaded
-- `percent` relative progress between 0 and 1
+- `totalSize` 字节
+- `downloaded` 下载的字节数
+- `percent` 0 到 1 之间的相对进度
 
 ### `customCredentials`
 
-_optional, available from v3.2.23_
+_可选，从 v3.2.23 开始可用_
 
-If the render was saved to a [different cloud](/docs/lambda/custom-destination#saving-to-another-cloud), pass an object with the same `endpoint`, `accessKeyId` and `secretAccessKey` as you passed to [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) or [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname).
+如果渲染保存到[不同的云](/docs/lambda/custom-destination#saving-to-another-cloud)，请传递一个具有与您传递给 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda#outname) 或 [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda#outname) 相同的 `endpoint`、`accessKeyId` 和 `secretAccessKey` 的对象。
 
-## Return value
+## 返回值
 
-Returns a promise resolving to an object with the following properties:
+返回一个解析为具有以下属性的对象的 Promise：
 
 ### `outputPath`
 
-The absolute path of where the file got saved.
+文件保存的绝对路径。
 
 ### `sizeInBytes`
 
-The size of the file in bytes.
+文件的字节大小。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/download-media.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/download-media.ts)
 - [renderMediaOnLambda()](/docs/lambda/rendermediaonlambda)
-- [renderStillOnLambda()](/docs/lambda/renderstillonlambda)
+- [renderStillOnLambda()](/docs/lambda/renderstillonlambda) 
+
+
+
+I'm ready to start the translation whenever you paste the Markdown content.

@@ -1,98 +1,100 @@
 ---
 image: /generated/articles-docs-compare.png
 id: compare-ssr
-title: Comparison of server-side rendering options
-sidebar_label: Comparison of SSR options
-crumb: "Compare"
+title: 服务器端渲染选项比较
+sidebar_label: SSR 选项比较
+crumb: "比较"
 ---
 
-This page compares 3 options for rendering videos in the cloud:
+本页面比较了云端视频渲染的 3 种选项：
 
 - [Remotion Lambda](/docs/lambda)
 - [Cloud Run](/docs/cloudrun)
 - [Node.JS/Bun APIs](/docs/renderer)
 
-These options are deliberately distinct with different tradeoffs, so that you can choose the one that best fits your use case.
+这些选项故意设计得有所不同，具有不同的权衡，以便您可以选择最适合您用例的选项。
 
-## Overall recommendation
+## 总体建议
 
-We recommend Remotion Lambda for most people as it has the best tradeoff for speed, ease of setup, maturity, total cost and scalability.  
+我们建议大多数人使用 Remotion Lambda，因为它在速度、设置便捷性、成熟度、总成本和可扩展性方面具有最佳权衡。
 
-The Remotion customers with the highest amount of videos rendered use the Remotion Lambda solution.
+使用 Remotion Lambda 解决方案的视频渲染量最高的客户。
 
-## Speed
+## 速度
 
-Remotion Lambda is the fastest option, because it implements distributed rendering - the video gets divided into smaller chunks and rendered in parallel across multiple Lambda functions.  
+Remotion Lambda 是最快的选项，因为它实现了分布式渲染 - 视频被分成较小的块，并在多个 Lambda 函数之间并行渲染。
 
-Cloud Run does not support distributed rendering, so rendering happens on one physical machine.  
+Cloud Run 不支持分布式渲染，因此渲染发生在一台物理机器上。
 
-Implementing a custom distributed rendering solution from scratch is challenging and we do not yet provide documentation.
+从头开始实现自定义的分布式渲染解决方案具有挑战性，我们目前还没有提供文档。
 
-## Cost
+## 成本
 
-Compute on Remotion Lambda is more expensive than other options.  
-However, costs are only incurred when you actually render videos.  
-Depending on the amount of videos you render, the total cost might be lower or higher with Lambda.
+Remotion Lambda 上的计算成本比其他选项更高。
+但是，只有在实际渲染视频时才会产生成本。
+根据您渲染的视频数量，使用 Lambda 的总成本可能会更低或更高。
 
-Cloud Run is cheaper than Lambda because there is no distributed rendering and no overhead that comes with it.  
-You also don't pay for the time that the Cloud Run instance is idle.
+Cloud Run 比 Lambda 更便宜，因为它没有分布式渲染，也没有相关的开销。
+您还不必为 Cloud Run 实例处于空闲状态的时间付费。
 
-Running a server has by far the cheapest compute cost.  
-However, you also pay for the time that the server is idle.
+运行服务器的计算成本远低于其他选项。
+但是，您还需要为服务器处于空闲状态的时间付费。
 
-Conclusion: The more videos you render, the more a long-running server might be worth for you.
+结论：您渲染的视频越多，长时间运行的服务器对您可能越有价值。
 
-## Ease of setup
+## 设置便捷性
 
-Remotion Lambda and Cloud Run are fast to set up.  
-Remotion Lambda is built into our SaaS templates, so you can get started very quickly.
+Remotion Lambda 和 Cloud Run 设置速度很快。
+Remotion Lambda 已内置在我们的 SaaS 模板中，因此您可以非常快速地开始使用。
 
-Using the Node.JS APIs requires you to set up a server yourself and manage certain things yourself:
+使用 Node.JS APIs 需要您自己设置服务器并自行管理某些内容：
 
-- Queueing renders
-- Dealing with a spike in traffic
-- Progress reporting and error handling
-- Setting up logging
-- Provisioning of servers
+- 排队渲染
+- 处理流量激增
+- 进度报告和错误处理
+- 设置日志记录
+- 服务器配置
 
-This is a big effort overall and is only recommended for teams who are committed to using Remotion and want the most flexibility.
+总体而言，这是一项艰巨的工作，仅建议那些致力于使用 Remotion 并希望获得最大灵活性的团队。
 
-## Feature set
+## 功能集
 
-Remotion Lambda currently has the following features that Cloud Run does not have:
+Remotion Lambda 目前具有以下 Cloud Run 不具备的功能：
 
-- Distributed rendering
+- 分布式渲染
 - Webhooks
 - Apple Emoji
-- Polling progress
-- Cost estimation
-- Renders with expiration date
-- Rendering from PHP, Go and Python
+- 进度轮询
+- 成本估算
+- 具有过期日期的渲染
+- 从 PHP、Go 和 Python 进行渲染
 
-Rendering with the Node.JS APIs does not come with these features either, but you may build them based on top of the low-level APIs that are provided.
+使用 Node.JS API 进行渲染也不具备这些功能，但您可以基于提供的低级 API 构建这些功能。
 
 ## GPU
 
-Most renders do not become faster with GPU acceleration. See: [Which content benefits from a GPU?](/docs/gpu).
+大多数渲染不会因 GPU 加速而变得更快。请参阅：[哪些内容受益于 GPU？](/docs/gpu)。
 
-We have guides for configuring [a server with GPU acceleration](/docs/miscellaneous/cloud-gpu), but it is not yet supported by Remotion.
+我们有关于配置[具有 GPU 加速的服务器](/docs/miscellaneous/cloud-gpu)的指南，但 Remotion 尚不支持此功能。
 
-Remotion Lambda does not have a GPU. You are limited to CPU-only rendering.  
+Remotion Lambda 不具备 GPU。您仅限于 CPU 渲染。
 
-We have not tested Cloud Run with GPU acceleration. It is possible add a GPU to the Cloud Run instance - we are curious to hear your feedback.
+我们尚未测试 Cloud Run 是否支持 GPU 加速。可以向 Cloud Run 实例添加 GPU - 我们很想听听您的反馈。
 
-## Stability
+## 稳定性
 
-We are happy with the architecture of Remotion Lambda and Node.js APIs and are committed to it in the long-term.  
+我们对 Remotion Lambda 和 Node.js API 的架构感到满意，并致力于长期支持。
 
-Cloud Run is in Alpha and we are considering moving it to a model which re-uses the code of Remotion Lambda.  
-This would allow us to better match the features of Remotion Lambda and enable distributed rendering.  
+Cloud Run 处于 Alpha 阶段，我们正在考虑将其转换为重用 Remotion Lambda 代码的模式。
+这将使我们能够更好地匹配 Remotion Lambda 的功能，并实现分布式渲染。
 
-Currently, the development of Cloud Run is hindered because a new Docker image needs to be built for each change, making testing slow.  
-Therefore, we are currently only making essential changes to the current Cloud Run product.
+目前，Cloud Run 的开发受到限制，因为每次更改都需要构建新的 Docker 镜像，使测试变慢。
+因此，我们目前仅对当前 Cloud Run 产品进行必要的更改。
 
-## Conclusion
+## 结论
 
-We recommend to start with Remotion Lambda, as it is the quickest way to get started and leaves less room for error.  
+我们建议从 Remotion Lambda 开始，因为这是最快入门的方式，也减少了错误的可能性。
 
-As you scale up and increase the sophistication of Remotion renders and want to become more cost-efficient, we recommend looking into other options as well.
+随着 Remotion 渲染的规模扩大和复杂性增加，以及希望更具成本效益，我们建议您也研究其他选项。 
+
+

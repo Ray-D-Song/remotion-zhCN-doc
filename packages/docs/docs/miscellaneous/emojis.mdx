@@ -1,21 +1,21 @@
 ---
 image: /generated/articles-docs-miscellaneous-emojis.png
-sidebar_label: Emojis
-title: Emojis
-crumb: Font rendering
+sidebar_label: 表情符号
+title: 表情符号
+crumb: 字体渲染
 ---
 
-Emojis are always rendered as-is by the operating system.  
-By nature, they are different across different OS:
+表情符号在操作系统中始终按原样呈现。  
+它们在不同操作系统上的显示方式各不相同：
 
-- [Windows Emoji Set](https://emojipedia.org/microsoft)
-- [macOS and iOS Emoji Set](https://emojipedia.org/apple)
-- Different Linux distributions have different sets of emojis, or none at all.
+- [Windows 表情符号集](https://emojipedia.org/microsoft)
+- [macOS 和 iOS 表情符号集](https://emojipedia.org/apple)
+- 不同的 Linux 发行版具有不同的表情符号集，或者根本没有。
 
-## Emojis on Linux and in Docker
+## Linux 和 Docker 上的表情符号
 
-When rendering in the cloud or in Linux in general, you will not get the same emojis as on your Desktop.  
-You can install open source emoji fonts for your operating system:
+在云端或一般的 Linux 环境中渲染时，您将无法获得与桌面上相同的表情符号。  
+您可以为您的操作系统安装开源表情符号字体：
 
 ### Debian/Ubuntu:
 
@@ -29,15 +29,15 @@ apt-get install fonts-noto-color-emoji
 yum install google-noto-emoji-color-fonts
 ```
 
-## Emojis on Remotion Lambda
+## Remotion Lambda 上的表情符号
 
-[Noto Color Emoji are installed on Remotion Lambda](/docs/lambda/runtime#fonts) by default.  
+[Noto Color Emoji 默认已安装在 Remotion Lambda 上](/docs/lambda/runtime#fonts)。  
 
-You can [enable Apple Emojis](/docs/lambda/deployfunction#runtimepreference). 
+您可以[启用 Apple 表情符号](/docs/lambda/deployfunction#runtimepreference)。
 
-Replacing Emojis is possible by [customizing Remotion Lambda](/docs/lambda/custom-layers).
+通过[自定义 Remotion Lambda](/docs/lambda/custom-layers)可以替换表情符号。
 
 :::note
-Apple Emojis are intellectual property of Apple Inc.  
-You are responsible for the use of Apple Emojis in your project.
+Apple 表情符号是 Apple Inc. 的知识产权。  
+您有责任在您的项目中使用 Apple 表情符号。
 :::

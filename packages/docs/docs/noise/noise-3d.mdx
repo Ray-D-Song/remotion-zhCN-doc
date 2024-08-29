@@ -1,44 +1,44 @@
 ---
 image: /generated/articles-docs-noise-noise-3d.png
 title: noise3D()
-crumb: "Make some"
+crumb: "生成一些"
 ---
 
 _Part of the [`@remotion/noise`](/docs/noise) package._
 
-Creates 3D noise.
+创建3D噪声。
 
 ## API
 
-The function takes four arguments:
+该函数接受四个参数：
 
 ### `seed`
 
-Pass any _string_ or _number_. If the seed is the same, you will get the same result for same `x`, `y` and `z` values. Change the seed to get different results for your `x`, `y` and `z` values.
+传入任何 _字符串_ 或 _数字_。如果种子相同，则对于相同的 `x`、`y` 和 `z` 值将获得相同的结果。更改种子以获得不同的结果，适用于您的 `x`、`y` 和 `z` 值。
 
 ### `x`
 
-_number_
+_数字_
 
-The first dimensional value.
+第一个维度值。
 
 ### `y`
 
-_number_
+_数字_
 
-The second dimensional value.
+第二个维度值。
 
 ### `z`
 
-_number_
+_数字_
 
-The third dimensional value.
+第三个维度值。
 
-## Return value
+## 返回值
 
-A value between `-1` and `1`, swinging as your `x`, `y` and `z` values change.
+一个值在 `-1` 和 `1` 之间，随着您的 `x`、`y` 和 `z` 值的变化而摆动。
 
-## Example
+## 示例
 
 ```tsx twoslash
 import { noise3D } from "@remotion/noise";
@@ -51,12 +51,13 @@ console.log(noise3D("my-seed", x, y, z));
 
 ## Credits
 
-Uses the [simplex-noise](https://www.npmjs.com/package/simplex-noise) dependency
+使用了 [simplex-noise](https://www.npmjs.com/package/simplex-noise) 依赖项
 
-## See also
+## 另请参阅
 
-- [Example: Noise visualization](/docs/noise-visualization)
+- [示例：噪声可视化](/docs/noise-visualization)
 - [noise2D()](/docs/noise/noise-2d)
 - [noise4D()](/docs/noise/noise-4d)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/noise/src/index.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/noise/src/index.ts)
 - [`@remotion/noise`](/docs/noise)
+

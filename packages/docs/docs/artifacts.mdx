@@ -1,26 +1,26 @@
 ---
 image: /generated/articles-docs-artifacts.png
-title: Emitting Artifacts
+title: 发出工件
 id: artifacts
-crumb: 'Techniques'
+crumb: '技术'
 ---
 
-# Emitting Artifacts<AvailableFrom v="4.0.176" />
+# 发出工件<AvailableFrom v="4.0.176" />
 
-Sometimes you wish to generate additional files when rendering your video. For example:
+有时候在渲染视频时，您希望生成额外的文件。例如：
 
-- A `.srt` subtitle file
-- A `.txt` containing chapters of the video
-- A `CREDITS` file for the assets used in the video
-- Debug information from the render.
+- 一个 `.srt` 字幕文件
+- 一个包含视频章节的 `.txt` 文件
+- 一个用于视频中使用的资产的 `CREDITS` 文件
+- 渲染中的调试信息
 
-You can use the [`<Artifact>`](/docs/artifact) component to emit arbitrary files from your video.
+您可以使用 [`<Artifact>`](/docs/artifact) 组件来从您的视频中发出任意文件。
 
 :::note
-Emitting artifacts is not currently supported by `@remotion/cloudrun`.
+目前 `@remotion/cloudrun` 不支持发出工件。
 :::
 
-## Example
+## 示例
 
 ```tsx twoslash title="MyComp.tsx"
 // @filename: subtitles.tsx
@@ -46,28 +46,27 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Rules of artifacts
+## 工件规则
 
-<Step>1</Step> The asset should only be rendered for one single frame of the video.
-Otherwise, the asset will get emitted multiple times. <br />
+<Step>1</Step> 资产应该仅在视频的一个单独帧中渲染。
+否则，该资产将被发出多次。<br />
 
-<Step>2</Step> It is possible to emit multiple assets, but they may not have the
-same filename.<br/>
+<Step>2</Step> 可以发出多个资产，但它们可能不具有相同的文件名。<br/>
 
-<Step>3</Step> For the <code>content</code> prop it is possible to pass a <code>string</code>, or a <code>Uint8Array</code> for binary data. Passing an <code>
+<Step>3</Step> 对于 <code>content</code> 属性，可以传递一个 <code>string</code>，或者一个 <code>Uint8Array</code> 用于二进制数据。传递一个 <code>
   Uint8Array
-</code> should not be considered faster due to it having to be serialized.
+</code> 不应被认为更快，因为它必须被序列化。
 <br />
 
-## Receiving artifacts
+## 接收工件
 
-### In the CLI or Studio
+### 在 CLI 或 Studio 中
 
-Artifacts get saved to `out/[composition-id]/[filename]` when rendering a video.
+在渲染视频时，工件将保存到 `out/[composition-id]/[filename]`。
 
-### Using `renderMedia()`, `renderStill()` or `renderFrames()`
+### 使用 `renderMedia()`、`renderStill()` 或 `renderFrames()`
 
-Use the [`onArtifact`](/docs/renderer/render-media#onartifact) callback to receive the artifacts.
+使用 [`onArtifact`](/docs/renderer/render-media#onartifact) 回调来接收工件。
 
 ```tsx twoslash title="render.mjs"
 // @module: es2022
@@ -108,18 +107,18 @@ await renderMedia({
 });
 ```
 
-### Using the Remotion Lambda CLI
+### 使用 Remotion Lambda CLI
 
-When using [`npx remotion lambda render`](/docs/lambda/cli/render) or [`npx remotion lambda still`](/docs/lambda/cli/still), artifacts get saved to the S3 bucket under the key `renders/[render-id]/artifacts/[filename]`.
+当使用 [`npx remotion lambda render`](/docs/lambda/cli/render) 或 [`npx remotion lambda still`](/docs/lambda/cli/still) 时，工件将保存到 S3 存储桶中的键 `renders/[render-id]/artifacts/[filename]`。
 
-They will get logged to the console and you can click them to download them.  
-The `--privacy` option also applies to artifacts.
+它们将被记录到控制台，并且您可以单击它们来下载。  
+`--privacy` 选项也适用于工件。
 
-### Using `renderMediaOnLambda()`
+### 使用 `renderMediaOnLambda()`
 
-When using [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda), artifacts get saved to the S3 bucket under the key `renders/[render-id]/artifacts/[filename]`.
+当使用 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 时，工件将保存到 S3 存储桶中的键 `renders/[render-id]/artifacts/[filename]`。
 
-You can obtain a list of currently received assets from [`getRenderProgress()`](/docs/lambda/getrenderprogress#artifacts).
+您可以从[`getRenderProgress()`](/docs/lambda/getrenderprogress#artifacts)获取当前接收到的资产列表。
 
 ```tsx twoslash title="progress.ts"
 // @module: es2022
@@ -141,11 +140,11 @@ for (const artifact of renderProgress.artifacts) {
 }
 ```
 
-### Using `renderStillOnLambda()`
+### 使用 `renderStillOnLambda()`
 
-When using [`renderStillOnLambda()`](/docs/lambda/renderstillonlambda), artifacts get saved to the S3 bucket under the key `renders/[render-id]/artifacts/[filename]`.
+当使用[`renderStillOnLambda()`](/docs/lambda/renderstillonlambda)时，资产将保存到 S3 存储桶中的键为 `renders/[render-id]/artifacts/[filename]`。
 
-You can obtain a list of received assets from [`artifacts`](/docs/lambda/renderstillonlambda#artifacts) field of `renderStillOnLambda()`.
+您可以从`renderStillOnLambda()`的`artifacts`字段中获取已接收资产的列表。
 
 ```tsx twoslash title="still.ts"
 const serveUrl = 'http://localhost:8080';
@@ -179,11 +178,12 @@ for (const artifact of stillResponse.artifacts) {
 }
 ```
 
-### Using Cloud Run
+### 使用 Cloud Run
 
-In the Cloud Run Alpha, emitting artifacts is not supported and will throw an error.  
-We plan on revising Cloud Run to use the same runtime as Lambda in the future and will bring this feature along.
+在 Cloud Run Alpha 中，不支持发出资产并将引发错误。  
+我们计划在未来修改 Cloud Run 以使用与 Lambda 相同的运行时，并将带来此功能。
 
-## See also
+## 另请参阅
 
 - [`<Artifact>`](/docs/artifact)
+```

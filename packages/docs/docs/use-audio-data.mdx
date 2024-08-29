@@ -5,46 +5,46 @@ id: use-audio-data
 crumb: "@remotion/media-utils"
 ---
 
-_Part of the `@remotion/media-utils` package of helper functions._
+_`@remotion/media-utils` 包中的辅助函数之一。_
 
-This convenience function wraps the [`getAudioData()`](/docs/get-audio-data) function into a hook and does 3 things:
+这个便利函数将 [`getAudioData()`](/docs/get-audio-data) 函数封装成一个 hook，并执行 3 个操作：
 
-- Keeps the audio data in a state
-- Wraps the function in a [`delayRender()` / `continueRender()`](/docs/data-fetching) pattern.
-- Handles the case where the component gets unmounted while the fetching is in progress and a React error is thrown.
+- 保持音频数据的状态
+- 将函数包装在 [`delayRender()` / `continueRender()`](/docs/data-fetching) 模式中。
+- 处理组件在获取数据过程中卸载并抛出 React 错误的情况。
 
-Using this function, you can elegantly render a component based on audio properties, for example together with the [`visualizeAudio()`](/docs/visualize-audio) function.
+使用这个函数，您可以根据音频属性优雅地渲染一个组件，例如与 [`visualizeAudio()`](/docs/visualize-audio) 函数一起使用。
 
 :::info
-Remote audio files need to support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+远程音频文件需要支持 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)。
 
 <details>
-<summary>More info</summary>
+<summary>更多信息</summary>
 <ul>
 <li>
-Remotion's origin is usually <code>http://localhost:3000</code>, but it may be different if rendering on Lambda or the port is busy.
+Remotion 的源通常是 <code>http://localhost:3000</code>，但如果在 Lambda 上渲染或端口繁忙，则可能会有所不同。
 </li>
 <li>
-You can use <a href="/docs/get-audio-duration-in-seconds"><code>getAudioDurationInSeconds()</code></a> without the audio needing CORS.
+您可以在不需要音频支持 CORS 的情况下使用 <a href="/docs/get-audio-duration-in-seconds"><code>getAudioDurationInSeconds()</code></a>。
 </li>
 <li>
-You can <a href="/docs/chromium-flags#--disable-web-security">disable CORS</a> during renders.
+您可以在渲染过程中 <a href="/docs/chromium-flags#--disable-web-security">禁用 CORS</a>。
 </li>
 </ul>
 </details>
 :::
 
-## Arguments
+## 参数
 
 ### `src`
 
-A string pointing to an audio asset.
+指向音频资产的字符串。
 
-## Return value
+## 返回值
 
-`AudioData | null` - An object containing audio data (see documentation of [`getAudioData()`](/docs/get-audio-data)) or `null` if the data has not been loaded.
+`AudioData | null` - 包含音频数据的对象（请参阅 [`getAudioData()`](/docs/get-audio-data) 的文档）或 `null`（如果数据尚未加载）。
 
-## Example
+## 示例
 
 ```tsx twoslash
 // ---cut---
@@ -62,17 +62,19 @@ export const MyComponent: React.FC = () => {
 };
 ```
 
-## Errors
+## 错误
 
-If you pass in a file that has no audio track, this hook will throw an error (_from v4.0.75_) or lead to an unhandled rejection (_until v4.0.74_).
+如果传入没有音轨的文件，此 hook 将抛出错误（_从 v4.0.75 开始_）或导致未处理的拒绝（_直到 v4.0.74_）。
 
-To determine if a file has an audio track, you may use the [`getVideoMetadata()`](/docs/renderer/get-video-metadata#audiocodec) function on the server to reject a file if it has no audio track. To do so, check if the `audioCodec` field is `null`.
+要确定文件是否有音轨，您可以在服务器上使用 [`getVideoMetadata()`](/docs/renderer/get-video-metadata#audiocodec) 函数来拒绝没有音轨的文件。为此，请检查 `audioCodec` 字段是否为 `null`。
 
-If you want to catch the error in the component, you need to make your own inline hook by taking the source code from the bottom of this page.
+如果要在组件中捕获错误，您需要通过从本页底部获取源代码来制作自己的内联 hook。 
 
-## See also
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/use-audio-data.ts)
+
+## 参见
+
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/use-audio-data.ts)
 - [`getAudioData()`](/docs/get-audio-data)
 - [`visualizeAudio()`](/docs/visualize-audio)
-- [Audio visualization](/docs/audio-visualization)
+- [音频可视化](/docs/audio-visualization)

@@ -1,8 +1,8 @@
 ---
 image: /generated/articles-docs-lambda-sqs.png
-title: Using Lambda with SQS
+title: 使用 Lambda 与 SQS
 slug: /lambda/sqs
-sidebar_label: Queueing with SQS
+sidebar_label: 使用 SQS 进行排队
 crumb: '@remotion/lambda'
 ---
 
@@ -10,55 +10,55 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 :::note
-This process has a flaw: The queue continues as soon as the render is triggered, not as soon as the render has finished. This means the renders do not all execute serially. We are working on an improved version of a Lambda queueing strategy, in the meanwhile be aware of this behavior.
+这个过程存在一个缺陷：队列会在触发渲染时立即继续，而不是在渲染完成时继续。这意味着渲染不会按顺序执行。我们正在研究改进的 Lambda 排队策略版本，同时请注意这种行为。
 :::
 
-This guide will show you how to use [Amazon SQS](https://aws.amazon.com/sqs/) (Simple Queue Service) and Remotion's [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) API.
+本指南将向您展示如何使用 [Amazon SQS](https://aws.amazon.com/sqs/)（简单队列服务）和 Remotion 的 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) API。
 
-Queues are used to park requests to make way for the underlying resources to cope up demand. Since AWS Lambda is subject to a [concurrency limit](/docs/lambda/troubleshooting/rate-limit), you can use SQS to queue renders in the background and you notify the user when the render process is completed by sending them an email or using other means of notification.
+队列用于暂停请求，以便底层资源能够满足需求。由于 AWS Lambda 受到[并发限制](/docs/lambda/troubleshooting/rate-limit)的影响，您可以使用 SQS 在后台排队渲染，并通过发送电子邮件或使用其他通知方式通知用户渲染过程何时完成。
 
-To supplement this guide, two projects have been created:
+为了补充本指南，已创建了两个项目：
 
-- The [remotion-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/remotion-app) contains a Remotion composition and utility scripts for deploying and deleting Remotion Lambda infrastructure in AWS. Note that this is the same application as from the [Serverless Framework guide](/docs/lambda/serverless-framework-integration).
-- The [apigw-sqs-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/apigw-sqs-app) (API Gateway SQS) contains a [CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) project that deploys two Lambda functions. The [enqueue-function](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/enqueue-function/index.ts) function, when invoked, queues JSON data sent by the user; this can be an input payload for the Remotion Lambda function. The [render-lambda-function](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/render-lambda-function/index.ts) function listens to enqueued message from SQS, processes it and renders videos.
+- [remotion-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/remotion-app) 包含 Remotion 组合和用于在 AWS 中部署和删除 Remotion Lambda 基础设施的实用脚本。请注意，这与[Serverless Framework 指南](/docs/lambda/serverless-framework-integration)中的应用程序相同。
+- [apigw-sqs-app](https://github.com/alexfernandez803/remotion-serverless/tree/main/apigw-sqs-app)（API Gateway SQS）包含一个 [CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) 项目，部署了两个 Lambda 函数。[enqueue-function](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/enqueue-function/index.ts) 函数在调用时将用户发送的 JSON 数据排入队列；这可以是 Remotion Lambda 函数的输入有效负载。[render-lambda-function](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/render-lambda-function/index.ts) 函数监听来自 SQS 的排队消息，处理并渲染视频。
 
-The `enqueue-function` is configured to be invoked through [API Gateway](https://aws.amazon.com/api-gateway/) and is secured by [Cognito](https://aws.amazon.com/cognito/). The API Gateway and Cognito setup is automatically created by the [CDK Stack](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts) deployment upon execution of `cdk deploy`.
+`enqueue-function`被配置为通过[API Gateway](https://aws.amazon.com/api-gateway/)调用，并由[Cognito](https://aws.amazon.com/cognito/)进行保护。API Gateway和Cognito的设置是由[CDK Stack](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts)在执行`cdk deploy`时自动创建的。
 
-This guide assumes that you have knowledge in using [CDK with TypeScript](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) and [AWS SQS knowledge](https://aws.amazon.com/sqs/). The AWS Cloud Development Kit (CDK) has been chosen to provision infrastructure as it is an official library from [AWS](https://aws.amazon.com).
+本指南假定您具有使用[CDK与TypeScript](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)和[AWS SQS知识](https://aws.amazon.com/sqs/)的知识。AWS云开发工具包（CDK）已被选择用于提供基础设施，因为它是来自[AWS](https://aws.amazon.com)的官方库。
 
 ## remotion-app
 
-- Follow the same setup instruction from [remotion-app guide](/docs/lambda/serverless-framework-integration#remotion-app) as we will just re-use the application.
+- 请按照[remotion-app指南](/docs/lambda/serverless-framework-integration#remotion-app)中的相同设置说明进行操作，因为我们将重复使用该应用程序。
 
 ## apigw-sqs-app
 
-In the following step, the Lambda functions [`enqueue-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/enqueue-function/index.ts) and [`render-lambda-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/render-lambda-function/index.ts) will be deployed to your AWS account. This guide is designed to be executed on your local machine.
+在以下步骤中，Lambda函数[`enqueue-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/enqueue-function/index.ts)和[`render-lambda-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/render-lambda-function/index.ts)将部署到您的AWS帐户。本指南旨在在您的本地计算机上执行。
 
-The project will create all the resources defined by the CDK stack, including setting up [Cognito](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L19) for the project's authentication and authorization system, uploading Lambda code, generating and associating IAM roles to your AWS account.
+该项目将创建CDK堆栈定义的所有资源，包括为项目的身份验证和授权系统设置[Cognito](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L19)，上传Lambda代码，生成并关联IAM角色到您的AWS帐户。
 
-### Prerequisites
+### 先决条件
 
-- AWS deployment profile on your local machine, to configure an AWS deployment profile on your local machine.
-- A AWS policy created named `remotion-executionrole-policy` which is created from this [guide](/docs/lambda/without-iam/#1-create-role-policy).
-- The AWS CDK should be installed globally on your local machine. If not yet done, follow the instructions in the "Install the AWS CDK" section [here](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
+- 在您的本地计算机上具有AWS部署配置文件，以配置AWS部署配置文件。
+- 创建名为`remotion-executionrole-policy`的AWS策略，该策略是从此[指南](/docs/lambda/without-iam/#1-create-role-policy)创建的。
+- AWS CDK应在您的本地计算机上全局安装。如果尚未完成，请按照此处的“安装AWS CDK”部分的说明进行操作。
 
-### Setup
+### 设置
 
-#### 1. Clone or download the project
+#### 1. 克隆或下载项目
 
-The project can be found at [`remotion-serverless project`](https://github.com/alexfernandez803/remotion-serverless). If not done in the previous step, clone the project using:
+该项目可以在 [`remotion-serverless 项目`](https://github.com/alexfernandez803/remotion-serverless) 找到。如果在上一步没有完成，请使用以下命令克隆项目：
 
 ```bash
 git clone https://github.com/alexfernandez803/remotion-serverless
 ```
 
-#### 2. Go to `remotion-serverless` and traverse to `apigw-sqs-app` directory
+#### 2. 进入 `remotion-serverless` 并切换到 `apigw-sqs-app` 目录
 
 ```bash
 cd remotion-serverless && cd apigw-sqs-app
 ```
 
-#### 3. Install dependencies
+#### 3. 安装依赖项
 
 <Tabs
 defaultValue="npm"
@@ -74,30 +74,31 @@ values={[
 npm i
 ```
 
-  </TabItem>
+</TabItem>
 
-  <TabItem value="pnpm">
+<TabItem value="pnpm">
 
 ```bash
 pnpm i
 ```
 
-  </TabItem>
-  <TabItem value="yarn">
+</TabItem>
+
+<TabItem value="yarn">
 
 ```bash
 yarn
 ```
 
-  </TabItem>
+</TabItem>
 
 </Tabs>
 
-#### 4. Create the Remotion policy
+#### 4. 创建 Remotion 策略
 
-- The `remotion-executionrole-policy` should have been created, if not, follow this [guide](/docs/lambda/without-iam/#1-create-role-policy) in setting this up.
+- 如果尚未创建 `remotion-executionrole-policy`，请按照此 [指南](/docs/lambda/without-iam/#1-create-role-policy) 进行设置。
 
-The `remotion-executionrole-policy` is referenced from [here](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L64). The `CDK` stack creates a role for `render-lambda-function` with the `remotion-executionrole-policy`.
+`remotion-executionrole-policy` 是从 [这里](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L64) 引用的。`CDK` 堆栈为 `render-lambda-function` 创建了一个名为 `remotion-executionrole-policy` 的角色。
 
 ```ts
 // 👇 Create a role with custom name
@@ -117,32 +118,32 @@ const renderFunctionLambdaRole = new Role(this, 'remotionSQSLambdaRole', {
 });
 ```
 
-This creates a role in AWS with the name of `remotionSQSLambdaRole` with 2 policies attached:
+这将在 AWS 中创建一个名为 `remotionSQSLambdaRole` 的角色，并附加了 2 个策略：
 
-- `service-role/AWSLambdaBasicExecutionRole` grants permission to the Lambda function to interact with and log information to [CloudWatch](https://aws.amazon.com/cloudwatch/). This policy is part of the AWS library of policies.
-- `remotion-executionrole-policy` policy grants permission to the Lambda function to interact to AWS services that Remotion Lambda needs access to in order to render a video. This policy is exactly the same policy from this [guide](/docs/lambda/without-iam/#1-create-role-policy).
+- `service-role/AWSLambdaBasicExecutionRole` 授予 Lambda 函数与 [CloudWatch](https://aws.amazon.com/cloudwatch/) 交互和记录信息的权限。此策略是 AWS 策略库的一部分。
+- `remotion-executionrole-policy` 策略授予 Lambda 函数与 Remotion Lambda 需要访问的 AWS 服务进行交互以渲染视频的权限。此策略与此 [指南](/docs/lambda/without-iam/#1-create-role-policy) 中的策略完全相同。
 
-#### 5. Optional - Synthesize
+#### 5. 可选 - 合成
 
-From the `apigw-sqs-app` directory, execute the `cdk synthesize` command.
+从 `apigw-sqs-app` 目录中，执行 `cdk synthesize` 命令。
 
 ```bash
 cdk synthesize
 ```
 
-This command will show the [CloudFormation Template](https://aws.amazon.com/cloudformation/) that CDK will execute to your AWS account.
+这个命令将展示 CDK 将要在您的 AWS 账户中执行的 [CloudFormation 模板](https://aws.amazon.com/cloudformation/)。
 
-#### 6. Deploy the apigw-sqs-app project
+#### 6. 部署 apigw-sqs-app 项目
 
-From the `apigw-sqs-app` directory, execute the `cdk deploy` command.
+从 `apigw-sqs-app` 目录中，执行 `cdk deploy` 命令。
 
 ```bash
 cdk deploy
 ```
 
-This will orchestrate the generation of resources defined in the CDK stack, which are CloudFormation templates in the background.
+这将协调 CDK 栈中定义的资源的生成，这些资源是后台中的 CloudFormation 模板。
 
-```bash title="Deploy output"
+```bash title="部署输出"
  Bundling asset apigw-sqs-app-stack/enqueue-function/Code/Stage...
 
   cdk.out/bundling-temp-a813aece2454684086de775f918faac45b1b77c67fff24ec6aad4bff8c978ebe/index.js  881.5kb
@@ -224,9 +225,9 @@ Do you wish to deploy these changes (y/n)? y
 
 ```
 
-Select 'y' for the answer of the prompt and CDK will continue to deploy the Stack, with the 2 function.
+选择 'y' 作为提示的答案，CDK 将继续部署 Stack，其中包括 2 个函数。
 
-```bash title="final output"
+```bash title="最终输出"
 apigw-sqs-app-stack: deploying... [1/1]
 [0%] start: Publishing 8efaff13bbe794558db1f1cb8f506bc13b87d7ab3e568ebc324bac680da3a75d:XXXXXXXXXX-ap-southeast-2
 [0%] start: Publishing 3b7a9f596977e2db94a676c6c89c99dd7eb87a5985f97a11ff23b9f338027764:XXXXXXXXXX-ap-southeast-2
@@ -253,25 +254,25 @@ arn:aws:cloudformation:ap-southeast-2:XXXXXXXXXX:stack/apigw-sqs-app-stack/acb8b
 
 ```
 
-The deployment will provide variables such as `apigw-sqs-app-stack.region`, `apigw-sqs-app-stack.userPoolClientId`, and `apigw-sqs-app-stack.userPoolId`.
+部署将提供变量，如 `apigw-sqs-app-stack.region`、`apigw-sqs-app-stack.userPoolClientId` 和 `apigw-sqs-app-stack.userPoolId`。
 
-#### 8. Remove the apigw-sqs-app from your AWS account, if not needed anymore
+#### 8. 如果不再需要，从您的 AWS 账户中移除 apigw-sqs-app
 
-From the `apigw-sqs-app` directory.
+从 `apigw-sqs-app` 目录中。
 
 ```bash
 cdk destroy
 ```
 
-### Combining API Gateway, Remotion Lambda and SQS together.
+### 将 API Gateway、Remotion Lambda 和 SQS 结合在一起。
 
-These are important information on how IAM roles are used by the function and instructions to enable the [render-lambda-function](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L97) to consume SQS messages.
+这些是有关 IAM 角色如何被函数使用以及如何启用 [render-lambda-function](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L97) 来消耗 SQS 消息的重要信息。
 
-From [CDK stack code](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L64), here are the important parts to take note of.
+从 [CDK 栈代码](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L64) 中，以下是需要注意的重要部分。
 
-- The stack creates a queue named `remotion_queue`.
+- 该栈创建了一个名为 `remotion_queue` 的队列。
 
-```js title="create queue"
+```js title="创建队列"
 // 👇 create the queue
 const remotionQueue = new sqs.Queue(this, 'queue', {
   encryption: sqs.QueueEncryption.KMS_MANAGED,
@@ -279,7 +280,7 @@ const remotionQueue = new sqs.Queue(this, 'queue', {
 });
 ```
 
-- `remotion_queue` grants access to 2 Lambda functions to interact with it. Each individual role are assigned to their respective Lambda function.
+- `remotion_queue` 授予 2 个 Lambda 函数与其交互的访问权限。每个单独的角色分配给其各自的 Lambda 函数。
 
   ```js title="apiIntegrationRole"
   // 👇 create the apiIntegrationRole role
@@ -293,7 +294,7 @@ const remotionQueue = new sqs.Queue(this, 'queue', {
   });
   ```
 
-- This role is assigned to [`enqueue-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L86), to allow it to write CloudWatch logs.
+- 此角色分配给 [`enqueue-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L86)，以允许其写入 CloudWatch 日志。
 
   ```js title="remotionSQSLambdaRole"
   // 👇 create a role with custom name
@@ -313,18 +314,18 @@ const remotionQueue = new sqs.Queue(this, 'queue', {
   });
   ```
 
-- The [`render-lambda-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L97) has been assigned this role, which includes access to interact with Cloudwatch and permission to access other AWS services as specified in the `remotion-executionrole-policy`.
+- [`render-lambda-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L97) 已被分配此角色，其中包括与 Cloudwatch 交互的访问权限以及根据 `remotion-executionrole-policy` 中指定的其他 AWS 服务的访问权限。
 
-  ```js title="Grant access to the queue"
+  ```js title="授予队列访问权限"
   // 👇 Grant permission to publish to the queue
   remotionQueue.grantSendMessages(apiIntegrationRole);
   // 👇 grant permission to consume messages from the queue
   remotionQueue.grantConsumeMessages(renderFunctionLambdaRole);
   ```
 
-- Allow the render function to listen to the queue.
+- 允许渲染函数监听队列。
 
-  ```js title="Listen to queue"
+  ```js title="监听队列"
   remotionRenderFunction.addEventSource(
     new SqsEventSource(remotionQueue, {
       batchSize: 1,
@@ -334,20 +335,20 @@ const remotionQueue = new sqs.Queue(this, 'queue', {
   );
   ```
 
-### Interacting with the API
+### 与 API 交互
 
-The API requires an authorization token to interact with it. To obtain the token:
+API 需要授权令牌才能与其交互。要获取令牌：
 
-- After successful deployment you will be given out outputs such as `apigw-sqs-app-stack.region`, `apigw-sqs-app-stack.userPoolClientId`, and `apigw-sqs-app-stack.userPoolId`, which are used to authenticate with Cognito.
-- If you don't have a frontend which user needs to login, you can create a user and an authentication token manually for the API by following this [guide](/docs/lambda/without-iam/example#test-your-endpoint).
+- 部署成功后，您将获得输出，例如 `apigw-sqs-app-stack.region`、`apigw-sqs-app-stack.userPoolClientId` 和 `apigw-sqs-app-stack.userPoolId`，用于与 Cognito 进行身份验证。
+- 如果您没有需要用户登录的前端，您可以按照此 [指南](/docs/lambda/without-iam/example#test-your-endpoint) 为 API 创建用户和身份验证令牌。
 
-From the guide, `YOUR_USER_POOL_CLIENT_ID` is `apigw-sqs-app-stack.userPoolClientId` and `YOUR_USER_POOL_ID` is the `apigw-sqs-app-stack.userPoolId`, the steps should be followed up to retrieving the `IdToken`.
+从指南中，`YOUR_USER_POOL_CLIENT_ID` 是 `apigw-sqs-app-stack.userPoolClientId`，`YOUR_USER_POOL_ID` 是 `apigw-sqs-app-stack.userPoolId`，应按照步骤进行，直到检索到 `IdToken`。
 
-The base API URL has the format of `https://25w651t09g.execute-api.ap-southeast-2.amazonaws.com/dev/enqueue` from the output `apigw-sqs-app-stack.apiUrl`.
+基本 API URL 的格式为 `https://25w651t09g.execute-api.ap-southeast-2.amazonaws.com/dev/enqueue`，来自输出 `apigw-sqs-app-stack.apiUrl`。
 
-#### Trigger a video generation request
+#### 触发视频生成请求
 
-```bash title="render video"
+```bash title="渲染视频"
 curl --location --request POST 'https://xxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/dev/enqueue' \
 --header 'Authorization: Bearer eyJraWQiOiJMVVVVZGtIQ1JXWEEyWEEXXXXXXXXXjMKR1t5S-oA' \
 --data-raw '{
@@ -355,22 +356,24 @@ curl --location --request POST 'https://xxxxxxxx.execute-api.ap-southeast-2.amaz
 }'
 ```
 
-```bash title="response"
+```bash title="响应"
 {
-   {"message":"Message Send to SQS- Here is MessageId: a6abd0bc-b838-48b5-a562-4c511fac5b2f"}
+   {"message":"消息已发送到 SQS- 这是 MessageId: a6abd0bc-b838-48b5-a562-4c511fac5b2f"}
 }
 ```
 
-This will initiate the render request of a video by taking the JSON and putting it in the queue.  
-On the other end, [`render-lambda-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/render-lambda-function/index.ts) will be notified by SQS that is a video render request, it will consume the data from the render request and generate the video as per instruction, the function executes [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) as part of the process.
+这将通过将 JSON 放入队列来启动视频的渲染请求。  
+在另一端，[`render-lambda-function`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/src/render-lambda-function/index.ts) 将通过 SQS 被通知有一个视频渲染请求，它将从渲染请求中消耗数据并根据指示生成视频，该函数执行 [`renderMediaOnLambda()`](/docs/lambda/rendermediaonlambda) 作为流程的一部分。 
 
-## Notes
 
-- The deployment of Remotion Lambda is configured to be deployed only to `ap-southeast-2` region to simplify the project, adjust this in the code at [`region.ts`](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/regions.ts).
-- The deployment of `apigw-sqs-app` is configured to be deployed at `ap-southeast-2` region to simplify the project, adjust this in the code at [`remotion-cdk-starter.ts`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/bin/remotion-cdk-starter.ts).
-- Remotion packages should be bundled inside the function when deployed, you can this in `nodeModules` property from `bundling` object, the code for this located in [here](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L103).
 
-## See also
+## 注意
 
-- [Using Lambda without IAM user](/docs/lambda/without-iam)
-- [Using the Serverless Framework with Remotion Lambda](/docs/lambda/serverless-framework-integration)
+- Remotion Lambda 的部署配置为仅部署到 `ap-southeast-2` 地区，以简化项目，您可以在 [`region.ts`](https://github.com/alexfernandez803/remotion-serverless/blob/main/remotion-app/src/infra/regions.ts) 中的代码中进行调整。
+- `apigw-sqs-app` 的部署配置为部署到 `ap-southeast-2` 地区，以简化项目，您可以在 [`remotion-cdk-starter.ts`](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/bin/remotion-cdk-starter.ts) 中的代码中进行调整。
+- 在部署时，Remotion 包应该被捆绑在函数内部，您可以在 `bundling` 对象的 `nodeModules` 属性中找到此代码，代码位于[这里](https://github.com/alexfernandez803/remotion-serverless/blob/main/apigw-sqs-app/lib/remotion-cdk-starter-stack.ts#L103)。
+
+## 参见
+
+- [在没有 IAM 用户的情况下使用 Lambda](/docs/lambda/without-iam)
+- [使用 Serverless Framework 与 Remotion Lambda](/docs/lambda/serverless-framework-integration)

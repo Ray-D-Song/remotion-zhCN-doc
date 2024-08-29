@@ -1,245 +1,290 @@
 ---
 image: /generated/articles-docs-lambda-cli-render.png
 id: render
-sidebar_label: render
+sidebar_label: 渲染
 title: 'npx remotion lambda render'
 slug: /lambda/cli/render
-crumb: 'Lambda CLI Reference'
+crumb: 'Lambda CLI 参考'
 ---
 
 import {MinimumFramesPerLambda} from '../../../components/lambda/default-frames-per-lambda';
 
-Using the `npx remotion lambda render` command, you can render a video in the cloud.
+使用 `npx remotion lambda render` 命令，您可以在云中渲染视频。
 
-The structure of a command is as follows:
+命令的结构如下：
 
 ```
 npx remotion lambda render <serve-url> [<composition-id>] [<output-location>]
 ```
 
-Arguments:
+参数：
 
-- Obtain a [Serve URL](/docs/terminology/serve-url) using the [`sites create`](/docs/lambda/cli/sites#create) command or by calling [`deploySite()`](/docs/lambda/deploysite).
-- The [Composition ID](/docs/terminology/composition#composition-id). If not specified, the list of compositions will be fetched and you can choose a composition.
-- The `output-location` parameter is optional. If you don't specify it, the video is stored in your S3 bucket. If you specify a location, it gets downloaded to your device in an additional step.
+- 使用 [`sites create`](/docs/lambda/cli/sites#create) 命令或调用 [`deploySite()`](/docs/lambda/deploysite) 获取 [Serve URL](/docs/terminology/serve-url)。
+- [Composition ID](/docs/terminology/composition#composition-id)。如果未指定，将获取组合列表，您可以选择一个组合。
+- `output-location` 参数是可选的。如果不指定，视频将存储在您的 S3 存储桶中。如果指定位置，它将在额外步骤中下载到您的设备中。
 
-## Example commands
+## 示例命令
 
-Rendering a video:
+渲染视频：
 
 ```
 npx remotion lambda render https://remotionlambda-abcdef.s3.eu-central-1.amazonaws.com/sites/testbed/index.html my-comp
 ```
 
-Rendering a video and saving it to `out/video.mp4`:
+渲染视频并将其保存到 `out/video.mp4`：
 
 ```
 npx remotion lambda render https://remotionlambda-abcdef.s3.eu-central-1.amazonaws.com/sites/testbed/index.html my-comp out/video.mp4
 ```
 
-Using the shorthand serve URL:
+使用简写 Serve URL：
 
 ```
 npx remotion lambda render testbed my-comp
 ```
 
 :::info
-If you are using the shorthand serve URL, you have to pass a composition ID. Available compositions can only be fetched if a complete serve URL is passed.
+如果使用简写 Serve URL，则必须传递组合 ID。仅当传递完整 Serve URL 时，才能获取可用组合。
 :::
 
-Passing in input props:
+传入输入属性：
 
 ```
 npx remotion lambda render --props='{"hi": "there"}' testbed my-comp
 ```
 
-Printing debug information including a CloudWatch link:
+打印包括 CloudWatch 链接在内的调试信息：
 
 ```
 npx remotion lambda render --log=verbose testbed my-comp
 ```
 
-Keeping the output video private:
+保持输出视频私有：
 
 ```
 npx remotion lambda render --privacy=private testbed my-comp
 ```
 
-Rendering only the audio:
+仅渲染音频：
 
 ```
 npx remotion lambda render --codec=mp3 testbed my-comp
 ```
 
-## Flags
+## 标志
 
 ### `--region`
 
-The [AWS region](/docs/lambda/region-selection) to select. Both project and function should be in this region.
+[**AWS区域**](/docs/lambda/region-selection)。项目和函数都应该在此区域中。
 
 ### `--props`
 
-[Input Props to pass to the selected composition of your video.](/docs/passing-props#passing-input-props-in-the-cli).  
-Must be a serialized JSON string (`--props='{"hello": "world"}'`) or a path to a JSON file (`./path/to/props.json`).  
-From the root component the props can be read using [`getInputProps()`](/docs/get-input-props).  
-You may transform input props using [`calculateMetadata()`](/docs/calculate-metadata).
+[传递给视频所选组合的输入属性。](/docs/passing-props#passing-input-props-in-the-cli)  
+必须是一个序列化的 JSON 字符串 (`--props='{"hello": "world"}'`) 或一个指向 JSON 文件的路径 (`./path/to/props.json`)。  
+从根组件中，可以使用 [`getInputProps()`](/docs/get-input-props) 读取属性。  
+您可以使用 [`calculateMetadata()`](/docs/calculate-metadata) 转换输入属性。
 
 :::note
-Inline JSON string isn't supported on Windows shells because it removes the `"` character, use a file name instead.
+在 Windows shells 中不支持内联 JSON 字符串，因为它会移除 `"` 字符，请改用文件名。
 :::
 
 ### `--log`
 
-Log level to be used inside the Lambda function. Also, if you set it to `verbose`, a link to CloudWatch will be printed where you can inspect logs.
+Lambda 函数内部要使用的日志级别。如果设置为 `verbose`，将打印一个指向 CloudWatch 的链接，您可以在其中检查日志。
 
 ### `--privacy`
 
-One of:
+其中之一：
 
-- `"public"` (_default_): The rendered media is publicly accessible under the S3 URL.
-- `"private"`: The rendered media is not publicly available, but signed links can be created using [presignUrl()](/docs/lambda/presignurl).
-- `"no-acl"` (_available from v.3.1.7_): The ACL option is not being set at all, this option is useful if you are writing to another bucket that does not support ACL using [`outName`](/docs/lambda/cli/render#--out-name).
+- `"public"`（_默认_）：渲染的媒体可以在 S3 URL 下公开访问。
+- `"private"`：渲染的媒体不是公开可用的，但可以使用 [presignUrl()](/docs/lambda/presignurl) 创建签名链接。
+- `"no-acl"`（_从 v.3.1.7 开始可用_）：不设置 ACL 选项，如果您要写入不支持 ACL 的另一个存储桶，可以使用此选项，使用 [`outName`](/docs/lambda/cli/render#--out-name)。
 
 ### `--max-retries`
 
-How many times a single chunk is being retried if it fails to render. Default `1`.
+如果渲染失败，单个块重试的次数。默认为 `1`。
 
 ### `--frames-per-lambda`
 
-How many frames should be rendered in a single Lambda function. Increase it to require less Lambda functions to render the video, decrease it to make the render faster.
+在单个 Lambda 函数中应该渲染多少帧。增加此值可减少渲染视频所需的 Lambda 函数数量，减少此值可加快渲染速度。
 
-Default value: [Dependant on video length](/docs/lambda/concurrency)  
-Minimum value: <MinimumFramesPerLambda />
+默认值：[取决于视频长度](/docs/lambda/concurrency)  
+最小值：<MinimumFramesPerLambda />
 
 :::note
-The `framesPerLambda` parameter cannot result in more than 200 functions being spawned. See: [Concurrency](/docs/lambda/concurrency)
+`framesPerLambda` 参数不能导致超过 200 个函数被生成。参见：[并发性](/docs/lambda/concurrency)
 :::
 
 ### `--concurrency-per-lambda`<AvailableFrom v="3.0.30" />
 
-By default, each Lambda function renders with concurrency 1 (one open browser tab). You may use the option to customize this value.
-
 ### `--jpeg-quality`
 
-[Value between 0 and 100 for JPEG rendering quality](/docs/config#setjpegquality). Doesn't work when PNG frames are rendered.
+[0 到 100 之间的值，用于 JPEG 渲染质量](/docs/config#setjpegquality)。在渲染 PNG 帧时不起作用。
+
+
 
 ### ~~`--quality`~~
 
-Renamed to `jpegQuality` in `v4.0.0`.
+在 `v4.0.0` 中更名为 `jpegQuality`。
+
+
 
 ### `--muted`<AvailableFrom v="3.2.1" />
 
-[Disables audio output.](/docs/cli/render#--muted) This option may only be used when rendering a video.
+[禁用音频输出。](/docs/cli/render#--muted) 只能在渲染视频时使用此选项。
+
+
 
 ### `--codec`
 
-[`h264` or `h265` (supported since v4.0.32) or `png` or `vp8` or `mp3` or `aac` or `wav` or `prores`](/docs/config#setcodec). If you don't supply `--codec`, it will use `h264`.
+[`h264` 或 `h265`（自 `v4.0.32` 起支持）或 `png` 或 `vp8` 或 `mp3` 或 `aac` 或 `wav` 或 `prores`](/docs/config#setcodec)。如果不提供 `--codec`，将使用 `h264`。
+
+
 
 ### `--audio-codec`<AvailableFrom v="3.3.42" />
 
 <Options id="audio-codec" />
 
+
+
 ### `--audio-bitrate`<AvailableFrom v="3.2.32" />
 
 <Options id="audio-bitrate" />
+
+
 
 ### `--video-bitrate`<AvailableFrom v="3.2.32" />
 
 <Options id="video-bitrate" />
 
+
+
 ### `--prores-profile`
 
-[Set the ProRes profile](/docs/config#setproresprofile). This option is only valid if the [`codec`](#--codec) has been set to `prores`. Possible values: `4444-xq`, `4444`, `hq`, `standard`, `light`, `proxy`. See [here](https://video.stackexchange.com/a/14715) for explanation of possible values. Default: `hq`.
+[设置 ProRes 档案](/docs/config#setproresprofile)。此选项仅在 [`codec`](#--codec) 设置为 `prores` 时有效。可能的值：`4444-xq`、`4444`、`hq`、`standard`、`light`、`proxy`。查看[此处](https://video.stackexchange.com/a/14715)以了解可能的值。默认值：`hq`。
+
+
 
 ### `--x264-preset`
 
 <Options id="x264-preset" />
 
+
+
 ### `--crf`
 
-[To set Constant Rate Factor (CRF) of the output](/docs/config#setcrf). Minimum 0. Use this rate control mode if you want to keep the best quality and care less about the file size.
+[设置输出的 Constant Rate Factor (CRF)](/docs/config#setcrf)。最小为 0。如果希望保持最佳质量并对文件大小不太关心，请使用此速率控制模式。
+
+
 
 ### `--pixel-format`
 
-[Set a custom pixel format. See here for available values.](/docs/config#setpixelformat)
+[设置自定义像素格式。查看此处以获取可用值。](/docs/config#setpixelformat)
+
+
 
 ### `--image-format`
 
-[`jpeg` or `png` - JPEG is faster, but doesn't support transparency.](/docs/config#setvideoimageformat) The default image format is `jpeg`.
+[`jpeg` 或 `png` - JPEG 速度更快，但不支持透明度。](/docs/config#setvideoimageformat) 默认图像格式为 `jpeg`。
+
+
 
 ### `--scale`
 
-[Scales the output frames by the factor you pass in.](/docs/scaling) For example, a 1280x720px frame will become a 1920x1080px frame with a scale factor of `1.5`. Vector elements like fonts and HTML markups will be rendered with extra details.
+[通过传入的因子缩放输出帧。](/docs/scaling) 例如，一个 1280x720px 的帧将以 `1.5` 的比例因子变为 1920x1080px 的帧。像字体和 HTML 标记等矢量元素将以更多细节呈现。
+
+
 
 ### `--env-file`
 
-Specify a location for a dotenv file - Default `.env`. [Read about how environment variables work in Remotion.](/docs/env-variables)
+指定 dotenv 文件的位置 - 默认为 `.env`。[了解有关环境变量在 Remotion 中的工作方式。](/docs/env-variables)
 
 ### `--frames`
 
-[Render a subset of a video](/docs/config#setframerange). Example: `--frames=0-9` to select the first 10 frames. To render a still, use the [`still`](/docs/lambda/cli/still) command.
+[渲染视频的子集](/docs/config#setframerange)。例如：`--frames=0-9` 选择前10帧。要渲染静态图，请使用 [`still`](/docs/lambda/cli/still) 命令。
+
+
 
 ### `--every-nth-frame`<AvailableFrom v="3.1.0" />
 
-[Render only every nth frame.](/docs/config#seteverynthframe) This option may only be set when rendering GIFs. This allows you to lower the FPS of the GIF.
+[仅渲染每第n帧。](/docs/config#seteverynthframe) 此选项仅在渲染 GIF 时可设置。这允许您降低 GIF 的帧速率。
 
-For example only every second frame, every third frame and so on. Only works for rendering GIFs. [See here for more details.](/docs/render-as-gif)
+例如，仅每隔一帧，每隔三帧等。仅适用于渲染 GIF。[点击此处了解更多详情。](/docs/render-as-gif)
+
+
 
 ### `--number-of-gif-loops`<AvailableFrom v="3.1.0" />
 
 <Options id="number-of-gif-loops" />
 
+
+
 ### `--timeout`
 
-A number describing how long the render may take to resolve all [`delayRender()`](/docs/delay-render) calls [before it times out](/docs/timeout). Default: `30000`
+描述渲染在解析所有 [`delayRender()`](/docs/delay-render) 调用之前可能需要多长时间 [超时](/docs/timeout) 的数字。默认值：`30000`
+
+
 
 ### `--out-name`
 
-The file name of the media output as stored in the S3 bucket. By default, it is `out` plus the appropriate file extension, for example: `out.mp4`. Must match `/([0-9a-zA-Z-!_.*'()/]+)/g`.
+存储在 S3 存储桶中的媒体输出文件名。默认为 `out` 加上适当的文件扩展名，例如：`out.mp4`。必须匹配 `/([0-9a-zA-Z-!_.*'()/]+)/g`。
+
+
 
 ### `--overwrite`<AvailableFrom v="3.2.25" />
 
-If a custom out name is specified and a file already exists at this key in the S3 bucket, decide whether that file will be deleted before the render begins. Default `false`.
+如果指定了自定义输出名称，并且在 S3 存储桶中的此键处已存在文件，则在渲染开始之前决定是否删除该文件。默认为 `false`。
 
-An existing file at the output S3 key will conflict with the render and must be deleted beforehand. If this setting is `false` and a conflict occurs, an error will be thrown.
+输出 S3 键处的现有文件将与渲染冲突，并且必须事先删除。如果此设置为 `false` 并发生冲突，则会抛出错误。
+
+
 
 ### `--webhook`<AvailableFrom v="3.2.30" />
 
-Sets a webhook to be called when the render finishes or fails. [`renderMediaOnLambda() -> webhook.url`](/docs/lambda/rendermediaonlambda#webhook). To be used together with `--webhook-secret`.
+设置在渲染完成或失败时调用的 webhook。[`renderMediaOnLambda() -> webhook.url`](/docs/lambda/rendermediaonlambda#webhook)。与 `--webhook-secret` 一起使用。
+
+
 
 ### `--webhook-secret`<AvailableFrom v="3.2.30" />
 
-Sets a webhook secret for the webhook (see above). [`renderMediaOnLambda() -> webhook.secret`](/docs/lambda/rendermediaonlambda#webhook). To be used together with `--webhook`.
+为 webhook 设置一个秘钥（见上文）。[`renderMediaOnLambda() -> webhook.secret`](/docs/lambda/rendermediaonlambda#webhook)。与 `--webhook` 一起使用。
+
+
 
 ### `--height`<AvailableFrom v="3.2.40" />
 
-[Overrides composition height.](/docs/config#overrideheight)
+[覆盖合成高度。](/docs/config#overrideheight)
+
+
 
 ### `--width`<AvailableFrom v="3.2.40" />
 
-[Overrides composition width.](/docs/config#overridewidth)
+
+
+
+[覆盖组合宽度。](/docs/config#overridewidth)
 
 ### `--function-name`<AvailableFrom v="3.3.38" />
 
-Specify the name of the function which should be used to invoke and orchestrate the render. You only need to pass it if there are multiple functions with different configurations.
+指定应用于调用和编排渲染的函数名称。只有在存在具有不同配置的多个函数时才需要传递它。
 
 ### `--renderer-function-name`<AvailableFrom v="3.3.38" />
 
-If specified, this function will be used for rendering the individual chunks. This is useful if you want to use a function with higher or lower power for rendering the chunks than the main orchestration function.
+如果指定了此函数，将用于渲染各个块。如果要使用具有更高或更低功率的函数来渲染块，则此选项很有用。
 
-If you want to use this option, the function must be in the same region, the same account and have the same version as the main function.
+如果要使用此选项，函数必须位于相同的区域、相同的帐户，并且与主函数具有相同的版本。
 
 ### `--force-bucket-name`<AvailableFrom v="3.3.42" />
 
-Specify a specific bucket name to be used. [This is not recommended](/docs/lambda/multiple-buckets), instead let Remotion discover the right bucket automatically.
+指定要使用的特定存储桶名称。[不建议这样做](/docs/lambda/multiple-buckets)，而是让 Remotion 自动发现正确的存储桶。
 
 ### `--ignore-certificate-errors`
 
-Results in invalid SSL certificates in Chrome, such as self-signed ones, being ignored.
+导致 Chrome 忽略无效的 SSL 证书，例如自签名证书。
 
 ### `--disable-web-security`
 
-This will most notably disable CORS in Chrome among other security features.
+这将主要禁用 Chrome 中的 CORS，以及其他安全功能。
 
 ### `--gl`
 
@@ -247,7 +292,7 @@ This will most notably disable CORS in Chrome among other security features.
 
 ### `--user-agent`<AvailableFrom v="3.3.83"/>
 
-Lets you set a custom user agent that the headless Chrome browser assumes.
+允许您设置 headless Chrome 浏览器所假定的自定义用户代理。
 
 ### `--offthreadvideo-cache-size-in-bytes`<AvailableFrom v="4.0.23"/>
 
@@ -271,4 +316,6 @@ Lets you set a custom user agent that the headless Chrome browser assumes.
 
 ### `--force-path-style`<AvailableFrom v="4.0.202" />
 
-Passes `forcePathStyle` to the AWS S3 client. If you don't know what this is, you probably don't need it.
+将 `forcePathStyle` 传递给 AWS S3 客户端。如果您不知道这是什么，您可能不需要它。 
+
+

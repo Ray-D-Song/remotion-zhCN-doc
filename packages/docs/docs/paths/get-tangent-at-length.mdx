@@ -4,11 +4,11 @@ title: getTangentAtLength()
 crumb: "@remotion/paths"
 ---
 
-_Part of the [`@remotion/paths`](/docs/paths) package._
+_属于[`@remotion/paths`](/docs/paths)包。_
 
-Gets tangent values `x` and `y` of a point which is on an SVG path. The first argument is an SVG path, the second one is the length at which the point should be sampled. It must be between 0 and the return value of [`getLength()`](/docs/paths/get-length).
+获取位于SVG路径上的点的切线值`x`和`y`。第一个参数是SVG路径，第二个参数是应该采样点的长度。它必须介于0和[`getLength()`](/docs/paths/get-length)的返回值之间。
 
-Returns a point if the path is valid:
+如果路径有效，则返回一个点：
 
 ```tsx twoslash
 import { getTangentAtLength } from "@remotion/paths";
@@ -17,7 +17,7 @@ const tangent = getTangentAtLength("M 50 50 L 150 50", 50);
 console.log(tangent); // { x: 1, y: 0}
 ```
 
-The function will throw if the path is invalid:
+如果路径无效，则该函数将抛出异常：
 
 ```tsx twoslash
 import { getTangentAtLength } from "@remotion/paths";
@@ -27,11 +27,12 @@ getTangentAtLength("remotion", 50); // Error: Malformed path data: ...
 
 ## Credits
 
-Source code stems mostly from [svg-path-properties](https://www.npmjs.com/package/svg-path-properties).
+源代码主要来自[svg-path-properties](https://www.npmjs.com/package/svg-path-properties)。
 
-## See also
+## 另请参阅
 
 - [getLength()](/docs/paths/get-length)
 - [getPointAtLength()](/docs/paths/get-point-at-length)
 - [`@remotion/paths`](/docs/paths)
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-tangent-at-length.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/paths/src/get-tangent-at-length.ts)
+

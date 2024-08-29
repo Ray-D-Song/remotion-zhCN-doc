@@ -7,16 +7,16 @@ crumb: "Cloud Run API"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以了解最新的重大更改。</p>
 </ExperimentalBadge>
 
-Gets information about a service given its name and region.
+获取给定名称和区域的服务的信息。
 
-To get a list of deployed services, use [`getServices()`](/docs/cloudrun/getservices).
+要获取已部署服务的列表，请使用 [`getServices()`](/docs/cloudrun/getservices)。
 
-To deploy a service, use [`deployService()`](/docs/cloudrun/deployservice).
+要部署服务，请使用 [`deployService()`](/docs/cloudrun/deployservice)。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -39,57 +39,59 @@ console.log(info.consoleUrl); // "https://console.cloud.google.com/run/detail/us
 ```
 
 :::note
-Import from [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) to not import the whole renderer, which cannot be bundled.
+从 [`@remotion/cloudrun/client`](/docs/cloudrun/light-client) 导入，以避免导入整个渲染器，因为无法捆绑。
 :::
 
-## Arguments
+## 参数
 
-An object containing the following properties:
+包含以下属性的对象：
 
 ### `region`
 
-The [GCP region](/docs/cloudrun/region-selection) the service resides in.
+服务所在的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `serviceName`
 
-The name of the service.
+服务的名称。
 
-## Return value
+## 返回值
 
-If the service does not exist, an error is thrown by the GCP SDK.
-If the service exists, a promise resolving to an object with the following properties is returned:
+如果服务不存在，则 GCP SDK 会抛出错误。
+如果服务存在，则返回一个解析为具有以下属性的对象的 Promise：
 
 ### `memoryLimit`
 
-The upper bound on the amount of RAM that the Cloud Run service can consume.
+Cloud Run 服务可以消耗的 RAM 量的上限。
 
 ### `cpuLimit`
 
-The maximum number of CPU cores that the Cloud Run service can use to process requests.
+Cloud Run 服务用于处理请求的 CPU 核心的最大数量。
 
 ### `remotionVersion`
 
-The Remotion version of the service. Remotion is versioning the Cloud Run service and a render can only be triggered from a version of `@remotion/cloudrun` that is matching the one of the service.
+服务的 Remotion 版本。Remotion 正在对 Cloud Run 服务进行版本控制，只能从与服务版本匹配的 `@remotion/cloudrun` 版本触发渲染。
 
 ### `timeoutInSeconds`
 
-The timeout that has been assigned to the Cloud Run service.
+已分配给 Cloud Run 服务的超时时间。
 
 ### `uri`
 
-The endpoint of the service.
+服务的端点。
 
 ### `region`
 
-The region of the deployed service.
+部署服务的区域。
 
 ### `consoleUrl`
 
-A link to the GCP console page for this service. Specifically, a link to logs display.
+指向此服务的 GCP 控制台页面的链接。具体来说，是日志显示的链接。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-service-info.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/cloudrun/src/api/get-service-info.ts)
 - [`getServices()`](/docs/cloudrun/getservices)
 - [`deployService()`](/docs/cloudrun/deployservice)
 - [`deleteService()`](/docs/cloudrun/deleteservice)
+
+Please paste the Markdown content you'd like me to translate into Chinese.

@@ -4,18 +4,18 @@ title: B-Roll
 crumb: Recorder
 ---
 
-You can overlay your recorded scenes with additional video or photo footage by adding `bRoll` elements in the right sidebar.
+您可以通过在右侧边栏中添加 `bRoll` 元素，将录制的场景叠加额外的视频或照片素材。
 
-Add the footage you want to use to the `public` folder and select it from the `bRoll` drop-down menu for the scene you want to overlay.
+将要使用的素材添加到 `public` 文件夹，并从 `bRoll` 下拉菜单中为要叠加的场景选择它。
 
-Configure when and for how long to play an asset by adjusting the `from` and `durationInFrames` values.
-The `from` value is relative to the scene to which you are adding the B-roll and defines the frame from which the asset is to be displayed.
+通过调整 `from` 和 `durationInFrames` 值来配置何时以及播放资产的持续时间。
+`from` 值是相对于您正在添加 B-roll 的场景的，定义要显示资产的帧。
 
-## Constraints
+## 约束
 
-The data that you add in bRoll is postprocessed to enforce the following rules:
+您在 bRoll 中添加的数据将被后处理以强制执行以下规则：
 
-1. If a second B-Roll overlays the first B-Roll, the first B-Roll may not disappear before the second B-Roll disappears.
-2. A B-Roll must have disappeared before the transition to the next scene begins.
+1. 如果第二个 B-Roll 叠加在第一个 B-Roll 上，则第一个 B-Roll 在第二个 B-Roll 消失之前不得消失。
+2. 在过渡到下一个场景之前，B-Roll 必须已经消失。
 
-These constraints are defined in [`remotion/scenes/BRoll/apply-b-roll-rules.ts`](https://github.com/remotion-dev/recorder/tree/main/remotion/scenes/BRoll/apply-b-roll-rules.ts).
+这些约束在 [`remotion/scenes/BRoll/apply-b-roll-rules.ts`](https://github.com/remotion-dev/recorder/tree/main/remotion/scenes/BRoll/apply-b-roll-rules.ts) 中定义。

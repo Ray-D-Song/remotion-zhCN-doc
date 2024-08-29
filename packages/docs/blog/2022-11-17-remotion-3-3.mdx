@@ -2,10 +2,10 @@
 slug: 3-3
 title: Remotion 3.3
 author: Jonny Burger
-author_title: Chief Hacker @ Remotion
+author_title: Remotion首席黑客
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
-image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%203.3&description=FFmpeg%20now%20auto-installs,%20Packages%20for%20Google%20Fonts,%20Motion%20Blur,%20Noise,%20SVG%20paths%20and%2030%20more%20features
+image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%203.3&description=FFmpeg%20现在自动安装，Google%20Fonts%20包，Motion%20Blur，Noise，SVG%20路径和其他30多个功能
 ---
 
 import Tabs from '@theme/Tabs';
@@ -14,184 +14,185 @@ import {NewMuxVideo} from '../src/components/MuxVideo';
 import {TableOfContents} from '../components/TableOfContents/paths';
 import {FfmpegVideo} from '../components/FFmpegVideo'
 
-## No more FFmpeg installation!
+## 不再需要安装FFmpeg！
 
-Now, when you are rendering a video and don't have FFmpeg installed, Remotion will download a copy for you.
-Previously, installing FFmpeg required 7 steps on Windows and took several minutes when using Homebrew on macOS.
+现在，当您渲染视频且没有安装FFmpeg时，Remotion将为您下载一份副本。
+以前，在Windows上安装FFmpeg需要7个步骤，在macOS上使用Homebrew时需要几分钟。
 
 <FfmpegVideo />
 
-When deploying Remotion on a server, you can now also let Remotion install FFmpeg for you using the [`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) API or the [`npx remotion install ffmpeg`](/docs/cli/install) command. Learn more about [FFmpeg auto-install](/docs/ffmpeg) here.
+在服务器上部署Remotion时，您现在还可以让Remotion为您安装FFmpeg，使用[`ensureFfmpeg()`](/docs/renderer/ensure-ffmpeg) API或[`npx remotion install ffmpeg`](/docs/cli/install)命令。在这里了解更多关于[FFmpeg自动安装](/docs/ffmpeg)的信息。
 
-## New `@remotion/google-fonts` package
+## 新的`@remotion/google-fonts`包
 
-It is now easy to import Google Fonts into Remotion! [`@remotion/google-fonts`](/docs/google-fonts) takes care of correct loading, and is fully type-safe!
+现在很容易将Google Fonts导入到Remotion中！[`@remotion/google-fonts`](/docs/google-fonts)负责正确加载，并且完全类型安全！
 
 <video src="/img/google-fonts.mp4" autoPlay loop muted playsInline/>
 
-## New `@remotion/motion-blur` package
+## 新的`@remotion/motion-blur`包
 
-This package contains two components: [`<Trail>`](/docs/motion-blur/trail) and [`<CameraMotionBlur>`](/docs/motion-blur/camera-motion-blur), assisting you with achieving awesome motion blur effects!
+此包包含两个组件：[`<Trail>`](/docs/motion-blur/trail)和[`<CameraMotionBlur>`](/docs/motion-blur/camera-motion-blur)，帮助您实现令人惊叹的运动模糊效果！
 
-A quick demo of what is now called [`<Trail>`](/docs/motion-blur/trail):
+快速演示现在称为[`<Trail>`](/docs/motion-blur/trail)的内容：
 
 <NewMuxVideo muxId="XPgKwILbTR4jZPxuR2ewfKjRF9cnThudkXPIkSSvQBM" style={{
   width: '100%'
 }} controls />
 
-## New `@remotion/noise` package
+## 新的`@remotion/noise`包
 
-This package offers easy, type-safe, pure functions for getting creative with noise. Check out [our playground](/docs/noise-visualization) to see what you can do with it!
+此包提供了易于使用、类型安全的纯函数，可让您在噪音方面发挥创意。查看[我们的游乐场](/docs/noise-visualization)以了解您可以做些什么！
 
-A video demo of how you can create interesting effects with noise:
+
+一个展示如何使用噪声创建有趣效果的视频演示：
 
 <NewMuxVideo muxId="5o013raWoyw1Jv01MJo02INMEQ5scAt01PveIQ800yYkEhQk" style={{
   width: '100%'
 }} controls />
 
-## New `@remotion/paths` package
+## 新的 `@remotion/paths` 包
 
-This package offers utilities for animating and manipulating SVG paths! With 9 pure, type-safe functions, we cover many common needs while working with SVG paths:
+该包提供了用于动画化和操作 SVG 路径的实用工具！通过 9 个纯净、类型安全的函数，我们涵盖了许多在处理 SVG 路径时常见的需求：
 
 <TableOfContents />
 
-## Quick Switcher
+## 快速切换器
 
-By pressing <kbd>Cmd+K</kbd>, you can trigger a new Quick Switcher. It has three functions:
+通过按下 <kbd>Cmd+K</kbd>，您可以触发一个新的快速切换器。它具有三个功能：
 
-- Fuzzy-search for a composition to jump to that composition.
-- Type `> ` followed by an item in the menu bar to trigger that action.
-- Type `? ` followed by a search term to query the docs.
+- 模糊搜索一个合成以跳转到该合成。
+- 在菜单栏中输入 `> `，然后跟随一个项目以触发该操作。
+- 输入 `? `，然后跟随一个搜索词来查询文档。
 
 <NewMuxVideo muxId="t00Mj7y1CLLGjaMvQyoBqcjdy4PIzVrFaT4317fKbzx00" style={{
   width: '100%'
 }} controls />
 
-## Remotion Core
+## Remotion 核心
 
-### `<Sequence>` makes `from` optional, accepts style and ref
+### `<Sequence>` 现在使 `from` 可选，接受样式和引用
 
-[`<Sequence from={0}>`](/docs/sequence) can now be shortened to [`<Sequence>`](/docs/sequence). Our ESLint plugin was updated to suggest this refactor automatically.
+[`<Sequence from={0}>`](/docs/sequence) 现在可以缩短为 [`<Sequence>`](/docs/sequence)。我们的 ESLint 插件已更新，建议自动进行此重构。
 
 <video src="/img/eslint-from-0.mp4" autoPlay loop muted playsInline/>
 
-You can now also `style` a sequence if you did not pass `layout="none"`.
+如果您没有传递 `layout="none"`，现在也可以为序列添加 `style`。
 
-A `ref` can be attached to `<Sequence>` and [`<AbsoluteFill>`](/docs/absolute-fill).
+可以将 `ref` 附加到 `<Sequence>` 和 [`<AbsoluteFill>`](/docs/absolute-fill)。
 
-### Video and Audio support `loop` prop
+### 视频和音频支持 `loop` 属性
 
-The [`<Video>`](/docs/video) and [`<Audio>`](/docs/audio) components now support the [`loop`](/docs/video#loop) property.
+[`<Video>`](/docs/video) 和 [`<Audio>`](/docs/audio) 组件现在支持 [`loop`](/docs/video#loop) 属性。
 
-## Preview
+## 预览
 
-### New CLI output
+### 新的 CLI 输出
 
-When starting the Remotion Preview, it now shows on which URL the preview is running. The Webpack output is now also cleaner.
+启动 Remotion 预览时，现在会显示预览正在运行的 URL。Webpack 输出现在也更清晰。
 
 <img src="/img/cli-output.png" />
 
-### Pinch to Zoom
+### 捏合缩放
 
-If your device supports multitouch, you can now pinch to zoom the composition. Alternatively, you can hold <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> and use your scrollwheel to zoom.
+如果您的设备支持多点触控，现在可以捏合缩放合成。或者，您可以按住 <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> 并使用滚轮来缩放。
 
-Using two fingers, you can move the canvas around and pressing <kbd>0</kbd> will reset the canvas. For the latter, there is also a button in the top-right corner that you can click.
+使用两根手指，您可以移动画布，按下 <kbd>0</kbd> 将重置画布。对于后者，在右上角还有一个按钮，您可以单击。
 
 <NewMuxVideo muxId="5I01hwK6hs7w0200Ho1KNho7rfU700UVKYDnd7FItANR32U" style={{
   width: '100%'
 }} controls />
 
-### Search the docs from the Remotion Preview
+### 从 Remotion 预览中搜索文档
 
-Pressing <kbd>?</kbd> to reveal the keyboard shortcuts now has a secondary function: You can type in any term to search the Remotion documentation!
+按下 <kbd>?</kbd> 键现在有一个次要功能：您可以输入任何术语来搜索 Remotion 文档！
 
-### Shorter commands
+### 更短的命令
 
-Previously, a Remotion CLI command looked like this:
+以前，Remotion CLI 命令看起来像这样：
 
 ```bash
 npx remotion render src/index.tsx my-comp output.mp4
 ```
 
-We now allow you to skip the output name, in this case the render would land in `out/my-comp.mp4` by default:
+现在，您可以跳过输出名称，此时渲染将默认保存在 `out/my-comp.mp4` 中：
 
 ```bash
 npx remotion render src/index.tsx my-comp
 ```
 
-You can also omit the composition name and Remotion will ask which composition to render:
+您还可以省略组合名称，Remotion 将询问要渲染哪个组合：
 
 ```bash
 npx remotion render src/index.tsx
 ```
 
 :::note
-Experimental: We might change the behavior to rendering all compositions in the future.
+实验性功能：我们可能会在未来更改为渲染所有组合的行为。
 :::
 
-Finally, you can also omit the entry point and Remotion will take an educated guess!
+最后，您还可以省略入口点，Remotion 将会做出一个合理的猜测！
 
 ```bash
 npx remotion render
 ```
 
-If you deviate from the defaults of our templates, you can set an [entry point](/docs/config#setentrypoint) in your config file and leave it out from Remotion commands.
+如果您偏离了我们模板的默认设置，您可以在配置文件中设置一个[入口点](/docs/config#setentrypoint)，并在 Remotion 命令中省略它。
 
-### Auto-reload environment variables
+### 自动重新加载环境变量
 
-If you change values in your `.env` file, the Remotion Preview will reload and pick them up without having to restart.
+如果您更改了`.env`文件中的值，Remotion 预览将重新加载并接收到这些值，而无需重新启动。
 
-### Signal that Remotion Preview disconnected
+### 表示 Remotion 预览已断开连接
 
-When quitting the Remotion Preview using `Ctrl+C`, for example to render a video, A new popup will signalize that Fast Refresh will not work anymore.
+当使用 `Ctrl+C` 退出 Remotion 预览，例如渲染视频时，将会弹出一个新的弹窗，表示 Fast Refresh 将不再起作用。
 
 <img src="/img/disconnected.png" style={{borderRadius: 5}}/>
 
-## Rendering
+## 渲染
 
-### `--muted` render
+### `--muted` 渲染
 
-This new flag can be passed to a render to ignore the audio. If you know that your video has no audio, this can make your render faster.
+可以将此新标志传递给渲染以忽略音频。如果您知道您的视频没有音频，这可以加快渲染速度。
 
 ### `--enforce-audio-track`
 
-When no audio was detected in your video, the audio will now be dropped (except on Lambda). With this new flag, you can enforce that a silent audio track is added.
+如果在您的视频中未检测到音频，则现在将删除音频（除了 Lambda）。使用此新标志，您可以强制添加一个静音音轨。
 
-### `--audio-bitrate` and `--video-bitrate`
+### `--audio-bitrate` 和 `--video-bitrate`
 
-These flags allow you to set a target bitrate for audio or video. Those flags are not recommended though, use `--crf` instead.
+这些标志允许您为音频或视频设置目标比特率。不过不建议使用这些标志，而是使用 `--crf`。
 
-### `--height` and `--width` flags
+### `--height` 和 `--width` 标志
 
-Using these flags, you can ignore the width and height you have defined for your output, and override it. The difference to `--scale` is that the viewport and therefore the layout may actually change.
+使用这些标志，您可以忽略为输出定义的宽度和高度，并覆盖它们。与 `--scale` 的区别在于视口和因此布局可能实际上会发生变化。
 
-### Obtain slowest frames
+### 获取最慢的帧
 
-If you add `--log=verbose`, the slowest frames are shown in order, so you can optimize them. Slowest frames are also available for [`renderMedia()`](/docs/renderer/render-media) using the [`onSlowestFrames`](/docs/renderer/render-media#onslowestframes) callback.
+如果添加 `--log=verbose`，将按顺序显示最慢的帧，以便您可以对其进行优化。使用 [`renderMedia()`](/docs/renderer/render-media) 时，也可以通过 [`onSlowestFrames`](/docs/renderer/render-media#onslowestframes) 回调来获取最慢的帧。
 
-### Negative numbers when rendering a still
+### 渲染静止画时出现负数
 
-When rendering a still, you may now pass a negative frame number to refer to frames from the back of the video. `-1` is the last frame of a video, `-2` the second last, and so on.
+在渲染静止画时，现在可以传递负帧数来引用视频的后面帧。`-1` 是视频的最后一帧，`-2` 是倒数第二帧，依此类推。
 
-### Override FFmpeg command
+### 覆盖 FFmpeg 命令
 
-The FFmpeg command that Remotion executes under the hood can [now be overriden reducer-style](/docs/config#overrideffmpegcommand).
+Remotion 在后台执行的 FFmpeg 命令现在可以 [以 reducer 风格进行覆盖](/docs/config#overrideffmpegcommand)。
 
-## Server-side rendering
+## 服务器端渲染
 
-### Resuming renders if they crash
+### 如果渲染崩溃，恢复渲染
 
-If a render crashes due to being resource-intensive (see: [Target closed](/docs/target-closed)), Remotion will now retry each failed frame once, to prevent long renders from failing on low-resource machines.
+如果由于资源密集型而导致渲染崩溃（参见：[目标关闭](/docs/target-closed)），Remotion 现在将重试每个失败的帧一次，以防止在资源不足的机器上长时间渲染失败。
 
-### Getting the overall progress from `renderMedia()`
+### 从 `renderMedia()` 获取整体进度
 
-Previously, the progress for rendering and encoding was reported individually. There is a new field, simply named `progress`, in the [`onProgress`](/docs/renderer/render-media#onprogress) callback that you can use to display progress without calculating it yourself.
+以前，渲染和编码的进度是分别报告的。现在，在 [`onProgress`](/docs/renderer/render-media#onprogress) 回调中有一个名为 `progress` 的新字段，您可以使用它来显示进度，而无需自行计算。
 
-### Easier function signature for bundle()
+### 更简单的 `bundle()` 函数签名
 
-Previously, [`bundle()`](/docs/bundle) accepted three arguments: `entryPoint`, `onProgress` and `options`.
+以前，[`bundle()`](/docs/bundle) 接受三个参数：`entryPoint`、`onProgress` 和 `options`。
 
-```ts twoslash title="Old bundle() signature"
+```ts twoslash title="旧的 bundle() 签名"
 import { bundle } from "@remotion/bundler";
 
 bundle("./src/index.ts", (progress) => console.log(progress), {
@@ -199,9 +200,9 @@ bundle("./src/index.ts", (progress) => console.log(progress), {
 });
 ```
 
-Since getting the progress was less important than some of the options, `bundle()` now accepts an object with options, progress callback and entryPoint altogether:
+由于获取进度不如某些选项重要，现在 `bundle()` 接受一个包含选项、进度回调和 entryPoint 的对象：
 
-```ts twoslash title="New bundle() signature"
+```ts twoslash title="新的 bundle() 签名"
 import { bundle } from "@remotion/bundler";
 
 bundle({
@@ -211,13 +212,13 @@ bundle({
 });
 ```
 
-The previous signature is still supported.
+仍支持以前的签名。
 
-## Player
+## 播放器
 
-### `<Thumbnail>` component
+### `<Thumbnail>` 组件
 
-The new [`<Thumbnail>`](/docs/player/thumbnail) component is like the [`<Player>`](/docs/player/player), but for rendering a preview of a still. You can use it to display a specific frame of a video without having to render it.
+新的 [`<Thumbnail>`](/docs/player/thumbnail) 组件类似于 [`<Player>`](/docs/player/player)，但用于渲染静止画的预览。您可以使用它来显示视频的特定帧，而无需进行渲染。
 
 ```tsx twoslash
 import React from "react";
@@ -243,43 +244,43 @@ const MyApp: React.FC = () => {
 };
 ```
 
-### Player `frameupdate` event
+### 播放器 `frameupdate` 事件
 
-In addition to `timeupdate`, you can subscribe to [`frameupdate`](/docs/player/player#frameupdate), which fires whenever the current frame changes. You can use it for example to render a custom frame-accurate time display.
+除了 `timeupdate` 之外，您还可以订阅 [`frameupdate`](/docs/player/player#frameupdate)，它会在当前帧更改时触发。您可以使用它来渲染自定义的帧精确时间显示。
 
-### Player volume slider is responsive
+### 播放器音量滑块具有响应性
 
-If the Player is displayed in a narrow container, the volume control now goes upwards instead of to the right, in order to save some space.
+如果播放器显示在一个狭窄的容器中，音量控制现在会向上移动，而不是向右移动，以节省一些空间。
 
 <video src="/img/responsivevolume.mov" autoPlay loop muted playsInline/>
 
-### Get the scale of the Player
+### 获取播放器的比例
 
-Using the imperative [`getScale()`](/docs/player/player#getscale) method, you can now see how big the displayed size is in comparison to the canvas width of the component.
+使用命令式的 [`getScale()`](/docs/player/player#getscale) 方法，您现在可以看到显示大小与组件画布宽度的比较。
 
-### Controls are initially shown
+### 控件最初显示
 
-On YouTube, the video always starts with controls shown and then they fade out after a few seconds. We have made this the default behavior in Remotion as well, because users would often not realize that the Player is interactive otherwise. You can control the behavior using [`initiallyShowControls`](/docs/player/player#initiallyshowcontrols).
+在 YouTube 上，视频始终以显示控件的状态开始，然后在几秒钟后淡出。我们也将这种行为作为 Remotion 的默认行为，因为用户经常意识不到播放器是可交互的。您可以使用 [`initiallyShowControls`](/docs/player/player#initiallyshowcontrols) 控制这种行为。
 
 <video src="/img/controlsinitiallyshown.mov" style={{maxWidth: 400, width: "100%"}} autoPlay loop muted playsInline/>
 
-### Play a section of a video
+### 播放视频的某个部分
 
-Using the [`inFrame`](/docs/player/player#inframe) and [`outFrame`](/docs/player/player#outframe) props, you can force the Remotion Player to only play a certain section of a video. The rest of the seek bar will be greyed out.
+使用 [`inFrame`](/docs/player/player#inframe) 和 [`outFrame`](/docs/player/player#outframe) 属性，您可以强制 Remotion 播放器仅播放视频的某个部分。其余的寻找栏将变为灰色。
 
 <img src="/img/inout.png" />
 
-### Customize Play button and Fullscreen button
+### 自定义播放按钮和全屏按钮
 
-Using [`renderPlayPauseButton`](/docs/player/player#renderplaypausebutton) and [`renderFullscreenButton`](/docs/player/player#renderfullscreenbutton), you can customize the appearance of the Player more granularly.
+使用 [`renderPlayPauseButton`](/docs/player/player#renderplaypausebutton) 和 [`renderFullscreenButton`](/docs/player/player#renderfullscreenbutton)，您可以更细粒度地自定义播放器的外观。
 
-### Start player from an offset
+### 从偏移开始播放器
 
-You can define the [`initialFrame`](/docs/player/player#initialframe) on which your component gets mounted on. This will be the default position of the video, however, it will not clamp the playback range like the `inFrame` prop.
+您可以定义组件挂载时的 [`initialFrame`](/docs/player/player#initialframe)。这将是视频的默认位置，但不会像 `inFrame` 属性那样限制播放范围。```
 
-## New `prefetch()` API
+## 新的 `prefetch()` API 
 
-In addition to the [`Preload APIs`](/docs/preload), [`prefetch()`](/docs/prefetch) presents another way of preloading an asset so it is ready to display when it is supposed to appear in the Remotion Player.
+除了[`Preload APIs`](/docs/preload)之外，[`prefetch()`](/docs/prefetch)提供了另一种预加载资源的方式，以便在 Remotion Player 中应该显示时准备好显示。
 
 ```tsx twoslash title="Prefetching API"
 import { prefetch } from "remotion";
@@ -292,16 +293,16 @@ waitUntilDone().then(() => {
 });
 ```
 
-Video and audio tags will automatically use the prefetched asset if it is available. See [`@remotion/preload` vs. `prefetch()`](/docs/player/player#renderfullscreenbutton) for a comparison.
+如果可用，视频和音频标签将自动使用预取的资源。查看[`@remotion/preload` vs. `prefetch()`](/docs/player/player#renderfullscreenbutton)进行比较。
 
-## Remix template
+## Remix 模板 
 
-The Remix template is our first SaaS template! It includes the Remotion Preview, the Player and Remotion Lambda out of the box to jumpstart you with everything you need to create your app that offers customized video generation.
+Remix 模板是我们的第一个 SaaS 模板！它包括 Remotion 预览、播放器和 Remotion Lambda，可立即为您提供所需的一切，以创建提供定制视频生成的应用程序。
 
 <img src="/img/remix-template.png"></img>
 <br />
 <br />
-Get started by running:
+通过运行以下命令开始：
 
 <Tabs
 defaultValue="npm"
@@ -336,96 +337,114 @@ pnpm create video --remix
   </TabItem>
 </Tabs>
 
-## Lambda improvements
+## Lambda 改进 
 
-### Webhook support
+### Webhook 支持
 
-You can now [send and receive a webhook](/docs/lambda/webhooks) when a Lambda render is done or has failed. Examples for Next.js and Express apps have been added and our documentation page features a way to send a test webhook.
+现在，您可以在 Lambda 渲染完成或失败时[发送和接收 Webhook](/docs/lambda/webhooks)。我们已添加了 Next.js 和 Express 应用程序的示例，并且我们的文档页面提供了发送测试 Webhook 的方法。
 
-### Payload limit lifted
+### 提高的负载限制
 
-Previously, the input props passed to a Lambda render could not be bigger than 256KB when serialized. Now, this limit is lifted, since if the payload is big, it will be stored to S3 instead being passed directly to the Lambda function.
+以前，传递给 Lambda 渲染的输入属性在序列化时不能超过 256KB。现在，由于负载较大，此限制已被取消，因为如果负载较大，它将被存储到 S3 中，而不是直接传递给 Lambda 函数。
 
-### Lambda artifact can be saved to another cloud
+### Lambda 生成物件可以保存到其他云端
 
-The output videos generated by Lambda can [now be saved to other S3-compatible protocols](/docs/lambda/custom-destination#saving-to-another-cloud) such as DigitalOcean Spaces or Cloudflare R2.
+Lambda 生成的输出视频现在可以[保存到其他兼容 S3 协议的云端](/docs/lambda/custom-destination#saving-to-another-cloud)，例如 DigitalOcean Spaces 或 Cloudflare R2。
 
-### Deleting a render from Lambda
+### 从 Lambda 删除渲染
 
-The new [`deleteRender()`](/docs/lambda/deleterender) API will delete the output video from the S3 bucket, which you previously had to do through the console or with the AWS SDK.
+新的[`deleteRender()`](/docs/lambda/deleterender) API 将从 S3 存储桶中删除输出视频，以前您必须通过控制台或使用 AWS SDK 执行此操作。
 
-### Make `renderMediaOnLambda()` params optional
+### 使 `renderMediaOnLambda()` 参数可选
 
-The following options are now optional:
+以下选项现在是可选的：
 
-- [`imageFormat`](/docs/lambda/rendermediaonlambda#imageformat): (defaulting to `jpeg`)
-- [`privacy`](/docs/lambda/rendermediaonlambda#privacy) (defaulting to `public`)
-- [`maxRetries`](/docs/lambda/rendermediaonlambda#maxretries) (defaulting to 1)
+- [`imageFormat`](/docs/lambda/rendermediaonlambda#imageformat): (默认为 `jpeg`)
+- [`privacy`](/docs/lambda/rendermediaonlambda#privacy) (默认为 `public`)
+- [`maxRetries`](/docs/lambda/rendermediaonlambda#maxretries) (默认为 1)
 
-## Benchmark command
 
-The new [`npx remotion benchmark`](/docs/cli/benchmark) helps you compare different render configurations and find out which one is the fastest. Currently, you can compare different codecs, compositions and concurrency values. Each configuration is run multiple times in order to increase confidence in the results.
+
+## 基准命令
+
+新的 [`npx remotion benchmark`](/docs/cli/benchmark) 命令帮助您比较不同的渲染配置，并找出哪个是最快的。目前，您可以比较不同的编解码器、组合和并发值。为了增加结果的可信度，每个配置都会运行多次。
 
 <img src="/img/benchmark.png" style={{borderRadius: 5, maxWidth: 600, width: "100%"}}/>
 
-## New guides
 
-We have added new guides that document interesting workflows for Remotion:
 
-- [Import designs from Figma](/docs/figma)
-- [Import designs from Spline](/docs/spline)
-- [Noise visualizations](/docs/noise-visualization#noise-dot-grid-demo)
-- [Customizing Lambda output destinations](/docs/lambda/custom-destination)
-- [Adding and subtracting animations](/docs/animation-math)
-- [Change the speed of a video over time](/docs/miscellaneous/snippets/accelerated-video)
+## 新指南
 
-We try to avoid jargon, but we have also created a [Remotion Terminology](/docs/terminology) page to define some commonly used terms. When using these terms, we will from now link to the terminology page for you to read about it.
+我们添加了新的指南，记录了 Remotion 的有趣工作流程：
 
-## Better structure and naming in templates
+- [从 Figma 导入设计](/docs/figma)
+- [从 Spline 导入设计](/docs/spline)
+- [噪声可视化](/docs/noise-visualization#noise-dot-grid-demo)
+- [自定义 Lambda 输出目的地](/docs/lambda/custom-destination)
+- [添加和减去动画](/docs/animation-math)
+- [随时间改变视频速度](/docs/miscellaneous/snippets/accelerated-video)
 
-The file that was previously called `src/Video.tsx` in templates is now called `src/Root.tsx`, because it did not contain a video, but a list of compositions. That component was also renamed from `RemotionVideo` to `RemotionRoot`. The new naming makes more sense, because that component is passed into [`registerRoot()`](/docs/register-root).
+我们尽量避免术语，但我们还创建了一个 [Remotion 术语表](/docs/terminology) 页面，以定义一些常用术语。在使用这些术语时，我们将从现在开始链接到术语页面，让您了解更多。
 
-## Notable improvements
 
-### Get the duration of a GIF
 
-The new function [`getGifDurationInSeconds()`](/docs/gif/get-gif-duration-in-seconds) allows you to get the duration of a GIF.
+## 模板中的更好结构和命名
 
-### Lottie animation direction
+在模板中之前称为 `src/Video.tsx` 的文件现在称为 `src/Root.tsx`，因为它不包含视频，而是包含一组组合。该组件也从 `RemotionVideo` 重命名为 `RemotionRoot`。新的命名更有意义，因为该组件被传递到 [`registerRoot()`](/docs/register-root) 中。
 
-Using the new [`direction`](/docs/lottie/lottie#direction) prop, you can play a Lottie animation backwards.
 
-### Lottie embedded images
 
-Should a Lottie animation contain an embedded image, it will now be properly awaited.
+## 显著改进
 
-### Temporary directory Cleanup
+### 获取 GIF 的持续时间
 
-The temporary directory that Remotion creates is now completely cleaned up after every render.
+新函数 [`getGifDurationInSeconds()`](/docs/gif/get-gif-duration-in-seconds) 允许您获取 GIF 的持续时间。
 
-### Parallel encoding turned off if memory is low
 
-[Parallel encoding](/blog/3-0#parallel-rendering-and-encoding) will not be used when a machine has little free RAM. You can also force-disable it using [`disallowParallelEncoding`](/docs/renderer/render-media#disallowparallelencoding).
 
-## Thank you
+### Lottie动画方向
 
-Thank you to these contributors that implemented these awesome features:
+使用新的[`direction`](/docs/lottie/lottie#direction)属性，您可以将Lottie动画向后播放。
 
-- [ayatko](https://github.com/ayatko) for implementing the `@remotion/google-fonts` package
-- [Antoine Caron](https://twitter.com/Slashgear_) for implementing the `<Thumbnail>` component, for reloading the page when the environment variables change and implementing negative frame indices
-- [Apoorv Kansal](https://github.com/uragirii) for implementing the documentation search in the Quick Switcher, the benchmark command and the option to customize Play button and fullscreen button in the Player
-- [Akshit Tyagi](https://github.com/exitflynn) for implementing the `--height` and `--width` CLI flags
-- [Ilija Boshkov](https://github.com/iboshkov), [Marcus Stenbeck](https://github.com/marcusstenbeck) and [UmungoBongo](https://github.com/umungobungo) for implementing the Motion Blur package
-- [Ravi Jain](https://github.com/JRavi2) for removing the need to pass the entry point to the CLI
-- [Dhroov Makwana](https://github.com/pabloescoder) for writing a tutorial on how to import assets from Spline
-- [Stefan Uzunov](https://github.com/Uzunov-Stefan) for implementing a composition selector if no composition is passed
-- [Florent Pergoud](https://github.com/florentpergoud) for implementing the Remix template
-- [Derryk Boyd](https://github.com/DerrykBoyd) for implementing the `loop` prop for Video and Audio
-- [Paul Kuhle](https://github.com/paulkuhle) for implementing Lambda Webhooks
-- [Dan Manastireau](https://github.com/danmana) for implementing a warning when using an Intel version of Node.JS under Rosetta
-- [Pompette](https://github.com/Pompette) for making the volume slider responsive
-- [Logan Arnett](https://github.com/LoganArnett) for making the composition ID optional in the render command
-- [Patric Salvisberg](https://github.com/patsalv) for making the FFmpeg auto-install feature
-- [Arthur Denner](https://github.com/arthurdenner) for implementing the `direction` property for the Lottie component
 
-Many of these contributions came during Hacktoberfest where we put bounties on GitHub issues. We also want to thank [CodeChem](https://codechem.com/) for sponsoring a part of those bounties!
+
+### Lottie嵌入式图像
+
+如果Lottie动画包含嵌入式图像，现在将正确等待。
+
+
+
+### 临时目录清理
+
+Remotion创建的临时目录现在在每次渲染后完全清理。
+
+
+
+### 如果内存不足，则关闭并行编码
+
+当机器的可用RAM较少时，将不使用[并行编码](/blog/3-0#parallel-rendering-and-encoding)。您还可以使用[`disallowParallelEncoding`](/docs/renderer/render-media#disallowparallelencoding)强制禁用它。
+
+## 谢谢
+
+感谢这些贡献者实现了这些出色的功能：
+
+- [ayatko](https://github.com/ayatko) 实现了`@remotion/google-fonts`包
+- [Antoine Caron](https://twitter.com/Slashgear_) 实现了`<Thumbnail>`组件，当环境变量更改时重新加载页面，并实现了负帧索引
+- [Apoorv Kansal](https://github.com/uragirii) 实现了快速切换器中的文档搜索，基准命令以及自定义播放按钮和全屏按钮选项
+- [Akshit Tyagi](https://github.com/exitflynn) 实现了`--height`和`--width`CLI标志
+- [Ilija Boshkov](https://github.com/iboshkov)，[Marcus Stenbeck](https://github.com/marcusstenbeck)和[UmungoBongo](https://github.com/umungobungo) 实现了Motion Blur包
+- [Ravi Jain](https://github.com/JRavi2) 消除了需要将入口点传递给CLI的需求
+- [Dhroov Makwana](https://github.com/pabloescoder) 撰写了有关如何从Spline导入资产的教程
+- [Stefan Uzunov](https://github.com/Uzunov-Stefan) 在未传递任何组合时实现了组合选择器
+- [Florent Pergoud](https://github.com/florentpergoud) 实现了Remix模板
+- [Derryk Boyd](https://github.com/DerrykBoyd) 为视频和音频实现了`loop`属性
+- [Paul Kuhle](https://github.com/paulkuhle) 实现了Lambda Webhooks
+- [Dan Manastireau](https://github.com/danmana) 在Rosetta下使用Intel版本的Node.JS时实现了警告
+- [Pompette](https://github.com/Pompette) 使音量滑块响应式
+- [Logan Arnett](https://github.com/LoganArnett) 使渲染命令中的组合ID变为可选
+- [Patric Salvisberg](https://github.com/patsalv) 实现了FFmpeg自动安装功能
+- [Arthur Denner](https://github.com/arthurdenner) 为Lottie组件实现了`direction`属性
+
+
+
+许多贡献是在 Hacktoberfest 期间进行的，我们在 GitHub 问题上设置了赏金。我们还要感谢 [CodeChem](https://codechem.com/) 赞助了部分赏金！

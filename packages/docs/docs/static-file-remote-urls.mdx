@@ -1,20 +1,20 @@
 ---
 image: /generated/articles-docs-static-file-remote-urls.png
 id: staticfile-remote-urls
-title: staticFile() does not support remote URLs
-sidebar_label: staticFile() remote URLs
-crumb: "Troubleshooting"
+title: staticFile() 不支持远程 URL
+sidebar_label: staticFile() 远程 URL
+crumb: "故障排除"
 ---
 
-If you got the following error message:
+如果您收到以下错误消息：
 
 ```
-staticFile() does not support remote URLs. Instead, pass the URL without wrapping it in staticFile().
+staticFile() 不支持远程 URL。相反，请直接传递 URL，而无需将其包装在 staticFile() 中。
 ```
 
-You have tried to pass a remote URL to `staticFile()`. You don't need to wrap the path in `staticFile`, you can pass it directly:
+您尝试将远程 URL 传递给 `staticFile()`。您不需要在 `staticFile` 中包装路径，可以直接传递：
 
-```tsx twoslash title="❌ Remote URL inside staticFile()"
+```tsx twoslash title="❌ staticFile() 内部的远程 URL"
 import { Img, staticFile } from "remotion";
 
 const MyComp = () => {
@@ -22,9 +22,9 @@ const MyComp = () => {
 };
 ```
 
-Instead, :
+而是：
 
-```tsx twoslash title="✅ Remote URL passed directly"
+```tsx twoslash title="✅ 直接传递远程 URL"
 import { Img } from "remotion";
 
 const MyComp = () => {
@@ -32,6 +32,7 @@ const MyComp = () => {
 };
 ```
 
-## See also
+## 另请参阅
 
 - [`staticFile()`](/docs/staticfile)
+

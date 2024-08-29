@@ -1,50 +1,50 @@
 ---
 image: /generated/articles-docs-static-file-relative-paths.png
 id: staticfile-relative-paths
-title: staticFile() does not support relative paths
-sidebar_label: staticFile() relative paths
-crumb: "Troubleshooting"
+title: staticFile() 不支持相对路径
+sidebar_label: staticFile() 相对路径
+crumb: "故障排除"
 ---
 
-If you got the following error message:
+如果您收到以下错误消息：
 
 ```
-staticFile() does not support relative paths. Instead, pass the name of a file that is inside the public/ folder.
+staticFile() 不支持相对路径。请传递位于 public/ 文件夹内的文件名。
 ```
 
-You have tried to pass a relative path to `staticFile()`:
+您可能尝试传递相对路径给 `staticFile()`：
 
-```tsx twoslash title="❌ Relative path"
+```tsx twoslash title="❌ 相对路径"
 import { staticFile } from "remotion";
 staticFile("../public/image.png");
 ```
 
-```tsx twoslash title="❌ File should not have ./ prefix"
+```tsx twoslash title="❌ 文件不应该有 ./ 前缀"
 import { staticFile } from "remotion";
 staticFile("./image.png");
 ```
 
-Or you tried to pass an absolute path:
+或者您可能尝试传递绝对路径：
 
-```tsx twoslash title="❌ File should not use absolute paths"
+```tsx twoslash title="❌ 文件不应该使用绝对路径"
 import { staticFile } from "remotion";
 staticFile("/Users/bob/remotion-project/public/image.png");
 ```
 
-Or you tried to add a public/ fix which is unnecessary:
+或者您可能尝试添加一个不必要的 public/ 前缀：
 
-```tsx twoslash title="❌ File should not include the public/ prefix"
+```tsx twoslash title="❌ 文件不应该包含 public/ 前缀"
 import { staticFile } from "remotion";
 staticFile("public/image.png");
 ```
 
-Instead, pass the name of the file that is inside the public folder directly:
+相反，直接传递位于 public 文件夹内的文件名：
 
-```tsx twoslash title="✅ Filename"
+```tsx twoslash title="✅ 文件名"
 import { staticFile } from "remotion";
 staticFile("image.png");
 ```
 
-## See also
+## 另请参阅
 
 - [`staticFile()`](/docs/staticfile)

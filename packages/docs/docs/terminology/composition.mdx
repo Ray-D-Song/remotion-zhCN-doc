@@ -1,29 +1,30 @@
 ---
 image: /generated/articles-docs-terminology-composition.png
-title: Composition
-crumb: "Terminology"
+title: 组合
+crumb: "术语"
 ---
 
-A composition is something you can render. It consists of:
+组合是可以渲染的内容。它包括：
 
-<Step>1</Step> a React component <br />
-<Step>2</Step> the canvas width and height <br/>
-<Step>3</Step> a "frames per second" (FPS) value <br/>
-<Step>4</Step> a duration value<br/>
-<Step>5</Step> an identifier <code>id</code><br/><br/>
+<Step>1</Step> 一个 React 组件 <br />
+<Step>2</Step> 画布的宽度和高度 <br/>
+<Step>3</Step> “每秒帧数”（FPS）值 <br/>
+<Step>4</Step> 一个持续时间值<br/>
+<Step>5</Step> 一个标识符 <code>id</code><br/><br/>
 
-It can be registered in the [Remotion Studio](/docs/terminology/studio) by rendering a [`<Composition>`](/docs/composition) component.  
-A composition with a duration of 1 frame is also called a [`<Still>`](/docs/still).
+可以通过渲染 [`<Composition>`](/docs/composition) 组件在 [Remotion Studio](/docs/terminology/studio) 中注册组合。  
+持续时间为 1 帧的组合也被称为 [`<Still>`](/docs/still)。
 
-In the [Remotion Player](/docs/terminology/player), you don't use the `<Composition>` component, rather you pass the component and metadata directly to the [`<Player>`](/docs/player/player).
+在 [Remotion Player](/docs/terminology/player) 中，您不使用 `<Composition>` 组件，而是直接将组件和元数据传递给 [`<Player>`](/docs/player/player)。
 
-Not to be confused with [`<Sequence>`](/docs/terminology/sequence).
+不要与 [`<Sequence>`](/docs/terminology/sequence) 混淆。
 
-## Composition ID
+## 组合标识符
 
-The string that you pass as the `id` prop to the [`<Composition>` component](/docs/composition).  
-You need the composition ID to reference what you would like to render, for example: `npx remotion render src/index <composition-id>`.
+您将作为 `id` 属性传递给 [`<Composition>` 组件](/docs/composition) 的字符串。  
+您需要组合标识符来引用您想要渲染的内容，例如：`npx remotion render src/index <composition-id>`。
 
-## See
+## 查看
 
-- [Defining compositions](/docs/the-fundamentals#compositions)
+- [定义组合](/docs/the-fundamentals#compositions)
+

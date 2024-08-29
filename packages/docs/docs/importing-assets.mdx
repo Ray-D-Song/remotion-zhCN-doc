@@ -1,12 +1,12 @@
 ---
 image: /generated/articles-docs-importing-assets.png
 id: assets
-title: Importing assets
-sidebar_label: Assets
-crumb: "How To"
+title: 导入资源
+sidebar_label: 资源
+crumb: "如何"
 ---
 
-To import assets in Remotion, create a `public/` folder in your project and use [`staticFile()`](/docs/staticfile) to import it.
+在 Remotion 中导入资源，需要在项目中创建一个 `public/` 文件夹，并使用 [`staticFile()`](/docs/staticfile) 进行导入。
 
 ```txt
 my-video/
@@ -28,9 +28,9 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Using images
+## 使用图片
 
-Use the [`<Img/>`](/docs/img) tag from Remotion.
+使用 Remotion 中的 [`<Img/>`](/docs/img) 标签。
 
 ```tsx twoslash title="MyComp.tsx"
 import { Img, staticFile } from "remotion";
@@ -40,7 +40,7 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-You can also pass a URL:
+您也可以传递一个 URL：
 
 ```tsx twoslash title="MyComp.tsx"
 import { Img } from "remotion";
@@ -50,9 +50,9 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-## Using image sequences
+## 使用图像序列
 
-If you have a series of images, for example exported from another program like After Effects or Rotato, you can interpolate the path to create a dynamic import.
+如果您有一系列图像，例如从其他程序（如 After Effects 或 Rotato）导出的图像，您可以插值路径以创建动态导入。
 
 ```txt
 my-video/
@@ -73,9 +73,9 @@ const MyComp: React.FC = () => {
 };
 ```
 
-## Using videos
+## 使用视频
 
-Use the [`<OffthreadVideo />`](/docs/offthreadvideo) or [`<Video />`](/docs/video) component to keep the timeline and your video in sync.
+使用 [`<OffthreadVideo />`](/docs/offthreadvideo) 或 [`<Video />`](/docs/video) 组件来保持时间轴和视频同步。
 
 ```tsx twoslash
 import { OffthreadVideo, staticFile } from "remotion";
@@ -85,7 +85,7 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-Loading videos via URL is also possible:
+也可以通过 URL 加载视频：
 
 ```tsx twoslash
 import { OffthreadVideo } from "remotion";
@@ -97,11 +97,11 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-See also: [Which video formats does Remotion support?](/docs/miscellaneous/video-formats)
+另请参阅：[Remotion 支持哪些视频格式？](/docs/miscellaneous/video-formats)
 
-## Using Audio
+## 使用音频
 
-Use the [`<Audio/ >`](/docs/audio) component.
+使用 [`<Audio/ >`](/docs/audio) 组件。
 
 ```tsx twoslash
 import { Audio, staticFile } from "remotion";
@@ -111,7 +111,7 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-Loading audio from an URL is also possible:
+也可以通过 URL 加载音频：
 
 ```tsx twoslash
 import { Audio } from "remotion";
@@ -123,11 +123,11 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-See the [audio guide](/docs/using-audio) for guidance on including audio.
+查看 [音频指南](/docs/using-audio) 以获取有关包含音频的指导。
 
-## Using CSS
+## 使用 CSS
 
-Put the .css file alongside your JavaScript source files and use an `import` statement.
+将 .css 文件与您的 JavaScript 源文件放在一起，并使用 `import` 语句。
 
 ```txt
 my-video/
@@ -145,23 +145,23 @@ import "./style.css";
 ```
 
 :::note
-Want to use SASS, Tailwind or similar? [See examples on how to override the Webpack configuration](/docs/webpack).
+想要使用 SASS、Tailwind 或类似的工具吗？[查看如何覆盖 Webpack 配置的示例](/docs/webpack)。
 :::
 
-## Using Fonts
+## 使用字体
 
-[Read the separate page for fonts.](/docs/fonts)
+[阅读有关字体的单独页面。](/docs/fonts)
 
-## `import` statements
+## `import` 语句
 
-As an alternative way to import files, Remotion allows you to `import` or `require()` several types of files in your project:
+作为导入文件的另一种方式，Remotion 允许您在项目中导入多种类型的文件，可以使用 `import` 或 `require()`：
 
-- Images (`.png`, `.svg`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.bmp`)
-- Videos (`.webm`, `.mov`, `.mp4`)
-- Audio (`.mp3`, `.wav`, `.aac`, `.m4a`)
-- Fonts (`.woff`, `.woff2`, `.otf`, `.ttf`, `.eot`)
+- 图像（`.png`，`.svg`，`.jpg`，`.jpeg`，`.webp`，`.gif`，`.bmp`）
+- 视频（`.webm`，`.mov`，`.mp4`）
+- 音频（`.mp3`，`.wav`，`.aac`，`.m4a`）
+- 字体（`.woff`，`.woff2`，`.otf`，`.ttf`，`.eot`）
 
-For example:
+例如：
 
 ```tsx twoslash title="MyComp.tsx"
 import { Img } from "remotion";
@@ -172,51 +172,52 @@ export const MyComp: React.FC = () => {
 };
 ```
 
-### Caveats
+### 注意事项
 
-While this was previously the main way of importing files, we now recommend against it because of the following reasons:
+尽管这曾经是导入文件的主要方式，但由于以下原因，我们现在建议不要使用它：
 
-- Only the above listed file extensions are supported.
-- The maximum file size is 2GB.
-- Dynamic imports such as `require('img' + frame + '.png')` are [funky](/docs/webpack-dynamic-imports).
+- 仅支持上述列出的文件扩展名。
+- 最大文件大小为2GB。
+- 诸如 `require('img' + frame + '.png')` 这样的动态导入方式有些[奇怪](/docs/webpack-dynamic-imports)。
 
-Prefer importing using [`staticFile()`](/docs/staticfile) if possible.
+如果可能的话，请优先使用 [`staticFile()`](/docs/staticfile) 进行导入。
 
-## Dynamic duration based on assets
+## 基于资产的动态时长
 
-To make your videos duration dependent based on your assets, see: [Dynamic duration, FPS & dimensions](/docs/dynamic-metadata)
+要使您的视频时长取决于您的资产，请参阅：[动态时长、FPS 和尺寸](/docs/dynamic-metadata)
 
-## Files outside of the project
+## 项目外的文件
 
-Remotion runs in the browser, so it does not have access to arbitrary files on your computer.  
-It is also not possible to use the `fs` module from Node.js in the browser.  
-Instead, put assets in the `public/` folder and use [`getStaticFiles()`](/docs/getstaticfiles) to enumerate them.
+Remotion 在浏览器中运行，因此无法访问计算机上的任意文件。  
+也无法在浏览器中使用 Node.js 的 `fs` 模块。  
+请将资产放在 `public/` 文件夹中，并使用 [`getStaticFiles()`](/docs/getstaticfiles) 枚举它们。
 
-See [why does Remotion does not support absolute paths](/docs/miscellaneous/absolute-paths).
+请参阅 [为什么 Remotion 不支持绝对路径](/docs/miscellaneous/absolute-paths)。
 
-## Adding assets after bundling
+## 打包后添加资产
 
-Before rendering, the code gets bundled using Webpack, and only bundled assets can be accessed afterwards.  
-For this reason, assets that are being added to the public folder after [`bundle()`](/docs/bundle) is called will not be accessible during render.  
-However, if you use the [server-side rendering APIs](/docs/ssr-node), you can add assets to the `public` folder that is inside the bundle after the fact.
+在渲染之前，代码会使用 Webpack 进行打包，之后只能访问打包后的资产。  
+因此，在调用 [`bundle()`](/docs/bundle) 后添加到 `public` 文件夹中的资产在渲染期间将无法访问。  
+但是，如果使用 [服务器端渲染 API](/docs/ssr-node)，则可以在事后向捆绑包内部的 `public` 文件夹添加资产。
 
-## Use `<Img>`, `<Video>` and `<Audio>`
+## 使用 `<Img>`、`<Video>` 和 `<Audio>`
 
-**Prefer [`<Img />`](/docs/img) or [`<Gif />`](/docs/gif)** over the native `<img>` tag, `<Image>` from Next.js and CSS `background-image`.  
-**Prefer [`<OffthreadVideo />`](/docs/offthreadvideo) or [`<Video />`](/docs/video)** over the native `<video>` tag.  
-**Prefer [`<Audio />`](/docs/audio)** over the native `<audio>` tag.  
-**Prefer [`<IFrame />`](/docs/iframe)** over the native `<iframe>` tag.
+**请优先使用 [`<Img />`](/docs/img) 或 [`<Gif />`](/docs/gif)** 而不是原生的 `<img>` 标签、Next.js 的 `<Image>` 和 CSS 的 `background-image`。  
+**请优先使用 [`<OffthreadVideo />`](/docs/offthreadvideo) 或 [`<Video />`](/docs/video)** 而不是原生的 `<video>` 标签。  
+**请优先使用 [`<Audio />`](/docs/audio)** 而不是原生的 `<audio>` 标签。  
+**请优先使用 [`<IFrame />`](/docs/iframe)** 而不是原生的 `<iframe>` 标签。
 
 <br/>
 
-By using the components from Remotion, you ensure that:
+通过使用 Remotion 的组件，您可以确保：
 
-<Step>1</Step> The assets are fully loaded before the the frame is rendered<br/>
-<Step>2</Step> The images and videos are synchronized with Remotion's timeline.
+<Step>1</Step> 在渲染帧之前完全加载资产<br/>
+<Step>2</Step> 图像和视频与 Remotion 的时间轴同步。
 
-## See also
+## 另请参阅
 
 - [staticFile()](/docs/staticfile)
 - [getStaticFiles()](/docs/getstaticfiles)
 - [watchStaticFile()](/docs/watchstaticfile)
-- [Why Remotion does not support absolute paths](/docs/miscellaneous/absolute-paths)
+- [为什么 Remotion 不支持绝对路径](/docs/miscellaneous/absolute-paths)
+

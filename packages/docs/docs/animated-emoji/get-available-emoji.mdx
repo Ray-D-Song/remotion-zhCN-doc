@@ -7,9 +7,9 @@ slug: /animated-emoji/get-available-emoji
 crumb: "@remotion/animated-emoji"
 ---
 
-_available from v4.0.187_
+_从 v4.0.187 版本开始可用_
 
-Gets a list of available emoji that you can use with [`<AnimatedEmoji>`](/docs/animated-emoji/animated-emoji).
+获取可与 [`<AnimatedEmoji>`](/docs/animated-emoji/animated-emoji) 一起使用的可用表情符号列表。
 
 ```tsx twoslash title="get-emoji.ts"
 import {getAvailableEmojis} from "@remotion/animated-emoji";
@@ -19,30 +19,31 @@ const emojiList = getAvailableEmojis();
 console.log(emojiList);
 ```
 
-## Return value
+## 返回值
 
-An array of objects with the following properties:
+一个包含以下属性的对象数组：
 
 ### `name`
 
-The name of the emoji. You can pass the name to the [`emoji`](/docs/animated-emoji/animated-emoji#emoji) prop.
+表情符号的名称。您可以将名称传递给 [`emoji`](/docs/animated-emoji/animated-emoji#emoji) 属性。
 
 ### `categories`
 
-An array of categories that the emoji belongs to.
+表情符号所属的类别数组。
 
 ### `tags`
 
-An array of tags that the emoji has.
+表情符号具有的标签数组。
 
 ### `durationInSeconds`
 
-The duration of the emoji in seconds.
+表情符号的持续时间（以秒为单位）。
 
 ### `codepoint`
 
-The Unicode codepoint of the emoji.
+表情符号的 Unicode 代码点。
 
-## See also
+## 另请参阅
 
 - [`<AnimatedEmoji>`](/docs/animated-emoji/animated-emoji)
+

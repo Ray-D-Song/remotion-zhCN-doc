@@ -6,12 +6,12 @@ crumb: "@remotion/studio"
 
 # deleteStaticFile()<AvailableFrom v="4.0.154"/>
 
-Deletes a file from the [`public` directory](/docs/terminology/public-dir).  
-This API is useful for building interactive experiences in the [Remotion Studio](/docs/terminology/studio).
+从[`public`目录](/docs/terminology/public-dir)中删除文件。  
+此API对于在[Remotion Studio](/docs/terminology/studio)中构建交互式体验非常有用。
 
-## Examples
+## 示例
 
-```tsx twoslash title="Delete 'video.webm'"
+```tsx twoslash title="删除 'video.webm'"
 import React, { useCallback } from "react";
 import { deleteStaticFile } from "@remotion/studio";
 
@@ -26,27 +26,28 @@ export const DeleteStaticFileComp: React.FC = () => {
 };
 ```
 
-## Rules
+## 规则
 
-<Step>1</Step> This API can only be used while in the Remotion Studio.
+<Step>1</Step> 只能在Remotion Studio中使用此API。
 <br />
-<Step>2</Step> The file path must be relative to the <a href="/docs/terminology/public-dir">
-  <code>public</code> directory
-</a>.
+<Step>2</Step> 文件路径必须相对于<a href="/docs/terminology/public-dir">
+  <code>public</code>目录
+</a>。
 <br />
-<Step>3</Step> It's not allowed to delete a file outside the <a href="/docs/terminology/public-dir">
-  <code>public</code> directory
-</a>.<br />
-<Step>4</Step> To delete a file in a subfolder, use forward slashes <code>
+<Step>3</Step> 不允许删除<a href="/docs/terminology/public-dir">
+  <code>public</code>目录之外的文件
+</a>。<br />
+<Step>4</Step> 要删除子文件夹中的文件，请使用正斜杠<code>
   /
-</code> even on Windows.
-<Step>5</Step> You can, but don't have to wrap the file path in a <a href="/docs/staticfile">
+</code>，即使在Windows上也是如此。
+<Step>5</Step> 您可以，但不必将文件路径包装在<a href="/docs/staticfile">
   <code>staticFile()</code>
-</a> function.
+</a>函数中。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/delete-static-file.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/delete-static-file.ts)
 - [`writeStaticFile()`](/docs/studio/write-static-file)
 - [`getStaticFiles()`](/docs/studio/get-static-files)
 - [`watchStaticFile()`](/docs/studio/watch-static-file)
+

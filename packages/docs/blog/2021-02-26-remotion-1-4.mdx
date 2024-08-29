@@ -1,33 +1,32 @@
+```markdown
 ---
 slug: 1-4
 title: Remotion 1.4
 author: Jonny Burger
-author_title: Indie Hacker
+author_title: 独立开发者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 ---
 
 import {TransparentVideoDemo} from '../components/TransparentVideoDemo';
 
-Welcome to the release notes of Remotion 1.4! This is a big release adding support for more use cases and makes Remotion more stable, intuitive and robust.
+欢迎阅读 Remotion 1.4 的发布说明！这是一个重要的版本，增加了对更多用例的支持，使 Remotion 更加稳定、直观和强大。
 
-## Support for HEVC and WebM codecs
+## 支持 HEVC 和 WebM 编解码器
 
-Instead of just supporting H.264, you can now also encode a video in H.265 (HEVC), or as a WebM (in either VP8 or VP9 codec). These codecs will result in smaller file sizes, but have some trade-offs. To help you decide which codec to use, there is now an [encoding guide](/docs/encoding) in the docs. See also the
-documentation for changing the codec in [the config file](/docs/config#setcodec)
-as well as [in the CLI](/docs/cli/render#--jpeg-quality).
+现在不仅支持 H.264，您还可以将视频编码为 H.265（HEVC）或 WebM（使用 VP8 或 VP9 编解码器）。这些编解码器将导致更小的文件大小，但也有一些权衡。为了帮助您决定使用哪种编解码器，现在文档中有一个 [编码指南](/docs/encoding)。还请参阅[配置文件中更改编解码器](/docs/config#setcodec)以及[CLI 中的编解码器](/docs/cli/render#--jpeg-quality)的文档。
 
-## Transparent videos
+## 透明视频
 
-Did you know that Chrome and Firefox support video with alpha channels? Play the video and click the button below to dynamically change the background.
+您知道 Chrome 和 Firefox 支持带 Alpha 通道的视频吗？播放视频并单击下面的按钮以动态更改背景。
 
 <TransparentVideoDemo />
 
-Remotion now has enough configurability to enable you to render transparent videos. There is [a new documentation page](/docs/transparent-videos) for it, which also gives you guidance on how to render a fallback video for unsupported browsers.
+Remotion 现在具有足够的可配置性，使您能够渲染透明视频。有一个[新的文档页面](/docs/transparent-videos)介绍了这一点，还为您提供了如何为不受支持的浏览器渲染备用视频的指导。
 
-## New `random()` API
+## 新的 `random()` API
 
-Let's say you want to render 100 random particles in a video. A common mistake is to generate random values and store them in a state. The following is an anti-pattern in Remotion:
+假设您想在视频中渲染 100 个随机粒子。一个常见的错误是生成随机值并将其存储在状态中。以下是 Remotion 中的反模式：
 
 ```tsx {5-6}
 export const MyComp = () => {
@@ -41,9 +40,10 @@ export const MyComp = () => {
 };
 ```
 
-While this will work while previewing the video, during rendering, the random numbers will change during frames. This is because Remotion spins up multiple instances of Chrome and the random numbers will be different in each instance.
+虽然在预览视频时这样做可以工作，但在渲染期间，随机数将在帧之间更改。这是因为 Remotion 启动了多个 Chrome 实例，每个实例中的随机数将不同。
 
-To help you avoid this mistake, there is now a new ESLint rule that will warn when you use `Math.random()`. Instead using it, you can use the new [`random()`](/docs/random) API. It will take a `seed` parameter and output a number between 0 and 1. The point of it is: As long as you pass the same seed, you get the same output! That way you don't get unintended effects while multithreaded rendering is performed.
+为了帮助您避免这种错误，现在有一个新的 ESLint 规则，当您使用 `Math.random()` 时会发出警告。而不是使用它，您可以使用新的 [`random()`](/docs/random) API。它将接受一个 `seed` 参数并输出一个介于 0 和 1 之间的数字。它的作用是：只要传递相同的种子，您将获得相同的输出！这样在执行多线程渲染时就不会出现意外效果。
+```
 
 ```tsx twoslash {7-8}
 import {useState} from 'react';
@@ -60,42 +60,43 @@ export const MyComp = () => {
 };
 ```
 
-Want to learn more? Read the new documentation page about [using randomness](/docs/using-randomness).
+想了解更多吗？阅读有关[使用随机性](/docs/using-randomness)的新文档页面。
 
-## More configuration options
+## 更多配置选项
 
-Several new configuration options have been added as CLI flags, config file entries and to the SSR API:
+已添加了几个新的配置选项作为 CLI 标志、配置文件条目和 SSR API：
 
-- [setCrf()](/docs/encoding#controlling-quality-using-the-crf-setting) controls the tradeoff between quality and file size of the output file.
-- [setQuality()](/docs/config#setquality) allows you to control the JPEG quality of the frames rendered.
-- [setCodec()](/docs/config#setcodec) allows you to select between 4 different codecs (as mentioned above).
-- [setImageSequence()](/docs/config#setimagesequence) allows you to skip the stitching process and output only an image sequence
-- [setImageFormat()](/docs/config#setimageformat) allows you to explicitly select either PNG or JPEG as the format for the rendered frames.
-- [setPixelFormat()](/docs/config#setpixelformat) has a new accepted value, `yuva420p`, which is necessary for transparent videos.
+- [setCrf()](/docs/encoding#controlling-quality-using-the-crf-setting) 控制输出文件的质量和文件大小之间的权衡。
+- [setQuality()](/docs/config#setquality) 允许您控制渲染帧的 JPEG 质量。
+- [setCodec()](/docs/config#setcodec) 允许您在 4 种不同的编解码器之间进行选择（如上所述）。
+- [setImageSequence()](/docs/config#setimagesequence) 允许您跳过拼接过程，仅输出图像序列。
+- [setImageFormat()](/docs/config#setimageformat) 允许您明确选择 PNG 或 JPEG 作为渲染帧的格式。
+- [setPixelFormat()](/docs/config#setpixelformat) 有一个新的接受值，`yuva420p`，这对于透明视频是必要的。
 
-The addition of `setImageSequence()` and `setImageFormat()` as well as `setCodec()` makes the previous configuration options `setOutputFormat()` and `--png` obsolete. and they are therefore now deprecated. While they still work, we encourage you to use the new configuration options which are much more granular - for example now you can render a JPEG sequence if you wish to.
+添加了 `setImageSequence()` 和 `setImageFormat()` 以及 `setCodec()` 使得先前的配置选项 `setOutputFormat()` 和 `--png` 已过时。虽然它们仍然有效，但我们鼓励您使用新的配置选项，这些选项更加细粒度 - 例如，现在您可以渲染 JPEG 序列。
 
-## Keyboard controls in the editor
+## 编辑器中的键盘控制
 
-Thanks to an [awesome pull request by Arthur Denner](https://github.com/arthurdenner), keyboard navigation in the editor is much improved! [Reading the PR](https://github.com/remotion-dev/remotion/pull/125) is highly recommended because it's insightful and makes you realize that it's not hard to make a website keyboard-navigateable.
+感谢 [Arthur Denner 提交的精彩拉取请求](https://github.com/arthurdenner)，编辑器中的键盘导航得到了很大改善！强烈建议阅读[此 PR](https://github.com/remotion-dev/remotion/pull/125)，因为它很有见地，让您意识到使网站支持键盘导航并不难。
 
 ![keyboard-support.gif](/img/keyboard-support.gif)
 
-## Progress bar for stitching frames together
+## 拼接帧的进度条
 
-Don't be surprised if the newly added codecs are much slower than the default H.264. It's normal. But at least now you can always check the progress of the rendering!
+如果新添加的编解码器比默认的 H.264 慢得多，不要感到惊讶。这是正常的。但至少现在您可以随时检查渲染的进度！
+```
 
 ![stitching-progress.png](/img/stitching-progress.png)
 
-## New `layout` prop for `<Sequence>`
+## `<Sequence>` 新增 `layout` 属性
 
-Few people have rightly pointed out that the `<Sequence>` component will absolutely position it's children and there is no way to opt out of it. While we cannot change this now because of backwards-compatibility, you can now pass `layout="none"` as a prop to opt out of any layout influence that `<Sequence>` has.
+有些人正确指出 `<Sequence>` 组件会绝对定位其子元素，并且没有办法退出这种行为。虽然由于向后兼容性我们现在无法更改这一点，但现在你可以传递 `layout="none"` 作为一个属性，以退出 `<Sequence>` 的任何布局影响。
 
-## Asynchronously determining composition metadata
+## 异步确定合成元数据
 
-There's a small breaking change in this release - `delayRender` works during the 'evaluation' phase. This is the phase where Remotion analyses your project and determines all compositions and does some validation. Watch out for `delayRender()` calls outside components, as they might block the evaluation phase now since no components are being rendered during that phase.
+在这个版本中有一个小的破坏性变化 - `delayRender` 在 'evaluation' 阶段起作用。这是 Remotion 分析您的项目并确定所有合成并进行一些验证的阶段。注意 `delayRender()` 调用在组件外部，因为它们现在可能会阻止评估阶段，因为在该阶段不会渲染任何组件。
 
-The benefit is that now your compositions can take in data that has been asynchronously fetched. For example the following is now possible:
+好处是现在您的合成可以接收异步获取的数据。例如，现在可以实现以下内容：
 
 ```tsx
 export const RemotionVideo: React.FC = () => {
@@ -131,15 +132,15 @@ export const RemotionVideo: React.FC = () => {
 }
 ```
 
-Stay tuned for a new API that will allow you to measure video and audio duration!
+敬请期待一个新的 API，它将允许您测量视频和音频时长！
 
-## End to End tests for Windows, macOS and Ubuntu
+## Windows、macOS 和 Ubuntu 的端到端测试
 
-While Remotion is primarily developed on macOS, other operating systems shouldn't have a sub-par experience or get bugs. While it does not replace manual testing, it helps that [there are now some end-to-end tests for rendering videos](https://github.com/remotion-dev/remotion/blob/main/tests/rendering.test.ts) and the test suite now runs on all 3 operating systems. Going forward, I will add more tests and contributors are also encouraged to do so.
+虽然 Remotion 主要在 macOS 上开发，但其他操作系统不应该有次优的体验或出现错误。虽然它不能取代手动测试，但有助于 [现在有一些用于渲染视频的端到端测试](https://github.com/remotion-dev/remotion/blob/main/tests/rendering.test.ts)，测试套件现在在所有 3 个操作系统上运行。未来，我将添加更多测试，也鼓励贡献者这样做。
 
-## ESLint rule for wrong asset import
+## 错误的资源导入的 ESLint 规则
 
-In Remotion, you shouldn't specify the `src` as filepath string, but import the asset instead. To help you not make this mistake, there's a new ESLint rule:
+在 Remotion 中，您不应该将 `src` 指定为文件路径字符串，而应导入资源。为了帮助您避免犯这个错误，有一个新的 ESLint 规则：
 
 ```tsx
 import {Img} from 'remotion';
@@ -152,26 +153,28 @@ import hi from './hi.png';
 <Img src="./hi.png"/>
 ```
 
-## Paying top contributors
+## 支付顶级贡献者
 
-Since Remotion [will make money by selling licenses to bigger companies](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md), it's only fair to give contributors their share as well! I have made offers to two top contributors so far to compensate them for their time spent so far and for potential future work. Gladly, they both accepted!
+由于 Remotion [将通过向大公司出售许可证来赚钱](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md)，给予贡献者他们应得的份额是公平的！到目前为止，我已经向两位顶级贡献者提供了报酬，以补偿他们迄今为止花费的时间和未来潜在的工作。令人高兴的是，他们都接受了！
 
-## Various improvements
 
-- [Fixed showing floats when fps is not a Integer (e.g 59.97fps)](https://github.com/remotion-dev/remotion/pull/122)
 
-- [Ensure minimum node version](https://github.com/remotion-dev/remotion/pull/117)
+## 各种改进
 
-- [Fix flickering `<Video>`](https://github.com/remotion-dev/remotion/pull/118)
+- [修复显示浮点数时fps不是整数的问题（例如59.97fps）](https://github.com/remotion-dev/remotion/pull/122)
 
-- [Clean up frames after rendering](https://github.com/remotion-dev/remotion/pull/127)
+- [确保最低的 Node 版本](https://github.com/remotion-dev/remotion/pull/117)
 
-- [Throw error if useVideoConfig is not used in Composition](https://github.com/remotion-dev/remotion/pull/130)
+- [修复闪烁的 `<Video>`](https://github.com/remotion-dev/remotion/pull/118)
 
-- [Don't timeout if image fails to load](https://github.com/remotion-dev/remotion/pull/144)
+- [渲染后清理帧](https://github.com/remotion-dev/remotion/pull/127)
 
-- [Runtime error if you miss a prop in `<Composition>` or `<Sequence>`](https://github.com/remotion-dev/remotion/pull/146)
+- [如果在 Composition 中未使用 useVideoConfig，则抛出错误](https://github.com/remotion-dev/remotion/pull/130)
 
-## Up next...
+- [如果图像加载失败，则不超时](https://github.com/remotion-dev/remotion/pull/144)
 
-Some awesome pull requests came in, [the most notable one adds audio support!](https://github.com/remotion-dev/remotion/pull/128) We are also working on allowing you to customize Puppeteer parameters and making the installation process much faster by not downloading a copy of Chromium. Keep your eyes open for more major improvements coming soon.
+- [在 `<Composition>` 或 `<Sequence>` 中缺少属性时运行时错误](https://github.com/remotion-dev/remotion/pull/146)
+
+## 接下来...
+
+一些很棒的拉取请求已经到来，[最引人注目的是添加了音频支持！](https://github.com/remotion-dev/remotion/pull/128) 我们还在努力允许您自定义 Puppeteer 参数，并通过不下载 Chromium 的副本来加快安装过程。敬请期待更多重大改进的到来。

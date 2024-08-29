@@ -6,18 +6,18 @@ crumb: "@remotion/studio"
 
 # watchStaticFile()<AvailableFrom v="4.0.144"/>
 
-Watches for changes in a specific [static file](/docs/staticfile) and invokes a callback function when the file changes, enabling dynamic updates in your Remotion projects.
+监视特定[静态文件](/docs/staticfile)的更改，并在文件更改时调用回调函数，从而实现在您的 Remotion 项目中进行动态更新。
 
 :::note
-This API is being moved from the <code>remotion</code> package.  
-Prefer this API over the old one.
+此 API 正在从 <code>remotion</code> 包中移动。  
+请优先使用此 API 而不是旧的 API。
 :::
 
 :::note
-This feature is only available within the Remotion Studio environment. In the Player, events will never fire.
+此功能仅在 Remotion Studio 环境中可用。在播放器中，事件将永远不会触发。
 :::
 
-## Example
+## 示例
 
 ```tsx twoslash title="example.tsx"
 import { StaticFile, watchStaticFile } from "@remotion/studio";
@@ -38,21 +38,22 @@ const { cancel } = watchStaticFile(
 cancel();
 ```
 
-## Arguments
+## 参数
 
-Takes two arguments and returns a function that can be used to `cancel` the event listener.
+接受两个参数并返回一个可用于`取消`事件监听器的函数。
 
 ### `filename`
 
-A name of the file in `/public` folder to watch for changes.
+要监视更改的`/public`文件夹中的文件名。
 
 ### `callback`
 
-A callback function that will be called when the file is modified. As an argument, a [`StaticFile`](/docs/getstaticfiles#api) or `null` is passed.
+当文件被修改时将调用的回调函数。作为参数传递了一个[`StaticFile`](/docs/getstaticfiles#api)或`null`。
 
-## See also
+## 另请参阅
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/watch-static-file.ts)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/studio/src/api/watch-static-file.ts)
 - [`watchPublicFolder()`](/docs/studio/watch-public-folder)
 - [`staticFile()`](/docs/staticfile)
 - [`getStaticFiles()`](/docs/studio/get-static-files)
+

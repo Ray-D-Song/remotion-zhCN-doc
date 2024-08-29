@@ -2,19 +2,19 @@
 slug: 2-3
 title: Remotion 2.3
 author: Jonny Burger
-author_title: Remotion Creator
+author_title: Remotion 创作者
 author_url: https://github.com/JonnyBurger
 author_image_url: https://avatars2.githubusercontent.com/u/1629785?s=460&u=12eb94da6070d00fc924761ce06e3a428d01b7e9&v=4
 image: https://remotion-still.herokuapp.com/PreviewCard.png?title=Remotion%202.3&description=%3CStill%20/%3E%20component,%20renderStill()%20API,%20optimized%20editor%20and%20CLI,%20Server%20rendering%20template
 ---
 
-Remotion 2.3 is out and features [first-class support for still images](/docs/stills)!
+Remotion 2.3 已发布，新增了[对静态图像的一流支持](/docs/stills)！
 
-So far we focused on streamlining the workflow for making videos. While it was always possible to render out a single image instead of an encoded video, we have optimized this use-case in this release.
+到目前为止，我们一直致力于简化制作视频的工作流程。虽然始终可以渲染出单个图像而不是编码视频，但在此版本中，我们已经优化了这种用例。
 
-## New `<Still />` component
+## 新 `<Still />` 组件
 
-[This new component](/docs/still) is the same as [`<Composition />`](/docs/composition) but is meant for defining a compositions that output a still image. Since it's already implied, you don't have to define the `fps` and `durationInFrames` properties.
+[这个新组件](/docs/still) 与 [`<Composition />`](/docs/composition) 相同，但用于定义输出静态图像的组合。由于这已经是暗示的，您不必定义 `fps` 和 `durationInFrames` 属性。
 
 ```tsx twoslash
 import { Still } from "remotion";
@@ -33,32 +33,32 @@ const Thumbnail: React.FC = () => null;
 />;
 ```
 
-## Optimized editor for stills
+## 针对静态图像优化的编辑器
 
-There are now icons in the sidebar for compositions, and those who are stills have an image icon.
+现在侧边栏中有用于组合的图标，而静态图像的图标为图像图标。
 
 <p align="center">
   <img style={{maxWidth: 300}} src="/img/still-thumbnail.png"/> <br/>
-  <em><sub>Now still images (compositions with a duration of 1 frame) are marked with a special icon.</sub></em>
+  <em><sub>现在静态图像（持续时间为 1 帧的组合）带有特殊图标标记。</sub></em>
 </p>
 
-For still images, you don't need the timeline, so it will hide itself and give you a bigger canvas.
+对于静态图像，您不需要时间轴，因此它将隐藏自身并为您提供更大的画布。
 
 <p align="center">
   <img style={{maxWidth: 600}} src="/img/notimeline.png"/> <br/>
 </p>
 
-## New `remotion still` command
+## 新 `remotion still` 命令
 
-Rendering stills has become easier as well. The new `remotion still` command allows you to quickly generate a PNG or JPEG on the command line.
+渲染静态图像也变得更加简单。新的 `remotion still` 命令允许您快速在命令行上生成 PNG 或 JPEG。
 
 ```
 npx remotion still --props='{"custom": "data"}'  my-comp out.png
 ```
 
-## New `renderStill()` API
+## 新 `renderStill()` API
 
-If you render using the Node.JS APIs, we have a new equivalent API for rendering stills as well.
+如果您使用 Node.JS API 进行渲染，我们还为静态图像渲染提供了一个新的等效 API。
 
 ```ts twoslash
 // @module: ESNext
@@ -96,30 +96,34 @@ await renderStill({
 });
 ```
 
-## New Stills template with server rendering
+## 具有服务器渲染的新静态模板
 
-[We have made a new template](https://github.com/remotion-dev/template-still) that includes a social media preview card and a server that you can customize and easily deploy to the cloud. We have tested it on DigitalOcean and Heroku and have added instructions on how to deploy it.
 
-We use this service to generate the social preview card for the blog post you are reading right now. Feel free to go to this URL and play around with the parameters:
+
+我们已经制作了一个新的模板，其中包括一个社交媒体预览卡和一个服务器，您可以自定义并轻松部署到云端。我们已在DigitalOcean和Heroku上进行了测试，并添加了部署说明。
+
+我们使用此服务为您正在阅读的博客文章生成社交预览卡。随时访问以下网址并尝试调整参数：
 
 https://remotion-still.herokuapp.com/PreviewCard.jpeg?title=Remotion%202.3&description=%3CStill%20/%3E%20component,%20renderStill()%20API,%20optimized%20editor%20and%20CLI,%20Server%20rendering%20template
 
-The server includes different caching options, rate limiting and limits to 1 render at a time, so hopefully it's ready for production. We put the URL out there for you play around with it, should there be any unexpected problems, we'll fix the template.
+该服务器包括不同的缓存选项、速率限制和一次仅限制为1个渲染，希望它已准备好投入生产。我们将该网址提供给您进行测试，如果出现任何意外问题，我们将修复模板。
 
-## 🔜 Serverless in the works
+## 🔜 无服务器正在进行中
 
-We are also working on getting still image rendering working in a serverless environment and providing a framework for it. We aim to launch it this fall - if you are interested in testing an early version, [write us a message in our Discord](https://remotion.dev/discord).
+我们还在努力让静态图像渲染在无服务器环境中运行，并为此提供一个框架。我们计划在今年秋天推出它 - 如果您有兴趣测试早期版本，请在我们的Discord中给我们留言。
 
-## `yarn create video` now has multiple templates
+## `yarn create video` 现在有多个模板可供选择
 
-When creating a new video, you now get to choose between different templates, that give you a great starting point for your usecase.
+创建新视频时，您现在可以在不同模板之间进行选择，这为您的用例提供了一个很好的起点。
 
 <p align="center">
   <img style={{maxWidth: 600}} src="/img/yarncreatetemplate.png"/> <br/>
 </p>
 
-In addition to the default template and the previously announced Three.JS template, there now is also a plain-JS template, a text-to-speech template and the above mentioned Stills template.
+除了默认模板和先前宣布的Three.JS模板外，现在还有一个纯JS模板、一个文本到语音模板以及上述的静态模板。
 
-## Player now supports space key to play/pause
+## 播放器现在支持空格键播放/暂停
 
-The `<Player />` component now supports the new [`spaceKeyToPlayOrPause`](https://www.remotion.dev/docs/player/#spacekeytoplayorpause) prop to toggle the video playback. We designed it with focus management in mind so it behaves well when multiple players are on the same page. This prop is by default `true`.
+`<Player />` 组件现在支持新的 [`spaceKeyToPlayOrPause`](https://www.remotion.dev/docs/player/#spacekeytoplayorpause) 属性来切换视频播放。我们设计时考虑了焦点管理，因此当同一页上有多个播放器时，它的行为良好。此属性默认为 `true`。
+
+

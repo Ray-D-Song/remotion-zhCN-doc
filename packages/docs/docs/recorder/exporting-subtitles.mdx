@@ -1,27 +1,27 @@
 ---
 image: /generated/articles-docs-recorder-exporting-subtitles.png
-title: Exporting subtitles
-sidebar_label: Subtitles
-crumb: Recorder
+title: 导出字幕
+sidebar_label: 字幕
+crumb: 录制器
 ---
 
-## Non-landscape layout
+## 非横向布局
 
-If you export a video in the `square` layout, then the subtitles will be burned into the video.
+如果您以 `square` 布局导出视频，则字幕将被烧录到视频中。
 
-The idea behind this is that the square videos are posted on platforms like x.com and LinkedIn, where the video appears in a feed, muted by default.  
-It is important that the subtitles are always visible and have a large font size.
+这样做的理念是，方形视频通常发布在像 x.com 和 LinkedIn 这样的平台上，在那里视频会出现在一个静音的动态流中。  
+重要的是，字幕始终可见，并且具有较大的字体大小。
 
-## Landscape layout
+## 横向布局
 
-If you export a video in the `landscape` layout, then the subtitles will be by default exported as a `.srt` file, located in `out/[composition-id]/captions.srt`.  
-This is caused by the use of the [`<Artifact>`](/docs/artifact) API in [`remotion/captions/srt/EmitSrtFile.tsx`](https://github.com/remotion-dev/recorder/blob/main/remotion/captions/srt/EmitSrtFile.tsx).
+如果您以 `landscape` 布局导出视频，则字幕将默认导出为 `.srt` 文件，位于 `out/[composition-id]/captions.srt`。  
+这是由于在 [`remotion/captions/srt/EmitSrtFile.tsx`](https://github.com/remotion-dev/recorder/blob/main/remotion/captions/srt/EmitSrtFile.tsx) 中使用了 [`<Artifact>`](/docs/artifact) API。
 
-When posting to YouTube, you should upload the SRT file alongside your video, so that viewers can use the native YouTube feature to toggle the subtitles and adjust the font size.
+在上传到 YouTube 时，您应该同时上传 SRT 文件和视频，以便观众可以使用 YouTube 的原生功能切换字幕并调整字体大小。
 
-## Burn subtitles
+## 烧录字幕
 
-If you want to burn the subtitles into the video in landscape layout, edit the [`remotion/captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor.tsx`](https://github.com/remotion-dev/recorder/blob/main/remotion/captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor.tsx) file and delete the following lines:
+如果您想在横向布局的视频中烧录字幕，请编辑 [`remotion/captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor.tsx`](https://github.com/remotion-dev/recorder/blob/main/remotion/captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor.tsx) 文件，并删除以下行：
 
 ```diff title="remotion/captions/srt/SrtPreviewAndEditor/SrtPreviewAndEditor.tsx"
 -  // During rendering, you will get the actual .srt file instead of the preview.
@@ -30,4 +30,4 @@ If you want to burn the subtitles into the video in landscape layout, edit the [
 -  }
 ```
 
-Now your video will include the subtitles as an overlay on top of the video.
+现在您的视频将包含字幕作为视频顶部的叠加层。

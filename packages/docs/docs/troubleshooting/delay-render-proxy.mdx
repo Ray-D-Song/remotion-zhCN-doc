@@ -1,41 +1,41 @@
 ---
 image: /generated/articles-docs-troubleshooting-delay-render-proxy.png
-title: "Loading <Img> with src http://localhost:3000/proxy"
-sidebar_label: "Loading <Img> with src=http://localhost:3000/proxy..."
-crumb: "Troubleshooting"
+title: "��用带有 src http://localhost:3000/proxy 的 <Img> 进行加载"
+sidebar_label: "使用带有 src=http://localhost:3000/proxy... 的 <Img> 进行加载"
+crumb: "故障排除"
 ---
 
-The error message `A delayRender() "Loading <Img> with src=http://localhost:3000/proxy?src=[...]&time=[...]&transparent=[...]" was called but not cleared after 28000ms. See https://remotion.dev/docs/timeout for help`:
+错误消息 `A delayRender() "使用带有 src=http://localhost:3000/proxy?src=[...]&time=[...]&transparent=[...]" 的 <Img> 被调用，但在 28000ms 后未清除。请查看 https://remotion.dev/docs/timeout 以获取帮助`：
 
 ```
-A delayRender() "Loading <Img> with src=http://localhost:3000/proxy?src=http%3A%2F%2Flocalhost%3A3000%2Fpublic%2Fbackground.mp4&time=683.45&transparent=false" was called but not cleared after 28000ms. See https://remotion.dev/docs/timeout for help
+A delayRender() "使用带有 src=http://localhost:3000/proxy?src=http%3A%2F%2Flocalhost%3A3000%2Fpublic%2Fbackground.mp4&time=683.45&transparent=false" 的 <Img> 被调用，但在 28000ms 后未清除。请查看 https://remotion.dev/docs/timeout 以获取帮助
 ```
 
-occurs when loading an [`<OffthreadVideo>`](/docs/offthreadvideo) and the frame cannot be extracted within the [timeout](/docs/cli/render#--timeout).
+在加载 [`<OffthreadVideo>`](/docs/offthreadvideo) 时，如果无法在 [超时](/docs/cli/render#--timeout) 内提取帧，则会发生此错误。
 
-To be able to extract a frame, `<OffthreadVideo>` needs to:
+为了能够提取帧，`<OffthreadVideo>` 需要：
 
-- Download the file in full
-- Open the file and seek to the correct position
-- Decode the frame and convert it into an image
+- 完全下载文件
+- 打开文件并定位到正确位置
+- 解码帧并将其转换为图像
 
-Especially for large files which take some time to download, this error may occur.
+特别是对于需要一些时间来下载的大文件，可能会发生此错误。
 
-## Increase the timeout
+## 增加超时时间
 
-Consider increasing the timeout using the [`delayRenderTimeoutInMilliseconds`](/docs/offthreadvideo/#delayrendertimeoutinmilliseconds) prop.
+考虑使用 [`delayRenderTimeoutInMilliseconds`](/docs/offthreadvideo/#delayrendertimeoutinmilliseconds) 属性来增加超时时间。
 
-## Debug using verbose logging
+## 使用详细日志进行调试
 
-You can also [enable verbose logging](/docs/troubleshooting/debug-failed-render) to see the progress of the work that `<OffthreadVideo>` is doing. In the usual case, you can understand from the timings why the timeout occurred.
+您还可以[启用详细日志](/docs/troubleshooting/debug-failed-render) 来查看 `<OffthreadVideo>` 正在执行的工作进度。通常情况下，您可以从时间表中了解为什么会发生超时。
 
-## Chunk the video
+## 对视频进行分块
 
-Currently, `<OffthreadVideo>` needs to download the entire video in order to extract a frame (we work on eliminating this need in the future).
+目前，为了提取帧，`<OffthreadVideo>` 需要下载整个视频（我们正在努力消除这种需求）。
 
-If you are loading a large video, consider chunking it into smaller parts and only load part of the video at a time.
+如果您正在加载一个大视频，请考虑将其分成较小的部分，并一次只加载部分视频。
 
-For example, create a `<Series>` of `<OffthreadVideo>` components, each with a different `src` prop.
+例如，创建一个 `<Series>`，其中包含不同 `src` 属性的 `<OffthreadVideo>` 组件。
 
 ```tsx twoslash
 import { Series, useVideoConfig, OffthreadVideo, staticFile } from "remotion";
@@ -59,11 +59,13 @@ const SeriesTesting: React.FC = () => {
 };
 ```
 
-## Use a faster CDN
+## 使用更快的 CDN
 
-Ensure using a place to host your video that has enough egress bandwidth capacity.  
-Place the video onto a server that is close to your render geographically.
+确保使用具有足够出口带宽容量的视频托管位置。  
+将视频放在地理位置接近您的渲染位置的服务器上。 
 
----
 
-If you believe this error was triggered by a bug in Remotion, please [open an issue](/docs/get-help).
+
+如果您认为这个错误是由 Remotion 中的一个 bug 触发的，请[提交一个问题](/docs/get-help)。
+
+--- 

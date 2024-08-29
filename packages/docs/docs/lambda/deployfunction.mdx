@@ -6,11 +6,11 @@ slug: /lambda/deployfunction
 crumb: "Lambda API"
 ---
 
-Creates an [AWS Lambda](https://aws.amazon.com/lambda/) function in your AWS account that will be able to render a video in the cloud.
+在您的 AWS 帐户中创建一个 [AWS Lambda](https://aws.amazon.com/lambda/) 函数，该函数可以在云中渲染视频。
 
-If a function with the same version, memory size and timeout already existed, it will be returned instead without a new one being created. This means this function can be treated as idempotent.
+如果具有相同版本、内存大小和超时时间的函数已经存在，则会返回该函数，而不会创建新函数。这意味着此函数可以被视为幂等。
 
-## Example
+## 示例
 
 ```ts twoslash
 // @module: esnext
@@ -28,43 +28,43 @@ const { functionName } = await deployFunction({
 console.log(functionName);
 ```
 
-## Arguments
+## 参数
 
-An object with the following properties:
+一个具有以下属性的对象：
 
 ### `region`
 
-The [AWS region](/docs/lambda/region-selection) which you want to deploy the Lambda function too. It must be the same region that your Lambda Layer resides in.
+您要将 Lambda 函数部署到的 [AWS 区域](/docs/lambda/region-selection)。它必须与您的 Lambda Layer 所在的区域相同。
 
 ### `timeoutInSeconds`
 
-How long the Lambda function may run before it gets killed. Must be below 900 seconds.
-We recommend a timeout of 120 seconds or lower - remember, Remotion Lambda is the fastest if you render with a high concurrency. If your video takes longer to render, the concurrency should be increased rather than the timeout.
+Lambda 函数在被终止之前可以运行的时间长度。必须低于 900 秒。
+我们建议将超时设置为 120 秒或更短 - 请记住，如果您使用高并发度进行渲染，Remotion Lambda 是最快的。如果您的视频渲染时间较长，应增加并发度而不是超时时间。
 
 ### `memorySizeInMb`
 
-How many megabytes of RAM the Lambda function should have. By default we recommend a value of 2048MB. You may increase or decrease it depending on how memory-consuming your video is. The minimum allowed number is `512`, the maximum allowed number is `10240`. Since the costs of Remotion Lambda is directly proportional to the amount of RAM, we recommend to keep this amount as low as possible.
+Lambda 函数应具有的 RAM 大小（以兆字节为单位）。默认情况下，我们建议设置为 2048MB。您可以根据视频消耗的内存量增加或减少此值。允许的最小数字为 `512`，允许的最大数字为 `10240`。由于 Remotion Lambda 的成本与 RAM 的数量成正比，我们建议尽可能将此数量保持较低。
 
 ### `createCloudWatchLogGroup?`
 
-Whether logs should be saved into CloudWatch. We recommend enabling this option.
+是否应将日志保存到 CloudWatch。我们建议启用此选项。
 
 ### `cloudWatchLogRetentionPeriodInDays?`
 
-Retention period for the CloudWatch Logs. Default: 14 days.
+CloudWatch 日志的保留期。默认值：14 天。
 
 ### `diskSizeInMb?`
 
-Sets the amount of disk storage that is available in the Lambda function. Must be between 512MB and 10240MB (10GB). Set this higher if you want to render longer videos. See also: [Disk size](/docs/lambda/disk-size)
+设置 Lambda 函数中可用的磁盘存储量。必须介于 512MB 和 10240MB（10GB）之间。如果要渲染较长的视频，请将此值设置得更高。另请参阅：[磁盘大小](/docs/lambda/disk-size)
 
-| Remotion Version | Default       |
-|------------------|---------------|
-| &lt;5.0.0        | 2048MB        |
-| &gt;=5.0.0       | 10240MB       |
+| Remotion 版本 | 默认值       |
+|--------------|--------------|
+| &lt;5.0.0    | 2048MB       |
+| &gt;=5.0.0   | 10240MB      |
 
 ### `customRoleArn?`
 
-Use a custom role for the function instead of the default (`arn:aws:iam::[aws-account-id]:role/remotion-lambda-role`)
+使用自定义角色来代替默认角色 (`arn:aws:iam::[aws-account-id]:role/remotion-lambda-role`)
 
 ### `enableLambdaInsights?`<AvailableFrom v="4.0.61" />
 
@@ -72,31 +72,31 @@ Use a custom role for the function instead of the default (`arn:aws:iam::[aws-ac
 
 ### `enableV5Runtime?`<AvailableFrom v="4.0.148" />
 
-Enable the [upcoming v5 runtime](/docs/lambda/runtime#runtime-changes-in-remotion-50) with newer Chrome and Node versions early.
+启用[即将推出的 v5 运行时](/docs/lambda/runtime#runtime-changes-in-remotion-50)，提前使用更新的 Chrome 和 Node 版本。
 
 ### `runtimePreference?`<AvailableFrom v="4.0.205" />
 
-One of:
+其中之一：
 
-- `default`: Currently resolving to `prefer-cjk`
-- `prefer-apple-emojis`: Use Apple Emojis instead of Google Emojis. CJK characters will be removed.
-- `prefer-cjk`: Include CJK (Chinese, Japanese, Korean) characters and Google Emojis. Apple Emojis will be removed.
+- `default`: 当前解析为 `prefer-cjk`
+- `prefer-apple-emojis`: 使用苹果表情符号而不是谷歌表情符号。CJK 字符将被移除。
+- `prefer-cjk`: 包括 CJK（中文、日文、韩文）字符和谷歌表情符号。苹果表情符号将被移除。
 
 :::note
-Apple Emojis are intellectual property of Apple Inc.  
-You are responsible for the use of Apple Emojis in your project.
+苹果表情符号是 Apple Inc. 的知识产权。  
+您对在项目中使用苹果表情符号负责。
 :::
 
-## Return value
+## 返回值
 
-An object with the following values:
+一个包含以下值的对象：
 
-- `functionName` (_string_): The name of the function just created.
-- `alreadyExisted`: (_boolean_): Whether the creation was skipped because the function already existed.
+- `functionName`（_字符串_）：刚创建的函数的名称。
+- `alreadyExisted`:（_布尔值_）：是否因为函数已经存在而跳过了创建。
 
-## See also
+## 参见
 
-- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/deploy-function.ts)
-- [CLI equivalent: `npx remotion lambda functions deploy`](/docs/lambda/cli/functions#deploy)
+- [此函数的源代码](https://github.com/remotion-dev/remotion/blob/main/packages/lambda/src/api/deploy-function.ts)
+- [CLI 等效命令：`npx remotion lambda functions deploy`](/docs/lambda/cli/functions#deploy)
 - [`deleteFunction()`](/docs/lambda/deletefunction)
 - [`getFunctions()`](/docs/lambda/getfunctions)

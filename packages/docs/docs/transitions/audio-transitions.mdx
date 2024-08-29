@@ -1,13 +1,13 @@
 ---
 image: /generated/articles-docs-transitions-audio-transitions.png
 crumb: "@remotion/transitions"
-sidebar_label: "Audio transitions"
-title: "Transitioning with audio"
+sidebar_label: "音频过渡"
+title: "使用音频过渡"
 ---
 
-_working from v4.0.58_
+_适用于 v4.0.58_
 
-To add sound to a transition, you may use this function to wrap any [presentation](/docs/transitions/presentations/):
+要为过渡添加声音，您可以使用此函数来包装任何 [演示](/docs/transitions/presentations/)：
 
 ```tsx twoslash title="add-sound.tsx"
 import {
@@ -42,9 +42,9 @@ export function addSound<T extends Record<string, unknown>>(
 }
 ```
 
-Customize the volume, offset, playback rate, and other properties of the [`<Audio>`](/docs/audio) component as you wish.
+根据需要自定义[`<Audio>`](/docs/audio)组件的音量、偏移、播放速率和其他属性。
 
-You may use it like this:
+您可以像这样使用它：
 
 ```tsx twoslash title="example.tsx"
 import {
@@ -87,9 +87,10 @@ const presentation = slide();
 const withSound = addSound(presentation, staticFile("whoosh.mp3"));
 ```
 
-Now you can use `withSound` in place of `presentation`.
+现在您可以在 `presentation` 的位置使用 `withSound`。
 
-## See also
+## 另请参阅
 
 - [`<Audio>`](/docs/audio)
-- [Using audio](/docs/using-audio)
+- [使用音频](/docs/using-audio)
+

@@ -2,25 +2,25 @@
 image: /generated/articles-docs-cli-bundle.png
 title: npx remotion bundle
 sidebar_label: bundle
-crumb: CLI Reference
+crumb: CLI 参考
 ---
 
-_available from v4.0.89_
+_从 v4.0.89 版本开始可用_
 
-Creates a [Remotion Bundle](/docs/terminology/bundle) on the command line.  
-Equivalent to the [`bundle()`](/docs/bundle) Node.JS API.
+在命令行上创建一个[Remotion Bundle](/docs/terminology/bundle)。  
+相当于[`bundle()`](/docs/bundle) Node.JS API。
 
 ```bash
 npx remotion bundle <serve-url|entry-file>?
 ```
 
-You may pass a [Serve URL](/docs/terminology/serve-url) or an [entry point](/docs/terminology/entry-point) as the first argument, otherwise the entry point will be [determined](/docs/terminology/entry-point#which-entry-point-is-being-used).
+您可以将[Serve URL](/docs/terminology/serve-url)或[入口点](/docs/terminology/entry-point)作为第一个参数传递，否则入口点将会被[确定](/docs/terminology/entry-point#which-entry-point-is-being-used)。
 
-## Flags
+## 标志
 
 ### `--config`
 
-Specify a location for the Remotion config file.
+指定 Remotion 配置文件的位置。
 
 ### `--log`
 
@@ -32,7 +32,7 @@ Specify a location for the Remotion config file.
 
 ### `--out-dir`
 
-Define the location of the resulting bundle. By default it is a folder called `./build`, adjacent to the [Remotion Root](/docs/terminology/remotion-root).
+定义生成的 bundle 的位置。默认情况下，它是一个名为 `./build` 的文件夹，与[Remotion Root](/docs/terminology/remotion-root)相邻。
 
 ### `--public-path`<AvailableFrom v="4.0.127"/>
 

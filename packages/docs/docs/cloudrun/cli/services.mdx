@@ -1,24 +1,24 @@
 ---
 image: /generated/articles-docs-cloudrun-cli-services.png
 id: services
-sidebar_label: services
+sidebar_label: 服务
 title: "npx remotion cloudrun services"
 slug: /cloudrun/cli/services
-crumb: "Cloud Run CLI Reference"
+crumb: "Cloud Run CLI 参考"
 ---
 
 <ExperimentalBadge>
-<p>Cloud Run is in <a href="/docs/cloudrun-alpha">Alpha</a>, which means APIs may change in any version and documentation is not yet finished. See the <a href="https://remotion.dev/changelog">changelog to stay up to date with breaking changes</a>.</p>
+<p>Cloud Run 处于 <a href="/docs/cloudrun-alpha">Alpha</a> 阶段，这意味着 API 可能会在任何版本中更改，文档尚未完成。请查看 <a href="https://remotion.dev/changelog">更改日志</a> 以保持最新的重大更改。</p>
 </ExperimentalBadge>
 
-The `npx remotion cloudrun services` command allows you to deploy, view and delete GCP Cloud Run services that can render videos and stills.
+`npx remotion cloudrun services` 命令允许您部署、查看和删除可以渲染视频和静态图像的 GCP Cloud Run 服务。
 
 - [`deploy`](#deploy)
 - [`ls`](#ls)
 - [`rm`](#rm)
 - [`rmall`](#rmall)
 
-You only need one service per GCP region and Remotion version.
+您每个 GCP 区域和 Remotion 版本只需要一个服务。
 
 ## deploy
 
@@ -26,68 +26,68 @@ You only need one service per GCP region and Remotion version.
 npx remotion cloudrun services deploy
 ```
 
-Creates a new service in your GCP project. If a service exists in the same region, with the same Remotion version, with the same amount of memory, disk space and timeout duration, the name of the already deployed service will be returned instead.
+在您的 GCP 项目中创建一个新服务。如果在同一区域中存在一个具有相同 Remotion 版本、相同内存、磁盘空间和超时持续时间的服务，则将返回已部署服务的名称。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
-Validating Deployment of Cloud Run Service:<br/><br/>
-Remotion Version:  3.3.95<br/>
-Memory Limit:      2Gi<br/>
-CPU Limit:         1.0<br/>
-Timeout:           300<br/>
-Project Name:      remotion-example<br/>
-Region:            us-east1<br/><br/>
-Deploying Cloud Run Service...<br/><br/><br/>
-Cloud Run Deployed!<br/><br/>
-Service name:      remotion--3-3-95--mem512mi--cpu2--t-1200<br/>
-Version:           3.3.95<br/>
-CPU Limit:         2<br/>
-Memory Limit:      512Mi<br/>
-Timeout:           1200sec<br/>
-Region:            us-east1<br/>
-Service URL:       https://remotion--3-3-95--mem512mi--cpu2--t-1200-1a2b3c4d5e-ue.a.run.app<br/>
-GCP Console URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-95--mem512mi--cpu2--t-1200/logs<br/><br/>
+验证 Cloud Run 服务的部署：<br/><br/>
+Remotion 版本：  3.3.95<br/>
+内存限制：      2Gi<br/>
+CPU 限制：         1.0<br/>
+超时：           300<br/>
+项目名称：      remotion-example<br/>
+区域：            us-east1<br/><br/>
+正在部署 Cloud Run 服务...<br/><br/><br/>
+Cloud Run 已部署！<br/><br/>
+服务名称：      remotion--3-3-95--mem512mi--cpu2--t-1200<br/>
+版本：           3.3.95<br/>
+CPU 限制：         2<br/>
+内存限制：      512Mi<br/>
+超时：           1200秒<br/>
+区域：            us-east1<br/>
+服务 URL：       https://remotion--3-3-95--mem512mi--cpu2--t-1200-1a2b3c4d5e-ue.a.run.app<br/>
+GCP 控制台 URL：   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-95--mem512mi--cpu2--t-1200/logs<br/><br/>
 </pre>
 </details>
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to select. The site that the service will be accessing should also be in this same region to minimise latency.
+选择的 [GCP 区域](/docs/cloudrun/region-selection)。服务将访问的站点也应在相同区域，以最小化延迟。
 
 ### `--memoryLimit`
 
-The upper bound on the amount of RAM that the Cloud Run service can consume. Default: 2 GB.
+Cloud Run 服务可以消耗的 RAM 上限。默认值：2 GB。
 
 ### `--cpuLimit`
 
-The maximum number of CPU cores that the Cloud Run service can use to process requests. Default: 1.0.
+Cloud Run 服务用于处理请求的 CPU 核心数上限。默认值：1.0。
 
 ### `--minInstances`
 
-The minimum number of service instances to have available, regardless of requests. Default: 0.
+无论请求量如何，要保持可用的服务实例的最小数量。默认值：0。
 
 :::note
-Any running instances, even if they are not performing a render, will be billable in GCP. The default minimum number of instances is zero, which means that when no requests are made to your service, you are not billed.
+任何正在运行的实例，即使它们没有执行渲染操作，也会在 GCP 中产生费用。默认的最小实例数量为零，这意味着当没有请求发送到您的服务时，您不会被收费。
 :::
 
 ### `--maxInstances`
 
-The maximum number of service instances that can be create by GCP in response to incoming requests. Default: 100.
+GCP 可以响应传入请求时可以创建的服务实例的最大数量。默认值：100。
 
 ### `--timeoutSeconds`
 
-Timeout of the Cloud Run service. Default: 300 seconds.
+Cloud Run 服务的超时时间。默认值：300 秒。
 
 :::info
-Not to be confused with the [`--timeout` flag when rendering which defines the timeout for `delayRender()`](/docs/cli/render#--timeout).
+不要与渲染时定义 `delayRender()` 超时的 [`--timeout` 标志](/docs/cli/render#--timeout) 混淆。
 :::
 
 ### `--quiet`, `-q`
 
-Only logs the service name, and 'Authenticated access granted'.
+仅记录服务名称和“已授予身份验证访问”。
 
 ## ls
 
@@ -95,40 +95,40 @@ Only logs the service name, and 'Authenticated access granted'.
 npx remotion cloudrun services ls
 ```
 
-Lists the services that you have deployed to GCP in the [selected region](/docs/cloudrun/region-selection).
+列出您在 [所选区域](/docs/cloudrun/region-selection) 部署到 GCP 的服务。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
-2 services in us-east1<br/><br/>
-Service name:      remotion--3-3-95--mem512mi--cpu2--t-1200<br/>
-Version:           3.3.95<br/>
-CPU Limit:         2<br/>
-Memory Limit:      512Mi<br/>
-Timeout:           1200sec<br/>
-Region:            us-east1<br/>
-Service URL:       https://remotion--3-3-95--mem512mi--cpu2--t-1200-1a2b3c4d5e-ue.a.run.app<br/>
-GCP Console URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-95--mem512mi--cpu2--t-1200/logs<br/><br/>
-Service name:      remotion--3-3-82--mem512mi--cpu1-0--t-800<br/>
-Version:           3.3.82<br/>
-CPU Limit:         1.0<br/>
-Memory Limit:      512Mi<br/>
-Timeout:           800sec<br/>
-Region:            us-east1<br/>
-Service URL:       https://remotion--3-3-82--mem512mi--cpu1-0--t-800-1a2b3c4d5e-ue.a.run.app<br/>
-GCP Console URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-82--mem512mi--cpu1-0--t-800/logs<br/><br/>
+us-east1 中的 2 个服务<br/><br/>
+服务名称：remotion--3-3-95--mem512mi--cpu2--t-1200<br/>
+版本：3.3.95<br/>
+CPU 限制：2<br/>
+内存限制：512Mi<br/>
+超时：1200 秒<br/>
+区域：us-east1<br/>
+服务 URL：https://remotion--3-3-95--mem512mi--cpu2--t-1200-1a2b3c4d5e-ue.a.run.app<br/>
+GCP 控制台 URL：https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-95--mem512mi--cpu2--t-1200/logs<br/><br/>
+服务名称：remotion--3-3-82--mem512mi--cpu1-0--t-800<br/>
+版本：3.3.82<br/>
+CPU 限制：1.0<br/>
+内存限制：512Mi<br/>
+超时：800 秒<br/>
+区域：us-east1<br/>
+服务 URL：https://remotion--3-3-82--mem512mi--cpu1-0--t-800-1a2b3c4d5e-ue.a.run.app<br/>
+GCP 控制台 URL：https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-82--mem512mi--cpu1-0--t-800/logs<br/><br/>
 </pre>
 </details>
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to list services from.
+用于列出服务的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `--quiet`, `-q`
 
-Prints only the service names in a space-separated list. If no services exist, prints `()`
+仅以空格分隔的列表形式打印服务名称。如果不存在服务，则打印 `()`
 
 ## rm
 
@@ -136,24 +136,24 @@ Prints only the service names in a space-separated list. If no services exist, p
 npx remotion cloudrun services rm remotion--3-3-82--mem512mi--cpu1-0--t-800
 ```
 
-Removes one or more services from your GCP project. Pass a space-separated list of services you'd like to delete.
+从您的 GCP 项目中删除一个或多个服务。传递一个以空格分隔的服务列表以进行删除。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
 <br/>
-Service name:      remotion--3-3-82--mem2gi--cpu1-0--t-800<br/>
-Version:           3.3.82<br/>
-CPU Limit:         1.0<br/>
-Memory Limit:      2Gi<br/>
-Timeout:           300sec<br/>
-Region:            us-east1<br/>
-Service URL:       https://remotion--3-3-82--mem2gi--cpu1-0--t-800-1a2b3c4d5e-ue.a.run.app<br/>
-GCP Console URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-82--mem2gi--cpu1-0--t-800/logs
-Delete? (Y/n):  Y<br/>
-Deleted!
+服务名称:      remotion--3-3-82--mem2gi--cpu1-0--t-800<br/>
+版本:           3.3.82<br/>
+CPU 限制:         1.0<br/>
+内存限制:      2Gi<br/>
+超时:           300秒<br/>
+区域:            us-east1<br/>
+服务 URL:       https://remotion--3-3-82--mem2gi--cpu1-0--t-800-1a2b3c4d5e-ue.a.run.app<br/>
+GCP 控制台 URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-82--mem2gi--cpu1-0--t-800/logs
+删除？ (Y/n):  Y<br/>
+已删除！
 <br/>
 
 </pre>
@@ -161,11 +161,11 @@ Deleted!
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to select.
+用于选择的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `--yes`, `-y`
 
-Skips confirmation.
+跳过确认。
 
 ## rmall
 
@@ -173,45 +173,45 @@ Skips confirmation.
 npx remotion cloudrun services rmall
 ```
 
-Removes all services from your GCP project for a certain region.
+从您的 GCP 项目中删除特定区域的所有服务。
 
 <details>
 <summary>
-Example output
+示例输出
 </summary>
 <pre>
-2 services in us-east1<br/><br/>
-Service name:      remotion--3-3-95--mem512mi--cpu2--t-1200<br/>
-Version:           3.3.95<br/>
-CPU Limit:         2<br/>
-Memory Limit:      512Mi<br/>
-Timeout:           1200sec<br/>
-Region:            us-east1<br/>
-Service URL:       https://remotion--3-3-95--mem512mi--cpu2--t-1200-1a2b3c4d5e-ue.a.run.app<br/>
-GCP Console URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-95--mem512mi--cpu2--t-1200/logs<br/><br/>
-Delete? (Y/n) n<br/>
-Skipping service - remotion--3-3-95--mem512mi--cpu2--t-1200.<br/><br/>
-Service name:      remotion--3-3-82--mem512mi--cpu1-0--t-800<br/>
-Version:           3.3.82<br/>
-CPU Limit:         1.0<br/>
-Memory Limit:      512Mi<br/>
-Timeout:           800sec<br/>
-Region:            us-east1<br/>
-Service URL:       https://remotion--3-3-82--mem512mi--cpu1-0--t-800-1a2b3c4d5e-ue.a.run.app<br/>
-GCP Console URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-82--mem512mi--cpu1-0--t-800/logs<br/><br/>
-Delete? (Y/n) n<br/>
-Skipping service - remotion--3-3-82--mem512mi--cpu1-0--t-800.<br/>
+us-east1 中有 2 个服务<br/><br/>
+服务名称:      remotion--3-3-95--mem512mi--cpu2--t-1200<br/>
+版本:           3.3.95<br/>
+CPU 限制:         2<br/>
+内存限制:      512Mi<br/>
+超时:           1200秒<br/>
+区域:            us-east1<br/>
+服务 URL:       https://remotion--3-3-95--mem512mi--cpu2--t-1200-1a2b3c4d5e-ue.a.run.app<br/>
+GCP 控制台 URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-95--mem512mi--cpu2--t-1200/logs<br/><br/>
+删除？ (Y/n) n<br/>
+跳过服务 - remotion--3-3-95--mem512mi--cpu2--t-1200。<br/><br/>
+服务名称:      remotion--3-3-82--mem512mi--cpu1-0--t-800<br/>
+版本:           3.3.82<br/>
+CPU 限制:         1.0<br/>
+内存限制:      512Mi<br/>
+超时:           800秒<br/>
+区域:            us-east1<br/>
+服务 URL:       https://remotion--3-3-82--mem512mi--cpu1-0--t-800-1a2b3c4d5e-ue.a.run.app<br/>
+GCP 控制台 URL:   https://console.cloud.google.com/run/detail/us-east1/remotion--3-3-82--mem512mi--cpu1-0--t-800/logs<br/><br/>
+删除？ (Y/n) n<br/>
+跳过服务 - remotion--3-3-82--mem512mi--cpu1-0--t-800。<br/>
 </pre>
 </details>
 
 ### `--region`
 
-The [GCP region](/docs/cloudrun/region-selection) to remove services from.
+从中删除服务的 [GCP 区域](/docs/cloudrun/region-selection)。
 
 ### `--yes`, `-y`
 
-Skips confirmation.
+跳过确认。
 
-## See also
+## 另请参阅
 
-- [Setup guide](/docs/cloudrun/setup)
+- [设置指南](/docs/cloudrun/setup)
